@@ -37,7 +37,7 @@ extern uint8 Timer_1_initVar;
 **************************************/
 
 #define Timer_1_Resolution                 16u
-#define Timer_1_UsingFixedFunction         0u
+#define Timer_1_UsingFixedFunction         1u
 #define Timer_1_UsingHWCaptureCounter      0u
 #define Timer_1_SoftwareCaptureMode        0u
 #define Timer_1_SoftwareTriggerMode        0u

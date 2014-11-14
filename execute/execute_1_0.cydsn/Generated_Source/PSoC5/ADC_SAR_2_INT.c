@@ -71,8 +71,8 @@ extern unsigned char controller;
 			
 			//Mirror on ADC:
 			tmp = (last_adc >> 4) & 0xFF;			
-			dactest = (unsigned char) tmp;
-			VDAC8_2_SetValue(dactest);	
+			//dactest = (unsigned char) tmp;
+			//VDAC8_2_SetValue(dactest);	
 			
 			if((controller == CTRL_CURRENT) || (controller == CTRL_IMPEDANCE))
 			{

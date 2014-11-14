@@ -52,7 +52,6 @@ void init_peripherals(void)
 	
 	//VDAC8: Debug only 
 	VDAC8_1_Start();
-	VDAC8_2_Start();
 
 	//Quadrature 1: Motor shaft encoder
 	QuadDec_1_Start();
@@ -63,6 +62,11 @@ void init_peripherals(void)
 	PWM_1_Start();
 	PWM_1_WriteCompare(0);	//Start at 0%
 	isr_pwm_Start();
+	
+	//PWM2: Clutch
+	PWM_2_Start();
+	PWM_2_WriteCompare(0);	//Start at 0%
+	//isr_pwm_Start();	
 	
 	//UART 2 - RS-485
 	UART_2_Init();
