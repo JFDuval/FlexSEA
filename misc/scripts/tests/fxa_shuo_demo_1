@@ -1,0 +1,52 @@
+#!/bin/bash
+# Test setup: 1 Plan, 1 Manage, 1 Execute, 1 Maxon EC-Powermax with Hall effect and encoder linked to the Execute board. Boards powered at ~15V (can be from 13 to 24V). Execute and Manage are connected together (4 wires).
+# This script will control the Manage RGB LED and the motor
+
+echo "Executing Shuo's demo script..."
+
+# We start with the green LED ON
+./plan manage_1 set_leds 0 0 1 0
+echo "RGB LED: Green"
+sleep 1s
+
+# Cancel any active control
+./plan execute_1 set_control 0
+echo "Cancel any active control, motor will stop (if it was spinning)"
+sleep 2s #Wait for the motor to stop
+
+# Open speed mode
+./plan manage_1 set_leds 0 1 0 0
+echo "RGB LED: Red"
+./plan execute_1 set_control 1
+echo "Control mode = CTRL_OPEN"
+echo "Motor will start spinning up to 50% PWM"
+./plan execute_1 open_spd 1600
+sleep 5s
+
+# Slowing down
+./plan manage_1 set_leds 0 0 0 1
+echo "RGB LED: Blue"
+echo "Motor will slow down to 0 RPM"
+./plan execute_1 open_spd 0
+sleep 5s
+
+# End of script
+./plan manage_1 set_leds 0 1 1 1
+sleep 0.25s
+./plan manage_1 set_leds 0 0 0 0
+sleep 0.25s
+./plan manage_1 set_leds 0 1 1 1
+sleep 0.25s
+./plan manage_1 set_leds 0 0 0 0
+sleep 0.25s
+./plan manage_1 set_leds 0 1 1 1
+sleep 0.25s
+./plan manage_1 set_leds 0 0 0 0
+
+# Fin
+
+
+
+
+
+

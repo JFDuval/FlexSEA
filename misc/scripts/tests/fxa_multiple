@@ -1,0 +1,11 @@
+#!/bin/bash
+# How quickly can we send serial commands?
+
+./planm << END_COMMAND_LIST
+execute_1 set_leds 0 255 0 0
+execute_1 set_leds 0 255 0 0
+execute_1 set_leds 0 255 0 0
+execute_1 set_leds 0 255 0 0
+execute_1 set_leds 0 255 0 0
+END_COMMAND_LIST
+

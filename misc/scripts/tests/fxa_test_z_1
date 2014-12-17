@@ -1,0 +1,16 @@
+#!/bin/bash
+# Places FlexSEA in Impedance control mode
+# Use with care!
+
+# Set control mode to 'z' (4)
+./plan execute_1 set_control 4
+
+# Current loop gains:
+echo "Current loop gains: kp=7, ki=20"
+./plan execute_1 set_current_gains 7 20 0
+
+# Choose from one of these:
+./plan execute_1 set_z_gains 2 0 0
+echo "FlexSEA in Stiffness mode (k=2, b=0)"
+
+

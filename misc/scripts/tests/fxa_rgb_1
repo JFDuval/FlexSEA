@@ -1,0 +1,17 @@
+#!/bin/bash
+# RGB LED script - tests MM & PWR_STG
+
+./plan execute_1 set_leds 0 255 0 0
+sleep 0.3s
+./plan execute_1 set_leds 0 0 255 0
+sleep 0.3s
+./plan execute_1 set_leds 0 0 0 255
+sleep 0.3s
+./plan execute_1 set_leds 0 255 0 0
+sleep 0.3s
+./plan execute_1 set_leds 0 0 255 0
+sleep 0.3s
+./plan execute_1 set_leds 0 0 0 255
+sleep 0.3s
+
+

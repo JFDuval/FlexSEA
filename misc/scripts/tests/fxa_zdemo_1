@@ -1,0 +1,42 @@
+#!/bin/bash
+# Places FlexSEA in Impedance control mode
+# Then changes the position
+# Use with care!
+
+
+# Cancel current control then set control mode to 'z' (4)
+./plan execute_1 set_control 0
+echo "Leg will drop"
+sleep 2s #Wait for leg to drop
+./plan execute_1 set_control 4
+
+# Current loop gains:
+./plan execute_1 set_current_gains 10 50 0
+
+# Apply stiffness:
+echo "Applying stiffness = 5"
+./plan execute_1 set_z_gains 5 0 0
+
+# Hang there 5s
+echo "Pausing for 5s"
+sleep 5s
+# Move up
+./plan execute_1 trapeze 13000 20000 2000 2000
+# Hang there 10s
+echo "Pausing for 10s"
+sleep 10s
+
+echo "Choregraphy"
+./plan execute_1 trapeze 20000 15000 2000 2000
+sleep 6s
+./plan execute_1 trapeze 15000 20000 2000 2000
+sleep 6s
+./plan execute_1 trapeze 20000 15000 2000 2000
+sleep 6s
+./plan execute_1 trapeze 15000 20000 2000 2000
+sleep 6s
+
+
+
+
+

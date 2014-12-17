@@ -1,0 +1,50 @@
+#!/bin/bash
+# Places FlexSEA in Impedance control mode
+# Use with care!
+
+# Set control mode to 'z' (4)
+./plan execute_1 set_control 4
+
+# Current loop gains:
+./plan execute_1 set_current_gains 10 50 0
+
+# Stiffness gradient:
+./plan execute_1 set_z_gains 1 0 0
+echo "1"
+sleep 1s
+./plan execute_1 set_z_gains 2 0 0
+echo "2"
+sleep 1s
+./plan execute_1 set_z_gains 3 0 0
+echo "3"
+sleep 1s
+./plan execute_1 set_z_gains 4 0 0
+echo "4"
+sleep 1s
+./plan execute_1 set_z_gains 5 0 0
+echo "5"
+sleep 1s
+./plan execute_1 set_z_gains 6 0 0
+echo "6"
+sleep 1s
+
+./plan execute_1 set_z_gains 7 0 0
+echo "7"
+sleep 1s
+./plan execute_1 set_z_gains 8 0 0
+echo "8"
+sleep 1s
+./plan execute_1 set_z_gains 9 0 0
+echo "9"
+sleep 1s
+./plan execute_1 set_z_gains 10 0 0
+echo "10"
+sleep 1s
+./plan execute_1 set_z_gains 11 0 0
+echo "11"
+sleep 1s
+./plan execute_1 set_z_gains 20 0 0
+echo "20"
+sleep 1s
+
+

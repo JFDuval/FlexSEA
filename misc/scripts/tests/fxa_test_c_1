@@ -1,0 +1,15 @@
+#!/bin/bash
+# Places FlexSEA in Current control mode
+# Use with care!
+
+# Set control mode to 'c' (3)
+./plan execute_1 set_control 3
+
+# Current loop gains:
+./plan execute_1 set_current_gains 10 50 0
+
+# Small current:
+./plan execute_1 set_current 50
+
+echo "FlexSEA in Current Control"
+

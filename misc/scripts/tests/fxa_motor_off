@@ -1,0 +1,5 @@
+#!/bin/bash
+# Sets control mode to 0 (no motion)
+
+./plan execute_1 set_control 0
+
