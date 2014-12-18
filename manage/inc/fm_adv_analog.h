@@ -40,7 +40,7 @@ unsigned int set_resistor_ain7(uint8_t res);
 #define MCP4661_I2C_ADDR1	0x50
 #define MCP4661_I2C_ADDR2	0x54
 
-#define MCP_BLOCK_TIMEOUT 10000 //may want to reduce this?
+#define MCP_BLOCK_TIMEOUT 10000 //ToDo: may want to reduce this?
 
 //MCP4661
 #define MCP4661_REG_RAM_W0		0x00
@@ -52,6 +52,5 @@ unsigned int set_resistor_ain7(uint8_t res);
 #define MCP4661_WRITE_CMD		0x00
 #define MCP4661_READ_CMD		0x0A
 #define MCP4661_CONFIG			0xFF //(POR default)
-//W0 is gain, W1 is offset
 
 #endif // ADC_H_

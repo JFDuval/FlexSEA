@@ -2,9 +2,9 @@
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
 // jfduval@mit.edu
-// 07/2014
+// 12/2014
 //****************************************************************************
-// fm_dio: Deals with the 8 digital IOs
+// fm_dio: Deals with the 9 digital IOs
 //****************************************************************************
 
 #ifndef DIO_H_
@@ -30,12 +30,12 @@ void write_dio_outputs(unsigned int out);
 // Definition(s):
 //****************************************************************************
 
-//MiddleMan 0.1 Hardware pins:
+//Manage 0.1 Hardware pins:
 //============================
 //DIO0-1: PF0-1 (also I²C2)
 //DIO2-3: PD8-9 (also UART3)
-//DIO4-7: PB12-15 (also SPI2)
-//DIO9-8-10-11: PG2-5
+//DIO4-7: PG8/13/12/14 (also SPI6)
+//DIO8
 
 //All the pins have pull-downs
 //For the first test, DIO2-7 will be inputs, all the other will be outputs

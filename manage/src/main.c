@@ -2,7 +2,7 @@
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
 // jfduval@mit.edu
-// 07/2014
+// 12/2014
 //****************************************************************************
 // main: FlexSEA-Manage
 //****************************************************************************
@@ -48,7 +48,7 @@ int main(void)
 	unsigned int result = 0;
 	unsigned int timed_cleanup = 0;
 	unsigned int delay = 0;
-	unsigned char toggle_led0 = 0, toggle_led1 = 0, toggle_led2 = 0, toggle_led3 = 0;
+	unsigned char toggle_led0 = 0, toggle_led1 = 0;
 
 	//test for imu
 	uint16_t imu_test_val = 0;
@@ -61,7 +61,6 @@ int main(void)
 
 	//USART1 (RS-485 #1)
 	USART1_Init();
-	//USART2_Init();
 
 	//Init peripherals
 	init_led_outputs();
@@ -70,11 +69,10 @@ int main(void)
 	init_dio_outputs();
 	init_rs485_outputs();
 	//init_adc1();
-	init_spi1();
+	init_spi4();
 	init_i2c1();
 	init_imu();
 	init_adva_fc_pins();
-
 
 	//All RGB LEDs OFF
 	LEDR(0); LEDG(0);LEDB(0);
@@ -153,13 +151,14 @@ int main(void)
 		if(systick_100ms_flag)
 		{
 			systick_100ms_flag = 0;
-			//Constant LED3 flashing while code runs
+			//Constant LED0 flashing while code runs
 			toggle_led3 ^= 1;
-			LED3(toggle_led3);
+			LED3(toggle_led0);
 		}
     }
 }
 
+//ToDo: clean this
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *UartHandle)
 {
 	unsigned char UartReady = 0;

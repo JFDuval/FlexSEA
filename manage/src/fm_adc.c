@@ -2,7 +2,7 @@
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
 // jfduval@mit.edu
-// 07/2014
+// 12/2014
 //****************************************************************************
 // fm_adc: Analog to digital converter
 //****************************************************************************
@@ -44,31 +44,20 @@ void init_adc1(void)
 	//Enable peripheral and GPIO clocks
     __ADC1_CLK_ENABLE();
     __GPIOA_CLK_ENABLE();
-    __GPIOC_CLK_ENABLE();
 
-    	/**ADC1 GPIO Configuration
-		PC0   ------> ADC1_IN10
-  	  PC1   ------> ADC1_IN11
-  	  PC2   ------> ADC1_IN12
-  	  PC3   ------> ADC1_IN13
-  	  PA0-WKUP   ------> ADC1_IN0
-  	  PA1   ------> ADC1_IN1
-  	  PA2   ------> ADC1_IN2
-  	  PA3   ------> ADC1_IN3
-     */
+    //AN0 to AN7 are on PA0 to PA7
+	//AN0 & 1: 1/10kHz LPF
+	//AN3 & 3: 1/10kHz LPF, 1<G<10
+	//AN4 & 5: Buffered
+	//AN6 & 7: Resistive dividers, buffered
 
     //Config inputs:
-    GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3;
-    GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
-    GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3;
+    GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3|GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7;
     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-    //ADC1 config:
+    //ADC1 config: (ToDo: test & optimize, use DMA and multiple conversions)
     //===========
 
     //Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion)
@@ -87,7 +76,7 @@ void init_adc1(void)
     HAL_ADC_Init(&hadc1);
 
     //Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
-    sConfig.Channel = ADC_CHANNEL_11;
+    sConfig.Channel = ADC_CHANNEL_0;
     sConfig.Rank = 1;
     sConfig.SamplingTime = ADC_SAMPLETIME_3CYCLES;
     HAL_ADC_ConfigChannel(&hadc1, &sConfig);

@@ -2,7 +2,7 @@
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
 // jfduval@mit.edu
-// 07/2014
+// 12/2014
 //****************************************************************************
 // fm_spi: SPI Slave
 //****************************************************************************
@@ -22,7 +22,7 @@
 // Local variable(s)
 //****************************************************************************
 
-SPI_HandleTypeDef spi1_handle;
+SPI_HandleTypeDef spi4_handle;
 uint8_t spi_led_toggle = 0;
 
 //Test only:
@@ -48,53 +48,54 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi)
 	GPIO_InitTypeDef GPIO_InitStruct;
 
 	//Enable GPIO clock
-	__GPIOA_CLK_ENABLE();
+	__GPIOE_CLK_ENABLE();
 	//Enable peripheral clock
-	__SPI1_CLK_ENABLE();
+	__SPI4_CLK_ENABLE();
 
-	//SPI1 pins:
+	//SPI4 pins:
 	//=-=-=-=-=
-	//PA4 - SS1
-	//PA5 - SCK1
-	//PA6 - MISO1
-	//PA7 - MOSI1
+	//NSS4: 	PE4
+	//MOSI4: 	PE6
+	//MISO4: 	PE5
+	//SCK4: 	PE2
 
 	//All but NSS:
-	GPIO_InitStruct.Pin = GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7;
+	GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_5|GPIO_PIN_6;
 	GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
 	GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
 	GPIO_InitStruct.Pull = GPIO_PULLUP;
-	GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
-	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+	GPIO_InitStruct.Alternate = GPIO_AF666_SPI4;	//ToDo Fix!
+	HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
 	//It seems that NSS can't be used as a good CS => set as input, SW read
+	//ToDo Enable external ISR
 	GPIO_InitStruct.Pin = GPIO_PIN_4;
 	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
 	GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
 	GPIO_InitStruct.Pull = GPIO_PULLUP;
 	//GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
-	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+	HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
 	/*##-3- Configure the NVIC for SPI #########################################*/
 	/* NVIC for SPI */
-	HAL_NVIC_SetPriority(SPI1_IRQn, 0, 1);
-	HAL_NVIC_EnableIRQ(SPI1_IRQn);
+	HAL_NVIC_SetPriority(SPI4_IRQn, 0, 1);
+	HAL_NVIC_EnableIRQ(SPI4_IRQn);
 }
 
 // this function initializes the SPI1 peripheral
-void init_spi1(void)
+void init_spi4(void)
 {
 	//Enable peripheral clock
-	//__SPI1_CLK_ENABLE();
+	//__SPI4_CLK_ENABLE();
 
-	/* configure SPI1 in Mode 0, Slave
+	/* configure SPI4 in Mode 0, Slave
 	 * CPOL = 0 --> clock is low when idle
 	 * CPHA = 0 --> data is sampled at the first edge
 	 */
 
-	spi1_handle.Instance = SPI1;
+	spi1_handle.Instance = SPI4;
 	spi1_handle.Init.Direction = SPI_DIRECTION_2LINES; 				// Full duplex
-	spi1_handle.Init.Mode = SPI_MODE_SLAVE;     					// Slave to the BBB
+	spi1_handle.Init.Mode = SPI_MODE_SLAVE;     					// Slave to the Plan board
 	spi1_handle.Init.DataSize = SPI_DATASIZE_8BIT; 					// 8bits words
 	spi1_handle.Init.CLKPolarity = SPI_POLARITY_LOW;        		// clock is low when idle (CPOL = 0)
 	spi1_handle.Init.CLKPhase = SPI_PHASE_1EDGE;      				// data sampled at first (rising) edge (CPHA = 0)
@@ -105,36 +106,36 @@ void init_spi1(void)
 	spi1_handle.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLED;
 	spi1_handle.Init.CRCPolynomial = 7;
 
-	if(HAL_SPI_Init(&spi1_handle) != HAL_OK)
+	if(HAL_SPI_Init(&spi4_handle) != HAL_OK)
 	{
 		/* Initialization Error */
 		Error_Handler();
 	}
 
-	//SPI_Cmd(SPI1, ENABLE); // enable SPI1
+	//SPI_Cmd(SPI4, ENABLE); // enable SPI1
 }
 
-unsigned char spi1_rx_buf[COMM_STR_BUF_LEN] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+unsigned char spi4_rx_buf[COMM_STR_BUF_LEN] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
 
-//Dumb function to test SPI1 RX
-unsigned int spi1_blocking_rx(void)
+//Dumb function to test SPI4 RX
+unsigned int spi4_blocking_rx(void)
 {
 	unsigned char flag = 0;
 
-	HAL_SPI_Receive(&spi1_handle, spi1_rx_buf, 12, 10000);
+	HAL_SPI_Receive(&spi4_handle, spi4_rx_buf, 12, 10000);
 	flag = 1;
 
 	return flag;
 }
 
 //Function to receive data via interrupts
-unsigned int spi1_it_rx(void)
+unsigned int spi4_it_rx(void)
 {
 	spi_led_toggle ^= 1;
 
-	if(HAL_SPI_GetState(&spi1_handle) == HAL_SPI_STATE_READY)
+	if(HAL_SPI_GetState(&spi4_handle) == HAL_SPI_STATE_READY)
 	{
-		if(HAL_SPI_TransmitReceive_IT(&spi1_handle, (uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, COMM_STR_BUF_LEN) != HAL_OK)
+		if(HAL_SPI_TransmitReceive_IT(&spi4_handle, (uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, COMM_STR_BUF_LEN) != HAL_OK)
 		{
 			//Transfer error in transmission process
 			Error_Handler();

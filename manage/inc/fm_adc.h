@@ -2,7 +2,7 @@
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
 // jfduval@mit.edu
-// 07/2014
+// 12/2014
 //****************************************************************************
 // fm_adc: Analog to digital converter
 //****************************************************************************
@@ -27,10 +27,13 @@ unsigned int adc_conv(void);
 // Definition(s):
 //****************************************************************************
 
-//MiddleMan 0.1 Hardware pins:
+//Manage 0.1 Hardware pins:
 //============================
-//AN4-5-7-6: PA0-3
-//AN2-0-3-1: PC0-3
+//AN0 to AN7 are on PA0 to PA7
+//AN0 & 1: 1/10kHz LPF
+//AN3 & 3: 1/10kHz LPF, 1<G<10
+//AN4 & 5: Buffered
+//AN6 & 7: Resistive dividers, buffered
 
 #define ADC_CHANNELS	8
 
