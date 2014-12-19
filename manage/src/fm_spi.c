@@ -64,7 +64,7 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi)
 	GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
 	GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
 	GPIO_InitStruct.Pull = GPIO_PULLUP;
-	GPIO_InitStruct.Alternate = GPIO_AF666_SPI4;	//ToDo Fix!
+	GPIO_InitStruct.Alternate = GPIO_AF5_SPI4;
 	HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
 	//It seems that NSS can't be used as a good CS => set as input, SW read
@@ -93,18 +93,18 @@ void init_spi4(void)
 	 * CPHA = 0 --> data is sampled at the first edge
 	 */
 
-	spi1_handle.Instance = SPI4;
-	spi1_handle.Init.Direction = SPI_DIRECTION_2LINES; 				// Full duplex
-	spi1_handle.Init.Mode = SPI_MODE_SLAVE;     					// Slave to the Plan board
-	spi1_handle.Init.DataSize = SPI_DATASIZE_8BIT; 					// 8bits words
-	spi1_handle.Init.CLKPolarity = SPI_POLARITY_LOW;        		// clock is low when idle (CPOL = 0)
-	spi1_handle.Init.CLKPhase = SPI_PHASE_1EDGE;      				// data sampled at first (rising) edge (CPHA = 0)
-	spi1_handle.Init.NSS = SPI_NSS_SOFT; 							// uses software slave select
-	spi1_handle.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4; 	// SPI frequency is APB2 frequency / 4	ToDo Adjust!
-	spi1_handle.Init.FirstBit = SPI_FIRSTBIT_MSB;					// data is transmitted MSB first
-	spi1_handle.Init.TIMode = SPI_TIMODE_DISABLED;					//
-	spi1_handle.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLED;
-	spi1_handle.Init.CRCPolynomial = 7;
+	spi4_handle.Instance = SPI4;
+	spi4_handle.Init.Direction = SPI_DIRECTION_2LINES; 				// Full duplex
+	spi4_handle.Init.Mode = SPI_MODE_SLAVE;     					// Slave to the Plan board
+	spi4_handle.Init.DataSize = SPI_DATASIZE_8BIT; 					// 8bits words
+	spi4_handle.Init.CLKPolarity = SPI_POLARITY_LOW;        		// clock is low when idle (CPOL = 0)
+	spi4_handle.Init.CLKPhase = SPI_PHASE_1EDGE;      				// data sampled at first (rising) edge (CPHA = 0)
+	spi4_handle.Init.NSS = SPI_NSS_SOFT; 							// uses software slave select
+	spi4_handle.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4; 	// SPI frequency is APB2 frequency / 4	ToDo Adjust!
+	spi4_handle.Init.FirstBit = SPI_FIRSTBIT_MSB;					// data is transmitted MSB first
+	spi4_handle.Init.TIMode = SPI_TIMODE_DISABLED;					//
+	spi4_handle.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLED;
+	spi4_handle.Init.CRCPolynomial = 7;
 
 	if(HAL_SPI_Init(&spi4_handle) != HAL_OK)
 	{

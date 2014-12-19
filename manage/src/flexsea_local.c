@@ -37,7 +37,7 @@ unsigned char slave_read_buffer[SLAVE_READ_BUFFER_LEN];
 //****************************************************************************
 
 //fm_spi:
-extern SPI_HandleTypeDef spi1_handle;
+extern SPI_HandleTypeDef spi4_handle;
 extern uint8_t aRxBuffer[COMM_STR_BUF_LEN];
 extern uint8_t aTxBuffer[COMM_STR_BUF_LEN];
 //flexsea_comm:
@@ -101,11 +101,11 @@ void flexsea_receive_from_master(void)
 		//HAL_GPIO_WritePin(GPIOF, GPIO_PIN_0, 0);
 
 		//"Reset" pointer(s)
-		spi1_handle.pRxBuffPtr = aRxBuffer;	//Rx
+		spi4_handle.pRxBuffPtr = aRxBuffer;	//Rx
 		//spi1_handle.pTxBuffPtr = aTxBuffer;	//Tx
 
 		//Get data
-		spi1_it_rx();
+		spi4_it_rx();
 
 		//At this point we can use flexsea-network:
 		//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -221,7 +221,7 @@ void flexsea_update_slave_read_buffer(unsigned char read_offset)
 	unsigned char tmp_switches = 0;
 
 	tmp_dio = read_dio_inputs(0);
-	tmp_switches = ((read_sw2() & 0x01) << 1) + (read_sw1() & 0x01);
+	tmp_switches = (read_sw1() & 0x01);
 
 	//End of ToDo comment
 

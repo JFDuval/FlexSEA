@@ -58,6 +58,8 @@ extern int comm_res, comm_success;
 //****************************************************************************
 
 //All the test code used up to 05/10/2014
+//ToDo replace or remove, made for MiddleMan not Manage
+/*
 void demo_1(void)
 {
 	static uint32_t seconds = 0;
@@ -129,6 +131,7 @@ void demo_1(void)
     // Count seconds on the trace device.
     //trace_printf("Second %u\n", seconds);
 }
+*/
 
 void demo_2(void)
 {
@@ -241,7 +244,7 @@ void demo_4(void)
 void demo_spi_rx(void)
 {
 	//spi1_blocking_rx();
-	spi1_it_rx();
+	spi4_it_rx();
 	if(spi_led_toggle)
 	{
 		//LEDR(0); LEDG(0);

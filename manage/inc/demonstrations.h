@@ -9,7 +9,7 @@
 #define RGB_ON_TICKS (BLINK_ON_TICKS/2)
 
 //Prototypes
-void demo_1(void);
+//void demo_1(void);
 void demo_2(void);
 void demo_3(void);
 void demo_4(void);

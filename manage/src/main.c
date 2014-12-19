@@ -152,8 +152,8 @@ int main(void)
 		{
 			systick_100ms_flag = 0;
 			//Constant LED0 flashing while code runs
-			toggle_led3 ^= 1;
-			LED3(toggle_led0);
+			toggle_led0 ^= 1;
+			LED0(toggle_led0);
 		}
     }
 }

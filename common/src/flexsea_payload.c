@@ -222,7 +222,9 @@ void payload_local_console_test(void)
 
     //"Receive" command
     result = payload_parse_str(payload_str);
+#ifdef USE_PRINTF
     print_parse_result(result);
+#endif
 
 #ifdef USE_PRINTF
     printf("PID gains: kp = %u, ki = %u, kd = %u.\n", test_kp, test_ki, test_kd);
