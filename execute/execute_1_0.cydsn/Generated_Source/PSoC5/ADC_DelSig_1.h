@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: ADC_DelSig_1.h
-* Version 3.0
+* Version 3.10
 *
 * Description:
 *  This file contains the function prototypes and constants used in
@@ -28,7 +28,7 @@
 /* They are defined starting with cy_boot v3.30 */
 /* CY_FLASH_PM_ACT_EEFLASH_REG define used to check cy_boot has v3.30 or later */    
 #if !defined (CY_FLASH_PM_ACT_EEFLASH_REG)
-    #error Component ADC_DelSig_v3_0 requires cy_boot v3.30 or later
+    #error Component ADC_DelSig_v3_10 requires cy_boot v3.30 or later
 #endif /* (CY_FLASH_PM_ACT_EEFLASH_REG) */
 
 

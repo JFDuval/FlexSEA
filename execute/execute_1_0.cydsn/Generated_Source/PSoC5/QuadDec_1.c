@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: QuadDec_1.c  
-* Version 2.30
+* Version 2.40
 *
 * Description:
 *  This file provides the source code to the API for the Quadrature Decoder
@@ -10,7 +10,7 @@
 *  None.
 *   
 ********************************************************************************
-* Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions, 
 * disclaimers, and limitations in the end user license agreement accompanying 
 * the software package with which this file was provided.
@@ -73,12 +73,15 @@ void QuadDec_1_Enable(void)
 
     QuadDec_1_SetInterruptMask(QuadDec_1_INIT_INT_MASK);
 
+    /* Clear pending interrupts. */
+    (void) QuadDec_1_GetEvents();
+    
     enableInterrupts = CyEnterCriticalSection();
 
     /* Enable interrupts from Statusi register */
     QuadDec_1_SR_AUX_CONTROL |= QuadDec_1_INTERRUPTS_ENABLE;
 
-    CyExitCriticalSection(enableInterrupts);
+    CyExitCriticalSection(enableInterrupts);        
 
     #if (QuadDec_1_COUNTER_SIZE == QuadDec_1_COUNTER_SIZE_32_BIT)
         /* Enable Component interrupts */
@@ -115,13 +118,17 @@ void QuadDec_1_Start(void)
     #if (QuadDec_1_COUNTER_SIZE == QuadDec_1_COUNTER_SIZE_8_BIT)
         QuadDec_1_Cnt8_Start();
         QuadDec_1_Cnt8_WriteCounter(QuadDec_1_COUNTER_INIT_VALUE);
-    #else 
+    #else
         /* (QuadDec_1_COUNTER_SIZE == QuadDec_1_COUNTER_SIZE_16_BIT) || 
         *  (QuadDec_1_COUNTER_SIZE == QuadDec_1_COUNTER_SIZE_32_BIT) 
         */
         QuadDec_1_Cnt16_Start();
         QuadDec_1_Cnt16_WriteCounter(QuadDec_1_COUNTER_INIT_VALUE);
     #endif /* QuadDec_1_COUNTER_SIZE == QuadDec_1_COUNTER_SIZE_8_BIT */
+    
+    #if (QuadDec_1_COUNTER_SIZE == QuadDec_1_COUNTER_SIZE_32_BIT)        
+       QuadDec_1_count32SoftPart = 0;
+    #endif /* QuadDec_1_COUNTER_SIZE == QuadDec_1_COUNTER_SIZE_32_BIT */
 
     if (QuadDec_1_initVar == 0u)
     {
@@ -260,7 +267,7 @@ void QuadDec_1_SetCounter(int32 value)
         }
         else
         {
-            count = (uint16) (-value);
+            count = QuadDec_1_COUNTER_INIT_VALUE - (uint16)(-value);
         }
         #if (QuadDec_1_COUNTER_SIZE == QuadDec_1_COUNTER_SIZE_8_BIT)
             QuadDec_1_Cnt8_WriteCounter(count);

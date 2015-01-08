@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: CyLib.c
-* Version 4.10
+* Version 4.11
 *
 *  Description:
 *   Provides a system API for the clocking, interrupts and watchdog timer.

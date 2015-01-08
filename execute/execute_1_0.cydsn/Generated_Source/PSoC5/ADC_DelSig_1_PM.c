@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: ADC_DelSig_1_PM.c
-* Version 3.0
+* Version 3.10
 *
 * Description:
 *  This file provides the power manager source code to the API for the

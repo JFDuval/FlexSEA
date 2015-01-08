@@ -166,7 +166,8 @@ CY_ISR(isr_t1_Interrupt)
 	{
 		count0 = 0;
 		toggle0^=1;
-		LED0_Write(toggle0);
+		//LED0_Write(toggle0);
+		LED_HB_Write(toggle0);
 	}
 	
 	//Fast blinking - Error LED

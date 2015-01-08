@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: Timer_2_PM.c
-* Version 2.50
+* Version 2.60
 *
 *  Description:
 *     This file provides the power management source code to API for the
@@ -10,13 +10,14 @@
 *     None
 *
 *******************************************************************************
-* Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
 ********************************************************************************/
 
 #include "Timer_2.h"
+
 static Timer_2_backupStruct Timer_2_backup;
 
 
@@ -42,25 +43,13 @@ static Timer_2_backupStruct Timer_2_backup;
 void Timer_2_SaveConfig(void) 
 {
     #if (!Timer_2_UsingFixedFunction)
-        /* Backup the UDB non-rentention registers for CY_UDB_V0 */
-        #if (CY_UDB_V0)
-            Timer_2_backup.TimerUdb = Timer_2_ReadCounter();
-            Timer_2_backup.TimerPeriod = Timer_2_ReadPeriod();
-            Timer_2_backup.InterruptMaskValue = Timer_2_STATUS_MASK;
-            #if (Timer_2_UsingHWCaptureCounter)
-                Timer_2_backup.TimerCaptureCounter = Timer_2_ReadCaptureCount();
-            #endif /* Backup the UDB non-rentention register capture counter for CY_UDB_V0 */
-        #endif /* Backup the UDB non-rentention registers for CY_UDB_V0 */
+        Timer_2_backup.TimerUdb = Timer_2_ReadCounter();
+        Timer_2_backup.InterruptMaskValue = Timer_2_STATUS_MASK;
+        #if (Timer_2_UsingHWCaptureCounter)
+            Timer_2_backup.TimerCaptureCounter = Timer_2_ReadCaptureCount();
+        #endif /* Back Up capture counter register  */
 
-        #if (CY_UDB_V1)
-            Timer_2_backup.TimerUdb = Timer_2_ReadCounter();
-            Timer_2_backup.InterruptMaskValue = Timer_2_STATUS_MASK;
-            #if (Timer_2_UsingHWCaptureCounter)
-                Timer_2_backup.TimerCaptureCounter = Timer_2_ReadCaptureCount();
-            #endif /* Back Up capture counter register  */
-        #endif /* Backup non retention registers, interrupt mask and capture counter for CY_UDB_V1 */
-
-        #if(!Timer_2_ControlRegRemoved)
+        #if(!Timer_2_UDB_CONTROL_REG_REMOVED)
             Timer_2_backup.TimerControlRegister = Timer_2_ReadControlRegister();
         #endif /* Backup the enable state of the Timer component */
     #endif /* Backup non retention registers in UDB implementation. All fixed function registers are retention */
@@ -88,35 +77,14 @@ void Timer_2_SaveConfig(void)
 void Timer_2_RestoreConfig(void) 
 {   
     #if (!Timer_2_UsingFixedFunction)
-        /* Restore the UDB non-rentention registers for CY_UDB_V0 */
-        #if (CY_UDB_V0)
-            /* Interrupt State Backup for Critical Region*/
-            uint8 Timer_2_interruptState;
 
-            Timer_2_WriteCounter(Timer_2_backup.TimerUdb);
-            Timer_2_WritePeriod(Timer_2_backup.TimerPeriod);
-            /* CyEnterCriticalRegion and CyExitCriticalRegion are used to mark following region critical*/
-            /* Enter Critical Region*/
-            Timer_2_interruptState = CyEnterCriticalSection();
-            /* Use the interrupt output of the status register for IRQ output */
-            Timer_2_STATUS_AUX_CTRL |= Timer_2_STATUS_ACTL_INT_EN_MASK;
-            /* Exit Critical Region*/
-            CyExitCriticalSection(Timer_2_interruptState);
-            Timer_2_STATUS_MASK =Timer_2_backup.InterruptMaskValue;
-            #if (Timer_2_UsingHWCaptureCounter)
-                Timer_2_SetCaptureCount(Timer_2_backup.TimerCaptureCounter);
-            #endif /* Restore the UDB non-rentention register capture counter for CY_UDB_V0 */
-        #endif /* Restore the UDB non-rentention registers for CY_UDB_V0 */
+        Timer_2_WriteCounter(Timer_2_backup.TimerUdb);
+        Timer_2_STATUS_MASK =Timer_2_backup.InterruptMaskValue;
+        #if (Timer_2_UsingHWCaptureCounter)
+            Timer_2_SetCaptureCount(Timer_2_backup.TimerCaptureCounter);
+        #endif /* Restore Capture counter register*/
 
-        #if (CY_UDB_V1)
-            Timer_2_WriteCounter(Timer_2_backup.TimerUdb);
-            Timer_2_STATUS_MASK =Timer_2_backup.InterruptMaskValue;
-            #if (Timer_2_UsingHWCaptureCounter)
-                Timer_2_SetCaptureCount(Timer_2_backup.TimerCaptureCounter);
-            #endif /* Restore Capture counter register*/
-        #endif /* Restore up non retention registers, interrupt mask and capture counter for CY_UDB_V1 */
-
-        #if(!Timer_2_ControlRegRemoved)
+        #if(!Timer_2_UDB_CONTROL_REG_REMOVED)
             Timer_2_WriteControlRegister(Timer_2_backup.TimerControlRegister);
         #endif /* Restore the enable state of the Timer component */
     #endif /* Restore non retention registers in the UDB implementation only */
@@ -143,7 +111,7 @@ void Timer_2_RestoreConfig(void)
 *******************************************************************************/
 void Timer_2_Sleep(void) 
 {
-    #if(!Timer_2_ControlRegRemoved)
+    #if(!Timer_2_UDB_CONTROL_REG_REMOVED)
         /* Save Counter's enable state */
         if(Timer_2_CTRL_ENABLE == (Timer_2_CONTROL & Timer_2_CTRL_ENABLE))
         {
@@ -182,7 +150,7 @@ void Timer_2_Sleep(void)
 void Timer_2_Wakeup(void) 
 {
     Timer_2_RestoreConfig();
-    #if(!Timer_2_ControlRegRemoved)
+    #if(!Timer_2_UDB_CONTROL_REG_REMOVED)
         if(Timer_2_backup.TimerEnableState == 1u)
         {     /* Enable Timer's operation */
                 Timer_2_Enable();

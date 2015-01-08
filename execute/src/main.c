@@ -148,7 +148,8 @@ int main()
 
 	//ToDo Debug only - fixed PWM
 	controller = CTRL_OPEN;
-	PWM_1_WriteCompare(MAX_PWM/2);	
+	//PWM_1_WriteCompare(250);	
+	motor_open_speed_1(250);
 	PWM_2_WriteCompare(240);
 	double var1 = 0, var2 = 0, var3 = 0;
 	uint8 cnt1 = 0, cnt2 = 100;
@@ -158,6 +159,17 @@ int main()
 		var1 = (double)((3.14159 * cnt1) / cnt2);
 		var2 = (double)(16576.3 - 17.36*var1);
 		var3 = sqrt(var2) * pow(var1,1.27);
+		
+		LED0_Write(H1_Read());
+		LED1_Write(H2_Read());
+		LED2_Write(H3_Read());
+		
+		#ifdef USE_QEI1
+				
+		//Refresh encoder readings
+		enccount = QuadDec_1_GetCounter();
+				
+		#endif	//USE_QEI1
 	}
 
 	

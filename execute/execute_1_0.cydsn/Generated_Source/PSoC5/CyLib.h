@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: CyLib.h
-* Version 4.10
+* Version 4.11
 *
 * Description:
 *  Provides the function definitions for the system, clocking, interrupts and

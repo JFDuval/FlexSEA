@@ -1,6 +1,6 @@
 /*******************************************************************************
 * FILENAME: cytypes.h
-* Version 4.10
+* Version 4.11
 *
 *  Description:
 *  CyTypes provides register access macros and approved types for use in

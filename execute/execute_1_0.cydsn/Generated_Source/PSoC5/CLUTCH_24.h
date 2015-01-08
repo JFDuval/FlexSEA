@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: CLUTCH_24.h  
-* Version 2.0
+* Version 2.5
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -25,7 +25,7 @@
 /* Check to see if required defines such as CY_PSOC5A are available */
 /* They are defined starting with cy_boot v3.0 */
 #if !defined (CY_PSOC5A)
-    #error Component cy_pins_v2_0 requires cy_boot v3.0 or later
+    #error Component cy_pins_v2_5 requires cy_boot v3.0 or later
 #endif /* (CY_PSOC5A) */
 
 /* APIs are not generated for P15[7:6] */

@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: cyPm.h
-* Version 4.10
+* Version 4.11
 *
 * Description:
 *  Provides the function definitions for the power management API.

@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: AOP_OUT.h  
-* Version 2.0
+* Version 2.5
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines

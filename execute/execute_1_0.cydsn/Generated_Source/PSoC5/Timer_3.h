@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: Timer_3.h
-* Version 2.50
+* Version 2.60
 *
 *  Description:
 *     Contains the function prototypes and constants available to the timer
@@ -10,14 +10,14 @@
 *     None
 *
 ********************************************************************************
-* Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
 ********************************************************************************/
 
-#if !defined(CY_Timer_v2_30_Timer_3_H)
-#define CY_Timer_v2_30_Timer_3_H
+#if !defined(CY_Timer_v2_60_Timer_3_H)
+#define CY_Timer_v2_60_Timer_3_H
 
 #include "cytypes.h"
 #include "cyfitter.h"
@@ -28,7 +28,7 @@ extern uint8 Timer_3_initVar;
 /* Check to see if required defines such as CY_PSOC5LP are available */
 /* They are defined starting with cy_boot v3.0 */
 #if !defined (CY_PSOC5LP)
-    #error Component Timer_v2_50 requires cy_boot v3.0 or later
+    #error Component Timer_v2_60 requires cy_boot v3.0 or later
 #endif /* (CY_ PSOC5LP) */
 
 
@@ -47,6 +47,14 @@ extern uint8 Timer_3_initVar;
 #define Timer_3_RunModeUsed                1u
 #define Timer_3_ControlRegRemoved          0u
 
+#if defined(Timer_3_TimerUDB_sCTRLReg_SyncCtl_ctrlreg__CONTROL_REG)
+    #define Timer_3_UDB_CONTROL_REG_REMOVED            (0u)
+#elif  (Timer_3_UsingFixedFunction)
+    #define Timer_3_UDB_CONTROL_REG_REMOVED            (0u)
+#else 
+    #define Timer_3_UDB_CONTROL_REG_REMOVED            (1u)
+#endif /* End Timer_3_TimerUDB_sCTRLReg_SyncCtl_ctrlreg__CONTROL_REG */
+
 
 /***************************************
 *       Type defines
@@ -60,27 +68,18 @@ typedef struct
 {
     uint8 TimerEnableState;
     #if(!Timer_3_UsingFixedFunction)
-        #if (CY_UDB_V0)
-            uint16 TimerUdb;                 /* Timer internal counter value */
-            uint16 TimerPeriod;              /* Timer Period value       */
-            uint8 InterruptMaskValue;       /* Timer Compare Value */
-            #if (Timer_3_UsingHWCaptureCounter)
-                uint8 TimerCaptureCounter;  /* Timer Capture Counter Value */
-            #endif /* variable declaration for backing up Capture Counter value*/
-        #endif /* variables for non retention registers in CY_UDB_V0 */
 
-        #if (CY_UDB_V1)
-            uint16 TimerUdb;
-            uint8 InterruptMaskValue;
-            #if (Timer_3_UsingHWCaptureCounter)
-                uint8 TimerCaptureCounter;
-            #endif /* variable declarations for backing up non retention registers in CY_UDB_V1 */
-        #endif /* (CY_UDB_V1) */
+        uint16 TimerUdb;
+        uint8 InterruptMaskValue;
+        #if (Timer_3_UsingHWCaptureCounter)
+            uint8 TimerCaptureCounter;
+        #endif /* variable declarations for backing up non retention registers in CY_UDB_V1 */
 
-        #if (!Timer_3_ControlRegRemoved)
+        #if (!Timer_3_UDB_CONTROL_REG_REMOVED)
             uint8 TimerControlRegister;
         #endif /* variable declaration for backing up enable state of the Timer */
     #endif /* define backup variables only for UDB implementation. Fixed function registers are all retention */
+
 }Timer_3_backupStruct;
 
 
@@ -96,21 +95,17 @@ uint8   Timer_3_ReadStatusRegister(void) ;
 /* Deprecated function. Do not use this in future. Retained for backward compatibility */
 #define Timer_3_GetInterruptSource() Timer_3_ReadStatusRegister()
 
-#if(!Timer_3_ControlRegRemoved)
+#if(!Timer_3_UDB_CONTROL_REG_REMOVED)
     uint8   Timer_3_ReadControlRegister(void) ;
-    void    Timer_3_WriteControlRegister(uint8 control) \
-        ;
-#endif /* (!Timer_3_ControlRegRemoved) */
+    void    Timer_3_WriteControlRegister(uint8 control) ;
+#endif /* (!Timer_3_UDB_CONTROL_REG_REMOVED) */
 
 uint16  Timer_3_ReadPeriod(void) ;
-void    Timer_3_WritePeriod(uint16 period) \
-    ;
+void    Timer_3_WritePeriod(uint16 period) ;
 uint16  Timer_3_ReadCounter(void) ;
-void    Timer_3_WriteCounter(uint16 counter) \
-    ;
+void    Timer_3_WriteCounter(uint16 counter) ;
 uint16  Timer_3_ReadCapture(void) ;
 void    Timer_3_SoftwareCapture(void) ;
-
 
 #if(!Timer_3_UsingFixedFunction) /* UDB Prototypes */
     #if (Timer_3_SoftwareCaptureMode)
@@ -120,21 +115,19 @@ void    Timer_3_SoftwareCapture(void) ;
     #if (Timer_3_SoftwareTriggerMode)
         void    Timer_3_SetTriggerMode(uint8 triggerMode) ;
     #endif /* (Timer_3_SoftwareTriggerMode) */
+
     #if (Timer_3_EnableTriggerMode)
         void    Timer_3_EnableTrigger(void) ;
         void    Timer_3_DisableTrigger(void) ;
     #endif /* (Timer_3_EnableTriggerMode) */
 
+
     #if(Timer_3_InterruptOnCaptureCount)
-        #if(!Timer_3_ControlRegRemoved)
-            void    Timer_3_SetInterruptCount(uint8 interruptCount) \
-                ;
-        #endif /* (!Timer_3_ControlRegRemoved) */
+        void    Timer_3_SetInterruptCount(uint8 interruptCount) ;
     #endif /* (Timer_3_InterruptOnCaptureCount) */
 
     #if (Timer_3_UsingHWCaptureCounter)
-        void    Timer_3_SetCaptureCount(uint8 captureCount) \
-            ;
+        void    Timer_3_SetCaptureCount(uint8 captureCount) ;
         uint8   Timer_3_ReadCaptureCount(void) ;
     #endif /* (Timer_3_UsingHWCaptureCounter) */
 
@@ -256,8 +249,8 @@ void Timer_3_Wakeup(void)        ;
     #if (CY_PSOC5A)
         /* Use CFG1 Mode bits to set run mode */
         /* As defined by Verilog Implementation */
-        #define Timer_3_CTRL_MODE_SHIFT                     0x01u
-        #define Timer_3_CTRL_MODE_MASK                     ((uint8)((uint8)0x07u << Timer_3_CTRL_MODE_SHIFT))
+        #define Timer_3_CTRL_MODE_SHIFT                 0x01u
+        #define Timer_3_CTRL_MODE_MASK                 ((uint8)((uint8)0x07u << Timer_3_CTRL_MODE_SHIFT))
     #endif /* (CY_PSOC5A) */
     #if (CY_PSOC3 || CY_PSOC5LP)
         /* Control3 Register Bit Locations */
@@ -367,6 +360,8 @@ void Timer_3_Wakeup(void)        ;
         #endif /* CY_PSOC3 || CY_PSOC5 */ 
     #endif
 
+    #define Timer_3_COUNTER_LSB_PTR_8BIT       ((reg8 *) Timer_3_TimerUDB_sT16_timerdp_u0__A0_REG )
+    
     #if (Timer_3_UsingHWCaptureCounter)
         #define Timer_3_CAP_COUNT              (*(reg8 *) Timer_3_TimerUDB_sCapCount_counter__PERIOD_REG )
         #define Timer_3_CAP_COUNT_PTR          ( (reg8 *) Timer_3_TimerUDB_sCapCount_counter__PERIOD_REG )

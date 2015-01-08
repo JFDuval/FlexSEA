@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: Timer_3.c
-* Version 2.50
+* Version 2.60
 *
 * Description:
 *  The Timer component consists of a 8, 16, 24 or 32-bit timer with
@@ -15,7 +15,7 @@
 * Note:
 *
 ********************************************************************************
-* Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -129,10 +129,12 @@ void Timer_3_Init(void)
         #endif /* Set Capture Mode for UDB implementation if capture mode is software controlled */
 
         #if (Timer_3_SoftwareTriggerMode)
-            if (0u == (Timer_3_CONTROL & Timer_3__B_TIMER__TM_SOFTWARE))
-            {
-                Timer_3_SetTriggerMode(Timer_3_INIT_TRIGGER_MODE);
-            }
+            #if (!Timer_3_UDB_CONTROL_REG_REMOVED)
+                if (0u == (Timer_3_CONTROL & Timer_3__B_TIMER__TM_SOFTWARE))
+                {
+                    Timer_3_SetTriggerMode(Timer_3_INIT_TRIGGER_MODE);
+                }
+            #endif /* (!Timer_3_UDB_CONTROL_REG_REMOVED) */
         #endif /* Set trigger mode for UDB Implementation if trigger mode is software controlled */
 
         /* CyEnterCriticalRegion and CyExitCriticalRegion are used to mark following region critical*/
@@ -148,12 +150,11 @@ void Timer_3_Init(void)
         #if (Timer_3_EnableTriggerMode)
             Timer_3_EnableTrigger();
         #endif /* Set Trigger enable bit for UDB implementation in the control register*/
-
-        #if (Timer_3_InterruptOnCaptureCount)
-             #if (!Timer_3_ControlRegRemoved)
-                Timer_3_SetInterruptCount(Timer_3_INIT_INT_CAPTURE_COUNT);
-            #endif /* Set interrupt count in control register if control register is not removed */
-        #endif /*Set interrupt count in UDB implementation if interrupt count feature is checked.*/
+		
+		
+        #if (Timer_3_InterruptOnCaptureCount && !Timer_3_UDB_CONTROL_REG_REMOVED)
+            Timer_3_SetInterruptCount(Timer_3_INIT_INT_CAPTURE_COUNT);
+        #endif /* Set interrupt count in UDB implementation if interrupt count feature is checked.*/
 
         Timer_3_ClearFIFO();
     #endif /* Configure additional features of UDB implementation */
@@ -185,7 +186,7 @@ void Timer_3_Enable(void)
     #endif /* Set Enable bit for enabling Fixed function timer*/
 
     /* Remove assignment if control register is removed */
-    #if (!Timer_3_ControlRegRemoved || Timer_3_UsingFixedFunction)
+    #if (!Timer_3_UDB_CONTROL_REG_REMOVED || Timer_3_UsingFixedFunction)
         Timer_3_CONTROL |= Timer_3_CTRL_ENABLE;
     #endif /* Remove assignment if control register is removed */
 }
@@ -246,7 +247,7 @@ void Timer_3_Start(void)
 void Timer_3_Stop(void) 
 {
     /* Disable Timer */
-    #if(!Timer_3_ControlRegRemoved || Timer_3_UsingFixedFunction)
+    #if(!Timer_3_UDB_CONTROL_REG_REMOVED || Timer_3_UsingFixedFunction)
         Timer_3_CONTROL &= ((uint8)(~Timer_3_CTRL_ENABLE));
     #endif /* Remove assignment if control register is removed */
 
@@ -331,7 +332,7 @@ uint8   Timer_3_ReadStatusRegister(void)
 }
 
 
-#if (!Timer_3_ControlRegRemoved) /* Remove API if control register is removed */
+#if (!Timer_3_UDB_CONTROL_REG_REMOVED) /* Remove API if control register is unused */
 
 
 /*******************************************************************************
@@ -350,7 +351,11 @@ uint8   Timer_3_ReadStatusRegister(void)
 *******************************************************************************/
 uint8 Timer_3_ReadControlRegister(void) 
 {
-    return ((uint8)Timer_3_CONTROL);
+    #if (!Timer_3_UDB_CONTROL_REG_REMOVED) 
+        return ((uint8)Timer_3_CONTROL);
+    #else
+        return (0);
+    #endif /* (!Timer_3_UDB_CONTROL_REG_REMOVED) */
 }
 
 
@@ -369,9 +374,14 @@ uint8 Timer_3_ReadControlRegister(void)
 *******************************************************************************/
 void Timer_3_WriteControlRegister(uint8 control) 
 {
-    Timer_3_CONTROL = control;
+    #if (!Timer_3_UDB_CONTROL_REG_REMOVED) 
+        Timer_3_CONTROL = control;
+    #else
+        control = 0u;
+    #endif /* (!Timer_3_UDB_CONTROL_REG_REMOVED) */
 }
-#endif /* Remove API if control register is removed */
+
+#endif /* Remove API if control register is unused */
 
 
 /*******************************************************************************
@@ -463,8 +473,7 @@ uint16 Timer_3_ReadCapture(void)
 *  void
 *
 *******************************************************************************/
-void Timer_3_WriteCounter(uint16 counter) \
-                                   
+void Timer_3_WriteCounter(uint16 counter) 
 {
    #if(Timer_3_UsingFixedFunction)
         /* This functionality is removed until a FixedFunction HW update to
@@ -494,11 +503,14 @@ void Timer_3_WriteCounter(uint16 counter) \
 *******************************************************************************/
 uint16 Timer_3_ReadCounter(void) 
 {
-
     /* Force capture by reading Accumulator */
     /* Must first do a software capture to be able to read the counter */
     /* It is up to the user code to make sure there isn't already captured data in the FIFO */
-    (void)Timer_3_COUNTER_LSB;
+    #if(Timer_3_UsingFixedFunction)
+        (void)CY_GET_REG16(Timer_3_COUNTER_LSB_PTR);
+    #else
+        (void)CY_GET_REG8(Timer_3_COUNTER_LSB_PTR_8BIT);
+    #endif/* (Timer_3_UsingFixedFunction) */
 
     /* Read the data from the FIFO (or capture register for Fixed Function)*/
     #if(Timer_3_UsingFixedFunction)
@@ -511,6 +523,7 @@ uint16 Timer_3_ReadCounter(void)
 
 #if(!Timer_3_UsingFixedFunction) /* UDB Specific Functions */
 
+    
 /*******************************************************************************
  * The functions below this point are only available using the UDB
  * implementation.  If a feature is selected, then the API is enabled.
@@ -552,11 +565,13 @@ void Timer_3_SetCaptureMode(uint8 captureMode)
     captureMode = ((uint8)((uint8)captureMode << Timer_3_CTRL_CAP_MODE_SHIFT));
     captureMode &= (Timer_3_CTRL_CAP_MODE_MASK);
 
-    /* Clear the Current Setting */
-    Timer_3_CONTROL &= ((uint8)(~Timer_3_CTRL_CAP_MODE_MASK));
+    #if (!Timer_3_UDB_CONTROL_REG_REMOVED)
+        /* Clear the Current Setting */
+        Timer_3_CONTROL &= ((uint8)(~Timer_3_CTRL_CAP_MODE_MASK));
 
-    /* Write The New Setting */
-    Timer_3_CONTROL |= captureMode;
+        /* Write The New Setting */
+        Timer_3_CONTROL |= captureMode;
+    #endif /* (!Timer_3_UDB_CONTROL_REG_REMOVED) */
 }
 #endif /* Remove API if Capture Mode is not Software Controlled */
 
@@ -588,12 +603,14 @@ void Timer_3_SetTriggerMode(uint8 triggerMode)
     /* This must only set to two bits of the control register associated */
     triggerMode &= Timer_3_CTRL_TRIG_MODE_MASK;
 
-    /* Clear the Current Setting */
-    Timer_3_CONTROL &= ((uint8)(~Timer_3_CTRL_TRIG_MODE_MASK));
+    #if (!Timer_3_UDB_CONTROL_REG_REMOVED)   /* Remove assignment if control register is removed */
+    
+        /* Clear the Current Setting */
+        Timer_3_CONTROL &= ((uint8)(~Timer_3_CTRL_TRIG_MODE_MASK));
 
-    /* Write The New Setting */
-    Timer_3_CONTROL |= (triggerMode | Timer_3__B_TIMER__TM_SOFTWARE);
-
+        /* Write The New Setting */
+        Timer_3_CONTROL |= (triggerMode | Timer_3__B_TIMER__TM_SOFTWARE);
+    #endif /* Remove code section if control register is not used */
 }
 #endif /* Remove API if Trigger Mode is not Software Controlled */
 
@@ -616,7 +633,7 @@ void Timer_3_SetTriggerMode(uint8 triggerMode)
 *******************************************************************************/
 void Timer_3_EnableTrigger(void) 
 {
-    #if (!Timer_3_ControlRegRemoved)   /* Remove assignment if control register is removed */
+    #if (!Timer_3_UDB_CONTROL_REG_REMOVED)   /* Remove assignment if control register is removed */
         Timer_3_CONTROL |= Timer_3_CTRL_TRIG_EN;
     #endif /* Remove code section if control register is not used */
 }
@@ -638,15 +655,13 @@ void Timer_3_EnableTrigger(void)
 *******************************************************************************/
 void Timer_3_DisableTrigger(void) 
 {
-    #if (!Timer_3_ControlRegRemoved)   /* Remove assignment if control register is removed */
+    #if (!Timer_3_UDB_CONTROL_REG_REMOVED )   /* Remove assignment if control register is removed */
         Timer_3_CONTROL &= ((uint8)(~Timer_3_CTRL_TRIG_EN));
     #endif /* Remove code section if control register is not used */
 }
 #endif /* Remove API is Trigger Mode is set to None */
 
-
 #if(Timer_3_InterruptOnCaptureCount)
-#if (!Timer_3_ControlRegRemoved)   /* Remove API if control register is removed */
 
 
 /*******************************************************************************
@@ -671,12 +686,13 @@ void Timer_3_SetInterruptCount(uint8 interruptCount)
     /* This must only set to two bits of the control register associated */
     interruptCount &= Timer_3_CTRL_INTCNT_MASK;
 
-    /* Clear the Current Setting */
-    Timer_3_CONTROL &= ((uint8)(~Timer_3_CTRL_INTCNT_MASK));
-    /* Write The New Setting */
-    Timer_3_CONTROL |= interruptCount;
+    #if (!Timer_3_UDB_CONTROL_REG_REMOVED)
+        /* Clear the Current Setting */
+        Timer_3_CONTROL &= ((uint8)(~Timer_3_CTRL_INTCNT_MASK));
+        /* Write The New Setting */
+        Timer_3_CONTROL |= interruptCount;
+    #endif /* (!Timer_3_UDB_CONTROL_REG_REMOVED) */
 }
-#endif /* Remove API if control register is removed */
 #endif /* Timer_3_InterruptOnCaptureCount */
 
 

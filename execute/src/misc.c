@@ -73,6 +73,11 @@ void init_peripherals(void)
 	UART_2_Enable();
 	UART_2_Start();		
 	NOT_RE_Write(0);			//Enable RS-485 Receiver
+	
+	//RGB LED (all colors OFF)
+	LED0_Write(1);
+	LED1_Write(1);
+	LED2_Write(1);
 }
 
 //Initialize the USB peripheral

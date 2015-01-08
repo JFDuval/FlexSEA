@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: ADC_DelSig_1.c
-* Version 3.0
+* Version 3.10
 *
 * Description:
 *  This file provides the source code to the API for the Delta-Sigma ADC
