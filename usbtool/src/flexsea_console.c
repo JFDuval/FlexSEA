@@ -2,7 +2,7 @@
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
 // jfduval@mit.edu
-// 07/2014
+// 01/2015
 //****************************************************************************
 // flexsea_console: Console application used to send commands on the network
 //****************************************************************************
@@ -32,9 +32,9 @@
 char slave_list[MAX_SLAVE][20] = {"default", "manage_1", "execute_1", "execute_2"};
 unsigned char slave_id[MAX_SLAVE] = {FLEXSEA_DEFAULT, FLEXSEA_MANAGE_1, FLEXSEA_EXECUTE_1, FLEXSEA_EXECUTE_2};
 //Console command list:
-char fcp_list[MAX_CMD][20] = {"info", "set_pid_gains", "set_clutch", "open_spd", "trapeze", "set_leds", "read", "stream", "set_current"};
+char fcp_list[MAX_CMD][20] = {"info", "set_pid_gains", "set_clutch", "open_spd", "trapeze", "set_leds", "read", "stream", "set_current", "set_control", "set_current_gains", "set_z_gains"};
 //info is command 0, set_pid is 1, etc...
-char fcp_args[MAX_CMD] = {0, 3, 1, 1, 4, 4, 1, 0, 1};
+char fcp_args[MAX_CMD] = {0, 3, 1, 1, 4, 4, 1, 0, 1, 1, 3, 3};
 //fcp_args contains the number of arguments for each command
 
 //****************************************************************************
@@ -276,6 +276,28 @@ void flexsea_console_parser(int argc, char *argv[])
                     tx_set_current(slave_id[c], atoi(argv[3]));
                     numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
                     break;
+				case 9: //'set_control'
+					ctrl = atoi(argv[3]);
+					printf("[Set Controller Type]: %i.\n", ctrl);
+					tx_set_control(slave_id[c], ctrl);
+					numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+					break;
+				case 10: //'set_current_gains'
+					c_p = atoi(argv[3]);
+					c_i = atoi(argv[4]);
+					c_d = atoi(argv[5]);
+					printf("[Set Current Gains]: p=%i, i=%i, d=%i.\n", c_p, c_i, c_d);
+					tx_set_current_gains(slave_id[c], c_p, c_i, c_d);
+					numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+					break;
+				case 11: //'set_z_gains'
+					z_k = atoi(argv[3]);
+					z_b = atoi(argv[4]);
+					z_i = atoi(argv[5]);
+					printf("[Set Impedance Gains]: k=%i, b=%i, i=%i.\n", z_k, z_b, z_i);
+					tx_set_z_gains(slave_id[c], z_k, z_b, z_i);
+					numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+					break;
                 default:
                     printf("Invalid command.\n");
                     break;

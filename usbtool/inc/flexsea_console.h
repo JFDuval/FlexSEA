@@ -2,7 +2,7 @@
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
 // jfduval@mit.edu
-// 07/2014
+// 01/2015
 //****************************************************************************
 // flexsea_console: Console application used to send commands on the network
 //****************************************************************************
@@ -31,7 +31,7 @@ void flexsea_console_stream_slave_read(unsigned char slaveid, unsigned char offs
 //****************************************************************************
 
 //MAX_CMD has to equal the number of FCP_xx lines!
-#define MAX_CMD         9
+#define MAX_CMD         12
 #define NO_CMD_FOUND    127
 
 //MAX_SLAVE has to equal the number of slave_list lines!
