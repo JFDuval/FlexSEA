@@ -138,7 +138,10 @@ void flexsea_console_parser(int argc, char *argv[])
     char string1[20], string2[20];
     int i = 0, numb = 0;
     unsigned char offs = 0;
-    unsigned char r = 0, g = 0, b = 0;
+    unsigned char r = 0, g = 0, b = 0, ctrl = 0;
+    int z_k = 0, z_b = 0, z_i = 0;
+    int c_p = 0, c_i = 0, c_d = 0;
+
 
     //Arguments passed to the function:
     if(argc <= 1)
