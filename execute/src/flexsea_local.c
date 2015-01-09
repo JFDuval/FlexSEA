@@ -44,8 +44,8 @@ extern unsigned char payload_str[];
 
 //ADC
 extern volatile uint16 adc1_result_avg8;
-extern unsigned int adc_res[ADC_CHANNELS][ADC_BUF_LEN];
-extern unsigned int adc_res_filtered[ADC_CHANNELS];
+extern unsigned int adc1_res[ADC1_CHANNELS][ADC1_BUF_LEN];
+extern unsigned int adc1_res_filtered[ADC1_CHANNELS];
 
 extern unsigned char read_offset;
 
@@ -94,10 +94,10 @@ void flexsea_update_slave_read_buffer(unsigned char read_offset)
 	slave_read_buffer[SRB_EXECUTE_STATUS] = controller;			
 	slave_read_buffer[SRB_EXECUTE_ENC1_MSB] = (enc1 & 0xFF00)>>8;
 	slave_read_buffer[SRB_EXECUTE_ENC1_LSB] = (enc1 & 0x00FF);
-	slave_read_buffer[SRB_EXECUTE_AN0_MSB] = ((adc_res_filtered[0] & 0x0F00) >> 8);
-	slave_read_buffer[SRB_EXECUTE_AN0_LSB] = (adc_res_filtered[0] & 0xFF);
-	slave_read_buffer[SRB_EXECUTE_AN1_MSB] = ((adc_res_filtered[1] & 0x0F00) >> 8);
-	slave_read_buffer[SRB_EXECUTE_AN1_LSB] = (adc_res_filtered[1] & 0xFF);
+	slave_read_buffer[SRB_EXECUTE_AN0_MSB] = ((adc1_res_filtered[0] & 0x0F00) >> 8);
+	slave_read_buffer[SRB_EXECUTE_AN0_LSB] = (adc1_res_filtered[0] & 0xFF);
+	slave_read_buffer[SRB_EXECUTE_AN1_MSB] = ((adc1_res_filtered[1] & 0x0F00) >> 8);
+	slave_read_buffer[SRB_EXECUTE_AN1_LSB] = (adc1_res_filtered[1] & 0xFF);
 	slave_read_buffer[SRB_EXECUTE_CURRENT_MSB] = 0x02;	//ToDo
 	slave_read_buffer[SRB_EXECUTE_CURRENT_LSB] = 0x9A;
 

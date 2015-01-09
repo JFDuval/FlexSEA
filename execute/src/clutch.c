@@ -3,21 +3,7 @@
 
 void clutch_output(uint8 value)
 {
-	if(value == CLUTCH_10V)
-	{
-		CLUTCH_10_Write(1);
-		CLUTCH_24_Write(0);
-	}
-	else if(value == CLUTCH_24V)
-	{
-		CLUTCH_10_Write(0);
-		CLUTCH_24_Write(1);
-	}
-	else
-	{
-		CLUTCH_10_Write(0);
-		CLUTCH_24_Write(0);
-	}		
+	PWM_2_WriteCompare(value);
 }
 
 //Call this function in t2_50ms to test

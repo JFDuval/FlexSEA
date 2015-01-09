@@ -13,7 +13,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="execute-cop-000\execute-cop\Source Files\main.c">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="execute-cop-000\execute-cop\Generated_Source\PSoC4\ADC_SAR_Seq_1\ADC_SAR_Seq_1.c">
 <ExpandedNodeIds>
 <v>execute-cop-000</v>
 <v>execute-cop-000\execute-cop</v>
@@ -483,6 +483,9 @@
 <OpenDocs>
 <name v=".\TopDesign\TopDesign.cysch" />
 <name v=".\main.c" />
+<name v=".\execute-cop.cydwr" />
+<name v=".\Generated_Source\PSoC4\ADC_SAR_Seq_1_INT.c" />
+<name v=".\Generated_Source\PSoC4\ADC_SAR_Seq_1.c" />
 </OpenDocs>
 <config v="" />
 <AutoUpdate v="true" />

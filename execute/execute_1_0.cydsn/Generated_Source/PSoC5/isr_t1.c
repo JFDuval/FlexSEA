@@ -177,7 +177,7 @@ CY_ISR(isr_t1_Interrupt)
 		count2 = 0;
 		toggle2^=1;
 		if(active_error)
-			LED2_Write(toggle2);
+			LED_R_Write(toggle2);
 	}
 	
 	//Flag for the main code

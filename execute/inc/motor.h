@@ -6,11 +6,11 @@
 //Common defines:
 
 //PWM limits
-#define MAX_PWM					3199
+#define MAX_PWM					3999
 #define MIN_PWM					-MAX_PWM
 	
 //Position controller
-#define POS_PWM_LIMIT			3000		//x%
+#define POS_PWM_LIMIT			3500		//x%
 #define MAX_CUMULATIVE_ERROR	1000
 #define GAIN_P					0			//Default value - will change at runtime
 #define GAIN_I					0			//Idem

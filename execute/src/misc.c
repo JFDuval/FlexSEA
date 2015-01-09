@@ -7,8 +7,8 @@
 uint8 buffer[BUFFER_LEN];
 
 //ADC
-unsigned int adc_res[ADC_CHANNELS][ADC_BUF_LEN];
-unsigned int adc_res_filtered[ADC_CHANNELS];
+unsigned int adc1_res[ADC1_CHANNELS][ADC1_BUF_LEN];
+unsigned int adc1_res_filtered[ADC1_CHANNELS];
 
 //Initialize and enables all the general peripherals
 void init_peripherals(void)
@@ -75,9 +75,9 @@ void init_peripherals(void)
 	NOT_RE_Write(0);			//Enable RS-485 Receiver
 	
 	//RGB LED (all colors OFF)
-	LED0_Write(1);
-	LED1_Write(1);
-	LED2_Write(1);
+	LED_R_Write(1);
+	LED_G_Write(1);
+	LED_B_Write(1);
 }
 
 //Initialize the USB peripheral
@@ -304,9 +304,9 @@ void filter_adc(void)
 	
 	for(i = 0; i < 8; i++)
 	{
-		tmp_ch0 += adc_res[0][i];
-		tmp_ch1 += adc_res[1][i];
+		tmp_ch0 += adc1_res[0][i];
+		tmp_ch1 += adc1_res[1][i];
 	}
-	adc_res_filtered[0] = tmp_ch0 >> 3;
-	adc_res_filtered[1] = tmp_ch1 >> 3;
+	adc1_res_filtered[0] = tmp_ch0 >> 3;
+	adc1_res_filtered[1] = tmp_ch1 >> 3;
 }

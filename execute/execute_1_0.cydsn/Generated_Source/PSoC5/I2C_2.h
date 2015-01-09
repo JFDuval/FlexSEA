@@ -966,7 +966,7 @@ extern uint8 I2C_2_initVar;
                                              I2C_2_ENABLE_SLAVE)
 
     /*I2C_2_DEFAULT_DIVIDE_FACTOR_REG */
-    #define I2C_2_DEFAULT_DIVIDE_FACTOR  ((CY_PSOC5A) ? ((uint8) 6u) : ((uint16) 40u))
+    #define I2C_2_DEFAULT_DIVIDE_FACTOR  ((CY_PSOC5A) ? ((uint8) 6u) : ((uint16) 50u))
 
 #else
     /* I2C_2_CFG_REG: bits definition  */

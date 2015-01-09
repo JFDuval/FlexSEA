@@ -29,8 +29,8 @@
 #include "misc.h"
 volatile uint16 adc1_result = 0;
 volatile uint16 adc1_result_avg8 = 0;
-extern unsigned int adc_res[ADC_CHANNELS][ADC_BUF_LEN];
-extern unsigned int adc_res_filtered[ADC_CHANNELS];
+extern unsigned int adc1_res[ADC1_CHANNELS][ADC1_BUF_LEN];
+extern unsigned int adc1_res_filtered[ADC1_CHANNELS];
 
 unsigned char adc_sar1_flag = 0;
 
@@ -81,19 +81,25 @@ unsigned char adc_sar1_flag = 0;
 		static unsigned char ch = 0;
 	
 		//Store last value
-		adc_res[ch][cnt] = ADC_SAR_1_GetResult16();
+		adc1_res[ch][cnt] = ADC_SAR_1_GetResult16();
 		
 		//Increment counter
 		cnt++;
 		//Time to switch channel?
-		if(cnt >= ADC_BUF_LEN)
+		if(cnt >= ADC1_BUF_LEN)
 		{
 			cnt = 0;
 			
+			/*
 			if(ch == 0)
 				ch = 1;
 			else
 				ch = 0;
+			*/
+			if(ch >= ADC1_CHANNELS)
+				ch = 0;
+			else
+				ch++;
 
 			//Refresh MUX:
 			ADC_SAR_1_StopConvert();

@@ -18,7 +18,7 @@ int16 old_enc_count = 0;
 int16 diff_enc_count = 0;
 uint8 motor_control_flag = 0;
 extern int steps, current_step, pos;
-extern unsigned int adc_res_filtered[ADC_CHANNELS];
+extern unsigned int adc1_res_filtered[ADC1_CHANNELS];
 
 //Impedance controller:
 int z_gain_k = 0, z_gain_b = 0, z_gain_i = 0;
@@ -349,7 +349,7 @@ void control_strategy(unsigned char strat)
 	//To avoid a huge startup error on the Position-based controllers:
 	if(strat == CTRL_POSITION)
 	{
-		pos = adc_res_filtered[0];
+		pos = adc1_res_filtered[0];
 		steps = trapez_gen_motion_1(pos, pos, 1, 1);
 	}
 	else if(strat == CTRL_IMPEDANCE)

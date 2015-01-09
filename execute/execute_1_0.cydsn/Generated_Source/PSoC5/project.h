@@ -78,12 +78,12 @@
 #include <PWML1.h>
 #include <PWMH1_aliases.h>
 #include <PWMH1.h>
-#include <LED2_aliases.h>
-#include <LED2.h>
-#include <LED1_aliases.h>
-#include <LED1.h>
-#include <LED0_aliases.h>
-#include <LED0.h>
+#include <LED_B_aliases.h>
+#include <LED_B.h>
+#include <LED_G_aliases.h>
+#include <LED_G.h>
+#include <LED_R_aliases.h>
+#include <LED_R.h>
 #include <H3_aliases.h>
 #include <H3.h>
 #include <H2_aliases.h>
@@ -142,6 +142,7 @@
 #include <HalfV_aliases.h>
 #include <HalfV.h>
 #include <PWM_2.h>
+#include <Clock_4.h>
 #include <RX2_aliases.h>
 #include <RX2.h>
 #include <RX3_aliases.h>
@@ -197,6 +198,7 @@
 #include <USBUART_1_Dm.h>
 #include <USBUART_1_Dp_aliases.h>
 #include <USBUART_1_Dp.h>
+#include <CyHBUS_40MHZ.h>
 #include <core_cm3_psoc5.h>
 #include <core_cm3.h>
 #include <CyDmac.h>

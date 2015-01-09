@@ -13,7 +13,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="execute\execute_1_0\Source Files\src\motor.c">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1\ADC_SAR_1_INT.c">
 <ExpandedNodeIds>
 <v>execute</v>
 <v>execute\execute_1_0</v>
@@ -63,18 +63,22 @@
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1_IRQ\ADC_DelSig_1_IRQ.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1_theACLK\ADC_DelSig_1_theACLK.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1_theACLK\ADC_DelSig_1_theACLK.h</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1\ADC_SAR_1.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1\ADC_SAR_1.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1\ADC_SAR_1_INT.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1\ADC_SAR_1_PM.c</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1_IRQ</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1_IRQ\ADC_SAR_1_IRQ.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1_IRQ\ADC_SAR_1_IRQ.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1_theACLK\ADC_SAR_1_theACLK.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1_theACLK\ADC_SAR_1_theACLK.h</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_2</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_2\ADC_SAR_2.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_2\ADC_SAR_2.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_2\ADC_SAR_2_INT.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_2\ADC_SAR_2_PM.c</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_2_IRQ</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_2_IRQ\ADC_SAR_2_IRQ.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_2_IRQ\ADC_SAR_2_IRQ.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_2_theACLK\ADC_SAR_2_theACLK.c</v>
@@ -91,6 +95,9 @@
 <v>execute\execute_1_0\Generated_Source\PSoC5\AOP_OUT\AOP_OUT_aliases.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\CLK_100kHz\CLK_100kHz.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\CLK_100kHz\CLK_100kHz.h</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\Clock_4</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\Clock_4\Clock_4.c</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\Clock_4\Clock_4.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\CLUTCH_10\CLUTCH_10.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\CLUTCH_10\CLUTCH_10.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\CLUTCH_10\CLUTCH_10_aliases.h</v>
@@ -132,6 +139,9 @@
 <v>execute\execute_1_0\Generated_Source\PSoC5\cy_boot\CySpc.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\cy_boot\cytypes.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\cy_boot\cyutils.c</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\CyHBUS_40MHZ</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\CyHBUS_40MHZ\CyHBUS_40MHZ.c</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\CyHBUS_40MHZ\CyHBUS_40MHZ.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\DE\DE.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\DE\DE.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\DE\DE_aliases.h</v>
@@ -226,185 +236,140 @@
 <v>execute\execute_1_0\Generated_Source\PSoC5\isr_t3</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\isr_t3\isr_t3.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\isr_t3\isr_t3.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\LED_HB</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\LED_B\LED_B.c</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\LED_B\LED_B.h</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\LED_B\LED_B_aliases.h</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\LED_G\LED_G.c</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\LED_G\LED_G.h</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\LED_G\LED_G_aliases.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\LED_HB\LED_HB.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\LED_HB\LED_HB.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\LED_HB\LED_HB_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\LED0</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\LED0\LED0.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\LED0\LED0.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\LED0\LED0_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\LED1</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\LED1\LED1.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\LED1\LED1.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\LED1\LED1_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\LED2</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\LED2\LED2.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\LED2\LED2.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\LED2\LED2_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\MUXO</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\LED_R\LED_R.c</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\LED_R\LED_R.h</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\LED_R\LED_R_aliases.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\MUXO\MUXO.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\MUXO\MUXO.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\MUXO\MUXO_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\MV1</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\MV1\MV1.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\MV1\MV1.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\MV1\MV1_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\MV2</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\MV2\MV2.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\MV2\MV2.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\MV2\MV2_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\MV3</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\MV3\MV3.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\MV3\MV3.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\MV3\MV3_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\NOT_RE</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\NOT_RE\NOT_RE.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\NOT_RE\NOT_RE.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\NOT_RE\NOT_RE_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\NOT_RE2</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\NOT_RE2\NOT_RE2.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\NOT_RE2\NOT_RE2.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\NOT_RE2\NOT_RE2_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\NOT_RE3</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\NOT_RE3\NOT_RE3.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\NOT_RE3\NOT_RE3.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\NOT_RE3\NOT_RE3_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\Opamp_1</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\Opamp_1\Opamp_1.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\Opamp_1\Opamp_1.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\Opamp_1\Opamp_1_PM.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\Opamp_2</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\Opamp_2\Opamp_2.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\Opamp_2\Opamp_2.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\Opamp_2\Opamp_2_PM.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\Opamp_3</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\Opamp_3\Opamp_3.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\Opamp_3\Opamp_3.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\Opamp_3\Opamp_3_PM.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\PGA_1</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\PGA_1\PGA_1.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\PGA_1\PGA_1.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\PGA_1\PGA_1_PM.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\PWM_1</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\PWM_1\PWM_1.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\PWM_1\PWM_1.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\PWM_1\PWM_1_PM.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\PWM_2</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\PWM_2\PWM_2.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\PWM_2\PWM_2.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\PWM_2\PWM_2_PM.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\PWMH1</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\PWMH1\PWMH1.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\PWMH1\PWMH1.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\PWMH1\PWMH1_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\PWMH2</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\PWMH2\PWMH2.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\PWMH2\PWMH2.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\PWMH2\PWMH2_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\PWMH3</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\PWMH3\PWMH3.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\PWMH3\PWMH3.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\PWMH3\PWMH3_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\PWML1</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\PWML1\PWML1.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\PWML1\PWML1.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\PWML1\PWML1_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\PWML2</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\PWML2\PWML2.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\PWML2\PWML2.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\PWML2\PWML2_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\PWML3</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\PWML3\PWML3.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\PWML3\PWML3.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\PWML3\PWML3_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\Q1_A</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\Q1_A\Q1_A.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\Q1_A\Q1_A.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\Q1_A\Q1_A_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\Q1_B</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\Q1_B\Q1_B.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\Q1_B\Q1_B.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\Q1_B\Q1_B_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\Q1_I</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\Q1_I\Q1_I.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\Q1_I\Q1_I.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\Q1_I\Q1_I_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\QuadDec_1</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\QuadDec_1\QuadDec_1.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\QuadDec_1\QuadDec_1.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\QuadDec_1\QuadDec_1_INT.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\QuadDec_1\QuadDec_1_PM.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\QuadDec_1\QuadDec_1_PVT.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\QuadDec_1_Cnt16</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\QuadDec_1_Cnt16\QuadDec_1_Cnt16.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\QuadDec_1_Cnt16\QuadDec_1_Cnt16.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\QuadDec_1_Cnt16\QuadDec_1_Cnt16_PM.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\QuadDec_1_isr</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\QuadDec_1_isr\QuadDec_1_isr.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\QuadDec_1_isr\QuadDec_1_isr.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\REF</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\REF\REF.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\REF\REF.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\REF\REF_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\RO</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\RO\RO.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\RO\RO.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\RO\RO_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\RX2</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\RX2\RX2.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\RX2\RX2.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\RX2\RX2_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\RX3</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\RX3\RX3.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\RX3\RX3.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\RX3\RX3_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\SCL_1</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\SCL_1\SCL_1.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\SCL_1\SCL_1.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\SCL_1\SCL_1_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\SDA_1</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\SDA_1\SDA_1.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\SDA_1\SDA_1.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\SDA_1\SDA_1_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\SG_VO1</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\SG_VO1\SG_VO1.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\SG_VO1\SG_VO1.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\SG_VO1\SG_VO1_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\SG_VO2</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\SG_VO2\SG_VO2.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\SG_VO2\SG_VO2.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\SG_VO2\SG_VO2_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\Timer_1</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\Timer_1\Timer_1.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\Timer_1\Timer_1.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\Timer_1\Timer_1_PM.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\Timer_2</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\Timer_2\Timer_2.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\Timer_2\Timer_2.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\Timer_2\Timer_2_PM.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\Timer_3</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\Timer_3\Timer_3.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\Timer_3\Timer_3.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\Timer_3\Timer_3_PM.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\TX2</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\TX2\TX2.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\TX2\TX2.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\TX2\TX2_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\TX3</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\TX3\TX3.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\TX3\TX3.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\TX3\TX3_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\UART_2</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\UART_2\UART_2.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\UART_2\UART_2.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\UART_2\UART_2_BOOT.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\UART_2\UART_2_INT.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\UART_2\UART_2_PM.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\UART_2_IntClock</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\UART_2_IntClock\UART_2_IntClock.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\UART_2_IntClock\UART_2_IntClock.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\USBUART_1</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\USBUART_1\USBUART_1.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\USBUART_1\USBUART_1.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\USBUART_1\USBUART_1_audio.c</v>
@@ -425,39 +390,30 @@
 <v>execute\execute_1_0\Generated_Source\PSoC5\USBUART_1\USBUART_1_pvt.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\USBUART_1\USBUART_1_std.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\USBUART_1\USBUART_1_vnd.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\USBUART_1_Dm</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\USBUART_1_Dm\USBUART_1_Dm.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\USBUART_1_Dm\USBUART_1_Dm.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\USBUART_1_Dm\USBUART_1_Dm_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\USBUART_1_Dp</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\USBUART_1_Dp\USBUART_1_Dp.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\USBUART_1_Dp\USBUART_1_Dp.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\USBUART_1_Dp\USBUART_1_Dp_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\VB_SNS</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\VB_SNS\VB_SNS.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\VB_SNS\VB_SNS.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\VB_SNS\VB_SNS_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\VDAC8_1</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\VDAC8_1\VDAC8_1.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\VDAC8_1\VDAC8_1.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\VDAC8_1\VDAC8_1_PM.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\VDAC8_3</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\VDAC8_3\VDAC8_3.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\VDAC8_3\VDAC8_3.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\VDAC8_3\VDAC8_3_PM.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\VR1</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\VR1\VR1.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\VR1\VR1.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\VR1\VR1_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\VR1_PRE</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\VR1_PRE\VR1_PRE.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\VR1_PRE\VR1_PRE.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\VR1_PRE\VR1_PRE_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\VR2</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\VR2\VR2.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\VR2\VR2.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\VR2\VR2_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\WDCLK</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\WDCLK\WDCLK.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\WDCLK\WDCLK.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\WDCLK\WDCLK_aliases.h</v>
@@ -480,24 +436,6 @@
 <v>execute\execute_1_0\Generated_Source\PSoC5\project.h</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
-<v>execute</v>
-<v>execute\execute_1_0</v>
-<v>execute\execute_1_0\TopDesign.cysch</v>
-<v>execute\execute_1_0\execute_1_0.cydwr</v>
-<v>execute\execute_1_0\Header Files</v>
-<v>execute\execute_1_0\Header Files\common</v>
-<v>execute\execute_1_0\Header Files\common\flexsea.h</v>
-<v>execute\execute_1_0\Header Files\common\flexsea_comm.h</v>
-<v>execute\execute_1_0\Header Files\common\flexsea_payload.h</v>
-<v>execute\execute_1_0\Header Files\common\flexsea_rx_cmd.h</v>
-<v>execute\execute_1_0\Header Files\common\flexsea_tx_cmd.h</v>
-<v>execute\execute_1_0\Header Files\inc</v>
-<v>execute\execute_1_0\Header Files\inc\clutch.h</v>
-<v>execute\execute_1_0\Header Files\inc\comm.h</v>
-<v>execute\execute_1_0\Header Files\inc\flexsea_local.h</v>
-<v>execute\execute_1_0\Header Files\inc\main.h</v>
-<v>execute\execute_1_0\Header Files\inc\misc.h</v>
-<v>execute\execute_1_0\Header Files\inc\motor.h</v>
 <v>execute\execute_1_0\Header Files\inc\trapez.h</v>
 <v>execute\execute_1_0\Source Files</v>
 <v>execute\execute_1_0\Source Files\common</v>
@@ -522,13 +460,31 @@
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1_IRQ</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1_theACLK</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1\ADC_SAR_1.c</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1\ADC_SAR_1.h</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1\ADC_SAR_1_INT.c</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1\ADC_SAR_1_PM.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1_IRQ</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1_IRQ\ADC_SAR_1_IRQ.c</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1_IRQ\ADC_SAR_1_IRQ.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1_theACLK</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_2</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_2\ADC_SAR_2.c</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_2\ADC_SAR_2.h</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_2\ADC_SAR_2_INT.c</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_2\ADC_SAR_2_PM.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_2_IRQ</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_2_IRQ\ADC_SAR_2_IRQ.c</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_2_IRQ\ADC_SAR_2_IRQ.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_2_theACLK</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\AMux_1</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\AMux_2</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\AOP_IN</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\AOP_OUT</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\CLK_100kHz</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\Clock_4</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\Clock_4\Clock_4.c</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\Clock_4\Clock_4.h</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
@@ -575,6 +531,7 @@
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\AOP_IN.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\AOP_OUT.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\CLK_100kHz.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\Clock_4.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\clutch.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\CLUTCH_10.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\CLUTCH_24.lst</v>
@@ -588,6 +545,7 @@
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\CyDmac.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\cyfitter_cfg.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\CyFlash.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\CyHBUS_40MHZ.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\CyLib.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\cymetadata.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\cyPm.lst</v>
@@ -638,10 +596,10 @@
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\isr_t1.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\isr_t2.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\isr_t3.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\LED_B.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\LED_G.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\LED_HB.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\LED0.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\LED1.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\LED2.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\LED_R.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\main.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\misc.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\motor.lst</v>
@@ -760,6 +718,7 @@
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\AOP_IN.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\AOP_OUT.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\CLK_100kHz.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\Clock_4.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\clutch.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\CLUTCH_10.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\CLUTCH_24.lst</v>
@@ -773,14 +732,13 @@
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\CyDmac.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\cyfitter_cfg.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\CyFlash.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\CyHBUS_40MHZ.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\CyLib.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\cymetadata.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\cyPm.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\CySpc.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\cyutils.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\DE.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\DE2.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\DE3.lst</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStates>
@@ -871,6 +829,20 @@
 <name v=".\src\misc.c" />
 <name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\ADC_SAR_2_INT.c" />
 <name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\isr_t1.c" />
+<name v=".\inc\motor.h" />
+<name v=".\inc\main.h" />
+<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\isr_pwm.c" />
+<name v=".\src\motor.c" />
+<name v="..\common\inc\flexsea.h" />
+<name v="..\common\src\flexsea_rx_cmd.c" />
+<name v=".\src\clutch.c" />
+<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\cyfittergnu.inc" />
+<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\cyfitterrv.inc" />
+<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\cyfitteriar.inc" />
+<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\ADC_SAR_1_INT.c" />
+<name v=".\inc\misc.h" />
+<name v=".\src\flexsea_local.c" />
+<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\UART_2.c" />
 </OpenDocs>
 <config v="" />
 <AutoUpdate v="true" />

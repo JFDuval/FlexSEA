@@ -60,7 +60,7 @@ int16 wpos = 7750;
 extern volatile uint16 adc1_result;
 extern volatile uint16 adc1_result_avg8;
 extern unsigned char adc_sar1_flag;
-extern unsigned int adc_res_filtered[ADC_CHANNELS];
+extern unsigned int adc_res_filtered[ADC1_CHANNELS];
 
 //FlexSEA Network
 extern unsigned char payload_str[];
@@ -100,7 +100,7 @@ int main()
 	int trapez_wpos = KNEE_DOWN;
 	unsigned char result = 0;
 	unsigned char comm_str_payload1[16];
-	unsigned char led1_state = 0, led2_state = 0;
+	unsigned char ledr_state = 0, ledg_state = 0, ledb_state = 0;
 	int32 usb_value = 0;
 
    	//Enable Global Interrupts
@@ -119,11 +119,11 @@ int main()
 	usb_success = init_usb();
 	if(usb_success)
 	{
-		LED2_Write(0);
+		LED_B_Write(0);
 	}
 	else
 	{
-		LED2_Write(1);
+		LED_B_Write(1);
 	}
 	#endif
 	
@@ -145,11 +145,11 @@ int main()
 	//pos = KNEE_DOWN;
 	//steps = trapez_gen_motion_1(KNEE_DOWN, KNEE_DOWN, 1, 1);
 	
-
+	/*
 	//ToDo Debug only - fixed PWM
 	controller = CTRL_OPEN;
 	//PWM_1_WriteCompare(250);	
-	motor_open_speed_1(250);
+	motor_open_speed_1(800);
 	PWM_2_WriteCompare(240);
 	double var1 = 0, var2 = 0, var3 = 0;
 	uint8 cnt1 = 0, cnt2 = 100;
@@ -160,9 +160,9 @@ int main()
 		var2 = (double)(16576.3 - 17.36*var1);
 		var3 = sqrt(var2) * pow(var1,1.27);
 		
-		LED0_Write(H1_Read());
-		LED1_Write(H2_Read());
-		LED2_Write(H3_Read());
+		LED_R_Write(H1_Read());
+		LED_G_Write(H2_Read());
+		LED_B_Write(H3_Read());
 		
 		#ifdef USE_QEI1
 				
@@ -171,8 +171,7 @@ int main()
 				
 		#endif	//USE_QEI1
 	}
-
-	
+	*/
 	
 	//Main loop
 	while(1)
@@ -219,15 +218,7 @@ int main()
 			if(controller == CTRL_NONE)
 			{
 				motor_open_speed_1(0);
-			}
-			
-			/*
-			//ToDo Remove!!!
-			if(controller == CTRL_OPEN)
-			{
-				motor_open_speed_1(1600);
-			}
-			*/
+			}			
 		}
 		
 		//10ms timebase for trajectory generation 
@@ -277,7 +268,7 @@ int main()
 			#ifdef USE_USB
 			//USB debugging
 			//usb_value += 1000;
-			send_usb_int16(debug_var);
+			//send_usb_int16(debug_var);
 			//send_usb_int16((int16) ((QuadDec_1_GetCounter() >> 2) & 0xFFFF));	
 			#endif
 		}
@@ -292,6 +283,10 @@ int main()
 				comm_res = comm_decode_str();
 				if(comm_res)
 					comm_success = 1;
+				
+				//Toggle LED0 with new commands
+				ledr_state ^= 1;
+				LED_R_Write(ledr_state);
 			}
 			
 		#endif	//USE_USB
@@ -344,8 +339,8 @@ int main()
 				result = payload_parse_str(comm_str_payload1);
 				
 				//Toggle LED1 with new commands
-				led2_state ^= 1;
-				LED2_Write(led2_state);
+				ledb_state ^= 1;
+				LED_B_Write(ledb_state);
 			}
 		
 		#endif	//USE_COMM

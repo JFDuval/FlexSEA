@@ -9,8 +9,8 @@
 #define USB_ENUM_TIMEOUT	2500	//ms
 	
 //ADC
-#define ADC_CHANNELS	2
-#define ADC_BUF_LEN		8
+#define ADC1_CHANNELS		6
+#define ADC1_BUF_LEN		8
 	
 //I2C
 #define BUFFER_SIZE	4

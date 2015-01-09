@@ -155,7 +155,9 @@ void rx_set_led(unsigned char ledbank, unsigned char rgb, unsigned char r, unsig
 
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
-	LED1_Write(ledbank);
+	LED_R_Write(r);
+	LED_G_Write(g);
+	LED_B_Write(b);
 	#ifdef USE_I2C
 	i2c_write_minm_rgb(SET_RGB, r, g, b);
 	#endif 	//USE_I2C
