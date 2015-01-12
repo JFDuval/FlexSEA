@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: core_cm0_psoc4.h
-* Version 4.11
+* Version 4.20
 *
 *  Description:
 *   Provides important type information for the  PSOC4 device family.

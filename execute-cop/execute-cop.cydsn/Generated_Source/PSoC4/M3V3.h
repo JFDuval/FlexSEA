@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: M3V3.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -40,17 +40,15 @@ uint8   M3V3_ClearInterrupt(void) ;
 /* Drive Modes */
 #define M3V3_DRIVE_MODE_BITS        (3)
 #define M3V3_DRIVE_MODE_IND_MASK    (0xFFFFFFFFu >> (32 - M3V3_DRIVE_MODE_BITS))
-#define M3V3_DRIVE_MODE_SHIFT       (0x00u)
-#define M3V3_DRIVE_MODE_MASK        (0x07u << M3V3_DRIVE_MODE_SHIFT)
 
-#define M3V3_DM_ALG_HIZ         (0x00u << M3V3_DRIVE_MODE_SHIFT)
-#define M3V3_DM_DIG_HIZ         (0x01u << M3V3_DRIVE_MODE_SHIFT)
-#define M3V3_DM_RES_UP          (0x02u << M3V3_DRIVE_MODE_SHIFT)
-#define M3V3_DM_RES_DWN         (0x03u << M3V3_DRIVE_MODE_SHIFT)
-#define M3V3_DM_OD_LO           (0x04u << M3V3_DRIVE_MODE_SHIFT)
-#define M3V3_DM_OD_HI           (0x05u << M3V3_DRIVE_MODE_SHIFT)
-#define M3V3_DM_STRONG          (0x06u << M3V3_DRIVE_MODE_SHIFT)
-#define M3V3_DM_RES_UPDWN       (0x07u << M3V3_DRIVE_MODE_SHIFT)
+#define M3V3_DM_ALG_HIZ         (0x00u)
+#define M3V3_DM_DIG_HIZ         (0x01u)
+#define M3V3_DM_RES_UP          (0x02u)
+#define M3V3_DM_RES_DWN         (0x03u)
+#define M3V3_DM_OD_LO           (0x04u)
+#define M3V3_DM_OD_HI           (0x05u)
+#define M3V3_DM_STRONG          (0x06u)
+#define M3V3_DM_RES_UPDWN       (0x07u)
 
 /* Digital Port Constants */
 #define M3V3_MASK               M3V3__MASK
@@ -78,6 +76,16 @@ uint8   M3V3_ClearInterrupt(void) ;
     #define M3V3_INTSTAT                (* (reg32 *) M3V3__INTSTAT)
 
 #endif /* Interrupt Registers */
+
+
+/***************************************
+* The following code is DEPRECATED and 
+* must not be used.
+***************************************/
+
+#define M3V3_DRIVE_MODE_SHIFT       (0x00u)
+#define M3V3_DRIVE_MODE_MASK        (0x07u << M3V3_DRIVE_MODE_SHIFT)
+
 
 #endif /* End Pins M3V3_H */
 

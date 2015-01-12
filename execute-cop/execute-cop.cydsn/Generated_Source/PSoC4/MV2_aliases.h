@@ -1,9 +1,10 @@
 /*******************************************************************************
 * File Name: MV2.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
-*  This file containts Control Register function prototypes and register defines
+*  This file contains the Alias definitions for Per-Pin APIs in cypins.h. 
+*  Information on using these APIs can be found in the System Reference Guide.
 *
 * Note:
 *
@@ -19,12 +20,18 @@
 
 #include "cytypes.h"
 #include "cyfitter.h"
+#include "cypins.h"
 
 
 /***************************************
 *              Constants        
 ***************************************/
-#define MV2_0		MV2__0__PC
+#define MV2_0		(MV2__0__PC)
+#define MV2_0_PS		(MV2__0__PS)
+#define MV2_0_PC		(MV2__0__PC)
+#define MV2_0_DR		(MV2__0__DR)
+#define MV2_0_SHIFT	(MV2__0__SHIFT)
+
 
 #endif /* End Pins MV2_ALIASES_H */
 

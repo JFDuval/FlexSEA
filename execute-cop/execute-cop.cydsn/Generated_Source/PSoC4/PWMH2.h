@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: PWMH2.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -40,17 +40,15 @@ uint8   PWMH2_ClearInterrupt(void) ;
 /* Drive Modes */
 #define PWMH2_DRIVE_MODE_BITS        (3)
 #define PWMH2_DRIVE_MODE_IND_MASK    (0xFFFFFFFFu >> (32 - PWMH2_DRIVE_MODE_BITS))
-#define PWMH2_DRIVE_MODE_SHIFT       (0x00u)
-#define PWMH2_DRIVE_MODE_MASK        (0x07u << PWMH2_DRIVE_MODE_SHIFT)
 
-#define PWMH2_DM_ALG_HIZ         (0x00u << PWMH2_DRIVE_MODE_SHIFT)
-#define PWMH2_DM_DIG_HIZ         (0x01u << PWMH2_DRIVE_MODE_SHIFT)
-#define PWMH2_DM_RES_UP          (0x02u << PWMH2_DRIVE_MODE_SHIFT)
-#define PWMH2_DM_RES_DWN         (0x03u << PWMH2_DRIVE_MODE_SHIFT)
-#define PWMH2_DM_OD_LO           (0x04u << PWMH2_DRIVE_MODE_SHIFT)
-#define PWMH2_DM_OD_HI           (0x05u << PWMH2_DRIVE_MODE_SHIFT)
-#define PWMH2_DM_STRONG          (0x06u << PWMH2_DRIVE_MODE_SHIFT)
-#define PWMH2_DM_RES_UPDWN       (0x07u << PWMH2_DRIVE_MODE_SHIFT)
+#define PWMH2_DM_ALG_HIZ         (0x00u)
+#define PWMH2_DM_DIG_HIZ         (0x01u)
+#define PWMH2_DM_RES_UP          (0x02u)
+#define PWMH2_DM_RES_DWN         (0x03u)
+#define PWMH2_DM_OD_LO           (0x04u)
+#define PWMH2_DM_OD_HI           (0x05u)
+#define PWMH2_DM_STRONG          (0x06u)
+#define PWMH2_DM_RES_UPDWN       (0x07u)
 
 /* Digital Port Constants */
 #define PWMH2_MASK               PWMH2__MASK
@@ -78,6 +76,16 @@ uint8   PWMH2_ClearInterrupt(void) ;
     #define PWMH2_INTSTAT                (* (reg32 *) PWMH2__INTSTAT)
 
 #endif /* Interrupt Registers */
+
+
+/***************************************
+* The following code is DEPRECATED and 
+* must not be used.
+***************************************/
+
+#define PWMH2_DRIVE_MODE_SHIFT       (0x00u)
+#define PWMH2_DRIVE_MODE_MASK        (0x07u << PWMH2_DRIVE_MODE_SHIFT)
+
 
 #endif /* End Pins PWMH2_H */
 

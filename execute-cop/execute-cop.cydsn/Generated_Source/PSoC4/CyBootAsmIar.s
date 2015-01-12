@@ -1,6 +1,6 @@
 ;-------------------------------------------------------------------------------
 ; FILENAME: CyBootAsmIar.s
-; Version 4.11
+; Version 4.20
 ;
 ;  DESCRIPTION:
 ;    Assembly routines for IAR Embedded Workbench IDE.
@@ -17,8 +17,14 @@
     PUBLIC CyEnterCriticalSection
     PUBLIC CyExitCriticalSection
     THUMB
-
-
+    INCLUDE cyfitter.h
+;Create temporary defines as a workaround for compiler behavior
+#ifndef CYIPBLOCK_m0s8cpussv2_VERSION
+  #define CYIPBLOCK_m0s8cpussv2_VERSION 0
+#endif
+#ifndef CYIPBLOCK_m0s8srssv2_VERSION
+  #define CYIPBLOCK_m0s8srssv2_VERSION 0
+#endif
 ;-------------------------------------------------------------------------------
 ; Function Name: CyDelayCycles
 ;-------------------------------------------------------------------------------
@@ -39,7 +45,11 @@ CyDelayCycles:
     ADDS r0, r0, #2
     LSRS r0, r0, #2
     BEQ CyDelayCycles_done
-    NOP
+    #if ((CYIPBLOCK_m0s8cpussv2_VERSION == 1)&&(CYIPBLOCK_m0s8srssv2_VERSION == 1))
+        ; If device is using CPUSSv2 and SRSSv2 leave loop unaligned
+    #else
+        NOP
+    #endif
 CyDelayCycles_loop:
     SUBS r0, r0, #1
     BNE CyDelayCycles_loop
@@ -103,3 +113,6 @@ CyExitCriticalSection:
 
     END
 
+;Undefine temporary defines
+#undef CYIPBLOCK_m0s8cpussv2_VERSION
+#undef CYIPBLOCK_m0s8srssv2_VERSION

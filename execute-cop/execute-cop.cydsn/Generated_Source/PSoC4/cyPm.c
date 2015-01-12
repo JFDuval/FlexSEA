@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: cyPm.c
-* Version 4.11
+* Version 4.20
 *
 *  Description:
 *   Provides an API for the power management.
@@ -78,44 +78,52 @@ void CySysPmSleep(void)
 void CySysPmDeepSleep(void)
 {
     uint8 interruptState;
-    #if(CY_PSOC4A)
+    #if(CY_IP_SRSSV2)
         volatile uint32 clkSelectReg;
-    #endif /* (CY_PSOC4A) */
+    #endif /* (CY_IP_SRSSV2) */
 
     interruptState = CyEnterCriticalSection();
 
-    #if(CY_PSOC4A)
+    #if(CY_IP_SRSSV2)
         /* Device enters DeepSleep mode when CPU asserts SLEEPDEEP signal */
         CY_PM_PWR_CONTROL_REG &= (uint32) (~CY_PM_PWR_CONTROL_HIBERNATE);
-    #endif /* (CY_PSOC4A) */
+    #endif /* (CY_IP_SRSSV2) */
 
-    /* Adjust delay to wait for references to settle on wakeup from deepsleep */
+    #if (CY_PSOC4_4100 || CY_PSOC4_4200)
+        CY_PM_CPUSS_CONFIG_REG |= CY_PM_CPUSS_CONFIG_FLSH_ACC_BYPASS;
+    #endif /* (CY_PSOC4_4100 || CY_PSOC4_4200) */
+
+    /* Adjust delay to wait for references to settle on wakeup from Deep Sleep */
     CY_PM_PWR_KEY_DELAY_REG = CY_SFLASH_DPSLP_KEY_DELAY_REG;
 
     /* CM0 enters DeepSleep/Hibernate mode upon execution of WFI */
     CY_PM_CM0_SCR_REG |= CY_PM_CM0_SCR_SLEEPDEEP;
 
-    #if(CY_PSOC4A)
+    #if(CY_IP_SRSSV2)
         /* Preserve system clock configuration and
         * reduce sysclk to <=12 MHz (Cypress ID #158710, #179888).
         */
         clkSelectReg = CY_SYS_CLK_SELECT_REG;
         CySysClkWriteSysclkDiv(CY_SYS_CLK_SYSCLK_DIV4);
-    #endif /* (CY_PSOC4A) */
+    #endif /* (CY_IP_SRSSV2) */
 
     /* Sleep and wait for interrupt */
     CY_PM_WFI;
 
-    #if(CY_PSOC4A)
+    #if(CY_IP_SRSSV2)
         /* Restore system clock configuration */
         CY_SYS_CLK_SELECT_REG = clkSelectReg;
-    #endif /* (CY_PSOC4A) */
+    #endif /* (CY_IP_SRSSV2) */
+
+    #if (CY_PSOC4_4100 || CY_PSOC4_4200)
+        CY_PM_CPUSS_CONFIG_REG &= (uint32) (~CY_PM_CPUSS_CONFIG_FLSH_ACC_BYPASS);
+    #endif /* (CY_PSOC4_4100 || CY_PSOC4_4200) */
 
     CyExitCriticalSection(interruptState);
 }
 
 
-#if(CY_PSOC4A)
+#if(CY_IP_SRSSV2)
 
     /*******************************************************************************
     * Function Name: CySysPmHibernate
@@ -189,12 +197,12 @@ void CySysPmDeepSleep(void)
     *  Puts the part into the Stop state. All internal supplies are off;
     *  no state is retained.
     *
-    *  Wakeup from Stop is performed by toggling the wakeup pin (P0.7), causing
-    *  a normal Boot procedure to occur. To configure the wakeup pin,
+    *  Wakeup from Stop is performed by toggling the wakeup pin, causing
+    *  a normal boot procedure to occur. To configure the wakeup pin,
     *  the Digital Input Pin component should be placed on the schematic,
-    *  assigned to the P0.7, and resistively pulled up or down to the inverse state
-    *  of the wakeup polarity. To distinguish the wakeup from the Stop mode and
-    *  the general Reset event, CySysPmGetResetReason() function could be used.
+    *  assigned to the wakeup pin, and resistively pulled up or down to the inverse
+    *  state of the wakeup polarity. To distinguish the wakeup from the Stop mode
+    *  and the general Reset event, CySysPmGetResetReason() function could be used.
     *  The wakeup pin is active low by default. The wakeup pin polarity
     *  could be changed with the CySysPmSetWakeupPolarity() function.
     *
@@ -212,14 +220,16 @@ void CySysPmDeepSleep(void)
     *******************************************************************************/
     void CySysPmStop(void)
     {
-        (void)CyEnterCriticalSection();
+        (void) CyEnterCriticalSection();
+
+        /* Update token to indicate Stop mode transition. Preserve only polarity. */
+        CY_PM_PWR_STOP_REG = (CY_PM_PWR_STOP_REG & CY_PM_PWR_STOP_POLARITY) | CY_PM_PWR_STOP_TOKEN_STOP;
 
         /* Freeze IO-Cells to save IO-Cell state */
         CySysPmFreezeIo();
 
         /* Initiates transition to Stop state */
-        CY_PM_PWR_STOP_REG = (CY_PM_PWR_STOP_REG & (uint32)(~CY_PM_PWR_STOP_TOKEN_MASK)) |
-                            CY_PM_PWR_STOP_TOKEN_STOP | CY_PM_PWR_STOP_STOP;
+        CY_PM_PWR_STOP_REG = CY_PM_PWR_STOP_REG | CY_PM_PWR_STOP_STOP;
 
         /* Depending on the clock frequency and internal timing delays,
          * the final AHB transaction may or may not complete. To guard against
@@ -244,7 +254,7 @@ void CySysPmDeepSleep(void)
     ********************************************************************************
     *
     * Summary:
-    *  Wake up from the stop mode is performed by toggling the wakeup pin (P0.7),
+    *  Wake up from the stop mode is performed by toggling the wakeup pin,
     *  causing a normal boot procedure to occur. This function assigns
     *  the wakeup pin active level. Setting the wakeup pin to this level will cause
     *  the wakeup from stop mode. The wakeup pin is active low by default.
@@ -358,11 +368,14 @@ void CySysPmDeepSleep(void)
             CY_PM_PWR_STOP_REG = CY_PM_PWR_STOP_STOP | CY_PM_PWR_STOP_FREEZE | CY_PM_PWR_STOP_UNLOCK |
                                 (CY_PM_PWR_STOP_REG & (CY_PM_PWR_STOP_TOKEN_MASK | CY_PM_PWR_STOP_POLARITY));
 
-            /* PWR_STOP read after write must be delayed for 6 clock cycles to let internal nodes to settle */
-            CyDelayCycles(6u);
+            /* If reading after writing, read this register three times to delay
+            *  enough time for internal settling.
+            */
+            (void) CY_PM_PWR_STOP_REG;
+            (void) CY_PM_PWR_STOP_REG;
 
             /* Second write causes the freeze of IO-Cells to save IO-Cell state */
-            CY_PM_PWR_STOP_REG &= ~CY_PM_PWR_STOP_STOP;
+            CY_PM_PWR_STOP_REG = CY_PM_PWR_STOP_REG;
         }
 
         CyExitCriticalSection(interruptState);
@@ -397,8 +410,11 @@ void CySysPmDeepSleep(void)
         CY_PM_PWR_STOP_REG = CY_PM_PWR_STOP_UNLOCK |
                             (CY_PM_PWR_STOP_REG & (CY_PM_PWR_STOP_TOKEN_MASK | CY_PM_PWR_STOP_POLARITY));
 
-        /* PWR_STOP read after write must be delayed for 6 clock cycles to let internal nodes to settle */
-        CyDelayCycles(6u);
+        /* If reading after writing, read this register three times to delay
+        *  enough time for internal settling.
+        */
+        (void) CY_PM_PWR_STOP_REG;
+        (void) CY_PM_PWR_STOP_REG;
 
         /* Lock STOP mode: write PWR_STOP.FREEZE=0, UNLOCK=0x00, STOP=0, .TOKEN */
         CY_PM_PWR_STOP_REG &= (CY_PM_PWR_STOP_TOKEN_MASK | CY_PM_PWR_STOP_POLARITY);
@@ -438,7 +454,7 @@ void CySysPmDeepSleep(void)
             CY_PM_PWR_KEY_DELAY_FREQ_DEFAULT) * hfclkFrequencyMhz) >> 16u) + 1u;
     }
 
-#endif /* (CY_PSOC4A) */
+#endif /* (CY_IP_SRSSV2) */
 
 
 /* [] END OF FILE */

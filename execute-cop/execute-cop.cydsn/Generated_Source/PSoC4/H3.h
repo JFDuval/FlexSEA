@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: H3.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -40,17 +40,15 @@ uint8   H3_ClearInterrupt(void) ;
 /* Drive Modes */
 #define H3_DRIVE_MODE_BITS        (3)
 #define H3_DRIVE_MODE_IND_MASK    (0xFFFFFFFFu >> (32 - H3_DRIVE_MODE_BITS))
-#define H3_DRIVE_MODE_SHIFT       (0x00u)
-#define H3_DRIVE_MODE_MASK        (0x07u << H3_DRIVE_MODE_SHIFT)
 
-#define H3_DM_ALG_HIZ         (0x00u << H3_DRIVE_MODE_SHIFT)
-#define H3_DM_DIG_HIZ         (0x01u << H3_DRIVE_MODE_SHIFT)
-#define H3_DM_RES_UP          (0x02u << H3_DRIVE_MODE_SHIFT)
-#define H3_DM_RES_DWN         (0x03u << H3_DRIVE_MODE_SHIFT)
-#define H3_DM_OD_LO           (0x04u << H3_DRIVE_MODE_SHIFT)
-#define H3_DM_OD_HI           (0x05u << H3_DRIVE_MODE_SHIFT)
-#define H3_DM_STRONG          (0x06u << H3_DRIVE_MODE_SHIFT)
-#define H3_DM_RES_UPDWN       (0x07u << H3_DRIVE_MODE_SHIFT)
+#define H3_DM_ALG_HIZ         (0x00u)
+#define H3_DM_DIG_HIZ         (0x01u)
+#define H3_DM_RES_UP          (0x02u)
+#define H3_DM_RES_DWN         (0x03u)
+#define H3_DM_OD_LO           (0x04u)
+#define H3_DM_OD_HI           (0x05u)
+#define H3_DM_STRONG          (0x06u)
+#define H3_DM_RES_UPDWN       (0x07u)
 
 /* Digital Port Constants */
 #define H3_MASK               H3__MASK
@@ -78,6 +76,16 @@ uint8   H3_ClearInterrupt(void) ;
     #define H3_INTSTAT                (* (reg32 *) H3__INTSTAT)
 
 #endif /* Interrupt Registers */
+
+
+/***************************************
+* The following code is DEPRECATED and 
+* must not be used.
+***************************************/
+
+#define H3_DRIVE_MODE_SHIFT       (0x00u)
+#define H3_DRIVE_MODE_MASK        (0x07u << H3_DRIVE_MODE_SHIFT)
+
 
 #endif /* End Pins H3_H */
 

@@ -1,10 +1,10 @@
 /*******************************************************************************
 * File Name: I2C_1_I2C.h
-* Version 1.20
+* Version 2.0
 *
 * Description:
 *  This file provides constants and parameter values for the SCB Component in
-*  I2C mode.
+*  the I2C mode.
 *
 * Note:
 *
@@ -34,7 +34,11 @@
 #define I2C_1_I2C_ACCEPT_ADDRESS         (0u)
 #define I2C_1_I2C_WAKE_ENABLE            (0u)
 #define I2C_1_I2C_DATA_RATE              (100u)
+#define I2C_1_I2C_DATA_RATE_ACTUAL       (100u)
+#define I2C_1_I2C_CLOCK_FROM_TERM        (0u)
 #define I2C_1_I2C_EXTERN_INTR_HANDLER    (0u)
+#define I2C_1_I2C_BYTE_MODE_ENABLE       (0u)
+#define I2C_1_I2C_MANUAL_OVS_CONTROL     (1u)
 
 
 /***************************************
@@ -70,10 +74,16 @@
     #define I2C_1_I2C_WAKE_ENABLE_CONST          (1u)
     #define I2C_1_I2C_SLAVE_CONST                (1u)
     #define I2C_1_I2C_MASTER_CONST               (1u)
+    #define I2C_1_I2C_MULTI_MASTER_SLAVE_CONST   (1u)
     #define I2C_1_CHECK_I2C_ACCEPT_ADDRESS_CONST (1u)
 
-    #define I2C_1_I2C_BTLDR_COMM_ENABLED ((CYDEV_BOOTLOADER_IO_COMP == CyBtldr_I2C_1) || \
-                                                     (CYDEV_BOOTLOADER_IO_COMP == CyBtldr_Custom_Interface))
+    /* Returns FIFO size */
+    #if (I2C_1_CY_SCBIP_V0 || I2C_1_CY_SCBIP_V1)
+        #define I2C_1_I2C_FIFO_SIZE      (I2C_1_FIFO_SIZE)
+    #else
+        #define I2C_1_I2C_FIFO_SIZE      (I2C_1_GET_FIFO_SIZE(I2C_1_CTRL_REG & \
+                                                                                    I2C_1_CTRL_BYTE_MODE))
+    #endif /* (I2C_1_CY_SCBIP_V0 || I2C_1_CY_SCBIP_V1) */
 
 #else
 
@@ -99,11 +109,34 @@
 
     #define I2C_1_I2C_SLAVE_CONST    (I2C_1_I2C_SLAVE)
     #define I2C_1_I2C_MASTER_CONST   (I2C_1_I2C_MASTER)
+    #define I2C_1_I2C_MULTI_MASTER_SLAVE_CONST (I2C_1_I2C_MULTI_MASTER_SLAVE)
     #define I2C_1_CHECK_I2C_ACCEPT_ADDRESS_CONST (I2C_1_CHECK_I2C_ACCEPT_ADDRESS)
 
-    #define I2C_1_I2C_BTLDR_COMM_ENABLED     (I2C_1_I2C_SLAVE_CONST && \
-                                                          ((CYDEV_BOOTLOADER_IO_COMP == CyBtldr_I2C_1) || \
-                                                           (CYDEV_BOOTLOADER_IO_COMP == CyBtldr_Custom_Interface)))
+    /* I2C: TX or RX FIFO size */
+    #if (I2C_1_CY_SCBIP_V0 || I2C_1_CY_SCBIP_V1)
+        #define I2C_1_I2C_FIFO_SIZE  (I2C_1_FIFO_SIZE)
+    #else
+        #define I2C_1_I2C_FIFO_SIZE  I2C_1_GET_FIFO_SIZE(I2C_1_I2C_BYTE_MODE_ENABLE)
+    #endif /* ((I2C_1_CY_SCBIP_V0 || I2C_1_CY_SCBIP_V1) */
+
+    /* Adjust AF and DF filter settings. Ticket ID#176179 */
+    #if ((I2C_1_I2C_MODE_SLAVE == I2C_1_I2C_MODE) ||     \
+            ((I2C_1_I2C_MODE_SLAVE != I2C_1_I2C_MODE) && \
+             (I2C_1_I2C_DATA_RATE_ACTUAL <= I2C_1_I2C_DATA_RATE_FS_MODE_MAX)))
+
+        #define I2C_1_I2C_MEDIAN_FILTER_ENABLE_ADJ       (0u)
+        #define I2C_1_I2C_CFG_ANALOG_FITER_ENABLE_ADJ    do{;}while(0)
+    #else
+        #define I2C_1_I2C_MEDIAN_FILTER_ENABLE_ADJ       (1u)
+        #define I2C_1_I2C_CFG_ANALOG_FITER_ENABLE_ADJ    I2C_1_I2C_CFG_ANALOG_FITER_DISABLE
+    #endif
+
+    /* Select oversampling factor low and high */
+    #define I2C_1_I2C_OVS_FACTOR_LOW_MIN     ((0u != I2C_1_I2C_MANUAL_OVS_CONTROL) ? \
+                                                            (8u) : (8u))
+
+    #define I2C_1_I2C_OVS_FACTOR_HIGH_MIN    ((0u != I2C_1_I2C_MANUAL_OVS_CONTROL) ? \
+                                                            (8u) : (8u))
 
 #endif /* (I2C_1_SCB_MODE_UNCONFIG_CONST_CFG) */
 
@@ -122,6 +155,8 @@ typedef struct
     uint32 slaveAddrMask;
     uint32 acceptAddr;
     uint32 enableWake;
+    uint8  enableByteMode;
+    uint16 dataRate;
 } I2C_1_I2C_INIT_STRUCT;
 
 
@@ -178,23 +213,6 @@ typedef struct
 
 CY_ISR_PROTO(I2C_1_I2C_ISR);
 
-#if defined(CYDEV_BOOTLOADER_IO_COMP) && (I2C_1_I2C_BTLDR_COMM_ENABLED)
-    /* Bootloader physical layer functions */
-    void I2C_1_I2CCyBtldrCommStart(void);
-    void I2C_1_I2CCyBtldrCommStop (void);
-    void I2C_1_I2CCyBtldrCommReset(void);
-    cystatus I2C_1_I2CCyBtldrCommRead       (uint8 pData[], uint16 size, uint16 * count, uint8 timeOut);
-    cystatus I2C_1_I2CCyBtldrCommWrite(const uint8 pData[], uint16 size, uint16 * count, uint8 timeOut);
-
-    /* Size of Read/Write buffers for I2C bootloader  */
-    #define I2C_1_I2C_BTLDR_SIZEOF_READ_BUFFER   (64u)
-    #define I2C_1_I2C_BTLDR_SIZEOF_WRITE_BUFFER  (64u)
-    #define I2C_1_I2C_MIN_UINT16(a, b)           ( ((uint16)(a) < (uint16) (b)) ? \
-                                                                    ((uint32) (a)) : ((uint32) (b)) )
-    #define I2C_1_WAIT_1_MS                      (1u)
-
-#endif /* defined(CYDEV_BOOTLOADER_IO_COMP) && (I2C_1_I2C_BTLDR_COMM_ENABLED) */
-
 
 /***************************************
 *            API Constants
@@ -236,38 +254,36 @@ CY_ISR_PROTO(I2C_1_I2C_ISR);
 
 /* Master API returns */
 #define I2C_1_I2C_MSTR_NO_ERROR          (0x00u)  /* Function complete without error                       */
-#define I2C_1_I2C_MSTR_ERR_ARB_LOST      (0x01u)  /* Master lost arb: INTR_MASTER_I2C_ARB_LOST             */
+#define I2C_1_I2C_MSTR_ERR_ARB_LOST      (0x01u)  /* Master lost arbitration: INTR_MASTER_I2C_ARB_LOST     */
 #define I2C_1_I2C_MSTR_ERR_LB_NAK        (0x02u)  /* Last Byte Naked: INTR_MASTER_I2C_NACK                 */
 #define I2C_1_I2C_MSTR_NOT_READY         (0x04u)  /* Master on the bus or Slave operation is in progress   */
 #define I2C_1_I2C_MSTR_BUS_BUSY          (0x08u)  /* Bus is busy, process not started                      */
 #define I2C_1_I2C_MSTR_ERR_ABORT_START   (0x10u)  /* Slave was addressed before master begin Start gen     */
-#define I2C_1_I2C_MSTR_ERR_BUS_ERR       (0x100u) /* Bus eror has: INTR_MASTER_I2C_BUS_ERROR               */
+#define I2C_1_I2C_MSTR_ERR_BUS_ERR       (0x100u) /* Bus error has: INTR_MASTER_I2C_BUS_ERROR              */
 
 /* Slave Status Constants */
-#define I2C_1_I2C_SSTAT_RD_CMPLT         (0x01u)    /* Read transfer complete                       */
-#define I2C_1_I2C_SSTAT_RD_BUSY          (0x02u)    /* Read transfer in progress                    */
-#define I2C_1_I2C_SSTAT_RD_OVFL          (0x04u)    /* Read overflow: master reads above buf size   */
-#define I2C_1_I2C_SSTAT_RD_ERR           (0x08u)    /* Read was interrupted by misplaced Start/Stop */
-#define I2C_1_I2C_SSTAT_RD_MASK          (0x0Fu)    /* Read Status Mask                             */
-#define I2C_1_I2C_SSTAT_RD_NO_ERR        (0x00u)    /* Read no Error                                */
+#define I2C_1_I2C_SSTAT_RD_CMPLT         (0x01u)    /* Read transfer complete                        */
+#define I2C_1_I2C_SSTAT_RD_BUSY          (0x02u)    /* Read transfer in progress                     */
+#define I2C_1_I2C_SSTAT_RD_OVFL          (0x04u)    /* Read overflow: master reads above buffer size */
+#define I2C_1_I2C_SSTAT_RD_ERR           (0x08u)    /* Read was interrupted by misplaced Start/Stop  */
+#define I2C_1_I2C_SSTAT_RD_MASK          (0x0Fu)    /* Read Status Mask                              */
+#define I2C_1_I2C_SSTAT_RD_NO_ERR        (0x00u)    /* Read no Error                                 */
 
-#define I2C_1_I2C_SSTAT_WR_CMPLT         (0x10u)    /* Write transfer complete                       */
-#define I2C_1_I2C_SSTAT_WR_BUSY          (0x20u)    /* Write transfer in progress                    */
-#define I2C_1_I2C_SSTAT_WR_OVFL          (0x40u)    /* Write overflow: master writes above buf size  */
-#define I2C_1_I2C_SSTAT_WR_ERR           (0x80u)    /* Write was interrupted by misplaced Start/Stop */
-#define I2C_1_I2C_SSTAT_WR_MASK          (0xF0u)    /* Write Status Mask                             */
-#define I2C_1_I2C_SSTAT_WR_NO_ERR        (0x00u)    /* Write no Error                                */
+#define I2C_1_I2C_SSTAT_WR_CMPLT         (0x10u)    /* Write transfer complete                         */
+#define I2C_1_I2C_SSTAT_WR_BUSY          (0x20u)    /* Write transfer in progress                      */
+#define I2C_1_I2C_SSTAT_WR_OVFL          (0x40u)    /* Write overflow: master writes above buffer size */
+#define I2C_1_I2C_SSTAT_WR_ERR           (0x80u)    /* Write was interrupted by misplaced Start/Stop   */
+#define I2C_1_I2C_SSTAT_WR_MASK          (0xF0u)    /* Write Status Mask                               */
+#define I2C_1_I2C_SSTAT_WR_NO_ERR        (0x00u)    /* Write no Error                                  */
 
 #define I2C_1_I2C_SSTAT_RD_CLEAR         (0x0Du)    /* Read Status clear: do not clear */
 #define I2C_1_I2C_SSTAT_WR_CLEAR         (0xD0u)    /* Write Status Clear */
 
 /* Internal I2C component constants */
-#define I2C_1_I2C_READ_FLAG              (0x01u) /* Read flag of the Address */
-#define I2C_1_I2C_FIFO_SIZE              (8u)    /* Max FIFO entries for I2C */
-#define I2C_1_I2C_SLAVE_OVFL_RETURN      (0xFFu) /* Return by slave when overflow */
+#define I2C_1_I2C_READ_FLAG              (0x01u)     /* Read flag of the Address */
+#define I2C_1_I2C_SLAVE_OVFL_RETURN      (0xFFu)     /* Return by slave when overflow */
 
-
-#define I2C_1_I2C_RESET_ERROR            (0x01u)       /* Flag to re-enable SCB IP */
+#define I2C_1_I2C_RESET_ERROR            (0x01u)     /* Flag to re-enable SCB IP */
 
 
 /***************************************
@@ -289,9 +305,8 @@ CY_ISR_PROTO(I2C_1_I2C_ISR);
 #define I2C_1_I2C_FSM_IDLE           (0x10u) /* Idle I2C state                */
 #define I2C_1_I2C_FSM_SLAVE          (0x10u) /* Slave mask for all its states */
 
-#define I2C_1_I2C_FSM_SL_WR          (0x12u) /* Slave write states */
-#define I2C_1_I2C_FSM_SL_RD          (0x11u) /* Slave read  states */
-#define I2C_1_I2C_FSM_RD             (0x01u) /* FSM slave or master read state */
+#define I2C_1_I2C_FSM_SL_WR          (0x11u) /* Slave write states */
+#define I2C_1_I2C_FSM_SL_RD          (0x12u) /* Slave read  states */
 
 /* Master mode FSM states */
 #define I2C_1_I2C_FSM_MASTER         (0x20u) /* Master mask for all its states */
@@ -305,7 +320,7 @@ CY_ISR_PROTO(I2C_1_I2C_ISR);
 #define I2C_1_I2C_FSM_MSTR_RD_DATA   (0x25u) /* FSM master reads data from the slave            */
 #define I2C_1_I2C_FSM_MSTR_HALT      (0x60u) /* FSM master halt state: wait for Stop or ReStart */
 
-/* Request to complete any on-going transfer */
+/* Requests to complete any on-going transfer */
 #define I2C_1_I2C_CMPLT_ANY_TRANSFER     (0x01u)
 
 /* Returns true if FSM is in any Master state */
@@ -321,7 +336,7 @@ CY_ISR_PROTO(I2C_1_I2C_ISR);
 #define I2C_1_CHECK_I2C_FSM_DATA (0u != (I2C_1_I2C_FSM_MSTR_DATA  & I2C_1_state))
 
 /* Returns true if FSM is in any of read states: applied for Slave and Master */
-#define I2C_1_CHECK_I2C_FSM_RD   (0u != (I2C_1_I2C_FSM_RD  & I2C_1_state))
+#define I2C_1_CHECK_I2C_FSM_RD   (0u != (I2C_1_I2C_FSM_MSTR_RD  & I2C_1_state))
 
 /* Returns true if FSM is in IDLE state */
 #define I2C_1_CHECK_I2C_FSM_IDLE (I2C_1_I2C_FSM_IDLE == I2C_1_state)
@@ -339,16 +354,16 @@ CY_ISR_PROTO(I2C_1_I2C_ISR);
 *       Macro Definitions
 ***************************************/
 
-/* Return TRUE if sourceMask is set in I2C_1_I2C_MASTER_CMD_REG: used to check if Start was generated */
+/* Returns TRUE if sourceMask is set in I2C_1_I2C_MASTER_CMD_REG: used to check if Start was generated */
 #define I2C_1_CHECK_I2C_MASTER_CMD(sourceMask)   (0u != (I2C_1_I2C_MASTER_CMD_REG & (sourceMask)))
 
-/* Return TRUE if I2C_1_MODE_NO_STOP is set in I2C_1_mstrControl: used to detect NoStop cond */
+/* Returns TRUE if I2C_1_MODE_NO_STOP is set in I2C_1_mstrControl: detects NoStop condition */
 #define I2C_1_CHECK_I2C_MODE_NO_STOP(mode)   (0u != (I2C_1_I2C_MODE_NO_STOP & (mode)))
 
-/* Return TRUE if I2C_1_MODE_REPEAT_START is set: used to detect when generate ReStart condition */
+/* Returns TRUE if I2C_1_MODE_REPEAT_START is set: used to detect when generate ReStart condition */
 #define I2C_1_CHECK_I2C_MODE_RESTART(mode)   (0u != (I2C_1_I2C_MODE_REPEAT_START  & (mode)))
 
-/* Return TRUE if I2C_1_state is in one of master states */
+/* Returns TRUE if I2C_1_state is in one of master states */
 #define I2C_1_CHECK_I2C_MASTER_ACTIVE    (I2C_1_CHECK_I2C_FSM_MASTER)
 
 
@@ -395,25 +410,33 @@ CY_ISR_PROTO(I2C_1_I2C_ISR);
 
 #if(I2C_1_SCB_MODE_I2C_CONST_CFG)
 
+    #if (!I2C_1_CY_SCBIP_V0)
+        #define I2C_1_I2C_WAKE_ENABLE_ADJ  (I2C_1_I2C_MULTI_MASTER_SLAVE ? \
+                                                            (0u) : (I2C_1_I2C_WAKE_ENABLE))
+    #else
+        #define I2C_1_I2C_WAKE_ENABLE_ADJ    (I2C_1_I2C_WAKE_ENABLE)
+    #endif /* (!I2C_1_CY_SCBIP_V0) */
+
     #define I2C_1_I2C_MODE_MASKED    (I2C_1_I2C_MODE & \
                                                 (I2C_1_I2C_MODE_SLAVE | I2C_1_I2C_MODE_MASTER))
 
     #define I2C_1_I2C_DEFAULT_CTRL \
-                                (I2C_1_GET_CTRL_ADDR_ACCEPT(I2C_1_I2C_ACCEPT_ADDRESS) | \
-                                 I2C_1_GET_CTRL_EC_AM_MODE (I2C_1_I2C_WAKE_ENABLE))
+                                (I2C_1_GET_CTRL_BYTE_MODE  (I2C_1_I2C_BYTE_MODE_ENABLE) | \
+                                 I2C_1_GET_CTRL_ADDR_ACCEPT(I2C_1_I2C_ACCEPT_ADDRESS)   | \
+                                 I2C_1_GET_CTRL_EC_AM_MODE (I2C_1_I2C_WAKE_ENABLE_ADJ))
 
     #define I2C_1_I2C_DEFAULT_I2C_CTRL \
-                                (I2C_1_GET_I2C_CTRL_HIGH_PHASE_OVS(I2C_1_I2C_OVS_FACTOR_HIGH) | \
-                                 I2C_1_GET_I2C_CTRL_LOW_PHASE_OVS (I2C_1_I2C_OVS_FACTOR_LOW)  | \
-                                 I2C_1_GET_I2C_CTRL_SL_MSTR_MODE  (I2C_1_I2C_MODE_MASKED)     | \
-                                 I2C_1_I2C_CTRL)
+                            (I2C_1_GET_I2C_CTRL_HIGH_PHASE_OVS(I2C_1_I2C_OVS_FACTOR_HIGH_MIN) | \
+                             I2C_1_GET_I2C_CTRL_LOW_PHASE_OVS (I2C_1_I2C_OVS_FACTOR_LOW_MIN)  | \
+                             I2C_1_GET_I2C_CTRL_SL_MSTR_MODE  (I2C_1_I2C_MODE_MASKED)         | \
+                             I2C_1_I2C_CTRL)
 
     #define I2C_1_I2C_DEFAULT_RX_MATCH ((I2C_1_I2C_SLAVE) ? \
                                 (I2C_1_GET_I2C_8BIT_ADDRESS(I2C_1_I2C_SLAVE_ADDRESS) | \
                                  I2C_1_GET_RX_MATCH_MASK   (I2C_1_I2C_SLAVE_ADDRESS_MASK)) : (0u))
 
     #define I2C_1_I2C_DEFAULT_RX_CTRL \
-                                (I2C_1_GET_RX_CTRL_MEDIAN(I2C_1_I2C_MEDIAN_FILTER_ENABLE) | \
+                                (I2C_1_GET_RX_CTRL_MEDIAN(I2C_1_I2C_MEDIAN_FILTER_ENABLE_ADJ) | \
                                  I2C_1_I2C_RX_CTRL)
 
     #define I2C_1_I2C_DEFAULT_TX_CTRL  (I2C_1_I2C_TX_CTRL)

@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: cyPm.h
-* Version 4.11
+* Version 4.20
 *
 *  Description:
 *   Provides the function definitions for the power management API.
@@ -28,7 +28,7 @@
 void CySysPmSleep(void);
 void CySysPmDeepSleep(void);
 
-#if(CY_PSOC4A)
+#if(CY_IP_SRSSV2)
     void CySysPmHibernate(void);
     void CySysPmFreezeIo(void);
     void CySysPmUnfreezeIo(void);
@@ -37,7 +37,7 @@ void CySysPmDeepSleep(void);
     void CySysPmSetWakeupPolarity(uint32 polarity);
 #else
     void CySysPmSetWakeupHoldoff(uint32 hfclkFrequencyMhz);
-#endif /* (CY_PSOC4A) */
+#endif /* (CY_IP_SRSSV2) */
 
 
 /***************************************
@@ -55,7 +55,7 @@ void CySysPmDeepSleep(void);
     #define CY_PM_WFI       asm volatile ("WFI \n")
 #endif /* __ARMCC_VERSION */
 
-#if(CY_PSOC4A)
+#if(CY_IP_SRSSV2)
 
     /* CySysPmSetWakeupPolarity() */
     #define CY_PM_STOP_WAKEUP_ACTIVE_LOW        ((uint32)(0x0u))
@@ -68,7 +68,7 @@ void CySysPmDeepSleep(void);
     #define CY_PM_RESET_REASON_WAKEUP_HIB       (2u)
     #define CY_PM_RESET_REASON_WAKEUP_STOP      (3u)
 
-#endif /* (CY_PSOC4A) */
+#endif /* (CY_IP_SRSSV2) */
 
 
 /***************************************
@@ -87,20 +87,28 @@ void CySysPmDeepSleep(void);
 #define CY_PM_PWR_KEY_DELAY_REG             (*(reg32 *) CYREG_PWR_KEY_DELAY)
 #define CY_PM_PWR_KEY_DELAY_PTR             ( (reg32 *) CYREG_PWR_KEY_DELAY)
 
-/* DeepSleep wakeup value for PWR_KEY_DELAY */
-#define CY_SFLASH_DPSLP_KEY_DELAY_REG       (*(reg16 *) CYREG_SFLASH_DPSLP_KEY_DELAY)
-#define CY_SFLASH_DPSLP_KEY_DELAY_PTR       ( (reg16 *) CYREG_SFLASH_DPSLP_KEY_DELAY)
 
-#if(CY_PSOC4A)
-    /* Power Stop Mode Register */
-    #define CY_PM_PWR_STOP_REG              (*(reg32 *) CYREG_PWR_STOP)
-    #define CY_PM_PWR_STOP_PTR              ( (reg32 *) CYREG_PWR_STOP)
-
+#if(CY_IP_SRSSV2)
     /* Hibernate wakeup value for PWR_KEY_DELAY */
     #define CY_SFLASH_HIB_KEY_DELAY_REG     (*(reg16 *) CYREG_SFLASH_HIB_KEY_DELAY)
     #define CY_SFLASH_HIB_KEY_DELAY_PTR     ( (reg16 *) CYREG_SFLASH_HIB_KEY_DELAY)
+#endif  /* (CY_IP_SRSSV2) */
 
-#endif /* (CY_PSOC4A) */
+/* Deep Sleep wakeup value for PWR_KEY_DELAY */
+#define CY_SFLASH_DPSLP_KEY_DELAY_REG       (*(reg16 *) CYREG_SFLASH_DPSLP_KEY_DELAY)
+#define CY_SFLASH_DPSLP_KEY_DELAY_PTR       ( (reg16 *) CYREG_SFLASH_DPSLP_KEY_DELAY)
+
+/* Power Stop Mode Register */
+#if(CY_IP_SRSSV2)
+    #define CY_PM_PWR_STOP_REG              (*(reg32 *) CYREG_PWR_STOP)
+    #define CY_PM_PWR_STOP_PTR              ( (reg32 *) CYREG_PWR_STOP)
+#endif /* (CY_IP_SRSSV2) */
+
+#if (CY_PSOC4_4100 || CY_PSOC4_4200)
+    /* CPU Subsystem Configuration */
+    #define CY_PM_CPUSS_CONFIG_REG             (*(reg32 *) CYREG_CPUSS_CONFIG)
+    #define CY_PM_CPUSS_CONFIG_PTR             ( (reg32 *) CYREG_CPUSS_CONFIG)
+#endif /* (CY_PSOC4_4100 || CY_PSOC4_4200) */
 
 
 /***************************************
@@ -110,7 +118,7 @@ void CySysPmDeepSleep(void);
 /* CM0 System Control Register Constants */
 #define CY_PM_CM0_SCR_SLEEPDEEP             ((uint32)(0x04u))
 
-#if(CY_PSOC4A)
+#if(CY_IP_SRSSV2)
     /* Power Mode Control Constants */
     #define CY_PM_PWR_CONTROL_HIBERNATE         (0x80000000u)
 
@@ -131,8 +139,12 @@ void CySysPmDeepSleep(void);
 #else
     #define CY_PM_PWR_KEY_DELAY_REG_DEFAULT     ((uint32) 248u)
     #define CY_PM_PWR_KEY_DELAY_FREQ_DEFAULT    (48u)
-#endif /* (CY_PSOC4A) */
+#endif /* (CY_IP_SRSSV2) */
 
+#if (CY_PSOC4_4100 || CY_PSOC4_4200)
+    /* 0 - normal operation, 1 - Flash Accelerator in bypass mode */
+    #define CY_PM_CPUSS_CONFIG_FLSH_ACC_BYPASS      ((uint32) 0x02u)
+#endif /* (CY_PSOC4_4100 || CY_PSOC4_4200) */
 
 #endif  /* CY_BOOT_CYPM_H */
 

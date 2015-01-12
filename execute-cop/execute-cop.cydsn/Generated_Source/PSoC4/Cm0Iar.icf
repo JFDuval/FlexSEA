@@ -45,8 +45,11 @@ define block HEAP       with alignment = 8, size = __ICFEDIT_size_heap__     { }
 define block HSTACK     {block HEAP, last block CSTACK};
 
 define block RAMVEC     with fixed order {readwrite section .ramvectors, readwrite section .bootloaderruntype};
-define block LOADER     { readonly section .cybootloader };
 
+if (CY_APPL_LOADABLE)
+{
+    define block LOADER     { readonly section .cybootloader };
+}
 
 /* The address of the Flash row next after the Bootloader image */
 define symbol CY_BTLDR_END      = CYDEV_BTLDR_SIZE +
@@ -78,7 +81,11 @@ do not initialize  { section .noinit };
 do not initialize  { readwrite section .ramvectors, readwrite section .bootloaderruntype };
 
 /******** Placements *********/
+if (CY_APPL_LOADABLE)
+{
 ".cybootloader"    : place at start of ROM_region {block LOADER};
+}
+
 "APPL"             : place at start of APPL_region {block APPL};
 
 "RAMVEC"           : place at start of RAM_region { block RAMVEC };
@@ -93,7 +100,12 @@ keep {  section .cybootloader,
         section .cychipprotect };
 
 ".cyloadermeta"     : place at address mem : (CY_APPL_LOADER ? (CY_FLASH_SIZE - CY_METADATA_SIZE) : 0xF0000000) { readonly section .cyloadermeta };
+
+if (CY_APPL_LOADABLE)
+{
 ".cyloadablemeta"   : place at address mem : (CY_FLASH_SIZE - CY_FLASH_ROW_SIZE * (CY_APPL_NUM - 1) - CY_METADATA_SIZE) { readonly section .cyloadablemeta };
+}
+
 ".cyflashprotect"   : place at address mem : 0x90400000 { readonly section .cyflashprotect };
 ".cymeta"           : place at address mem : 0x90500000 { readonly section .cymeta };
 ".cychipprotect"    : place at address mem : 0x90600000 { readonly section .cychipprotect };

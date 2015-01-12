@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: ADC_SAR_Seq_1.h
-* Version 1.10
+* Version 2.0
 *
 * Description:
 *  This file contains the function prototypes and constants used in
@@ -9,7 +9,7 @@
 * Note:
 *
 ********************************************************************************
-* Copyright 2008-2013, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -17,6 +17,9 @@
 
 #if !defined(CY_ADC_SAR_SEQ_ADC_SAR_Seq_1_H)
 #define CY_ADC_SAR_SEQ_ADC_SAR_Seq_1_H
+
+#include "cytypes.h"
+#include "CyLib.h"
 
 
 /***************************************
@@ -91,6 +94,19 @@ typedef struct
 
 
 
+/***************************************
+*   Conditional Compilation Parameters
+****************************************/ 
+
+#ifdef CYIPBLOCK_s8pass4al_VERSION
+    #define ADC_SAR_Seq_1_CY_SAR_IP_VER              (CYIPBLOCK_s8pass4al_VERSION)
+#else
+    #define ADC_SAR_Seq_1_CY_SAR_IP_VER              (0u)
+#endif  /* CYIPBLOCK_s8pass4al_VERSION */
+
+#define ADC_SAR_Seq_1_CY_SAR_IP_PSOC4                (0u)
+#define ADC_SAR_Seq_1_CY_SAR_IP_BLE                  (1u)
+
 
 /***************************************
 *    Initial Parameter Constants
@@ -100,13 +116,13 @@ typedef struct
 #define ADC_SAR_Seq_1_DEFAULT_NEG_INPUT_SEL          (0u)
 #define ADC_SAR_Seq_1_DEFAULT_ALT_RESOLUTION_SEL     (0u)
 #define ADC_SAR_Seq_1_DEFAULT_JUSTIFICATION_SEL      (0u)
-#define ADC_SAR_Seq_1_DEFAULT_DIFF_RESULT_FORMAT_SEL (1u)
+#define ADC_SAR_Seq_1_DEFAULT_DIFF_RESULT_FORMAT_SEL (0u)
 #define ADC_SAR_Seq_1_DEFAULT_SE_RESULT_FORMAT_SEL   (1u)
 #define ADC_SAR_Seq_1_DEFAULT_CLOCK_SOURCE           (1u)
-#define ADC_SAR_Seq_1_DEFAULT_VREF_MV_VALUE          (3300)
+#define ADC_SAR_Seq_1_DEFAULT_VREF_MV_VALUE          (5000)
 #define ADC_SAR_Seq_1_DEFAULT_BUFFER_GAIN            (0u)
-#define ADC_SAR_Seq_1_DEFAULT_AVG_SAMPLES_NUM        (0u)
-#define ADC_SAR_Seq_1_DEFAULT_AVG_SAMPLES_DIV        (int16)(0x100u >> (7u - 0u))
+#define ADC_SAR_Seq_1_DEFAULT_AVG_SAMPLES_NUM        (1u)
+#define ADC_SAR_Seq_1_DEFAULT_AVG_SAMPLES_DIV        (int16)(0x100u >> (7u - 1u))
 #define ADC_SAR_Seq_1_DEFAULT_AVG_MODE               (1u)
 #define ADC_SAR_Seq_1_MAX_RESOLUTION                 (12u)
 #define ADC_SAR_Seq_1_DEFAULT_LOW_LIMIT              (0u)
@@ -119,9 +135,10 @@ typedef struct
 #define ADC_SAR_Seq_1_TOTAL_CHANNELS_NUM             (8u)
 #define ADC_SAR_Seq_1_SEQUENCED_CHANNELS_NUM         (8u)
 #define ADC_SAR_Seq_1_DEFAULT_EN_CHANNELS            (255u)
-#define ADC_SAR_Seq_1_NOMINAL_CLOCK_FREQ             (16000000)
+#define ADC_SAR_Seq_1_NOMINAL_CLOCK_FREQ             (8000000)
 #define ADC_SAR_Seq_1_INJ_CHANNEL_ENABLED            (0u)
 #define ADC_SAR_Seq_1_IRQ_REMOVE                     (0u)
+
 /* Determines whether the configuration contains external negative input. */
 #define ADC_SAR_Seq_1_SINGLE_PRESENT                 (0u)
 #define ADC_SAR_Seq_1_CHANNELS_MODE                  (0u)
@@ -377,6 +394,9 @@ extern volatile int32 ADC_SAR_Seq_1_countsPer10Volt[ADC_SAR_Seq_1_TOTAL_CHANNELS
 #define ADC_SAR_Seq_1_SWITCH_DISABLE             (0x40000000Lu)
 #define ADC_SAR_Seq_1_ENABLE                     (0x80000000Lu)
 
+/* defines for STATUS register */
+#define ADC_SAR_Seq_1_STATUS_BUSY                (0x80000000Lu)
+
 /* defines for SAMPLE_CTRL register */
 #define ADC_SAR_Seq_1_ALT_RESOLUTION_10BIT       (0x00000001Lu)
 #define ADC_SAR_Seq_1_ALT_RESOLUTION_8BIT        (0x00000000Lu)
@@ -432,8 +452,9 @@ extern volatile int32 ADC_SAR_Seq_1_countsPer10Volt[ADC_SAR_Seq_1_TOTAL_CHANNELS
 #define ADC_SAR_Seq_1_DFT_INC_MASK               (0x000F0000Lu)
 #define ADC_SAR_Seq_1_DFT_OUTC_MASK              (0x00700000Lu)
 #define ADC_SAR_Seq_1_SEL_CSEL_DFT_MASK          (0x0F000000Lu)
+
 /* configuration for clock speed > 9 Mhz based on
-* characterization results 
+* characterization results
 */
 #define ADC_SAR_Seq_1_SEL_CSEL_DFT_CHAR          (0x03000000Lu)
 #define ADC_SAR_Seq_1_EN_CSEL_DFT                (0x10000000Lu)
@@ -441,7 +462,7 @@ extern volatile int32 ADC_SAR_Seq_1_countsPer10Volt[ADC_SAR_Seq_1_TOTAL_CHANNELS
 #define ADC_SAR_Seq_1_ADFT_OVERRIDE              (0x80000000Lu)
 
 /* defines for CHAN_CONFIG / DIE_CHAN_CONFIG register
-*  and channelsConfig parameter 
+*  and channelsConfig parameter
 */
 #define ADC_SAR_Seq_1_SARMUX_VIRT_SELECT         (0x00000070Lu)
 #define ADC_SAR_Seq_1_DIFFERENTIAL_EN            (0x00000100Lu)
@@ -506,9 +527,9 @@ extern volatile int32 ADC_SAR_Seq_1_countsPer10Volt[ADC_SAR_Seq_1_TOTAL_CHANNELS
 #define ADC_SAR_Seq_1_TRIM_COEF                  (2u)
 
 #if(ADC_SAR_Seq_1_MAX_RESOLUTION == ADC_SAR_Seq_1_RESOLUTION_10)
-    #define ADC_SAR_Seq_1_ALT_WOUNDING           ADC_SAR_Seq_1_WOUNDING_10BIT 
+    #define ADC_SAR_Seq_1_ALT_WOUNDING           ADC_SAR_Seq_1_WOUNDING_10BIT
 #else
-    #define ADC_SAR_Seq_1_ALT_WOUNDING           ADC_SAR_Seq_1_WOUNDING_8BIT 
+    #define ADC_SAR_Seq_1_ALT_WOUNDING           ADC_SAR_Seq_1_WOUNDING_8BIT
 #endif /* ADC_SAR_Seq_1_MAX_RESOLUTION == ADC_SAR_Seq_1_RESOLUTION_10 */
 
 #if(ADC_SAR_Seq_1_DEFAULT_VREF_SEL == ADC_SAR_Seq_1__VDDA_2)
@@ -535,7 +556,7 @@ extern volatile int32 ADC_SAR_Seq_1_countsPer10Volt[ADC_SAR_Seq_1_TOTAL_CHANNELS
         #define ADC_SAR_Seq_1_DEFAULT_SE_NEG_INPUT    ADC_SAR_Seq_1_NEG_VSSA
     #else
         #define ADC_SAR_Seq_1_DEFAULT_SE_NEG_INPUT    ADC_SAR_Seq_1_NEG_VSSA_KELVIN
-    #endif /* (ADC_SAR_Seq_1_TOTAL_CHANNELS_NUM == 1u) */    
+    #endif /* (ADC_SAR_Seq_1_TOTAL_CHANNELS_NUM == 1u) */
     /* Do not connect VSSA to VMINUS when one channel in differential mode used */
     #if((ADC_SAR_Seq_1_TOTAL_CHANNELS_NUM == 1u) && (ADC_SAR_Seq_1_CHANNELS_MODE != 0u))
         #define ADC_SAR_Seq_1_DEFAULT_MUX_SWITCH0     0u
@@ -561,9 +582,9 @@ extern volatile int32 ADC_SAR_Seq_1_countsPer10Volt[ADC_SAR_Seq_1_TOTAL_CHANNELS
 /* If the SAR is configured for multiple channels, always set SAR_HW_CTRL_NEGVREF to 1 */
 #if(ADC_SAR_Seq_1_TOTAL_CHANNELS_NUM == 1u)
     #define ADC_SAR_Seq_1_DEFAULT_HW_CTRL_NEGVREF 0u
-#else 
+#else
     #define ADC_SAR_Seq_1_DEFAULT_HW_CTRL_NEGVREF ADC_SAR_Seq_1_SAR_HW_CTRL_NEGVREF
-#endif /* (ADC_SAR_Seq_1_TOTAL_CHANNELS_NUM == 1u) */    
+#endif /* (ADC_SAR_Seq_1_TOTAL_CHANNELS_NUM == 1u) */
 
 
 #if(ADC_SAR_Seq_1_DEFAULT_ALT_RESOLUTION_SEL == ADC_SAR_Seq_1__RES8)
@@ -628,8 +649,8 @@ extern volatile int32 ADC_SAR_Seq_1_countsPer10Volt[ADC_SAR_Seq_1_TOTAL_CHANNELS
                                                    | ADC_SAR_Seq_1_DEFAULT_SE_NEG_INPUT \
                                                    | ADC_SAR_Seq_1_DEFAULT_HW_CTRL_NEGVREF \
                                                    | ADC_SAR_Seq_1_DEFAULT_POWER \
-                                                   | ADC_SAR_Seq_1_DSI_SYNC_CONFIG) \
-                                                   | ADC_SAR_Seq_1_DEFAULT_SWITCH_CONF
+                                                   | ADC_SAR_Seq_1_DSI_SYNC_CONFIG \
+                                                   | ADC_SAR_Seq_1_DEFAULT_SWITCH_CONF)
 
 #define ADC_SAR_Seq_1_DEFAULT_SAMPLE_CTRL_REG_CFG (ADC_SAR_Seq_1_DEFAULT_DIFF_RESULT_FORMAT \
                                                     | ADC_SAR_Seq_1_DEFAULT_SE_RESULT_FORMAT \

@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: CS2.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -40,17 +40,15 @@ uint8   CS2_ClearInterrupt(void) ;
 /* Drive Modes */
 #define CS2_DRIVE_MODE_BITS        (3)
 #define CS2_DRIVE_MODE_IND_MASK    (0xFFFFFFFFu >> (32 - CS2_DRIVE_MODE_BITS))
-#define CS2_DRIVE_MODE_SHIFT       (0x00u)
-#define CS2_DRIVE_MODE_MASK        (0x07u << CS2_DRIVE_MODE_SHIFT)
 
-#define CS2_DM_ALG_HIZ         (0x00u << CS2_DRIVE_MODE_SHIFT)
-#define CS2_DM_DIG_HIZ         (0x01u << CS2_DRIVE_MODE_SHIFT)
-#define CS2_DM_RES_UP          (0x02u << CS2_DRIVE_MODE_SHIFT)
-#define CS2_DM_RES_DWN         (0x03u << CS2_DRIVE_MODE_SHIFT)
-#define CS2_DM_OD_LO           (0x04u << CS2_DRIVE_MODE_SHIFT)
-#define CS2_DM_OD_HI           (0x05u << CS2_DRIVE_MODE_SHIFT)
-#define CS2_DM_STRONG          (0x06u << CS2_DRIVE_MODE_SHIFT)
-#define CS2_DM_RES_UPDWN       (0x07u << CS2_DRIVE_MODE_SHIFT)
+#define CS2_DM_ALG_HIZ         (0x00u)
+#define CS2_DM_DIG_HIZ         (0x01u)
+#define CS2_DM_RES_UP          (0x02u)
+#define CS2_DM_RES_DWN         (0x03u)
+#define CS2_DM_OD_LO           (0x04u)
+#define CS2_DM_OD_HI           (0x05u)
+#define CS2_DM_STRONG          (0x06u)
+#define CS2_DM_RES_UPDWN       (0x07u)
 
 /* Digital Port Constants */
 #define CS2_MASK               CS2__MASK
@@ -78,6 +76,16 @@ uint8   CS2_ClearInterrupt(void) ;
     #define CS2_INTSTAT                (* (reg32 *) CS2__INTSTAT)
 
 #endif /* Interrupt Registers */
+
+
+/***************************************
+* The following code is DEPRECATED and 
+* must not be used.
+***************************************/
+
+#define CS2_DRIVE_MODE_SHIFT       (0x00u)
+#define CS2_DRIVE_MODE_MASK        (0x07u << CS2_DRIVE_MODE_SHIFT)
+
 
 #endif /* End Pins CS2_H */
 

@@ -1,37 +1,24 @@
 /*******************************************************************************
 * File Name: I2C_1_BOOT.c
-* Version 1.20
+* Version 2.0
 *
 * Description:
 *  This file provides the source code to the API for the bootloader
-*  communication support in SCB Component.
+*  communication support in the SCB Component.
 *
 * Note:
 *
 ********************************************************************************
-* Copyright 2013-2013-2014, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2013-2014, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
 *******************************************************************************/
 
-#include "I2C_1.h"
-
-#if(I2C_1_SCB_MODE_I2C_INC)
-    #include "I2C_1_I2C.h"
-#endif /* (I2C_1_SCB_MODE_I2C_INC) */
-
-#if(I2C_1_SCB_MODE_EZI2C_INC)
-    #include "I2C_1_EZI2C.h"
-#endif /* (I2C_1_SCB_MODE_EZI2C_INC) */
-
-#if(I2C_1_SCB_MODE_SPI_INC || I2C_1_SCB_MODE_UART_INC)
-    #include "I2C_1_SPI_UART.h"
-#endif /* (I2C_1_SCB_MODE_SPI_INC || I2C_1_SCB_MODE_UART_INC) */
+#include "I2C_1_BOOT.h"
 
 
-#if defined(CYDEV_BOOTLOADER_IO_COMP) && ((CYDEV_BOOTLOADER_IO_COMP == CyBtldr_I2C_1) || \
-                                          (CYDEV_BOOTLOADER_IO_COMP == CyBtldr_Custom_Interface))
+#if defined(CYDEV_BOOTLOADER_IO_COMP) && (I2C_1_BTLDR_COMM_MODE_ENABLED)
 
 /*******************************************************************************
 * Function Name: I2C_1_CyBtldrCommStart
@@ -69,7 +56,7 @@ void I2C_1_CyBtldrCommStart(void)
         }
         else
         {
-            /* Unknown mode: do nothing */
+            /* Unknown mode */
         }
     #elif(I2C_1_SCB_MODE_I2C_CONST_CFG)
         I2C_1_I2CCyBtldrCommStart();
@@ -84,7 +71,7 @@ void I2C_1_CyBtldrCommStart(void)
         I2C_1_EzI2CCyBtldrCommStart();
 
     #else
-        /* Do nothing */
+        /* Unknown mode */
 
     #endif /* (I2C_1_SCB_MODE_UNCONFIG_CONST_CFG) */
 }
@@ -95,8 +82,8 @@ void I2C_1_CyBtldrCommStart(void)
 ********************************************************************************
 *
 * Summary:
-*  Calls CyBtldrCommStop function function of the bootloader communication
-*  component for selected mode.
+*  Calls the CyBtldrCommStop function of the bootloader communication
+*  component for the selected mode.
 *
 * Parameters:
 *  None
@@ -126,7 +113,7 @@ void I2C_1_CyBtldrCommStop(void)
         }
         else
         {
-            /* Unknown mode: do nothing */
+            /* Unknown mode */
         }
     #elif(I2C_1_SCB_MODE_I2C_CONST_CFG)
         I2C_1_I2CCyBtldrCommStop();
@@ -141,7 +128,7 @@ void I2C_1_CyBtldrCommStop(void)
         I2C_1_EzI2CCyBtldrCommStop();
 
     #else
-        /* Do nothing */
+        /* Unknown mode */
 
     #endif /* (I2C_1_SCB_MODE_UNCONFIG_CONST_CFG) */
 }
@@ -183,7 +170,7 @@ void I2C_1_CyBtldrCommReset(void)
         }
         else
         {
-            /* Unknown mode: do nothing */
+            /* Unknown mode */
         }
     #elif(I2C_1_SCB_MODE_I2C_CONST_CFG)
         I2C_1_I2CCyBtldrCommReset();
@@ -198,7 +185,7 @@ void I2C_1_CyBtldrCommReset(void)
         I2C_1_EzI2CCyBtldrCommReset();
 
     #else
-        /* Do nothing */
+        /* Unknown mode */
 
     #endif /* (I2C_1_SCB_MODE_UNCONFIG_CONST_CFG) */
 }
@@ -339,8 +326,7 @@ cystatus I2C_1_CyBtldrCommWrite(const uint8 pData[], uint16 size, uint16 * count
     return(status);
 }
 
-#endif /* defined(CYDEV_BOOTLOADER_IO_COMP) && ((CYDEV_BOOTLOADER_IO_COMP == CyBtldr_I2C_1) || \
-                                                    (CYDEV_BOOTLOADER_IO_COMP == CyBtldr_Custom_Interface)) */
+#endif /* defined(CYDEV_BOOTLOADER_IO_COMP) && (I2C_1_BTLDR_COMM_MODE_ENABLED) */
 
 
 /* [] END OF FILE */

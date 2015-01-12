@@ -28,7 +28,13 @@ void init_peripherals(void)
 	Timer_3_Start();
 	isr_t3_Start();
 	
-	//I²C 2 (external)
+	//I2C1 (internal, potentiometers & IMU)
+	I2C_1_Init();
+	I2C_1_EnableInt();
+	I2C_1_Enable();
+	I2C_1_Start();	
+	
+	//I2C2 (external)
 	I2C_2_Init();
 	I2C_2_Enable();
 	I2C_2_Start();
@@ -78,6 +84,9 @@ void init_peripherals(void)
 	LED_R_Write(1);
 	LED_G_Write(1);
 	LED_B_Write(1);
+	
+	//MPU-6500 IMU:
+	init_imu();
 }
 
 //Initialize the USB peripheral

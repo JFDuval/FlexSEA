@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: I2C_1_I2C_BOOT.c
-* Version 1.20
+* Version 2.0
 *
 * Description:
 *  This file provides the source code to the API for the bootloader
@@ -15,6 +15,7 @@
 * the software package with which this file was provided.
 *******************************************************************************/
 
+#include "I2C_1_BOOT.h"
 #include "I2C_1_I2C_PVT.h"
 
 #if defined(CYDEV_BOOTLOADER_IO_COMP) && (I2C_1_I2C_BTLDR_COMM_ENABLED)
@@ -162,7 +163,7 @@ cystatus I2C_1_I2CCyBtldrCommRead(uint8 pData[], uint16 size, uint16 * count, ui
 
         while(0u != timeoutMs)
         {
-            /* Check if the host complete write */
+            /* Check if host complete write */
             if(0u != (I2C_1_I2C_SSTAT_WR_CMPLT & I2C_1_slStatus))
             {
                 /* Copy command into bootloader buffer */
@@ -232,7 +233,7 @@ cystatus I2C_1_I2CCyBtldrCommWrite(const uint8 pData[], uint16 size, uint16 * co
         (void) memcpy((void *) I2C_1_slReadBuf, (const void *) pData, (uint32) size);
         *count = size; /* Buffer was copied to I2C buffer */
 
-        /* Raad buffer is ready to be released to host */
+        /* Read buffer is ready to be released to host */
         I2C_1_applyBuffer = (uint32) size;
 
         while(0u != timeoutMs)
@@ -262,8 +263,8 @@ cystatus I2C_1_I2CCyBtldrCommWrite(const uint8 pData[], uint16 size, uint16 * co
 ********************************************************************************
 *
 * Summary:
-*  Releases the read buffer to be read when a response is copied to the buffer and a new
-*  read transaction starts.
+*  Releases the read buffer to be read when a response is copied to the buffer
+*  and a new read transaction starts.
 *
 * Parameters:
 *  None
@@ -284,7 +285,7 @@ static void I2C_1_I2CResposeInsert(void)
     {
         if(0u != I2C_1_applyBuffer)
         {
-            /* The response was copied into buffer: release buffer to the host */
+            /* Response was copied into buffer: release buffer to host */
             I2C_1_slRdBufSize = I2C_1_applyBuffer;
             I2C_1_applyBuffer = 0u;
         }

@@ -24,6 +24,7 @@
 #include "comm.h"
 #include "trapez.h"
 #include "flexsea_local.h"
+#include "imu.h"
 #include "../../common/inc/flexsea.h"
 
 //****************************************************************************

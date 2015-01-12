@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: Cm0Start.c
-* Version 4.11
+* Version 4.20
 *
 *  Description:
 *  Startup code for the ARM CM0.
@@ -45,6 +45,12 @@
     extern void __iar_program_start( void );
     extern void __iar_data_init3 (void);
 #endif  /* (__ARMCC_VERSION) */
+
+#if defined(__GNUC__)
+    #include <errno.h>
+    extern int  errno;
+    extern int  end;
+#endif  /* defined(__GNUC__) */
 
 /* Extern functions */
 extern void CyBtldr_CheckLaunch(void);
@@ -149,9 +155,9 @@ void Reset(void)
         msp = (uint32_t)&Image$$ARM_LIB_STACK$$ZI$$Limit;
     #endif /* CYDEV_PROJ_TYPE_LOADABLE */
 
-    #if(!CY_PSOC4A)
+    #if(CY_IP_SRSSLT)
         CySysWdtDisable();
-    #endif  /* (!CY_PSOC4A) */
+    #endif  /* (CY_IP_SRSSLT) */
 
     #if (CYDEV_BOOTLOADER_ENABLE)
         CyBtldr_CheckLaunch();
@@ -213,11 +219,33 @@ extern const struct __cy_region __cy_regions[];
 extern const char __cy_region_num __attribute__((weak));
 #define __cy_region_num ((size_t)&__cy_region_num)
 
+
+/*******************************************************************************
+* System Calls of the Red Hat newlib C Library
+*******************************************************************************/
+
+
+/*******************************************************************************
+* Function Name: _exit
+********************************************************************************
+*
+* Summary:
+*  Exit a program without cleaning up files. If your system doesn't provide
+*  this, it is best to avoid linking with subroutines that require it (exit,
+*  system).
+*
+* Parameters:
+*  status: Status caused program exit.
+*
+* Return:
+*  None
+*
+*******************************************************************************/
 __attribute__((weak))
 void _exit(int status)
 {
     /* Cause divide by 0 exception */
-    int x = status / INT_MAX;
+    int x = status / (int) INT_MAX;
     x = 4 / x;
 
     while(1)
@@ -225,6 +253,50 @@ void _exit(int status)
 
     }
 }
+
+
+/*******************************************************************************
+* Function Name: _sbrk
+********************************************************************************
+*
+* Summary:
+*  Increase program data space. As malloc and related functions depend on this,
+*  it is useful to have a working implementation. The following suffices for a
+*  standalone system; it exploits the symbol end automatically defined by the
+*  GNU linker.
+*
+* Parameters:
+*  nbytes: The number of bytes requested (if the parameter value is positive)
+*  from the heap or returned back to the heap (if the parameter value is
+*  negative).
+*
+* Return:
+*  None
+*
+*******************************************************************************/
+__attribute__((weak))
+void * _sbrk (int nbytes)
+{
+    extern int  end;            /* Symbol defined by linker map. Start of free memory (as symbol). */
+    void *      returnValue;
+
+    /* The statically held previous end of the heap, with its initialization. */
+    static void *heapPointer = (void *) &end;                 /* Previous end */
+
+    if (((heapPointer + nbytes) - (void *) &end) <= CYDEV_HEAP_SIZE)
+    {
+        returnValue  = heapPointer;
+        heapPointer += nbytes;
+    }
+    else
+    {
+        errno = ENOMEM;
+        returnValue = (void *) -1;
+    }
+
+    return (returnValue);
+}
+
 
 /*******************************************************************************
 * Function Name: Start_c
@@ -249,7 +321,7 @@ void Start_c(void)
     const struct __cy_region *rptr = __cy_regions;
 
     /* Initialize memory */
-    for (regions = __cy_region_num, rptr = __cy_regions; regions--; rptr++)
+    for (regions = __cy_region_num; regions != 0u; regions--)
     {
         uint32 *src = (uint32 *)rptr->init;
         uint32 *dst = (uint32 *)rptr->data;
@@ -258,13 +330,18 @@ void Start_c(void)
 
         for (count = 0u; count != limit; count += sizeof (uint32))
         {
-            *dst++ = *src++;
+            *dst = *src;
+            dst++;
+            src++;
         }
         limit = rptr->zero_size;
         for (count = 0u; count != limit; count += sizeof (uint32))
         {
-            *dst++ = 0u;
+            *dst = 0u;
+            dst++;
         }
+
+        rptr++;
     }
 
     /* Invoke static objects constructors */
@@ -304,9 +381,9 @@ void Reset(void)
         __asm volatile ("MSR msp, %0\n" : : "r" ((uint32)&__cy_stack) : "sp");
     #endif /* CYDEV_PROJ_TYPE_LOADABLE */
 
-    #if(!CY_PSOC4A)
+    #if(CY_IP_SRSSLT)
         CySysWdtDisable();
-    #endif  /* (!CY_PSOC4A) */
+    #endif  /* (CY_IP_SRSSLT) */
 
     #if (CYDEV_BOOTLOADER_ENABLE)
         CyBtldr_CheckLaunch();
@@ -338,9 +415,9 @@ void Reset(void)
 *******************************************************************************/
 int __low_level_init(void)
 {
-    #if(!CY_PSOC4A)
+    #if(CY_IP_SRSSLT)
         CySysWdtDisable();
-    #endif  /* (!CY_PSOC4A) */
+    #endif  /* (CY_IP_SRSSLT) */
 
 #if (CYDEV_BOOTLOADER_ENABLE)
     CyBtldr_CheckLaunch();
@@ -422,7 +499,7 @@ void initialize_psoc(void)
 {
     uint32 indexInit;
 
-    #if(!CY_PSOC4A)
+    #if(CY_IP_CPUSSV2)
         /***********************************************************************
         * Make sure that Vector Table is located at 0000_0000 in Flash, before
         * accessing RomVectors or calling functions that may be placed in
@@ -430,7 +507,7 @@ void initialize_psoc(void)
         * register is retention for the specified device family.
         ***********************************************************************/
         CY_CPUSS_CONFIG_REG &= (uint32) ~CY_CPUSS_CONFIG_VECT_IN_RAM;
-    #endif  /* (!CY_PSOC4A) */
+    #endif  /* (CY_IP_CPUSSV2) */
 
     /* Set Ram interrupt vectors to default functions. */
     for (indexInit = 0u; indexInit < CY_NUM_VECTORS; indexInit++)

@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: .h
-* Version 1.20
+* Version 2.0
 *
 * Description:
 *  This private file provides constants and parameter values for the

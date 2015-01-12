@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: Timer_1_PM.c
-* Version 2.60
+* Version 2.70
 *
 *  Description:
 *     This file provides the power management source code to API for the

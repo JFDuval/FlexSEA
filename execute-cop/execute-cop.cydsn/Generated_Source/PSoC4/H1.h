@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: H1.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -40,17 +40,15 @@ uint8   H1_ClearInterrupt(void) ;
 /* Drive Modes */
 #define H1_DRIVE_MODE_BITS        (3)
 #define H1_DRIVE_MODE_IND_MASK    (0xFFFFFFFFu >> (32 - H1_DRIVE_MODE_BITS))
-#define H1_DRIVE_MODE_SHIFT       (0x00u)
-#define H1_DRIVE_MODE_MASK        (0x07u << H1_DRIVE_MODE_SHIFT)
 
-#define H1_DM_ALG_HIZ         (0x00u << H1_DRIVE_MODE_SHIFT)
-#define H1_DM_DIG_HIZ         (0x01u << H1_DRIVE_MODE_SHIFT)
-#define H1_DM_RES_UP          (0x02u << H1_DRIVE_MODE_SHIFT)
-#define H1_DM_RES_DWN         (0x03u << H1_DRIVE_MODE_SHIFT)
-#define H1_DM_OD_LO           (0x04u << H1_DRIVE_MODE_SHIFT)
-#define H1_DM_OD_HI           (0x05u << H1_DRIVE_MODE_SHIFT)
-#define H1_DM_STRONG          (0x06u << H1_DRIVE_MODE_SHIFT)
-#define H1_DM_RES_UPDWN       (0x07u << H1_DRIVE_MODE_SHIFT)
+#define H1_DM_ALG_HIZ         (0x00u)
+#define H1_DM_DIG_HIZ         (0x01u)
+#define H1_DM_RES_UP          (0x02u)
+#define H1_DM_RES_DWN         (0x03u)
+#define H1_DM_OD_LO           (0x04u)
+#define H1_DM_OD_HI           (0x05u)
+#define H1_DM_STRONG          (0x06u)
+#define H1_DM_RES_UPDWN       (0x07u)
 
 /* Digital Port Constants */
 #define H1_MASK               H1__MASK
@@ -78,6 +76,16 @@ uint8   H1_ClearInterrupt(void) ;
     #define H1_INTSTAT                (* (reg32 *) H1__INTSTAT)
 
 #endif /* Interrupt Registers */
+
+
+/***************************************
+* The following code is DEPRECATED and 
+* must not be used.
+***************************************/
+
+#define H1_DRIVE_MODE_SHIFT       (0x00u)
+#define H1_DRIVE_MODE_MASK        (0x07u << H1_DRIVE_MODE_SHIFT)
+
 
 #endif /* End Pins H1_H */
 

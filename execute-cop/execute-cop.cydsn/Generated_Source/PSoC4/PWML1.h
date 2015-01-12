@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: PWML1.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -40,17 +40,15 @@ uint8   PWML1_ClearInterrupt(void) ;
 /* Drive Modes */
 #define PWML1_DRIVE_MODE_BITS        (3)
 #define PWML1_DRIVE_MODE_IND_MASK    (0xFFFFFFFFu >> (32 - PWML1_DRIVE_MODE_BITS))
-#define PWML1_DRIVE_MODE_SHIFT       (0x00u)
-#define PWML1_DRIVE_MODE_MASK        (0x07u << PWML1_DRIVE_MODE_SHIFT)
 
-#define PWML1_DM_ALG_HIZ         (0x00u << PWML1_DRIVE_MODE_SHIFT)
-#define PWML1_DM_DIG_HIZ         (0x01u << PWML1_DRIVE_MODE_SHIFT)
-#define PWML1_DM_RES_UP          (0x02u << PWML1_DRIVE_MODE_SHIFT)
-#define PWML1_DM_RES_DWN         (0x03u << PWML1_DRIVE_MODE_SHIFT)
-#define PWML1_DM_OD_LO           (0x04u << PWML1_DRIVE_MODE_SHIFT)
-#define PWML1_DM_OD_HI           (0x05u << PWML1_DRIVE_MODE_SHIFT)
-#define PWML1_DM_STRONG          (0x06u << PWML1_DRIVE_MODE_SHIFT)
-#define PWML1_DM_RES_UPDWN       (0x07u << PWML1_DRIVE_MODE_SHIFT)
+#define PWML1_DM_ALG_HIZ         (0x00u)
+#define PWML1_DM_DIG_HIZ         (0x01u)
+#define PWML1_DM_RES_UP          (0x02u)
+#define PWML1_DM_RES_DWN         (0x03u)
+#define PWML1_DM_OD_LO           (0x04u)
+#define PWML1_DM_OD_HI           (0x05u)
+#define PWML1_DM_STRONG          (0x06u)
+#define PWML1_DM_RES_UPDWN       (0x07u)
 
 /* Digital Port Constants */
 #define PWML1_MASK               PWML1__MASK
@@ -78,6 +76,16 @@ uint8   PWML1_ClearInterrupt(void) ;
     #define PWML1_INTSTAT                (* (reg32 *) PWML1__INTSTAT)
 
 #endif /* Interrupt Registers */
+
+
+/***************************************
+* The following code is DEPRECATED and 
+* must not be used.
+***************************************/
+
+#define PWML1_DRIVE_MODE_SHIFT       (0x00u)
+#define PWML1_DRIVE_MODE_MASK        (0x07u << PWML1_DRIVE_MODE_SHIFT)
+
 
 #endif /* End Pins PWML1_H */
 

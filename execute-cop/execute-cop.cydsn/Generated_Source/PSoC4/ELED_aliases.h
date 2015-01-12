@@ -1,9 +1,10 @@
 /*******************************************************************************
 * File Name: ELED.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
-*  This file containts Control Register function prototypes and register defines
+*  This file contains the Alias definitions for Per-Pin APIs in cypins.h. 
+*  Information on using these APIs can be found in the System Reference Guide.
 *
 * Note:
 *
@@ -19,12 +20,18 @@
 
 #include "cytypes.h"
 #include "cyfitter.h"
+#include "cypins.h"
 
 
 /***************************************
 *              Constants        
 ***************************************/
-#define ELED_0		ELED__0__PC
+#define ELED_0		(ELED__0__PC)
+#define ELED_0_PS		(ELED__0__PS)
+#define ELED_0_PC		(ELED__0__PC)
+#define ELED_0_DR		(ELED__0__DR)
+#define ELED_0_SHIFT	(ELED__0__SHIFT)
+
 
 #endif /* End Pins ELED_ALIASES_H */
 

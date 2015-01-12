@@ -1,9 +1,10 @@
 /*******************************************************************************
 * File Name: CS3.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
-*  This file containts Control Register function prototypes and register defines
+*  This file contains the Alias definitions for Per-Pin APIs in cypins.h. 
+*  Information on using these APIs can be found in the System Reference Guide.
 *
 * Note:
 *
@@ -19,12 +20,18 @@
 
 #include "cytypes.h"
 #include "cyfitter.h"
+#include "cypins.h"
 
 
 /***************************************
 *              Constants        
 ***************************************/
-#define CS3_0		CS3__0__PC
+#define CS3_0		(CS3__0__PC)
+#define CS3_0_PS		(CS3__0__PS)
+#define CS3_0_PC		(CS3__0__PC)
+#define CS3_0_DR		(CS3__0__DR)
+#define CS3_0_SHIFT	(CS3__0__SHIFT)
+
 
 #endif /* End Pins CS3_ALIASES_H */
 

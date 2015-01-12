@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: MV3.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -40,17 +40,15 @@ uint8   MV3_ClearInterrupt(void) ;
 /* Drive Modes */
 #define MV3_DRIVE_MODE_BITS        (3)
 #define MV3_DRIVE_MODE_IND_MASK    (0xFFFFFFFFu >> (32 - MV3_DRIVE_MODE_BITS))
-#define MV3_DRIVE_MODE_SHIFT       (0x00u)
-#define MV3_DRIVE_MODE_MASK        (0x07u << MV3_DRIVE_MODE_SHIFT)
 
-#define MV3_DM_ALG_HIZ         (0x00u << MV3_DRIVE_MODE_SHIFT)
-#define MV3_DM_DIG_HIZ         (0x01u << MV3_DRIVE_MODE_SHIFT)
-#define MV3_DM_RES_UP          (0x02u << MV3_DRIVE_MODE_SHIFT)
-#define MV3_DM_RES_DWN         (0x03u << MV3_DRIVE_MODE_SHIFT)
-#define MV3_DM_OD_LO           (0x04u << MV3_DRIVE_MODE_SHIFT)
-#define MV3_DM_OD_HI           (0x05u << MV3_DRIVE_MODE_SHIFT)
-#define MV3_DM_STRONG          (0x06u << MV3_DRIVE_MODE_SHIFT)
-#define MV3_DM_RES_UPDWN       (0x07u << MV3_DRIVE_MODE_SHIFT)
+#define MV3_DM_ALG_HIZ         (0x00u)
+#define MV3_DM_DIG_HIZ         (0x01u)
+#define MV3_DM_RES_UP          (0x02u)
+#define MV3_DM_RES_DWN         (0x03u)
+#define MV3_DM_OD_LO           (0x04u)
+#define MV3_DM_OD_HI           (0x05u)
+#define MV3_DM_STRONG          (0x06u)
+#define MV3_DM_RES_UPDWN       (0x07u)
 
 /* Digital Port Constants */
 #define MV3_MASK               MV3__MASK
@@ -78,6 +76,16 @@ uint8   MV3_ClearInterrupt(void) ;
     #define MV3_INTSTAT                (* (reg32 *) MV3__INTSTAT)
 
 #endif /* Interrupt Registers */
+
+
+/***************************************
+* The following code is DEPRECATED and 
+* must not be used.
+***************************************/
+
+#define MV3_DRIVE_MODE_SHIFT       (0x00u)
+#define MV3_DRIVE_MODE_MASK        (0x07u << MV3_DRIVE_MODE_SHIFT)
+
 
 #endif /* End Pins MV3_H */
 

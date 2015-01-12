@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: L3.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -40,17 +40,15 @@ uint8   L3_ClearInterrupt(void) ;
 /* Drive Modes */
 #define L3_DRIVE_MODE_BITS        (3)
 #define L3_DRIVE_MODE_IND_MASK    (0xFFFFFFFFu >> (32 - L3_DRIVE_MODE_BITS))
-#define L3_DRIVE_MODE_SHIFT       (0x00u)
-#define L3_DRIVE_MODE_MASK        (0x07u << L3_DRIVE_MODE_SHIFT)
 
-#define L3_DM_ALG_HIZ         (0x00u << L3_DRIVE_MODE_SHIFT)
-#define L3_DM_DIG_HIZ         (0x01u << L3_DRIVE_MODE_SHIFT)
-#define L3_DM_RES_UP          (0x02u << L3_DRIVE_MODE_SHIFT)
-#define L3_DM_RES_DWN         (0x03u << L3_DRIVE_MODE_SHIFT)
-#define L3_DM_OD_LO           (0x04u << L3_DRIVE_MODE_SHIFT)
-#define L3_DM_OD_HI           (0x05u << L3_DRIVE_MODE_SHIFT)
-#define L3_DM_STRONG          (0x06u << L3_DRIVE_MODE_SHIFT)
-#define L3_DM_RES_UPDWN       (0x07u << L3_DRIVE_MODE_SHIFT)
+#define L3_DM_ALG_HIZ         (0x00u)
+#define L3_DM_DIG_HIZ         (0x01u)
+#define L3_DM_RES_UP          (0x02u)
+#define L3_DM_RES_DWN         (0x03u)
+#define L3_DM_OD_LO           (0x04u)
+#define L3_DM_OD_HI           (0x05u)
+#define L3_DM_STRONG          (0x06u)
+#define L3_DM_RES_UPDWN       (0x07u)
 
 /* Digital Port Constants */
 #define L3_MASK               L3__MASK
@@ -78,6 +76,16 @@ uint8   L3_ClearInterrupt(void) ;
     #define L3_INTSTAT                (* (reg32 *) L3__INTSTAT)
 
 #endif /* Interrupt Registers */
+
+
+/***************************************
+* The following code is DEPRECATED and 
+* must not be used.
+***************************************/
+
+#define L3_DRIVE_MODE_SHIFT       (0x00u)
+#define L3_DRIVE_MODE_MASK        (0x07u << L3_DRIVE_MODE_SHIFT)
+
 
 #endif /* End Pins L3_H */
 

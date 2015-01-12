@@ -83,6 +83,9 @@ extern int debug_var;
 // Function(s)
 //****************************************************************************
 
+	int16 accex[256];
+	int16 accex_cnt = 0;
+	
 int main()
 {
 	//Local variables:
@@ -102,6 +105,8 @@ int main()
 	unsigned char comm_str_payload1[16];
 	unsigned char ledr_state = 0, ledg_state = 0, ledb_state = 0;
 	int32 usb_value = 0;
+	int16 imu_accel_x = 0;
+
 
    	//Enable Global Interrupts
     CyGlobalIntEnable;        
@@ -144,6 +149,22 @@ int main()
 	control_strategy(CTRL_NONE);
 	//pos = KNEE_DOWN;
 	//steps = trapez_gen_motion_1(KNEE_DOWN, KNEE_DOWN, 1, 1);
+	
+	//IMU test code
+	while(1)
+	{
+		imu_accel_x = get_accel_x();
+		accex[accex_cnt] = imu_accel_x;
+		accex_cnt++;
+		if(accex_cnt > 255)
+			accex_cnt = 0;
+		send_usb_int16(imu_accel_x);
+		
+		ledg_state ^= 1;
+		LED_G_Write(ledg_state);
+		
+		CyDelay(75);		
+	}
 	
 	/*
 	//ToDo Debug only - fixed PWM

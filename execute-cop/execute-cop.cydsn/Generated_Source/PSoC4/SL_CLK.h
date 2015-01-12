@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: SL_CLK.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -40,17 +40,15 @@ uint8   SL_CLK_ClearInterrupt(void) ;
 /* Drive Modes */
 #define SL_CLK_DRIVE_MODE_BITS        (3)
 #define SL_CLK_DRIVE_MODE_IND_MASK    (0xFFFFFFFFu >> (32 - SL_CLK_DRIVE_MODE_BITS))
-#define SL_CLK_DRIVE_MODE_SHIFT       (0x00u)
-#define SL_CLK_DRIVE_MODE_MASK        (0x07u << SL_CLK_DRIVE_MODE_SHIFT)
 
-#define SL_CLK_DM_ALG_HIZ         (0x00u << SL_CLK_DRIVE_MODE_SHIFT)
-#define SL_CLK_DM_DIG_HIZ         (0x01u << SL_CLK_DRIVE_MODE_SHIFT)
-#define SL_CLK_DM_RES_UP          (0x02u << SL_CLK_DRIVE_MODE_SHIFT)
-#define SL_CLK_DM_RES_DWN         (0x03u << SL_CLK_DRIVE_MODE_SHIFT)
-#define SL_CLK_DM_OD_LO           (0x04u << SL_CLK_DRIVE_MODE_SHIFT)
-#define SL_CLK_DM_OD_HI           (0x05u << SL_CLK_DRIVE_MODE_SHIFT)
-#define SL_CLK_DM_STRONG          (0x06u << SL_CLK_DRIVE_MODE_SHIFT)
-#define SL_CLK_DM_RES_UPDWN       (0x07u << SL_CLK_DRIVE_MODE_SHIFT)
+#define SL_CLK_DM_ALG_HIZ         (0x00u)
+#define SL_CLK_DM_DIG_HIZ         (0x01u)
+#define SL_CLK_DM_RES_UP          (0x02u)
+#define SL_CLK_DM_RES_DWN         (0x03u)
+#define SL_CLK_DM_OD_LO           (0x04u)
+#define SL_CLK_DM_OD_HI           (0x05u)
+#define SL_CLK_DM_STRONG          (0x06u)
+#define SL_CLK_DM_RES_UPDWN       (0x07u)
 
 /* Digital Port Constants */
 #define SL_CLK_MASK               SL_CLK__MASK
@@ -78,6 +76,16 @@ uint8   SL_CLK_ClearInterrupt(void) ;
     #define SL_CLK_INTSTAT                (* (reg32 *) SL_CLK__INTSTAT)
 
 #endif /* Interrupt Registers */
+
+
+/***************************************
+* The following code is DEPRECATED and 
+* must not be used.
+***************************************/
+
+#define SL_CLK_DRIVE_MODE_SHIFT       (0x00u)
+#define SL_CLK_DRIVE_MODE_MASK        (0x07u << SL_CLK_DRIVE_MODE_SHIFT)
+
 
 #endif /* End Pins SL_CLK_H */
 

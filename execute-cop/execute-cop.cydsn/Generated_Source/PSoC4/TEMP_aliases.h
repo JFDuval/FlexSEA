@@ -1,9 +1,10 @@
 /*******************************************************************************
 * File Name: TEMP.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
-*  This file containts Control Register function prototypes and register defines
+*  This file contains the Alias definitions for Per-Pin APIs in cypins.h. 
+*  Information on using these APIs can be found in the System Reference Guide.
 *
 * Note:
 *
@@ -19,12 +20,18 @@
 
 #include "cytypes.h"
 #include "cyfitter.h"
+#include "cypins.h"
 
 
 /***************************************
 *              Constants        
 ***************************************/
-#define TEMP_0		TEMP__0__PC
+#define TEMP_0		(TEMP__0__PC)
+#define TEMP_0_PS		(TEMP__0__PS)
+#define TEMP_0_PC		(TEMP__0__PC)
+#define TEMP_0_DR		(TEMP__0__DR)
+#define TEMP_0_SHIFT	(TEMP__0__SHIFT)
+
 
 #endif /* End Pins TEMP_ALIASES_H */
 

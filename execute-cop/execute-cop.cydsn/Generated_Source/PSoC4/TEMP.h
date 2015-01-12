@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: TEMP.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -40,17 +40,15 @@ uint8   TEMP_ClearInterrupt(void) ;
 /* Drive Modes */
 #define TEMP_DRIVE_MODE_BITS        (3)
 #define TEMP_DRIVE_MODE_IND_MASK    (0xFFFFFFFFu >> (32 - TEMP_DRIVE_MODE_BITS))
-#define TEMP_DRIVE_MODE_SHIFT       (0x00u)
-#define TEMP_DRIVE_MODE_MASK        (0x07u << TEMP_DRIVE_MODE_SHIFT)
 
-#define TEMP_DM_ALG_HIZ         (0x00u << TEMP_DRIVE_MODE_SHIFT)
-#define TEMP_DM_DIG_HIZ         (0x01u << TEMP_DRIVE_MODE_SHIFT)
-#define TEMP_DM_RES_UP          (0x02u << TEMP_DRIVE_MODE_SHIFT)
-#define TEMP_DM_RES_DWN         (0x03u << TEMP_DRIVE_MODE_SHIFT)
-#define TEMP_DM_OD_LO           (0x04u << TEMP_DRIVE_MODE_SHIFT)
-#define TEMP_DM_OD_HI           (0x05u << TEMP_DRIVE_MODE_SHIFT)
-#define TEMP_DM_STRONG          (0x06u << TEMP_DRIVE_MODE_SHIFT)
-#define TEMP_DM_RES_UPDWN       (0x07u << TEMP_DRIVE_MODE_SHIFT)
+#define TEMP_DM_ALG_HIZ         (0x00u)
+#define TEMP_DM_DIG_HIZ         (0x01u)
+#define TEMP_DM_RES_UP          (0x02u)
+#define TEMP_DM_RES_DWN         (0x03u)
+#define TEMP_DM_OD_LO           (0x04u)
+#define TEMP_DM_OD_HI           (0x05u)
+#define TEMP_DM_STRONG          (0x06u)
+#define TEMP_DM_RES_UPDWN       (0x07u)
 
 /* Digital Port Constants */
 #define TEMP_MASK               TEMP__MASK
@@ -78,6 +76,16 @@ uint8   TEMP_ClearInterrupt(void) ;
     #define TEMP_INTSTAT                (* (reg32 *) TEMP__INTSTAT)
 
 #endif /* Interrupt Registers */
+
+
+/***************************************
+* The following code is DEPRECATED and 
+* must not be used.
+***************************************/
+
+#define TEMP_DRIVE_MODE_SHIFT       (0x00u)
+#define TEMP_DRIVE_MODE_MASK        (0x07u << TEMP_DRIVE_MODE_SHIFT)
+
 
 #endif /* End Pins TEMP_H */
 

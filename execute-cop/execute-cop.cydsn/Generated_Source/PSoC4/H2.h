@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: H2.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -40,17 +40,15 @@ uint8   H2_ClearInterrupt(void) ;
 /* Drive Modes */
 #define H2_DRIVE_MODE_BITS        (3)
 #define H2_DRIVE_MODE_IND_MASK    (0xFFFFFFFFu >> (32 - H2_DRIVE_MODE_BITS))
-#define H2_DRIVE_MODE_SHIFT       (0x00u)
-#define H2_DRIVE_MODE_MASK        (0x07u << H2_DRIVE_MODE_SHIFT)
 
-#define H2_DM_ALG_HIZ         (0x00u << H2_DRIVE_MODE_SHIFT)
-#define H2_DM_DIG_HIZ         (0x01u << H2_DRIVE_MODE_SHIFT)
-#define H2_DM_RES_UP          (0x02u << H2_DRIVE_MODE_SHIFT)
-#define H2_DM_RES_DWN         (0x03u << H2_DRIVE_MODE_SHIFT)
-#define H2_DM_OD_LO           (0x04u << H2_DRIVE_MODE_SHIFT)
-#define H2_DM_OD_HI           (0x05u << H2_DRIVE_MODE_SHIFT)
-#define H2_DM_STRONG          (0x06u << H2_DRIVE_MODE_SHIFT)
-#define H2_DM_RES_UPDWN       (0x07u << H2_DRIVE_MODE_SHIFT)
+#define H2_DM_ALG_HIZ         (0x00u)
+#define H2_DM_DIG_HIZ         (0x01u)
+#define H2_DM_RES_UP          (0x02u)
+#define H2_DM_RES_DWN         (0x03u)
+#define H2_DM_OD_LO           (0x04u)
+#define H2_DM_OD_HI           (0x05u)
+#define H2_DM_STRONG          (0x06u)
+#define H2_DM_RES_UPDWN       (0x07u)
 
 /* Digital Port Constants */
 #define H2_MASK               H2__MASK
@@ -78,6 +76,16 @@ uint8   H2_ClearInterrupt(void) ;
     #define H2_INTSTAT                (* (reg32 *) H2__INTSTAT)
 
 #endif /* Interrupt Registers */
+
+
+/***************************************
+* The following code is DEPRECATED and 
+* must not be used.
+***************************************/
+
+#define H2_DRIVE_MODE_SHIFT       (0x00u)
+#define H2_DRIVE_MODE_MASK        (0x07u << H2_DRIVE_MODE_SHIFT)
+
 
 #endif /* End Pins H2_H */
 

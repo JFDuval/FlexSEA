@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: WDCLK.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -40,17 +40,15 @@ uint8   WDCLK_ClearInterrupt(void) ;
 /* Drive Modes */
 #define WDCLK_DRIVE_MODE_BITS        (3)
 #define WDCLK_DRIVE_MODE_IND_MASK    (0xFFFFFFFFu >> (32 - WDCLK_DRIVE_MODE_BITS))
-#define WDCLK_DRIVE_MODE_SHIFT       (0x00u)
-#define WDCLK_DRIVE_MODE_MASK        (0x07u << WDCLK_DRIVE_MODE_SHIFT)
 
-#define WDCLK_DM_ALG_HIZ         (0x00u << WDCLK_DRIVE_MODE_SHIFT)
-#define WDCLK_DM_DIG_HIZ         (0x01u << WDCLK_DRIVE_MODE_SHIFT)
-#define WDCLK_DM_RES_UP          (0x02u << WDCLK_DRIVE_MODE_SHIFT)
-#define WDCLK_DM_RES_DWN         (0x03u << WDCLK_DRIVE_MODE_SHIFT)
-#define WDCLK_DM_OD_LO           (0x04u << WDCLK_DRIVE_MODE_SHIFT)
-#define WDCLK_DM_OD_HI           (0x05u << WDCLK_DRIVE_MODE_SHIFT)
-#define WDCLK_DM_STRONG          (0x06u << WDCLK_DRIVE_MODE_SHIFT)
-#define WDCLK_DM_RES_UPDWN       (0x07u << WDCLK_DRIVE_MODE_SHIFT)
+#define WDCLK_DM_ALG_HIZ         (0x00u)
+#define WDCLK_DM_DIG_HIZ         (0x01u)
+#define WDCLK_DM_RES_UP          (0x02u)
+#define WDCLK_DM_RES_DWN         (0x03u)
+#define WDCLK_DM_OD_LO           (0x04u)
+#define WDCLK_DM_OD_HI           (0x05u)
+#define WDCLK_DM_STRONG          (0x06u)
+#define WDCLK_DM_RES_UPDWN       (0x07u)
 
 /* Digital Port Constants */
 #define WDCLK_MASK               WDCLK__MASK
@@ -78,6 +76,16 @@ uint8   WDCLK_ClearInterrupt(void) ;
     #define WDCLK_INTSTAT                (* (reg32 *) WDCLK__INTSTAT)
 
 #endif /* Interrupt Registers */
+
+
+/***************************************
+* The following code is DEPRECATED and 
+* must not be used.
+***************************************/
+
+#define WDCLK_DRIVE_MODE_SHIFT       (0x00u)
+#define WDCLK_DRIVE_MODE_MASK        (0x07u << WDCLK_DRIVE_MODE_SHIFT)
+
 
 #endif /* End Pins WDCLK_H */
 

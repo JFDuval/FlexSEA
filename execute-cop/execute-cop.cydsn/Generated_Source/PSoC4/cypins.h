@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: cypins.h
-* Version 4.11
+* Version 4.20
 *
 *  Description:
 *   This file contains the function prototypes and constants used for port/pin
@@ -151,11 +151,12 @@
 *  Reads the current value on the pin (pin state, PS).
 *
 * Parameters:
-*   portPS: Address of the port pin status register (uint32). Definitions for
-*   each port are provided in the cydevice_trm.h file in the form:
-*   CYREG_PRTx_PS, where x is a port number 0 - 4.
+*   portPS: Address of the port pin status register (uint32).
+*   Definitions for each port are provided in the cydevice_trm.h file  in the
+*   form: CYREG_GPIO_PRTx_PS, where x is a port number. The actual number
+*   depends on the selected device.
 *
-*   pin: pin number 0 - 7
+*   pin: pin number 0 - 7. The actual number depends on the selected device.
 *
 * Return:
 *   Pin state:
@@ -163,8 +164,8 @@
 *    Non-0: Logic high value
 *
 *******************************************************************************/
-#define CY_SYS_PINS_READ_PIN(portPS, pin)    \
-            (( *(reg32 *)(portPS) & (CY_SYS_PINS_PC_DATAOUT << (pin)) ) >> (pin))
+#define CY_SYS_PINS_READ_PIN(portPS, pin) \
+            (( *(reg32 *)(portPS) >> (pin)) & CY_SYS_PINS_PC_DATAOUT)
 
 
 /*******************************************************************************
@@ -175,12 +176,21 @@
 *  Note that this only has an effect for pins configured as software pins that
 *  are not driven by hardware.
 *
-* Parameters:
-*   portDR: Address of the port output pin data register (uint32). Definitions for
-*   each port are provided in the cydevice_trm.h file in the form:
-*   CYREG_PRTx_DR, where x is a port number 0 - 4.
+*  The macro operation is not atomic. It is not guaranteed that shared register
+*  will remain uncorrupted during simultaneous read-modify-write operations
+*  performed by two threads (main and interrupt threads). To guarantee data
+*  integrity in such cases, the macro should be invoked while the specific
+*  interrupt is disabled or within critical section (all interrupts are
+*  disabled).
 *
-*   pin: pin number 0 - 7.
+* Parameters:
+*   portDR:
+*   Address of the port output pin data register (uint32).
+*   Definitions for each port are provided in the cydevice_trm.h file  in the
+*   form: CYREG_GPIO_PRTx_PS, where x is a port number. The actual number
+*   depends on the selected device.
+*
+*   pin: pin number 0 - 7. The actual number depends on the selected device.
 *
 * Return:
 *   None
@@ -196,14 +206,20 @@
 * Summary:
 *  This macro sets the state of the specified pin to zero.
 *
+*  The macro operation is not atomic. It is not guaranteed that shared register
+*  will remain uncorrupted during simultaneous read-modify-write operations
+*  performed by two threads (main and interrupt threads). To guarantee data
+*  integrity in such cases, the macro should be invoked while the specific
+*  interrupt is disabled or within critical section (all interrupts are
+*  disabled).
+*
 * Parameters:
-*   portDR: Address of the port output pin data register (uint32). Definitions for
-*   each port are provided in the cydevice_trm.h file in the form:
-*   CYREG_PRTx_DR, where x is a port number 0 - 4.
+*   portDR: Address of the port output pin data register (uint32).
+*   Definitions for each port are provided in the cydevice_trm.h file in the
+*   form: CYREG_GPIO_PRTx_PS, where x is a port number. The actual number
+*   depends on the selected device.
 *
-*   where x is a port number 0 - 4
-*
-*   pin: pin number 0 - 7
+*   pin: pin number 0 - 7. The actual number depends on the selected device.
 *
 * Return:
 *   None
@@ -219,12 +235,20 @@
 * Summary:
 *  Sets the drive mode for the pin (DM).
 *
-* Parameters:
-*   portPC: Address of the port configuration register (uint32). Definitions for
-*   each port are provided in the cydevice_trm.h file in the form:
-*   CYREG_PRTx_PC, where x is a port number 0 - 4.
+*  The macro operation is not atomic. It is not guaranteed that shared register
+*  will remain uncorrupted during simultaneous read-modify-write operations
+*  performed by two threads (main and interrupt threads). To guarantee data
+*  integrity in such cases, the macro should be invoked while the specific
+*  interrupt is disabled or within critical section (all interrupts are
+*  disabled).
 *
-*   pin: pin number 0 - 7
+* Parameters:
+*   portPC: Address of the port configuration register (uint32).
+*   Definitions for each port are provided in the cydevice_trm.h file  in the
+*   form: CYREG_GPIO_PRTx_PS, where x is a port number. The actual number
+*   depends on the selected device.
+*
+*   pin: pin number 0 - 7. The actual number depends on the selected device.
 *
 *   mode: Desired drive mode
 *
@@ -255,11 +279,12 @@
 *  Reads the drive mode for the pin (DM).
 *
 * Parameters:
-*   portPC: Address of the port configuration register (uint32). Definitions for
-*   each port are provided in the cydevice_trm.h file in the form:
-*   CYREG_PRTx_PC, where x is a port number 0 - 4.
+*   portPC: Address of the port configuration register (uint32).
+*   Definitions for each port are provided in the cydevice_trm.h file  in the
+*   form: CYREG_GPIO_PRTx_PS, where x is a port number. The actual number
+*   depends on the selected device.
 *
-*   pin: pin number 0 - 7.
+*   pin: pin number 0 - 7. The actual number depends on the selected device.
 *
 *
 * Return:
@@ -280,6 +305,14 @@
         (( *(reg32 *)(portPC) & \
         (CY_SYS_PINS_PC_DRIVE_MODE_MASK << ((pin) * CY_SYS_PINS_PC_DRIVE_MODE_BITS)) ) >> \
         (pin) * CY_SYS_PINS_PC_DRIVE_MODE_BITS)
+
+
+/* Defines function macros for mapping PSoC 4 per-pin functions to PSoC 3/5LP style functions  */
+#define CyPins_ReadPin(name)                (CY_SYS_PINS_READ_PIN       (name ## _PS, name ## _SHIFT))
+#define CyPins_SetPin(name)                 (CY_SYS_PINS_SET_PIN        (name ## _DR, name ## _SHIFT))
+#define CyPins_ClearPin(name)               (CY_SYS_PINS_CLEAR_PIN      (name ## _DR, name ## _SHIFT))
+#define CyPins_SetPinDriveMode(name, mode)  (CY_SYS_PINS_SET_DRIVE_MODE (name ## _PC, name ## _SHIFT, mode))
+#define CyPins_ReadPinDriveMode(name)       (CY_SYS_PINS_READ_DRIVE_MODE(name ## _PC, name ## _SHIFT))
 
 
 #endif /* (CY_BOOT_CYPINS_H) */

@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: ADC_SAR_Seq_1_PM.c
-* Version 1.10
+* Version 2.0
 *
 * Description:
 *  This file provides Sleep/WakeUp APIs functionality.
@@ -8,13 +8,12 @@
 * Note:
 *
 ********************************************************************************
-* Copyright 2008-2013, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
 *******************************************************************************/
 
-#include "CyLib.h"
 #include "ADC_SAR_Seq_1.h"
 
 
@@ -135,7 +134,7 @@ void ADC_SAR_Seq_1_Wakeup(void)
     ADC_SAR_Seq_1_SAR_DFT_CTRL_REG &= (uint32)~ADC_SAR_Seq_1_ADFT_OVERRIDE;
     if(ADC_SAR_Seq_1_backup.enableState != ADC_SAR_Seq_1_DISABLED)
     {
-        ADC_SAR_Seq_1_Start();
+        ADC_SAR_Seq_1_Enable();
         if((ADC_SAR_Seq_1_backup.enableState & ADC_SAR_Seq_1_STARTED) != 0u)
         {
             ADC_SAR_Seq_1_StartConvert();

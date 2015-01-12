@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: I2C_1_I2C.c
-* Version 1.20
+* Version 2.0
 *
 * Description:
 *  This file provides the source code to the API for the SCB Component in
@@ -25,11 +25,10 @@
 
 volatile uint8 I2C_1_state;  /* Current state of I2C FSM */
 
-
 #if(I2C_1_SCB_MODE_UNCONFIG_CONST_CFG)
 
     /***************************************
-    *  Config Structure Initialization
+    *  Configuration Structure Initialization
     ***************************************/
 
     /* Constant configuration of I2C */
@@ -42,7 +41,9 @@ volatile uint8 I2C_1_state;  /* Current state of I2C FSM */
         I2C_1_I2C_SLAVE_ADDRESS,
         I2C_1_I2C_SLAVE_ADDRESS_MASK,
         I2C_1_I2C_ACCEPT_ADDRESS,
-        I2C_1_I2C_WAKE_ENABLE
+        I2C_1_I2C_WAKE_ENABLE,
+        I2C_1_I2C_BYTE_MODE_ENABLE,
+        I2C_1_I2C_DATA_RATE,
     };
 
     /*******************************************************************************
@@ -63,9 +64,12 @@ volatile uint8 I2C_1_state;  /* Current state of I2C FSM */
     *******************************************************************************/
     void I2C_1_I2CInit(const I2C_1_I2C_INIT_STRUCT *config)
     {
+        uint32 medianFilter;
+        uint32 locEnableWake;
+
         if(NULL == config)
         {
-            CYASSERT(0u != 0u); /* Halt execution due bad function parameter */
+            CYASSERT(0u != 0u); /* Halt execution due to bad function parameter */
         }
         else
         {
@@ -81,22 +85,47 @@ volatile uint8 I2C_1_state;  /* Current state of I2C FSM */
             I2C_1_mode          = (uint8) config->mode;
             I2C_1_acceptAddr    = (uint8) config->acceptAddr;
 
+        #if (I2C_1_CY_SCBIP_V0)
+            /* Adjust SDA filter settings. Ticket ID#150521 */
+            I2C_1_SET_I2C_CFG_SDA_FILT_TRIM(I2C_1_EC_AM_I2C_CFG_SDA_FILT_TRIM);
+        #endif /* (I2C_1_CY_SCBIP_V0) */
+
+            /* Adjust AF and DF filter settings. Ticket ID#176179 */
+            if (((I2C_1_I2C_MODE_SLAVE != config->mode) &&
+                 (config->dataRate <= I2C_1_I2C_DATA_RATE_FS_MODE_MAX)) ||
+                 (I2C_1_I2C_MODE_SLAVE == config->mode))
+            {
+                /* AF = 1, DF = 0 */
+                I2C_1_I2C_CFG_ANALOG_FITER_ENABLE;
+                medianFilter = I2C_1_DIGITAL_FILTER_DISABLE;
+            }
+            else
+            {
+                /* AF = 0, DF = 1 */
+                I2C_1_I2C_CFG_ANALOG_FITER_DISABLE;
+                medianFilter = I2C_1_DIGITAL_FILTER_ENABLE;
+            }
+
+        #if (!I2C_1_CY_SCBIP_V0)
+            locEnableWake = (I2C_1_I2C_MULTI_MASTER_SLAVE) ? (0u) : (config->enableWake);
+        #else
+            locEnableWake = config->enableWake;
+        #endif /* (!I2C_1_CY_SCBIP_V0) */
+
             /* Configure I2C interface */
-            I2C_1_CTRL_REG     = I2C_1_GET_CTRL_ADDR_ACCEPT(config->acceptAddr) |
-                                            I2C_1_GET_CTRL_EC_AM_MODE (config->enableWake);
+            I2C_1_CTRL_REG     = I2C_1_GET_CTRL_BYTE_MODE  (config->enableByteMode) |
+                                            I2C_1_GET_CTRL_ADDR_ACCEPT(config->acceptAddr)     |
+                                            I2C_1_GET_CTRL_EC_AM_MODE (locEnableWake);
 
             I2C_1_I2C_CTRL_REG = I2C_1_GET_I2C_CTRL_HIGH_PHASE_OVS(config->oversampleHigh) |
                                             I2C_1_GET_I2C_CTRL_LOW_PHASE_OVS (config->oversampleLow)  |
                                             I2C_1_GET_I2C_CTRL_SL_MSTR_MODE  (config->mode)           |
                                             I2C_1_I2C_CTRL;
 
-        #if(I2C_1_CY_SCBIP_V0)
-            /* Adjust SDA filter settings. Ticket ID#150521 */
-            I2C_1_SET_I2C_CFG_SDA_FILT_TRIM(I2C_1_EC_AM_I2C_CFG_SDA_FILT_TRIM);
-        #endif /* (I2C_1_CY_SCBIP_V0) */
+
 
             /* Configure RX direction */
-            I2C_1_RX_CTRL_REG      = I2C_1_GET_RX_CTRL_MEDIAN(config->enableMedianFilter) |
+            I2C_1_RX_CTRL_REG      = I2C_1_GET_RX_CTRL_MEDIAN(medianFilter) |
                                                 I2C_1_I2C_RX_CTRL;
             I2C_1_RX_FIFO_CTRL_REG = I2C_1_CLEAR_REG;
 
@@ -117,9 +146,9 @@ volatile uint8 I2C_1_state;  /* Current state of I2C FSM */
             (void) CyIntSetVector(I2C_1_ISR_NUMBER, &I2C_1_I2C_ISR);
 
             /* Configure interrupt sources */
-        #if(!I2C_1_CY_SCBIP_V1_I2C_ONLY)
+        #if(!I2C_1_CY_SCBIP_V1)
             I2C_1_INTR_SPI_EC_MASK_REG = I2C_1_NO_INTR_SOURCES;
-        #endif /* (!I2C_1_CY_SCBIP_V1_I2C_ONLY) */
+        #endif /* (!I2C_1_CY_SCBIP_V1) */
 
             I2C_1_INTR_I2C_EC_MASK_REG = I2C_1_NO_INTR_SOURCES;
             I2C_1_INTR_RX_MASK_REG     = I2C_1_NO_INTR_SOURCES;
@@ -167,14 +196,17 @@ volatile uint8 I2C_1_state;  /* Current state of I2C FSM */
     *******************************************************************************/
     void I2C_1_I2CInit(void)
     {
-        /* Configure I2C interface */
-        I2C_1_CTRL_REG     = I2C_1_I2C_DEFAULT_CTRL;
-        I2C_1_I2C_CTRL_REG = I2C_1_I2C_DEFAULT_I2C_CTRL;
-
     #if(I2C_1_CY_SCBIP_V0)
         /* Adjust SDA filter settings. Ticket ID#150521 */
         I2C_1_SET_I2C_CFG_SDA_FILT_TRIM(I2C_1_EC_AM_I2C_CFG_SDA_FILT_TRIM);
     #endif /* (I2C_1_CY_SCBIP_V0) */
+
+        /* Adjust AF and DF filter settings. Ticket ID#176179 */
+        I2C_1_I2C_CFG_ANALOG_FITER_ENABLE_ADJ;
+
+        /* Configure I2C interface */
+        I2C_1_CTRL_REG     = I2C_1_I2C_DEFAULT_CTRL;
+        I2C_1_I2C_CTRL_REG = I2C_1_I2C_DEFAULT_I2C_CTRL;
 
         /* Configure RX direction */
         I2C_1_RX_CTRL_REG      = I2C_1_I2C_DEFAULT_RX_CTRL;
@@ -195,9 +227,9 @@ volatile uint8 I2C_1_state;  /* Current state of I2C FSM */
     #endif /* (I2C_1_I2C_EXTERN_INTR_HANDLER) */
 
         /* Configure interrupt sources */
-    #if(!I2C_1_CY_SCBIP_V1_I2C_ONLY)
+    #if(!I2C_1_CY_SCBIP_V1)
         I2C_1_INTR_SPI_EC_MASK_REG = I2C_1_I2C_DEFAULT_INTR_SPI_EC_MASK;
-    #endif /* (!I2C_1_CY_SCBIP_V1_I2C_ONLY) */
+    #endif /* (!I2C_1_CY_SCBIP_V1) */
 
         I2C_1_INTR_I2C_EC_MASK_REG = I2C_1_I2C_DEFAULT_INTR_I2C_EC_MASK;
         I2C_1_INTR_SLAVE_MASK_REG  = I2C_1_I2C_DEFAULT_INTR_SLAVE_MASK;
@@ -239,9 +271,6 @@ volatile uint8 I2C_1_state;  /* Current state of I2C FSM */
 * Return:
 *  None
 *
-* Global variables:
-*
-*
 *******************************************************************************/
 void I2C_1_I2CStop(void)
 {
@@ -251,7 +280,9 @@ void I2C_1_I2CStop(void)
     I2C_1_SetTxInterruptMode(I2C_1_NO_INTR_SOURCES);
 
 #if(I2C_1_CY_SCBIP_V0)
-    /* Clear pending interrupt as TX FIFO becomes empty and block does not gate interrupt trigger when disabled */
+    /* Clear a pending interrupt as the TX FIFO becomes empty and the block does not gate
+    * an interrupt trigger when disabled.
+    */
     I2C_1_ClearPendingInt();
 #endif /* (I2C_1_CY_SCBIP_V0) */
 
@@ -277,6 +308,25 @@ void I2C_1_I2CStop(void)
     *******************************************************************************/
     void I2C_1_I2CSaveConfig(void)
     {
+    #if (!I2C_1_CY_SCBIP_V0)
+        #if (I2C_1_I2C_MULTI_MASTER_SLAVE_CONST && I2C_1_I2C_WAKE_ENABLE_CONST)
+            /* Enable externally clocked address match if it was not enabled before.
+            * This applicable only for Multi-Master-Slave. Ticket ID#192742 */
+            if (0u == (I2C_1_CTRL_REG & I2C_1_CTRL_EC_AM_MODE))
+            {
+                /* Enable external address match logic */
+                I2C_1_Stop();
+                I2C_1_CTRL_REG |= I2C_1_CTRL_EC_AM_MODE;
+                I2C_1_Enable();
+            }
+        #endif /* (I2C_1_I2C_MULTI_MASTER_SLAVE_CONST) */
+
+        #if (I2C_1_SCB_CLK_INTERNAL)
+            /* Disable clock to internal address match logic. Ticket ID#187931 */
+            I2C_1_SCBCLK_Stop();
+        #endif /* (I2C_1_SCB_CLK_INTERNAL) */
+    #endif /* (!I2C_1_CY_SCBIP_V0) */
+
         I2C_1_SetI2CExtClkInterruptMode(I2C_1_INTR_I2C_EC_WAKE_UP);
     }
 
@@ -286,7 +336,8 @@ void I2C_1_I2CStop(void)
     ********************************************************************************
     *
     * Summary:
-    *  Added for compatibility.
+    *  Disables I2C_1_INTR_I2C_EC_WAKE_UP interrupt source. This interrupt
+    *  triggers on address match and wakes up device.
     *
     * Parameters:
     *  None
@@ -297,7 +348,15 @@ void I2C_1_I2CStop(void)
     *******************************************************************************/
     void I2C_1_I2CRestoreConfig(void)
     {
-        /* I2C_1_INTR_I2C_EC_WAKE_UP is masked-off in the interrupt */
+        /* Disable wakeup interrupt on address match */
+        I2C_1_SetI2CExtClkInterruptMode(I2C_1_NO_INTR_SOURCES);
+
+    #if (!I2C_1_CY_SCBIP_V0)
+        #if (I2C_1_SCB_CLK_INTERNAL)
+            /* Enable clock to internal address match logic. Ticket ID#187931 */
+            I2C_1_SCBCLK_Start();
+        #endif /* (I2C_1_SCB_CLK_INTERNAL) */
+    #endif /* (!I2C_1_CY_SCBIP_V0) */
     }
 #endif /* (I2C_1_I2C_WAKE_ENABLE_CONST) */
 

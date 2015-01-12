@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: I2C_1_sda.h  
-* Version 2.0
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -40,17 +40,15 @@ uint8   I2C_1_sda_ClearInterrupt(void) ;
 /* Drive Modes */
 #define I2C_1_sda_DRIVE_MODE_BITS        (3)
 #define I2C_1_sda_DRIVE_MODE_IND_MASK    (0xFFFFFFFFu >> (32 - I2C_1_sda_DRIVE_MODE_BITS))
-#define I2C_1_sda_DRIVE_MODE_SHIFT       (0x00u)
-#define I2C_1_sda_DRIVE_MODE_MASK        (0x07u << I2C_1_sda_DRIVE_MODE_SHIFT)
 
-#define I2C_1_sda_DM_ALG_HIZ         (0x00u << I2C_1_sda_DRIVE_MODE_SHIFT)
-#define I2C_1_sda_DM_DIG_HIZ         (0x01u << I2C_1_sda_DRIVE_MODE_SHIFT)
-#define I2C_1_sda_DM_RES_UP          (0x02u << I2C_1_sda_DRIVE_MODE_SHIFT)
-#define I2C_1_sda_DM_RES_DWN         (0x03u << I2C_1_sda_DRIVE_MODE_SHIFT)
-#define I2C_1_sda_DM_OD_LO           (0x04u << I2C_1_sda_DRIVE_MODE_SHIFT)
-#define I2C_1_sda_DM_OD_HI           (0x05u << I2C_1_sda_DRIVE_MODE_SHIFT)
-#define I2C_1_sda_DM_STRONG          (0x06u << I2C_1_sda_DRIVE_MODE_SHIFT)
-#define I2C_1_sda_DM_RES_UPDWN       (0x07u << I2C_1_sda_DRIVE_MODE_SHIFT)
+#define I2C_1_sda_DM_ALG_HIZ         (0x00u)
+#define I2C_1_sda_DM_DIG_HIZ         (0x01u)
+#define I2C_1_sda_DM_RES_UP          (0x02u)
+#define I2C_1_sda_DM_RES_DWN         (0x03u)
+#define I2C_1_sda_DM_OD_LO           (0x04u)
+#define I2C_1_sda_DM_OD_HI           (0x05u)
+#define I2C_1_sda_DM_STRONG          (0x06u)
+#define I2C_1_sda_DM_RES_UPDWN       (0x07u)
 
 /* Digital Port Constants */
 #define I2C_1_sda_MASK               I2C_1_sda__MASK
@@ -78,6 +76,16 @@ uint8   I2C_1_sda_ClearInterrupt(void) ;
     #define I2C_1_sda_INTSTAT                (* (reg32 *) I2C_1_sda__INTSTAT)
 
 #endif /* Interrupt Registers */
+
+
+/***************************************
+* The following code is DEPRECATED and 
+* must not be used.
+***************************************/
+
+#define I2C_1_sda_DRIVE_MODE_SHIFT       (0x00u)
+#define I2C_1_sda_DRIVE_MODE_MASK        (0x07u << I2C_1_sda_DRIVE_MODE_SHIFT)
+
 
 #endif /* End Pins I2C_1_sda_H */
 

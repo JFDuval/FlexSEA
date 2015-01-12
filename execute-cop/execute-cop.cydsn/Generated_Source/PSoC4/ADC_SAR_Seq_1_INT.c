@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: ADC_SAR_Seq_1_INT.c
-* Version 1.10
+* Version 2.0
 *
 *  Description:
 *    This file contains the code that operates during the ADC_SAR interrupt
@@ -9,13 +9,12 @@
 *   Note:
 *
 ********************************************************************************
-* Copyright 2008-2013, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
 *******************************************************************************/
 
-#include "CyLib.h"
 #include "ADC_SAR_Seq_1.h"
 
 
@@ -25,6 +24,11 @@
 *   #START and #END tags
 ******************************************************************************/
 /* `#START ADC_SYS_VAR`  */
+
+#include <project.h>
+#include "main.h"
+
+int16 adc_res[ADC_CHANNELS];
 
 /* `#END`  */
 
@@ -61,6 +65,14 @@
         *************************************************************************/
         /* `#START MAIN_ADC_ISR`  */
 
+		static uint8 ch = 0;
+		
+		for(ch = 0; ch <= MAX_ADC_CH; ch++)
+		{
+			adc_res[ch] = ADC_SAR_Seq_1_GetResult16(ch);
+		}
+		
+		
         /* `#END`  */
 
         /* Clear handled interrupt */

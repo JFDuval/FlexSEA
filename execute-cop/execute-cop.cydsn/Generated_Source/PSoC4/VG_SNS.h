@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: VG_SNS.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -40,17 +40,15 @@ uint8   VG_SNS_ClearInterrupt(void) ;
 /* Drive Modes */
 #define VG_SNS_DRIVE_MODE_BITS        (3)
 #define VG_SNS_DRIVE_MODE_IND_MASK    (0xFFFFFFFFu >> (32 - VG_SNS_DRIVE_MODE_BITS))
-#define VG_SNS_DRIVE_MODE_SHIFT       (0x00u)
-#define VG_SNS_DRIVE_MODE_MASK        (0x07u << VG_SNS_DRIVE_MODE_SHIFT)
 
-#define VG_SNS_DM_ALG_HIZ         (0x00u << VG_SNS_DRIVE_MODE_SHIFT)
-#define VG_SNS_DM_DIG_HIZ         (0x01u << VG_SNS_DRIVE_MODE_SHIFT)
-#define VG_SNS_DM_RES_UP          (0x02u << VG_SNS_DRIVE_MODE_SHIFT)
-#define VG_SNS_DM_RES_DWN         (0x03u << VG_SNS_DRIVE_MODE_SHIFT)
-#define VG_SNS_DM_OD_LO           (0x04u << VG_SNS_DRIVE_MODE_SHIFT)
-#define VG_SNS_DM_OD_HI           (0x05u << VG_SNS_DRIVE_MODE_SHIFT)
-#define VG_SNS_DM_STRONG          (0x06u << VG_SNS_DRIVE_MODE_SHIFT)
-#define VG_SNS_DM_RES_UPDWN       (0x07u << VG_SNS_DRIVE_MODE_SHIFT)
+#define VG_SNS_DM_ALG_HIZ         (0x00u)
+#define VG_SNS_DM_DIG_HIZ         (0x01u)
+#define VG_SNS_DM_RES_UP          (0x02u)
+#define VG_SNS_DM_RES_DWN         (0x03u)
+#define VG_SNS_DM_OD_LO           (0x04u)
+#define VG_SNS_DM_OD_HI           (0x05u)
+#define VG_SNS_DM_STRONG          (0x06u)
+#define VG_SNS_DM_RES_UPDWN       (0x07u)
 
 /* Digital Port Constants */
 #define VG_SNS_MASK               VG_SNS__MASK
@@ -78,6 +76,16 @@ uint8   VG_SNS_ClearInterrupt(void) ;
     #define VG_SNS_INTSTAT                (* (reg32 *) VG_SNS__INTSTAT)
 
 #endif /* Interrupt Registers */
+
+
+/***************************************
+* The following code is DEPRECATED and 
+* must not be used.
+***************************************/
+
+#define VG_SNS_DRIVE_MODE_SHIFT       (0x00u)
+#define VG_SNS_DRIVE_MODE_MASK        (0x07u << VG_SNS_DRIVE_MODE_SHIFT)
+
 
 #endif /* End Pins VG_SNS_H */
 

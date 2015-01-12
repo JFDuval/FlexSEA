@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: I2C_1_PM.c
-* Version 1.20
+* Version 2.0
 *
 * Description:
 *  This file provides the source code to the Power Management support for
@@ -54,7 +54,7 @@
 *
 * Summary:
 *  Prepares the component to enter Deep Sleep.
-*  The “Enable wakeup from Sleep Mode” selection has an influence on
+*  The "Enable wakeup from Sleep Mode" selection has an influence on
 *  this function implementation.
 *
 * Parameters:
@@ -78,7 +78,7 @@ void I2C_1_Sleep(void)
         {
             I2C_1_EzI2CSaveConfig();
         }
-    #if(!I2C_1_CY_SCBIP_V1_I2C_ONLY)
+    #if(!I2C_1_CY_SCBIP_V1)
         else if(I2C_1_SCB_MODE_SPI_RUNTM_CFG)
         {
             I2C_1_SpiSaveConfig();
@@ -87,10 +87,10 @@ void I2C_1_Sleep(void)
         {
             I2C_1_UartSaveConfig();
         }
-    #endif /* (!I2C_1_CY_SCBIP_V1_I2C_ONLY) */
+    #endif /* (!I2C_1_CY_SCBIP_V1) */
         else
         {
-            /* Unknown mode: do nothing */
+            /* Unknown mode */
         }
     }
     else
@@ -137,9 +137,9 @@ void I2C_1_Sleep(void)
 ********************************************************************************
 *
 * Summary:
-*  Prepares the component for the Active mode operation after exiting Deep Sleep.
-*  The “Enable wakeup from Sleep Mode” option has an influence on this function
-*  implementation.
+*  Prepares the component for the Active mode operation after exiting
+*  Deep Sleep. The "Enable wakeup from Sleep Mode" option has an influence
+*  on this function implementation.
 *  This function should not be called after exiting Sleep.
 *
 * Parameters:
@@ -163,7 +163,7 @@ void I2C_1_Wakeup(void)
         {
             I2C_1_EzI2CRestoreConfig();
         }
-    #if(!I2C_1_CY_SCBIP_V1_I2C_ONLY)
+    #if(!I2C_1_CY_SCBIP_V1)
         else if(I2C_1_SCB_MODE_SPI_RUNTM_CFG)
         {
             I2C_1_SpiRestoreConfig();
@@ -172,10 +172,10 @@ void I2C_1_Wakeup(void)
         {
             I2C_1_UartRestoreConfig();
         }
-    #endif /* (!I2C_1_CY_SCBIP_V1_I2C_ONLY) */
+    #endif /* (!I2C_1_CY_SCBIP_V1) */
         else
         {
-            /* Unknown mode: do nothing */
+            /* Unknown mode */
         }
     }
     else

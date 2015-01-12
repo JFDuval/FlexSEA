@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: ELED.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -40,17 +40,15 @@ uint8   ELED_ClearInterrupt(void) ;
 /* Drive Modes */
 #define ELED_DRIVE_MODE_BITS        (3)
 #define ELED_DRIVE_MODE_IND_MASK    (0xFFFFFFFFu >> (32 - ELED_DRIVE_MODE_BITS))
-#define ELED_DRIVE_MODE_SHIFT       (0x00u)
-#define ELED_DRIVE_MODE_MASK        (0x07u << ELED_DRIVE_MODE_SHIFT)
 
-#define ELED_DM_ALG_HIZ         (0x00u << ELED_DRIVE_MODE_SHIFT)
-#define ELED_DM_DIG_HIZ         (0x01u << ELED_DRIVE_MODE_SHIFT)
-#define ELED_DM_RES_UP          (0x02u << ELED_DRIVE_MODE_SHIFT)
-#define ELED_DM_RES_DWN         (0x03u << ELED_DRIVE_MODE_SHIFT)
-#define ELED_DM_OD_LO           (0x04u << ELED_DRIVE_MODE_SHIFT)
-#define ELED_DM_OD_HI           (0x05u << ELED_DRIVE_MODE_SHIFT)
-#define ELED_DM_STRONG          (0x06u << ELED_DRIVE_MODE_SHIFT)
-#define ELED_DM_RES_UPDWN       (0x07u << ELED_DRIVE_MODE_SHIFT)
+#define ELED_DM_ALG_HIZ         (0x00u)
+#define ELED_DM_DIG_HIZ         (0x01u)
+#define ELED_DM_RES_UP          (0x02u)
+#define ELED_DM_RES_DWN         (0x03u)
+#define ELED_DM_OD_LO           (0x04u)
+#define ELED_DM_OD_HI           (0x05u)
+#define ELED_DM_STRONG          (0x06u)
+#define ELED_DM_RES_UPDWN       (0x07u)
 
 /* Digital Port Constants */
 #define ELED_MASK               ELED__MASK
@@ -78,6 +76,16 @@ uint8   ELED_ClearInterrupt(void) ;
     #define ELED_INTSTAT                (* (reg32 *) ELED__INTSTAT)
 
 #endif /* Interrupt Registers */
+
+
+/***************************************
+* The following code is DEPRECATED and 
+* must not be used.
+***************************************/
+
+#define ELED_DRIVE_MODE_SHIFT       (0x00u)
+#define ELED_DRIVE_MODE_MASK        (0x07u << ELED_DRIVE_MODE_SHIFT)
+
 
 #endif /* End Pins ELED_H */
 

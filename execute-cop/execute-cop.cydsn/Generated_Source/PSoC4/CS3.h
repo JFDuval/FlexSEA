@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: CS3.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -40,17 +40,15 @@ uint8   CS3_ClearInterrupt(void) ;
 /* Drive Modes */
 #define CS3_DRIVE_MODE_BITS        (3)
 #define CS3_DRIVE_MODE_IND_MASK    (0xFFFFFFFFu >> (32 - CS3_DRIVE_MODE_BITS))
-#define CS3_DRIVE_MODE_SHIFT       (0x00u)
-#define CS3_DRIVE_MODE_MASK        (0x07u << CS3_DRIVE_MODE_SHIFT)
 
-#define CS3_DM_ALG_HIZ         (0x00u << CS3_DRIVE_MODE_SHIFT)
-#define CS3_DM_DIG_HIZ         (0x01u << CS3_DRIVE_MODE_SHIFT)
-#define CS3_DM_RES_UP          (0x02u << CS3_DRIVE_MODE_SHIFT)
-#define CS3_DM_RES_DWN         (0x03u << CS3_DRIVE_MODE_SHIFT)
-#define CS3_DM_OD_LO           (0x04u << CS3_DRIVE_MODE_SHIFT)
-#define CS3_DM_OD_HI           (0x05u << CS3_DRIVE_MODE_SHIFT)
-#define CS3_DM_STRONG          (0x06u << CS3_DRIVE_MODE_SHIFT)
-#define CS3_DM_RES_UPDWN       (0x07u << CS3_DRIVE_MODE_SHIFT)
+#define CS3_DM_ALG_HIZ         (0x00u)
+#define CS3_DM_DIG_HIZ         (0x01u)
+#define CS3_DM_RES_UP          (0x02u)
+#define CS3_DM_RES_DWN         (0x03u)
+#define CS3_DM_OD_LO           (0x04u)
+#define CS3_DM_OD_HI           (0x05u)
+#define CS3_DM_STRONG          (0x06u)
+#define CS3_DM_RES_UPDWN       (0x07u)
 
 /* Digital Port Constants */
 #define CS3_MASK               CS3__MASK
@@ -78,6 +76,16 @@ uint8   CS3_ClearInterrupt(void) ;
     #define CS3_INTSTAT                (* (reg32 *) CS3__INTSTAT)
 
 #endif /* Interrupt Registers */
+
+
+/***************************************
+* The following code is DEPRECATED and 
+* must not be used.
+***************************************/
+
+#define CS3_DRIVE_MODE_SHIFT       (0x00u)
+#define CS3_DRIVE_MODE_MASK        (0x07u << CS3_DRIVE_MODE_SHIFT)
+
 
 #endif /* End Pins CS3_H */
 

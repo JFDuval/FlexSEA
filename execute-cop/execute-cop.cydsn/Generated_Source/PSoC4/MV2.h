@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: MV2.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -40,17 +40,15 @@ uint8   MV2_ClearInterrupt(void) ;
 /* Drive Modes */
 #define MV2_DRIVE_MODE_BITS        (3)
 #define MV2_DRIVE_MODE_IND_MASK    (0xFFFFFFFFu >> (32 - MV2_DRIVE_MODE_BITS))
-#define MV2_DRIVE_MODE_SHIFT       (0x00u)
-#define MV2_DRIVE_MODE_MASK        (0x07u << MV2_DRIVE_MODE_SHIFT)
 
-#define MV2_DM_ALG_HIZ         (0x00u << MV2_DRIVE_MODE_SHIFT)
-#define MV2_DM_DIG_HIZ         (0x01u << MV2_DRIVE_MODE_SHIFT)
-#define MV2_DM_RES_UP          (0x02u << MV2_DRIVE_MODE_SHIFT)
-#define MV2_DM_RES_DWN         (0x03u << MV2_DRIVE_MODE_SHIFT)
-#define MV2_DM_OD_LO           (0x04u << MV2_DRIVE_MODE_SHIFT)
-#define MV2_DM_OD_HI           (0x05u << MV2_DRIVE_MODE_SHIFT)
-#define MV2_DM_STRONG          (0x06u << MV2_DRIVE_MODE_SHIFT)
-#define MV2_DM_RES_UPDWN       (0x07u << MV2_DRIVE_MODE_SHIFT)
+#define MV2_DM_ALG_HIZ         (0x00u)
+#define MV2_DM_DIG_HIZ         (0x01u)
+#define MV2_DM_RES_UP          (0x02u)
+#define MV2_DM_RES_DWN         (0x03u)
+#define MV2_DM_OD_LO           (0x04u)
+#define MV2_DM_OD_HI           (0x05u)
+#define MV2_DM_STRONG          (0x06u)
+#define MV2_DM_RES_UPDWN       (0x07u)
 
 /* Digital Port Constants */
 #define MV2_MASK               MV2__MASK
@@ -78,6 +76,16 @@ uint8   MV2_ClearInterrupt(void) ;
     #define MV2_INTSTAT                (* (reg32 *) MV2__INTSTAT)
 
 #endif /* Interrupt Registers */
+
+
+/***************************************
+* The following code is DEPRECATED and 
+* must not be used.
+***************************************/
+
+#define MV2_DRIVE_MODE_SHIFT       (0x00u)
+#define MV2_DRIVE_MODE_MASK        (0x07u << MV2_DRIVE_MODE_SHIFT)
+
 
 #endif /* End Pins MV2_H */
 

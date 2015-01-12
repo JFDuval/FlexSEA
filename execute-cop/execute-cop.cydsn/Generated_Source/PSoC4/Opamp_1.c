@@ -1,23 +1,23 @@
 /*******************************************************************************
 * File Name: Opamp_1.c
-* Version 1.0
+* Version 1.10
 *
 * Description:
-*  This file provides the source code to the API for OpAmp (Analog Buffer)
+*  This file provides the source code to the API for the Opamp (Analog Buffer)
 *  Component.
 *
 *
 ********************************************************************************
-* Copyright 2013, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2013-2014, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
 *******************************************************************************/
 
 #include "Opamp_1.h"
-#include <CyLib.h>
 
-uint32 Opamp_1_initVar = 0u;
+uint8 Opamp_1_initVar = 0u; /* Defines if component was initialized */
+static uint32 Opamp_1_internalPower = 0u; /* Defines component Power value */
 
 
 /*******************************************************************************
@@ -25,9 +25,9 @@ uint32 Opamp_1_initVar = 0u;
 ********************************************************************************
 *
 * Summary:
-*  Initialize component's parameters to the parameters set by user in the
-*  customizer of the component placed onto schematic. Usually called in
-*  Opamp_1_Start().
+*  Initializes or restores the component according to the customizer Configure 
+*  dialog settings. It is not necessary to call Init() because the Start() API 
+*  calls this function and is the preferred method to begin the component operation.
 *
 * Parameters:
 *  None
@@ -38,14 +38,10 @@ uint32 Opamp_1_initVar = 0u;
 *******************************************************************************/
 void Opamp_1_Init(void)
 {
-    /* Enable STB */
-    Opamp_1_OA_CTRL |= ((uint32)1u << Opamp_1_OA_CTB_EN_SHIFT);
-    Opamp_1_OA_RES_CTRL = 0u;
-    Opamp_1_OA_COMP_TRIM_REG = Opamp_1_OA_COMP_TRIM_VALUE;
-    #if(0u != Opamp_1_OUTPUT_CURRENT)
-        /* 10 mA current */
-        Opamp_1_OA_RES_CTRL |= Opamp_1_OA_DRIVE_STR_SEL_10X;
-    #endif /* 0u != Opamp_1_OUTPUT_CURRENT */
+    Opamp_1_internalPower = Opamp_1_POWER;
+    Opamp_1_CTB_CTRL_REG = Opamp_1_DEFAULT_CTB_CTRL;
+    Opamp_1_OA_RES_CTRL_REG = Opamp_1_DEFAULT_OA_RES_CTRL;
+    Opamp_1_OA_COMP_TRIM_REG = Opamp_1_DEFAULT_OA_COMP_TRIM_REG;
 }
 
 
@@ -54,7 +50,9 @@ void Opamp_1_Init(void)
 ********************************************************************************
 *
 * Summary:
-*  Enables the OpAmp block operation
+*  Activates the hardware and begins the component operation. It is not necessary to 
+*  call Enable() because the Start() API calls this function, which is the 
+*  preferred method to begin the component operation.
 *
 * Parameters:
 *  None
@@ -65,19 +63,20 @@ void Opamp_1_Init(void)
 *******************************************************************************/
 void Opamp_1_Enable(void)
 {
-    Opamp_1_OA_RES_CTRL &= (~(uint32)Opamp_1_OA_PWR_MODE_MASK);
-    Opamp_1_OA_RES_CTRL |= Opamp_1_POWER | ((uint32)1u << Opamp_1_OA_PUMP_CTRL_SHIFT);
+    Opamp_1_OA_RES_CTRL_REG |= Opamp_1_internalPower | \
+                                        Opamp_1_OA_PUMP_EN;
 }
 
 
 /*******************************************************************************
-* Function Name:   Opamp_1_Start
+* Function Name: Opamp_1_Start
 ********************************************************************************
 *
 * Summary:
-*  The start function initializes the Analog Buffer with the default values and
-*  sets the power to the given level. A power level of 0, is same as
-*  executing the stop function.
+*  Performs all of the required initialization for the component and enables power 
+*  to the block. The first time the routine is executed, the Power level, Mode, 
+*  and Output mode are set. When called to restart the Opamp following a Stop() call, 
+*  the current component parameter settings are retained.
 *
 * Parameters:
 *  None
@@ -92,10 +91,10 @@ void Opamp_1_Enable(void)
 *******************************************************************************/
 void Opamp_1_Start(void)
 {
-    if(Opamp_1_initVar == 0u)
+    if( 0u == Opamp_1_initVar)
     {
-        Opamp_1_initVar = 1u;
         Opamp_1_Init();
+        Opamp_1_initVar = 1u;
     }
     Opamp_1_Enable();
 }
@@ -106,7 +105,7 @@ void Opamp_1_Start(void)
 ********************************************************************************
 *
 * Summary:
-*  Powers down amplifier to lowest power state.
+*  Turn off the Opamp block.
 *
 * Parameters:
 *  None
@@ -117,8 +116,8 @@ void Opamp_1_Start(void)
 *******************************************************************************/
 void Opamp_1_Stop(void)
 {
-    Opamp_1_OA_RES_CTRL &= (~(uint32)(Opamp_1_OA_PWR_MODE_MASK |
-        ((uint32)1u << Opamp_1_OA_PUMP_CTRL_SHIFT)));
+    Opamp_1_OA_RES_CTRL_REG &= ((uint32)~(Opamp_1_OA_PWR_MODE_MASK | \
+                                                   Opamp_1_OA_PUMP_EN));
 }
 
 
@@ -127,10 +126,13 @@ void Opamp_1_Stop(void)
 ********************************************************************************
 *
 * Summary:
-*  Sets power level of Analog buffer.
+*  Sets the Opamp to one of the three power levels.
 *
 * Parameters:
-*  power: Sets power level between low (1) and high power (3).
+*  power: power levels.
+*   Opamp_1_LOW_POWER - Lowest active power
+*   Opamp_1_MED_POWER - Medium power
+*   Opamp_1_HIGH_POWER - Highest active power
 *
 * Return:
 *  None
@@ -138,8 +140,12 @@ void Opamp_1_Stop(void)
 **********************************************************************************/
 void Opamp_1_SetPower(uint32 power)
 {
-    Opamp_1_OA_RES_CTRL &= (~(uint32)Opamp_1_OA_PWR_MODE_MASK);
-    Opamp_1_OA_RES_CTRL |= (power & Opamp_1_OA_PWR_MODE_MASK);
+    uint32 tmp;
+    
+    Opamp_1_internalPower = Opamp_1_GET_OA_PWR_MODE(power);
+    tmp = Opamp_1_OA_RES_CTRL_REG & \
+           (uint32)~Opamp_1_OA_PWR_MODE_MASK;
+    Opamp_1_OA_RES_CTRL_REG = tmp | Opamp_1_internalPower;
 }
 
 
@@ -148,10 +154,15 @@ void Opamp_1_SetPower(uint32 power)
 ********************************************************************************
 *
 * Summary:
-*  Turns the boost pump on or off.
+*  Allows the user to turn the Opamp's boost pump on or off. By Default the Start() 
+*  function turns on the pump. Use this API to turn it off. The boost must be 
+*  turned on when the supply is less than 2.7 volts and off if the supply is more 
+*  than 4 volts.
 *
 * Parameters:
-*  onOff: Opamp_1_PUMPON, Opamp_1_PUMPOFF.
+*  onOff: Control the pump.
+*   Opamp_1_PUMP_OFF - Turn off the pump
+*   Opamp_1_PUMP_ON - Turn on the pump
 *
 * Return:
 *  None
@@ -159,9 +170,15 @@ void Opamp_1_SetPower(uint32 power)
 **********************************************************************************/
 void Opamp_1_PumpControl(uint32 onOff)
 {
-    Opamp_1_OA_RES_CTRL &= (~(uint32)Opamp_1_OA_PUMP_EN_MASK);
-    Opamp_1_OA_RES_CTRL |= ((onOff & Opamp_1_PUMP_PROTECT_MASK)
-        << Opamp_1_OA_PUMP_CTRL_SHIFT);
+    
+    if(0u != onOff)
+    {
+        Opamp_1_OA_RES_CTRL |= Opamp_1_OA_PUMP_EN;    
+    }
+    else
+    {
+        Opamp_1_OA_RES_CTRL &= (uint32)~Opamp_1_OA_PUMP_EN;
+    }
 }
 
 

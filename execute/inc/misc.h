@@ -4,19 +4,20 @@
 #include <project.h>
 
 //Common defines:
-#define PACKET_LEN			64
-#define QUAD1_INIT			13000
-#define USB_ENUM_TIMEOUT	2500	//ms
+#define PACKET_LEN					64
+#define QUAD1_INIT					13000
+#define USB_ENUM_TIMEOUT			2500	//ms
 	
 //ADC
-#define ADC1_CHANNELS		6
-#define ADC1_BUF_LEN		8
+#define ADC1_CHANNELS				6
+#define ADC1_BUF_LEN				8
 	
 //I2C
 #define BUFFER_SIZE	4
 uint8 i2cMasterReadBuf[BUFFER_SIZE];
 uint8 i2cMasterWriteBuf[BUFFER_SIZE];
-#define I2C_SLAVE_ADDR_MINM	0x09
+#define I2C_SLAVE_ADDR_MINM			0x09
+#define I2C_SLAVE_ADDR_IMU			
 #define SET_RGB	'n' 
 	
 //Prototypes

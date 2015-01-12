@@ -1,6 +1,6 @@
 ;-------------------------------------------------------------------------------
 ; FILENAME: CyBootAsmRv.s
-; Version 4.11
+; Version 4.20
 ;
 ;  DESCRIPTION:
 ;    Assembly routines for RealView.
@@ -12,9 +12,10 @@
 ; the software package with which this file was provided.
 ;-------------------------------------------------------------------------------
 
-	AREA |.text|,CODE,ALIGN=3
-	THUMB
-	EXTERN Reset
+    AREA |.text|,CODE,ALIGN=3
+    THUMB
+    EXTERN Reset
+    INCLUDE cyfitterrv.inc
 
 ;-------------------------------------------------------------------------------
 ; Function Name: CyDelayCycles
@@ -31,22 +32,28 @@
 ;
 ;-------------------------------------------------------------------------------
 ; void CyDelayCycles(uint32 cycles)
-	ALIGN 8
+    ALIGN 8
 CyDelayCycles FUNCTION
-	EXPORT CyDelayCycles
-	                        ; cycles bytes
-	ADDS r0, r0, #2         ;	1	2	Round to nearest multiple of 4
-	LSRS r0, r0, #2         ;	1	2	Divide by 4 and set flags
-	BEQ CyDelayCycles_done  ;	2	2	Skip if 0
-	NOP                     ;	1	2	Loop alignment padding
+    EXPORT CyDelayCycles
+                            ; cycles bytes
+    ADDS r0, r0, #2         ;    1    2    Round to nearest multiple of 4
+    LSRS r0, r0, #2         ;    1    2    Divide by 4 and set flags
+    BEQ CyDelayCycles_done  ;    2    2    Skip if 0
+    IF :DEF: CYIPBLOCK_m0s8cpussv2_VERSION && :DEF: CYIPBLOCK_m0s8srssv2_VERSION
+        IF ((CYIPBLOCK_m0s8cpussv2_VERSION == 1)&&(CYIPBLOCK_m0s8srssv2_VERSION == 1))
+            ; If device is using CPUSSv2 and SRSSv2 leave loop unaligned
+        ENDIF
+    ELSE
+        NOP                 ;    1    2    Loop alignment padding
+    ENDIF
 CyDelayCycles_loop
-	SUBS r0, r0, #1         ;	1	2   Decrement counter
-	BNE CyDelayCycles_loop  ;	3	2   3 CPU cycles (if branche is taken)
-	NOP                     ;	1	2	Loop alignment padding
-	NOP                     ;	1	2	Loop alignment padding
+    SUBS r0, r0, #1         ;    1    2   Decrement counter
+    BNE CyDelayCycles_loop  ;    3    2   3 CPU cycles (if branche is taken)
+    NOP                     ;    1    2    Loop alignment padding
+    NOP                     ;    1    2    Loop alignment padding
 CyDelayCycles_done
-	BX lr                   ;	3	2
-	ENDFUNC
+    BX lr                   ;    3    2
+    ENDFUNC
 
 
 ;-------------------------------------------------------------------------------
@@ -75,11 +82,11 @@ CyDelayCycles_done
 ;-------------------------------------------------------------------------------
 ; uint8 CyEnterCriticalSection(void)
 CyEnterCriticalSection FUNCTION
-	EXPORT CyEnterCriticalSection
-	MRS r0, PRIMASK         ; Save and return interrupt state
-	CPSID I                 ; Disable interrupts
-	BX lr
-	ENDFUNC
+    EXPORT CyEnterCriticalSection
+    MRS r0, PRIMASK         ; Save and return interrupt state
+    CPSID I                 ; Disable interrupts
+    BX lr
+    ENDFUNC
 
 
 ;-------------------------------------------------------------------------------
@@ -101,11 +108,11 @@ CyEnterCriticalSection FUNCTION
 ;-------------------------------------------------------------------------------
 ; void CyExitCriticalSection(uint8 savedIntrStatus)
 CyExitCriticalSection FUNCTION
-	EXPORT CyExitCriticalSection
-	MSR PRIMASK, r0         ; Restore interrupt state
-	BX lr
-	ENDFUNC
+    EXPORT CyExitCriticalSection
+    MSR PRIMASK, r0         ; Restore interrupt state
+    BX lr
+    ENDFUNC
 
-	END
+    END
 
 ; [] END OF FILE

@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: I2C_1_I2C_SLAVE.c
-* Version 1.20
+* Version 2.0
 *
 * Description:
 *  This file provides the source code to the API for the SCB Component in
@@ -83,9 +83,13 @@ uint32 I2C_1_I2CSlaveClearReadStatus(void)
 {
     uint32 status;
 
+    I2C_1_DisableInt();  /* Lock from interruption */
+
     /* Mask of transfer complete flag and error status */
     status = ((uint32) I2C_1_slStatus & I2C_1_I2C_SSTAT_RD_MASK);
     I2C_1_slStatus &= (uint8) ~I2C_1_I2C_SSTAT_RD_CLEAR;
+
+    I2C_1_EnableInt();   /* Release lock */
 
     return(status);
 }
@@ -113,9 +117,13 @@ uint32 I2C_1_I2CSlaveClearWriteStatus(void)
 {
     uint32 status;
 
+    I2C_1_DisableInt();  /* Lock from interruption */
+
     /* Mask of transfer complete flag and Error status */
     status = ((uint32) I2C_1_slStatus & I2C_1_I2C_SSTAT_WR_MASK);
     I2C_1_slStatus &= (uint8) ~I2C_1_I2C_SSTAT_WR_CLEAR;
+
+    I2C_1_EnableInt();   /* Release lock */
 
     return(status);
 }
@@ -209,10 +217,14 @@ void I2C_1_I2CSlaveInitReadBuf(uint8 * rdBuf, uint32 bufSize)
     /* Check for proper buffer */
     if(NULL != rdBuf)
     {
+        I2C_1_DisableInt();  /* Lock from interruption */
+
         I2C_1_slRdBufPtr      = (volatile uint8 *) rdBuf; /* Set buffer pointer  */
         I2C_1_slRdBufSize     = bufSize;                  /* Set buffer size     */
         I2C_1_slRdBufIndex    = 0u;                       /* Clear buffer index  */
         I2C_1_slRdBufIndexTmp = 0u;                       /* Clear buffer index  */
+
+        I2C_1_EnableInt();   /* Release lock */
     }
 }
 
@@ -248,9 +260,13 @@ void I2C_1_I2CSlaveInitWriteBuf(uint8 * wrBuf, uint32 bufSize)
     /* Check buffer pointer */
     if(NULL != wrBuf)
     {
+        I2C_1_DisableInt();  /* Lock from interruption */
+
         I2C_1_slWrBufPtr   = (volatile uint8 *) wrBuf; /* Set buffer pointer  */
         I2C_1_slWrBufSize  = bufSize;                  /* Set buffer size     */
         I2C_1_slWrBufIndex = 0u;                       /* Clear buffer index  */
+
+        I2C_1_EnableInt();   /* Release lock */
     }
 }
 
