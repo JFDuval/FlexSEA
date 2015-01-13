@@ -83,8 +83,8 @@ extern int debug_var;
 // Function(s)
 //****************************************************************************
 
-	int16 accex[256];
-	int16 accex_cnt = 0;
+int16 accex[256];
+int16 accex_cnt = 0;
 	
 int main()
 {
@@ -106,7 +106,8 @@ int main()
 	unsigned char ledr_state = 0, ledg_state = 0, ledb_state = 0;
 	int32 usb_value = 0;
 	int16 imu_accel_x = 0;
-
+	uint8 i2c_test_wbuf[9] = {0,10,20,30,40,50,60,70,80};
+	uint8 i2c_test_rbuf[24];
 
    	//Enable Global Interrupts
     CyGlobalIntEnable;        
@@ -149,6 +150,24 @@ int main()
 	control_strategy(CTRL_NONE);
 	//pos = KNEE_DOWN;
 	//steps = trapez_gen_motion_1(KNEE_DOWN, KNEE_DOWN, 1, 1);
+	
+	//PSoC 4 <=> PSoC 5 I2C Test code
+	while(1)
+	{
+		//Write to slave:
+		//I2C_1_MasterWriteBuf(0x11, (uint8 *) i2c_test_wbuf, 9, I2C_1_MODE_COMPLETE_XFER);
+		
+		//Read from slave:
+		i2c_test_wbuf[0] = 0;
+		I2C_1_MasterWriteBuf(0x11, (uint8 *) i2c_test_wbuf, 1, I2C_1_MODE_COMPLETE_XFER);	//Write offset
+		CyDelayUs(500);
+		I2C_1_MasterReadBuf(0x11, i2c_test_rbuf, 24, I2C_1_MODE_COMPLETE_XFER);
+		
+		ledg_state ^= 1;
+		LED_G_Write(ledg_state);
+		
+		CyDelay(250);	
+	}
 	
 	//IMU test code
 	while(1)

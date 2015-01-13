@@ -16,6 +16,26 @@
 extern int16 adc_res[];
 extern uint8 flag_tb10ms;
 
+//EZI2C:
+uint8 ezI2Cbuf[EZI2C_BUF_SIZE];
+
+//Prepares the buffer
+void init_ezI2Cbuf(void)
+{
+	int i = 0;
+	
+	//Master write: all 0
+	for(i = 0; i < EZI2C_WBUF_SIZE; i++)
+	{
+		ezI2Cbuf[i] = 0;
+	}
+	//Master read: test data
+	for(i = EZI2C_WBUF_SIZE; i < EZI2C_BUF_SIZE; i++)
+	{
+		ezI2Cbuf[i] = i;
+	}
+}
+
 void init_peripherals(void)
 {
 	//Sequencing ADC:
@@ -26,6 +46,11 @@ void init_peripherals(void)
 	//Timer 1 (1ms timebase):
 	Timer_1_Start();
 	isr_t1_Start();
+	
+	//EZI2C:	
+	I2C_1_EzI2CSetBuffer1(EZI2C_BUF_SIZE, EZI2C_WBUF_SIZE, ezI2Cbuf);
+	init_ezI2Cbuf();
+	I2C_1_Start();
 }
 
 //MCP9700A temperature sensor:
@@ -42,6 +67,7 @@ int16 read_temp(void)
 int main()
 {
 	int16 temperature = 0;
+	uint8 i2c_flag = 0;
 	
 	//Initialize and start peripherals:
     init_peripherals();
@@ -55,7 +81,7 @@ int main()
 	//Disable shorted leads
 	SL_EN_Write(0);
 
-    for(;;)
+    while(1)
     {
 		//For now we always generate the -4V5:
 		SL_CLK_Write(1);
@@ -69,6 +95,14 @@ int main()
 			//Temperature:
 			temperature = read_temp();
 		}
+		
+		//EZI2C Write complete
+        if (0u != (I2C_1_EzI2CGetActivity() & I2C_1_EZI2C_STATUS_WRITE1))
+        {
+			//...
+			i2c_flag = 1;
+			i2c_flag = 0;			
+        }
     }
 }
 

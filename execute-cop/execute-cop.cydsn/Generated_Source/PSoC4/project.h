@@ -45,10 +45,10 @@
 #include <Timer_1.h>
 #include <clk_100khz.h>
 #include <I2C_1.h>
-#include <I2C_1_I2C.h>
 #include <I2C_1_PINS.h>
-#include <I2C_1_I2C_PVT.h>
 #include <I2C_1_PVT.h>
+#include <I2C_1_EZI2C.h>
+#include <I2C_1_EZI2C_PVT.h>
 #include <I2C_1_BOOT.h>
 #include <ADC_SAR_Seq_1.h>
 #include <VB_SNS.h>

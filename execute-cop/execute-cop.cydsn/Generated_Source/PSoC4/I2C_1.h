@@ -26,7 +26,7 @@
 #define I2C_1_CY_SCBIP_V1    (CYIPBLOCK_m0s8scb_VERSION == 1u)
 #define I2C_1_CY_SCBIP_V2    (CYIPBLOCK_m0s8scb_VERSION >= 2u)
 
-#define I2C_1_SCB_MODE                     (1u)
+#define I2C_1_SCB_MODE                     (8u)
 
 /* SCB modes enum */
 #define I2C_1_SCB_MODE_I2C                 (0x01u)

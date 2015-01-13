@@ -38,7 +38,7 @@
 	
 //Enable/Disable sub-modules
 //#define USE_DIETEMP
-#define USE_USB
+//#define USE_USB
 #define USE_RS485
 #define USE_COMM
 #define USE_QEI1

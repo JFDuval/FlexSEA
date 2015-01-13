@@ -13,7 +13,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="execute-cop-000\execute-cop\Generated_Source\PSoC4\isr_t1\isr_t1.c">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="execute-cop-000\execute-cop\Header Files\main.h">
 <ExpandedNodeIds>
 <v>execute-cop-000</v>
 <v>execute-cop-000\execute-cop</v>
@@ -94,16 +94,16 @@
 <v>execute-cop-000\execute-cop\Generated_Source\PSoC4\H3\H3.c</v>
 <v>execute-cop-000\execute-cop\Generated_Source\PSoC4\H3\H3.h</v>
 <v>execute-cop-000\execute-cop\Generated_Source\PSoC4\H3\H3_aliases.h</v>
+<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\I2C_1</v>
 <v>execute-cop-000\execute-cop\Generated_Source\PSoC4\I2C_1\I2C_1.c</v>
 <v>execute-cop-000\execute-cop\Generated_Source\PSoC4\I2C_1\I2C_1.h</v>
 <v>execute-cop-000\execute-cop\Generated_Source\PSoC4\I2C_1\I2C_1_BOOT.c</v>
 <v>execute-cop-000\execute-cop\Generated_Source\PSoC4\I2C_1\I2C_1_BOOT.h</v>
-<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\I2C_1\I2C_1_I2C.c</v>
-<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\I2C_1\I2C_1_I2C.h</v>
-<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\I2C_1\I2C_1_I2C_BOOT.c</v>
-<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\I2C_1\I2C_1_I2C_INT.c</v>
-<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\I2C_1\I2C_1_I2C_PVT.h</v>
-<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\I2C_1\I2C_1_I2C_SLAVE.c</v>
+<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\I2C_1\I2C_1_EZI2C.c</v>
+<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\I2C_1\I2C_1_EZI2C.h</v>
+<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\I2C_1\I2C_1_EZI2C_BOOT.c</v>
+<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\I2C_1\I2C_1_EZI2C_INT.c</v>
+<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\I2C_1\I2C_1_EZI2C_PVT.h</v>
 <v>execute-cop-000\execute-cop\Generated_Source\PSoC4\I2C_1\I2C_1_PINS.h</v>
 <v>execute-cop-000\execute-cop\Generated_Source\PSoC4\I2C_1\I2C_1_PM.c</v>
 <v>execute-cop-000\execute-cop\Generated_Source\PSoC4\I2C_1\I2C_1_PVT.h</v>
@@ -230,6 +230,21 @@
 <v>execute-cop-000\execute-cop\Generated_Source\PSoC4\project.h</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
+<v>execute-cop-000</v>
+<v>execute-cop-000\execute-cop</v>
+<v>execute-cop-000\execute-cop\TopDesign</v>
+<v>execute-cop-000\execute-cop\execute-cop.cydwr</v>
+<v>execute-cop-000\execute-cop\Header Files</v>
+<v>execute-cop-000\execute-cop\Header Files\main.h</v>
+<v>execute-cop-000\execute-cop\Source Files</v>
+<v>execute-cop-000\execute-cop\Source Files\main.c</v>
+<v>execute-cop-000\execute-cop\Generated_Source</v>
+<v>execute-cop-000\execute-cop\Generated_Source\PSoC4</v>
+<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\ADC_SAR_Seq_1</v>
+<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\ADC_SAR_Seq_1\ADC_SAR_Seq_1.c</v>
+<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\ADC_SAR_Seq_1\ADC_SAR_Seq_1.h</v>
+<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\ADC_SAR_Seq_1\ADC_SAR_Seq_1_INT.c</v>
+<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\ADC_SAR_Seq_1\ADC_SAR_Seq_1_PM.c</v>
 <v>execute-cop-000\execute-cop\Generated_Source\PSoC4\ADC_SAR_Seq_1_intClock</v>
 <v>execute-cop-000\execute-cop\Generated_Source\PSoC4\ADC_SAR_Seq_1_intClock\ADC_SAR_Seq_1_intClock.c</v>
 <v>execute-cop-000\execute-cop\Generated_Source\PSoC4\ADC_SAR_Seq_1_intClock\ADC_SAR_Seq_1_intClock.h</v>
@@ -262,23 +277,8 @@
 <v>execute-cop-000\execute-cop\Generated_Source\PSoC4\H2</v>
 <v>execute-cop-000\execute-cop\Generated_Source\PSoC4\H3</v>
 <v>execute-cop-000\execute-cop\Generated_Source\PSoC4\I2C_1</v>
-<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\I2C_1_SCB_IRQ</v>
-<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\I2C_1_SCBCLK</v>
-<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\I2C_1_scl</v>
-<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\I2C_1_sda</v>
-<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\IDAC_1</v>
-<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\isr_t1</v>
-<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\isr_t1\isr_t1.c</v>
-<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\isr_t1\isr_t1.h</v>
-<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\L1</v>
-<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\L1\L1.c</v>
-<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\L1\L1.h</v>
-<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\L1\L1_aliases.h</v>
-<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\L2</v>
-<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\L2\L2.c</v>
-<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\L2\L2.h</v>
-<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\L2\L2_aliases.h</v>
-<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\L3</v>
+<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\I2C_1\I2C_1.c</v>
+<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\I2C_1\I2C_1.h</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
@@ -330,10 +330,9 @@
 <v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\H3.lst</v>
 <v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\I2C_1.lst</v>
 <v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\I2C_1_BOOT.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\I2C_1_I2C.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\I2C_1_I2C_BOOT.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\I2C_1_I2C_INT.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\I2C_1_I2C_SLAVE.lst</v>
+<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\I2C_1_EZI2C.lst</v>
+<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\I2C_1_EZI2C_BOOT.lst</v>
+<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\I2C_1_EZI2C_INT.lst</v>
 <v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\I2C_1_PM.lst</v>
 <v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\I2C_1_SCB_IRQ.lst</v>
 <v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\I2C_1_SCBCLK.lst</v>
@@ -377,53 +376,6 @@
 <VisibleNodeIds>
 <v>execute-cop-000</v>
 <v>execute-cop-000\execute-cop</v>
-<v>execute-cop-000\execute-cop\CortexM0</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\ADC_SAR_Seq_1.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\ADC_SAR_Seq_1_INT.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\ADC_SAR_Seq_1_intClock.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\ADC_SAR_Seq_1_IRQ.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\ADC_SAR_Seq_1_PM.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\AMux_1.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\AOP_IN.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\AOP_OUT.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\clk_100khz.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\Cm0Start.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\Control_Reg_1.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\CS1.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\CS2.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\CS3.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\CyBootAsmGnu.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\cyfitter_cfg.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\CyFlash.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\CyLib.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\cymetadata.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\cyPm.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\cyutils.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\ELED.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\H1.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\H2.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\H3.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\I2C_1.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\I2C_1_BOOT.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\I2C_1_I2C.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\I2C_1_I2C_BOOT.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\I2C_1_I2C_INT.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\I2C_1_I2C_SLAVE.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\I2C_1_PM.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\I2C_1_SCB_IRQ.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\I2C_1_SCBCLK.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\I2C_1_scl.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\I2C_1_sda.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\IDAC_1.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\IDAC_1_PM.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\isr_t1.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\L1.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\L2.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\L3.lst</v>
-<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\M3V3.lst</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStates>
