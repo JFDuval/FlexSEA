@@ -72,7 +72,7 @@
 .set H2__0__MASK, 0x20
 .set H2__0__OUT_SEL, CYREG_UDB_PA3_CFG10
 .set H2__0__OUT_SEL_SHIFT, 10
-.set H2__0__OUT_SEL_VAL, 1
+.set H2__0__OUT_SEL_VAL, 0
 .set H2__0__PA__CFG0, CYREG_UDB_PA3_CFG0
 .set H2__0__PA__CFG1, CYREG_UDB_PA3_CFG1
 .set H2__0__PA__CFG10, CYREG_UDB_PA3_CFG10
@@ -130,7 +130,7 @@
 .set H3__0__MASK, 0x02
 .set H3__0__OUT_SEL, CYREG_UDB_PA3_CFG10
 .set H3__0__OUT_SEL_SHIFT, 2
-.set H3__0__OUT_SEL_VAL, 2
+.set H3__0__OUT_SEL_VAL, 0
 .set H3__0__PA__CFG0, CYREG_UDB_PA3_CFG0
 .set H3__0__PA__CFG1, CYREG_UDB_PA3_CFG1
 .set H3__0__PA__CFG10, CYREG_UDB_PA3_CFG10
@@ -188,7 +188,7 @@
 .set L1__0__MASK, 0x40
 .set L1__0__OUT_SEL, CYREG_UDB_PA3_CFG10
 .set L1__0__OUT_SEL_SHIFT, 12
-.set L1__0__OUT_SEL_VAL, 0
+.set L1__0__OUT_SEL_VAL, 3
 .set L1__0__PA__CFG0, CYREG_UDB_PA3_CFG0
 .set L1__0__PA__CFG1, CYREG_UDB_PA3_CFG1
 .set L1__0__PA__CFG10, CYREG_UDB_PA3_CFG10
@@ -246,7 +246,7 @@
 .set L2__0__MASK, 0x10
 .set L2__0__OUT_SEL, CYREG_UDB_PA3_CFG10
 .set L2__0__OUT_SEL_SHIFT, 8
-.set L2__0__OUT_SEL_VAL, 3
+.set L2__0__OUT_SEL_VAL, 1
 .set L2__0__PA__CFG0, CYREG_UDB_PA3_CFG0
 .set L2__0__PA__CFG1, CYREG_UDB_PA3_CFG1
 .set L2__0__PA__CFG10, CYREG_UDB_PA3_CFG10
@@ -304,7 +304,7 @@
 .set L3__0__MASK, 0x01
 .set L3__0__OUT_SEL, CYREG_UDB_PA3_CFG10
 .set L3__0__OUT_SEL_SHIFT, 0
-.set L3__0__OUT_SEL_VAL, 0
+.set L3__0__OUT_SEL_VAL, 1
 .set L3__0__PA__CFG0, CYREG_UDB_PA3_CFG0
 .set L3__0__PA__CFG1, CYREG_UDB_PA3_CFG1
 .set L3__0__PA__CFG10, CYREG_UDB_PA3_CFG10
@@ -362,7 +362,7 @@
 .set CS1__0__MASK, 0x01
 .set CS1__0__OUT_SEL, CYREG_UDB_PA1_CFG10
 .set CS1__0__OUT_SEL_SHIFT, 0
-.set CS1__0__OUT_SEL_VAL, 1
+.set CS1__0__OUT_SEL_VAL, 0
 .set CS1__0__PA__CFG0, CYREG_UDB_PA1_CFG0
 .set CS1__0__PA__CFG1, CYREG_UDB_PA1_CFG1
 .set CS1__0__PA__CFG10, CYREG_UDB_PA1_CFG10
@@ -420,7 +420,7 @@
 .set CS2__0__MASK, 0x02
 .set CS2__0__OUT_SEL, CYREG_UDB_PA1_CFG10
 .set CS2__0__OUT_SEL_SHIFT, 2
-.set CS2__0__OUT_SEL_VAL, 1
+.set CS2__0__OUT_SEL_VAL, 0
 .set CS2__0__PA__CFG0, CYREG_UDB_PA1_CFG0
 .set CS2__0__PA__CFG1, CYREG_UDB_PA1_CFG1
 .set CS2__0__PA__CFG10, CYREG_UDB_PA1_CFG10
@@ -478,7 +478,7 @@
 .set CS3__0__MASK, 0x04
 .set CS3__0__OUT_SEL, CYREG_UDB_PA1_CFG10
 .set CS3__0__OUT_SEL_SHIFT, 4
-.set CS3__0__OUT_SEL_VAL, 1
+.set CS3__0__OUT_SEL_VAL, 0
 .set CS3__0__PA__CFG0, CYREG_UDB_PA1_CFG0
 .set CS3__0__PA__CFG1, CYREG_UDB_PA1_CFG1
 .set CS3__0__PA__CFG10, CYREG_UDB_PA1_CFG10
@@ -701,7 +701,7 @@
 .set REF__0__MASK, 0x10
 .set REF__0__OUT_SEL, CYREG_UDB_PA2_CFG10
 .set REF__0__OUT_SEL_SHIFT, 8
-.set REF__0__OUT_SEL_VAL, 3
+.set REF__0__OUT_SEL_VAL, 2
 .set REF__0__PA__CFG0, CYREG_UDB_PA2_CFG0
 .set REF__0__PA__CFG1, CYREG_UDB_PA2_CFG1
 .set REF__0__PA__CFG10, CYREG_UDB_PA2_CFG10
@@ -1858,12 +1858,30 @@
 .set Timer_1_TimerUDB_sT8_timerdp_u0__MSK_DP_AUX_CTL_REG, CYREG_UDB_CAT16_ACTL_MSK_03
 .set Timer_1_TimerUDB_sT8_timerdp_u0__PER_DP_AUX_CTL_REG, CYREG_UDB_CAT16_ACTL_MSK_03
 
+/* isr_wdclk */
+.set isr_wdclk__INTC_CLR_EN_REG, CYREG_CM0_ICER
+.set isr_wdclk__INTC_CLR_PD_REG, CYREG_CM0_ICPR
+.set isr_wdclk__INTC_MASK, 0x04
+.set isr_wdclk__INTC_NUMBER, 2
+.set isr_wdclk__INTC_PRIOR_MASK, 0xC00000
+.set isr_wdclk__INTC_PRIOR_NUM, 3
+.set isr_wdclk__INTC_PRIOR_REG, CYREG_CM0_IPR0
+.set isr_wdclk__INTC_SET_EN_REG, CYREG_CM0_ISER
+.set isr_wdclk__INTC_SET_PD_REG, CYREG_CM0_ISPR
+
 /* clk_100khz */
 .set clk_100khz__DIVIDER_MASK, 0x0000FFFF
-.set clk_100khz__ENABLE, CYREG_CLK_DIVIDER_C00
+.set clk_100khz__ENABLE, CYREG_CLK_DIVIDER_A01
 .set clk_100khz__ENABLE_MASK, 0x80000000
 .set clk_100khz__MASK, 0x80000000
-.set clk_100khz__REGISTER, CYREG_CLK_DIVIDER_C00
+.set clk_100khz__REGISTER, CYREG_CLK_DIVIDER_A01
+
+/* clk_200kHz */
+.set clk_200kHz__DIVIDER_MASK, 0x0000FFFF
+.set clk_200kHz__ENABLE, CYREG_CLK_DIVIDER_C00
+.set clk_200kHz__ENABLE_MASK, 0x80000000
+.set clk_200kHz__MASK, 0x80000000
+.set clk_200kHz__REGISTER, CYREG_CLK_DIVIDER_C00
 
 /* ADC_SAR_Seq_1_cy_psoc4_sar */
 .set ADC_SAR_Seq_1_cy_psoc4_sar__SAR_CTRL, CYREG_SAR_CTRL
@@ -1973,6 +1991,46 @@
 .set Control_Reg_1_Sync_ctrl_reg__MASK_CTL_AUX_CTL_REG, CYREG_UDB_CAT16_ACTL_MSK_02
 .set Control_Reg_1_Sync_ctrl_reg__PER_CTL_AUX_CTL_REG, CYREG_UDB_CAT16_ACTL_MSK_02
 .set Control_Reg_1_Sync_ctrl_reg__PERIOD_REG, CYREG_UDB_W8_MSK_02
+
+/* Control_Reg_2 */
+.set Control_Reg_2_Sync_ctrl_reg__0__MASK, 0x01
+.set Control_Reg_2_Sync_ctrl_reg__0__POS, 0
+.set Control_Reg_2_Sync_ctrl_reg__1__MASK, 0x02
+.set Control_Reg_2_Sync_ctrl_reg__1__POS, 1
+.set Control_Reg_2_Sync_ctrl_reg__16BIT_CONTROL_AUX_CTL_REG, CYREG_UDB_W16_ACTL_00
+.set Control_Reg_2_Sync_ctrl_reg__16BIT_CONTROL_CONTROL_REG, CYREG_UDB_W16_CTL_00
+.set Control_Reg_2_Sync_ctrl_reg__16BIT_CONTROL_COUNT_REG, CYREG_UDB_W16_CTL_00
+.set Control_Reg_2_Sync_ctrl_reg__16BIT_COUNT_CONTROL_REG, CYREG_UDB_W16_CTL_00
+.set Control_Reg_2_Sync_ctrl_reg__16BIT_COUNT_COUNT_REG, CYREG_UDB_W16_CTL_00
+.set Control_Reg_2_Sync_ctrl_reg__16BIT_MASK_MASK_REG, CYREG_UDB_W16_MSK_00
+.set Control_Reg_2_Sync_ctrl_reg__16BIT_MASK_PERIOD_REG, CYREG_UDB_W16_MSK_00
+.set Control_Reg_2_Sync_ctrl_reg__16BIT_PERIOD_MASK_REG, CYREG_UDB_W16_MSK_00
+.set Control_Reg_2_Sync_ctrl_reg__16BIT_PERIOD_PERIOD_REG, CYREG_UDB_W16_MSK_00
+.set Control_Reg_2_Sync_ctrl_reg__2__MASK, 0x04
+.set Control_Reg_2_Sync_ctrl_reg__2__POS, 2
+.set Control_Reg_2_Sync_ctrl_reg__3__MASK, 0x08
+.set Control_Reg_2_Sync_ctrl_reg__3__POS, 3
+.set Control_Reg_2_Sync_ctrl_reg__32BIT_CONTROL_AUX_CTL_REG, CYREG_UDB_W32_ACTL_00
+.set Control_Reg_2_Sync_ctrl_reg__32BIT_CONTROL_REG, CYREG_UDB_W32_CTL_00
+.set Control_Reg_2_Sync_ctrl_reg__32BIT_COUNT_REG, CYREG_UDB_W32_CTL_00
+.set Control_Reg_2_Sync_ctrl_reg__32BIT_PERIOD_REG, CYREG_UDB_W32_MSK_00
+.set Control_Reg_2_Sync_ctrl_reg__4__MASK, 0x10
+.set Control_Reg_2_Sync_ctrl_reg__4__POS, 4
+.set Control_Reg_2_Sync_ctrl_reg__5__MASK, 0x20
+.set Control_Reg_2_Sync_ctrl_reg__5__POS, 5
+.set Control_Reg_2_Sync_ctrl_reg__6__MASK, 0x40
+.set Control_Reg_2_Sync_ctrl_reg__6__POS, 6
+.set Control_Reg_2_Sync_ctrl_reg__7__MASK, 0x80
+.set Control_Reg_2_Sync_ctrl_reg__7__POS, 7
+.set Control_Reg_2_Sync_ctrl_reg__CONTROL_AUX_CTL_REG, CYREG_UDB_W8_ACTL_00
+.set Control_Reg_2_Sync_ctrl_reg__CONTROL_REG, CYREG_UDB_W8_CTL_00
+.set Control_Reg_2_Sync_ctrl_reg__CONTROL_ST_REG, CYREG_UDB_CAT16_CTL_ST_00
+.set Control_Reg_2_Sync_ctrl_reg__COUNT_REG, CYREG_UDB_W8_CTL_00
+.set Control_Reg_2_Sync_ctrl_reg__COUNT_ST_REG, CYREG_UDB_CAT16_CTL_ST_00
+.set Control_Reg_2_Sync_ctrl_reg__MASK, 0xFF
+.set Control_Reg_2_Sync_ctrl_reg__MASK_CTL_AUX_CTL_REG, CYREG_UDB_CAT16_ACTL_MSK_00
+.set Control_Reg_2_Sync_ctrl_reg__PER_CTL_AUX_CTL_REG, CYREG_UDB_CAT16_ACTL_MSK_00
+.set Control_Reg_2_Sync_ctrl_reg__PERIOD_REG, CYREG_UDB_W8_MSK_00
 
 /* Miscellaneous */
 .set CYDEV_BCLK__HFCLK__HZ, 48000000

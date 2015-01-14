@@ -39,6 +39,8 @@ uint8 last_byte = 0;
 int32 enccount = 0;
 static unsigned char test_val = 1; // for testing die temp read times
 int steps = 0, current_step = 0, pos = 0;
+uint16 psoc4_vb_sns = 0, psoc4_vg_sns = 0, psoc4_3v3_sns = 0;
+uint8 psoc4_temperature = 0, psoc4_status1 = 0;
 
 //ToDo update (different ADC)
 #ifdef MIT_KNEE
@@ -83,8 +85,15 @@ extern int debug_var;
 // Function(s)
 //****************************************************************************
 
-int16 accex[256];
-int16 accex_cnt = 0;
+//Update the global variables from the array
+void decode_psoc4_values(uint8 *psoc4_data)
+{
+	psoc4_vb_sns = (psoc4_data[MEM_R_VB_SNS_MSB] << 8) + psoc4_data[MEM_R_VB_SNS_LSB];
+	psoc4_vg_sns = (psoc4_data[MEM_R_VG_SNS_MSB] << 8) + psoc4_data[MEM_R_VG_SNS_LSB];
+	psoc4_3v3_sns = (psoc4_data[MEM_R_3V3_SNS_MSB] << 8) + psoc4_data[MEM_R_3V3_SNS_LSB];
+	psoc4_temperature = psoc4_data[MEM_R_TEMPERATURE];
+	psoc4_status1 = psoc4_data[MEM_R_STATUS1];
+}
 	
 int main()
 {
@@ -108,6 +117,8 @@ int main()
 	int16 imu_accel_x = 0;
 	uint8 i2c_test_wbuf[9] = {0,10,20,30,40,50,60,70,80};
 	uint8 i2c_test_rbuf[24];
+	uint8 toggle_wdclk = 0;
+	uint8 vr1 = 0;
 
    	//Enable Global Interrupts
     CyGlobalIntEnable;        
@@ -151,6 +162,32 @@ int main()
 	//pos = KNEE_DOWN;
 	//steps = trapez_gen_motion_1(KNEE_DOWN, KNEE_DOWN, 1, 1);
 	
+	//Strain Amplifier test:
+	VDAC8_3_SetValue(156);
+	while(1)
+	{
+		vr1++;
+		i2c_test_wbuf[0] = MCP4661_REG_RAM_W1;
+		i2c_test_wbuf[1] = vr1;
+		I2C_1_MasterWriteBuf(I2C_POT_ADDR, (uint8 *) i2c_test_wbuf, 2, I2C_1_MODE_COMPLETE_XFER);		
+		
+		ledg_state ^= 1;
+		LED_G_Write(ledg_state);
+		
+		CyDelay(1);
+	}
+	
+	/*
+	//WDCLK test code
+	while(1)
+	{
+		toggle_wdclk ^= 1;
+		WDCLK_Write(toggle_wdclk);
+		CyDelayUs(500);
+	}
+	*/
+	
+	/*
 	//PSoC 4 <=> PSoC 5 I2C Test code
 	while(1)
 	{
@@ -162,21 +199,21 @@ int main()
 		I2C_1_MasterWriteBuf(0x11, (uint8 *) i2c_test_wbuf, 1, I2C_1_MODE_COMPLETE_XFER);	//Write offset
 		CyDelayUs(500);
 		I2C_1_MasterReadBuf(0x11, i2c_test_rbuf, 24, I2C_1_MODE_COMPLETE_XFER);
+		CyDelayUs(500);
+		decode_psoc4_values(i2c_test_rbuf);
 		
 		ledg_state ^= 1;
 		LED_G_Write(ledg_state);
 		
 		CyDelay(250);	
 	}
+	*/
 	
+	/*
 	//IMU test code
 	while(1)
 	{
 		imu_accel_x = get_accel_x();
-		accex[accex_cnt] = imu_accel_x;
-		accex_cnt++;
-		if(accex_cnt > 255)
-			accex_cnt = 0;
 		send_usb_int16(imu_accel_x);
 		
 		ledg_state ^= 1;
@@ -184,6 +221,7 @@ int main()
 		
 		CyDelay(75);		
 	}
+	*/
 	
 	/*
 	//ToDo Debug only - fixed PWM
@@ -391,5 +429,9 @@ int main()
 			adc_sar1_flag = 0;
 			filter_adc();
 		}
+		
+		//WatchDog Clock
+		toggle_wdclk ^= 1;
+		WDCLK_Write(toggle_wdclk);
 	}
 }

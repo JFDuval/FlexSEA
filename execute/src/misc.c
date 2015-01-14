@@ -42,7 +42,8 @@ void init_peripherals(void)
 	//Analog amplifiers & multiplexer(s):
 	PGA_1_Start();
 	Opamp_1_Start();
-	//Opamp_2_Start();
+	Opamp_2_Start();
+	Opamp_3_Start();
 	AMux_1_Start();
 	AMux_1_Select(0);
 	
@@ -58,6 +59,9 @@ void init_peripherals(void)
 	
 	//VDAC8: Debug only 
 	VDAC8_1_Start();
+	
+	//VR2 DAC:
+	VDAC8_3_Start();
 
 	//Quadrature 1: Motor shaft encoder
 	QuadDec_1_Start();

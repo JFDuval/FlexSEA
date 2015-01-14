@@ -72,7 +72,7 @@
 #define H2__0__MASK 0x20u
 #define H2__0__OUT_SEL CYREG_UDB_PA3_CFG10
 #define H2__0__OUT_SEL_SHIFT 10u
-#define H2__0__OUT_SEL_VAL 1u
+#define H2__0__OUT_SEL_VAL 0u
 #define H2__0__PA__CFG0 CYREG_UDB_PA3_CFG0
 #define H2__0__PA__CFG1 CYREG_UDB_PA3_CFG1
 #define H2__0__PA__CFG10 CYREG_UDB_PA3_CFG10
@@ -130,7 +130,7 @@
 #define H3__0__MASK 0x02u
 #define H3__0__OUT_SEL CYREG_UDB_PA3_CFG10
 #define H3__0__OUT_SEL_SHIFT 2u
-#define H3__0__OUT_SEL_VAL 2u
+#define H3__0__OUT_SEL_VAL 0u
 #define H3__0__PA__CFG0 CYREG_UDB_PA3_CFG0
 #define H3__0__PA__CFG1 CYREG_UDB_PA3_CFG1
 #define H3__0__PA__CFG10 CYREG_UDB_PA3_CFG10
@@ -188,7 +188,7 @@
 #define L1__0__MASK 0x40u
 #define L1__0__OUT_SEL CYREG_UDB_PA3_CFG10
 #define L1__0__OUT_SEL_SHIFT 12u
-#define L1__0__OUT_SEL_VAL 0u
+#define L1__0__OUT_SEL_VAL 3u
 #define L1__0__PA__CFG0 CYREG_UDB_PA3_CFG0
 #define L1__0__PA__CFG1 CYREG_UDB_PA3_CFG1
 #define L1__0__PA__CFG10 CYREG_UDB_PA3_CFG10
@@ -246,7 +246,7 @@
 #define L2__0__MASK 0x10u
 #define L2__0__OUT_SEL CYREG_UDB_PA3_CFG10
 #define L2__0__OUT_SEL_SHIFT 8u
-#define L2__0__OUT_SEL_VAL 3u
+#define L2__0__OUT_SEL_VAL 1u
 #define L2__0__PA__CFG0 CYREG_UDB_PA3_CFG0
 #define L2__0__PA__CFG1 CYREG_UDB_PA3_CFG1
 #define L2__0__PA__CFG10 CYREG_UDB_PA3_CFG10
@@ -304,7 +304,7 @@
 #define L3__0__MASK 0x01u
 #define L3__0__OUT_SEL CYREG_UDB_PA3_CFG10
 #define L3__0__OUT_SEL_SHIFT 0u
-#define L3__0__OUT_SEL_VAL 0u
+#define L3__0__OUT_SEL_VAL 1u
 #define L3__0__PA__CFG0 CYREG_UDB_PA3_CFG0
 #define L3__0__PA__CFG1 CYREG_UDB_PA3_CFG1
 #define L3__0__PA__CFG10 CYREG_UDB_PA3_CFG10
@@ -362,7 +362,7 @@
 #define CS1__0__MASK 0x01u
 #define CS1__0__OUT_SEL CYREG_UDB_PA1_CFG10
 #define CS1__0__OUT_SEL_SHIFT 0u
-#define CS1__0__OUT_SEL_VAL 1u
+#define CS1__0__OUT_SEL_VAL 0u
 #define CS1__0__PA__CFG0 CYREG_UDB_PA1_CFG0
 #define CS1__0__PA__CFG1 CYREG_UDB_PA1_CFG1
 #define CS1__0__PA__CFG10 CYREG_UDB_PA1_CFG10
@@ -420,7 +420,7 @@
 #define CS2__0__MASK 0x02u
 #define CS2__0__OUT_SEL CYREG_UDB_PA1_CFG10
 #define CS2__0__OUT_SEL_SHIFT 2u
-#define CS2__0__OUT_SEL_VAL 1u
+#define CS2__0__OUT_SEL_VAL 0u
 #define CS2__0__PA__CFG0 CYREG_UDB_PA1_CFG0
 #define CS2__0__PA__CFG1 CYREG_UDB_PA1_CFG1
 #define CS2__0__PA__CFG10 CYREG_UDB_PA1_CFG10
@@ -478,7 +478,7 @@
 #define CS3__0__MASK 0x04u
 #define CS3__0__OUT_SEL CYREG_UDB_PA1_CFG10
 #define CS3__0__OUT_SEL_SHIFT 4u
-#define CS3__0__OUT_SEL_VAL 1u
+#define CS3__0__OUT_SEL_VAL 0u
 #define CS3__0__PA__CFG0 CYREG_UDB_PA1_CFG0
 #define CS3__0__PA__CFG1 CYREG_UDB_PA1_CFG1
 #define CS3__0__PA__CFG10 CYREG_UDB_PA1_CFG10
@@ -701,7 +701,7 @@
 #define REF__0__MASK 0x10u
 #define REF__0__OUT_SEL CYREG_UDB_PA2_CFG10
 #define REF__0__OUT_SEL_SHIFT 8u
-#define REF__0__OUT_SEL_VAL 3u
+#define REF__0__OUT_SEL_VAL 2u
 #define REF__0__PA__CFG0 CYREG_UDB_PA2_CFG0
 #define REF__0__PA__CFG1 CYREG_UDB_PA2_CFG1
 #define REF__0__PA__CFG10 CYREG_UDB_PA2_CFG10
@@ -1858,12 +1858,30 @@
 #define Timer_1_TimerUDB_sT8_timerdp_u0__MSK_DP_AUX_CTL_REG CYREG_UDB_CAT16_ACTL_MSK_03
 #define Timer_1_TimerUDB_sT8_timerdp_u0__PER_DP_AUX_CTL_REG CYREG_UDB_CAT16_ACTL_MSK_03
 
+/* isr_wdclk */
+#define isr_wdclk__INTC_CLR_EN_REG CYREG_CM0_ICER
+#define isr_wdclk__INTC_CLR_PD_REG CYREG_CM0_ICPR
+#define isr_wdclk__INTC_MASK 0x04u
+#define isr_wdclk__INTC_NUMBER 2u
+#define isr_wdclk__INTC_PRIOR_MASK 0xC00000u
+#define isr_wdclk__INTC_PRIOR_NUM 3u
+#define isr_wdclk__INTC_PRIOR_REG CYREG_CM0_IPR0
+#define isr_wdclk__INTC_SET_EN_REG CYREG_CM0_ISER
+#define isr_wdclk__INTC_SET_PD_REG CYREG_CM0_ISPR
+
 /* clk_100khz */
 #define clk_100khz__DIVIDER_MASK 0x0000FFFFu
-#define clk_100khz__ENABLE CYREG_CLK_DIVIDER_C00
+#define clk_100khz__ENABLE CYREG_CLK_DIVIDER_A01
 #define clk_100khz__ENABLE_MASK 0x80000000u
 #define clk_100khz__MASK 0x80000000u
-#define clk_100khz__REGISTER CYREG_CLK_DIVIDER_C00
+#define clk_100khz__REGISTER CYREG_CLK_DIVIDER_A01
+
+/* clk_200kHz */
+#define clk_200kHz__DIVIDER_MASK 0x0000FFFFu
+#define clk_200kHz__ENABLE CYREG_CLK_DIVIDER_C00
+#define clk_200kHz__ENABLE_MASK 0x80000000u
+#define clk_200kHz__MASK 0x80000000u
+#define clk_200kHz__REGISTER CYREG_CLK_DIVIDER_C00
 
 /* ADC_SAR_Seq_1_cy_psoc4_sar */
 #define ADC_SAR_Seq_1_cy_psoc4_sar__SAR_CTRL CYREG_SAR_CTRL
@@ -1973,6 +1991,46 @@
 #define Control_Reg_1_Sync_ctrl_reg__MASK_CTL_AUX_CTL_REG CYREG_UDB_CAT16_ACTL_MSK_02
 #define Control_Reg_1_Sync_ctrl_reg__PER_CTL_AUX_CTL_REG CYREG_UDB_CAT16_ACTL_MSK_02
 #define Control_Reg_1_Sync_ctrl_reg__PERIOD_REG CYREG_UDB_W8_MSK_02
+
+/* Control_Reg_2 */
+#define Control_Reg_2_Sync_ctrl_reg__0__MASK 0x01u
+#define Control_Reg_2_Sync_ctrl_reg__0__POS 0
+#define Control_Reg_2_Sync_ctrl_reg__1__MASK 0x02u
+#define Control_Reg_2_Sync_ctrl_reg__1__POS 1
+#define Control_Reg_2_Sync_ctrl_reg__16BIT_CONTROL_AUX_CTL_REG CYREG_UDB_W16_ACTL_00
+#define Control_Reg_2_Sync_ctrl_reg__16BIT_CONTROL_CONTROL_REG CYREG_UDB_W16_CTL_00
+#define Control_Reg_2_Sync_ctrl_reg__16BIT_CONTROL_COUNT_REG CYREG_UDB_W16_CTL_00
+#define Control_Reg_2_Sync_ctrl_reg__16BIT_COUNT_CONTROL_REG CYREG_UDB_W16_CTL_00
+#define Control_Reg_2_Sync_ctrl_reg__16BIT_COUNT_COUNT_REG CYREG_UDB_W16_CTL_00
+#define Control_Reg_2_Sync_ctrl_reg__16BIT_MASK_MASK_REG CYREG_UDB_W16_MSK_00
+#define Control_Reg_2_Sync_ctrl_reg__16BIT_MASK_PERIOD_REG CYREG_UDB_W16_MSK_00
+#define Control_Reg_2_Sync_ctrl_reg__16BIT_PERIOD_MASK_REG CYREG_UDB_W16_MSK_00
+#define Control_Reg_2_Sync_ctrl_reg__16BIT_PERIOD_PERIOD_REG CYREG_UDB_W16_MSK_00
+#define Control_Reg_2_Sync_ctrl_reg__2__MASK 0x04u
+#define Control_Reg_2_Sync_ctrl_reg__2__POS 2
+#define Control_Reg_2_Sync_ctrl_reg__3__MASK 0x08u
+#define Control_Reg_2_Sync_ctrl_reg__3__POS 3
+#define Control_Reg_2_Sync_ctrl_reg__32BIT_CONTROL_AUX_CTL_REG CYREG_UDB_W32_ACTL_00
+#define Control_Reg_2_Sync_ctrl_reg__32BIT_CONTROL_REG CYREG_UDB_W32_CTL_00
+#define Control_Reg_2_Sync_ctrl_reg__32BIT_COUNT_REG CYREG_UDB_W32_CTL_00
+#define Control_Reg_2_Sync_ctrl_reg__32BIT_PERIOD_REG CYREG_UDB_W32_MSK_00
+#define Control_Reg_2_Sync_ctrl_reg__4__MASK 0x10u
+#define Control_Reg_2_Sync_ctrl_reg__4__POS 4
+#define Control_Reg_2_Sync_ctrl_reg__5__MASK 0x20u
+#define Control_Reg_2_Sync_ctrl_reg__5__POS 5
+#define Control_Reg_2_Sync_ctrl_reg__6__MASK 0x40u
+#define Control_Reg_2_Sync_ctrl_reg__6__POS 6
+#define Control_Reg_2_Sync_ctrl_reg__7__MASK 0x80u
+#define Control_Reg_2_Sync_ctrl_reg__7__POS 7
+#define Control_Reg_2_Sync_ctrl_reg__CONTROL_AUX_CTL_REG CYREG_UDB_W8_ACTL_00
+#define Control_Reg_2_Sync_ctrl_reg__CONTROL_REG CYREG_UDB_W8_CTL_00
+#define Control_Reg_2_Sync_ctrl_reg__CONTROL_ST_REG CYREG_UDB_CAT16_CTL_ST_00
+#define Control_Reg_2_Sync_ctrl_reg__COUNT_REG CYREG_UDB_W8_CTL_00
+#define Control_Reg_2_Sync_ctrl_reg__COUNT_ST_REG CYREG_UDB_CAT16_CTL_ST_00
+#define Control_Reg_2_Sync_ctrl_reg__MASK 0xFFu
+#define Control_Reg_2_Sync_ctrl_reg__MASK_CTL_AUX_CTL_REG CYREG_UDB_CAT16_ACTL_MSK_00
+#define Control_Reg_2_Sync_ctrl_reg__PER_CTL_AUX_CTL_REG CYREG_UDB_CAT16_ACTL_MSK_00
+#define Control_Reg_2_Sync_ctrl_reg__PERIOD_REG CYREG_UDB_W8_MSK_00
 
 /* Miscellaneous */
 #define CY_VERSION "PSoC Creator  3.1"

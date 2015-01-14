@@ -92,6 +92,9 @@
 #include <M3V3.h>
 #include <M3V3_aliases.h>
 #include <isr_t1.h>
+#include <isr_wdclk.h>
+#include <clk_200kHz.h>
+#include <Control_Reg_2.h>
 #include <I2C_1_SCBCLK.h>
 #include <I2C_1_sda.h>
 #include <I2C_1_sda_aliases.h>
