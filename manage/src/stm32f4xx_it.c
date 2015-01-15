@@ -61,7 +61,7 @@ extern int comm_success;
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* SPI handler declared in "main.c" file */
-extern SPI_HandleTypeDef spi1_handle;
+extern SPI_HandleTypeDef spi4_handle;
 extern USART_HandleTypeDef husart1;
 
 volatile unsigned int spi_bytes_ready = 0;
@@ -194,7 +194,7 @@ void SPI1_IRQHandler(void)
 	//Increment bytes counter
 	spi_bytes_ready++;
 
-	HAL_SPI_IRQHandler(&spi1_handle);
+	HAL_SPI_IRQHandler(&spi4_handle);
 }
 
 /**

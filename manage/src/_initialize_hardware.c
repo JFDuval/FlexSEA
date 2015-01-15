@@ -75,7 +75,7 @@ __initialize_hardware(void)
 
   // Unless explicitly enabled by the application, we prefer
   // to keep the timer interrupts off.
-  HAL_SuspendTick();
+  //HAL_SuspendTick();
 
   // Enable HSE Oscillator and activate PLL with HSE as source
   configure_system_clock();
