@@ -35,6 +35,7 @@ extern unsigned char comm_str[COMM_STR_BUF_LEN];
 volatile unsigned char systick_1ms_flag;
 volatile unsigned char systick_10ms_flag;
 volatile unsigned char systick_100ms_flag;
+volatile unsigned char systick_1000ms_flag;
 
 //****************************************************************************
 // Function(s)
@@ -47,43 +48,17 @@ int main(void)
 	unsigned char good_commands = 0;
 	unsigned int result = 0;
 	unsigned int timed_cleanup = 0;
-	unsigned int delay = 0;
 	unsigned char toggle_led0 = 0, toggle_led1 = 0;
 
-	//test for imu
-	uint16_t imu_test_val = 0;
-
-	//Test for digi pots
-	uint8_t pot_val = 0;
-
-	//SysTick timer
-	timer_start();
-
-	//USART1 (RS-485 #1)
-	USART1_Init();
-
-	//Init peripherals
-	init_led_outputs();
-	init_switch_inputs();
-	init_dio_inputs();
-	init_dio_outputs();
-	init_rs485_outputs();
-	//init_adc1();
-	init_spi4();
-	init_i2c1();
-	init_imu();
-	init_adva_fc_pins();
-
-	//All RGB LEDs OFF
-	LEDR(0); LEDG(0);LEDB(0);
+	//Initialize all the peripherals
+	init_peripherals();
 
 	//Start with an empty buffer
 	flexsea_clear_slave_read_buffer();
 
-	// Infinite loop
+	//Infinite loop
 	while (1)
     {
-		//imu_test_val = get_accel_x();
 		//SPI reception from the Plan board:
 		flexsea_receive_from_master();
 
@@ -105,6 +80,8 @@ int main(void)
 				comm_str_payload1[i] = comm_str_payload[0][i];
 			}
 			result = payload_parse_str(comm_str_payload1);
+			
+			//ToDo Replace with LED1
 			/* IMU ADDITION Toggle LED2 everytime a valid command is received
 			toggle_led2 ^= 1;
 			LED2(toggle_led2);
@@ -134,10 +111,7 @@ int main(void)
 			}
 		}
 
-
-
-
-		//1, 10 & 100ms timebase:
+		//1, 10, 100 & 1000ms timebases:
 		if(systick_1ms_flag)
 		{
 			systick_1ms_flag = 0;
@@ -151,12 +125,12 @@ int main(void)
 		if(systick_100ms_flag)
 		{
 			systick_100ms_flag = 0;
+			
 			//Constant LED0 flashing while code runs
 			toggle_led0 ^= 1;
 			LED0(toggle_led0);
-			LEDR(toggle_led0);
-			LEDB(!toggle_led0);
 
+			//Switch test code, ToDo remove
 			if(read_sw1())
 			{
 				LEDG(1);
@@ -166,7 +140,35 @@ int main(void)
 				LEDG(0);
 			}
 		}
+		if(systick_1000ms_flag)
+		{
+			systick_1000ms_flag = 0;
+			
+			toggle_led1 ^= 1;
+			LED1(toggle_led1);
+		}		
+		
     }
+}
+
+//Initialize all the peripherals
+void init_peripherals(void)
+{	
+	init_systick_timer();	//SysTick timer	
+	init_usart1();			//USART1 (RS-485 #1)
+	init_led_outputs();
+	init_switch_inputs();
+	init_dio_inputs();
+	init_dio_outputs();
+	init_rs485_outputs();
+	//init_adc1();
+	init_spi4();
+	init_i2c1();
+	init_imu();
+	init_adva_fc_pins();
+
+	//All RGB LEDs OFF
+	LEDR(0); LEDG(0);LEDB(0);
 }
 
 //ToDo: clean this

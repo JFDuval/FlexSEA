@@ -22,7 +22,7 @@
 //****************************************************************************
 
 void HAL_UART_MspInit(UART_HandleTypeDef* huart);
-void USART1_Init(void);
+void init_usart1(void);
 void putc_usart1(char c);
 void init_rs485_outputs(void);
 void puts_rs485_1(uint8_t *str, unsigned char length);

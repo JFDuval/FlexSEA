@@ -77,7 +77,7 @@ void HAL_USART_MspInit(USART_HandleTypeDef* husart)
 
 //USART1 init function: RS-485 #1
 //Ref: http://eliaselectronics.com/stm32f4-tutorials/stm32f4-usart-tutorial/ and Cube functions
-void USART1_Init(void)
+void init_usart1(void)
 {
 	husart1.Instance = USART1;
 
