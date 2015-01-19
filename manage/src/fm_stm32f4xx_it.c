@@ -38,10 +38,8 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f4xx_it.h"
-#include "stm32f4xx_hal.h"
-#include "stm32f4xx_hal_spi.h"
-#include "fm_dio.h"
+#include "main.h"
+#include "fm_stm32f4xx_it.h"
 
 unsigned char log_rx_bytes[20];
 unsigned char cnt = 0;

@@ -13,7 +13,7 @@
 
 #include "main.h"
 #include "../../common/inc/flexsea.h"
-#include "demonstrations.h"
+#include "fm_demonstrations.h"
 
 //****************************************************************************
 // Local variable(s)
