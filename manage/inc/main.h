@@ -16,7 +16,6 @@
 //****************************************************************************
 
 #include <stdio.h>
-
 #include "stm32f4xx.h"
 #include "stm32f4xx_hal.h"
 #include "stm32f4xx_hal_conf.h"
@@ -25,10 +24,6 @@
 #include "stm32f4xx_hal_gpio.h"
 #include "stm32f4xx_hal_adc.h"
 #include "stm32f4xx_hal_spi.h"
-
-//#include "stm32f4xx_hal_def.h"
-
-
 #include "Timer.h"
 #include "fm_ui.h"
 #include "fm_uarts.h"

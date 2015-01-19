@@ -11,8 +11,7 @@
 
 // Forward declarations.
 
-void
-timer_tick (void);
+void timer_tick (void);
 
 // ----------------------------------------------------------------------------
 
@@ -23,15 +22,13 @@ volatile unsigned char systick_100ms_flag = 0;
 
 // ----------------------------------------------------------------------------
 
-void
-timer_start (void)
+void timer_start (void)
 {
   // Use SysTick as reference for the delay loops.
   SysTick_Config (SystemCoreClock / TIMER_FREQUENCY_HZ);
 }
 
-void
-timer_sleep (timer_ticks_t ticks)
+void timer_sleep (timer_ticks_t ticks)
 {
   timer_delayCount = ticks;
 

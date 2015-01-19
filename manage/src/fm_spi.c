@@ -11,10 +11,7 @@
 // Include(s)
 //****************************************************************************
 
-#include "stm32f4xx.h"
-#include "stm32f4xx_hal.h"
-#include "stm32f4xx_hal_gpio.h"
-#include "stm32f4xx_hal_spi.h"
+#include "main.h"
 #include "fm_spi.h"
 #include "../../common/inc/flexsea.h"
 

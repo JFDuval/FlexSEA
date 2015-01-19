@@ -154,6 +154,17 @@ int main(void)
 			//Constant LED0 flashing while code runs
 			toggle_led0 ^= 1;
 			LED0(toggle_led0);
+			LEDR(toggle_led0);
+			LEDB(!toggle_led0);
+
+			if(read_sw1())
+			{
+				LEDG(1);
+			}
+			else
+			{
+				LEDG(0);
+			}
 		}
     }
 }

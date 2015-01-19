@@ -11,13 +11,7 @@
 // Include(s)
 //****************************************************************************
 
-#include <stdio.h>
-#include "Timer.h"
-#include "fm_ui.h"
-#include "fm_dio.h"
-#include "fm_uarts.h"
-#include "fm_adc.h"
-#include "fm_spi.h"
+#include "main.h"
 #include "../../common/inc/flexsea.h"
 #include "demonstrations.h"
 

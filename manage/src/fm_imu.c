@@ -11,12 +11,8 @@
 // Include(s)
 //****************************************************************************
 
-#include "stm32f4xx.h"
-#include "stm32f4xx_hal.h"
-#include "stm32f4xx_hal_gpio.h"
-#include "stm32f4xx_hal_i2c.h"
+#include "main.h"
 #include "fm_imu.h"
-#include "fm_i2c.h"
 
 //****************************************************************************
 // Local variable(s)

@@ -7,15 +7,13 @@
 // fm_dio: Deals with the 9 digital IOs
 //****************************************************************************
 
-//GPIO only for now (no I²C, SPI or Serial)
+//GPIO only for now (no Iï¿½C, SPI or Serial)
 
 //****************************************************************************
 // Include(s)
 //****************************************************************************
 
-#include "stm32f4xx.h"
-#include "stm32f4xx_hal.h"
-#include "stm32f4xx_hal_gpio.h"
+#include "main.h"
 #include "fm_dio.h"
 
 //****************************************************************************
@@ -32,7 +30,7 @@
 //****************************************************************************
 
 //ToDo Fix these functions, there aren't reading everything
-//Oh, maybe it's because I assigned some as outputs. Anyway, clean.
+//Oh, it's because I assigned some as outputs. Anyway, clean.
 
 //Inputs: //DIO2-3: PD8-9 (also UART3), DIO4-7: PG8/13/12/14 (also SPI6)
 void init_dio_inputs(void)
