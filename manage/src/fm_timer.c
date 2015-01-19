@@ -3,7 +3,7 @@
 // Copyright (c) 2014 Liviu Ionescu.
 //
 
-#include "Timer.h"
+#include "fm_timer.h"
 #include "cortexm/ExceptionHandlers.h"
 #include "main.h"
 
