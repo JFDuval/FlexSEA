@@ -163,13 +163,18 @@ int main()
 	//steps = trapez_gen_motion_1(KNEE_DOWN, KNEE_DOWN, 1, 1);
 	
 	//Strain Amplifier test:
-	VDAC8_3_SetValue(156);
+	VDAC8_3_SetValue(156);	
+	i2c_test_wbuf[0] = MCP4661_REG_RAM_W1;
+	i2c_test_wbuf[1] = 120;	//Offset of ~ V/2
+	I2C_1_MasterWriteBuf(I2C_POT_ADDR, (uint8 *) i2c_test_wbuf, 2, I2C_1_MODE_COMPLETE_XFER);	
+	CyDelay(10);
+	i2c_test_wbuf[0] = MCP4661_REG_RAM_W0;
+	i2c_test_wbuf[1] = 10;	//Relatively small gain
+	I2C_1_MasterWriteBuf(I2C_POT_ADDR, (uint8 *) i2c_test_wbuf, 2, I2C_1_MODE_COMPLETE_XFER);	
 	while(1)
 	{
 		vr1++;
-		i2c_test_wbuf[0] = MCP4661_REG_RAM_W1;
-		i2c_test_wbuf[1] = vr1;
-		I2C_1_MasterWriteBuf(I2C_POT_ADDR, (uint8 *) i2c_test_wbuf, 2, I2C_1_MODE_COMPLETE_XFER);		
+			
 		
 		ledg_state ^= 1;
 		LED_G_Write(ledg_state);
