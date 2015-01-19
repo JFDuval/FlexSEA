@@ -81,12 +81,9 @@ int main(void)
 			}
 			result = payload_parse_str(comm_str_payload1);
 			
-			//ToDo Replace with LED1
-			/* IMU ADDITION Toggle LED2 everytime a valid command is received
-			toggle_led2 ^= 1;
-			LED2(toggle_led2);
-			LEDB(toggle_led2); 
-			*/
+			//Toggle LED1 when we get a new valid communication
+			toggle_led1 ^= 1;
+			LED1(toggle_led1);
 		}
 		else
 		{
@@ -120,6 +117,8 @@ int main(void)
 		if(systick_10ms_flag)
 		{
 			systick_10ms_flag = 0;
+
+			//...
 		}
 
 		if(systick_100ms_flag)
@@ -129,23 +128,13 @@ int main(void)
 			//Constant LED0 flashing while code runs
 			toggle_led0 ^= 1;
 			LED0(toggle_led0);
-
-			//Switch test code, ToDo remove
-			if(read_sw1())
-			{
-				LEDG(1);
-			}
-			else
-			{
-				LEDG(0);
-			}
 		}
+
 		if(systick_1000ms_flag)
 		{
 			systick_1000ms_flag = 0;
-			
-			toggle_led1 ^= 1;
-			LED1(toggle_led1);
+
+			//...
 		}		
 		
     }
@@ -166,6 +155,7 @@ void init_peripherals(void)
 	init_i2c1();
 	init_imu();
 	init_adva_fc_pins();
+	init_pwr_out();
 
 	//All RGB LEDs OFF
 	LEDR(0); LEDG(0);LEDB(0);

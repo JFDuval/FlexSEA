@@ -19,7 +19,7 @@ volatile timer_ticks_t timer_delayCount;
 volatile unsigned char systick_1ms_flag = 0;
 volatile unsigned char systick_10ms_flag = 0;
 volatile unsigned char systick_100ms_flag = 0;
-volatile unsigned char systick_1000ms_flag = 0;
+volatile unsigned int systick_1000ms_flag = 0;
 
 // ----------------------------------------------------------------------------
 
@@ -41,7 +41,8 @@ void timer_sleep (timer_ticks_t ticks)
 //System Timer: function called every 1ms
 void timer_tick (void)
 {
-	static unsigned char cnt_10ms = 0, cnt_100ms = 0, cnt_1000ms = 0;
+	static unsigned char cnt_10ms = 0, cnt_100ms = 0;
+	static unsigned int cnt_1000ms = 0;
 	
 	//1ms flag:
 	systick_1ms_flag = 1;
