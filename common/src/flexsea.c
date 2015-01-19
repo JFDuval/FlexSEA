@@ -149,3 +149,10 @@ void test_flexsea_network(void)
 #endif
     }
 }
+
+//When something goes wrong in the code it will land here:
+unsigned int flexsea_error(unsigned int err_code)
+{
+	//ToDo something useful
+	return err_code;
+}

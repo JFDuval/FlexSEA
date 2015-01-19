@@ -56,7 +56,7 @@ extern char date[];
 //From payload and comm:
 extern unsigned char test_data[]; //Test payload
 extern unsigned char comm_str[];
-extern unsigned char input_buffer[];    //Test only
+//extern unsigned char input_buffer[];    //Test only
 extern unsigned char rx_buf[];
 extern unsigned char comm_str_payload[PAYLOAD_BUFFERS][PAYLOAD_BUF_LEN];
 extern unsigned char payload_str[];

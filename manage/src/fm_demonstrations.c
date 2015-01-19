@@ -39,7 +39,7 @@ extern unsigned char rx_buf[];
 extern unsigned char payload_str[];
 extern uint8_t spi_led_toggle;
 
-//stm32f4xx_it.c
+//fm_stm32f4xx_it.c
 extern volatile unsigned int spi_bytes_ready;
 
 extern SPI_HandleTypeDef spi1_handle;
@@ -161,7 +161,7 @@ void demo_3(void)
     //unsigned char j = 0;
 
     //Create payload string
-    set_pid_gains(board_id, kp, ki, kd);
+    tx_set_pid_gains(board_id, kp, ki, kd);
 
     //Package it in comm_str:
     comm_gen_str(payload_str, 8);
@@ -210,7 +210,7 @@ void demo_4(void)
 		    {
 		    	kp = 0x55; ki = 0xCC; kd = 0x55;
 		    	//Create payload string
-		    	set_pid_gains(board_id, kp, ki, kd);
+		    	tx_set_pid_gains(board_id, kp, ki, kd);
 
 		    	//Package it in comm_str:
 		    	bytes = comm_gen_str(payload_str, 8);
@@ -293,7 +293,7 @@ void demo_spi_rx_3(void)
 
 		//Get data
 		//demo_spi_rx();
-		spi1_it_rx();
+		spi4_it_rx();
 
 		//At this point we can use flexsea-network:
 		//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=

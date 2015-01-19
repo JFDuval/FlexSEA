@@ -168,7 +168,7 @@ unsigned int payload_parse_str(unsigned char *cp_str)
         //Repackages the payload. ToDo: would be more efficient to just resend the comm_str
         numb = comm_gen_str(cp_str, PAYLOAD_BUF_LEN);
         numb = COMM_STR_BUF_LEN;    //Fixed length for now
-        flexsea_send_serial(0, comm_str, numb + 1);
+        flexsea_send_serial_slave(PORT_RS485_1, comm_str, numb + 1);
 
         if(cmd == CMD_READ)
         {

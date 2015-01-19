@@ -25,6 +25,7 @@
 //****************************************************************************
 
 void test_flexsea_network(void);
+unsigned int flexsea_error(unsigned int err_code);
 
 //****************************************************************************
 // Definition(s):
@@ -58,6 +59,10 @@ void test_flexsea_network(void);
 #define ID_SUB2_MATCH               	3
 #define ID_UP_MATCH               		4			//Addressed to my master
 #define ID_NO_MATCH                 	0
+
+//Communication ports:
+#define PORT_RS485_1					1
+#define PORT_RS485_2					2
 
 //Communication protocol fields:
 #define CP_XID                      	0           //Emitter ID

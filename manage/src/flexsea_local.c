@@ -1,8 +1,8 @@
 //****************************************************************************
 // MIT Media Lab - Biomechatronics
-// Jean-Fran�ois (Jeff) Duval
+// Jean-Francois (Jeff) Duval
 // jfduval@mit.edu
-// 07/2014
+// 01/2015
 //****************************************************************************
 // flexsea_local: configuration and functions for this particular board
 //****************************************************************************
@@ -20,8 +20,8 @@
 //****************************************************************************
 
 char name[] = "FlexSEA-Manage";
-char version[] = "0.0";
-char date[] = "07/23/2014";
+char version[] = "0.1";
+char date[] = "01/19/2015";
 
 //Board ID (this board) -  - pick from Board list in /common/inc/flexsea.h
 unsigned char board_id = FLEXSEA_MANAGE_1;
@@ -56,12 +56,21 @@ unsigned char start_listening_flag;
 
 //Wrapper for the specific serial functions. Useful to keep flexsea_network
 //platform independent (for example, we don't need need puts_rs485() for Plan)
-//ToDo rename to flexsea_send_serial_slave()
-void flexsea_send_serial(unsigned char port, unsigned char *str, unsigned char length)
+void flexsea_send_serial_slave(unsigned char port, unsigned char *str, unsigned char length)
 {
-	//Redirects to RS-485:
-	//ToDo: port check
-	puts_rs485_1(str, length);
+	if(port == PORT_RS485_1)
+	{
+		puts_rs485_1(str, length);
+	}
+	else if(port == PORT_RS485_2)
+	{
+		//puts_rs485_2(str, length);
+	}
+	else
+	{
+		//Unknown port, call flexsea_error()
+		flexsea_error(0);	//ToDo error code
+	}
 }
 
 void flexsea_send_serial_master(unsigned char port, unsigned char *str, unsigned char length)

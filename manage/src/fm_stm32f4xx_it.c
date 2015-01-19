@@ -204,7 +204,7 @@ void SPI1_IRQHandler(void)
   */
 void USART1_IRQHandler(void)
 {
-	uint32_t tmp1 = 0, tmp2 = 0;
+	uint32_t tmp1 = 0;
 	unsigned int tmp = 0, comm_res = 0;
 
 	//Rising edge, end of reception

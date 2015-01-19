@@ -2,7 +2,7 @@
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
 // jfduval@mit.edu
-// 12/2014
+// 01/2015
 //****************************************************************************
 // main: FlexSEA-Manage
 //****************************************************************************
@@ -31,7 +31,7 @@ extern unsigned char payload_str[];
 extern unsigned char comm_str_payload[PAYLOAD_BUFFERS][PAYLOAD_BUF_LEN];
 extern unsigned char comm_str[COMM_STR_BUF_LEN];
 
-//timer:
+//fm_timer:
 volatile unsigned char systick_1ms_flag;
 volatile unsigned char systick_10ms_flag;
 volatile unsigned char systick_100ms_flag;
@@ -44,11 +44,11 @@ volatile unsigned char systick_1000ms_flag;
 int main(void)
 {
 	//Variables:
-	int i = 0, tmp = 0;
-	unsigned char good_commands = 0;
+	int i = 0;
 	unsigned int result = 0;
+	unsigned char good_commands = 0;
 	unsigned int timed_cleanup = 0;
-	unsigned char toggle_led0 = 0, toggle_led1 = 0;
+	unsigned char toggle_led0 = 0, toggle_led1 = 0, toggle_ledr = 0;
 
 	//Initialize all the peripherals
 	init_peripherals();
@@ -135,6 +135,13 @@ int main(void)
 			systick_1000ms_flag = 0;
 
 			//...
+
+			//FlexSEA-Execute 0.1 Test Code:	//ToDo Remove!
+			toggle_ledr ^= 1;
+			LEDR(toggle_ledr);
+			tx_set_clutch(FLEXSEA_EXECUTE_1, 200*toggle_ledr);
+			comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+			flexsea_send_serial_slave(PORT_RS485_1, comm_str, COMM_STR_BUF_LEN + 1);
 		}		
 		
     }

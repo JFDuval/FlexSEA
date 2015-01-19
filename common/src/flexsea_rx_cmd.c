@@ -83,6 +83,16 @@ void rx_set_pid_gains(unsigned int tmp1, unsigned int tmp2, unsigned int tmp3, u
 		gain_i = 0;
 
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+	//No code (yet), you shouldn't be here...
+	flexsea_error(0);
+	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+	#ifdef BOARD_TYPE_FLEXSEA_PLAN
+	//No code (yet), you shouldn't be here...
+	flexsea_error(0);
+	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
 
 void rx_move_trap_absolute(unsigned char *buf)
@@ -116,6 +126,16 @@ void rx_move_trap_absolute(unsigned char *buf)
 	}
 
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+	//No code (yet), you shouldn't be here...
+	flexsea_error(0);
+	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+	#ifdef BOARD_TYPE_FLEXSEA_PLAN
+	//No code (yet), you shouldn't be here...
+	flexsea_error(0);
+	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
 
 void rx_set_clutch(unsigned char cstate)
@@ -125,6 +145,16 @@ void rx_set_clutch(unsigned char cstate)
 	clutch_output(cstate);
 
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+	//No code (yet), you shouldn't be here...
+	flexsea_error(0);
+	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+	#ifdef BOARD_TYPE_FLEXSEA_PLAN
+	//No code (yet), you shouldn't be here...
+	flexsea_error(0);
+	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
 
 void rx_set_open_speed(unsigned char *buf)
@@ -142,17 +172,20 @@ void rx_set_open_speed(unsigned char *buf)
 	}
 
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+	//No code (yet), you shouldn't be here...
+	flexsea_error(0);
+	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+	#ifdef BOARD_TYPE_FLEXSEA_PLAN
+	//No code (yet), you shouldn't be here...
+	flexsea_error(0);
+	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
 
 void rx_set_led(unsigned char ledbank, unsigned char rgb, unsigned char r, unsigned char g, unsigned char b)
 {
-	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
-
-	set_led_bank(ledbank);
-	set_led_rgb(r, g, b);
-
-	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
-
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
 	LED_R_Write(r);
@@ -163,11 +196,33 @@ void rx_set_led(unsigned char ledbank, unsigned char rgb, unsigned char r, unsig
 	#endif 	//USE_I2C
 
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+
+	set_led_bank(ledbank);
+	set_led_rgb(r, g, b);
+
+	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+	#ifdef BOARD_TYPE_FLEXSEA_PLAN
+	//No code (yet), you shouldn't be here...
+	flexsea_error(0);
+	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
 
 //Display the data received from a slave after a read request
 void rx_read_reply(unsigned char *buf, unsigned int verbal)
 {
+	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+	//No code (yet), you shouldn't be here...
+	flexsea_error(0);
+	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+	//No code (yet), you shouldn't be here...
+	flexsea_error(0);
+	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
 	#ifdef BOARD_TYPE_FLEXSEA_PLAN
 
 	unsigned char execute_num = 99;
@@ -283,20 +338,13 @@ void rx_read_reply(unsigned char *buf, unsigned int verbal)
 
 void rx_read(unsigned char off)
 {
-	unsigned int i = 0;
-	unsigned char numb = 0;
-
     //Set Read offset
 	read_offset = off;
 
-	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
-
-	//Prepare data to be sent, place it in buffer
-	flexsea_prepare_spi_tx_buffer();
-
-	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
-
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+
+	unsigned int i = 0;
+	unsigned char numb = 0;
 
     //ToDo: quick test. Should be a full structure.
 
@@ -321,6 +369,19 @@ void rx_read(unsigned char off)
 	NOT_RE_Write(0);			//Back to normal, enable receiver
 
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+
+	//Prepare data to be sent, place it in buffer
+	flexsea_prepare_spi_tx_buffer();
+
+	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+	#ifdef BOARD_TYPE_FLEXSEA_PLAN
+	//No code (yet), you shouldn't be here...
+	flexsea_error(0);
+	#endif	//BOARD_TYPE_FLEXSEA_PLAN
+
 }
 
 void rx_set_current(unsigned char *buf)
@@ -335,6 +396,16 @@ void rx_set_current(unsigned char *buf)
 	current_pid_setpoint = tmp_current;
 
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+	//No code (yet), you shouldn't be here...
+	flexsea_error(0);
+	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+	#ifdef BOARD_TYPE_FLEXSEA_PLAN
+	//No code (yet), you shouldn't be here...
+	flexsea_error(0);
+	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
 
 void rx_set_control(unsigned char *buf)
@@ -349,6 +420,16 @@ void rx_set_control(unsigned char *buf)
 	control_strategy(tmp_ctrl);
 
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+	//No code (yet), you shouldn't be here...
+	flexsea_error(0);
+	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+	#ifdef BOARD_TYPE_FLEXSEA_PLAN
+	//No code (yet), you shouldn't be here...
+	flexsea_error(0);
+	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
 
 void rx_set_current_gains(unsigned char *buf)
@@ -368,6 +449,16 @@ void rx_set_current_gains(unsigned char *buf)
     current_gain_d = tmp_current_gain_d;
 
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+	//No code (yet), you shouldn't be here...
+	flexsea_error(0);
+	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+	#ifdef BOARD_TYPE_FLEXSEA_PLAN
+	//No code (yet), you shouldn't be here...
+	flexsea_error(0);
+	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
 
 void rx_set_z_gains(unsigned char *buf)
@@ -387,6 +478,14 @@ void rx_set_z_gains(unsigned char *buf)
     z_gain_i = tmp_z_gain_i;
 
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+	//No code (yet), you shouldn't be here...
+	flexsea_error(0);
+	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+	#ifdef BOARD_TYPE_FLEXSEA_PLAN
+	//No code (yet), you shouldn't be here...
+	flexsea_error(0);
+	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
-
-
