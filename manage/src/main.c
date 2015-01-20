@@ -136,12 +136,14 @@ int main(void)
 
 			//...
 
+			/*
 			//FlexSEA-Execute 0.1 Test Code:	//ToDo Remove!
 			toggle_ledr ^= 1;
 			LEDR(toggle_ledr);
 			tx_set_clutch(FLEXSEA_EXECUTE_1, 200*toggle_ledr);
 			comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
 			flexsea_send_serial_slave(PORT_RS485_1, comm_str, COMM_STR_BUF_LEN + 1);
+			*/
 		}		
 		
     }

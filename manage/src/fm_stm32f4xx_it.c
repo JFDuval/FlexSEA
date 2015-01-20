@@ -183,7 +183,7 @@ void SysTick_Handler(void)
   * @param  None
   * @retval None  
   */
-void SPI1_IRQHandler(void)
+void SPI4_IRQHandler(void)
 {
 	//When is it happening?
 	//HAL_GPIO_WritePin(GPIOF, GPIO_PIN_0, 1);

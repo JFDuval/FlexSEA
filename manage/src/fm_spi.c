@@ -65,7 +65,7 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi)
 	HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
 	//It seems that NSS can't be used as a good CS => set as input, SW read
-	//ToDo Enable external ISR
+	//ToDo Enable external ISR (Steven, merge here)
 	GPIO_InitStruct.Pin = GPIO_PIN_4;
 	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
 	GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
@@ -79,7 +79,7 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi)
 	HAL_NVIC_EnableIRQ(SPI4_IRQn);
 }
 
-// this function initializes the SPI1 peripheral
+// this function initializes the SPI4 peripheral
 void init_spi4(void)
 {
 	//Enable peripheral clock

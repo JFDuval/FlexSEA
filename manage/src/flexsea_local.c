@@ -91,7 +91,7 @@ void flexsea_clear_slave_read_buffer(void)
 }
 
 //Edge triggered SPI reception (half ISR, half polling)
-//Integrates the Flexsea-Network stack and decodes data
+//Integrates the FlexSEA-Network stack and decodes data
 //(this code used to be in demo_spi_rx_3())
 void flexsea_receive_from_master(void)
 {
@@ -99,7 +99,7 @@ void flexsea_receive_from_master(void)
 	unsigned int i = 0;
 
 	old_cs_state = cs_state;
-	cs_state = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4);
+	cs_state = HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_4);
 	if(old_cs_state == 0 && cs_state == 1)
 	{
 		//If we get here it's because the slave select pin just did a rising edge
