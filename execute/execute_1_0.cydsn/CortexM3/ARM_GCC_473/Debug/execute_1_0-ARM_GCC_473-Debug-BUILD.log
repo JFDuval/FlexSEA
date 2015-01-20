@@ -1,10 +1,13 @@
---------------- Build Started: 01/15/2015 15:19:43 Project: execute_1_0, Configuration: ARM GCC 4.7.3 Debug ---------------
+--------------- Build Started: 01/19/2015 17:30:25 Project: execute_1_0, Configuration: ARM GCC 4.7.3 Debug ---------------
 The code generation step is up to date.
 arm-none-eabi-gcc.exe -I. -I./Generated_Source/PSoC5 -Wno-main -mcpu=cortex-m3 -mthumb -I ..\inc -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_473\Debug\main.lst -ffunction-sections -c ..\src\main.c -o .\CortexM3\ARM_GCC_473\Debug\main.o
 ..\src\main.c: In function 'main':
+..\src\main.c:121:8: warning: unused variable 'vr1' [-Wunused-variable]
 ..\src\main.c:119:8: warning: unused variable 'i2c_test_rbuf' [-Wunused-variable]
+..\src\main.c:118:8: warning: unused variable 'i2c_test_wbuf' [-Wunused-variable]
 ..\src\main.c:117:8: warning: unused variable 'imu_accel_x' [-Wunused-variable]
 ..\src\main.c:116:8: warning: unused variable 'usb_value' [-Wunused-variable]
+..\src\main.c:115:32: warning: unused variable 'ledg_state' [-Wunused-variable]
 ..\src\main.c:115:16: warning: unused variable 'ledr_state' [-Wunused-variable]
 ..\src\main.c:113:16: warning: variable 'result' set but not used [-Wunused-but-set-variable]
 ..\src\main.c:112:6: warning: unused variable 'trapez_wpos' [-Wunused-variable]
@@ -23,6 +26,6 @@ arm-none-eabi-ar.exe: creating .\CortexM3\ARM_GCC_473\Debug\execute_1_0.a
 arm-none-eabi-gcc.exe -mthumb -march=armv7-m -mfix-cortex-m3-ldrd -T .\Generated_Source\PSoC5\cm3gcc.ld -g -Wl,-Map,.\CortexM3\ARM_GCC_473\Debug\execute_1_0.map -specs=nano.specs -Wl,--gc-sections -Wl,--start-group -o .\CortexM3\ARM_GCC_473\Debug\execute_1_0.elf .\CortexM3\ARM_GCC_473\Debug\flexsea.o .\CortexM3\ARM_GCC_473\Debug\flexsea_comm.o .\CortexM3\ARM_GCC_473\Debug\flexsea_payload.o .\CortexM3\ARM_GCC_473\Debug\flexsea_rx_cmd.o .\CortexM3\ARM_GCC_473\Debug\flexsea_tx_cmd.o .\CortexM3\ARM_GCC_473\Debug\clutch.o .\CortexM3\ARM_GCC_473\Debug\comm.o .\CortexM3\ARM_GCC_473\Debug\misc.o .\CortexM3\ARM_GCC_473\Debug\motor.o .\CortexM3\ARM_GCC_473\Debug\trapez.o .\CortexM3\ARM_GCC_473\Debug\main.o .\CortexM3\ARM_GCC_473\Debug\flexsea_local.o .\CortexM3\ARM_GCC_473\Debug\imu.o .\CortexM3\ARM_GCC_473\Debug\cymetadata.o .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o .\CortexM3\ARM_GCC_473\Debug\execute_1_0.a "C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CortexM3\ARM_GCC_473\Debug\CyComponentLibrary.a" -l m -Wl,--end-group
 cyelftool.exe -C C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\CortexM3\ARM_GCC_473\Debug\execute_1_0.elf --flash_size 262144 --flash_row_size 256
 cyelftool.exe -S C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\CortexM3\ARM_GCC_473\Debug\execute_1_0.elf
-Flash used: 23694 of 262144 bytes (9.0 %).
-SRAM used: 21781 of 65536 bytes (33.2 %).
---------------- Build Succeeded: 01/15/2015 15:19:47 ---------------
+Flash used: 31990 of 262144 bytes (12.2 %).
+SRAM used: 22301 of 65536 bytes (34.0 %).
+--------------- Build Succeeded: 01/19/2015 17:30:29 ---------------

@@ -162,6 +162,7 @@ int main()
 	//pos = KNEE_DOWN;
 	//steps = trapez_gen_motion_1(KNEE_DOWN, KNEE_DOWN, 1, 1);
 	
+	/*
 	//Strain Amplifier test:
 	VDAC8_3_SetValue(156);	
 	i2c_test_wbuf[0] = MCP4661_REG_RAM_W1;
@@ -181,6 +182,7 @@ int main()
 		
 		CyDelay(1);
 	}
+	*/
 	
 	/*
 	//WDCLK test code
