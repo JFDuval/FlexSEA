@@ -29,10 +29,5 @@
 			<type>2</type>
 			<location>/home/jfduval/Documents/biomech-ee-svn/Code/flexsea_1_0/common</location>
 		</link>
-		<link>
-			<name>common</name>
-			<type>2</type>
-			<location>/home/jfduval/Documents/biomech-ee-svn/Code/flexsea_1_0/common/inc</location>
-		</link>
 	</linkedResources>
 </projectDescription>

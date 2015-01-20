@@ -46,7 +46,7 @@ extern unsigned char comm_str_payload[PAYLOAD_BUFFERS][PAYLOAD_BUF_LEN];
 
 //Wrapper for the specific serial functions. Useful to keep flexsea_network
 //plateform independant (for example, we don't need need puts_rs485() for Plan)
-void flexsea_send_serial(unsigned char port, unsigned char *str, unsigned char length)
+void flexsea_send_serial_slave(unsigned char port, unsigned char *str, unsigned char length)
 {
     return;
 }
