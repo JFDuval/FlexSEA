@@ -77,6 +77,12 @@ void flexsea_send_serial_master(unsigned char port, unsigned char *str, unsigned
 {
 	//comm_str was already generated, now we place it in the buffer:
 	comm_str_to_txbuffer();
+	// transmit over SPI using interrupts
+	if(HAL_SPI_Transmit_IT(&spi4_handle, aTxBuffer, RX_BUF_LEN) != HAL_OK)
+	{
+		// Transfer error in transmission process
+		Error_Handler();
+	}
 }
 
 //Fill the buffer with 0s
