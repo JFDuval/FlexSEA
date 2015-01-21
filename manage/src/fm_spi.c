@@ -67,16 +67,19 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi)
 	//It seems that NSS can't be used as a good CS => set as input, SW read
 	//ToDo Enable external ISR (Steven, merge here)
 	GPIO_InitStruct.Pin = GPIO_PIN_4;
-	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-	GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
+	GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+	//GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
 	GPIO_InitStruct.Pull = GPIO_PULLUP;
 	//GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
 	HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
 	/*##-3- Configure the NVIC for SPI #########################################*/
-	/* NVIC for SPI */
+	/* NVIC for SPI data lines */
 	HAL_NVIC_SetPriority(SPI4_IRQn, 0, 1);
 	HAL_NVIC_EnableIRQ(SPI4_IRQn);
+	/* and for the the CS pin */
+	HAL_NVIC_SetPriority(EXTI4_IRQn, 2, 0);
+	HAL_NVIC_EnableIRQ(EXTI4_IRQn);
 }
 
 // this function initializes the SPI4 peripheral
@@ -108,8 +111,6 @@ void init_spi4(void)
 		/* Initialization Error */
 		Error_Handler();
 	}
-
-	//SPI_Cmd(SPI4, ENABLE); // enable SPI1
 }
 
 unsigned char spi4_rx_buf[COMM_STR_BUF_LEN] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
@@ -125,24 +126,39 @@ unsigned int spi4_blocking_rx(void)
 	return flag;
 }
 
-//Function to receive data via interrupts
-unsigned int spi4_it_rx(void)
-{
-	spi_led_toggle ^= 1;
-
-	if(HAL_SPI_GetState(&spi4_handle) == HAL_SPI_STATE_READY)
-	{
-		if(HAL_SPI_TransmitReceive_IT(&spi4_handle, (uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, COMM_STR_BUF_LEN) != HAL_OK)
-		{
-			//Transfer error in transmission process
-			Error_Handler();
-		}
-	}
-
-	return 0;
-}
-
 void Error_Handler(void)
 {
 	//ToDo: Do something useful...
+}
+
+__weak void SPI_new_data_Callback(void)
+{
+}
+
+/**
+ * @brief EXTI line detection callbacks
+ * @param GPIO_Pin: Specifies the pins connected EXTI line
+ * @retval None
+ */
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+	if(GPIO_Pin == GPIO_PIN_4)
+	{
+		// transfer over the buffer
+		for (unsigned char i = 0; i < 24; i++)
+		{
+			comm_update_rx_buffer(aRxBuffer[i]);
+		}
+		// clear the SPI buffer
+		for (unsigned char i = 0; i < 24; i++)
+		{
+			aRxBuffer[i] = 0;
+		}
+		// reset the SPI pointer and counter
+		spi4_handle.RxXferCount = 24;
+		spi4_handle.pRxBuffPtr = aRxBuffer;
+
+		// handle the new data however this device wants to
+		SPI_new_data_Callback();
+	}
 }

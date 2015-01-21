@@ -196,6 +196,17 @@ void SPI4_IRQHandler(void)
 }
 
 /**
+  * @brief  This function handles external interrupt request.
+  * @param  None
+  * @retval None
+  */
+void EXTI4_IRQHandler(void)
+{
+	HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_4);
+}
+
+
+/**
   * @brief  This function handles UART interrupt request.
   * @param  None
   * @retval None

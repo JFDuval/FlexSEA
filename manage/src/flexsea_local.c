@@ -90,56 +90,21 @@ void flexsea_clear_slave_read_buffer(void)
 	}
 }
 
-//Edge triggered SPI reception (half ISR, half polling)
-//Integrates the FlexSEA-Network stack and decodes data
-//(this code used to be in demo_spi_rx_3())
 void flexsea_receive_from_master(void)
 {
-	static unsigned int cs_state = 0, old_cs_state = 0;
-	unsigned int i = 0;
+	// i'm not sure what to do here now that all reception is done by interrupt
+}
 
-	old_cs_state = cs_state;
-	cs_state = HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_4);
-	if(old_cs_state == 0 && cs_state == 1)
+void flexsea_start_receiving_from_master(void)
+{
+	// start receive over SPI
+	if (HAL_SPI_GetState(&spi4_handle) == HAL_SPI_STATE_READY)
 	{
-		//If we get here it's because the slave select pin just did a rising edge
-		//We have to do this because NSS doesn't work as expected in Slave mode
-
-		//Rising edge, end of reception
-		//HAL_GPIO_WritePin(GPIOF, GPIO_PIN_0, 1);
-		//HAL_GPIO_WritePin(GPIOF, GPIO_PIN_0, 0);
-
-		//"Reset" pointer(s)
-		spi4_handle.pRxBuffPtr = aRxBuffer;	//Rx
-		//spi1_handle.pTxBuffPtr = aTxBuffer;	//Tx
-
-		//Get data
-		spi4_it_rx();
-
-		//At this point we can use flexsea-network:
-		//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-
-		//Transfer aRxBuffer to flexsea's buffer
-		for(i = 0; i < COMM_STR_BUF_LEN; i++)
+		if(HAL_Start_SPI_Receiving_IT(&spi4_handle, aRxBuffer, RX_BUF_LEN) != HAL_OK)
 		{
-			//last_byte = UART_2_GetChar();
-			comm_update_rx_buffer(aRxBuffer[i]);
+			// Transfer error in transmission process
+			Error_Handler();
 		}
-
-		//Got new data in, try to decode
-		comm_res = comm_decode_str();
-		if(comm_res)
-		{
-			comm_res = 0;
-			//Lift flag - this is the signal for the parser
-			comm_success = 1;
-		}
-		/*
-		else
-		{
-			comm_success = 0;
-		}
-		*/
 	}
 }
 

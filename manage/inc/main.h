@@ -23,7 +23,6 @@
 #include "stm32f4xx_hal_usart.h"
 #include "stm32f4xx_hal_gpio.h"
 #include "stm32f4xx_hal_adc.h"
-#include "stm32f4xx_hal_spi.h"
 #include "fm_timer.h"
 #include "fm_ui.h"
 #include "fm_uarts.h"
@@ -37,6 +36,7 @@
 #include "fm_demonstrations.h"
 #include "flexsea_local.h"
 #include "../../common/inc/flexsea.h"
+// ToDo: should have some include for the new spi lib
 
 //****************************************************************************
 // Prototype(s):

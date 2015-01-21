@@ -56,12 +56,12 @@ int main(void)
 	//Start with an empty buffer
 	flexsea_clear_slave_read_buffer();
 
+        // start receiving from master via interrupts
+	flexsea_start_receiving_from_master();
+
 	//Infinite loop
 	while (1)
     {
-		//SPI reception from the Plan board:
-		flexsea_receive_from_master();
-
 		//RS-485 reception from an Execute board:
 		flexsea_receive_from_slave();
 
@@ -172,4 +172,16 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *UartHandle)
 
   /* Turn LED6 on: Transfer in transmission process is correct */
   //BSP_LED_On(LED6);
+}
+
+void SPI_new_data_Callback(void)
+{
+	//Got new data in, try to decode
+	comm_res = comm_decode_str();
+	if(comm_res)
+	{
+		comm_res = 0;
+		//Lift flag - this is the signal for the parser
+		comm_success = 1;
+	}
 }
