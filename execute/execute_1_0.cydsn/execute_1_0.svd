@@ -1376,18 +1376,18 @@
       </registers>
     </peripheral>
     <peripheral>
-      <name>USBUART_1</name>
-      <description>USBFS</description>
-      <baseAddress>0x40004394</baseAddress>
+      <name>VDAC8_3</name>
+      <description>No description available</description>
+      <baseAddress>0x400043A8</baseAddress>
       <addressBlock>
         <offset>0</offset>
-        <size>0x1D0A</size>
+        <size>0x17DB</size>
         <usage>registers</usage>
       </addressBlock>
       <registers>
         <register>
-          <name>USBUART_1_PM_USB_CR0</name>
-          <description>USB Power Mode Control Register 0</description>
+          <name>VDAC8_PM_ACT_CFG</name>
+          <description>Active Power Mode Configuration Register 8</description>
           <addressOffset>0x0</addressOffset>
           <size>8</size>
           <access>read-write</access>
@@ -1395,467 +1395,526 @@
           <resetMask>0</resetMask>
           <fields>
             <field>
-              <name>fsusbio_ref_en</name>
-              <description>No description available</description>
+              <name>en_dac</name>
+              <description>Enable DAC block(s). Populated subsystems are counted from the LSB</description>
               <lsb>0</lsb>
-              <msb>0</msb>
+              <msb>4</msb>
               <access>read-write</access>
             </field>
+          </fields>
+        </register>
+        <register>
+          <name>VDAC8_PM_STBY_CFG</name>
+          <description>Standby Power Mode Configuration Register 8</description>
+          <addressOffset>0x10</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
             <field>
-              <name>fsusbio_pd_n</name>
-              <description>No description available</description>
+              <name>en_dac</name>
+              <description>Enable DAC block(s). Populated subsystems are counted from the LSB</description>
+              <lsb>0</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>VDAC8_TR</name>
+          <description>VDAC8_TR</description>
+          <addressOffset>0x262</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>tr</name>
+              <description>8 Calibration bits</description>
+              <lsb>0</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>VDAC8_CR0</name>
+          <description>DAC Block Control Register 0</description>
+          <addressOffset>0x1480</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>mode</name>
+              <description>Mode Bit</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-only</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>DAC_MODE_V</name>
+                  <description>voltage DAC</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>DAC_MODE_I</name>
+                  <description>current DAC</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>range</name>
+              <description>Ranges for mode=0 (VDAC) and mode=1 (IDAC)</description>
+              <lsb>2</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>DAC_RANGE_0</name>
+                  <description>x0=0V to 4*vref (1.024V); 0 to 31.875uA</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>DAC_RANGE_1</name>
+                  <description>x1=0V to 16*vref (4.096V); 0 to 255uA</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>DAC_RANGE_2</name>
+                  <description>x0=0V to 4*vref (1.024V); 0 to 2.040mA</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>DAC_RANGE_3</name>
+                  <description>x1=0V to 16*vref (4.096V); not used</description>
+                  <value>3</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>hs</name>
+              <description>High Speed Bit</description>
               <lsb>1</lsb>
               <msb>1</msb>
               <access>read-write</access>
-            </field>
-            <field>
-              <name>fsusbio_pd_pullup_n</name>
-              <description>No description available</description>
-              <lsb>2</lsb>
-              <msb>2</msb>
-              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>DAC_HS_LOWPOWER</name>
+                  <description>regular (low power)</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>DAC_HS_HIGHSPEED</name>
+                  <description>high speed (higher power)</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
           </fields>
         </register>
         <register>
-          <name>USBUART_1_PM_ACT_CFG</name>
-          <description>Active Power Mode Configuration Register</description>
-          <addressOffset>0x11</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>USBUART_1_PM_STBY_CFG</name>
-          <description>Standby Power Mode Configuration Register</description>
-          <addressOffset>0x21</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>USBUART_1_PRT_PS</name>
-          <description>Port Pin State Register</description>
-          <addressOffset>0xE5D</addressOffset>
+          <name>VDAC8_CR1</name>
+          <description>DAC Block Control Register 1</description>
+          <addressOffset>0x1481</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
           <resetMask>0</resetMask>
           <fields>
             <field>
-              <name>PinState_DP</name>
-              <description>No description available</description>
-              <lsb>6</lsb>
-              <msb>6</msb>
-              <access>read-only</access>
-            </field>
-            <field>
-              <name>PinState_DM</name>
-              <description>No description available</description>
-              <lsb>7</lsb>
-              <msb>7</msb>
-              <access>read-only</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>USBUART_1_PRT_DM0</name>
-          <description>Port Drive Mode Register</description>
-          <addressOffset>0xE5E</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-          <fields>
-            <field>
-              <name>DriveMode_DP</name>
-              <description>No description available</description>
-              <lsb>6</lsb>
-              <msb>6</msb>
+              <name>mx_data</name>
+              <description>Select DATA source</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
               <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>MX_DATA_REG</name>
+                  <description>Select register source (DACxn_D)</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>MX_DATA_UDB</name>
+                  <description>Select UDB source</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
-              <name>DriveMode_DM</name>
-              <description>No description available</description>
-              <lsb>7</lsb>
-              <msb>7</msb>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>USBUART_1_PRT_DM1</name>
-          <description>Port Drive Mode Register</description>
-          <addressOffset>0xE5F</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-          <fields>
-            <field>
-              <name>PullUp_en_DP</name>
-              <description>No description available</description>
-              <lsb>6</lsb>
-              <msb>6</msb>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>PullUp_en_DM</name>
-              <description>No description available</description>
-              <lsb>7</lsb>
-              <msb>7</msb>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>USBUART_1_PRT_INP_DIS</name>
-          <description>Input buffer disable override</description>
-          <addressOffset>0xE64</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-          <fields>
-            <field>
-              <name>seinput_dis_dp</name>
-              <description>No description available</description>
-              <lsb>6</lsb>
-              <msb>6</msb>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>seinput_dis_dm</name>
-              <description>No description available</description>
-              <lsb>7</lsb>
-              <msb>7</msb>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>USBUART_1_EP0_DR0</name>
-          <description>bmRequestType</description>
-          <addressOffset>0x1C6C</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>USBUART_1_EP0_DR1</name>
-          <description>bRequest</description>
-          <addressOffset>0x1C6D</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>USBUART_1_EP0_DR2</name>
-          <description>wValueLo</description>
-          <addressOffset>0x1C6E</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>USBUART_1_EP0_DR3</name>
-          <description>wValueHi</description>
-          <addressOffset>0x1C6F</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>USBUART_1_EP0_DR4</name>
-          <description>wIndexLo</description>
-          <addressOffset>0x1C70</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>USBUART_1_EP0_DR5</name>
-          <description>wIndexHi</description>
-          <addressOffset>0x1C71</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>USBUART_1_EP0_DR6</name>
-          <description>lengthLo</description>
-          <addressOffset>0x1C72</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>USBUART_1_EP0_DR7</name>
-          <description>lengthHi</description>
-          <addressOffset>0x1C73</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>USBUART_1_CR0</name>
-          <description>USB Control Register 0</description>
-          <addressOffset>0x1C74</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-          <fields>
-            <field>
-              <name>device_address</name>
-              <description>No description available</description>
-              <lsb>0</lsb>
-              <msb>6</msb>
-              <access>read-only</access>
-            </field>
-            <field>
-              <name>usb_enable</name>
-              <description>No description available</description>
-              <lsb>7</lsb>
-              <msb>7</msb>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>USBUART_1_CR1</name>
-          <description>USB Control Register 1</description>
-          <addressOffset>0x1C75</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-          <fields>
-            <field>
-              <name>reg_enable</name>
-              <description>No description available</description>
-              <lsb>0</lsb>
-              <msb>0</msb>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>enable_lock</name>
-              <description>No description available</description>
-              <lsb>1</lsb>
-              <msb>1</msb>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>bus_activity</name>
-              <description>No description available</description>
-              <lsb>2</lsb>
-              <msb>2</msb>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>trim_offset_msb</name>
-              <description>No description available</description>
+              <name>mx_idir</name>
+              <description>Mux selection for DAC current direction control</description>
               <lsb>3</lsb>
               <msb>3</msb>
               <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>MX_IDIR_REG</name>
+                  <description>Register source idirbit selected</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>MX_IDIR_UDB</name>
+                  <description>UDB ictrl selected</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>mx_ioff</name>
+              <description>Mux selection for DAC current off control</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>MX_IOFF_REG</name>
+                  <description>Register source ioffbit selected</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>MX_IOFF_UDB</name>
+                  <description>UDB ictrl selected</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>reset_udb_en</name>
+              <description>DAC reset enable</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>RESET_UDB_EN_DISABLE</name>
+                  <description>Disable DAC Reset Source from UDB (System reset always resets)</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>RESET_UDB_EN_ENABLE</name>
+                  <description>Enable DAC Reset Source from UDB</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
           </fields>
         </register>
         <register>
-          <name>USBUART_1_SIE_EP1_CR0</name>
-          <description>The Endpoint1 Control Register</description>
-          <addressOffset>0x1C7A</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>USBUART_1_USBIO_CR0</name>
-          <description>USBIO Control Register 0</description>
-          <addressOffset>0x1C7C</addressOffset>
+          <name>VDAC8_SW0</name>
+          <description>DAC Analog Routing Register 0</description>
+          <addressOffset>0x16E8</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
           <resetMask>0</resetMask>
           <fields>
             <field>
-              <name>rd</name>
-              <description>No description available</description>
+              <name>v_ag1</name>
+              <description>Connect voltage output to analog global of same side</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>AG_NC</name>
+                  <description>not connected</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>AG_CONNECTED</name>
+                  <description>Connect to Analog Global</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>v_ag0</name>
+              <description>Connect voltage output to analog global of same side</description>
               <lsb>0</lsb>
               <msb>0</msb>
-              <access>read-only</access>
-            </field>
-            <field>
-              <name>td</name>
-              <description>No description available</description>
-              <lsb>5</lsb>
-              <msb>5</msb>
               <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>AG_NC</name>
+                  <description>not connected</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>AG_CONNECTED</name>
+                  <description>Connect to Analog Global</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
+          </fields>
+        </register>
+        <register>
+          <name>VDAC8_SW2</name>
+          <description>DAC Analog Routing Register 2</description>
+          <addressOffset>0x16EA</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
             <field>
-              <name>tse0</name>
-              <description>No description available</description>
-              <lsb>6</lsb>
-              <msb>6</msb>
+              <name>v_abus3</name>
+              <description>Connect voltage output to analog (local) bus of the same side </description>
+              <lsb>3</lsb>
+              <msb>3</msb>
               <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>ABUS_NC</name>
+                  <description>not connected</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ABUS_CONNECTED</name>
+                  <description>Connect to Analog (local) Bus</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
             </field>
             <field>
-              <name>ten</name>
-              <description>No description available</description>
+              <name>v_abus1</name>
+              <description>Connect voltage output to analog (local) bus of the same side </description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>ABUS_NC</name>
+                  <description>not connected</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ABUS_CONNECTED</name>
+                  <description>Connect to Analog (local) Bus</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>VDAC8_SW3</name>
+          <description>DAC Analog Routing Register 3</description>
+          <addressOffset>0x16EB</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>iout</name>
+              <description>Connect current output to pad</description>
               <lsb>7</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>IOUT_NC</name>
+                  <description>not connected</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>IOUT_CONNECT</name>
+                  <description>Connect to pad</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>i_amx</name>
+              <description>Connect current output to Analog Mux Bus</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>AMX_NC</name>
+                  <description>not connected</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>AMX_CONNECTED</name>
+                  <description>Connect to AMUXBUS</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>v_amx</name>
+              <description>Connect voltage output to Analog Mux Bus</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>AMX_NC</name>
+                  <description>not connected</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>AMX_CONNECTED</name>
+                  <description>Connect to AMUXBUS</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>VDAC8_SW4</name>
+          <description>DAC Analog Routing Register 4</description>
+          <addressOffset>0x16EC</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>i_ag1</name>
+              <description>Connect current output to analog global of same side</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>AG_NC</name>
+                  <description>not connected</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>AG_CONNECTED</name>
+                  <description>Connect to Analog Global</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>i_ag0</name>
+              <description>Connect current output to analog global of same side</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>AG_NC</name>
+                  <description>not connected</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>AG_CONNECTED</name>
+                  <description>Connect to Analog Global</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>VDAC8_STROBE</name>
+          <description>DAC Strobe Register</description>
+          <addressOffset>0x16EF</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>mx_strobe</name>
+              <description>Strobe source selection</description>
+              <lsb>0</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>MX_STROBE_BUSWRITE</name>
+                  <description>Select bus write strobe source (Enable gater regardless of strobe_en setting)</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>MX_STROBE_UDB_SRC</name>
+                  <description>Select UDB strobe source</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>MX_STROBE_NC_2</name>
+                  <description>NC</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>MX_STROBE_NC_3</name>
+                  <description>NC</description>
+                  <value>3</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>MX_STROBE_CLK_A0_DIG</name>
+                  <description>Select clk_a0_dig</description>
+                  <value>4</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>MX_STROBE_CLK_A1_DIG</name>
+                  <description>Select clk_a1_dig</description>
+                  <value>5</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>MX_STROBE_CLK_A2_DIG</name>
+                  <description>Select clk_a2_dig</description>
+                  <value>6</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>MX_STROBE_CLK_A3_DIG</name>
+                  <description>Select clk_a3_dig</description>
+                  <value>7</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>strobe_en</name>
+              <description>Strobe gating control (See mx_strobe==3'h0)</description>
+              <lsb>3</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>STROBE_EN_0</name>
+                  <description>disable strobe</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>STROBE_EN_1</name>
+                  <description>enable strobe</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>VDAC8_DATA</name>
+          <description>DAC Data Register</description>
+          <addressOffset>0x17DA</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>data</name>
+              <description>8 DAC Data bits</description>
+              <lsb>0</lsb>
               <msb>7</msb>
               <access>read-write</access>
             </field>
           </fields>
-        </register>
-        <register>
-          <name>USBUART_1_USBIO_CR1</name>
-          <description>USBIO Control Register 1</description>
-          <addressOffset>0x1C7E</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-          <fields>
-            <field>
-              <name>dmo</name>
-              <description>No description available</description>
-              <lsb>0</lsb>
-              <msb>0</msb>
-              <access>read-only</access>
-            </field>
-            <field>
-              <name>dpo</name>
-              <description>No description available</description>
-              <lsb>1</lsb>
-              <msb>1</msb>
-              <access>read-only</access>
-            </field>
-            <field>
-              <name>usbpuen</name>
-              <description>No description available</description>
-              <lsb>2</lsb>
-              <msb>2</msb>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>iomode</name>
-              <description>No description available</description>
-              <lsb>5</lsb>
-              <msb>5</msb>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>USBUART_1_SIE_EP2_CR0</name>
-          <description>The Endpoint2 Control Register</description>
-          <addressOffset>0x1C8A</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>USBUART_1_SIE_EP3_CR0</name>
-          <description>The Endpoint3 Control Register</description>
-          <addressOffset>0x1C9A</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>USBUART_1_SIE_EP4_CR0</name>
-          <description>The Endpoint4 Control Register</description>
-          <addressOffset>0x1CAA</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>USBUART_1_SIE_EP5_CR0</name>
-          <description>The Endpoint5 Control Register</description>
-          <addressOffset>0x1CBA</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>USBUART_1_SIE_EP6_CR0</name>
-          <description>The Endpoint6 Control Register</description>
-          <addressOffset>0x1CCA</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>USBUART_1_SIE_EP7_CR0</name>
-          <description>The Endpoint7 Control Register</description>
-          <addressOffset>0x1CDA</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>USBUART_1_SIE_EP8_CR0</name>
-          <description>The Endpoint8 Control Register</description>
-          <addressOffset>0x1CEA</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>USBUART_1_BUF_SIZE</name>
-          <description>Dedicated Endpoint Buffer Size Register</description>
-          <addressOffset>0x1CF8</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>USBUART_1_EP_ACTIVE</name>
-          <description>Endpoint Active Indication Register</description>
-          <addressOffset>0x1CFA</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>USBUART_1_EP_TYPE</name>
-          <description>Endpoint Type (IN/OUT) Indication</description>
-          <addressOffset>0x1CFB</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>USBUART_1_USB_CLK_EN</name>
-          <description>USB Block Clock Enable Register</description>
-          <addressOffset>0x1D09</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
         </register>
       </registers>
     </peripheral>
@@ -2433,7 +2492,7 @@
         <register>
           <name>Timer_3_Control_Reg</name>
           <description>UDB Control Register - Assigned Control Register Value</description>
-          <addressOffset>0x72</addressOffset>
+          <addressOffset>0x70</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2637,549 +2696,6 @@
                   <value>1</value>
                 </enumeratedValue>
               </enumeratedValues>
-            </field>
-          </fields>
-        </register>
-      </registers>
-    </peripheral>
-    <peripheral>
-      <name>VDAC8_3</name>
-      <description>No description available</description>
-      <baseAddress>0x400043A8</baseAddress>
-      <addressBlock>
-        <offset>0</offset>
-        <size>0x17DB</size>
-        <usage>registers</usage>
-      </addressBlock>
-      <registers>
-        <register>
-          <name>VDAC8_PM_ACT_CFG</name>
-          <description>Active Power Mode Configuration Register 8</description>
-          <addressOffset>0x0</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-          <fields>
-            <field>
-              <name>en_dac</name>
-              <description>Enable DAC block(s). Populated subsystems are counted from the LSB</description>
-              <lsb>0</lsb>
-              <msb>4</msb>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>VDAC8_PM_STBY_CFG</name>
-          <description>Standby Power Mode Configuration Register 8</description>
-          <addressOffset>0x10</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-          <fields>
-            <field>
-              <name>en_dac</name>
-              <description>Enable DAC block(s). Populated subsystems are counted from the LSB</description>
-              <lsb>0</lsb>
-              <msb>4</msb>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>VDAC8_TR</name>
-          <description>VDAC8_TR</description>
-          <addressOffset>0x262</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-          <fields>
-            <field>
-              <name>tr</name>
-              <description>8 Calibration bits</description>
-              <lsb>0</lsb>
-              <msb>7</msb>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>VDAC8_CR0</name>
-          <description>DAC Block Control Register 0</description>
-          <addressOffset>0x1480</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-          <fields>
-            <field>
-              <name>mode</name>
-              <description>Mode Bit</description>
-              <lsb>4</lsb>
-              <msb>4</msb>
-              <access>read-only</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>DAC_MODE_V</name>
-                  <description>voltage DAC</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>DAC_MODE_I</name>
-                  <description>current DAC</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>range</name>
-              <description>Ranges for mode=0 (VDAC) and mode=1 (IDAC)</description>
-              <lsb>2</lsb>
-              <msb>3</msb>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>DAC_RANGE_0</name>
-                  <description>x0=0V to 4*vref (1.024V); 0 to 31.875uA</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>DAC_RANGE_1</name>
-                  <description>x1=0V to 16*vref (4.096V); 0 to 255uA</description>
-                  <value>1</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>DAC_RANGE_2</name>
-                  <description>x0=0V to 4*vref (1.024V); 0 to 2.040mA</description>
-                  <value>2</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>DAC_RANGE_3</name>
-                  <description>x1=0V to 16*vref (4.096V); not used</description>
-                  <value>3</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>hs</name>
-              <description>High Speed Bit</description>
-              <lsb>1</lsb>
-              <msb>1</msb>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>DAC_HS_LOWPOWER</name>
-                  <description>regular (low power)</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>DAC_HS_HIGHSPEED</name>
-                  <description>high speed (higher power)</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>VDAC8_CR1</name>
-          <description>DAC Block Control Register 1</description>
-          <addressOffset>0x1481</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-          <fields>
-            <field>
-              <name>mx_data</name>
-              <description>Select DATA source</description>
-              <lsb>5</lsb>
-              <msb>5</msb>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>MX_DATA_REG</name>
-                  <description>Select register source (DACxn_D)</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>MX_DATA_UDB</name>
-                  <description>Select UDB source</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>mx_idir</name>
-              <description>Mux selection for DAC current direction control</description>
-              <lsb>3</lsb>
-              <msb>3</msb>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>MX_IDIR_REG</name>
-                  <description>Register source idirbit selected</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>MX_IDIR_UDB</name>
-                  <description>UDB ictrl selected</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>mx_ioff</name>
-              <description>Mux selection for DAC current off control</description>
-              <lsb>1</lsb>
-              <msb>1</msb>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>MX_IOFF_REG</name>
-                  <description>Register source ioffbit selected</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>MX_IOFF_UDB</name>
-                  <description>UDB ictrl selected</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>reset_udb_en</name>
-              <description>DAC reset enable</description>
-              <lsb>4</lsb>
-              <msb>4</msb>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>RESET_UDB_EN_DISABLE</name>
-                  <description>Disable DAC Reset Source from UDB (System reset always resets)</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>RESET_UDB_EN_ENABLE</name>
-                  <description>Enable DAC Reset Source from UDB</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>VDAC8_SW0</name>
-          <description>DAC Analog Routing Register 0</description>
-          <addressOffset>0x16E8</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-          <fields>
-            <field>
-              <name>v_ag1</name>
-              <description>Connect voltage output to analog global of same side</description>
-              <lsb>1</lsb>
-              <msb>1</msb>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>AG_NC</name>
-                  <description>not connected</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>AG_CONNECTED</name>
-                  <description>Connect to Analog Global</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>v_ag0</name>
-              <description>Connect voltage output to analog global of same side</description>
-              <lsb>0</lsb>
-              <msb>0</msb>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>AG_NC</name>
-                  <description>not connected</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>AG_CONNECTED</name>
-                  <description>Connect to Analog Global</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>VDAC8_SW2</name>
-          <description>DAC Analog Routing Register 2</description>
-          <addressOffset>0x16EA</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-          <fields>
-            <field>
-              <name>v_abus3</name>
-              <description>Connect voltage output to analog (local) bus of the same side </description>
-              <lsb>3</lsb>
-              <msb>3</msb>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>ABUS_NC</name>
-                  <description>not connected</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>ABUS_CONNECTED</name>
-                  <description>Connect to Analog (local) Bus</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>v_abus1</name>
-              <description>Connect voltage output to analog (local) bus of the same side </description>
-              <lsb>1</lsb>
-              <msb>1</msb>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>ABUS_NC</name>
-                  <description>not connected</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>ABUS_CONNECTED</name>
-                  <description>Connect to Analog (local) Bus</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>VDAC8_SW3</name>
-          <description>DAC Analog Routing Register 3</description>
-          <addressOffset>0x16EB</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-          <fields>
-            <field>
-              <name>iout</name>
-              <description>Connect current output to pad</description>
-              <lsb>7</lsb>
-              <msb>7</msb>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>IOUT_NC</name>
-                  <description>not connected</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>IOUT_CONNECT</name>
-                  <description>Connect to pad</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>i_amx</name>
-              <description>Connect current output to Analog Mux Bus</description>
-              <lsb>4</lsb>
-              <msb>4</msb>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>AMX_NC</name>
-                  <description>not connected</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>AMX_CONNECTED</name>
-                  <description>Connect to AMUXBUS</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>v_amx</name>
-              <description>Connect voltage output to Analog Mux Bus</description>
-              <lsb>0</lsb>
-              <msb>0</msb>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>AMX_NC</name>
-                  <description>not connected</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>AMX_CONNECTED</name>
-                  <description>Connect to AMUXBUS</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>VDAC8_SW4</name>
-          <description>DAC Analog Routing Register 4</description>
-          <addressOffset>0x16EC</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-          <fields>
-            <field>
-              <name>i_ag1</name>
-              <description>Connect current output to analog global of same side</description>
-              <lsb>1</lsb>
-              <msb>1</msb>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>AG_NC</name>
-                  <description>not connected</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>AG_CONNECTED</name>
-                  <description>Connect to Analog Global</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>i_ag0</name>
-              <description>Connect current output to analog global of same side</description>
-              <lsb>0</lsb>
-              <msb>0</msb>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>AG_NC</name>
-                  <description>not connected</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>AG_CONNECTED</name>
-                  <description>Connect to Analog Global</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>VDAC8_STROBE</name>
-          <description>DAC Strobe Register</description>
-          <addressOffset>0x16EF</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-          <fields>
-            <field>
-              <name>mx_strobe</name>
-              <description>Strobe source selection</description>
-              <lsb>0</lsb>
-              <msb>2</msb>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>MX_STROBE_BUSWRITE</name>
-                  <description>Select bus write strobe source (Enable gater regardless of strobe_en setting)</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>MX_STROBE_UDB_SRC</name>
-                  <description>Select UDB strobe source</description>
-                  <value>1</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>MX_STROBE_NC_2</name>
-                  <description>NC</description>
-                  <value>2</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>MX_STROBE_NC_3</name>
-                  <description>NC</description>
-                  <value>3</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>MX_STROBE_CLK_A0_DIG</name>
-                  <description>Select clk_a0_dig</description>
-                  <value>4</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>MX_STROBE_CLK_A1_DIG</name>
-                  <description>Select clk_a1_dig</description>
-                  <value>5</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>MX_STROBE_CLK_A2_DIG</name>
-                  <description>Select clk_a2_dig</description>
-                  <value>6</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>MX_STROBE_CLK_A3_DIG</name>
-                  <description>Select clk_a3_dig</description>
-                  <value>7</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>strobe_en</name>
-              <description>Strobe gating control (See mx_strobe==3'h0)</description>
-              <lsb>3</lsb>
-              <msb>3</msb>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>STROBE_EN_0</name>
-                  <description>disable strobe</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>STROBE_EN_1</name>
-                  <description>enable strobe</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>VDAC8_DATA</name>
-          <description>DAC Data Register</description>
-          <addressOffset>0x17DA</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-          <fields>
-            <field>
-              <name>data</name>
-              <description>8 DAC Data bits</description>
-              <lsb>0</lsb>
-              <msb>7</msb>
-              <access>read-write</access>
             </field>
           </fields>
         </register>
@@ -3807,6 +3323,490 @@
       </registers>
     </peripheral>
     <peripheral>
+      <name>USBUART_1</name>
+      <description>USBFS</description>
+      <baseAddress>0x40004394</baseAddress>
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x1D0A</size>
+        <usage>registers</usage>
+      </addressBlock>
+      <registers>
+        <register>
+          <name>USBUART_1_PM_USB_CR0</name>
+          <description>USB Power Mode Control Register 0</description>
+          <addressOffset>0x0</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>fsusbio_ref_en</name>
+              <description>No description available</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>fsusbio_pd_n</name>
+              <description>No description available</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>fsusbio_pd_pullup_n</name>
+              <description>No description available</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>USBUART_1_PM_ACT_CFG</name>
+          <description>Active Power Mode Configuration Register</description>
+          <addressOffset>0x11</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>USBUART_1_PM_STBY_CFG</name>
+          <description>Standby Power Mode Configuration Register</description>
+          <addressOffset>0x21</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>USBUART_1_PRT_PS</name>
+          <description>Port Pin State Register</description>
+          <addressOffset>0xE5D</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>PinState_DP</name>
+              <description>No description available</description>
+              <lsb>6</lsb>
+              <msb>6</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>PinState_DM</name>
+              <description>No description available</description>
+              <lsb>7</lsb>
+              <msb>7</msb>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>USBUART_1_PRT_DM0</name>
+          <description>Port Drive Mode Register</description>
+          <addressOffset>0xE5E</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>DriveMode_DP</name>
+              <description>No description available</description>
+              <lsb>6</lsb>
+              <msb>6</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>DriveMode_DM</name>
+              <description>No description available</description>
+              <lsb>7</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>USBUART_1_PRT_DM1</name>
+          <description>Port Drive Mode Register</description>
+          <addressOffset>0xE5F</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>PullUp_en_DP</name>
+              <description>No description available</description>
+              <lsb>6</lsb>
+              <msb>6</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>PullUp_en_DM</name>
+              <description>No description available</description>
+              <lsb>7</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>USBUART_1_PRT_INP_DIS</name>
+          <description>Input buffer disable override</description>
+          <addressOffset>0xE64</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>seinput_dis_dp</name>
+              <description>No description available</description>
+              <lsb>6</lsb>
+              <msb>6</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>seinput_dis_dm</name>
+              <description>No description available</description>
+              <lsb>7</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>USBUART_1_EP0_DR0</name>
+          <description>bmRequestType</description>
+          <addressOffset>0x1C6C</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>USBUART_1_EP0_DR1</name>
+          <description>bRequest</description>
+          <addressOffset>0x1C6D</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>USBUART_1_EP0_DR2</name>
+          <description>wValueLo</description>
+          <addressOffset>0x1C6E</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>USBUART_1_EP0_DR3</name>
+          <description>wValueHi</description>
+          <addressOffset>0x1C6F</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>USBUART_1_EP0_DR4</name>
+          <description>wIndexLo</description>
+          <addressOffset>0x1C70</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>USBUART_1_EP0_DR5</name>
+          <description>wIndexHi</description>
+          <addressOffset>0x1C71</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>USBUART_1_EP0_DR6</name>
+          <description>lengthLo</description>
+          <addressOffset>0x1C72</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>USBUART_1_EP0_DR7</name>
+          <description>lengthHi</description>
+          <addressOffset>0x1C73</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>USBUART_1_CR0</name>
+          <description>USB Control Register 0</description>
+          <addressOffset>0x1C74</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>device_address</name>
+              <description>No description available</description>
+              <lsb>0</lsb>
+              <msb>6</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>usb_enable</name>
+              <description>No description available</description>
+              <lsb>7</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>USBUART_1_CR1</name>
+          <description>USB Control Register 1</description>
+          <addressOffset>0x1C75</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>reg_enable</name>
+              <description>No description available</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>enable_lock</name>
+              <description>No description available</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>bus_activity</name>
+              <description>No description available</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>trim_offset_msb</name>
+              <description>No description available</description>
+              <lsb>3</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>USBUART_1_SIE_EP1_CR0</name>
+          <description>The Endpoint1 Control Register</description>
+          <addressOffset>0x1C7A</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>USBUART_1_USBIO_CR0</name>
+          <description>USBIO Control Register 0</description>
+          <addressOffset>0x1C7C</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>rd</name>
+              <description>No description available</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>td</name>
+              <description>No description available</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>tse0</name>
+              <description>No description available</description>
+              <lsb>6</lsb>
+              <msb>6</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>ten</name>
+              <description>No description available</description>
+              <lsb>7</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>USBUART_1_USBIO_CR1</name>
+          <description>USBIO Control Register 1</description>
+          <addressOffset>0x1C7E</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>dmo</name>
+              <description>No description available</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>dpo</name>
+              <description>No description available</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>usbpuen</name>
+              <description>No description available</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>iomode</name>
+              <description>No description available</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>USBUART_1_SIE_EP2_CR0</name>
+          <description>The Endpoint2 Control Register</description>
+          <addressOffset>0x1C8A</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>USBUART_1_SIE_EP3_CR0</name>
+          <description>The Endpoint3 Control Register</description>
+          <addressOffset>0x1C9A</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>USBUART_1_SIE_EP4_CR0</name>
+          <description>The Endpoint4 Control Register</description>
+          <addressOffset>0x1CAA</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>USBUART_1_SIE_EP5_CR0</name>
+          <description>The Endpoint5 Control Register</description>
+          <addressOffset>0x1CBA</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>USBUART_1_SIE_EP6_CR0</name>
+          <description>The Endpoint6 Control Register</description>
+          <addressOffset>0x1CCA</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>USBUART_1_SIE_EP7_CR0</name>
+          <description>The Endpoint7 Control Register</description>
+          <addressOffset>0x1CDA</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>USBUART_1_SIE_EP8_CR0</name>
+          <description>The Endpoint8 Control Register</description>
+          <addressOffset>0x1CEA</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>USBUART_1_BUF_SIZE</name>
+          <description>Dedicated Endpoint Buffer Size Register</description>
+          <addressOffset>0x1CF8</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>USBUART_1_EP_ACTIVE</name>
+          <description>Endpoint Active Indication Register</description>
+          <addressOffset>0x1CFA</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>USBUART_1_EP_TYPE</name>
+          <description>Endpoint Type (IN/OUT) Indication</description>
+          <addressOffset>0x1CFB</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>USBUART_1_USB_CLK_EN</name>
+          <description>USB Block Clock Enable Register</description>
+          <addressOffset>0x1D09</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+      </registers>
+    </peripheral>
+    <peripheral>
       <name>ADC_SAR_1</name>
       <description>SAR ADC</description>
       <baseAddress>0x40004614</baseAddress>
@@ -3956,17 +3956,44 @@
     <peripheral>
       <name>UART_2</name>
       <description>UART</description>
-      <baseAddress>0x4000644D</baseAddress>
+      <baseAddress>0x40006529</baseAddress>
       <addressBlock>
         <offset>0</offset>
-        <size>0x11E</size>
+        <size>0x42</size>
         <usage>registers</usage>
       </addressBlock>
       <registers>
         <register>
+          <name>RX_UART_2_RX_ADDRESS1</name>
+          <description>RX Address1 Register</description>
+          <addressOffset>0x0</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>RX_UART_2_RX_ADDRESS2</name>
+          <description>RX Address2 Register</description>
+          <addressOffset>0x10</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
           <name>TX_UART_2_TX_DATA</name>
           <description>TX Data Register</description>
-          <addressOffset>0x0</addressOffset>
+          <addressOffset>0x1E</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>RX_UART_2_RX_DATA</name>
+          <description>RX Data Register</description>
+          <addressOffset>0x20</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -3975,7 +4002,7 @@
         <register>
           <name>TX_UART_2_TX_STATUS</name>
           <description>TX status register</description>
-          <addressOffset>0x20</addressOffset>
+          <addressOffset>0x3E</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -4012,36 +4039,9 @@
           </fields>
         </register>
         <register>
-          <name>RX_UART_2_RX_ADDRESS1</name>
-          <description>RX Address1 Register</description>
-          <addressOffset>0xDD</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>RX_UART_2_RX_ADDRESS2</name>
-          <description>RX Address2 Register</description>
-          <addressOffset>0xED</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>RX_UART_2_RX_DATA</name>
-          <description>RX Data Register</description>
-          <addressOffset>0xFD</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
           <name>RX_UART_2_RX_STATUS</name>
           <description>RX status register</description>
-          <addressOffset>0x11D</addressOffset>
+          <addressOffset>0x41</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -8606,35 +8606,17 @@
     <peripheral>
       <name>I2C_1</name>
       <description>No description available</description>
-      <baseAddress>0x40006404</baseAddress>
+      <baseAddress>0x40006466</baseAddress>
       <addressBlock>
         <offset>0</offset>
-        <size>0x184</size>
+        <size>0xA6</size>
         <usage>registers</usage>
       </addressBlock>
       <registers>
         <register>
-          <name>I2C_1_UDB_MSTR_DATA</name>
-          <description>Data</description>
-          <addressOffset>0x0</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-          <fields>
-            <field>
-              <name>data</name>
-              <description>This register provides read/write access to the Shift register.</description>
-              <lsb>0</lsb>
-              <msb>7</msb>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
           <name>I2C_1_UDB_MSTR_CSR</name>
           <description>Status Register</description>
-          <addressOffset>0x163</addressOffset>
+          <addressOffset>0x0</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -8701,7 +8683,7 @@
         <register>
           <name>I2C_1_UDB_MSTR_CFG</name>
           <description>Configuration Register</description>
-          <addressOffset>0x173</addressOffset>
+          <addressOffset>0xF</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -8761,18 +8743,36 @@
         <register>
           <name>I2C_1_UDB_MSTR_INT_MASK</name>
           <description>Interrupt Mask</description>
-          <addressOffset>0x183</addressOffset>
+          <addressOffset>0x20</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
           <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>I2C_1_UDB_MSTR_DATA</name>
+          <description>Data</description>
+          <addressOffset>0xA5</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>data</name>
+              <description>This register provides read/write access to the Shift register.</description>
+              <lsb>0</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
         </register>
       </registers>
     </peripheral>
     <peripheral>
       <name>PWM_1</name>
       <description>No description available</description>
-      <baseAddress>0x40006428</baseAddress>
+      <baseAddress>0x4000642C</baseAddress>
       <addressBlock>
         <offset>0</offset>
         <size>0x72</size>
@@ -8791,7 +8791,7 @@
         <register>
           <name>PWM_1_Control_Reg</name>
           <description>UDB Control Register - Assigned Control Register Value</description>
-          <addressOffset>0x50</addressOffset>
+          <addressOffset>0x51</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -8823,7 +8823,7 @@
         <register>
           <name>PWM_1_STATUS_MASK</name>
           <description>UDB Status bits Interrupt Mask Enable Register</description>
-          <addressOffset>0x63</addressOffset>
+          <addressOffset>0x5D</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -9218,7 +9218,7 @@
         <register>
           <name>QuadDec_1_Cnt16_Control_Reg</name>
           <description>UDB Control Register - Assigned Control Register Value</description>
-          <addressOffset>0x6E</addressOffset>
+          <addressOffset>0x70</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -9729,7 +9729,7 @@
     <peripheral>
       <name>Control_Reg_1</name>
       <description>No description available</description>
-      <baseAddress>0x40006475</baseAddress>
+      <baseAddress>0x40006478</baseAddress>
       <addressBlock>
         <offset>0</offset>
         <size>0x1</size>

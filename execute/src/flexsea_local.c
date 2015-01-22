@@ -55,8 +55,7 @@ extern unsigned char read_offset;
 
 //Wrapper for the specific serial functions. Useful to keep flexsea_network
 //platform independent (for example, we don't need need puts_rs485() for Plan)
-//ToDo rename to flexsea_send_serial_slave()
-void flexsea_send_serial(unsigned char port, unsigned char *str, unsigned char length)
+void flexsea_send_serial_slave(unsigned char port, unsigned char *str, unsigned char length)
 {
 	//Redirects to RS-485:
 	//ToDo: port check?

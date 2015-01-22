@@ -23,7 +23,7 @@
 // Prototype(s):
 //****************************************************************************
 
-void flexsea_send_serial(unsigned char port, unsigned char *str, unsigned char length);
+void flexsea_send_serial_slave(unsigned char port, unsigned char *str, unsigned char length);
 void flexsea_send_serial_master(unsigned char port, unsigned char *str, unsigned char length);
 void flexsea_clear_slave_read_buffer(void);
 void build_slave_payload(unsigned char base_addr);

@@ -37,8 +37,6 @@
 #include <SDA_1.h>
 #include <CLUTCH_24_aliases.h>
 #include <CLUTCH_24.h>
-#include <CLUTCH_10_aliases.h>
-#include <CLUTCH_10.h>
 #include <EXP5_aliases.h>
 #include <EXP5.h>
 #include <EXP4_aliases.h>
