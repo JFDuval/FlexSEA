@@ -374,8 +374,7 @@ void rx_read(unsigned char off)
 
 	//Prepare data to be sent, place it in buffer
 	flexsea_prepare_spi_tx_buffer();
-	int numb = 0;
-	flexsea_send_serial_master(0, comm_str, numb+1);
+	flexsea_send_serial_master(0, comm_str, 24);
 
 	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 

@@ -56,7 +56,7 @@ int main(void)
 	//Start with an empty buffer
 	flexsea_clear_slave_read_buffer();
 
-        // start receiving from master via interrupts
+	// start receiving from master via interrupts
 	flexsea_start_receiving_from_master();
 
 	//Infinite loop
@@ -79,6 +79,7 @@ int main(void)
 			{
 				comm_str_payload1[i] = comm_str_payload[0][i];
 			}
+			// parse the command and execute it
 			result = payload_parse_str(comm_str_payload1);
 			
 			//Toggle LED1 when we get a new valid communication
