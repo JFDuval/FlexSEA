@@ -95,3 +95,10 @@ unsigned int adc_conv(void)
 	return result;
 }
 
+void adc_set_channel(unsigned char ch)
+{
+	sConfig.Channel = ch;
+	sConfig.Rank = 1;
+	sConfig.SamplingTime = ADC_SAMPLETIME_3CYCLES;
+	HAL_ADC_ConfigChannel(&hadc1, &sConfig);
+}

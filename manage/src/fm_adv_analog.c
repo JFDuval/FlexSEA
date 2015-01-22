@@ -241,3 +241,20 @@ unsigned int set_resistor_ain7(uint8_t res)
 	return 0;
 }
 
+//Default configuration: high Fc, minimum gains, maximum voltage dividers
+void set_default_analog(void)
+{
+	//10kHz LPF on AN0..3:
+	set_an0_fc(0);
+	set_an1_fc(0);
+	set_an2_fc(0);
+	set_an3_fc(0);
+
+	//Minimum gains:
+	set_gain_ain2(0);
+	set_gain_ain3(0);
+
+	//Maximum resistance:
+	set_resistor_ain6(255);
+	set_resistor_ain7(255);
+}

@@ -31,6 +31,7 @@ unsigned int set_gain_ain2(uint8_t gain);
 unsigned int set_gain_ain3(uint8_t gain);
 unsigned int set_resistor_ain6(uint8_t res);
 unsigned int set_resistor_ain7(uint8_t res);
+void set_default_analog(void);
 
 //****************************************************************************
 // Definition(s):

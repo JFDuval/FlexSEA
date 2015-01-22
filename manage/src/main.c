@@ -126,7 +126,7 @@ int main(void)
 		{
 			systick_100ms_flag = 0;
 			
-			//Constant LED0 flashing while code runs
+			//Constant LED0 flashing while the code runs
 			toggle_led0 ^= 1;
 			LED0(toggle_led0);
 		}
@@ -151,7 +151,7 @@ void init_peripherals(void)
 	init_dio_inputs();
 	init_dio_outputs();
 	init_rs485_outputs();
-	//init_adc1();
+	init_adc1();
 	init_spi4();
 	init_i2c1();
 	init_imu();
@@ -160,6 +160,9 @@ void init_peripherals(void)
 
 	//All RGB LEDs OFF
 	LEDR(0); LEDG(0);LEDB(0);
+
+	//Default analog input states:
+	set_default_analog();
 }
 
 //ToDo: clean this
