@@ -146,8 +146,8 @@ void init_peripherals(void)
 {	
 	init_systick_timer();	//SysTick timer	
 	init_usart1();			//USART1 (RS-485 #1)
-	init_led_outputs();
-	init_switch_inputs();
+	init_leds();
+	init_switches();
 	init_dio_inputs();
 	init_dio_outputs();
 	init_rs485_outputs();

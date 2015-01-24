@@ -199,7 +199,6 @@ void rx_set_led(unsigned char ledbank, unsigned char rgb, unsigned char r, unsig
 
 	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
 
-	set_led_bank(ledbank);
 	set_led_rgb(r, g, b);
 
 	#endif	//BOARD_TYPE_FLEXSEA_MANAGE

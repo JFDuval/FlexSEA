@@ -2,7 +2,7 @@
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
 // jfduval@mit.edu
-// 12/2014
+// 01/2015
 //****************************************************************************
 // fm_ui: Deals with the 2 green LEDs, the RGB LED and the switch
 //****************************************************************************
@@ -21,16 +21,10 @@
 // Prototype(s):
 //****************************************************************************
 
-void init_led0();
-void init_led1();
-void init_ledr();
-void init_ledg();
-void init_ledb();
+void init_leds(void);
 void init_sw1();
 int read_sw1(void);
-void init_led_outputs(void);
-void init_switch_inputs(void);
-void set_led_bank(unsigned char leds_state);
+void init_switches(void);
 void set_led_rgb(unsigned char r, unsigned char g, unsigned char b);
 
 //****************************************************************************

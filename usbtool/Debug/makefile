@@ -36,7 +36,7 @@ usbtool: $(OBJS) $(USER_OBJS)
 
 # Other Targets
 clean:
-	-$(RM) $(OBJS)$(C_DEPS)$(EXECUTABLES) usbtool
+	-$(RM) $(EXECUTABLES)$(OBJS)$(C_DEPS) usbtool
 	-@echo ' '
 
 .PHONY: all clean dependents

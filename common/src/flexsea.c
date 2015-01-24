@@ -21,7 +21,7 @@
 //      - Motion controller
 //      - Hard/soft: Programmable System on Chip (PSoC). C, HDL, graphical.
 
-// v0.0 Limitations and known bugs:
+// v0.0 Limitations and known bugs: ToDo Update
 // ================================
 // - The board config is pretty muched fixed: 1 Plan, 1 Manage, up to 2 Execute
 //   (on the same RS-485 bus)
