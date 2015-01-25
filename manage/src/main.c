@@ -148,8 +148,7 @@ void init_peripherals(void)
 	init_usart1();			//USART1 (RS-485 #1)
 	init_leds();
 	init_switches();
-	init_dio_inputs();
-	init_dio_outputs();
+	init_dio();				//All inputs by default
 	init_rs485_outputs();
 	init_adc1();
 	init_spi4();

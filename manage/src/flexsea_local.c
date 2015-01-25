@@ -200,7 +200,7 @@ void flexsea_update_slave_read_buffer(unsigned char read_offset)
 	unsigned char tmp_dio = 0;
 	unsigned char tmp_switches = 0;
 
-	tmp_dio = read_dio_inputs(0);
+	tmp_dio = dio_port_read();
 	tmp_switches = (read_sw1() & 0x01);
 
 	//End of ToDo comment
