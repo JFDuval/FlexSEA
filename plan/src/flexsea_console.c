@@ -260,24 +260,24 @@ void flexsea_console_parser(int argc, char *argv[])
                 printf("[Set PID gains]: %i, %i & %i.\n", pid_kp, pid_ki, pid_kd);
 #endif
                 //Prepare and send data:
-                tx_set_pid_gains(slave_id[c], pid_kp, pid_ki, pid_kd);
-                numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+                numb = tx_set_pid_gains(slave_id[c], pid_kp, pid_ki, pid_kd);
+                numb = comm_gen_str(payload_str, numb);
                 break;
             case 2: //'set_clutch'
                 //clutch_value = atoi(argv[2]); //ToDo
 #ifdef USE_PRINTF
                 printf("[Set Clutch]: %i.\n", atoi(argv[3]));
 #endif
-                tx_set_clutch(slave_id[c], (unsigned char)atoi(argv[3]));
-                numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+                numb = tx_set_clutch(slave_id[c], (unsigned char)atoi(argv[3]));
+                numb = comm_gen_str(payload_str, numb);
                 break;
             case 3: //'open_spd'
                 open_speed = atoi(argv[3]);
 #ifdef USE_PRINTF
                 printf("[Open loop speed]: %i.\n", open_speed);
 #endif
-                tx_set_open_spd(slave_id[c], atoi(argv[3]));
-                numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+                numb = tx_set_open_spd(slave_id[c], atoi(argv[3]));
+                numb = comm_gen_str(payload_str, numb);
                 break;
             case 4: //'trapeze'
                 trapeze_pos_i = atoi(argv[3]);
@@ -287,19 +287,19 @@ void flexsea_console_parser(int argc, char *argv[])
 #ifdef USE_PRINTF
                 printf("[Trapeze (limited)]: %i, %i, %i, %i.\n", trapeze_pos_i, trapeze_pos_f, trapeze_max_spd, trapeze_acc);
 #endif
-                tx_set_trapeze(slave_id[c], trapeze_pos_i, trapeze_pos_f, trapeze_max_spd, trapeze_acc);
-                numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+                numb = tx_set_trapeze(slave_id[c], trapeze_pos_i, trapeze_pos_f, trapeze_max_spd, trapeze_acc);
+                numb = comm_gen_str(payload_str, numb);
                 break;
             case 5: //'set_leds'
                 mm_leds = atoi(argv[3]);
                 r = (unsigned char)atoi(argv[4]);
                 g = (unsigned char)atoi(argv[5]);
                 b = (unsigned char)atoi(argv[6]);
-                tx_set_leds(slave_id[c], mm_leds, 0, r, g, b);
+                numb = tx_set_leds(slave_id[c], mm_leds, 0, r, g, b);
 #ifdef USE_PRINTF
                 printf("[Set LEDs]: Bank = 0x%02X, RGB = (%i, %i, %i).\n", mm_leds, r , g, b);
 #endif
-                numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+                numb = comm_gen_str(payload_str, numb);
                 break;
             case 6: //'read'
                 offs = atoi(argv[3]);
@@ -327,16 +327,16 @@ void flexsea_console_parser(int argc, char *argv[])
 #ifdef USE_PRINTF
                 printf("[Motor current (unitless)]: %i.\n", current);
 #endif
-                tx_set_current(slave_id[c], atoi(argv[3]));
-                numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+                numb = tx_set_current(slave_id[c], atoi(argv[3]));
+                numb = comm_gen_str(payload_str, numb);
                 break;
             case 9: //'set_control'
                 ctrl = atoi(argv[3]);
 #ifdef USE_PRINTF
                 printf("[Set Controller Type]: %i.\n", ctrl);
 #endif
-                tx_set_control(slave_id[c], ctrl);
-                numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+                numb = tx_set_control(slave_id[c], ctrl);
+                numb = comm_gen_str(payload_str, numb);
                 break;
             case 10: //'set_current_gains'
                 c_p = atoi(argv[3]);
@@ -345,8 +345,8 @@ void flexsea_console_parser(int argc, char *argv[])
 #ifdef USE_PRINTF
                 printf("[Set Current Gains]: p=%i, i=%i, d=%i.\n", c_p, c_i, c_d);
 #endif
-                tx_set_current_gains(slave_id[c], c_p, c_i, c_d);
-                numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+                numb = tx_set_current_gains(slave_id[c], c_p, c_i, c_d);
+                numb = comm_gen_str(payload_str, numb);
                 break;
             case 11: //'set_z_gains'
                 z_k = atoi(argv[3]);
@@ -355,8 +355,8 @@ void flexsea_console_parser(int argc, char *argv[])
 #ifdef USE_PRINTF
                 printf("[Set Impedance Gains]: k=%i, b=%i, i=%i.\n", z_k, z_b, z_i);
 #endif
-                tx_set_z_gains(slave_id[c], z_k, z_b, z_i);
-                numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+                numb = tx_set_z_gains(slave_id[c], z_k, z_b, z_i);
+                numb = comm_gen_str(payload_str, numb);
                 break;
             default:
 #ifdef USE_PRINTF
@@ -366,7 +366,7 @@ void flexsea_console_parser(int argc, char *argv[])
             }
 
             //Send data
-            numb = COMM_STR_BUF_LEN - 1;    //Fixed length for now
+            //numb = COMM_STR_BUF_LEN - 1;    //Fixed length for now
 #ifdef USE_PRINTF
             printf("Sending %i bytes.\n", numb+1);
 #endif

@@ -57,7 +57,7 @@ unsigned int tx_set_pid_gains(unsigned char slave, unsigned int kp, unsigned int
 #ifdef ENABLE_TERMINAL_DEBUG
     payload_print_str();
 #endif // ENABLE_TERMINAL_DEBUG
-    return 0;
+    return 10;
 }
 
 //Set clutch state
@@ -74,7 +74,7 @@ unsigned int tx_set_clutch(unsigned char slave, unsigned char clutch_state)
     payload_str[CP_CMD1 + 1] = clutch_state;
 
     //At this point the string is ready to be packaged in comm_str
-    return 0;
+    return 5;
 }
 
 //Send open speed command
@@ -95,7 +95,7 @@ unsigned int tx_set_open_spd(unsigned char slave, int open_spd)
 #ifdef ENABLE_TERMINAL_DEBUG
     payload_print_str();
 #endif // ENABLE_TERMINAL_DEBUG
-    return 0;
+    return 6;
 }
 
 //Send trapeze command
@@ -122,7 +122,7 @@ unsigned int tx_set_trapeze(unsigned char slave, int posi, int posf, int spdm, i
 #ifdef ENABLE_TERMINAL_DEBUG
     payload_print_str();
 #endif // ENABLE_TERMINAL_DEBUG
-    return 0;
+    return 12;
 }
 
 //Set LED state
@@ -143,7 +143,7 @@ unsigned int tx_set_leds(unsigned char slave, unsigned char bank, unsigned char 
     payload_str[CP_DATA1 + 4] = b;
 
     //At this point the string is ready to be packaged in comm_str
-    return 0;
+    return 9;
 }
 
 //Read from slave, starting at offset
@@ -160,7 +160,7 @@ unsigned int tx_read(unsigned char slave, unsigned char offset)
     payload_str[CP_DATA1] = offset;
 
     //At this point the string is ready to be packaged in comm_str
-    return 0;
+    return 5;
 }
 
 //Send current command
@@ -181,7 +181,7 @@ unsigned int tx_set_current(unsigned char slave, int curr)
 #ifdef ENABLE_TERMINAL_DEBUG
     payload_print_str();
 #endif // ENABLE_TERMINAL_DEBUG
-    return 0;
+    return 6;
 }
 
 //Send current command
@@ -201,7 +201,7 @@ unsigned int tx_set_control(unsigned char slave, unsigned char ctrl)
 #ifdef ENABLE_TERMINAL_DEBUG
     payload_print_str();
 #endif // ENABLE_TERMINAL_DEBUG
-    return 0;
+    return 5;
 }
 
 //Send Current gain command
@@ -226,7 +226,7 @@ unsigned int tx_set_current_gains(unsigned char slave, int c_p, int c_i, int c_d
 #ifdef ENABLE_TERMINAL_DEBUG
     payload_print_str();
 #endif // ENABLE_TERMINAL_DEBUG
-    return 0;
+    return 10;
 }
 
 //Send impedance (Z) gain command
@@ -251,5 +251,5 @@ unsigned int tx_set_z_gains(unsigned char slave, int z_k, int z_b, int z_i)
 #ifdef ENABLE_TERMINAL_DEBUG
     payload_print_str();
 #endif // ENABLE_TERMINAL_DEBUG
-    return 0;
+    return 10;
 }

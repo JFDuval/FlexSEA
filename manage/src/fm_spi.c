@@ -65,16 +65,13 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi)
 	HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
 	//It seems that NSS can't be used as a good CS => set as input, SW read
-	//ToDo Enable external ISR (Steven, merge here)
 	GPIO_InitStruct.Pin = GPIO_PIN_4;
 	GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
-	//GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
 	GPIO_InitStruct.Pull = GPIO_PULLUP;
 	//GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
 	HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
-	/*##-3- Configure the NVIC for SPI #########################################*/
-	/* NVIC for SPI data lines */
+	/* enable interrupts/NVIC for SPI data lines */
 	HAL_NVIC_SetPriority(SPI4_IRQn, 0, 1);
 	HAL_NVIC_EnableIRQ(SPI4_IRQn);
 	/* and for the the CS pin */
@@ -145,6 +142,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	if(GPIO_Pin == GPIO_PIN_4)
 	{
 		// transfer over the buffer
+		// Todo: transfer over the number of bytes that have been received instead of 24 every time
 		for (unsigned char i = 0; i < 24; i++)
 		{
 			comm_update_rx_buffer(aRxBuffer[i]);
