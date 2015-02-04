@@ -1,0 +1,56 @@
+//****************************************************************************
+// MIT Media Lab - Biomechatronics
+// Jean-Francois (Jeff) Duval
+// jfduval@mit.edu
+// 02/2015
+//****************************************************************************
+
+*** Function declarations ***
+
+USE:
+
+	void my_function(void)
+	{
+		//My Code
+	}
+
+DO NOT USE:
+
+	void my_function(void){
+		//My Code
+	}
+
+Always use the keyword 'void' when you do not have an argument. (USE void my_fct(void), DO NOT USE void my_fct())
+Always include a prototype in the .h file.
+
+*** if, else ***
+
+Always use brackets, even if you have a single line below the statement. Example:
+
+USE:
+
+	if(value1 == value2)
+	{
+		value3 = 1;
+	}
+
+DO NOT USE:
+
+	if(value1 == value2)
+		value3 = 1;
+
+*** Comments ***
+
+Do not use /* */ for comments that are on a single line.
+Always include a comment above a function declaration that explains its purpose.
+Always mention in what file extern variables are declared.
+Use the keyword 'ToDo' to flag stuff that should be fixed.
+
+*** Formatting ***
+
+Use tabulations, not spaces.
+Make sure that the code looks as clean as possible (align values, etc)
+Always include an empty line at the end of a file.
+As a general rule, make sure that your code looks clean and similar to the existing code
+
+
