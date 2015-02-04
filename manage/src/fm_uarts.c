@@ -2,12 +2,13 @@
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
 // jfduval@mit.edu
-// 12/2014
+// 02/2015
 //****************************************************************************
-// fm_uarts: Deals with the 2 USARTs
+// fm_uarts: Deals with the 3 USARTs
 //****************************************************************************
 
-//ToDo: this code only deals with 1 transceiver for now!
+//ToDo: this code only deals with 1 transceiver for now! (work in progress for the other 2)
+//ToDo add support for configurable baudrate (at least for the exp port)
 
 //****************************************************************************
 // Include(s)
@@ -20,8 +21,9 @@
 // Local variable(s)
 //****************************************************************************
 
-USART_HandleTypeDef husart1;
-USART_HandleTypeDef husart2;
+USART_HandleTypeDef husart1;	//RS-485 #1
+USART_HandleTypeDef husart6;	//RS-485 #2
+USART_HandleTypeDef husart3;	//Expansion port
 GPIO_InitTypeDef GPIO_InitStruct;
 
 unsigned char tmp_buf[10] = {0,0,0,0,0,0,0,0,0,0};
@@ -36,48 +38,67 @@ unsigned char tmp_buf[10] = {0,0,0,0,0,0,0,0,0,0};
 
 void HAL_USART_MspInit(USART_HandleTypeDef* husart)
 {
-  if(husart->Instance==USART1)
-  {
-    /* Peripheral clock enable */
-    __USART1_CLK_ENABLE();
-    __GPIOA_CLK_ENABLE();
+	if(husart->Instance == USART1)		//RS-485 #1
+  	{
+    		/* Peripheral clock enable */
+		__USART1_CLK_ENABLE();
+		__GPIOA_CLK_ENABLE();
 
-	/**USART1 GPIO Configuration
-	PA9   ------> USART1_TX
-	PA10   ------> USART1_RX
-	*/
+		/**USART1 GPIO Configuration
+		PA9   ------> USART1_TX
+		PA10   ------> USART1_RX
+		*/
 
-    GPIO_InitStruct.Pin = GPIO_PIN_9|GPIO_PIN_10;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    //GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Pull = GPIO_PULLUP;			//Transceiver's R is Hi-Z when !RE=1
-    GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
-    GPIO_InitStruct.Alternate = GPIO_AF7_USART1;
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+		GPIO_InitStruct.Pin = GPIO_PIN_9|GPIO_PIN_10;
+		GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+		//GPIO_InitStruct.Pull = GPIO_NOPULL;
+		GPIO_InitStruct.Pull = GPIO_PULLUP;		//Transceiver's R is Hi-Z when !RE=1
+		GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
+		GPIO_InitStruct.Alternate = GPIO_AF7_USART1;
+		HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  }
-  else if(husart->Instance==USART6)
-  {
-    /* Peripheral clock enable */
-    __USART6_CLK_ENABLE();
+	}
+	else if(husart->Instance==USART6)	//RS-485 #2
+	{
+		/* Peripheral clock enable */
+		__USART6_CLK_ENABLE();
 
-  /**USART6 GPIO Configuration
-  PC6   ------> USART6_TX
-  PC7   ------> USART6_RX
-  */
-    GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_7;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
-    GPIO_InitStruct.Alternate = GPIO_AF8_USART6;
-    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+		/**USART6 GPIO Configuration	//ToDo Confirm pins!
+		PC6   ------> USART6_TX
+		PC7   ------> USART6_RX
+		*/
+		GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_7;
+		GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+		GPIO_InitStruct.Pull = GPIO_NOPULL;
+		GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
+		GPIO_InitStruct.Alternate = GPIO_AF8_USART6;
+		HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+	}
+	else if(husart->Instance==USART3)	//Expansion port
+	{
+		/* Peripheral clock enable */
+		__USART3_CLK_ENABLE();
 
-  }
+		/**USART3 GPIO Configuration	//ToDo Update!
+		PC6   ------> USART6_TX
+		PC7   ------> USART6_RX
+		*/
+		GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9;
+		GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+		GPIO_InitStruct.Pull = GPIO_NOPULL;
+		GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
+		GPIO_InitStruct.Alternate = GPIO_AF7_USART3;
+		HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+	}
+	else
+	{
+		//Invalid peripheral
+		flexsea_error(SE_INVALID_USART);
+	}
 }
 
 //USART1 init function: RS-485 #1
-//Ref: http://eliaselectronics.com/stm32f4-tutorials/stm32f4-usart-tutorial/ and Cube functions
-void init_usart1(void)
+void init_usart1(uint32_t baudrate)
 {
 	husart1.Instance = USART1;
 
@@ -91,12 +112,15 @@ void init_usart1(void)
 	//UART1 module:
 	//husart1.Init.BaudRate = 115200;
 	//husart1.Init.BaudRate = 921600;
-	husart1.Init.BaudRate = 460800;
+	husart1.Init.BaudRate = baudrate;
 	husart1.Init.WordLength = USART_WORDLENGTH_8B;
 	husart1.Init.StopBits = USART_STOPBITS_1;
 	husart1.Init.Parity = USART_PARITY_NONE;
 	husart1.Init.Mode = USART_MODE_TX_RX;
 	HAL_USART_Init(&husart1);
+
+	//ToDo Add HAL_OK check and call
+	//flexsea_error(SE_INIT_USART1);
 
 	//With only HAL_USART_Init() I never get an interrupt. Manually setting 5 bits:
 	USART1->CR1 |= 0b00000000000000010000000000100100;	//16x oversampling, Receive enable, enable RXNE interrupts
@@ -104,6 +128,65 @@ void init_usart1(void)
 	USART1->CR3 &= 0b11111111111111111111011111111111;	//3 bits method
 }
 
+//USART6 init function: RS-485 #2
+void init_usart6(uint32_t baudrate)
+{
+	husart6.Instance = USART6;
+
+	//MSP Init (enables clock, GPIOs)
+	HAL_USART_MspInit(&husart6);
+
+	//Interrupts:
+	HAL_NVIC_SetPriority(USART6_IRQn, 0, 1);
+	HAL_NVIC_EnableIRQ(USART6_IRQn);
+
+	//UART6 module:
+	husart6.Init.BaudRate = baudrate;
+	husart6.Init.WordLength = USART_WORDLENGTH_8B;
+	husart6.Init.StopBits = USART_STOPBITS_1;
+	husart6.Init.Parity = USART_PARITY_NONE;
+	husart6.Init.Mode = USART_MODE_TX_RX;
+	HAL_USART_Init(&husart6);
+
+	//ToDo Add HAL_OK check and call
+	//flexsea_error(SE_INIT_USART3);
+
+	//With only HAL_USART_Init() I never get an interrupt. Manually setting 5 bits:
+	USART6->CR1 |= 0b00000000000000010000000000100100;	//16x oversampling, Receive enable, enable RXNE interrupts
+	USART6->CR2 &= 0b11111111111111111111011111111111;	//Disable synchronous clock
+	USART6->CR3 &= 0b11111111111111111111011111111111;	//3 bits method
+}
+
+//USART3 init function: Expansion port
+void init_usart3(uint32_t baudrate)
+{
+	husart3.Instance = USART3;
+
+	//MSP Init (enables clock, GPIOs)
+	HAL_USART_MspInit(&husart3);
+
+	//Interrupts:
+	HAL_NVIC_SetPriority(USART3_IRQn, 0, 1);
+	HAL_NVIC_EnableIRQ(USART3_IRQn);
+
+	//UART3 module:
+	husart3.Init.BaudRate = baudrate;
+	husart3.Init.WordLength = USART_WORDLENGTH_8B;
+	husart3.Init.StopBits = USART_STOPBITS_1;
+	husart3.Init.Parity = USART_PARITY_NONE;
+	husart3.Init.Mode = USART_MODE_TX_RX;
+	HAL_USART_Init(&husart3);
+
+	//ToDo Add HAL_OK check and call
+	//flexsea_error(SE_INIT_USART3);
+
+	//With only HAL_USART_Init() I never get an interrupt. Manually setting 5 bits:
+	USART6->CR1 |= 0b00000000000000010000000000100100;	//16x oversampling, Receive enable, enable RXNE interrupts
+	USART6->CR2 &= 0b11111111111111111111011111111111;	//Disable synchronous clock
+	USART6->CR3 &= 0b11111111111111111111011111111111;	//3 bits method
+}
+
+//ToDo clean
 uint8_t UARTaTxBuffer[] = "123";
 
 unsigned char data[1];

@@ -2,7 +2,7 @@
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
 // jfduval@mit.edu
-// 12/2014
+// 02/2015
 //****************************************************************************
 // fm_dio: Deals with the 9 digital IOs
 //****************************************************************************
@@ -11,7 +11,8 @@
 //ToDo Add support for advanced functions
 
 //Note: this code isn't really portable as it depends heavily on the Manage
-// board schematic and the associated peripherals.
+// board schematic and the associated peripherals. It will stay like this for
+// the forseable future. -JFD
 
 //****************************************************************************
 // Include(s)
@@ -101,9 +102,13 @@ void dio_set_pin_direction(unsigned int pin, unsigned int dir)
 
 	//Direction:
 	if(!dir)
+	{
 		direction = GPIO_MODE_OUTPUT_PP;
+	}
 	else
+	{
 		direction = GPIO_MODE_INPUT;
+	}
 
 	// Configure pin as input or output
 	GPIO_InitStructure.Pin = gpio;
@@ -132,9 +137,13 @@ void dio_set_port_direction(unsigned int dir)
 
 		//Direction:
 		if(!((dir >> i) & 0x01))
+		{
 			direction = GPIO_MODE_OUTPUT_PP;
+		}
 		else
+		{
 			direction = GPIO_MODE_INPUT;
+		}
 
 		// Configure pin as input or output
 		GPIO_InitStructure.Pin = gpio;
@@ -161,7 +170,9 @@ void dio_pin_write(unsigned int pin, unsigned int value)
 
 	//Write to the output (ignore if it's an input)
 	if(!((dio_direction >> pin) & 0x01))
+	{
 		HAL_GPIO_WritePin(port, pin, value);
+	}
 }
 
 //Writes to all the outputs.
@@ -179,7 +190,9 @@ void dio_port_write(unsigned int value)
 
 		//Write to the output (ignore if it's an input)
 		if(!((dio_direction >> i) & 0x01))
+		{
 			HAL_GPIO_WritePin(port, gpio, ((value >> i) & 0x01));
+		}
 	}
 }
 
@@ -195,7 +208,8 @@ void dio_set_af(unsigned int periph)
 	}
 	else if(periph == DIO_AF_SPI)
 	{
-
+		//Enable SPI6 (it will change the GPIOs to AF)
+		init_spi6();
 	}
 	else if(periph == DIO_AF_I2C)
 	{
@@ -203,7 +217,7 @@ void dio_set_af(unsigned int periph)
 	}
 	else
 	{
-
+		flexsea_error(SE_INVALID_DIO_AF);
 	}
 }
 

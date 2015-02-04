@@ -2,7 +2,7 @@
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
 // jfduval@mit.edu
-// 12/2014
+// 02/2015
 //****************************************************************************
 // fm_spi: SPI Slave
 //****************************************************************************
@@ -23,6 +23,7 @@
 
 void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi);
 void init_spi4(void);
+void init_spi6(void);
 unsigned int spi4_blocking_rx(void);
 void Error_Handler(void);
 unsigned int spi4_it_rx(void);
@@ -31,12 +32,18 @@ unsigned int spi4_it_rx(void);
 // Definition(s):
 //****************************************************************************
 
-//Manage 0.1 Hardware pins:
-//============================
+//Manage 0.1 SPI Hardware pins:
+//=============================
 //NSS4: 	PE4
 //MOSI4: 	PE6
 //MISO4: 	PE5
 //SCK4: 	PE2
+
+//NSS6: 	P
+//MOSI6: 	P
+//MISO6: 	P
+//SCK6: 	P
+//ToDo
 
 
 #endif // FM_SPI_H_

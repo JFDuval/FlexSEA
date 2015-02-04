@@ -31,7 +31,8 @@ I2C_HandleTypeDef hi2c1; // TODO: I'd prefer to use a pointer here
 //// HIGH LEVEL FUNCTIONS ////
 
 // Disable I2C and free the I2C handle.
-void disable_i2c(void) {
+void disable_i2c(void) 
+{
 	HAL_I2C_DeInit(&hi2c1);
 	//free((void *)hi2c1);
 }
@@ -39,8 +40,8 @@ void disable_i2c(void) {
 //// LOW LEVEL FUNCTIONS /////
 
 // Implement I2C MSP Init, as called for in the stm32f4xx_hal_i2c.c file
-void HAL_I2C_MspInit(I2C_HandleTypeDef *hi2c) {
-
+void HAL_I2C_MspInit(I2C_HandleTypeDef *hi2c) 
+{
 	///// SET UP GPIO /////
 	//GPIO initialization constants
 	GPIO_InitTypeDef GPIO_InitStruct;
@@ -86,14 +87,16 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef *hi2c) {
 }
 
 // Implement I2C MSP DeInit
-void HAL_I2C_MspDeInit(I2C_HandleTypeDef *hi2c) {
+void HAL_I2C_MspDeInit(I2C_HandleTypeDef *hi2c) 
+{
 	__I2C1_CLK_DISABLE();
 	//uhh should be careful about this since SPI is on the same bus!
 	//__GPIOB_CLK_DISABLE();
 }
 
 // Initialize i2c1. Currently connected to the IMU and the digital pot
-void init_i2c1(void) {
+void init_i2c1(void) 
+{
 	//I2C_HandleTypeDef *hi2c1 contains our handle information
 	//set config for the initial state of the i2c.
 	hi2c1.Instance = I2C1;
@@ -108,3 +111,4 @@ void init_i2c1(void) {
 	hi2c1.State = HAL_I2C_STATE_RESET;
 	HAL_I2C_Init(&hi2c1);
 }
+

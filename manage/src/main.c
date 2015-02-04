@@ -144,11 +144,11 @@ int main(void)
 //Initialize all the peripherals
 void init_peripherals(void)
 {	
-	init_systick_timer();	//SysTick timer	
-	init_usart1();			//USART1 (RS-485 #1)
+	init_systick_timer();		//SysTick timer	
+	init_usart1(460800);		//USART1 (RS-485 #1)
 	init_leds();
 	init_switches();
-	init_dio();				//All inputs by default
+	init_dio();			//All inputs by default
 	init_rs485_outputs();
 	init_adc1();
 	init_spi4();
@@ -158,7 +158,7 @@ void init_peripherals(void)
 	init_pwr_out();
 
 	//All RGB LEDs OFF
-	LEDR(0); LEDG(0);LEDB(0);
+	LEDR(0); LEDG(0); LEDB(0);
 
 	//Default analog input states:
 	set_default_analog();

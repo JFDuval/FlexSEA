@@ -56,3 +56,4 @@ void write_pwr_out(unsigned int pwr0, unsigned int pwr1)
 	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_11, pwr0);
 	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, pwr1);
 }
+

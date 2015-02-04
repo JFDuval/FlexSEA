@@ -45,7 +45,7 @@ void dio_map_pin_port(unsigned int pin, unsigned int *port, unsigned int *gpio);
 
 #define MAX_DIO			8
 #define DIO_AF_NULL		0
-#define DIO_AF_USART	1
+#define DIO_AF_USART		1
 #define DIO_AF_SPI		2
 #define DIO_AF_I2C		3
 

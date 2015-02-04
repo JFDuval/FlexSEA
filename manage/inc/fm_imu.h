@@ -111,3 +111,4 @@ HAL_StatusTypeDef imu_write(uint8_t internal_reg_addr, uint8_t* pData, uint16_t 
 HAL_StatusTypeDef imu_read(uint8_t internal_reg_addr, uint8_t *pData, uint16_t Size);
 
 #endif //_FM_I2C_H_ 
+

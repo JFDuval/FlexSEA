@@ -2,7 +2,7 @@
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
 // jfduval@mit.edu
-// 12/2014
+// 02/2015
 //****************************************************************************
 // fm_uarts: Deals with the 2 USARTs
 //****************************************************************************
@@ -22,7 +22,9 @@
 //****************************************************************************
 
 void HAL_UART_MspInit(UART_HandleTypeDef* huart);
-void init_usart1(void);
+void init_usart1(uint32_t baudrate);
+void init_usart3(uint32_t baudrate);
+void init_usart6(uint32_t baudrate);
 void putc_usart1(char c);
 void init_rs485_outputs(void);
 void puts_rs485_1(uint8_t *str, unsigned char length);
@@ -38,7 +40,7 @@ unsigned char getc_rs485_1_blocking(void);
 //DE1: PF11
 
 //Common define
-#define RS485_STANDBY	0
+#define RS485_STANDBY		0
 #define RS485_RX		1
 #define RS485_TX		2
 #define RS485_RX_TX		3

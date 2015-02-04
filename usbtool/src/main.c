@@ -2,7 +2,7 @@
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
 // jfduval@mit.edu
-// 08/2014
+// 01/2015
 //****************************************************************************
 // main: FlexSEA USBTool Main file
 //****************************************************************************
@@ -10,6 +10,14 @@
 //This project was forked out of /plan/ on 08/03/2014
 //It's intended to be used on Ubuntu, talking to slaves via their onboard USB
 //ports (virtual UARTs)
+
+//Variable types:
+typedef unsigned char uint8;
+typedef char int8;
+typedef unsigned short uint16;
+typedef short int16;
+typedef unsigned int uint32;
+typedef int int32;
 
 //****************************************************************************
 // Include(s)
@@ -32,6 +40,9 @@
 char *fake_argv[MAX_ARGS];
 const char *delims = " \n";
 
+//Tag:fctptr
+
+
 //****************************************************************************
 // External variable(s)
 //****************************************************************************
@@ -40,6 +51,18 @@ const char *delims = " \n";
 //****************************************************************************
 // Function(s)
 //****************************************************************************
+
+int (*rx_fct_ptr)(int);	//Function pointer
+
+int rx_test1(int buf)
+{
+	printf("Received buf[0]: %c\n", buf);
+
+	return 0;
+}
+
+
+//int table[2] = {rx_fct_ptr, rx_fct_ptr};
 
 //ToDo: adapt this new code for this project!
 /*

@@ -20,14 +20,15 @@
 //****************************************************************************
 
 char name[] = "FlexSEA-Manage";
-char version[] = "0.1";
-char date[] = "01/19/2015";
+char version[] = "1.0";
+char date[] = "02/04/2015";
 
 //Board ID (this board) -  - pick from Board list in /common/inc/flexsea.h
 unsigned char board_id = FLEXSEA_MANAGE_1;
 unsigned char board_up_id = FLEXSEA_PLAN_1;
 unsigned char board_sub1_id = FLEXSEA_EXECUTE_1;
 unsigned char board_sub2_id = FLEXSEA_EXECUTE_2;
+//ToDo: change this, it needs to be a flexible config
 
 //Slave Read Buffer:
 unsigned char slave_read_buffer[SLAVE_READ_BUFFER_LEN];
@@ -69,7 +70,7 @@ void flexsea_send_serial_slave(unsigned char port, unsigned char *str, unsigned 
 	else
 	{
 		//Unknown port, call flexsea_error()
-		flexsea_error(0);	//ToDo error code
+		flexsea_error(SE_INVALID_SLAVE);
 	}
 }
 
@@ -81,7 +82,7 @@ void flexsea_send_serial_master(unsigned char port, unsigned char *str, unsigned
 	if(HAL_SPI_Transmit_IT(&spi4_handle, aTxBuffer, length) != HAL_OK)
 	{
 		// Transfer error in transmission process
-		Error_Handler();
+		flexsea_error(SE_SEND_SERIAL_MASTER);
 	}
 }
 
@@ -99,6 +100,7 @@ void flexsea_clear_slave_read_buffer(void)
 void flexsea_receive_from_master(void)
 {
 	// i'm not sure what to do here now that all reception is done by interrupt
+	//ToDo: check if that function is called, otherwise comment it from this board with the comment above
 }
 
 void flexsea_start_receiving_from_master(void)
@@ -109,7 +111,7 @@ void flexsea_start_receiving_from_master(void)
 		if(HAL_Start_SPI_Receiving_IT(&spi4_handle, aRxBuffer, RX_BUF_LEN) != HAL_OK)
 		{
 			// Transfer error in transmission process
-			Error_Handler();
+			flexsea_error(SE_RECEIVE_FROM_MASTER);
 		}
 	}
 }
@@ -126,11 +128,16 @@ void flexsea_receive_from_slave(void)
 		start_listening_flag = 0;
 
 		for(delay = 0; delay < 5000; delay++);		//Short delay
+		//ToDo: do we need this delay? How long is it?
 		//Sets the transceiver to Receive:
 		uart_rx_test = getc_rs485_1_blocking();
 		//From this point on data will be received via the interrupt.
+		//ToDo why is it called Blocking if it's ISR based?
 	}
 }
+
+//***ToDo Clean this whole thing!***
+
 //send IMU data.
 #if SEND_IMU == 1
 void flexsea_update_slave_read_buffer(unsigned char read_offset) {
@@ -258,10 +265,10 @@ void comm_str_to_txbuffer(void)
 {
 	unsigned char i = 0;
 
-    for(i = 0; i < COMM_STR_BUF_LEN; i++)
-    {
-    	aTxBuffer[i] = comm_str[i];
-    }
+	for(i = 0; i < COMM_STR_BUF_LEN; i++)
+	{
+		aTxBuffer[i] = comm_str[i];
+	}
 }
 
 //Everytime we receive an SPI string we transmit data
@@ -273,3 +280,4 @@ void flexsea_prepare_spi_tx_buffer(void)
 	comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
 	comm_str_to_txbuffer();
 }
+
