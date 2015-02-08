@@ -21,40 +21,40 @@
 #include "motor.h"
 #include "clutch.h"
 #include "misc.h"
-#include "comm.h"
 #include "trapez.h"
 #include "flexsea_local.h"
 #include "imu.h"
+#include "analog.h"
+#include "usb.h"
 #include "../../common/inc/flexsea.h"
 
 //****************************************************************************
 // Prototype(s):
 //****************************************************************************
 
+int main(void);
 
 //****************************************************************************
 // Definition(s):
 //****************************************************************************
 	
-//Enable/Disable sub-modules
-//#define USE_DIETEMP
-//#define USE_USB
+//Enable/Disable sub-modules:
 #define USE_RS485
-#define USE_COMM
+//#define USE_USB
+#define USE_COMM		//Requires USE_RS485 and/or USE_USB
 #define USE_QEI1
 #define USE_TRAPEZ
-//#define USE_I2C
+//#define USE_DIETEMP
+#define USE_I2C_INT
+//#define USE_I2C_EXT
+#define USE_IMU			//Requires USE_I2C_INT
 
-#define MAX_DIE_TEMP	75
+#define MAX_DIE_TEMP			75
 
-//Hardware:
-//#define MIT_ANKLE
-#define MIT_KNEE
-	
 //Trapez test parameters
-#define SPD1        1500
-#define ACC1        500
-#define EXTRA_STP   100
+#define SPD1        			1500
+#define ACC1        			500
+#define EXTRA_STP   			100
 	
 //EZI2C Shared memory locations:
 #define MEM_W_CONTROL1			0

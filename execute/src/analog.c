@@ -4,7 +4,7 @@
 // jfduval@mit.edu
 // 02/2015
 //****************************************************************************
-// clutch: variable voltage clutch output
+// analog: ADC configurations, read & filter functions
 //****************************************************************************
 
 //****************************************************************************
@@ -12,11 +12,14 @@
 //****************************************************************************
 
 #include "main.h"
-#include "clutch.h"
+#include "analog.h"
 
 //****************************************************************************
 // Local variable(s)
 //****************************************************************************
+
+unsigned int adc1_res[ADC1_CHANNELS][ADC1_BUF_LEN];
+unsigned int adc1_res_filtered[ADC1_CHANNELS];
 
 //****************************************************************************
 // External variable(s)
@@ -26,25 +29,40 @@
 // Function(s)
 //****************************************************************************
 
-void clutch_output(uint8 value)
+uint16 adc_avg8(uint16 new_data)
 {
-	PWM_2_WriteCompare(value);
+	uint32 sum = 0;
+	static uint16 adc_avg_bug[8] = {0,0,0,0,0,0,0,0};
+	static uint8 cnt = 0;
+	uint16 avg = 0;
+	
+	//Shift buffer and sum 7/8 terms
+	for(cnt = 1; cnt < 8; cnt++)
+	{
+		adc_avg_bug[cnt-1] = adc_avg_bug[cnt];
+		sum += adc_avg_bug[cnt-1];
+	}
+	adc_avg_bug[7] = new_data;
+	sum += new_data;
+		
+	//Average
+	avg = (uint16)(sum >> 3);
+	
+	return avg;	
 }
 
-//Call this function in t2_50ms to test
-void clutch_test(void)
+//Filters the ADC buffer
+//ToDo: generalize & optimize
+void filter_adc(void)
 {
-	static uint8 clutch_state = 1;
+	uint16 i = 0;
+	uint16 tmp_ch0 = 0, tmp_ch1 = 0;
 	
-	//Clutch test
-	clutch_state++;
-	if(clutch_state >= 3)
-		clutch_state = 0;
-
-	if(clutch_state == 0)
-		clutch_output(CLUTCH_OFF);
-	else if(clutch_state == 1)
-		clutch_output(CLUTCH_10V);
-	else if(clutch_state == 2)
-		clutch_output(CLUTCH_24V);	
+	for(i = 0; i < 8; i++)
+	{
+		tmp_ch0 += adc1_res[0][i];
+		tmp_ch1 += adc1_res[1][i];
+	}
+	adc1_res_filtered[0] = tmp_ch0 >> 3;
+	adc1_res_filtered[1] = tmp_ch1 >> 3;
 }

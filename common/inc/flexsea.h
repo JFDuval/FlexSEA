@@ -57,12 +57,12 @@ unsigned int flexsea_error(unsigned int err_code);
 #define ID_MATCH                    	1           	//Addressed to me
 #define ID_SUB1_MATCH               	2           	//Addressed to a board below me
 #define ID_SUB2_MATCH               	3
-#define ID_UP_MATCH               	4		//Addressed to my master
+#define ID_UP_MATCH               		4		//Addressed to my master
 #define ID_NO_MATCH                 	0
 
 //Communication ports:
-#define PORT_RS485_1			1
-#define PORT_RS485_2			2
+#define PORT_RS485_1					1
+#define PORT_RS485_2					2
 
 //ToDo update naming convention
 //Communication protocol fields:
@@ -74,7 +74,7 @@ unsigned int flexsea_error(unsigned int err_code);
 
 //Parser definitions:
 #define PARSE_DEFAULT               	0
-#define PARSE_ID_NO_MATCH          	1
+#define PARSE_ID_NO_MATCH          	    1
 #define PARSE_SUCCESSFUL            	2
 #define PARSE_UNKNOWN_CMD           	3
 
@@ -89,11 +89,11 @@ unsigned int flexsea_error(unsigned int err_code);
 #define CMD_SET_OPEN_SPEED          	6
 #define CMD_SET_LEDS                	7
 #define CMD_SET_CURRENT                	8
-#define CMD_SET_CONTROL			9
+#define CMD_SET_CONTROL			        9
 #define CMD_SET_CURRENT_GAINS           10
 #define CMD_SET_Z_GAINS                 11
-#define CMD_READ             		20		//Send offset as the argument
-#define CMD_REPLY			21
+#define CMD_READ             		    20		//Send offset as the argument
+#define CMD_REPLY			            21
 //Note: do not use codes that are framing or escape chars!
 //ToDo: why? can I fix that?
 
@@ -146,18 +146,17 @@ unsigned int flexsea_error(unsigned int err_code);
 #define SRB_EXECUTE_TEMPERATURE			11			//Temperature
 
 //Software error (SE) codes. Values will be ORed
-#define SE_DEFAULT				0
-#define SE_INVALID_SPI				2
-#define SE_INIT_SPI4				4
-#define SE_INIT_SPI6				8
-#define SE_INVALID_DIO_AF			16
-#define SE_INVALID_USART			32
-#define SE_INIT_USART1				64
-#define SE_INIT_USART3				128
-#define SE_INIT_USART6				256
-#define SE_SEND_SERIAL_MASTER		512
-#define SE_INVALID_SLAVE			1024
-#define SE_RECEIVE_FROM_MASTER		2048
+#define SE_DEFAULT						0
+#define SE_INVALID_SPI					2
+#define SE_INIT_SPI4					4
+#define SE_INIT_SPI6					8
+#define SE_INVALID_DIO_AF				16
+#define SE_INVALID_USART				32
+#define SE_INIT_USART1					64
+#define SE_INIT_USART3					128
+#define SE_INIT_USART6					256
+#define SE_SEND_SERIAL_MASTER			512
+#define SE_INVALID_SLAVE				1024
+#define SE_RECEIVE_FROM_MASTER			2048
 
 #endif
-

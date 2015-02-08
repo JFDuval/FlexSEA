@@ -11,9 +11,8 @@
 // Include(s)
 //****************************************************************************
 
-#include <project.h>
+#include "main.h"
 #include "flexsea_local.h"
-#include "misc.h"
 
 //****************************************************************************
 // Local variable(s)
@@ -57,9 +56,7 @@ extern unsigned char read_offset;
 //platform independent (for example, we don't need need puts_rs485() for Plan)
 void flexsea_send_serial_slave(unsigned char port, unsigned char *str, unsigned char length)
 {
-	//Redirects to RS-485:
-	//ToDo: port check?
-	//puts_rs485_1(str, length);
+	//...
 }
 
 void flexsea_send_serial_master(unsigned char port, unsigned char *str, unsigned char length)

@@ -1,6 +1,22 @@
-#include <project.h>
+//****************************************************************************
+// MIT Media Lab - Biomechatronics
+// Jean-Francois (Jeff) Duval
+// jfduval@mit.edu
+// 02/2015
+//****************************************************************************
+// usb: motor control functions
+//****************************************************************************
+
+//****************************************************************************
+// Include(s)
+//****************************************************************************
+
 #include "main.h"
 #include "motor.h"
+
+//****************************************************************************
+// Local variable(s)
+//****************************************************************************
 
 //Variables
 int sumoferrors = 0;
@@ -9,16 +25,11 @@ int pwm = 0;
 int setpoint = 10000;
 int gain_p = GAIN_P, gain_i = GAIN_I, gain_d = GAIN_D;
 
-//flexsea_local:
-extern unsigned char controller;
-
 //Global motor control variables
 int16 old_enc_count = 0;
 //int16 new_enc_count = 0;
 int16 diff_enc_count = 0;
 uint8 motor_control_flag = 0;
-extern int steps, current_step, pos;
-extern unsigned int adc1_res_filtered[ADC1_CHANNELS];
 
 //Impedance controller:
 int z_gain_k = 0, z_gain_b = 0, z_gain_i = 0;
@@ -27,6 +38,20 @@ int current_gain_p = 0, current_gain_i = 0, current_gain_d = 0;
 int current_pid_setpoint = 0, current_pid_measured = CURRENT_ZERO;
 
 int debug_var = 0;
+
+//****************************************************************************
+// External variable(s)
+//****************************************************************************
+
+//flexsea_local:
+extern unsigned char controller;
+
+extern int steps, current_step, pos;
+extern unsigned int adc1_res_filtered[ADC1_CHANNELS];
+
+//****************************************************************************
+// Function(s)
+//****************************************************************************
 
 //Controls motor PWM duty cycle
 //Sign of 'pwm_duty' determines rotation direction

@@ -1,5 +1,4 @@
-#include <project.h>
-#include "../../common/inc/flexsea.h"
+#include "main.h"
 #include "comm.h"
 
 //Variables:

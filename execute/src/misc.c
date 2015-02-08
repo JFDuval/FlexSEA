@@ -1,14 +1,38 @@
-#include <project.h>
+//****************************************************************************
+// MIT Media Lab - Biomechatronics
+// Jean-Francois (Jeff) Duval
+// jfduval@mit.edu
+// 02/2015
+//****************************************************************************
+// misc: when it doesn't belong in any another file, it ends up here...
+//****************************************************************************
+
+//****************************************************************************
+// Include(s)
+//****************************************************************************
+
 #include "main.h"
 #include "misc.h"
-#include "../../common/inc/flexsea.h"
 
-#define BUFFER_LEN		64
-uint8 buffer[BUFFER_LEN];
+//****************************************************************************
+// Local variable(s)
+//****************************************************************************
 
-//ADC
-unsigned int adc1_res[ADC1_CHANNELS][ADC1_BUF_LEN];
-unsigned int adc1_res_filtered[ADC1_CHANNELS];
+//Safety-CoP Data:
+struct scop
+{
+	uint16 v_vb, v_vg, v_3v3;
+	uint8 temperature;
+	uint8 status1;
+}safetycop;
+
+//****************************************************************************
+// External variable(s)
+//****************************************************************************
+
+//****************************************************************************
+// Function(s)
+//****************************************************************************
 
 //Initialize and enables all the general peripherals
 void init_peripherals(void)
@@ -29,15 +53,19 @@ void init_peripherals(void)
 	isr_t3_Start();
 	
 	//I2C1 (internal, potentiometers & IMU)
+	#ifdef USE_I2C_INT	
 	I2C_1_Init();
 	I2C_1_EnableInt();
 	I2C_1_Enable();
 	I2C_1_Start();	
+	#endif	//USE_I2C_INT
 	
 	//I2C2 (external)
+	#ifdef USE_I2C_EXT
 	I2C_2_Init();
 	I2C_2_Enable();
 	I2C_2_Start();
+	#endif	//USE_I2C_EXT
 	
 	//Analog amplifiers & multiplexer(s):
 	PGA_1_Start();
@@ -79,10 +107,12 @@ void init_peripherals(void)
 	//isr_pwm_Start();	
 	
 	//UART 2 - RS-485
+	#ifdef USE_RS485
 	UART_2_Init();
 	UART_2_Enable();
 	UART_2_Start();		
 	NOT_RE_Write(0);			//Enable RS-485 Receiver
+	#endif	//USE_RS485
 	
 	//RGB LED (all colors OFF)
 	LED_R_Write(1);
@@ -90,192 +120,11 @@ void init_peripherals(void)
 	LED_B_Write(1);
 	
 	//MPU-6500 IMU:
-	init_imu();
-}
-
-//Initialize the USB peripheral
-//Returns 0 is success, 1 if timeout (happens when the cable is unplugged)
-uint8 init_usb(void)
-{
-	uint16 cnt = 0, flag = 0;
-	
-	//Start USBFS Operation with 3V operation
-    USBUART_1_Start(0u, USBUART_1_3V_OPERATION);
-	
-	//Wait for Device to enumerate */
-    //while(!USBUART_1_GetConfiguration());
-	for(cnt = 0; cnt < USB_ENUM_TIMEOUT; cnt++)
-	{
-		if(USBUART_1_GetConfiguration())
-		{
-			flag = 1;
-			break;
-		}
-		CyDelay(1);
-	}
-
-	if(flag)	
-	{
-	    //Enumeration is done, enable OUT endpoint for receive data from Host
-	    USBUART_1_CDC_Init();	
-		return 1;		//Success
-	}
-	
-	return 0;	//Timeout	
-}
-
-//Send 4 uint16 to the terminal
-int16 send_usb_packet(uint16 word1, uint16 word2, uint16 word3, uint16 word4)
-{
-	static uint8 cnt = 0;
-	char8 packet[18];
-
-	cnt++;
-	
-	packet[0] = 0xAA;	//Start byte
-	
-
-	packet[2] = ((word1 & 0xFF00) >> 8);
-	packet[3] = ((word1 & 0x00FF));
-	
-	packet[4] = ((word2 & 0xFF00) >> 8);
-	packet[5] = ((word2 & 0x00FF));
-	
-	packet[6] = ((word3 & 0xFF00) >> 8);
-	packet[7] = ((word3 & 0x00FF));
-	
-	packet[8] = ((word4 & 0xFF00) >> 8);
-	packet[9] = ((word4 & 0x00FF));
-	
-
-	packet[15] = 0xCC;	//End byte
-	packet[16] = '\n';
-	packet[17] = '\0';
-	
-	//Make sure that the peripheral is ready
-	while(USBUART_1_CDCIsReady() == 0u);	//ToDo Add timeout!
-	USBUART_1_PutData((const uint8*)packet, 18);
-
-	return 0;
-}
-
-//Chops a int32 in 4 bytes and send them through USB - ho headers, raw data
-void send_usb_int32(int payload)
-{
-	int tmp = 0;
-	char8 packet[4];
-	
-	//MSB first
-	tmp = (payload >> 24) & 0xFF;
-	packet[0] = (uint8) tmp;
-	tmp = (payload >> 16) & 0xFF;
-	packet[1] = (uint8) tmp;
-	tmp = (payload >> 8) & 0xFF;
-	packet[2] = (uint8) tmp;
-	tmp = (payload) & 0xFF;
-	packet[3] = (uint8) tmp;
-	
-	//Make sure that the peripheral is ready
-	while(USBUART_1_CDCIsReady() == 0u);	//ToDo Add timeout!
-	USBUART_1_PutData((const uint8*)packet, 4);
-
-	return;
-}
-
-//Chops a int16 in 2 bytes and send them through USB - ho headers, raw data
-//Works with Matlab
-void send_usb_int16(int16 payload)
-{
-	int tmp = 0;
-	char8 packet[4];
-	
-	//MSB first
-	tmp = (payload >> 8) & 0xFF;
-	packet[1] = (uint8) tmp;
-	tmp = (payload) & 0xFF;
-	packet[0] = (uint8) tmp;
-	
-	//Make sure that the peripheral is ready
-	while(USBUART_1_CDCIsReady() == 0u);	//ToDo Add timeout!
-	USBUART_1_PutData((const uint8*)packet, 2);
-
-	return;
-}
-
-//1 byte through USB - ho headers, raw data
-void send_usb_int8(char payload)
-{
-	char8 tmp[16]; 
-	tmp[0] = (payload & 0xFF);
-	
-	//Make sure that the peripheral is ready
-	while(USBUART_1_CDCIsReady() == 0u);	//ToDo Add timeout!
-	USBUART_1_PutData((const uint8*)tmp, 1);
-
-	return;
-}
-
-//1 byte through USB - ho headers, raw data
-void send_usb_uint8(uint8 payload)
-{
-	uint8 tmp[16]; 
-	tmp[0] = (payload & 0xFF);
-	
-	//Make sure that the peripheral is ready
-	while(USBUART_1_CDCIsReady() == 0u);	//ToDo Add timeout!
-	USBUART_1_PutData((const uint8*)tmp, 1);
-
-	return;
-}
-
-uint16 adc_avg8(uint16 new_data)
-{
-	uint32 sum = 0;
-	static uint16 adc_avg_bug[8] = {0,0,0,0,0,0,0,0};
-	static uint8 cnt = 0;
-	uint16 avg = 0;
-	
-	//Shift buffer and sum 7/8 terms
-	for(cnt = 1; cnt < 8; cnt++)
-	{
-		adc_avg_bug[cnt-1] = adc_avg_bug[cnt];
-		sum += adc_avg_bug[cnt-1];
-	}
-	adc_avg_bug[7] = new_data;
-	sum += new_data;
-		
-	//Average
-	avg = (uint16)(sum >> 3);
-	
-	return avg;	
-}
-
-//Returns chars to PC. ToDo: make it non-blocking!
-uint8 usb_echo_blocking(void)
-{
-	static 	int16 count = 0;
-	uint16 i = 0;
-	
-	//USB Data
-	if(USBUART_1_DataIsReady() != 0u)               	//Check for input data from PC
-	{   
-		count = USBUART_1_GetAll(buffer);           	//Read received data and re-enable OUT endpoint
-		if(count != 0u)
-		{
-			while(USBUART_1_CDCIsReady() == 0u);    	//Wait till component is ready to send more data to the PC
-			USBUART_1_PutData(buffer, count);   		//Send data back to PC
-
-			//Store all bytes in rx buf:			
-			for(i = 0; i < count; i++)
-		    {
-		        comm_update_rx_buffer(buffer[i]);
-		    }			
-			
-			return 1;	//Got byte(s)
-		}
-    } 
-	
-	return 0;	//No byte
+	#ifdef USE_I2C_INT	
+		#ifdef USE_IMU
+		init_imu();
+		#endif	//USE_IMU
+	#endif	//USE_I2C_INT
 }
 
 void rs485_putc(uint8 byte)
@@ -308,18 +157,29 @@ void i2c_write_minm_rgb(uint8 cmd, uint8 r, uint8 g, uint8 b)
 	return;	
 }
 
-//Filters the ADC buffer
-//ToDo: generalize & optimize
-void filter_adc(void)
+//Update the global variables from the array
+void decode_psoc4_values(uint8 *psoc4_data)
 {
-	uint16 i = 0;
-	uint16 tmp_ch0 = 0, tmp_ch1 = 0;
-	
-	for(i = 0; i < 8; i++)
-	{
-		tmp_ch0 += adc1_res[0][i];
-		tmp_ch1 += adc1_res[1][i];
-	}
-	adc1_res_filtered[0] = tmp_ch0 >> 3;
-	adc1_res_filtered[1] = tmp_ch1 >> 3;
+	safetycop.v_vb = (psoc4_data[MEM_R_VB_SNS_MSB] << 8) + psoc4_data[MEM_R_VB_SNS_LSB];
+	safetycop.v_vg = (psoc4_data[MEM_R_VG_SNS_MSB] << 8) + psoc4_data[MEM_R_VG_SNS_LSB];
+	safetycop.v_3v3 = (psoc4_data[MEM_R_3V3_SNS_MSB] << 8) + psoc4_data[MEM_R_3V3_SNS_LSB];
+	safetycop.temperature = psoc4_data[MEM_R_TEMPERATURE];
+	safetycop.status1 = psoc4_data[MEM_R_STATUS1];
+}
+
+//Update the sensor structures:
+void update_sensors(void)
+{
+	//IMU:
+	#ifdef USE_I2C_INT
+		
+		#ifdef USE_IMU
+			
+			get_accel_xyz();
+			get_gyro_xyz();
+			//We could also get temperature
+			
+		#endif	//USE_IMU
+		
+	#endif	//USE_I2C_INT	
 }

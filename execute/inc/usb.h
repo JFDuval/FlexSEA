@@ -4,11 +4,11 @@
 // jfduval@mit.edu
 // 02/2015
 //****************************************************************************
-// misc: when it doesn't belong in any another file, it ends up here...
+// usb: USB CDC
 //****************************************************************************
 	
-#ifndef INC_MISC_H
-#define INC_MISC_H
+#ifndef INC_USB_H
+#define INC_USB_H
 
 //****************************************************************************
 // Include(s)
@@ -20,27 +20,20 @@
 // Prototype(s):
 //****************************************************************************
 
-void init_peripherals(void);
-void rs485_putc(uint8 byte);
-void i2c_write_minm_rgb(uint8 cmd, uint8 r, uint8 g, uint8 b);
-void update_sensors(void);
-
+uint8 init_usb(void);
+uint8 usb_echo_blocking(void);
+int16 send_usb_packet(uint16 word1, uint16 word2, uint16 word3, uint16 word4);
+void send_usb_int8(char payload);
+void send_usb_uint8(uint8 payload);
+void send_usb_int16(int16 payload);
+void send_usb_int32(int payload);
+	
 //****************************************************************************
 // Definition(s):
 //****************************************************************************
 
-//Common defines:
-#define PACKET_LEN					64
-#define QUAD1_INIT					13000
+#define USB_ENUM_TIMEOUT			2500	//ms
+#define BUFFER_LEN					64
 	
-//I2C - MinM
-//ToDo clean/move
-#define BUFFER_SIZE	4
-uint8 i2cMasterReadBuf[BUFFER_SIZE];
-uint8 i2cMasterWriteBuf[BUFFER_SIZE];
-#define I2C_SLAVE_ADDR_MINM			0x09
-#define I2C_SLAVE_ADDR_IMU			
-#define SET_RGB						'n' 
-	
-#endif	//INC_MISC_H
+#endif	//INC_USB_H
 	

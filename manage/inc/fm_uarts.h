@@ -4,7 +4,7 @@
 // jfduval@mit.edu
 // 02/2015
 //****************************************************************************
-// fm_uarts: Deals with the 2 USARTs
+// fm_uarts: Deals with the 3 USARTs
 //****************************************************************************
 
 #ifndef UARTS_H_
@@ -40,9 +40,9 @@ unsigned char getc_rs485_1_blocking(void);
 //DE1: PF11
 
 //Common define
-#define RS485_STANDBY		0
-#define RS485_RX		1
-#define RS485_TX		2
-#define RS485_RX_TX		3
+#define RS485_STANDBY	0x00
+#define RS485_RX		0x01
+#define RS485_TX		0x02
+#define RS485_RX_TX		0x03
 
 #endif // UARTS_H_

@@ -1,6 +1,18 @@
-//Trapezoidal Trajectories
+//****************************************************************************
+// MIT Media Lab - Biomechatronics
+// Jean-Francois (Jeff) Duval
+// jfduval@mit.edu
+// 02/2015
+//****************************************************************************
+// trapez: trapezoidal trajectory generation
+//****************************************************************************
+
 //Work based on trapez_gen_x.m, translated in C
 //JFDuval 06/17/2014
+
+//****************************************************************************
+// Include(s)
+//****************************************************************************
 
 //Comment the next line to use in C with PSoC
 //#define CPP_DEBUGGING
@@ -16,11 +28,14 @@ using namespace std;
 
 #else
 
-#include <project.h>
-#include <math.h>
+#include "main.h"
 #include "trapez.h"
 
 #endif
+
+//****************************************************************************
+// Local variable(s)
+//****************************************************************************
 
 //Common variables - careful, do not change "manually"!
 int d_pos = 0, d_spd = 0, a_t = 0, a_t_discrete = 0, spd_inc = 0, acc_pos = 0, acc = 0;
@@ -29,6 +44,14 @@ int skip_sspeed = 0;
 int pos_step = 0;
 int trapez_transitions[3] = {0,0,0};
 int sign = 0;
+
+//****************************************************************************
+// External variable(s)
+//****************************************************************************
+
+//****************************************************************************
+// Function(s)
+//****************************************************************************
 
 //Computes all the parameters for a new trapezoidal motion trajectory
 //Called by trapez_gen_motion_1()

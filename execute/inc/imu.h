@@ -14,14 +14,14 @@
 // Include(s)
 //****************************************************************************
 
-#include <project.h>
+#include "main.h"
 	
 //****************************************************************************
 // Define Flag(s):
 //****************************************************************************
 
 //set to 1 if we want to use blocking read/write
-#define IMU_BLOCKING 1
+#define IMU_BLOCKING 	1
 
 //****************************************************************************
 // Definition(s):
@@ -95,17 +95,19 @@ typedef enum {
 //****************************************************************************
 // functions you'll use in main.c, probably
 void init_imu(void);					//turn on IMU, initialize IMU registers to starting values
-uint16 get_accel_x(void);				//read&return IMU Xaccel
-uint16 get_accel_y(void);				//Yaccel data
-uint16 get_accel_z(void);				//Zaccel data
-uint16 get_gyro_x(void);				//Xgyro data
-uint16 get_gyro_y(void);				//Ygyro data
-uint16 get_gyro_z(void);				//Zgyro data
+int16 get_accel_x(void);				//read&return IMU Xaccel
+int16 get_accel_y(void);				//Yaccel data
+int16 get_accel_z(void);				//Zaccel data
+void get_accel_xyz(void);
+int16 get_gyro_x(void);				//Xgyro data
+int16 get_gyro_y(void);				//Ygyro data
+int16 get_gyro_z(void);				//Zgyro data
+void get_gyro_xyz(void);
 void reset_imu(void);					//reset IMU registers to default
 void disable_imu(void);					//disable the IMU by shutting down clocks, etc.
 
 // low level functions; probably don't have to call them in main.c
-int imu_write(uint8 internal_reg_addr, uint8* pData, uint16 Size); 
-int imu_read(uint8 internal_reg_addr, uint8 *pData, uint16 Size);
+int imu_write(uint8 internal_reg_addr, uint8* pData, uint16 length); 
+int imu_read(uint8 internal_reg_addr, uint8 *pData, uint16 length);
 
 #endif //_FM_I2C_H_ 

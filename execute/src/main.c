@@ -2,7 +2,7 @@
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
 // jfduval@mit.edu
-// 07/2014
+// 02/2015
 //****************************************************************************
 // main: FlexSEA-Execute
 //****************************************************************************
@@ -39,20 +39,6 @@ uint8 last_byte = 0;
 int32 enccount = 0;
 static unsigned char test_val = 1; // for testing die temp read times
 int steps = 0, current_step = 0, pos = 0;
-uint16 psoc4_vb_sns = 0, psoc4_vg_sns = 0, psoc4_3v3_sns = 0;
-uint8 psoc4_temperature = 0, psoc4_status1 = 0;
-
-//ToDo update (different ADC)
-#ifdef MIT_KNEE
-#define KNEE_DOWN	3000
-#define KNEE_UP		1000
-#define WPOS_STEP	1	
-int16 wpos = KNEE_DOWN;
-int16 last_wpos = KNEE_DOWN;
-#endif
-#ifdef MIT_ANKLE
-int16 wpos = 7750;
-#endif
 
 //****************************************************************************
 // External variable(s)
@@ -85,19 +71,9 @@ extern int debug_var;
 // Function(s)
 //****************************************************************************
 
-//Update the global variables from the array
-void decode_psoc4_values(uint8 *psoc4_data)
+int main(void)
 {
-	psoc4_vb_sns = (psoc4_data[MEM_R_VB_SNS_MSB] << 8) + psoc4_data[MEM_R_VB_SNS_LSB];
-	psoc4_vg_sns = (psoc4_data[MEM_R_VG_SNS_MSB] << 8) + psoc4_data[MEM_R_VG_SNS_LSB];
-	psoc4_3v3_sns = (psoc4_data[MEM_R_3V3_SNS_MSB] << 8) + psoc4_data[MEM_R_3V3_SNS_LSB];
-	psoc4_temperature = psoc4_data[MEM_R_TEMPERATURE];
-	psoc4_status1 = psoc4_data[MEM_R_STATUS1];
-}
-	
-int main()
-{
-	//Local variables:
+	//Local variables: (ToDo clean that mess!)
 	uint8 usb_success = 0;
 	uint16 cnt = 0;	
 	uint8 toggle = 0;
@@ -107,9 +83,7 @@ int main()
 	uint8 good_commands = 0;
 	uint8 last_byte = 0, uart_buf_size = 0;
 	uint8 i = 0;
-	int16 pos_cmd = KNEE_DOWN;
 	int usb_data_test = 0;
-	int trapez_wpos = KNEE_DOWN;
 	unsigned char result = 0;
 	unsigned char comm_str_payload1[16];
 	unsigned char ledr_state = 0, ledg_state = 0, ledb_state = 0;
@@ -120,16 +94,19 @@ int main()
 	uint8 toggle_wdclk = 0;
 	uint8 vr1 = 0;
 
+	//Power on delay
+	CyDelay(750);
+	
    	//Enable Global Interrupts
     CyGlobalIntEnable;        
 
 	//All the peripherals but USB
 	init_peripherals();
 	
-	#ifdef USE_I2C
+	#ifdef USE_I2C_EXT
 	//Set RGB LED - Starts Green
 	i2c_write_minm_rgb(SET_RGB, 0, 255, 0);
-	#endif //USE_I2C
+	#endif //USE_I2C_EXT
 	
 	#ifdef USE_USB
 	//USB peripheral
@@ -143,9 +120,6 @@ int main()
 		LED_B_Write(1);
 	}
 	#endif
-	
-	//Give all the peripherals time to boot
-	CyDelay(100);	//ToDo less time
 	
 	#ifdef USE_DIETEMP
 	// First DieTemp reading is always inaccurate -- throw out the first one
@@ -174,26 +148,15 @@ int main()
 	I2C_1_MasterWriteBuf(I2C_POT_ADDR, (uint8 *) i2c_test_wbuf, 2, I2C_1_MODE_COMPLETE_XFER);	
 	while(1)
 	{
-		vr1++;
-			
+		vr1++;			
 		
 		ledg_state ^= 1;
 		LED_G_Write(ledg_state);
 		
 		CyDelay(1);
 	}
-	*/
-	
-	/*
-	//WDCLK test code
-	while(1)
-	{
-		toggle_wdclk ^= 1;
-		WDCLK_Write(toggle_wdclk);
-		CyDelayUs(500);
-	}
-	*/
-	
+	*/	
+
 	/*
 	//PSoC 4 <=> PSoC 5 I2C Test code
 	while(1)
@@ -233,11 +196,7 @@ int main()
 	/*
 	//ToDo Debug only - fixed PWM
 	controller = CTRL_OPEN;
-	//PWM_1_WriteCompare(250);	
 	motor_open_speed_1(800);
-	PWM_2_WriteCompare(240);
-	double var1 = 0, var2 = 0, var3 = 0;
-	uint8 cnt1 = 0, cnt2 = 100;
 	while(1)
 	{
 		cnt1++; cnt2++;
@@ -248,20 +207,13 @@ int main()
 		LED_R_Write(H1_Read());
 		LED_G_Write(H2_Read());
 		LED_B_Write(H3_Read());
-		
-		#ifdef USE_QEI1
-				
-		//Refresh encoder readings
-		enccount = QuadDec_1_GetCounter();
-				
-		#endif	//USE_QEI1
 	}
 	*/
 	
 	//Main loop
 	while(1)
 	{
-		//1ms timebase for PID controller
+		//1ms timebase
 		if(t1_1ms_flag)
 		{
 			t1_1ms_flag = 0;
@@ -271,43 +223,29 @@ int main()
 				//Refresh encoder readings
 				enccount = QuadDec_1_GetCounter();
 				
-			#endif	//USE_QEI1
+			#endif	//USE_QEI1			
 			
-			#ifdef MIT_KNEE		
-				
-				#ifdef USE_TRAPEZ	
-				
-					if(controller == CTRL_POSITION)
-					{
-						//motor_position_pi_analog(pos, (int)adc_res_filtered[0]);				//Knee - w/ trapez
-						motor_position_pi_encoder(pos, enccount);
-						//ToDo confirm that it works with the increased resolution
-					}
-					else if(controller == CTRL_IMPEDANCE)
-					{
-						//Impedance controller
-						motor_impedance_encoder(pos, enccount);
-					}
-				
-				#endif	//USE_TRAPEZ	
-				
-			#endif		//MIT_KNEE		
+			#ifdef USE_TRAPEZ	
 			
-			#ifdef MIT_ANKLE
-				
-				motor_position_pi_encoder(wpos, enccount);				//Ankle
-				
-			#endif		//MIT_ANKLE
+				if(controller == CTRL_POSITION)
+				{
+					//motor_position_pi_analog(pos, (int)adc_res_filtered[0]);
+					motor_position_pi_encoder(pos, enccount);
+					//ToDo confirm that it works with the increased resolution
+				}
+				else if(controller == CTRL_IMPEDANCE)
+				{
+					//Impedance controller
+					motor_impedance_encoder(pos, enccount);
+				}
 			
-			//If no controller is used the PWM should be 0:
-			if(controller == CTRL_NONE)
-			{
-				motor_open_speed_1(0);
-			}			
+			#endif	//USE_TRAPEZ
+			
+			//Refresh all the sensor data:
+			update_sensors();
 		}
 		
-		//10ms timebase for trajectory generation 
-		//ToDo Move it to 1ms in the future (trapez.c will need to be updated first)
+		//10ms timebase
 		if(t2_10ms_flag)
 		{
 			t2_10ms_flag = 0;
@@ -318,9 +256,16 @@ int main()
 				{	
 					//Trapezoidal trajectories (can be used for both Position & Impedance)				
 					pos = trapez_get_pos(steps);	//New setpoint
+					//ToDo Move it to 1ms in the future (trapez.c will need to be updated first)
 				}
 			
 			#endif	//USE_TRAPEZ	
+			
+			//If no controller is used the PWM should be 0:
+			if(controller == CTRL_NONE)
+			{
+				motor_open_speed_1(0);
+			}
 		}
 		
 		//50ms timebase for safety checks, etc
@@ -348,14 +293,7 @@ int main()
 					DieTemp_1_Start(); 		// start next temp reading
 				}
 			
-			#endif	//USE_DIETEMP	
-			
-			#ifdef USE_USB
-			//USB debugging
-			//usb_value += 1000;
-			//send_usb_int16(debug_var);
-			//send_usb_int16((int16) ((QuadDec_1_GetCounter() >> 2) & 0xFFFF));	
-			#endif
+			#endif	//USE_DIETEMP				
 		}
 		
 		#ifdef USE_USB
@@ -408,7 +346,7 @@ int main()
 		//FlexSEA Network Communication
 		#ifdef USE_COMM
 			
-			//We received a communication string
+			//We received a communication string (from RS-485 or from USB)
 			if(comm_success)
 			{
 				comm_success = 0;
