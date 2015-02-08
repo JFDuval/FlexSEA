@@ -1,6 +1,13 @@
---------------- Build Started: 02/08/2015 17:49:34 Project: execute_1_0, Configuration: ARM GCC 4.7.3 Debug ---------------
+--------------- Build Started: 02/08/2015 17:55:21 Project: execute_1_0, Configuration: ARM GCC 4.7.3 Debug ---------------
 The code generation step is up to date.
+arm-none-eabi-gcc.exe -I. -I./Generated_Source/PSoC5 -Wno-main -mcpu=cortex-m3 -mthumb -I ..\inc -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_473\Debug\flexsea.lst -ffunction-sections -c ..\..\common\src\flexsea.c -o .\CortexM3\ARM_GCC_473\Debug\flexsea.o
+..\..\common\src\flexsea.c: In function 'test_flexsea_network':
+..\..\common\src\flexsea.c:88:19: warning: variable 'result' set but not used [-Wunused-but-set-variable]
+arm-none-eabi-gcc.exe -I. -I./Generated_Source/PSoC5 -Wno-main -mcpu=cortex-m3 -mthumb -I ..\inc -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_473\Debug\flexsea_payload.lst -ffunction-sections -c ..\..\common\src\flexsea_payload.c -o .\CortexM3\ARM_GCC_473\Debug\flexsea_payload.o
+..\..\common\src\flexsea_payload.c: In function 'payload_local_console_test':
+..\..\common\src\flexsea_payload.c:213:19: warning: variable 'result' set but not used [-Wunused-but-set-variable]
 arm-none-eabi-gcc.exe -I. -I./Generated_Source/PSoC5 -Wno-main -mcpu=cortex-m3 -mthumb -I ..\inc -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_473\Debug\flexsea_rx_cmd.lst -ffunction-sections -c ..\..\common\src\flexsea_rx_cmd.c -o .\CortexM3\ARM_GCC_473\Debug\flexsea_rx_cmd.o
+arm-none-eabi-gcc.exe -I. -I./Generated_Source/PSoC5 -Wno-main -mcpu=cortex-m3 -mthumb -I ..\inc -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_473\Debug\flexsea_tx_cmd.lst -ffunction-sections -c ..\..\common\src\flexsea_tx_cmd.c -o .\CortexM3\ARM_GCC_473\Debug\flexsea_tx_cmd.o
 arm-none-eabi-gcc.exe -I. -I./Generated_Source/PSoC5 -Wno-main -mcpu=cortex-m3 -mthumb -I ..\inc -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_473\Debug\clutch.lst -ffunction-sections -c ..\src\clutch.c -o .\CortexM3\ARM_GCC_473\Debug\clutch.o
 arm-none-eabi-gcc.exe -I. -I./Generated_Source/PSoC5 -Wno-main -mcpu=cortex-m3 -mthumb -I ..\inc -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_473\Debug\misc.lst -ffunction-sections -c ..\src\misc.c -o .\CortexM3\ARM_GCC_473\Debug\misc.o
 arm-none-eabi-gcc.exe -I. -I./Generated_Source/PSoC5 -Wno-main -mcpu=cortex-m3 -mthumb -I ..\inc -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_473\Debug\motor.lst -ffunction-sections -c ..\src\motor.c -o .\CortexM3\ARM_GCC_473\Debug\motor.o
@@ -56,4 +63,4 @@ cyelftool.exe -C D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\C
 cyelftool.exe -S D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\CortexM3\ARM_GCC_473\Debug\execute_1_0.elf
 Flash used: 31214 of 262144 bytes (11,9 %).
 SRAM used: 22221 of 65536 bytes (33,9 %).
---------------- Build Succeeded: 02/08/2015 17:49:40 ---------------
+--------------- Build Succeeded: 02/08/2015 17:55:28 ---------------
