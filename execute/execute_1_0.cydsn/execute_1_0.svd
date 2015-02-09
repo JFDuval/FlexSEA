@@ -2464,81 +2464,17 @@
     <peripheral>
       <name>Timer_3</name>
       <description>No description available</description>
-      <baseAddress>0x4000640A</baseAddress>
+      <baseAddress>0x40006489</baseAddress>
       <addressBlock>
         <offset>0</offset>
-        <size>0x93</size>
+        <size>0xF1</size>
         <usage>registers</usage>
       </addressBlock>
       <registers>
         <register>
-          <name>Timer_3_COUNTER</name>
-          <description>UDB.A0 - Current Down Counter Value</description>
-          <addressOffset>0x0</addressOffset>
-          <size>16</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>Timer_3_PERIOD</name>
-          <description>UDB.D0 - Assigned Period</description>
-          <addressOffset>0x20</addressOffset>
-          <size>16</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>Timer_3_Control_Reg</name>
-          <description>UDB Control Register - Assigned Control Register Value</description>
-          <addressOffset>0x70</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-          <fields>
-            <field>
-              <name>CTRL_ENABLE</name>
-              <description>Enable the Timer</description>
-              <lsb>7</lsb>
-              <msb>7</msb>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>CTRL_CMODE</name>
-              <description>Capture Mode</description>
-              <lsb>5</lsb>
-              <msb>6</msb>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>CTRL_TEN</name>
-              <description>Trigger Enable Bit</description>
-              <lsb>4</lsb>
-              <msb>4</msb>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>CTRL_TMODE</name>
-              <description>Trigger Mode</description>
-              <lsb>2</lsb>
-              <msb>3</msb>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>CTRL_IC</name>
-              <description>Interrupt Count</description>
-              <lsb>0</lsb>
-              <msb>1</msb>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
           <name>Timer_3_STATUS_MASK</name>
           <description>UDB Status bits Interrupt Mask Enable Register</description>
-          <addressOffset>0x82</addressOffset>
+          <addressOffset>0x0</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2577,7 +2513,7 @@
         <register>
           <name>Timer_3_STATUS_AUX_CTRL</name>
           <description>UDB Auxilliary Control Register</description>
-          <addressOffset>0x92</addressOffset>
+          <addressOffset>0x10</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2696,6 +2632,70 @@
                   <value>1</value>
                 </enumeratedValue>
               </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Timer_3_COUNTER</name>
+          <description>UDB.A0 - Current Down Counter Value</description>
+          <addressOffset>0x7F</addressOffset>
+          <size>16</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>Timer_3_PERIOD</name>
+          <description>UDB.D0 - Assigned Period</description>
+          <addressOffset>0x9F</addressOffset>
+          <size>16</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>Timer_3_Control_Reg</name>
+          <description>UDB Control Register - Assigned Control Register Value</description>
+          <addressOffset>0xF0</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>CTRL_ENABLE</name>
+              <description>Enable the Timer</description>
+              <lsb>7</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>CTRL_CMODE</name>
+              <description>Capture Mode</description>
+              <lsb>5</lsb>
+              <msb>6</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>CTRL_TEN</name>
+              <description>Trigger Enable Bit</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>CTRL_TMODE</name>
+              <description>Trigger Mode</description>
+              <lsb>2</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>CTRL_IC</name>
+              <description>Interrupt Count</description>
+              <lsb>0</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
             </field>
           </fields>
         </register>
@@ -3956,10 +3956,10 @@
     <peripheral>
       <name>UART_2</name>
       <description>UART</description>
-      <baseAddress>0x40006529</baseAddress>
+      <baseAddress>0x4000642A</baseAddress>
       <addressBlock>
         <offset>0</offset>
-        <size>0x42</size>
+        <size>0x44</size>
         <usage>registers</usage>
       </addressBlock>
       <registers>
@@ -3984,7 +3984,7 @@
         <register>
           <name>TX_UART_2_TX_DATA</name>
           <description>TX Data Register</description>
-          <addressOffset>0x1E</addressOffset>
+          <addressOffset>0x1D</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -4002,7 +4002,7 @@
         <register>
           <name>TX_UART_2_TX_STATUS</name>
           <description>TX status register</description>
-          <addressOffset>0x3E</addressOffset>
+          <addressOffset>0x39</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -4041,7 +4041,7 @@
         <register>
           <name>RX_UART_2_RX_STATUS</name>
           <description>RX status register</description>
-          <addressOffset>0x41</addressOffset>
+          <addressOffset>0x43</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -8606,17 +8606,35 @@
     <peripheral>
       <name>I2C_1</name>
       <description>No description available</description>
-      <baseAddress>0x40006466</baseAddress>
+      <baseAddress>0x40006408</baseAddress>
       <addressBlock>
         <offset>0</offset>
-        <size>0xA6</size>
+        <size>0x17E</size>
         <usage>registers</usage>
       </addressBlock>
       <registers>
         <register>
+          <name>I2C_1_UDB_MSTR_DATA</name>
+          <description>Data</description>
+          <addressOffset>0x0</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>data</name>
+              <description>This register provides read/write access to the Shift register.</description>
+              <lsb>0</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
           <name>I2C_1_UDB_MSTR_CSR</name>
           <description>Status Register</description>
-          <addressOffset>0x0</addressOffset>
+          <addressOffset>0x15D</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -8683,7 +8701,7 @@
         <register>
           <name>I2C_1_UDB_MSTR_CFG</name>
           <description>Configuration Register</description>
-          <addressOffset>0xF</addressOffset>
+          <addressOffset>0x16F</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -8743,36 +8761,18 @@
         <register>
           <name>I2C_1_UDB_MSTR_INT_MASK</name>
           <description>Interrupt Mask</description>
-          <addressOffset>0x20</addressOffset>
+          <addressOffset>0x17D</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
           <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>I2C_1_UDB_MSTR_DATA</name>
-          <description>Data</description>
-          <addressOffset>0xA5</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-          <fields>
-            <field>
-              <name>data</name>
-              <description>This register provides read/write access to the Shift register.</description>
-              <lsb>0</lsb>
-              <msb>7</msb>
-              <access>read-write</access>
-            </field>
-          </fields>
         </register>
       </registers>
     </peripheral>
     <peripheral>
       <name>PWM_1</name>
       <description>No description available</description>
-      <baseAddress>0x4000642C</baseAddress>
+      <baseAddress>0x4000652A</baseAddress>
       <addressBlock>
         <offset>0</offset>
         <size>0x72</size>
@@ -8791,7 +8791,7 @@
         <register>
           <name>PWM_1_Control_Reg</name>
           <description>UDB Control Register - Assigned Control Register Value</description>
-          <addressOffset>0x51</addressOffset>
+          <addressOffset>0x50</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -8823,7 +8823,7 @@
         <register>
           <name>PWM_1_STATUS_MASK</name>
           <description>UDB Status bits Interrupt Mask Enable Register</description>
-          <addressOffset>0x5D</addressOffset>
+          <addressOffset>0x5E</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -9121,10 +9121,10 @@
     <peripheral>
       <name>QuadDec_1</name>
       <description>No description available</description>
-      <baseAddress>0x40006402</baseAddress>
+      <baseAddress>0x40006400</baseAddress>
       <addressBlock>
         <offset>0</offset>
-        <size>0x60</size>
+        <size>0x61</size>
         <usage>registers</usage>
       </addressBlock>
       <registers>
@@ -9140,7 +9140,7 @@
         <register>
           <name>QuadDec_1_STATUS_REG</name>
           <description>Quadrature Decoder Status Register</description>
-          <addressOffset>0x5F</addressOffset>
+          <addressOffset>0x60</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -9181,10 +9181,10 @@
     <peripheral>
       <name>QuadDec_1_Cnt16</name>
       <description>No description available</description>
-      <baseAddress>0x40006402</baseAddress>
+      <baseAddress>0x40006400</baseAddress>
       <addressBlock>
         <offset>0</offset>
-        <size>0x8F</size>
+        <size>0x9D</size>
         <usage>registers</usage>
       </addressBlock>
       <registers>
@@ -9218,7 +9218,7 @@
         <register>
           <name>QuadDec_1_Cnt16_Control_Reg</name>
           <description>UDB Control Register - Assigned Control Register Value</description>
-          <addressOffset>0x70</addressOffset>
+          <addressOffset>0x72</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -9250,7 +9250,7 @@
         <register>
           <name>QuadDec_1_Cnt16_STATUS_MASK</name>
           <description>UDB Status bits Interrupt Mask Enable Register</description>
-          <addressOffset>0x7E</addressOffset>
+          <addressOffset>0x8C</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -9310,7 +9310,7 @@
         <register>
           <name>QuadDec_1_Cnt16_STATUS_AUX_CTRL</name>
           <description>UDB Auxilliary Control Register</description>
-          <addressOffset>0x8E</addressOffset>
+          <addressOffset>0x9C</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -9727,9 +9727,9 @@
       </registers>
     </peripheral>
     <peripheral>
-      <name>Control_Reg_1</name>
+      <name>MotorDirection</name>
       <description>No description available</description>
-      <baseAddress>0x40006478</baseAddress>
+      <baseAddress>0x40006578</baseAddress>
       <addressBlock>
         <offset>0</offset>
         <size>0x1</size>
@@ -9737,7 +9737,7 @@
       </addressBlock>
       <registers>
         <register>
-          <name>Control_Reg_1_CONTROL_REG</name>
+          <name>MotorDirection_CONTROL_REG</name>
           <description>No description available</description>
           <addressOffset>0x0</addressOffset>
           <size>8</size>

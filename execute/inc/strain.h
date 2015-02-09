@@ -23,6 +23,7 @@
 void init_strain(void);
 void strain_config(uint8 offs, uint8 gain, uint8 oref);
 uint16 strain_read(void);
+uint16 strain_filter(void);
 void strain_test_blocking(void);
 
 //****************************************************************************
@@ -51,6 +52,31 @@ void strain_test_blocking(void);
 #define STRAIN_DEFAULT_OREF		156
 #define STRAIN_DEFAULT_OFFSET	10
 #define STRAIN_DEFAULT_GAIN		120
+
+//Strain filtering:
+#define STRAIN_BUF_LEN			8
+#define STRAIN_SHIFT			3	//Needs to match STRAIN_BUF_LEN
+
+//****************************************************************************
+// Structure(s):
+//****************************************************************************
+
+//Strain gauge amplifier:
+struct strain_s
+{
+     //Config:
+     uint8 gain;
+     uint8 offset;
+     uint8 oref;
+
+     //Latest ADC values:
+     uint16 vo1;
+     uint16 vo2;
+	 
+	 //Filtering:
+	 uint16 vo2_buf[STRAIN_BUF_LEN];
+	 uint16 filtered_strain;
+};
 
 #endif	//INC_STRAIN_H
 	

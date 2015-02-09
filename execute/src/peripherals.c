@@ -25,6 +25,8 @@
 // External variable(s)
 //****************************************************************************
 
+uint8 usb_success = 0;
+
 //****************************************************************************
 // Function(s)
 //****************************************************************************
@@ -65,11 +67,37 @@ void init_peripherals(void)
 		
 	#endif	//USE_I2C_INT	
 	
-	//I2C2 (external)
+	//I2C2 (external)	
+	#ifdef USE_I2C_EXT
+	
+	//I2C2 peripheral:
 	init_i2c2();
+	
+	//Set RGB LED - Starts Green
+	i2c_write_minm_rgb(SET_RGB, 0, 255, 0);
+	
+	#endif //USE_I2C_EXT
 	
 	//Clutch:
 	init_clutch();
+	
+	// First DieTemp reading is always inaccurate -- throw out the first one
+	#ifdef USE_DIETEMP	
+	DieTemp_1_GetTemp(&temp);
+	#endif
+	
+	//USB CDC
+	#ifdef USE_USB	
+	usb_success = init_usb();
+	if(usb_success)
+	{
+		LED_B_Write(0);
+	}
+	else
+	{
+		LED_B_Write(1);
+	}
+	#endif	//USE_USB
 }
 
 //Timebase timers init:

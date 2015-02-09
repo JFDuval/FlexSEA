@@ -17,6 +17,8 @@
 //****************************************************************************
 // Local variable(s)
 //****************************************************************************
+
+struct strain_s strain;
 	
 //****************************************************************************
 // External variable(s)
@@ -50,7 +52,10 @@ void init_strain(void)
 	//Defaults:
 	//=-=-=-=-=-=
 	
-	strain_config(STRAIN_DEFAULT_OFFSET, STRAIN_DEFAULT_GAIN, STRAIN_DEFAULT_OREF);
+	strain.offset = STRAIN_DEFAULT_OFFSET;
+	strain.gain = STRAIN_DEFAULT_GAIN;
+	strain.oref = STRAIN_DEFAULT_OREF;	
+	strain_config(strain.offset, strain.gain, strain.oref);
 }
 
 //Configure the strain gauge amplifier
@@ -73,12 +78,37 @@ void strain_config(uint8 offs, uint8 gain, uint8 oref)
 	I2C_1_MasterWriteBuf(I2C_POT_ADDR, (uint8 *) i2c_init_buf, 2, I2C_1_MODE_COMPLETE_XFER);	
 }
 
-//Returns the last strain measurement
+//Returns the latest filtered strain measurement
 uint16 strain_read(void)
 {
-	//ADC is auto-sampling, this function simply returns the last value
+	//ADC is auto-sampling, this function simply returns the last filtered value
 	
-	//ToDo
+	return strain.filtered_strain;
+}
+
+//Moving average filter:
+uint16 strain_filter(void)
+{
+	uint32 sum = 0;
+	static uint8 cnt = 0;
+	uint16 avg = 0;
+	
+	//Shift buffer and sum all but last term
+	for(cnt = 1; cnt < STRAIN_BUF_LEN; cnt++)
+	{
+		strain.vo2_buf[cnt-1] = strain.vo2_buf[cnt];
+		sum += strain.vo2_buf[cnt-1];
+	}
+	strain.vo2_buf[STRAIN_BUF_LEN] = strain.vo2;
+	sum += strain.vo2;
+		
+	//Average
+	avg = (uint16)(sum >> STRAIN_SHIFT);
+	
+	//Store in structure:
+	strain.filtered_strain = avg;
+	
+	return avg;	
 }
 
 //Copy of the test code used in main.c to test the hardware:

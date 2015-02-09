@@ -26,7 +26,7 @@
 /* `#START ADC_SYS_VAR`  */
 
 #include <project.h>
-#include "misc.h"
+#include "main.h"
 volatile uint16 adc1_result = 0;
 volatile uint16 adc1_result_avg8 = 0;
 extern unsigned int adc1_res[ADC1_CHANNELS][ADC1_BUF_LEN];

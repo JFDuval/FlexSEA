@@ -62,7 +62,7 @@
 #include <Timer_2.h>
 #include <isr_t1.h>
 #include <Timer_1.h>
-#include <Control_Reg_1.h>
+#include <MotorDirection.h>
 #include <PWML3_aliases.h>
 #include <PWML3.h>
 #include <PWMH3_aliases.h>

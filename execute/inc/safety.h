@@ -34,6 +34,7 @@ struct scop
 
 void decode_psoc4_values(uint8 *psoc4_data);
 void safety_cop_comm_test_blocking(void);
+int16 dietemp_read(void);
 
 //****************************************************************************
 // Definition(s):

@@ -7,6 +7,9 @@
 // analog: ADC configurations, read & filter functions
 //****************************************************************************
 
+//Note: this is for the analog functionality of the expansion connector
+// Current sensing and strain gauge amplification are in other files.
+
 //****************************************************************************
 // Include(s)
 //****************************************************************************
@@ -46,17 +49,17 @@ void init_analog(void)
 uint16 adc_avg8(uint16 new_data)
 {
 	uint32 sum = 0;
-	static uint16 adc_avg_bug[8] = {0,0,0,0,0,0,0,0};
+	static uint16 adc_avg_buf[8] = {0,0,0,0,0,0,0,0};
 	static uint8 cnt = 0;
 	uint16 avg = 0;
 	
 	//Shift buffer and sum 7/8 terms
 	for(cnt = 1; cnt < 8; cnt++)
 	{
-		adc_avg_bug[cnt-1] = adc_avg_bug[cnt];
-		sum += adc_avg_bug[cnt-1];
+		adc_avg_buf[cnt-1] = adc_avg_buf[cnt];
+		sum += adc_avg_buf[cnt-1];
 	}
-	adc_avg_bug[7] = new_data;
+	adc_avg_buf[7] = new_data;
 	sum += new_data;
 		
 	//Average

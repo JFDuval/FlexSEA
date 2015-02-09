@@ -67,11 +67,11 @@ void motor_open_speed_1(int16 pwm_duty)
 	if(pdc < 0)
 	{
 		pdc = -pdc;	//Make it positive
-		Control_Reg_1_Write(0);
+		MotorDirection_Write(0);
 	}
 	else
 	{
-		Control_Reg_1_Write(1);
+		MotorDirection_Write(1);
 	}
 	
 	//Write duty cycle to PWM module
@@ -95,11 +95,11 @@ void motor_open_speed_2(int16 pwm_duty, int sign)
 	//Change direction according to sign
 	if(sign == -1)
 	{
-		Control_Reg_1_Write(0);
+		MotorDirection_Write(0);
 	}
 	else if(sign == 1)
 	{
-		Control_Reg_1_Write(1);
+		MotorDirection_Write(1);
 	}
 	else
 	{

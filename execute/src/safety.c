@@ -66,3 +66,37 @@ void safety_cop_comm_test_blocking(void)
 		CyDelay(250);	
 	}
 }
+
+//Returns the die temperature.
+//ToDo deal with the active_error, or replace with better code
+int16 dietemp_read(void)
+{
+	#ifdef USE_DIETEMP
+
+	static cystatus dietemp = 0;
+	int16 temp = 0;	
+	uint8 active_error = 0;
+				
+	//Die temperature too high?
+	dietemp = DieTemp_1_Query(&temp);
+	if(dietemp == CYRET_SUCCESS)
+	{
+		DieTemp_1_Start(); 		// start next temp reading
+		if(temp > MAX_DIE_TEMP)
+			active_error = 1;
+		else
+			active_error = 0;
+	} 
+	else if(dietemp == (CYRET_TIMEOUT))
+	{
+		DieTemp_1_Start(); 		// start next temp reading
+	}
+	
+	return temp;
+	
+	#else
+		
+		return 0;
+			
+	#endif	//USE_DIETEMP		
+}

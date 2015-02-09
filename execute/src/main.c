@@ -33,8 +33,6 @@
 //****************************************************************************
 
 //Misc. variables, used for debugging only
-//unsigned int pid_kp = 0, pid_ki = 0, pid_kd = 0;
-uint8 active_error = 0;
 uint8 last_byte = 0;
 int32 enccount = 0;
 int steps = 0, current_step = 0, pos = 0;
@@ -42,12 +40,6 @@ int steps = 0, current_step = 0, pos = 0;
 //****************************************************************************
 // External variable(s)
 //****************************************************************************
-
-//ADC
-extern volatile uint16 adc1_result;
-extern volatile uint16 adc1_result_avg8;
-extern unsigned char adc_sar1_flag;
-extern unsigned int adc_res_filtered[ADC1_CHANNELS];
 
 //FlexSEA Network
 extern unsigned char payload_str[];
@@ -58,12 +50,23 @@ extern volatile uint8 t1_1ms_flag;
 extern volatile uint8 t2_10ms_flag;
 extern volatile uint8 t2_50ms_flag;
 
+//ADC
+extern volatile uint16 adc1_result;
+extern volatile uint16 adc1_result_avg8;
+extern unsigned char adc_sar1_flag;
+extern unsigned int adc_res_filtered[ADC1_CHANNELS];
+
+//RS-485:
 extern volatile unsigned char uart2_flag;
 
 //motor.c:
 extern struct ctrl_s ctrl;
 
-extern int debug_var;
+//peripherals.c
+extern uint8 usb_success;
+
+//DelSig ADC:
+extern uint8 adc_delsig_flag;
 
 //****************************************************************************
 // Function(s)
@@ -72,9 +75,6 @@ extern int debug_var;
 int main(void)
 {
 	//Local variables:
-	uint8 usb_success = 0;
-	static cystatus dietemp = 0;
-	int16 temp = 0;
 	int16 comm_res = 0, comm_success = 0;
 	uint8 good_commands = 0;
 	uint8 last_byte = 0, uart_buf_size = 0;
@@ -90,31 +90,8 @@ int main(void)
    	//Enable Global Interrupts
     CyGlobalIntEnable;        
 
-	//All the peripherals but USB
+	//Initialize all the peripherals
 	init_peripherals();
-	
-	#ifdef USE_I2C_EXT
-	//Set RGB LED - Starts Green
-	i2c_write_minm_rgb(SET_RGB, 0, 255, 0);
-	#endif //USE_I2C_EXT
-	
-	#ifdef USE_USB
-	//USB peripheral
-	usb_success = init_usb();
-	if(usb_success)
-	{
-		LED_B_Write(0);
-	}
-	else
-	{
-		LED_B_Write(1);
-	}
-	#endif
-	
-	#ifdef USE_DIETEMP
-	// First DieTemp reading is always inaccurate -- throw out the first one
-	dietemp = DieTemp_1_GetTemp(&temp);
-	#endif
 	
 	//Start with an empty buffer
 	flexsea_clear_slave_read_buffer();	
@@ -133,6 +110,7 @@ int main(void)
 	while(1)
 	{
 		//1ms timebase
+		//ToDo confirm that it doesn't take more than 1ms to execute with all the new sensor functions
 		if(t1_1ms_flag)
 		{
 			t1_1ms_flag = 0;
@@ -141,6 +119,9 @@ int main(void)
 				
 				//Refresh encoder readings
 				enccount = QuadDec_1_GetCounter();
+				//Note: we keep this one out of the update_sensors() function
+				//because it's critical for the loop stability that this value
+				//be steady.
 				
 			#endif	//USE_QEI1			
 			
@@ -192,25 +173,7 @@ int main(void)
 		{
 			t2_50ms_flag = 0;
 			
-			#ifdef USE_DIETEMP
-				
-				//Die temperature too high?
-				dietemp = DieTemp_1_Query(&temp);
-				//active_error = 1;	//ToDo Tests
-				if(dietemp == CYRET_SUCCESS)
-				{
-					DieTemp_1_Start(); 		// start next temp reading
-					if(temp > MAX_DIE_TEMP)
-	 					active_error = 1;
-					else
-						active_error = 0;
-				} 
-				else if(dietemp == (CYRET_TIMEOUT))
-				{
-					DieTemp_1_Start(); 		// start next temp reading
-				}
-			
-			#endif	//USE_DIETEMP				
+			dietemp_read();	//ToDo store in variable				
 		}
 		
 		#ifdef USE_USB
@@ -285,14 +248,21 @@ int main(void)
 		
 		#endif	//USE_COMM
 		
-		//ADC results ready to be filtered?
+		//SAR ADC results ready to be filtered?
 		if(adc_sar1_flag)
 		{
 			adc_sar1_flag = 0;
 			filter_adc();
 		}
 		
-		//WatchDog Clock
+		//DelSig ADC results ready to be filtered?
+		if(adc_delsig_flag)
+		{
+			adc_delsig_flag = 0;
+			strain_filter();
+		}
+		
+		//WatchDog Clock (Safety-CoP)
 		toggle_wdclk ^= 1;
 		WDCLK_Write(toggle_wdclk);
 	}

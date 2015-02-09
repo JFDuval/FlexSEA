@@ -25,6 +25,11 @@
 *******************************************************************************/
 /* `#START ADC_SYS_VAR`  */
 
+#include <project.h>
+#include "main.h"
+extern struct strain_s strain;
+uint8 adc_delsig_flag = 0;
+
 /* `#END`  */
 
 
@@ -56,6 +61,15 @@
         **************************************************************************/
         /* `#START MAIN_ADC_ISR1`  */
 
+		//Note: for now we only use VO2. VO1 can be added if needed (there
+		// is a Mux for that)
+		
+		//Store last value:
+		strain.vo2 = (uint16)ADC_DelSig_1_GetResult16();
+		
+		//Raise flag:
+		adc_delsig_flag = 1;
+		
         /* `#END`  */
 
         /* Stop the conversion if conversion mode is single sample and resolution

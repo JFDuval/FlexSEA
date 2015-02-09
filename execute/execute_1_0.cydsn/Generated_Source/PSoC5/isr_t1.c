@@ -31,7 +31,6 @@
 #define ALIVE_HALF_T		125		//ms	
 #define ERROR_HALF_T		70		//ms	
 volatile uint8 t1_1ms_flag = 0;
-extern uint8 active_error;
 	
 /* `#END` */
 
@@ -176,8 +175,11 @@ CY_ISR(isr_t1_Interrupt)
 	{
 		count2 = 0;
 		toggle2^=1;
+		
+		/* ToDo use that function for the Error LED code (TBD)
 		if(active_error)
 			LED_R_Write(toggle2);
+		*/
 	}
 	
 	//Flag for the main code
