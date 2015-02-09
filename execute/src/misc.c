@@ -18,14 +18,6 @@
 // Local variable(s)
 //****************************************************************************
 
-//Safety-CoP Data:
-struct scop
-{
-	uint16 v_vb, v_vg, v_3v3;
-	uint8 temperature;
-	uint8 status1;
-}safety_cop;
-
 //****************************************************************************
 // External variable(s)
 //****************************************************************************
@@ -158,16 +150,6 @@ void i2c_write_minm_rgb(uint8 cmd, uint8 r, uint8 g, uint8 b)
     (void) I2C_2_MasterClearStatus();
 	
 	return;	
-}
-
-//Update the global variables from the array
-void decode_psoc4_values(uint8 *psoc4_data)
-{
-	safety_cop.v_vb = (psoc4_data[MEM_R_VB_SNS_MSB] << 8) + psoc4_data[MEM_R_VB_SNS_LSB];
-	safety_cop.v_vg = (psoc4_data[MEM_R_VG_SNS_MSB] << 8) + psoc4_data[MEM_R_VG_SNS_LSB];
-	safety_cop.v_3v3 = (psoc4_data[MEM_R_3V3_SNS_MSB] << 8) + psoc4_data[MEM_R_3V3_SNS_LSB];
-	safety_cop.temperature = psoc4_data[MEM_R_TEMPERATURE];
-	safety_cop.status1 = psoc4_data[MEM_R_STATUS1];
 }
 
 //Update the sensor structures:

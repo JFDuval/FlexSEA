@@ -72,6 +72,7 @@ int motor_current_pid_1(int wanted_curr, int measured_curr);
 void control_strategy(unsigned char strat);
 int motor_impedance_encoder(int wanted_pos, int new_enc_count);
 void init_motor(void);
+void motor_fixed_pwm_test_code_blocking(int spd);
 
 //****************************************************************************
 // Definition(s):

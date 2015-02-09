@@ -13,7 +13,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="execute\execute_1_0\Source Files\src\flexsea_local.c">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="execute\execute_1_0">
 <ExpandedNodeIds>
 <v>execute</v>
 <v>execute\execute_1_0</v>
@@ -21,11 +21,15 @@
 <v>execute\execute_1_0\Header Files\common</v>
 <v>execute\execute_1_0\Header Files\inc</v>
 <v>execute\execute_1_0\Header Files\inc\analog.h</v>
+<v>execute\execute_1_0\Header Files\inc\safety.h</v>
+<v>execute\execute_1_0\Header Files\inc\strain.h</v>
 <v>execute\execute_1_0\Header Files\inc\usb.h</v>
 <v>execute\execute_1_0\Source Files</v>
 <v>execute\execute_1_0\Source Files\common</v>
 <v>execute\execute_1_0\Source Files\src</v>
 <v>execute\execute_1_0\Source Files\src\analog.c</v>
+<v>execute\execute_1_0\Source Files\src\safety.c</v>
+<v>execute\execute_1_0\Source Files\src\strain.c</v>
 <v>execute\execute_1_0\Source Files\src\usb.c</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
@@ -48,6 +52,8 @@
 <v>execute\execute_1_0\Header Files\inc\main.h</v>
 <v>execute\execute_1_0\Header Files\inc\misc.h</v>
 <v>execute\execute_1_0\Header Files\inc\motor.h</v>
+<v>execute\execute_1_0\Header Files\inc\safety.h</v>
+<v>execute\execute_1_0\Header Files\inc\strain.h</v>
 <v>execute\execute_1_0\Header Files\inc\trapez.h</v>
 <v>execute\execute_1_0\Header Files\inc\usb.h</v>
 <v>execute\execute_1_0\Source Files</v>
@@ -65,6 +71,8 @@
 <v>execute\execute_1_0\Source Files\src\main.c</v>
 <v>execute\execute_1_0\Source Files\src\misc.c</v>
 <v>execute\execute_1_0\Source Files\src\motor.c</v>
+<v>execute\execute_1_0\Source Files\src\safety.c</v>
+<v>execute\execute_1_0\Source Files\src\strain.c</v>
 <v>execute\execute_1_0\Source Files\src\trapez.c</v>
 <v>execute\execute_1_0\Source Files\src\usb.c</v>
 <v>execute\execute_1_0\Generated_Source</v>
@@ -219,10 +227,12 @@
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\RO.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\RX2.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\RX3.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\safety.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\SCL_1.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\SDA_1.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\SG_VO1.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\SG_VO2.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\strain.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\Timer_1.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\Timer_1_PM.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\Listing Files\Timer_2.lst</v>

@@ -215,7 +215,7 @@ int motor_position_pi_analog(int wanted_pos, int analog_pos)
 //Set Reset = 1 the first time you change the setpoint
 int16 int_wpos(int16 old_wpos, int16 new_wpos, uint8 reset)
 {
-	static int16 diff = 0, int_wpos = 0;
+	static int16 int_wpos = 0;
 	
 	if(reset)
 	{
@@ -260,7 +260,7 @@ int16 ramp_demo(int16 limit1, int16 limit2)
 	{
 		//Counting up
 		pos = pos + POS_STEP;
-		LED1_Write(0);
+		//LED1_Write(0);
 		
 		//Flip sign when limit reached
 		if(pos >= limit2)
@@ -476,3 +476,15 @@ void init_motor(void)
 	ctrl.gains.current.kd = 0;
 }
 
+//Copy of the test code used in main.c to test the hardware:
+void motor_fixed_pwm_test_code_blocking(int spd)
+{
+	ctrl.active_ctrl = CTRL_OPEN;
+	motor_open_speed_1(spd);
+	while(1)
+	{	
+		LED_R_Write(H1_Read());
+		LED_G_Write(H2_Read());
+		LED_B_Write(H3_Read());
+	}
+}

@@ -49,8 +49,6 @@ struct imu_struct
 // Initialize the IMU w/ default values in config registers
 void init_imu() 
 {
-	int i = 0;
-
 	//Reset the IMU
 	reset_imu();
 	while(I2C_1_MasterStatus() != I2C_1_MSTAT_WR_CMPLT);
@@ -60,7 +58,7 @@ void init_imu()
 	uint8_t config[4] = { D_IMU_CONFIG, D_IMU_GYRO_CONFIG, D_IMU_ACCEL_CONFIG, D_IMU_ACCEL_CONFIG2 };
 	
 	//Send the config sequence
-	imu_write(IMU_CONFIG, &config, 4);
+	imu_write(IMU_CONFIG, config, 4);
 	while(I2C_1_MasterStatus() != I2C_1_MSTAT_WR_CMPLT);
 	//ToDo: add a timeout
 }
@@ -211,4 +209,24 @@ int imu_read(uint8 internal_reg_addr, uint8 *pData,	uint16 length)
 	I2C_1_MasterSendStop();	
 
 	return 0;
+}
+
+//Copy of the test code used in main.c to test the hardware:
+void imu_test_code_blocking(void)
+{
+	//IMU test code
+	
+	uint8 ledg_state = 0;
+	int16 imu_accel_x = 0;
+
+	while(1)
+	{
+		imu_accel_x = get_accel_x();
+		send_usb_int16(imu_accel_x);
+		
+		ledg_state ^= 1;
+		LED_G_Write(ledg_state);
+		
+		CyDelay(75);		
+	}
 }

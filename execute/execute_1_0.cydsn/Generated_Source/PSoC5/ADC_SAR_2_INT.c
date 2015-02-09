@@ -62,18 +62,11 @@ extern struct ctrl_s ctrl;
           /* `#START MAIN_ADC_ISR`  */
 		
 			unsigned int last_adc = 0;
-			static unsigned char dactest = 0;
-			unsigned int tmp = 0;
 			
 			//Read last ADC value
 			last_adc = ADC_SAR_2_GetResult16();
 			current_pid_measured = last_adc;	//Used by the current controller
-			
-			//Mirror on ADC:
-			tmp = (last_adc >> 4) & 0xFF;			
-			//dactest = (unsigned char) tmp;
-			//VDAC8_2_SetValue(dactest);	
-			
+				
 			if((ctrl.active_ctrl == CTRL_CURRENT) || (ctrl.active_ctrl == CTRL_IMPEDANCE))
 			{
 				//Current controller
