@@ -270,7 +270,7 @@ int16 ramp_demo(int16 limit1, int16 limit2)
 	{
 		//Counting down
 		pos = pos - POS_STEP;
-		LED1_Write(1);
+		//LED1_Write(1);
 		
 		//Flip sign when limit reached
 		if(pos <= limit1)
@@ -445,6 +445,9 @@ int motor_impedance_encoder(int wanted_pos, int new_enc_count)
 //Initializes all the variable
 void init_motor(void)
 {
+	//Variables:
+	//=-=-=-=-=-=
+	
 	//No active controller:
 	ctrl.active_ctrl = CTRL_NONE;
 	
@@ -474,6 +477,37 @@ void init_motor(void)
 	ctrl.gains.current.kp = 0;
 	ctrl.gains.current.ki = 0;
 	ctrl.gains.current.kd = 0;
+	
+	//Peripherals:
+	//=-=-=-=-=-=
+	
+	//Timer 3: one-shot 20us (current controller)
+	Timer_3_Init();
+	Timer_3_Start();
+	isr_t3_Start();
+	
+	//PWM1: BLDC
+	PWM_1_Start();
+	PWM_1_WriteCompare(0);	//Start at 0%
+	isr_pwm_Start();
+	
+	//ADC2: Motor current
+	ADC_SAR_2_Start();
+	ADC_SAR_2_IRQ_Enable();
+	ADC_SAR_2_StartConvert();
+	
+	//VDAC8: OpAmp VREF
+	VDAC8_1_Start();
+	
+	//Analog amplifiers & multiplexer(s):
+	Opamp_1_Start();
+	
+	//Quadrature 1: Motor shaft encoder
+	#ifdef USE_QEI1
+	QuadDec_1_Start();
+	QuadDec_1_Enable();
+	QuadDec_1_SetCounter(QUAD1_INIT);
+	#endif	//USE_QEI1	
 }
 
 //Copy of the test code used in main.c to test the hardware:

@@ -104,6 +104,8 @@ void motor_fixed_pwm_test_code_blocking(int spd);
 #define A2 						-2374094744LL
 #define A3  					1929355669LL
 #define A4 						-532075368LL
+
+#define QUAD1_INIT				10000
 	
 #endif	//INC_MOTOR_H
 	

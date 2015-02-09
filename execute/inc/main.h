@@ -27,6 +27,7 @@
 #include "usb.h"
 #include "strain.h"
 #include "safety.h"
+#include "peripherals.h"
 #include "../../common/inc/flexsea.h"
 
 //****************************************************************************
@@ -49,6 +50,7 @@ int main(void);
 #define USE_I2C_INT
 //#define USE_I2C_EXT
 #define USE_IMU			//Requires USE_I2C_INT
+#define USE_STRAIN		//Requires USE_I2C_INT
 
 //Trapez test parameters
 #define SPD1        			1500

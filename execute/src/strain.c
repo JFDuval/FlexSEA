@@ -26,8 +26,59 @@
 // Function(s)
 //****************************************************************************
 
-void init_strain()
+//Enables the peripherals associated with the strain amplifier and
+//sets the default values.
+//Make sure that you initialize I2C first!
+void init_strain(void)
 {
+	//Peripherals:
+	//=-=-=-=-=-=
+	
+	Opamp_2_Start();		//VR1
+	
+	VDAC8_3_Start();		//VR2 reference
+	Opamp_3_Start();		//VR2 buffer
+	
+	AMux_2_Start();			//ADC input, VO1 & VO2
+	AMux_2_Select(0);		//Starts with SG_VO2, the final output
+	
+	//16-bits ADC:
+	ADC_DelSig_1_Start();
+	ADC_DelSig_1_IRQ_Enable();
+	ADC_DelSig_1_StartConvert();
+	
+	//Defaults:
+	//=-=-=-=-=-=
+	
+	strain_config(STRAIN_DEFAULT_OFFSET, STRAIN_DEFAULT_GAIN, STRAIN_DEFAULT_OREF);
+}
+
+//Configure the strain gauge amplifier
+void strain_config(uint8 offs, uint8 gain, uint8 oref)
+{
+	uint8 i2c_init_buf[2];
+	
+	//Output reference:
+	VDAC8_3_SetValue(oref);	
+	
+	//Offset:
+	i2c_init_buf[0] = STRAIN_OFFSET;
+	i2c_init_buf[1] = offs;		//Offset
+	I2C_1_MasterWriteBuf(I2C_POT_ADDR, (uint8 *) i2c_init_buf, 2, I2C_1_MODE_COMPLETE_XFER);	
+	CyDelay(10);	//ToDo test but it should be much faster than this!
+	
+	//Second stage gain:
+	i2c_init_buf[0] = STRAIN_GAIN;
+	i2c_init_buf[1] = gain;	//Relatively small gain
+	I2C_1_MasterWriteBuf(I2C_POT_ADDR, (uint8 *) i2c_init_buf, 2, I2C_1_MODE_COMPLETE_XFER);	
+}
+
+//Returns the last strain measurement
+uint16 strain_read(void)
+{
+	//ADC is auto-sampling, this function simply returns the last value
+	
+	//ToDo
 }
 
 //Copy of the test code used in main.c to test the hardware:

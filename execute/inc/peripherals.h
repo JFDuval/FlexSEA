@@ -4,11 +4,11 @@
 // jfduval@mit.edu
 // 02/2015
 //****************************************************************************
-// analog: ADC configurations, read & filter functions
+// peripherals: code for the general peripheral modules
 //****************************************************************************
 	
-#ifndef INC_ANALOG_H
-#define INC_ANALOG_H
+#ifndef INC_PERIPH_H
+#define INC_PERIPH_H
 
 //****************************************************************************
 // Include(s)
@@ -20,16 +20,19 @@
 // Prototype(s):
 //****************************************************************************
 
-void init_analog(void);
-uint16 adc_avg8(uint16 new_data);
-void filter_adc(void);
+void init_peripherals(void);
+void init_tb_timers(void);
+void init_rs485(void);
+void init_i2c1(void);
+void init_i2c2(void);
+void init_clutch(void);
+void clutch_output(uint8 value);
 
 //****************************************************************************
 // Definition(s):
 //****************************************************************************
 
-#define ADC1_CHANNELS				6
-#define ADC1_BUF_LEN				8
+
 	
-#endif	//INC_ANALOG_H
+#endif	//INC_PERIPH_H
 	

@@ -29,6 +29,20 @@ unsigned int adc1_res_filtered[ADC1_CHANNELS];
 // Function(s)
 //****************************************************************************
 
+void init_analog(void)
+{
+	//Analog amplifiers & multiplexer(s):
+	PGA_1_Start();	
+	Opamp_3_Start();
+	AMux_1_Start();
+	AMux_1_Select(0);
+	
+	//ADC1:
+	ADC_SAR_1_Start();
+	ADC_SAR_1_IRQ_Enable();
+	ADC_SAR_1_StartConvert();
+}
+
 uint16 adc_avg8(uint16 new_data)
 {
 	uint32 sum = 0;

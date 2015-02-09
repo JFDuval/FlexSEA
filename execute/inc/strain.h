@@ -20,6 +20,9 @@
 // Prototype(s):
 //****************************************************************************
 
+void init_strain(void);
+void strain_config(uint8 offs, uint8 gain, uint8 oref);
+uint16 strain_read(void);
 void strain_test_blocking(void);
 
 //****************************************************************************
@@ -40,6 +43,14 @@ void strain_test_blocking(void);
 #define MCP4661_READ_CMD		0x0A
 #define MCP4661_CONFIG			0xFF 	//(POR default)
 //W0 is gain, W1 is offset
-	
+
+#define STRAIN_OFFSET			MCP4661_REG_RAM_W1
+#define STRAIN_GAIN				MCP4661_REG_RAM_W0
+
+//Default values (experimental, expected to change)
+#define STRAIN_DEFAULT_OREF		156
+#define STRAIN_DEFAULT_OFFSET	10
+#define STRAIN_DEFAULT_GAIN		120
+
 #endif	//INC_STRAIN_H
 	
