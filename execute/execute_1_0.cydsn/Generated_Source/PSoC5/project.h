@@ -35,8 +35,8 @@
 #include <SCL_1.h>
 #include <SDA_1_aliases.h>
 #include <SDA_1.h>
-#include <CLUTCH_24_aliases.h>
-#include <CLUTCH_24.h>
+#include <CLUTCH_aliases.h>
+#include <CLUTCH.h>
 #include <EXP5_aliases.h>
 #include <EXP5.h>
 #include <EXP4_aliases.h>

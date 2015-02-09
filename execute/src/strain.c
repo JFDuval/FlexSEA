@@ -26,6 +26,10 @@
 // Function(s)
 //****************************************************************************
 
+void init_strain()
+{
+}
+
 //Copy of the test code used in main.c to test the hardware:
 void strain_test_blocking(void)
 {

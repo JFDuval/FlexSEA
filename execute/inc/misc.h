@@ -24,6 +24,8 @@ void init_peripherals(void);
 void rs485_putc(uint8 byte);
 void i2c_write_minm_rgb(uint8 cmd, uint8 r, uint8 g, uint8 b);
 void update_sensors(void);
+void init_clutch(void);
+void clutch_output(uint8 value);
 
 //****************************************************************************
 // Definition(s):

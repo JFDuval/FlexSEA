@@ -168,3 +168,18 @@ void update_sensors(void)
 		
 	#endif	//USE_I2C_INT	
 }
+
+//Configuration for the clutch
+void init_clutch(void)
+{
+	//PWM2: Clutch
+	PWM_2_Start();
+	PWM_2_WriteCompare(0);	//Start at 0%
+	//isr_pwm_Start();	
+}
+
+//PWM output for the clutch
+void clutch_output(uint8 value)
+{
+	PWM_2_WriteCompare(value);
+}
