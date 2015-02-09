@@ -26,7 +26,7 @@
 /* `#START ADC_SYS_VAR`  */
 
 #include "main.h"
-extern int current_pid_setpoint, current_pid_measured;
+
 //motor.c:
 extern struct ctrl_s ctrl;
 
@@ -65,13 +65,12 @@ extern struct ctrl_s ctrl;
 			
 			//Read last ADC value
 			last_adc = ADC_SAR_2_GetResult16();
-			current_pid_measured = last_adc;	//Used by the current controller
+			ctrl.current.actual_val = last_adc;	//Used by the current controller
 				
 			if((ctrl.active_ctrl == CTRL_CURRENT) || (ctrl.active_ctrl == CTRL_IMPEDANCE))
 			{
 				//Current controller
-				motor_current_pid_1(current_pid_setpoint, current_pid_measured);
-				//ToDo update variables names
+				motor_current_pid(ctrl.current.setpoint_val, ctrl.current.actual_val);
 			}
 	
           /* `#END`  */

@@ -129,9 +129,7 @@ int main(void)
 			
 				if(ctrl.active_ctrl == CTRL_POSITION)
 				{
-					//motor_position_pi_analog(pos, (int)adc_res_filtered[0]);
-					motor_position_pi_encoder(pos, enccount);
-					//ToDo confirm that it works with the increased resolution
+					motor_position_pid(pos, enccount);
 				}
 				else if(ctrl.active_ctrl == CTRL_IMPEDANCE)
 				{

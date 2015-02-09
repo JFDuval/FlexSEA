@@ -66,14 +66,14 @@ void rx_set_pid_gains(unsigned int tmp1, unsigned int tmp2, unsigned int tmp3, u
 
 	//ToDo Add more safety checks!
 	if(tmp1 > 0)
-		ctrl.gains.position.kp = tmp1;
+		ctrl.position.gain.P_KP = tmp1;
 	else
-		ctrl.gains.position.kp = 0;
+		ctrl.position.gain.P_KP = 0;
 
 	if(tmp2 > 0)
-		ctrl.gains.position.ki = tmp2;
+		ctrl.position.gain.P_KI = tmp2;
 	else
-		ctrl.gains.position.ki = 0;
+		ctrl.position.gain.P_KI = 0;
 
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -109,22 +109,22 @@ void rx_move_trap_absolute(unsigned char *buf)
 	else if(ctrl.active_ctrl == CTRL_IMPEDANCE)
 	{
 		//Backup gains
-		tmp_z_k = ctrl.gains.impedance.k; 
-		tmp_z_b = ctrl.gains.impedance.b;	
-		tmp_z_i = ctrl.gains.impedance.i;
+		tmp_z_k = ctrl.impedance.gain.Z_K; 
+		tmp_z_b = ctrl.impedance.gain.Z_B;	
+		tmp_z_i = ctrl.impedance.gain.Z_I;
 
 		//Zero them
-		ctrl.gains.impedance.k = 0;
-		ctrl.gains.impedance.b = 0;
-		ctrl.gains.impedance.i = 0;
+		ctrl.impedance.gain.Z_K = 0;
+		ctrl.impedance.gain.Z_B = 0;
+		ctrl.impedance.gain.Z_I = 0;
 		
 		//New trajectory
 		steps = trapez_gen_motion_1(tmp_posi, tmp_posf, tmp_spdm, tmp_acc);
 		
 		//Restore gains
-		ctrl.gains.impedance.k = tmp_z_k;
-		ctrl.gains.impedance.b = tmp_z_b;
-		ctrl.gains.impedance.i = tmp_z_i;
+		ctrl.impedance.gain.Z_K = tmp_z_k;
+		ctrl.impedance.gain.Z_B = tmp_z_b;
+		ctrl.impedance.gain.Z_I = tmp_z_i;
 	}
 
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
@@ -395,7 +395,7 @@ void rx_set_current(unsigned char *buf)
 	//Rebuild 16bit data:
     tmp_current = (buf[CP_DATA1] << 8) + buf[CP_DATA1 + 1];
 
-	current_pid_setpoint = tmp_current;
+	ctrl.current.setpoint_val = tmp_current;
 
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -446,9 +446,9 @@ void rx_set_current_gains(unsigned char *buf)
     tmp_current_gain_d = (buf[CP_DATA1 + 4] << 8) + buf[CP_DATA1 + 5];
 
     //Update variables:
-    ctrl.gains.current.kp = tmp_current_gain_p;
-    ctrl.gains.current.ki = tmp_current_gain_i;
-    ctrl.gains.current.kd = tmp_current_gain_d;
+    ctrl.current.gain.I_KP = tmp_current_gain_p;
+    ctrl.current.gain.I_KI = tmp_current_gain_i;
+    ctrl.current.gain.I_KD = tmp_current_gain_d;
 
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -475,9 +475,9 @@ void rx_set_z_gains(unsigned char *buf)
     tmp_z_gain_i = (buf[CP_DATA1 + 4] << 8) + buf[CP_DATA1 + 5];
 
     //Update variables:
-    ctrl.gains.impedance.k = tmp_z_gain_k;
-    ctrl.gains.impedance.b = tmp_z_gain_b;
-    ctrl.gains.impedance.i = tmp_z_gain_i;
+    ctrl.impedance.gain.Z_K = tmp_z_gain_k;
+    ctrl.impedance.gain.Z_B = tmp_z_gain_b;
+    ctrl.impedance.gain.Z_I = tmp_z_gain_i;
 
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 

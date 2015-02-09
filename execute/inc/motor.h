@@ -15,47 +15,6 @@
 //****************************************************************************		
 	
 #include "main.h"
-
-//****************************************************************************
-// Structure(s)
-//****************************************************************************	
-	
-//Gains, PID-type controller
-struct g_pid
-{
-     uint8_t kp, ki, kd;
-};
-
-//Gains, impedance controller
-struct g_z
-{
-     uint8_t k, b, i;
-};
-
-//Gains, generic controller
-struct g_generic
-{
-     uint8_t g0, g1, g2, g3, g4, g5;
-};
-
-//Controller gains:
-struct gains_s
-{
-     struct g_generic generic;
-     struct g_pid current;
-     struct g_pid position;
-     struct g_z impedance;
-};
-
-//Main data structure for all the controllers:
-//ToDo: change the order so I can get position.error, position.gain.kp?
-struct ctrl_s
-{
-	uint8 active_ctrl;
-	struct gains_s gains;
-	int32 error;
-	int32 sumoferrors;
-};
 	
 //****************************************************************************
 // Prototype(s):
@@ -64,14 +23,12 @@ struct ctrl_s
 void motor_open_speed_1(int16 pwm_duty);
 void motor_open_speed_2(int16 pwm_duty, int sign);
 int8 serial_motor_speed(int8 letter);
-int motor_position_pi_encoder(int wanted_pos, int new_enc_count);
-int motor_position_pi_analog(int wanted_pos, int analog_pos);
-int16 int_wpos(int16 old_wpos, int16 new_wpos, uint8 reset);
-int16 ramp_demo(int16 limit1, int16 limit2);
-int motor_current_pid_1(int wanted_curr, int measured_curr);
+int32 motor_position_pid(int32 wanted_pos, int32 actual_pos);
+int32 motor_current_pid(int32 wanted_curr, int32 measured_curr);
 void control_strategy(unsigned char strat);
 int motor_impedance_encoder(int wanted_pos, int new_enc_count);
 void init_motor(void);
+void init_motor_data_structure(void);
 void motor_fixed_pwm_test_code_blocking(int spd);
 
 //****************************************************************************
@@ -106,6 +63,54 @@ void motor_fixed_pwm_test_code_blocking(int spd);
 #define A4 						-532075368LL
 
 #define QUAD1_INIT				10000
+
+//Nickname for the controller gains:
+#define I_KP					g0
+#define I_KI					g1
+#define I_KD					g2
+#define P_KP					g0
+#define P_KI					g1
+#define P_KD					g2
+#define Z_K						g0
+#define Z_B						g1
+#define Z_I						g2
+
+//****************************************************************************
+// Structure(s)
+//****************************************************************************	
+
+//Gains
+struct gains_s
+{
+     uint8_t g0, g1, g2, g3, g4, g5;
+};
+
+//Generic controller
+struct gen_ctrl_s
+{
+	//Gains:
+    struct gains_s gain;
+	
+	//Value wanted and setpoint value:
+	int32 actual_val;					
+    int32 setpoint_val;
+	
+	//Errors:
+    int32 error;						//Current error
+	int32 error_prev;					//Past error
+    int32 error_sum;					//Integral
+    int32 error_dif;					//Differential
+};
+
+//Main data structure for all the controllers:
+struct ctrl_s
+{
+    uint8 active_ctrl;
+    struct gen_ctrl_s generic;
+    struct gen_ctrl_s current;
+    struct gen_ctrl_s position;
+    struct gen_ctrl_s impedance;
+};
 	
 #endif	//INC_MOTOR_H
 	
