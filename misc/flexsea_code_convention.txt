@@ -45,6 +45,7 @@ Do not use /* */ for comments that are on a single line.
 Always include a comment above a function declaration that explains its purpose.
 Always mention in what file extern variables are declared.
 Use the keyword 'ToDo' to flag stuff that should be fixed.
+When you use a preprocessor statement such as #ifdef DEF_X, always add a closing comment such as #endif //DEF_X
 
 *** Formatting ***
 

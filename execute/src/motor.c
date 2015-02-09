@@ -4,7 +4,7 @@
 // jfduval@mit.edu
 // 02/2015
 //****************************************************************************
-// usb: motor control functions
+// motor: motor control functions
 //****************************************************************************
 
 //****************************************************************************
@@ -18,12 +18,14 @@
 // Local variable(s)
 //****************************************************************************
 
+//Main data structure for all the controllers:
+struct ctrl_s ctrl;
+
 //Variables
 int sumoferrors = 0;
 int error = 0;
 int pwm = 0;
 int setpoint = 10000;
-int gain_p = GAIN_P, gain_i = GAIN_I, gain_d = GAIN_D;
 
 //Global motor control variables
 int16 old_enc_count = 0;
@@ -31,10 +33,7 @@ int16 old_enc_count = 0;
 int16 diff_enc_count = 0;
 uint8 motor_control_flag = 0;
 
-//Impedance controller:
-int z_gain_k = 0, z_gain_b = 0, z_gain_i = 0;
 //Current controller:
-int current_gain_p = 0, current_gain_i = 0, current_gain_d = 0;
 int current_pid_setpoint = 0, current_pid_measured = CURRENT_ZERO;
 
 int debug_var = 0;
@@ -42,9 +41,6 @@ int debug_var = 0;
 //****************************************************************************
 // External variable(s)
 //****************************************************************************
-
-//flexsea_local:
-extern unsigned char controller;
 
 extern int steps, current_step, pos;
 extern unsigned int adc1_res_filtered[ADC1_CHANNELS];
@@ -161,9 +157,9 @@ int motor_position_pi_encoder(int wanted_pos, int new_enc_count)
 		sumoferrors = -MAX_CUMULATIVE_ERROR;
 	
 	//Proportional term
-	p = gain_p * error;
+	p = ctrl.gains.position.kp * error;
 	//Integral term
-	i = (gain_i * sumoferrors)/100;
+	i = (ctrl.gains.position.kp * sumoferrors)/100;
 	
 	//Output
 	pwm = -(p + i);		//
@@ -195,9 +191,9 @@ int motor_position_pi_analog(int wanted_pos, int analog_pos)
 		sumoferrors = -MAX_CUMULATIVE_ERROR;
 	
 	//Proportional term
-	p = (int) gain_p * error;
+	p = (int) ctrl.gains.position.kp * error;
 	//Integral term
-	i = (int)(gain_i * sumoferrors)/100;
+	i = (int)(ctrl.gains.position.ki * sumoferrors)/100;
 	
 	//Output
 	pwm = -(p + i);		//
@@ -343,9 +339,9 @@ int motor_current_pid_1(int wanted_curr, int measured_curr)
 		curr_sumoferrors = -MAX_CUMULATIVE_ERROR;
 	
 	//Proportional term
-	curr_p = (int) current_gain_p * curr_error;
+	curr_p = (int) ctrl.gains.current.kp * curr_error;
 	//Integral term
-	curr_i = (int)(current_gain_i * curr_sumoferrors)/100;
+	curr_i = (int)(ctrl.gains.current.ki * curr_sumoferrors)/100;
 	//Add differential term here if needed
 	
 	//Output
@@ -367,9 +363,19 @@ int motor_current_pid_1(int wanted_curr, int measured_curr)
 void control_strategy(unsigned char strat)
 {
 	//By default we place the gains to 0 before we change the strategy:
-	gain_p = 0; gain_i = 0;	gain_d = 0;							//"Old" PID (used for pos trapeze)
-	z_gain_k = 0; z_gain_b = 0; z_gain_i = 0;					//Impedance controller
-	current_gain_p = 0; current_gain_i = 0; current_gain_d = 0;	//Current controller
+					
+	//"Old" PID (used for pos trapeze)
+	ctrl.gains.position.kp = 0;
+	ctrl.gains.position.ki = 0;
+	ctrl.gains.position.kd = 0;
+	//Impedance controller
+	ctrl.gains.impedance.k = 0;
+	ctrl.gains.impedance.b = 0;
+	ctrl.gains.impedance.i = 0;
+	//Current controller
+	ctrl.gains.current.kp = 0;
+	ctrl.gains.current.ki = 0;
+	ctrl.gains.current.kd = 0;
 	
 	//To avoid a huge startup error on the Position-based controllers:
 	if(strat == CTRL_POSITION)
@@ -383,9 +389,9 @@ void control_strategy(unsigned char strat)
 		steps = trapez_gen_motion_1(pos, pos, 1, 1);
 	}
 	
-	controller = strat;
+	ctrl.active_ctrl = strat;	//controller = strat;
 	
-	//The use should call CMD_SET_PID_GAINS at this point.
+	//The user should call CMD_SET_PID_GAINS at this point.
 }
 
 // Impedance controller -- EJ Rouse, 8/11/14
@@ -403,7 +409,7 @@ int motor_impedance_encoder(int wanted_pos, int new_enc_count)
 	error = new_enc_count - wanted_pos;		//Actual error
 	
 	//Current for stiffness term
-	i_k = z_gain_k * (error >> 12);	//The /50 places the k gain in a good integer range
+	i_k = ctrl.gains.impedance.k * (error >> 12);	//The /50 places the k gain in a good integer range
 	
 	//Velocity measured on n cycles:
 	enc_tm9 = enc_tm8; enc_tm8 = enc_tm7; enc_tm7 = enc_tm6; enc_tm6 = enc_tm5; enc_tm5 = enc_tm4; enc_tm4 = enc_tm3; enc_tm3 = enc_tm2; enc_tm2 = enc_tm1; enc_tm1 = enc_t0;
@@ -417,7 +423,7 @@ int motor_impedance_encoder(int wanted_pos, int new_enc_count)
  	filt_vel = (57*enc_t0)/220 + (73*enc_tm1)/660 - enc_tm2/264 - (37*enc_tm3)/440 - (43*enc_tm4)/330 - (47*enc_tm5)/330 - (53*enc_tm6)/440 - (17*enc_tm7)/264 + (17*enc_tm8)/660 + (3*enc_tm9)/20; // Derivative method that estimates best fit second order polynomial and calcualtes the derivative numerically for t = 0
  	debug_var = filt_vel;
 	
- 	i_b = z_gain_b * (filt_vel >> 5);
+ 	i_b = ctrl.gains.impedance.b * (filt_vel >> 5);
 
 	//Output
 	current_val = (i_k + i_b);		// Impedance command, motor current in terms of effort (A)
@@ -435,3 +441,38 @@ int motor_impedance_encoder(int wanted_pos, int new_enc_count)
 
 	return error;
 }
+
+//Initializes all the variable
+void init_motor(void)
+{
+	//No active controller:
+	ctrl.active_ctrl = CTRL_NONE;
+	
+	//No errors:
+	ctrl.error = 0;
+	ctrl.sumoferrors = 0;
+	
+	//Generic controller
+	ctrl.gains.generic.g0 = 0;
+	ctrl.gains.generic.g1 = 0;
+	ctrl.gains.generic.g2 = 0;
+	ctrl.gains.generic.g3 = 0;
+	ctrl.gains.generic.g4 = 0;
+	ctrl.gains.generic.g5 = 0;
+	
+	//Position controller
+	ctrl.gains.position.kp = 0;
+	ctrl.gains.position.ki = 0;
+	ctrl.gains.position.kd = 0;
+	
+	//Impedance controller
+	ctrl.gains.impedance.k = 0;
+	ctrl.gains.impedance.b = 0;
+	ctrl.gains.impedance.i = 0;
+	
+	//Current controller
+	ctrl.gains.current.kp = 0;
+	ctrl.gains.current.ki = 0;
+	ctrl.gains.current.kd = 0;
+}
+

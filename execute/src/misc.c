@@ -24,7 +24,7 @@ struct scop
 	uint16 v_vb, v_vg, v_3v3;
 	uint8 temperature;
 	uint8 status1;
-}safetycop;
+}safety_cop;
 
 //****************************************************************************
 // External variable(s)
@@ -37,6 +37,9 @@ struct scop
 //Initialize and enables all the general peripherals
 void init_peripherals(void)
 {
+	//Motor control variables:
+	init_motor();
+	
 	//Timer 1: 1ms (LEDs, PID)
 	Timer_1_Init();
 	Timer_1_Start();
@@ -160,11 +163,11 @@ void i2c_write_minm_rgb(uint8 cmd, uint8 r, uint8 g, uint8 b)
 //Update the global variables from the array
 void decode_psoc4_values(uint8 *psoc4_data)
 {
-	safetycop.v_vb = (psoc4_data[MEM_R_VB_SNS_MSB] << 8) + psoc4_data[MEM_R_VB_SNS_LSB];
-	safetycop.v_vg = (psoc4_data[MEM_R_VG_SNS_MSB] << 8) + psoc4_data[MEM_R_VG_SNS_LSB];
-	safetycop.v_3v3 = (psoc4_data[MEM_R_3V3_SNS_MSB] << 8) + psoc4_data[MEM_R_3V3_SNS_LSB];
-	safetycop.temperature = psoc4_data[MEM_R_TEMPERATURE];
-	safetycop.status1 = psoc4_data[MEM_R_STATUS1];
+	safety_cop.v_vb = (psoc4_data[MEM_R_VB_SNS_MSB] << 8) + psoc4_data[MEM_R_VB_SNS_LSB];
+	safety_cop.v_vg = (psoc4_data[MEM_R_VG_SNS_MSB] << 8) + psoc4_data[MEM_R_VG_SNS_LSB];
+	safety_cop.v_3v3 = (psoc4_data[MEM_R_3V3_SNS_MSB] << 8) + psoc4_data[MEM_R_3V3_SNS_LSB];
+	safety_cop.temperature = psoc4_data[MEM_R_TEMPERATURE];
+	safety_cop.status1 = psoc4_data[MEM_R_STATUS1];
 }
 
 //Update the sensor structures:

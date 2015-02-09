@@ -1,57 +1,24 @@
---------------- Build Started: 02/08/2015 17:55:21 Project: execute_1_0, Configuration: ARM GCC 4.7.3 Debug ---------------
+--------------- Build Started: 02/08/2015 19:08:36 Project: execute_1_0, Configuration: ARM GCC 4.7.3 Debug ---------------
 The code generation step is up to date.
-arm-none-eabi-gcc.exe -I. -I./Generated_Source/PSoC5 -Wno-main -mcpu=cortex-m3 -mthumb -I ..\inc -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_473\Debug\flexsea.lst -ffunction-sections -c ..\..\common\src\flexsea.c -o .\CortexM3\ARM_GCC_473\Debug\flexsea.o
-..\..\common\src\flexsea.c: In function 'test_flexsea_network':
-..\..\common\src\flexsea.c:88:19: warning: variable 'result' set but not used [-Wunused-but-set-variable]
-arm-none-eabi-gcc.exe -I. -I./Generated_Source/PSoC5 -Wno-main -mcpu=cortex-m3 -mthumb -I ..\inc -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_473\Debug\flexsea_payload.lst -ffunction-sections -c ..\..\common\src\flexsea_payload.c -o .\CortexM3\ARM_GCC_473\Debug\flexsea_payload.o
-..\..\common\src\flexsea_payload.c: In function 'payload_local_console_test':
-..\..\common\src\flexsea_payload.c:213:19: warning: variable 'result' set but not used [-Wunused-but-set-variable]
-arm-none-eabi-gcc.exe -I. -I./Generated_Source/PSoC5 -Wno-main -mcpu=cortex-m3 -mthumb -I ..\inc -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_473\Debug\flexsea_rx_cmd.lst -ffunction-sections -c ..\..\common\src\flexsea_rx_cmd.c -o .\CortexM3\ARM_GCC_473\Debug\flexsea_rx_cmd.o
-arm-none-eabi-gcc.exe -I. -I./Generated_Source/PSoC5 -Wno-main -mcpu=cortex-m3 -mthumb -I ..\inc -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_473\Debug\flexsea_tx_cmd.lst -ffunction-sections -c ..\..\common\src\flexsea_tx_cmd.c -o .\CortexM3\ARM_GCC_473\Debug\flexsea_tx_cmd.o
-arm-none-eabi-gcc.exe -I. -I./Generated_Source/PSoC5 -Wno-main -mcpu=cortex-m3 -mthumb -I ..\inc -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_473\Debug\clutch.lst -ffunction-sections -c ..\src\clutch.c -o .\CortexM3\ARM_GCC_473\Debug\clutch.o
-arm-none-eabi-gcc.exe -I. -I./Generated_Source/PSoC5 -Wno-main -mcpu=cortex-m3 -mthumb -I ..\inc -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_473\Debug\misc.lst -ffunction-sections -c ..\src\misc.c -o .\CortexM3\ARM_GCC_473\Debug\misc.o
-arm-none-eabi-gcc.exe -I. -I./Generated_Source/PSoC5 -Wno-main -mcpu=cortex-m3 -mthumb -I ..\inc -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_473\Debug\motor.lst -ffunction-sections -c ..\src\motor.c -o .\CortexM3\ARM_GCC_473\Debug\motor.o
-..\src\motor.c: In function 'int_wpos':
-..\src\motor.c:222:15: warning: unused variable 'diff' [-Wunused-variable]
-..\src\motor.c: In function 'ramp_demo':
-..\src\motor.c:267:3: warning: implicit declaration of function 'LED1_Write' [-Wimplicit-function-declaration]
-..\src\motor.c: In function 'motor_impedance_encoder':
-..\src\motor.c:399:51: warning: variable 'prev_filt3' set but not used [-Wunused-but-set-variable]
-..\src\motor.c:398:69: warning: variable 'prev_vel3' set but not used [-Wunused-but-set-variable]
-..\src\motor.c:398:19: warning: variable 'prev_enc_count' set but not used [-Wunused-but-set-variable]
-arm-none-eabi-gcc.exe -I. -I./Generated_Source/PSoC5 -Wno-main -mcpu=cortex-m3 -mthumb -I ..\inc -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_473\Debug\trapez.lst -ffunction-sections -c ..\src\trapez.c -o .\CortexM3\ARM_GCC_473\Debug\trapez.o
 arm-none-eabi-gcc.exe -I. -I./Generated_Source/PSoC5 -Wno-main -mcpu=cortex-m3 -mthumb -I ..\inc -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_473\Debug\main.lst -ffunction-sections -c ..\src\main.c -o .\CortexM3\ARM_GCC_473\Debug\main.o
 ..\src\main.c: In function 'main':
-..\src\main.c:95:8: warning: unused variable 'vr1' [-Wunused-variable]
-..\src\main.c:93:8: warning: unused variable 'i2c_test_rbuf' [-Wunused-variable]
-..\src\main.c:92:8: warning: unused variable 'i2c_test_wbuf' [-Wunused-variable]
-..\src\main.c:91:8: warning: unused variable 'imu_accel_x' [-Wunused-variable]
-..\src\main.c:90:8: warning: unused variable 'usb_value' [-Wunused-variable]
-..\src\main.c:89:32: warning: unused variable 'ledg_state' [-Wunused-variable]
-..\src\main.c:89:16: warning: unused variable 'ledr_state' [-Wunused-variable]
-..\src\main.c:87:16: warning: variable 'result' set but not used [-Wunused-but-set-variable]
-..\src\main.c:86:6: warning: unused variable 'usb_data_test' [-Wunused-variable]
-..\src\main.c:82:9: warning: unused variable 'mot_pos' [-Wunused-variable]
-..\src\main.c:81:8: warning: unused variable 'tmp' [-Wunused-variable]
-..\src\main.c:80:18: warning: unused variable 'dietmp' [-Wunused-variable]
-..\src\main.c:79:8: warning: unused variable 'toggle' [-Wunused-variable]
-..\src\main.c:78:9: warning: unused variable 'cnt' [-Wunused-variable]
-..\src\main.c:77:8: warning: unused variable 'usb_success' [-Wunused-variable]
+..\src\main.c:94:8: warning: unused variable 'vr1' [-Wunused-variable]
+..\src\main.c:92:8: warning: unused variable 'i2c_test_rbuf' [-Wunused-variable]
+..\src\main.c:91:8: warning: unused variable 'i2c_test_wbuf' [-Wunused-variable]
+..\src\main.c:90:8: warning: unused variable 'imu_accel_x' [-Wunused-variable]
+..\src\main.c:89:8: warning: unused variable 'usb_value' [-Wunused-variable]
+..\src\main.c:88:32: warning: unused variable 'ledg_state' [-Wunused-variable]
+..\src\main.c:88:16: warning: unused variable 'ledr_state' [-Wunused-variable]
+..\src\main.c:86:16: warning: variable 'result' set but not used [-Wunused-but-set-variable]
+..\src\main.c:85:6: warning: unused variable 'usb_data_test' [-Wunused-variable]
+..\src\main.c:81:9: warning: unused variable 'mot_pos' [-Wunused-variable]
+..\src\main.c:80:8: warning: unused variable 'tmp' [-Wunused-variable]
+..\src\main.c:79:18: warning: unused variable 'dietmp' [-Wunused-variable]
+..\src\main.c:78:8: warning: unused variable 'toggle' [-Wunused-variable]
+..\src\main.c:77:9: warning: unused variable 'cnt' [-Wunused-variable]
+..\src\main.c:76:8: warning: unused variable 'usb_success' [-Wunused-variable]
 ..\src\main.c: At top level:
 ..\src\main.c:40:22: warning: 'test_val' defined but not used [-Wunused-variable]
-arm-none-eabi-gcc.exe -I. -I./Generated_Source/PSoC5 -Wno-main -mcpu=cortex-m3 -mthumb -I ..\inc -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_473\Debug\flexsea_local.lst -ffunction-sections -c ..\src\flexsea_local.c -o .\CortexM3\ARM_GCC_473\Debug\flexsea_local.o
-arm-none-eabi-gcc.exe -I. -I./Generated_Source/PSoC5 -Wno-main -mcpu=cortex-m3 -mthumb -I ..\inc -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_473\Debug\imu.lst -ffunction-sections -c ..\src\imu.c -o .\CortexM3\ARM_GCC_473\Debug\imu.o
-..\src\imu.c: In function 'init_imu':
-..\src\imu.c:63:2: warning: passing argument 2 of 'imu_write' from incompatible pointer type [enabled by default]
-In file included from ..\inc/main.h:26:0,
-                 from ..\src\imu.c:14:
-..\inc/imu.h:110:5: note: expected 'uint8 *' but argument is of type 'uint8_t (*)[4]'
-..\src\imu.c:52:6: warning: unused variable 'i' [-Wunused-variable]
-..\src\imu.c: In function 'imu_read':
-..\src\imu.c:195:8: warning: variable 'stat' set but not used [-Wunused-but-set-variable]
-arm-none-eabi-gcc.exe -I. -I./Generated_Source/PSoC5 -Wno-main -mcpu=cortex-m3 -mthumb -I ..\inc -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_473\Debug\analog.lst -ffunction-sections -c ..\src\analog.c -o .\CortexM3\ARM_GCC_473\Debug\analog.o
-arm-none-eabi-gcc.exe -I. -I./Generated_Source/PSoC5 -Wno-main -mcpu=cortex-m3 -mthumb -I ..\inc -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_473\Debug\usb.lst -ffunction-sections -c ..\src\usb.c -o .\CortexM3\ARM_GCC_473\Debug\usb.o
-arm-none-eabi-gcc.exe -I. -I./Generated_Source/PSoC5 -Wno-main -mcpu=cortex-m3 -mthumb -I ..\inc -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_473\Debug\ADC_SAR_1_INT.lst -ffunction-sections -c .\Generated_Source\PSoC5\ADC_SAR_1_INT.c -o .\CortexM3\ARM_GCC_473\Debug\ADC_SAR_1_INT.o
 arm-none-eabi-gcc.exe -I. -I./Generated_Source/PSoC5 -Wno-main -mcpu=cortex-m3 -mthumb -I ..\inc -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_473\Debug\ADC_SAR_2_INT.lst -ffunction-sections -c .\Generated_Source\PSoC5\ADC_SAR_2_INT.c -o .\CortexM3\ARM_GCC_473\Debug\ADC_SAR_2_INT.o
 .\Generated_Source\PSoC5\ADC_SAR_2_INT.c: In function 'ADC_SAR_2_ISR':
 .\Generated_Source\PSoC5\ADC_SAR_2_INT.c:66:17: warning: variable 'tmp' set but not used [-Wunused-but-set-variable]
@@ -61,6 +28,6 @@ arm-none-eabi-ar.exe: creating .\CortexM3\ARM_GCC_473\Debug\execute_1_0.a
 arm-none-eabi-gcc.exe -mthumb -march=armv7-m -mfix-cortex-m3-ldrd -T .\Generated_Source\PSoC5\cm3gcc.ld -g -Wl,-Map,.\CortexM3\ARM_GCC_473\Debug\execute_1_0.map -specs=nano.specs -Wl,--gc-sections -Wl,--start-group -o .\CortexM3\ARM_GCC_473\Debug\execute_1_0.elf .\CortexM3\ARM_GCC_473\Debug\flexsea.o .\CortexM3\ARM_GCC_473\Debug\flexsea_comm.o .\CortexM3\ARM_GCC_473\Debug\flexsea_payload.o .\CortexM3\ARM_GCC_473\Debug\flexsea_rx_cmd.o .\CortexM3\ARM_GCC_473\Debug\flexsea_tx_cmd.o .\CortexM3\ARM_GCC_473\Debug\clutch.o .\CortexM3\ARM_GCC_473\Debug\misc.o .\CortexM3\ARM_GCC_473\Debug\motor.o .\CortexM3\ARM_GCC_473\Debug\trapez.o .\CortexM3\ARM_GCC_473\Debug\main.o .\CortexM3\ARM_GCC_473\Debug\flexsea_local.o .\CortexM3\ARM_GCC_473\Debug\imu.o .\CortexM3\ARM_GCC_473\Debug\analog.o .\CortexM3\ARM_GCC_473\Debug\usb.o .\CortexM3\ARM_GCC_473\Debug\cymetadata.o .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o .\CortexM3\ARM_GCC_473\Debug\execute_1_0.a "C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CortexM3\ARM_GCC_473\Debug\CyComponentLibrary.a" -l m -Wl,--end-group
 cyelftool.exe -C D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\CortexM3\ARM_GCC_473\Debug\execute_1_0.elf --flash_size 262144 --flash_row_size 256
 cyelftool.exe -S D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\CortexM3\ARM_GCC_473\Debug\execute_1_0.elf
-Flash used: 31214 of 262144 bytes (11,9 %).
-SRAM used: 22221 of 65536 bytes (33,9 %).
---------------- Build Succeeded: 02/08/2015 17:55:28 ---------------
+Flash used: 31510 of 262144 bytes (12,0 %).
+SRAM used: 22213 of 65536 bytes (33,9 %).
+--------------- Build Succeeded: 02/08/2015 19:08:40 ---------------

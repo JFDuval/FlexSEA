@@ -60,10 +60,9 @@ extern volatile uint8 t2_10ms_flag;
 extern volatile uint8 t2_50ms_flag;
 
 extern volatile unsigned char uart2_flag;
-extern int16 sumoferrors;
-extern int gain_p, gain_i;
 
-extern unsigned char controller;
+//motor.c:
+extern struct ctrl_s ctrl;
 
 extern int debug_var;
 
@@ -227,13 +226,13 @@ int main(void)
 			
 			#ifdef USE_TRAPEZ	
 			
-				if(controller == CTRL_POSITION)
+				if(ctrl.active_ctrl == CTRL_POSITION)
 				{
 					//motor_position_pi_analog(pos, (int)adc_res_filtered[0]);
 					motor_position_pi_encoder(pos, enccount);
 					//ToDo confirm that it works with the increased resolution
 				}
-				else if(controller == CTRL_IMPEDANCE)
+				else if(ctrl.active_ctrl == CTRL_IMPEDANCE)
 				{
 					//Impedance controller
 					motor_impedance_encoder(pos, enccount);
@@ -252,7 +251,7 @@ int main(void)
 			
 			#ifdef USE_TRAPEZ	
 				
-				if((controller == CTRL_POSITION) || (controller == CTRL_IMPEDANCE))
+				if((ctrl.active_ctrl == CTRL_POSITION) || (ctrl.active_ctrl == CTRL_IMPEDANCE))
 				{	
 					//Trapezoidal trajectories (can be used for both Position & Impedance)				
 					pos = trapez_get_pos(steps);	//New setpoint
@@ -262,7 +261,7 @@ int main(void)
 			#endif	//USE_TRAPEZ	
 			
 			//If no controller is used the PWM should be 0:
-			if(controller == CTRL_NONE)
+			if(ctrl.active_ctrl == CTRL_NONE)
 			{
 				motor_open_speed_1(0);
 			}

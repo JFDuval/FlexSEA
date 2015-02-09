@@ -28,9 +28,6 @@ unsigned char board_up_id = FLEXSEA_MANAGE_1;
 unsigned char board_sub1_id = FLEXSEA_DEFAULT;
 unsigned char board_sub2_id = FLEXSEA_DEFAULT;
 
-//Control strategy:
-unsigned char controller = CTRL_NONE;	//No controller enabled
-
 //Slave Read Buffer:
 unsigned char slave_read_buffer[SLAVE_READ_BUFFER_LEN];
 
@@ -45,6 +42,9 @@ extern unsigned char payload_str[];
 extern volatile uint16 adc1_result_avg8;
 extern unsigned int adc1_res[ADC1_CHANNELS][ADC1_BUF_LEN];
 extern unsigned int adc1_res_filtered[ADC1_CHANNELS];
+
+//motor.c:
+extern struct ctrl_s ctrl;
 
 extern unsigned char read_offset;
 
@@ -87,7 +87,7 @@ void flexsea_update_slave_read_buffer(unsigned char read_offset)
 	//Offset, Status and Digital IOs:
 	//ToDo fix: all harcoded for now, except Hall
 	slave_read_buffer[SRB_EXECUTE_OFFSET] = read_offset;
-	slave_read_buffer[SRB_EXECUTE_STATUS] = controller;			
+	slave_read_buffer[SRB_EXECUTE_STATUS] = ctrl.active_ctrl;			
 	slave_read_buffer[SRB_EXECUTE_ENC1_MSB] = (enc1 & 0xFF00)>>8;
 	slave_read_buffer[SRB_EXECUTE_ENC1_LSB] = (enc1 & 0x00FF);
 	slave_read_buffer[SRB_EXECUTE_AN0_MSB] = ((adc1_res_filtered[0] & 0x0F00) >> 8);

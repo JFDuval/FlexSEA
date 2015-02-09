@@ -13,7 +13,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="execute\execute_1_0\Source Files\src\main.c">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="execute\execute_1_0\Source Files\src\flexsea_local.c">
 <ExpandedNodeIds>
 <v>execute</v>
 <v>execute\execute_1_0</v>
@@ -325,7 +325,6 @@
 <OpenDocs>
 <name v=".\inc\main.h" />
 <name v=".\inc\misc.h" />
-<name v=".\inc\motor.h" />
 <name v=".\inc\trapez.h" />
 <name v=".\inc\analog.h" />
 <name v=".\src\misc.c" />
@@ -333,6 +332,14 @@
 <name v=".\src\usb.c" />
 <name v=".\inc\usb.h" />
 <name v=".\src\main.c" />
+<name v="..\common\inc\flexsea_rx_cmd.h" />
+<name v="..\common\src\flexsea_rx_cmd.c" />
+<name v=".\src\motor.c" />
+<name v=".\inc\motor.h" />
+<name v="..\common\inc\flexsea.h" />
+<name v=".\src\flexsea_local.c" />
+<name v=".\execute_1_0.cydsn\TopDesign\TopDesign.cysch" />
+<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\ADC_SAR_2_INT.c" />
 </OpenDocs>
 <config v="" />
 <AutoUpdate v="true" />

@@ -98,11 +98,11 @@ unsigned int flexsea_error(unsigned int err_code);
 //ToDo: why? can I fix that?
 
 //List of controllers:
-#define CTRL_NONE			0		//No PID gains, no PWM (no motor)
-#define CTRL_OPEN			1		//Open loop controller. Use with CMD_SET_OPEN_SPEED
-#define CTRL_POSITION			2		//Position controller. Use with CMD_MOVE_TRAP_ABSOLUTE
-#define CTRL_CURRENT			3		//Current controller. Use with CMD_SET_CURRENT
-#define CTRL_IMPEDANCE			4		//Impedance controller. Use with CMD_MOVE_TRAP_ABSOLUTE
+#define CTRL_NONE						0		//No PID gains, no PWM (no motor)
+#define CTRL_OPEN						1		//Open loop controller. Use with CMD_SET_OPEN_SPEED
+#define CTRL_POSITION					2		//Position controller. Use with CMD_MOVE_TRAP_ABSOLUTE
+#define CTRL_CURRENT					3		//Current controller. Use with CMD_SET_CURRENT
+#define CTRL_IMPEDANCE					4		//Impedance controller. Use with CMD_MOVE_TRAP_ABSOLUTE
 //  (set gains with CMD_SET_Z_GAINS & CMD_SET_CURRENT_GAINS)
 
 //Slave Read Buffer Size:

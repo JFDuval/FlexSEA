@@ -25,10 +25,10 @@
 ******************************************************************************/
 /* `#START ADC_SYS_VAR`  */
 
-#include <project.h>
 #include "main.h"
 extern int current_pid_setpoint, current_pid_measured;
-extern unsigned char controller;
+//motor.c:
+extern struct ctrl_s ctrl;
 
 /* `#END`  */
 
@@ -74,7 +74,7 @@ extern unsigned char controller;
 			//dactest = (unsigned char) tmp;
 			//VDAC8_2_SetValue(dactest);	
 			
-			if((controller == CTRL_CURRENT) || (controller == CTRL_IMPEDANCE))
+			if((ctrl.active_ctrl == CTRL_CURRENT) || (ctrl.active_ctrl == CTRL_IMPEDANCE))
 			{
 				//Current controller
 				motor_current_pid_1(current_pid_setpoint, current_pid_measured);
