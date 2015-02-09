@@ -62,6 +62,7 @@ void HAL_USART_MspInit(USART_HandleTypeDef* husart)
 	{
 		/* Peripheral clock enable */
 		__USART6_CLK_ENABLE();
+		__GPIOC_CLK_ENABLE();
 
 		/**USART6 GPIO Configuration	//ToDo Confirm pins!
 		PC6   ------> USART6_TX
@@ -197,6 +198,13 @@ void putc_usart1(char c)
 	HAL_USART_Transmit(&husart1,(uint8_t*)UARTaTxBuffer,3,5000);
 }
 
+void putc_usart6(char c)
+{
+	data[1] = c;
+	//huart1.State = HAL_USART_STATE_READY;
+	HAL_USART_Transmit(&husart6,(uint8_t*)UARTaTxBuffer,3,5000);
+}
+
 //Initialize GPIOs for RS-485: RE, DE
 //(doesn't do the UART pins)
 void init_rs485_outputs(void)
@@ -308,4 +316,39 @@ unsigned char getc_rs485_1_blocking(void)
 	return 0;
 }
 
+//Sends a string via RS-485 #2 (USART6)
+void puts_rs485_6(uint8_t *str, unsigned char length)
+{
+	unsigned int i = 0;
 
+	//Transmit enable
+	rs485_set_mode(1, RS485_TX);
+
+	//ToDo replace by valid delay function!
+	for(i = 0; i < 1000; i++);
+
+	//Send data
+	HAL_USART_Transmit(&husart6,str,length,5000);
+
+	//Transceiver in RX_TX
+	rs485_set_mode(1, RS485_RX);
+	//ToDo: is that what we want? What about receive?
+}
+
+//Prepares the board for a Reply (reception). Blocking.
+unsigned char getc_rs485_6_blocking(void)
+{
+	unsigned int delay = 0;
+	unsigned int tmp = 0;
+
+	//Do not enable if still transmitting:
+	while(husart6.State == HAL_USART_STATE_BUSY_TX);
+	for(delay = 0; delay < 1000; delay++);		//Short delay
+
+	//Receive enable
+	rs485_set_mode(1, RS485_RX);
+	for(delay = 0; delay < 5000; delay++);		//Short delay
+	tmp = USART6->DR;	//Read buffer to clear
+
+	return 0;
+}

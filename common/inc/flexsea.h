@@ -57,7 +57,7 @@ unsigned int flexsea_error(unsigned int err_code);
 #define ID_MATCH                    	1           	//Addressed to me
 #define ID_SUB1_MATCH               	2           	//Addressed to a board below me
 #define ID_SUB2_MATCH               	3
-#define ID_UP_MATCH               		4		//Addressed to my master
+#define ID_UP_MATCH               		4				//Addressed to my master
 #define ID_NO_MATCH                 	0
 
 //Communication ports:
