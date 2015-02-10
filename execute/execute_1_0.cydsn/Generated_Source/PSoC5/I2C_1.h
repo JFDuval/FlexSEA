@@ -35,7 +35,7 @@
 #define I2C_1_MODE               (2u)
 #define I2C_1_ENABLE_WAKEUP      (0u)
 #define I2C_1_ADDR_DECODE        (1u)
-#define I2C_1_UDB_INTRN_CLOCK    (1u)
+#define I2C_1_UDB_INTRN_CLOCK    (0u)
 
 
 /* I2C implementation enum */
@@ -966,7 +966,7 @@ extern uint8 I2C_1_initVar;
                                              I2C_1_ENABLE_SLAVE)
 
     /*I2C_1_DEFAULT_DIVIDE_FACTOR_REG */
-    #define I2C_1_DEFAULT_DIVIDE_FACTOR  ((CY_PSOC5A) ? ((uint8) 0u) : ((uint16) 1u))
+    #define I2C_1_DEFAULT_DIVIDE_FACTOR  ((CY_PSOC5A) ? ((uint8) 2u) : ((uint16) 4u))
 
 #else
     /* I2C_1_CFG_REG: bits definition  */

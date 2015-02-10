@@ -19,7 +19,7 @@
 //****************************************************************************
 
 //Main data structure for all the controllers:
-struct ctrl_s ctrl;
+volatile struct ctrl_s ctrl;
 
 //Encoder:
 struct enc_s encoder;
@@ -353,7 +353,7 @@ void init_motor(void)
 	//PWM1: BLDC
 	PWM_1_Start();
 	PWM_1_WriteCompare(0);	//Start at 0%
-	isr_pwm_Start();
+	//isr_pwm_Start();
 	
 	//ADC2: Motor current
 	ADC_SAR_2_Start();

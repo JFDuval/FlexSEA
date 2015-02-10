@@ -28,7 +28,6 @@
 /* `#START isr_t1_intc` */
 
 #include <project.h>
-#define ALIVE_HALF_T		125		//ms	
 #define ERROR_HALF_T		70		//ms	
 volatile uint8 t1_1ms_flag = 0;
 	
@@ -151,23 +150,12 @@ CY_ISR(isr_t1_Interrupt)
 
 	//Timer 1: 1ms
 	//We divide by 250 to blink the "alive" LED0
-	
-	static uint8 toggle0 = 1, count0 = 0;
+
 	static uint8 toggle2 = 1, count2 = 0;
 	
 	//Clear interrupt
 	Timer_1_ReadStatusRegister();
 	isr_t1_ClearPending();
-	
-	//Fast blinking - Alive LED
-	count0++;
-	if(count0 >= ALIVE_HALF_T)
-	{
-		count0 = 0;
-		toggle0^=1;
-		//LED0_Write(toggle0);
-		LED_HB_Write(toggle0);
-	}
 	
 	//Fast blinking - Error LED
 	count2++;

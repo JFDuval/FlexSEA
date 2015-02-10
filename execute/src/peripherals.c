@@ -127,9 +127,13 @@ void init_rs485(void)
 void init_i2c1(void)
 {
 	#ifdef USE_I2C_INT	
+	/*
 	I2C_1_Init();
 	I2C_1_EnableInt();
 	I2C_1_Enable();
+	I2C_1_Start();	
+	*/
+	I2C_1_EnableInt();
 	I2C_1_Start();	
 	#endif	//USE_I2C_INT
 }

@@ -64,18 +64,18 @@ void strain_test_blocking(void);
 //Strain gauge amplifier:
 struct strain_s
 {
-     //Config:
-     uint8 gain;
-     uint8 offset;
-     uint8 oref;
+     //Config:     
+    uint8 offset;
+	uint8 gain;
+    uint8 oref;
 
-     //Latest ADC values:
-     uint16 vo1;
-     uint16 vo2;
+    //Latest ADC values:
+    uint16 vo1;
+    uint16 vo2;
 	 
-	 //Filtering:
-	 uint16 vo2_buf[STRAIN_BUF_LEN];
-	 uint16 filtered_strain;
+	//Filtering:
+	uint16 vo2_buf[STRAIN_BUF_LEN];
+	uint16 filtered_strain;
 };
 
 #endif	//INC_STRAIN_H

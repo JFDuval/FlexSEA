@@ -28,7 +28,7 @@
 #include "main.h"
 
 //motor.c:
-extern struct ctrl_s ctrl;
+extern volatile struct ctrl_s ctrl;
 
 /* `#END`  */
 

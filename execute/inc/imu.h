@@ -99,9 +99,9 @@ int16 get_accel_x(void);				//read&return IMU Xaccel
 int16 get_accel_y(void);				//Yaccel data
 int16 get_accel_z(void);				//Zaccel data
 void get_accel_xyz(void);
-int16 get_gyro_x(void);				//Xgyro data
-int16 get_gyro_y(void);				//Ygyro data
-int16 get_gyro_z(void);				//Zgyro data
+int16 get_gyro_x(void);					//Xgyro data
+int16 get_gyro_y(void);					//Ygyro data
+int16 get_gyro_z(void);					//Zgyro data
 void get_gyro_xyz(void);
 void reset_imu(void);					//reset IMU registers to default
 void disable_imu(void);					//disable the IMU by shutting down clocks, etc.
@@ -110,5 +110,25 @@ void disable_imu(void);					//disable the IMU by shutting down clocks, etc.
 int imu_write(uint8 internal_reg_addr, uint8* pData, uint16 length); 
 int imu_read(uint8 internal_reg_addr, uint8 *pData, uint16 length);
 void imu_test_code_blocking(void);
+
+//****************************************************************************
+// Structure(s):
+//****************************************************************************
+
+//Inner structure for the gyro and the accelero
+struct xyz
+{
+     int16 x;
+     int16 y;
+     int16 z;
+};
+
+//IMU data & config
+struct imu_s
+{
+     struct xyz accel;
+     struct xyz gyro;
+     uint32_t config;
+};
 
 #endif //_FM_I2C_H_ 

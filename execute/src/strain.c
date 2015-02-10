@@ -18,7 +18,7 @@
 // Local variable(s)
 //****************************************************************************
 
-struct strain_s strain;
+volatile struct strain_s straing;
 	
 //****************************************************************************
 // External variable(s)
@@ -52,10 +52,13 @@ void init_strain(void)
 	//Defaults:
 	//=-=-=-=-=-=
 	
-	strain.offset = STRAIN_DEFAULT_OFFSET;
-	strain.gain = STRAIN_DEFAULT_GAIN;
-	strain.oref = STRAIN_DEFAULT_OREF;	
-	strain_config(strain.offset, strain.gain, strain.oref);
+	straing.offset = STRAIN_DEFAULT_OFFSET;
+	straing.gain = STRAIN_DEFAULT_GAIN;
+	straing.oref = STRAIN_DEFAULT_OREF;	
+	straing.vo1 = 0;
+	straing.vo2 = 0;
+	straing.filtered_strain = 0;
+	strain_config(straing.offset, straing.gain, straing.oref);
 }
 
 //Configure the strain gauge amplifier
@@ -74,7 +77,7 @@ void strain_config(uint8 offs, uint8 gain, uint8 oref)
 	
 	//Second stage gain:
 	i2c_init_buf[0] = STRAIN_GAIN;
-	i2c_init_buf[1] = gain;	//Relatively small gain
+	i2c_init_buf[1] = gain;		//Gain
 	I2C_1_MasterWriteBuf(I2C_POT_ADDR, (uint8 *) i2c_init_buf, 2, I2C_1_MODE_COMPLETE_XFER);	
 }
 
@@ -83,7 +86,7 @@ uint16 strain_read(void)
 {
 	//ADC is auto-sampling, this function simply returns the last filtered value
 	
-	return strain.filtered_strain;
+	return straing.filtered_strain;
 }
 
 //Moving average filter:
@@ -94,19 +97,19 @@ uint16 strain_filter(void)
 	uint16 avg = 0;
 	
 	//Shift buffer and sum all but last term
-	for(cnt = 1; cnt < STRAIN_BUF_LEN; cnt++)
+	for(cnt = 1; cnt < STRAIN_BUF_LEN - 1; cnt++)
 	{
-		strain.vo2_buf[cnt-1] = strain.vo2_buf[cnt];
-		sum += strain.vo2_buf[cnt-1];
+		straing.vo2_buf[cnt-1] = straing.vo2_buf[cnt];
+		sum += straing.vo2_buf[cnt-1];
 	}
-	strain.vo2_buf[STRAIN_BUF_LEN] = strain.vo2;
-	sum += strain.vo2;
+	straing.vo2_buf[STRAIN_BUF_LEN - 1] = straing.vo2;
+	sum += straing.vo2;
 		
 	//Average
 	avg = (uint16)(sum >> STRAIN_SHIFT);
 	
 	//Store in structure:
-	strain.filtered_strain = avg;
+	straing.filtered_strain = avg;
 	
 	return avg;	
 }

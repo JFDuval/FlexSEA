@@ -102,7 +102,7 @@ int main(void)
 	//strain_test_blocking();
 	//safety_cop_comm_test_blocking();
 	//imu_test_code_blocking();
-	motor_fixed_pwm_test_code_blocking(800);
+	//motor_fixed_pwm_test_code_blocking(800);
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 	
 	//Main loop
@@ -113,6 +113,8 @@ int main(void)
 		if(t1_1ms_flag)
 		{
 			t1_1ms_flag = 0;
+			
+			EXP8_Write(1);			
 			
 			#ifdef USE_QEI1
 				
@@ -137,6 +139,11 @@ int main(void)
 			
 			//Refresh all the sensor data:
 			update_sensors();
+			
+			//Alive LED
+			alive_led();
+			
+			EXP8_Write(0);
 		}
 		
 		//10ms timebase
@@ -167,9 +174,9 @@ int main(void)
 		{
 			t2_50ms_flag = 0;
 			
-			dietemp_read();	//ToDo store in variable				
+			dietemp_read();	//ToDo store in variable		
 		}
-		
+				
 		#ifdef USE_USB
 			
 			//USB Data

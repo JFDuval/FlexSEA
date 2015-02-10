@@ -29,6 +29,7 @@
 #include <SG_VO2.h>
 #include <ADC_DelSig_1.h>
 #include <ADC_SAR_2.h>
+#include <i2cclk.h>
 #include <I2C_1.h>
 #include <I2C_1_PVT.h>
 #include <SCL_1_aliases.h>
@@ -107,7 +108,6 @@
 #include <REF_aliases.h>
 #include <REF.h>
 #include <VDAC8_1.h>
-#include <isr_pwm.h>
 #include <EXP1_aliases.h>
 #include <EXP1.h>
 #include <EXP9_aliases.h>
@@ -186,7 +186,6 @@
 #include <ADC_DelSig_1_theACLK.h>
 #include <ADC_SAR_2_IRQ.h>
 #include <ADC_SAR_2_theACLK.h>
-#include <I2C_1_IntClock.h>
 #include <ADC_SAR_1_IRQ.h>
 #include <ADC_SAR_1_theACLK.h>
 #include <UART_2_IntClock.h>

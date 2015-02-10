@@ -20,21 +20,7 @@
 
 uint8 i2c_tmp_buf[IMU_MAX_BUF_SIZE];
 
-//Inner structure for the gyro and the accelero
-struct xyz
-{
-     int16 x;
-     int16 y;
-     int16 z;
-};
-
-//IMU data & config
-struct imu_struct
-{
-     struct xyz accel;
-     struct xyz gyro;
-     uint32_t config;
-}imu;
+struct imu_s imu;
 
 //****************************************************************************
 // External variable(s)
@@ -101,11 +87,11 @@ void get_accel_xyz(void)
 	
 	//Accel Y:
 	tmp = ((uint16)tmp_data[2] << 8) | ((uint16) tmp_data[3]);
-	imu.accel.x = (int16)tmp;
+	imu.accel.y = (int16)tmp;
 	
 	//Accel Z:
 	tmp = ((uint16)tmp_data[4] << 8) | ((uint16) tmp_data[5]);
-	imu.accel.x = (int16)tmp;
+	imu.accel.z = (int16)tmp;
 }
 
 // Get gyro X
@@ -147,11 +133,11 @@ void get_gyro_xyz(void)
 	
 	//Gyro Y:
 	tmp = ((uint16)tmp_data[2] << 8) | ((uint16) tmp_data[3]);
-	imu.gyro.x = (int16)tmp;
+	imu.gyro.y = (int16)tmp;
 	
 	//Gyro Z:
 	tmp = ((uint16)tmp_data[4] << 8) | ((uint16) tmp_data[5]);
-	imu.gyro.x = (int16)tmp;
+	imu.gyro.z = (int16)tmp;
 }
 
 // Reset the IMU to default settings
@@ -185,30 +171,43 @@ int imu_write(uint8 internal_reg_addr, uint8* pData, uint16 length)
 	return 0;
 }
 
-//Note: Not as clean as I would like, but functional (see Evernote 01/15/2015)
-//Note 2: improved on 02/08/2015. To be tested.
-//ToDo: replace delays by register checks
-int imu_read(uint8 internal_reg_addr, uint8 *pData,	uint16 length) 
+//Manual I2C [Write - Restart - Read n] function
+int imu_read(uint8 internal_reg_addr, uint8 *pData, uint16 length)
 {
-	uint8 stat = 0;
-	uint8 i = 0;
+	uint8 status = 0, i = 0;
 	
-	i2c_tmp_buf[0] = internal_reg_addr;
-	I2C_1_MasterClearStatus();
-	stat = I2C_1_MasterWriteBuf(IMU_ADDR, (uint8 *) i2c_tmp_buf, 1, I2C_1_MODE_NO_STOP);
-	//while(I2C_1_MasterStatus() == I2C_1_MSTAT_XFER_INP);
-	CyDelayUs(200);
+	//Start, address, Write mode
+	status = I2C_1_MasterSendStart(IMU_ADDR, 0);		
+	if(status != I2C_1_MSTR_NO_ERROR)
+		return 1;
 	
-	I2C_1_MasterSendRestart(IMU_ADDR, 1);
-	CyDelayUs(200);
+	//Write to register
+	status = I2C_1_MasterWriteByte(internal_reg_addr);
+	if(status != I2C_1_MSTR_NO_ERROR)
+		return 2;
+	
+	//Restart, address, Read mode
+	status = I2C_1_MasterSendRestart(IMU_ADDR, 1);		
+	if(status != I2C_1_MSTR_NO_ERROR)
+		return 3;
+	
+	//Read 'length' bytes:
 	for(i = 0; i < (length-1); i++)
 	{
 		pData[i] = I2C_1_MasterReadByte(1);	//Ack byte(s)
 	}
 	pData[i+1] = I2C_1_MasterReadByte(0);	//Nack the last byte
-	I2C_1_MasterSendStop();	
-
-	return 0;
+	
+	//Send stop
+	/*
+	status = I2C_1_MasterSendStop();
+	if(status != I2C_1_MSTR_NO_ERROR)
+		return 4;
+	*/
+	//I2C_1_MasterSendStop() is blocking, and it blocked me every few seconds. This seems to work better:
+	I2C_1_GENERATE_STOP_MANUAL;		//Generate STOP
+    I2C_1_state = I2C_1_SM_IDLE;	//Reset state to IDLE
+	//Scopped the bus, all clean.
 }
 
 //Copy of the test code used in main.c to test the hardware:
@@ -219,10 +218,28 @@ void imu_test_code_blocking(void)
 	uint8 ledg_state = 0;
 	int16 imu_accel_x = 0;
 
+	/*
+	//Single channel test:
 	while(1)
 	{
 		imu_accel_x = get_accel_x();
 		send_usb_int16(imu_accel_x);
+		
+		ledg_state ^= 1;
+		LED_G_Write(ledg_state);
+		
+		CyDelay(75);		
+	}
+	*/
+	
+	// 3 channels test (only one displayed)
+	while(1)
+	{
+		get_accel_xyz();
+		//get_gyro_xyz();
+		#ifdef USE_USB
+		send_usb_int16(imu.gyro.z);
+		#endif	//USE_USB
 		
 		ledg_state ^= 1;
 		LED_G_Write(ledg_state);

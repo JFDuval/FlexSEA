@@ -23,10 +23,13 @@
 void rs485_putc(uint8 byte);
 void i2c_write_minm_rgb(uint8 cmd, uint8 r, uint8 g, uint8 b);
 void update_sensors(void);
+void alive_led(void);
 
 //****************************************************************************
 // Definition(s):
 //****************************************************************************
+
+#define ALIVE_HALF_T				125		//ms	
 
 //I2C - MinM
 #define MINM_BUF_SIZE				4

@@ -36,7 +36,7 @@ void update_sensors(void)
 		
 		#ifdef USE_IMU
 			
-			get_accel_xyz();
+			//get_accel_xyz();
 			get_gyro_xyz();
 			//We could also get temperature
 			
@@ -76,4 +76,19 @@ void i2c_write_minm_rgb(uint8 cmd, uint8 r, uint8 g, uint8 b)
     (void) I2C_2_MasterClearStatus();
 	
 	return;	
+}
+
+void alive_led(void)
+{
+	static uint8 toggle0 = 1, count0 = 0;
+	
+	//Fast blinking - Alive LED
+	count0++;
+	if(count0 >= ALIVE_HALF_T)
+	{
+		count0 = 0;
+		toggle0^=1;
+		//LED0_Write(toggle0);
+		LED_HB_Write(toggle0);
+	}
 }
