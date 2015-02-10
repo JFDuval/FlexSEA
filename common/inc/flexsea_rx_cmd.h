@@ -18,17 +18,18 @@
 // Prototype(s):
 //****************************************************************************
 
-void rx_set_pid_gains(unsigned int tmp1, unsigned int tmp2, unsigned int tmp3, unsigned int tmp4);
+void rx_set_pid_gains(unsigned char *buf);
 void rx_move_trap_absolute(unsigned char *buf);
-void rx_set_open_speed(unsigned char *buf);
-void rx_set_led(unsigned char ledbank, unsigned char rgb, unsigned char r, unsigned char g, unsigned char b);
+void rx_cmd_ctrl_o_write(unsigned char *buf);
 void rx_read_reply(unsigned char *buf, unsigned int verbal);
-void rx_read(unsigned char off);
-void rx_set_clutch(unsigned char cstate);
-void rx_set_current(unsigned char *buf);
-void rx_set_control(unsigned char *buf);
-void rx_set_current_gains(unsigned char *buf);
+void rx_read(unsigned char *buf);
+void rx_set_clutch(unsigned char *buf);
+void rx_cmd_ctrl_i_write(unsigned char *buf);
+void rx_ctrl_mode_write(unsigned char *buf);
+void rx_cmd_ctrl_i_gains(unsigned char *buf);
 void rx_set_z_gains(unsigned char *buf);
+void rx_cmd_encoder_write(unsigned char *buf);
+void rx_cmd_strain_config(unsigned char *buf);
 
 //****************************************************************************
 // Definition(s):

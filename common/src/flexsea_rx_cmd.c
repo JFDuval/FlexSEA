@@ -2,7 +2,7 @@
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
 // jfduval@mit.edu
-// 07/2014
+// 02/2015
 //****************************************************************************
 // flexsea_rx_cmd: how do we deal with the commands we received?
 //****************************************************************************
@@ -48,10 +48,10 @@ unsigned char comm_str[COMM_STR_BUF_LEN];
 #ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
 extern int steps;
-extern int current_pid_setpoint;
 
 //motor.c:
 extern struct ctrl_s ctrl;
+extern struct enc_s encoder;	
 
 #endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -60,10 +60,18 @@ extern struct ctrl_s ctrl;
 // Function(s)
 //****************************************************************************
 
-void rx_set_pid_gains(unsigned int tmp1, unsigned int tmp2, unsigned int tmp3, unsigned int tmp4)
+void rx_set_pid_gains(uint8_t *buf)
 {
     #ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
+	uint32 tmp1 = 0, tmp2 = 0, tmp3 = 0, tmp4 = 0;
+		
+	//Rebuild 16bit data:
+    tmp1 = (buf[CP_DATA1] << 8) + buf[CP_DATA1 + 1];
+    tmp2 = (buf[CP_DATA1 + 2] << 8) + buf[CP_DATA1 + 3];
+    tmp3 = (buf[CP_DATA1 + 4] << 8) + buf[CP_DATA1 + 5];
+    tmp4 = (buf[CP_DATA1 + 6] << 8) + buf[CP_DATA1 + 7];	
+		
 	//ToDo Add more safety checks!
 	if(tmp1 > 0)
 		ctrl.position.gain.P_KP = tmp1;
@@ -140,11 +148,11 @@ void rx_move_trap_absolute(unsigned char *buf)
 	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
 
-void rx_set_clutch(unsigned char cstate)
+void rx_set_clutch(unsigned char *buf)
 {
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
-	clutch_output(cstate);
+	clutch_output(buf[CP_DATA1]);
 
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -159,18 +167,20 @@ void rx_set_clutch(unsigned char cstate)
 	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
 
-void rx_set_open_speed(unsigned char *buf)
+void rx_cmd_ctrl_o_write(unsigned char *buf)
 {
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
-	int16 tmp_mot_spd = 0;
+	int32 tmp_mot_spd = 0;
 
-	//Rebuild 16bit data:
-    tmp_mot_spd = (buf[CP_DATA1] << 8) + buf[CP_DATA1 + 1];
+	//Rebuild 32bit data and limit it to 16bits
+    tmp_mot_spd = BYTES_TO_UINT32(	buf[CP_DATA1], buf[CP_DATA1 + 1], \
+									buf[CP_DATA1 + 2], buf[CP_DATA1 + 3]);
+	tmp_mot_spd &= 0xFFFF;
 
 	if(ctrl.active_ctrl == CTRL_OPEN)
 	{
-		motor_open_speed_1(tmp_mot_spd);
+		motor_open_speed_1((int16)tmp_mot_spd);
 	}
 
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
@@ -178,31 +188,6 @@ void rx_set_open_speed(unsigned char *buf)
 	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
 	//No code (yet), you shouldn't be here...
 	flexsea_error(0);
-	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
-
-	#ifdef BOARD_TYPE_FLEXSEA_PLAN
-	//No code (yet), you shouldn't be here...
-	flexsea_error(0);
-	#endif	//BOARD_TYPE_FLEXSEA_PLAN
-}
-
-void rx_set_led(unsigned char ledbank, unsigned char rgb, unsigned char r, unsigned char g, unsigned char b)
-{
-	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
-
-	LED_R_Write(r);
-	LED_G_Write(g);
-	LED_B_Write(b);
-	#ifdef USE_I2C_EXT
-	i2c_write_minm_rgb(SET_RGB, r, g, b);
-	#endif 	//USE_I2C_EXT
-
-	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
-
-	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
-
-	set_led_rgb(r, g, b);
-
 	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
 	#ifdef BOARD_TYPE_FLEXSEA_PLAN
@@ -337,10 +322,10 @@ void rx_read_reply(unsigned char *buf, unsigned int verbal)
 	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
 
-void rx_read(unsigned char off)
+void rx_read(unsigned char *buf)
 {
     //Set Read offset
-	read_offset = off;
+	read_offset = buf[CP_DATA1];
 
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -354,15 +339,9 @@ void rx_read(unsigned char off)
 	numb = flexsea_prepare_rs485_tx_buffer();	//Prepare data
 	CyDelayUs(500);				//Wait (ToDo optimize)
 
-	/*
-	for(i = 0; i < 5; i++)
-	{
-		rs485_putc(0xCC);			//Send i bytes
-	}
-	*/
 	for(i = 0; i < numb; i++)
 	{
-		//ToDo use string
+		//ToDo use puts
 		rs485_putc(comm_str[i]);
 	}
 
@@ -386,14 +365,14 @@ void rx_read(unsigned char off)
 
 }
 
-void rx_set_current(unsigned char *buf)
+void rx_cmd_ctrl_i_write(unsigned char *buf)
 {
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
 	int16 tmp_current = 0;
 
 	//Rebuild 16bit data:
-    tmp_current = (buf[CP_DATA1] << 8) + buf[CP_DATA1 + 1];
+    tmp_current = BYTES_TO_UINT16(buf[CP_DATA1], buf[CP_DATA1 + 1]);
 
 	ctrl.current.setpoint_val = tmp_current;
 
@@ -410,7 +389,7 @@ void rx_set_current(unsigned char *buf)
 	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
 
-void rx_set_control(unsigned char *buf)
+void rx_ctrl_mode_write(unsigned char *buf)
 {
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -434,16 +413,16 @@ void rx_set_control(unsigned char *buf)
 	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
 
-void rx_set_current_gains(unsigned char *buf)
+void rx_cmd_ctrl_i_gains(unsigned char *buf)
 {
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
 	unsigned int tmp_current_gain_p = 0, tmp_current_gain_i = 0, tmp_current_gain_d = 0;
 
 	//Rebuild 16bit data:
-    tmp_current_gain_p = (buf[CP_DATA1] << 8) + buf[CP_DATA1 + 1];
-    tmp_current_gain_i = (buf[CP_DATA1 + 2] << 8) + buf[CP_DATA1 + 3];
-    tmp_current_gain_d = (buf[CP_DATA1 + 4] << 8) + buf[CP_DATA1 + 5];
+    tmp_current_gain_p = BYTES_TO_UINT16(buf[CP_DATA1], buf[CP_DATA1+1]);
+    tmp_current_gain_i = BYTES_TO_UINT16(buf[CP_DATA1+2], buf[CP_DATA1+3]);
+    tmp_current_gain_d = BYTES_TO_UINT16(buf[CP_DATA1+4], buf[CP_DATA1+5]);
 
     //Update variables:
     ctrl.current.gain.I_KP = tmp_current_gain_p;
@@ -489,5 +468,69 @@ void rx_set_z_gains(unsigned char *buf)
 	#ifdef BOARD_TYPE_FLEXSEA_PLAN
 	//No code (yet), you shouldn't be here...
 	flexsea_error(0);
+	#endif	//BOARD_TYPE_FLEXSEA_PLAN
+}
+
+/*
+//Template:
+void rx_cmd_xxx(unsigned char *buf)
+{
+	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+	//No code (yet), you shouldn't be here...
+	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+	//No code (yet), you shouldn't be here...
+	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+	#ifdef BOARD_TYPE_FLEXSEA_PLAN
+	//No code (yet), you shouldn't be here...
+	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+	#endif	//BOARD_TYPE_FLEXSEA_PLAN
+}
+*/
+
+//Write value to encoder
+void rx_cmd_encoder_write(unsigned char *buf)
+{
+	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+
+	int32 tmp = (int32)BYTES_TO_UINT32(buf[CP_DATA1], buf[CP_DATA1+1], \
+				buf[CP_DATA1+2], buf[CP_DATA1+3]);
+	
+	encoder_write(tmp);	
+		
+	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+	//No code (yet), you shouldn't be here...
+	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+	#ifdef BOARD_TYPE_FLEXSEA_PLAN
+	//No code (yet), you shouldn't be here...
+	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+	#endif	//BOARD_TYPE_FLEXSEA_PLAN
+}
+
+//Write strain configuration
+void rx_cmd_strain_config(unsigned char *buf)
+{
+	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+
+	strain_config(buf[CP_DATA1], buf[CP_DATA1+1], buf[CP_DATA1]+2);
+		
+	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+	//No code (yet), you shouldn't be here...
+	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+	#ifdef BOARD_TYPE_FLEXSEA_PLAN
+	//No code (yet), you shouldn't be here...
+	flexsea_error(SE_CMD_NOT_PROGRAMMED);
 	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }

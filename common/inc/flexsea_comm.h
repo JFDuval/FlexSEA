@@ -34,10 +34,9 @@ void comm_test_functions(void);
 // Definition(s):
 //****************************************************************************
 
-//I'm using chars because it's visual and also because they have high decimal
-//values. Do not change!
-#define HEADER  'a'
-#define FOOTER  'z'
-#define ESCAPE  'e'
+//Framing:
+#define HEADER  0xED	//237d
+#define FOOTER  0xEE	//238d
+#define ESCAPE  0xE9	//233d
 
 #endif

@@ -85,7 +85,7 @@ unsigned int tx_set_open_spd(unsigned char slave, int open_spd)
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_SET_OPEN_SPEED;
+    payload_str[CP_CMD1] = CMD_CTRL_O_WRITE;
 
     //Parameters:
     payload_str[CP_DATA1] = (unsigned char)((open_spd >> 8) & 0xFF);
@@ -125,27 +125,6 @@ unsigned int tx_set_trapeze(unsigned char slave, int posi, int posf, int spdm, i
     return 12;
 }
 
-//Set LED state
-unsigned int tx_set_leds(unsigned char slave, unsigned char bank, unsigned char rgb, unsigned char r, unsigned char g, unsigned char b)
-{
-    //Fresh string:
-    payload_build_basic_str(slave);
-
-    //Command:
-    payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_SET_LEDS;
-
-    //Parameters:
-    payload_str[CP_DATA1] = bank;
-    payload_str[CP_DATA1 + 1] = rgb;
-    payload_str[CP_DATA1 + 2] = r;
-    payload_str[CP_DATA1 + 3] = g;
-    payload_str[CP_DATA1 + 4] = b;
-
-    //At this point the string is ready to be packaged in comm_str
-    return 9;
-}
-
 //Read from slave, starting at offset
 unsigned int tx_read(unsigned char slave, unsigned char offset)
 {
@@ -171,7 +150,7 @@ unsigned int tx_set_current(unsigned char slave, int curr)
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_SET_CURRENT;
+    payload_str[CP_CMD1] = CMD_CTRL_I_WRITE;
 
     //Parameters:
     payload_str[CP_DATA1] = (unsigned char)((curr >> 8) & 0xFF);
@@ -192,7 +171,7 @@ unsigned int tx_set_control(unsigned char slave, unsigned char ctrl)
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_SET_CONTROL;
+    payload_str[CP_CMD1] = CMD_CTRL_MODE_WRITE;
 
     //Parameters:
     payload_str[CP_DATA1] = ctrl;
@@ -212,7 +191,7 @@ unsigned int tx_set_current_gains(unsigned char slave, int c_p, int c_i, int c_d
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_SET_CURRENT_GAINS;
+    payload_str[CP_CMD1] = CMD_CTRL_I_GAINS_WRITE;
 
     //Parameters:
     payload_str[CP_DATA1] = (unsigned char)((c_p >> 8) & 0xFF);

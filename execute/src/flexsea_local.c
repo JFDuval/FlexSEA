@@ -27,6 +27,7 @@ unsigned char board_id = FLEXSEA_EXECUTE_1;
 unsigned char board_up_id = FLEXSEA_MANAGE_1;
 unsigned char board_sub1_id = FLEXSEA_DEFAULT;
 unsigned char board_sub2_id = FLEXSEA_DEFAULT;
+//ToDo this should be flexible!
 
 //Slave Read Buffer:
 unsigned char slave_read_buffer[SLAVE_READ_BUFFER_LEN];

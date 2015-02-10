@@ -34,8 +34,7 @@
 
 //Misc. variables, used for debugging only
 uint8 last_byte = 0;
-int32 enccount = 0;
-int steps = 0, current_step = 0, pos = 0;
+int steps = 0, current_step = 0;
 
 //****************************************************************************
 // External variable(s)
@@ -118,10 +117,7 @@ int main(void)
 			#ifdef USE_QEI1
 				
 				//Refresh encoder readings
-				enccount = QuadDec_1_GetCounter();
-				//Note: we keep this one out of the update_sensors() function
-				//because it's critical for the loop stability that this value
-				//be steady.
+				encoder_read();
 				
 			#endif	//USE_QEI1			
 			
@@ -129,12 +125,12 @@ int main(void)
 			
 				if(ctrl.active_ctrl == CTRL_POSITION)
 				{
-					motor_position_pid(pos, enccount);
+					motor_position_pid(ctrl.position.setpoint_val, ctrl.position.actual_val);
 				}
 				else if(ctrl.active_ctrl == CTRL_IMPEDANCE)
 				{
 					//Impedance controller
-					motor_impedance_encoder(pos, enccount);
+					motor_impedance_encoder(ctrl.impedance.setpoint_val, ctrl.impedance.actual_val);
 				}
 			
 			#endif	//USE_TRAPEZ
@@ -153,7 +149,7 @@ int main(void)
 				if((ctrl.active_ctrl == CTRL_POSITION) || (ctrl.active_ctrl == CTRL_IMPEDANCE))
 				{	
 					//Trapezoidal trajectories (can be used for both Position & Impedance)				
-					pos = trapez_get_pos(steps);	//New setpoint
+					ctrl.position.setpoint_val = trapez_get_pos(steps);	//New setpoint
 					//ToDo Move it to 1ms in the future (trapez.c will need to be updated first)
 				}
 			

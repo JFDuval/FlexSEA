@@ -231,37 +231,41 @@ void init_rs485_outputs(void)
 }
 
 //Receive or Transmit
-//ToDo: add support for USART6
-void rs485_set_mode(unsigned char rx_tx)
+//ToDo: Jake, this function is recursive... is there a good justification?
+void rs485_set_mode(uint32_t port, unsigned char rx_tx)
 {
 	//USART1:
 	//!RE1 : PF12
 	//DE1: PF11
 
-	if(rx_tx == RS485_TX)
+	if(port == 0)	//RS-485 #1 / USART1
 	{
-		//Half-duplex TX (Receive disabled):
-		HAL_GPIO_WritePin(GPIOF, GPIO_PIN_12, 1);	//RE
-		HAL_GPIO_WritePin(GPIOF, GPIO_PIN_11, 1);	//DE
+		if(rx_tx == RS485_TX)
+		{
+			//Half-duplex TX (Receive disabled):
+			HAL_GPIO_WritePin(GPIOF, GPIO_PIN_12, 1);	//RE
+			HAL_GPIO_WritePin(GPIOF, GPIO_PIN_11, 1);	//DE
+		}
+		else if(rx_tx == RS485_RX)
+		{
+			//Half-duplex RX (Transmit disabled):
+			HAL_GPIO_WritePin(GPIOF, GPIO_PIN_12, 0);	//DE
+			HAL_GPIO_WritePin(GPIOF, GPIO_PIN_11, 0);	//RE
+		}
+		else if(rx_tx == RS485_RX_TX)
+		{
+			//Read & Write:
+			HAL_GPIO_WritePin(GPIOF, GPIO_PIN_12, 0);	//RE
+			HAL_GPIO_WritePin(GPIOF, GPIO_PIN_1, 1);	//DE
+		}
+		else
+		{
+			//Standby: no transmission, no reception
+			HAL_GPIO_WritePin(GPIOF, GPIO_PIN_12, 1);	//RE
+			HAL_GPIO_WritePin(GPIOF, GPIO_PIN_11, 0);	//DE
+		}
 	}
-	else if(rx_tx == RS485_RX)
-	{
-		//Half-duplex RX (Transmit disabled):
-		HAL_GPIO_WritePin(GPIOF, GPIO_PIN_12, 0);	//DE
-		HAL_GPIO_WritePin(GPIOF, GPIO_PIN_11, 0);	//RE
-	}
-	else if(rx_tx == RS485_RX_TX)
-	{
-		//Read & Write:
-		HAL_GPIO_WritePin(GPIOF, GPIO_PIN_12, 0);	//RE
-		HAL_GPIO_WritePin(GPIOF, GPIO_PIN_1, 1);	//DE
-	}
-	else
-	{
-		//Standby: no transmission, no reception
-		HAL_GPIO_WritePin(GPIOF, GPIO_PIN_12, 1);	//RE
-		HAL_GPIO_WritePin(GPIOF, GPIO_PIN_11, 0);	//DE
-	}
+	//ToDo finalize the port when the 0.0 code will be stable and tested.
 }
 
 //Sends a string via RS-485 #1 (USART1)
@@ -285,7 +289,7 @@ void puts_rs485_1(uint8_t *str, unsigned char length)
 	*/
 
 	//Transmit enable
-	rs485_set_mode(RS485_TX);
+	rs485_set_mode(0, RS485_TX);
 
 	//ToDo replace by valid delay function!
 	for(i = 0; i < 1000; i++);
@@ -309,7 +313,7 @@ unsigned char getc_rs485_1_blocking(void)
 	for(delay = 0; delay < 1000; delay++);		//Short delay
 
 	//Receive enable
-	rs485_set_mode(RS485_RX);
+	rs485_set_mode(0, RS485_RX);
 	for(delay = 0; delay < 5000; delay++);		//Short delay
 	tmp = USART1->DR;	//Read buffer to clear
 

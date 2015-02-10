@@ -115,45 +115,50 @@ unsigned int payload_parse_str(unsigned char *cp_str)
         //It's addressed to me, what can I do with it?
         switch(cmd)
         {
-            //ToDo: I should probably always pass the whole buffer, like for read_reply
-            case CMD_SET_PID_GAINS:
-                //Rebuild 16bit data:
-                tmp1 = (cp_str[CP_DATA1] << 8) + cp_str[CP_DATA1 + 1];
-                tmp2 = (cp_str[CP_DATA1 + 2] << 8) + cp_str[CP_DATA1 + 3];
-                tmp3 = (cp_str[CP_DATA1 + 4] << 8) + cp_str[CP_DATA1 + 5];
-                tmp4 = (cp_str[CP_DATA1 + 6] << 8) + cp_str[CP_DATA1 + 7];
-                rx_set_pid_gains(tmp1, tmp2, tmp3, tmp4);
+			//Old / to change:
+            case CMD_SET_PID_GAINS:                
+                rx_set_pid_gains(cp_str);
                 break;
             case CMD_MOVE_TRAP_ABSOLUTE:
                 rx_move_trap_absolute(cp_str);
                 break;
             case CMD_SET_CLUTCH:
-                rx_set_clutch(cp_str[CP_DATA1]);
-                break;
-            case CMD_SET_OPEN_SPEED:
-                rx_set_open_speed(cp_str);
-                break;
-            case CMD_SET_LEDS:
-                rx_set_led(cp_str[CP_DATA1], cp_str[CP_DATA1+1], cp_str[CP_DATA1+2], cp_str[CP_DATA1+3], cp_str[CP_DATA1+4]);
-                break;
+                rx_set_clutch(cp_str);
+                break;            
             case CMD_REPLY:
                 rx_read_reply(cp_str, 0);
                 break;
             case CMD_READ:
-                rx_read(cp_str[CP_DATA1]);
-                break;
-            case CMD_SET_CURRENT:
-                rx_set_current(cp_str);
-                break;
-            case CMD_SET_CONTROL:
-                rx_set_control(cp_str);
-                break;
-            case CMD_SET_CURRENT_GAINS:
-                rx_set_current_gains(cp_str);
+                rx_read(cp_str);
                 break;
             case CMD_SET_Z_GAINS:
                 rx_set_z_gains(cp_str);
                 break;
+			
+			//System commands:
+				
+			//Sensor commands:
+			case CMD_ENCODER_WRITE:
+				rx_cmd_encoder_write(cp_str);
+				break;
+			case CMD_STRAIN_CONFIG:
+				rx_cmd_strain_config(cp_str);
+				break;
+				
+			//Motor commands:
+			case CMD_CTRL_MODE_WRITE:
+                rx_ctrl_mode_write(cp_str);
+                break;
+			case CMD_CTRL_I_GAINS_WRITE:
+                rx_cmd_ctrl_i_gains(cp_str);
+                break;	
+			case CMD_CTRL_O_WRITE:
+                rx_cmd_ctrl_o_write(cp_str);
+                break;
+            case CMD_CTRL_I_WRITE:
+                rx_cmd_ctrl_i_write(cp_str);
+                break;
+				
             default:
                 output = PARSE_UNKNOWN_CMD;
                 break;

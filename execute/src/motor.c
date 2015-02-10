@@ -21,6 +21,9 @@
 //Main data structure for all the controllers:
 struct ctrl_s ctrl;
 
+//Encoder:
+struct enc_s encoder;
+
 //Impedance loop
 int debug_var = 0;
 
@@ -269,13 +272,13 @@ void control_strategy(unsigned char strat)
 	//To avoid a huge startup error on the Position-based controllers:
 	if(strat == CTRL_POSITION)
 	{
-		pos = adc1_res_filtered[0];
-		steps = trapez_gen_motion_1(pos, pos, 1, 1);
+		ctrl.position.setpoint_val = adc1_res_filtered[0];
+		steps = trapez_gen_motion_1(ctrl.position.setpoint_val, ctrl.position.setpoint_val, 1, 1);
 	}
 	else if(strat == CTRL_IMPEDANCE)
 	{
-		pos = QuadDec_1_GetCounter();
-		steps = trapez_gen_motion_1(pos, pos, 1, 1);
+		ctrl.impedance.setpoint_val = QuadDec_1_GetCounter();
+		steps = trapez_gen_motion_1(ctrl.impedance.setpoint_val, ctrl.impedance.setpoint_val, 1, 1);
 	}
 	
 	ctrl.active_ctrl = strat;	//controller = strat;
@@ -441,4 +444,24 @@ void motor_fixed_pwm_test_code_blocking(int spd)
 		LED_G_Write(H2_Read());
 		LED_B_Write(H3_Read());
 	}
+}
+
+//Updates the structure with the latest encoder value
+void encoder_read(void)
+{
+//Count: actual, last, difference
+	encoder.count_last = encoder.count;
+	encoder.count = QuadDec_1_GetCounter();
+	encoder.count_dif = encoder.count - encoder.count_last;
+	
+	//For the position & impedance controllers we use the last count
+	ctrl.position.actual_val = encoder.count;
+	ctrl.impedance.actual_val = encoder.count;
+}
+
+//Updates the structure with the desired value and write it to the encoder
+void encoder_write(int32 enc)
+{
+	encoder.count = enc;
+	QuadDec_1_SetCounter(enc);
 }
