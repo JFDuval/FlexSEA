@@ -90,12 +90,6 @@ unsigned char adc_sar1_flag = 0;
 		{
 			cnt = 0;
 			
-			/*
-			if(ch == 0)
-				ch = 1;
-			else
-				ch = 0;
-			*/
 			if(ch >= ADC1_CHANNELS)
 				ch = 0;
 			else

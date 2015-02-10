@@ -24,7 +24,7 @@
 
 #ifdef USE_USB
 	#warning "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="
-	#warning "USB Enabled - Make sure that you connect a cable!"
+	#warning "   USB Enabled - Make sure to connect a cable!   "
 	#warning "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="
 #endif
 
@@ -66,6 +66,8 @@ extern uint8 usb_success;
 
 //DelSig ADC:
 extern uint8 adc_delsig_flag;
+
+extern struct strain_s strain;
 
 //****************************************************************************
 // Function(s)
@@ -114,7 +116,7 @@ int main(void)
 		{
 			t1_1ms_flag = 0;
 			
-			EXP8_Write(1);			
+			EXP8_Write(1);	//Used to test the timing - can be removed	
 			
 			#ifdef USE_QEI1
 				
@@ -143,7 +145,7 @@ int main(void)
 			//Alive LED
 			alive_led();
 			
-			EXP8_Write(0);
+			EXP8_Write(0);	//Used to test the timing - can be removed	
 		}
 		
 		//10ms timebase
@@ -174,7 +176,7 @@ int main(void)
 		{
 			t2_50ms_flag = 0;
 			
-			dietemp_read();	//ToDo store in variable		
+			dietemp_read();	//ToDo store in variable			
 		}
 				
 		#ifdef USE_USB

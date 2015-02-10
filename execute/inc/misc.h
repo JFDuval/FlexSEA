@@ -36,6 +36,7 @@ void alive_led(void);
 #define I2C_SLAVE_ADDR_MINM			0x09
 #define I2C_SLAVE_ADDR_IMU			
 #define SET_RGB						'n' 
+
 	
 #endif	//INC_MISC_H
 	

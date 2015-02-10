@@ -18,8 +18,8 @@
 // Local variable(s)
 //****************************************************************************
 
-volatile struct strain_s straing;
-	
+struct strain_s strain;
+
 //****************************************************************************
 // External variable(s)
 //****************************************************************************
@@ -52,13 +52,13 @@ void init_strain(void)
 	//Defaults:
 	//=-=-=-=-=-=
 	
-	straing.offset = STRAIN_DEFAULT_OFFSET;
-	straing.gain = STRAIN_DEFAULT_GAIN;
-	straing.oref = STRAIN_DEFAULT_OREF;	
-	straing.vo1 = 0;
-	straing.vo2 = 0;
-	straing.filtered_strain = 0;
-	strain_config(straing.offset, straing.gain, straing.oref);
+	strain.offset = STRAIN_DEFAULT_OFFSET;
+	strain.gain = STRAIN_DEFAULT_GAIN;
+	strain.oref = STRAIN_DEFAULT_OREF;	
+	strain.vo1 = 0;
+	strain.vo2 = 0;
+	strain.filtered_strain = 0;
+	strain_config(strain.offset, strain.gain, strain.oref);
 }
 
 //Configure the strain gauge amplifier
@@ -86,30 +86,30 @@ uint16 strain_read(void)
 {
 	//ADC is auto-sampling, this function simply returns the last filtered value
 	
-	return straing.filtered_strain;
+	return strain.filtered_strain;
 }
 
 //Moving average filter:
 uint16 strain_filter(void)
 {
 	uint32 sum = 0;
-	static uint8 cnt = 0;
+	uint8 cnt = 0;
 	uint16 avg = 0;
 	
 	//Shift buffer and sum all but last term
-	for(cnt = 1; cnt < STRAIN_BUF_LEN - 1; cnt++)
+	for(cnt = 1; cnt < (STRAIN_BUF_LEN); cnt++)
 	{
-		straing.vo2_buf[cnt-1] = straing.vo2_buf[cnt];
-		sum += straing.vo2_buf[cnt-1];
+		strain.vo2_buf[cnt-1] = strain.vo2_buf[cnt];
+		sum += strain.vo2_buf[cnt-1];
 	}
-	straing.vo2_buf[STRAIN_BUF_LEN - 1] = straing.vo2;
-	sum += straing.vo2;
+	strain.vo2_buf[STRAIN_BUF_LEN - 1] = strain.vo2;
+	sum += strain.vo2;
 		
 	//Average
 	avg = (uint16)(sum >> STRAIN_SHIFT);
 	
 	//Store in structure:
-	straing.filtered_strain = avg;
+	strain.filtered_strain = avg;
 	
 	return avg;	
 }
@@ -141,4 +141,3 @@ void strain_test_blocking(void)
 		CyDelay(1);
 	}
 }
-

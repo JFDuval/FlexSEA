@@ -7,8 +7,8 @@
 // strain: strain gauge amplifier
 //****************************************************************************
 	
-#ifndef INC_STRAIN_H
-#define INC_STRAIN_H
+#ifndef INC_STRAINGAUGE_H
+#define INC_STRAINGAUGE_H
 
 //****************************************************************************
 // Include(s)
@@ -50,8 +50,8 @@ void strain_test_blocking(void);
 
 //Default values (experimental, expected to change)
 #define STRAIN_DEFAULT_OREF		156
-#define STRAIN_DEFAULT_OFFSET	10
-#define STRAIN_DEFAULT_GAIN		120
+#define STRAIN_DEFAULT_OFFSET	120
+#define STRAIN_DEFAULT_GAIN		10
 
 //Strain filtering:
 #define STRAIN_BUF_LEN			8
@@ -64,11 +64,11 @@ void strain_test_blocking(void);
 //Strain gauge amplifier:
 struct strain_s
 {
-     //Config:     
+	//Config:     
     uint8 offset;
 	uint8 gain;
-    uint8 oref;
-
+    uint8 oref;	
+	
     //Latest ADC values:
     uint16 vo1;
     uint16 vo2;
@@ -78,5 +78,5 @@ struct strain_s
 	uint16 filtered_strain;
 };
 
-#endif	//INC_STRAIN_H
+#endif	//INC_STRAINGAUGE_H
 	
