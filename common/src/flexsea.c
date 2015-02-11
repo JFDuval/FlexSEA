@@ -82,6 +82,7 @@ extern unsigned char payload_str[];
 //****************************************************************************
 
 //Full local (console) test of Flexsea-Payload & Flexsea-Comm
+//ToDo old function, fix or delete
 void test_flexsea_network(void)
 {
     unsigned char kp = 1, ki = 2, kd = 3;
@@ -100,7 +101,7 @@ void test_flexsea_network(void)
     kp = 70;
     ki = 71;
     kd = 72;
-    tx_set_pid_gains(board_id, kp, ki, kd);
+    tx_cmd_ctrl_p_gains_write(board_id, kp, ki, kd);
 
     //Package it in comm_str:
     comm_gen_str(payload_str, PAYLOAD_BUF_LEN);

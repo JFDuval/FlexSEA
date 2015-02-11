@@ -31,12 +31,15 @@ void flexsea_console_stream_slave_read(unsigned char slaveid, unsigned char offs
 //****************************************************************************
 
 //MAX_CMD has to equal the number of FCP_xx lines!
-#define MAX_CMD         12
+#define MAX_CMD         14
 #define NO_CMD_FOUND    127
 
 //MAX_SLAVE has to equal the number of slave_list lines!
 #define MAX_SLAVE       4       //For now, 1x Manage and 2x Execute
 #define NO_SLAVE_FOUND  127
+
+//Length of the text strings:
+#define TXT_STR_LEN		40
 
 //#define USE_PRINTF
 

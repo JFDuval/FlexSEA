@@ -20,8 +20,8 @@
 //****************************************************************************
 
 char name[] = "FlexSEA-Plan";
-char version[] = "0.0";
-char date[] = "07/23/2014";
+char version[] = "1.0";
+char date[] = "02/11/2015";
 
 //Board ID (this board) - pick from Board list in /common/inc/flexsea.h
 unsigned char board_id = FLEXSEA_PLAN_1;

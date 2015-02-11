@@ -70,7 +70,8 @@ uint32_t tx_cmd_ctrl_p_gains_write(uint8_t slave, int16_t kp, int16_t ki, int16_
 	#ifdef ENABLE_TERMINAL_DEBUG
     payload_print_str();
 	#endif // ENABLE_TERMINAL_DEBUG
-    return 0;
+
+    return 10;
 }
 
 //Set clutch state
@@ -84,10 +85,10 @@ uint32_t tx_cmd_clutch_write(uint8_t slave, uint8_t clutch_pwm)
     payload_str[CP_CMD1] = CMD_CLUTCH_WRITE;
 
     //Parameters:
-    payload_str[CP_CMD1 + 1] = clutch_pwm;
+    payload_str[CP_DATA1 + 1] = clutch_pwm;
 
     //At this point the string is ready to be packaged in comm_str
-    return 0;
+    return 6;
 }
 
 //Send open loop speed command (PWM DC)
@@ -113,7 +114,8 @@ uint32_t tx_cmd_ctrl_o_write(uint8_t slave, int32_t pwmdc)
 	#ifdef ENABLE_TERMINAL_DEBUG
     payload_print_str();
 	#endif // ENABLE_TERMINAL_DEBUG
-    return 0;
+
+    return 8;
 }
 
 //ToDo *** Fix or Remove ***
@@ -141,7 +143,8 @@ unsigned int tx_set_trapeze(unsigned char slave, int posi, int posf, int spdm, i
 	#ifdef ENABLE_TERMINAL_DEBUG
     payload_print_str();
 	#endif // ENABLE_TERMINAL_DEBUG
-    return 0;
+
+    return 12;
 }
 
 //ToDo *** Fix or Remove ***
@@ -159,7 +162,7 @@ unsigned int tx_read(unsigned char slave, unsigned char offset)
     payload_str[CP_DATA1] = offset;
 
     //At this point the string is ready to be packaged in comm_str
-    return 0;
+    return 5;
 }
 
 //Send current command
@@ -183,7 +186,8 @@ uint32_t tx_cmd_ctrl_i_write(uint8_t slave, int16_t curr)
 	#ifdef ENABLE_TERMINAL_DEBUG
     payload_print_str();
 	#endif // ENABLE_TERMINAL_DEBUG
-    return 0;
+
+    return 6;
 }
 
 //Configure the control strategy
@@ -203,7 +207,8 @@ uint32_t tx_cmd_ctrl_mode_write(uint8_t slave, uint8_t ctrl)
 	#ifdef ENABLE_TERMINAL_DEBUG
     payload_print_str();
 	#endif // ENABLE_TERMINAL_DEBUG
-    return 0;
+
+    return 5;
 }
 
 //Send Current gain command
@@ -233,7 +238,8 @@ uint32_t tx_cmd_ctrl_i_gains_write(uint8_t slave, int16_t kp, int16_t ki, int16_
 	#ifdef ENABLE_TERMINAL_DEBUG
     payload_print_str();
 	#endif // ENABLE_TERMINAL_DEBUG
-    return 0;
+
+    return 10;
 }
 
 //ToDo *** Fix or Remove ***
@@ -259,7 +265,8 @@ unsigned int tx_set_z_gains(unsigned char slave, int z_k, int z_b, int z_i)
 	#ifdef ENABLE_TERMINAL_DEBUG
     payload_print_str();
 	#endif // ENABLE_TERMINAL_DEBUG
-    return 0;
+
+    return 10;
 }
 
 //Send strain gauge amplifier configuration
@@ -281,7 +288,8 @@ uint32_t tx_cmd_strain_config(uint8_t slave, uint8_t offs, uint8_t gain, uint8_t
 	#ifdef ENABLE_TERMINAL_DEBUG
     payload_print_str();
 	#endif // ENABLE_TERMINAL_DEBUG
-    return 0;
+
+    return 7;
 }
 
 //Send value to encoder
@@ -307,7 +315,8 @@ uint32_t tx_cmd_encoder_write(uint8_t slave, int32_t enc)
 	#ifdef ENABLE_TERMINAL_DEBUG
     payload_print_str();
 	#endif // ENABLE_TERMINAL_DEBUG
-    return 0;
+
+    return 8;
 }
 
 //Request an IMU Read
@@ -328,7 +337,8 @@ uint32_t tx_cmd_imu_read(uint8_t slave, uint8_t base_addr, uint8_t bytes)
 	#ifdef ENABLE_TERMINAL_DEBUG
     payload_print_str();
 	#endif // ENABLE_TERMINAL_DEBUG
-    return 0;
+
+    return 6;
 }
 
 //Request an Encoder Read
@@ -348,7 +358,8 @@ uint32_t tx_cmd_encoder_read(uint8_t slave)
 	#ifdef ENABLE_TERMINAL_DEBUG
     payload_print_str();
 	#endif // ENABLE_TERMINAL_DEBUG
-    return 0;
+
+    return 4;
 }
 
 //Request a Strain Read
@@ -368,7 +379,8 @@ uint32_t tx_cmd_strain_read(uint8_t slave)
 	#ifdef ENABLE_TERMINAL_DEBUG
     payload_print_str();
 	#endif // ENABLE_TERMINAL_DEBUG
-    return 0;
+
+    return 4;
 }
 
 //Request an Analog Read
@@ -389,7 +401,8 @@ uint32_t tx_cmd_analog_read(uint8_t slave, uint8_t base_addr, uint8_t bytes)
 	#ifdef ENABLE_TERMINAL_DEBUG
     payload_print_str();
 	#endif // ENABLE_TERMINAL_DEBUG
-    return 0;
+
+    return 6;
 }
 
 //Request a Ctrl Current Read
@@ -409,7 +422,8 @@ uint32_t tx_cmd_ctrl_i_read(uint8_t slave)
 	#ifdef ENABLE_TERMINAL_DEBUG
     payload_print_str();
 	#endif // ENABLE_TERMINAL_DEBUG
-    return 0;
+
+    return 4;
 }
 
 //Reply to an Encoder Read request
@@ -435,7 +449,8 @@ uint32_t tx_cmd_encoder_read_reply(uint8_t master, int32_t enc)
 	#ifdef ENABLE_TERMINAL_DEBUG
     payload_print_str();
 	#endif // ENABLE_TERMINAL_DEBUG
-    return 0;
+
+    return 8;
 }
 
 //Reply to a Strain Read request
@@ -459,7 +474,8 @@ uint32_t tx_cmd_strain_read_reply(uint8_t master, uint16_t strain)
 	#ifdef ENABLE_TERMINAL_DEBUG
     payload_print_str();
 	#endif // ENABLE_TERMINAL_DEBUG
-    return 0;
+
+    return 6;
 }
 
 //Reply to an IMU Read request //ToDo Incomplete
@@ -496,12 +512,14 @@ uint32_t tx_cmd_imu_read_reply(uint8_t master, uint8_t base_addr, uint8_t bytes)
 	
 	#endif 	//BOARD_TYPE_FLEXSEA_EXECUTE
 	
-    return 0;
+    return 11;
 }
 
 //Reply to an Analog Read request //ToDo Incomplete
 uint32_t tx_cmd_analog_read_reply(uint8_t master, uint8_t base_addr, uint8_t bytes)
 {
+	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+
 	uint8_t tmp0 = 0, tmp1 = 0;
 
     //Fresh string:
@@ -522,7 +540,10 @@ uint32_t tx_cmd_analog_read_reply(uint8_t master, uint8_t base_addr, uint8_t byt
 	#ifdef ENABLE_TERMINAL_DEBUG
     payload_print_str();
 	#endif // ENABLE_TERMINAL_DEBUG
-    return 0;
+
+	#endif 	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+    return 7;
 }
 
 //Reply to a Ctrl Current Read request
@@ -549,5 +570,6 @@ uint32_t tx_cmd_ctrl_i_read_reply(uint8_t master, int16_t measured, int16_t want
 	#ifdef ENABLE_TERMINAL_DEBUG
     payload_print_str();
 	#endif // ENABLE_TERMINAL_DEBUG
-    return 0;
+
+    return 8;
 }
