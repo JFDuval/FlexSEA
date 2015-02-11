@@ -43,7 +43,10 @@ unsigned char manage_1_data[SLAVE_READ_BUFFER_LEN];
 // External variable(s)
 //****************************************************************************
 
-unsigned char comm_str[COMM_STR_BUF_LEN];
+extern unsigned char comm_str[COMM_STR_BUF_LEN];
+
+//flexsea_payload:
+extern unsigned char payload_str[];
 
 #ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -535,13 +538,19 @@ void rx_cmd_strain_config(uint8_t *buf)
 	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
 
-// *** Everything below this line is a place holder, needs to be completed ***
-
 //
 void rx_cmd_encoder_read(uint8_t *buf)
 {
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+		
+	uint8_t numb = 0;
 
+	//Generate the reply:
+	tx_cmd_encoder_read_reply(buf[CP_XID], encoder_read());
+	numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+	
+	//Send it out:
+	rs485_puts(comm_str, (numb+1));	
 		
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -561,6 +570,14 @@ void rx_cmd_strain_read(uint8_t *buf)
 {
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
+	uint8_t numb = 0;
+
+	//Generate the reply:
+	tx_cmd_strain_read_reply(buf[CP_XID], strain_read());
+	numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+	
+	//Send it out:
+	rs485_puts(comm_str, (numb+1));			
 		
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -580,6 +597,14 @@ void rx_cmd_imu_read(uint8_t *buf)
 {
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
+	uint8_t numb = 0;
+
+	//Generate the reply:
+	tx_cmd_imu_read_reply(buf[CP_XID], buf[CP_DATA1], buf[CP_DATA1+1]);
+	numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+	
+	//Send it out:
+	rs485_puts(comm_str, (numb+1));	
 		
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -599,6 +624,167 @@ void rx_cmd_analog_read(uint8_t *buf)
 {
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
+	uint8_t numb = 0;
+
+	//Generate the reply:
+	tx_cmd_analog_read_reply(buf[CP_XID], buf[CP_DATA1], buf[CP_DATA1+1]);
+	numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+	
+	//Send it out:
+	rs485_puts(comm_str, (numb+1));			
+		
+	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+	//No code (yet), you shouldn't be here...
+	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+	#ifdef BOARD_TYPE_FLEXSEA_PLAN
+	//No code (yet), you shouldn't be here...
+	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+	#endif	//BOARD_TYPE_FLEXSEA_PLAN
+}
+
+//
+void rx_cmd_ctrl_i_read(uint8_t *buf)
+{
+	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+
+	uint8_t numb = 0;
+
+	//Generate the reply:
+	tx_cmd_ctrl_i_read_reply(buf[CP_XID], ctrl.current.actual_val, ctrl.current.setpoint_val);
+	numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+	
+	//Send it out:
+	rs485_puts(comm_str, (numb+1));			
+		
+	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+	//No code (yet), you shouldn't be here...
+	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+	#ifdef BOARD_TYPE_FLEXSEA_PLAN
+	//No code (yet), you shouldn't be here...
+	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+	#endif	//BOARD_TYPE_FLEXSEA_PLAN
+}
+
+// ***
+// ToDo I need a lot of very similar functions for the code. Should functions like rx_cmd_encoder_read_reply() exist? Or should I know that it's a reply because it's coming from my slave?
+// I'll explicitly code them for now, because it's a brainless task, but I need to think about a simpler/better solution.
+// ***
+
+//
+void rx_cmd_encoder_read_reply(uint8_t *buf)
+{
+	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+		
+	int32_t tmp_enc = 0;
+
+	//Decode the reply we received:
+	tmp_enc = (int32_t) (BYTES_TO_UINT32(buf[CP_DATA1], buf[CP_DATA1+1], buf[CP_DATA1+1], buf[CP_DATA1+1]));
+	//ToDo store that value somewhere useful
+		
+	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+	//No code (yet), you shouldn't be here...
+	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+	#ifdef BOARD_TYPE_FLEXSEA_PLAN
+	//No code (yet), you shouldn't be here...
+	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+	#endif	//BOARD_TYPE_FLEXSEA_PLAN
+}
+
+void rx_cmd_imu_read_reply(uint8_t *buf)
+{
+	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+		
+	int16_t tmp_gyro_x = 0, tmp_gyro_y = 0, tmp_gyro_z = 0;
+
+	//Decode the reply we received:
+	tmp_gyro_x = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+1], buf[CP_DATA1+2]));
+	tmp_gyro_y = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+3], buf[CP_DATA1+4]));
+	tmp_gyro_z = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+5], buf[CP_DATA1+6]));
+	//ToDo store that value somewhere useful
+	//ToDo: we need to check the base address and assign the bytes to the right variables
+		
+	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+	//No code (yet), you shouldn't be here...
+	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+	#ifdef BOARD_TYPE_FLEXSEA_PLAN
+	//No code (yet), you shouldn't be here...
+	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+	#endif	//BOARD_TYPE_FLEXSEA_PLAN
+}
+
+void rx_cmd_strain_read_reply(uint8_t *buf)
+{
+	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+		
+	uint16_t tmp_strain = 0;
+
+	//Decode the reply we received:
+	tmp_strain = (BYTES_TO_UINT16(buf[CP_DATA1], buf[CP_DATA1+1]));
+	//ToDo store that value somewhere useful
+		
+	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+	//No code (yet), you shouldn't be here...
+	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+	#ifdef BOARD_TYPE_FLEXSEA_PLAN
+	//No code (yet), you shouldn't be here...
+	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+	#endif	//BOARD_TYPE_FLEXSEA_PLAN
+}
+
+void rx_cmd_analog_read_reply(uint8_t *buf)
+{
+	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+		
+	uint16_t tmp_analog = 0;
+
+	//Decode the reply we received:
+	tmp_analog = (BYTES_TO_UINT16(buf[CP_DATA1+1], buf[CP_DATA1+2]));
+	//ToDo store that value somewhere useful
+	//ToDo: we need to check the base address and assign the bytes to the right variables
+		
+	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+	//No code (yet), you shouldn't be here...
+	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+	#ifdef BOARD_TYPE_FLEXSEA_PLAN
+	//No code (yet), you shouldn't be here...
+	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+	#endif	//BOARD_TYPE_FLEXSEA_PLAN
+}
+
+void rx_cmd_ctrl_i_read_reply(uint8_t *buf)
+{
+	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+		
+	int16_t tmp_wanted_current = 0, tmp_measured_current = 0;
+
+	//Decode the reply we received:
+	tmp_measured_current = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1], buf[CP_DATA1+1]));
+	tmp_wanted_current = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+2], buf[CP_DATA1+3]));
+	//ToDo store that value somewhere useful
 		
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 

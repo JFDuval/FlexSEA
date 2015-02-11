@@ -16,6 +16,11 @@
 #include "../inc/flexsea.h"
 #include "flexsea_local.h"
 
+//Execute boards only:
+#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+#include "main.h"
+#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
 //****************************************************************************
 // Local variable(s)
 //****************************************************************************
@@ -30,6 +35,14 @@ unsigned char mm_leds = 0;
 //****************************************************************************
 
 extern unsigned char payload_str[PAYLOAD_BUF_LEN];
+
+#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+	
+extern struct ctrl_s ctrl;
+extern struct enc_s encoder;	
+extern struct imu_s imu;
+	
+#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
 //****************************************************************************
 // Function(s)
@@ -391,6 +404,146 @@ uint32_t tx_cmd_ctrl_i_read(uint8_t slave)
 
     //Arguments:
 	//(No parameters for this one)
+
+    //At this point the string is ready to be packaged in comm_str
+	#ifdef ENABLE_TERMINAL_DEBUG
+    payload_print_str();
+	#endif // ENABLE_TERMINAL_DEBUG
+    return 0;
+}
+
+//Reply to an Encoder Read request
+uint32_t tx_cmd_encoder_read_reply(uint8_t master, int32_t enc)
+{
+	uint8_t tmp0 = 0, tmp1 = 0, tmp2 = 0, tmp3 = 0;
+
+    //Fresh string:
+    payload_build_basic_str(master);
+
+    //Command:
+    payload_str[CP_CMDS] = 1;                     //1 command in string
+    payload_str[CP_CMD1] = CMD_ENCODER_READ_REPLY;
+ 
+    //Arguments:
+	uint32_to_bytes(enc, &tmp0, &tmp1, &tmp2, &tmp3);
+    payload_str[CP_DATA1] = tmp0;
+    payload_str[CP_DATA1 + 1] = tmp1;
+    payload_str[CP_DATA1 + 2] = tmp2;
+    payload_str[CP_DATA1 + 3] = tmp3;
+
+    //At this point the string is ready to be packaged in comm_str
+	#ifdef ENABLE_TERMINAL_DEBUG
+    payload_print_str();
+	#endif // ENABLE_TERMINAL_DEBUG
+    return 0;
+}
+
+//Reply to a Strain Read request
+uint32_t tx_cmd_strain_read_reply(uint8_t master, uint16_t strain)
+{
+	uint8_t tmp0 = 0, tmp1 = 0;
+
+    //Fresh string:
+    payload_build_basic_str(master);
+
+    //Command:
+    payload_str[CP_CMDS] = 1;                     //1 command in string
+    payload_str[CP_CMD1] = CMD_STRAIN_READ_REPLY;
+ 
+    //Arguments:
+	uint16_to_bytes(strain, &tmp0, &tmp1);
+    payload_str[CP_DATA1] = tmp0;
+    payload_str[CP_DATA1 + 1] = tmp1;
+
+    //At this point the string is ready to be packaged in comm_str
+	#ifdef ENABLE_TERMINAL_DEBUG
+    payload_print_str();
+	#endif // ENABLE_TERMINAL_DEBUG
+    return 0;
+}
+
+//Reply to an IMU Read request //ToDo Incomplete
+uint32_t tx_cmd_imu_read_reply(uint8_t master, uint8_t base_addr, uint8_t bytes)
+{
+	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+		
+	uint8_t tmp0 = 0, tmp1 = 0;
+
+    //Fresh string:
+    payload_build_basic_str(master);
+
+    //Command:
+    payload_str[CP_CMDS] = 1;                     //1 command in string
+    payload_str[CP_CMD1] = CMD_IMU_READ_REPLY;
+ 
+    //Arguments:
+	//ToDo ***for now we ignore the base addr and we always send the gyro values ***
+	payload_str[CP_DATA1] = base_addr;
+	uint16_to_bytes(imu.gyro.x, &tmp0, &tmp1);
+    payload_str[CP_DATA1 + 1] = tmp0;
+    payload_str[CP_DATA1 + 2] = tmp1;
+	uint16_to_bytes(imu.gyro.y, &tmp0, &tmp1);
+    payload_str[CP_DATA1 + 3] = tmp0;
+    payload_str[CP_DATA1 + 4] = tmp1;
+	uint16_to_bytes(imu.gyro.z, &tmp0, &tmp1);
+    payload_str[CP_DATA1 + 5] = tmp0;
+    payload_str[CP_DATA1 + 6] = tmp1;
+
+    //At this point the string is ready to be packaged in comm_str
+	#ifdef ENABLE_TERMINAL_DEBUG
+    payload_print_str();
+	#endif // ENABLE_TERMINAL_DEBUG
+	
+	#endif 	//BOARD_TYPE_FLEXSEA_EXECUTE
+	
+    return 0;
+}
+
+//Reply to an Analog Read request //ToDo Incomplete
+uint32_t tx_cmd_analog_read_reply(uint8_t master, uint8_t base_addr, uint8_t bytes)
+{
+	uint8_t tmp0 = 0, tmp1 = 0;
+
+    //Fresh string:
+    payload_build_basic_str(master);
+
+    //Command:
+    payload_str[CP_CMDS] = 1;                     //1 command in string
+    payload_str[CP_CMD1] = CMD_ANALOG_READ_REPLY;
+ 
+    //Arguments:
+	//ToDo ***for now we ignore the 'bytes' and we send 1 value ***
+	payload_str[CP_DATA1] = base_addr;
+	uint16_to_bytes(read_analog(base_addr), &tmp0, &tmp1);
+    payload_str[CP_DATA1 + 1] = tmp0;
+    payload_str[CP_DATA1 + 2] = tmp1;
+
+    //At this point the string is ready to be packaged in comm_str
+	#ifdef ENABLE_TERMINAL_DEBUG
+    payload_print_str();
+	#endif // ENABLE_TERMINAL_DEBUG
+    return 0;
+}
+
+//Reply to a Ctrl Current Read request
+uint32_t tx_cmd_ctrl_i_read_reply(uint8_t master, int16_t measured, int16_t wanted)
+{
+	uint8_t tmp0 = 0, tmp1 = 0;
+
+    //Fresh string:
+    payload_build_basic_str(master);
+
+    //Command:
+    payload_str[CP_CMDS] = 1;                     //1 command in string
+    payload_str[CP_CMD1] = CMD_CTRL_I_READ_REPLY;
+ 
+    //Arguments:
+	uint16_to_bytes(measured, &tmp0, &tmp1);
+    payload_str[CP_DATA1] = tmp0;
+    payload_str[CP_DATA1 + 1] = tmp1;
+	uint16_to_bytes(wanted, &tmp0, &tmp1);
+    payload_str[CP_DATA1 + 2] = tmp0;
+    payload_str[CP_DATA1 + 3] = tmp1;
 
     //At this point the string is ready to be packaged in comm_str
 	#ifdef ENABLE_TERMINAL_DEBUG

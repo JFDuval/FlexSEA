@@ -45,12 +45,33 @@ void update_sensors(void)
 	#endif	//USE_I2C_INT	
 }
 
-//ToDo useful? Should it be here?
+//ToDo should probably be in a different file
+//Sends a single character to the UART
 void rs485_putc(uint8 byte)
 {
 	NOT_RE_Write(1);			//Disable Receiver
 	UART_2_PutChar(byte);		//Send byte
 	//NOT_RE_Write(0);			//Enable Receiver
+}
+
+//Sends a string of characters to the UART
+//ToDo test, optimize/remove fixed delays
+void rs485_puts(uint8 *buf, uint32 len)
+{
+	uint32_t i = 0;
+	
+	NOT_RE_Write(1);				//Disable Receiver
+	CyDelayUs(500);					//Wait (ToDo optimize/eliminate)
+	
+	//Sends the bytes:
+	for(i = 0; i < len; i++)
+	{
+		UART_2_PutChar(buf[i]);
+	}
+	
+	CyDelayUs(50);					//Wait (ToDo optimize/eliminate)
+	NOT_RE_Write(0);				//Back to normal, enable Receiver
+		
 }
 
 //Write to MinM RGB LED

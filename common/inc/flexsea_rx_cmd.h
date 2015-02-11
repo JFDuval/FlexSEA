@@ -14,6 +14,8 @@
 // Include(s)
 //****************************************************************************
 
+#include <stdint.h>	
+	
 //****************************************************************************
 // Prototype(s):
 //****************************************************************************
@@ -30,13 +32,17 @@ void rx_cmd_ctrl_i_gains(uint8_t *buf);
 void rx_set_z_gains(unsigned char *buf);
 void rx_cmd_encoder_write(uint8_t *buf);
 void rx_cmd_strain_config(uint8_t *buf);
-
-// *** Everything below this line is a place holder, needs to be completed ***
-
 void rx_cmd_encoder_read(uint8_t *buf);
 void rx_cmd_strain_read(uint8_t *buf);
 void rx_cmd_imu_read(uint8_t *buf);
 void rx_cmd_analog_read(uint8_t *buf);
+void rx_cmd_ctrl_i_read(uint8_t *buf);
+
+void rx_cmd_encoder_read_reply(uint8_t *buf);
+void rx_cmd_imu_read_reply(uint8_t *buf);
+void rx_cmd_strain_read_reply(uint8_t *buf);
+void rx_cmd_analog_read_reply(uint8_t *buf);
+void rx_cmd_ctrl_i_read_reply(uint8_t *buf);
 
 //****************************************************************************
 // Definition(s):

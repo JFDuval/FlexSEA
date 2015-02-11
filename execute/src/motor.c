@@ -447,9 +447,9 @@ void motor_fixed_pwm_test_code_blocking(int spd)
 }
 
 //Updates the structure with the latest encoder value
-void encoder_read(void)
+int32 encoder_read(void)
 {
-//Count: actual, last, difference
+	//Count: actual, last, difference
 	encoder.count_last = encoder.count;
 	encoder.count = QuadDec_1_GetCounter();
 	encoder.count_dif = encoder.count - encoder.count_last;
@@ -457,6 +457,8 @@ void encoder_read(void)
 	//For the position & impedance controllers we use the last count
 	ctrl.position.actual_val = encoder.count;
 	ctrl.impedance.actual_val = encoder.count;
+	
+	return encoder.count;
 }
 
 //Updates the structure with the desired value and write it to the encoder

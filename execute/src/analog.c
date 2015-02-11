@@ -21,8 +21,8 @@
 // Local variable(s)
 //****************************************************************************
 
-unsigned int adc1_res[ADC1_CHANNELS][ADC1_BUF_LEN];
-unsigned int adc1_res_filtered[ADC1_CHANNELS];
+int16 adc1_res[ADC1_CHANNELS][ADC1_BUF_LEN];
+int16 adc1_res_filtered[ADC1_CHANNELS];
 
 //****************************************************************************
 // External variable(s)
@@ -82,4 +82,17 @@ void filter_adc(void)
 	}
 	adc1_res_filtered[0] = tmp_ch0 >> 3;
 	adc1_res_filtered[1] = tmp_ch1 >> 3;
+}
+
+//Returns one filtered value
+int16 read_analog(uint8 ch)
+{
+	if(ch < ADC1_CHANNELS)
+	{
+		//Valid channel, return value
+		return adc1_res_filtered[ch];
+	}
+
+	//Otherwise return 0
+	return 0;
 }

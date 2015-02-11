@@ -138,14 +138,23 @@ unsigned int payload_parse_str(unsigned char *cp_str)
 			case CMD_ENCODER_READ:
 				rx_cmd_encoder_read(cp_str);
 				break;
+			case CMD_ENCODER_READ_REPLY:
+				rx_cmd_encoder_read_reply(cp_str);
+				break;
 			case CMD_STRAIN_CONFIG:
 				rx_cmd_strain_config(cp_str);
 				break;
 			case CMD_STRAIN_READ:
 				rx_cmd_strain_read(cp_str);
 				break;
+			case CMD_STRAIN_READ_REPLY:
+				rx_cmd_strain_read_reply(cp_str);
+				break;
 			case CMD_IMU_READ:
 				rx_cmd_imu_read(cp_str);
+				break;
+			case CMD_IMU_READ_REPLY:
+				rx_cmd_imu_read_reply(cp_str);
 				break;
 				
 			//Expansion commands:
@@ -155,6 +164,9 @@ unsigned int payload_parse_str(unsigned char *cp_str)
 			case CMD_ANALOG_READ:
                 rx_cmd_analog_read(cp_str);
                 break;  
+			case CMD_ANALOG_READ_REPLY:
+                rx_cmd_analog_read_reply(cp_str);
+                break; 
 				
 			//Motor commands:
 			case CMD_CTRL_MODE_WRITE:
@@ -168,6 +180,12 @@ unsigned int payload_parse_str(unsigned char *cp_str)
                 break;
             case CMD_CTRL_I_WRITE:
                 rx_cmd_ctrl_i_write(cp_str);
+                break;
+			case CMD_CTRL_I_READ:
+                rx_cmd_ctrl_i_read(cp_str);
+                break;
+			case CMD_CTRL_I_READ_REPLY:
+                rx_cmd_ctrl_i_read_reply(cp_str);
                 break;
 			case CMD_CTRL_P_GAINS_WRITE:                
                 rx_cmd_ctrl_p_gains_write(cp_str);

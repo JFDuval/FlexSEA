@@ -30,7 +30,7 @@ int motor_impedance_encoder(int wanted_pos, int new_enc_count);
 void init_motor(void);
 void init_motor_data_structure(void);
 void motor_fixed_pwm_test_code_blocking(int spd);
-void encoder_read(void);
+int32 encoder_read(void);
 void encoder_write(int32 enc);
 
 //****************************************************************************

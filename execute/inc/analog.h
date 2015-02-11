@@ -23,6 +23,7 @@
 void init_analog(void);
 uint16 adc_avg8(uint16 new_data);
 void filter_adc(void);
+int16 read_analog(uint8 ch);
 
 //****************************************************************************
 // Definition(s):

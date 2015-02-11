@@ -29,8 +29,8 @@
 #include "main.h"
 volatile uint16 adc1_result = 0;
 volatile uint16 adc1_result_avg8 = 0;
-extern unsigned int adc1_res[ADC1_CHANNELS][ADC1_BUF_LEN];
-extern unsigned int adc1_res_filtered[ADC1_CHANNELS];
+extern int16 adc1_res[ADC1_CHANNELS][ADC1_BUF_LEN];
+extern int16 adc1_res_filtered[ADC1_CHANNELS];
 
 unsigned char adc_sar1_flag = 0;
 
