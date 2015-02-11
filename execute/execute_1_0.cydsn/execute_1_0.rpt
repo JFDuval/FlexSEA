@@ -1,5 +1,5 @@
-Loading plugins phase: Elapsed time ==> 0s.332ms
-Initializing data phase: Elapsed time ==> 1s.804ms
+Loading plugins phase: Elapsed time ==> 0s.345ms
+Initializing data phase: Elapsed time ==> 2s.026ms
 <CYPRESSTAG name="CyDsfit arguments...">
 cydsfit arguments: -.fdsnotice -.fdswarpdepfile=warp_dependencies.txt -.fdselabdepfile=elab_dependencies.txt -.fdsbldfile=generated_files.txt -p C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\execute_1_0.cyprj -d CY8C5888AXI-LP096 -s C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\Generated_Source\PSoC5 -- -yv2 -v3 -ygs -q10 -o2 -.fftcfgtype=LE</CYPRESSTAG>
 <CYPRESSTAG name="Design elaboration results...">
@@ -8,10 +8,10 @@ ADD: pft.M0035: information: Voltage Reference Information: Vref 'Vdda/2' is con
  * C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\TopDesign\TopDesign.cysch (Instance: HalfV)
 
 </CYPRESSTAG>
-Elaboration phase: Elapsed time ==> 7s.701ms
+Elaboration phase: Elapsed time ==> 7s.606ms
 <CYPRESSTAG name="HDL generation results...">
 </CYPRESSTAG>
-HDL generation phase: Elapsed time ==> 0s.271ms
+HDL generation phase: Elapsed time ==> 0s.302ms
 <CYPRESSTAG name="Synthesis results...">
 
      | | | | | | |
@@ -45,7 +45,7 @@ Options  :    -yv2 -v3 -ygs -q10 -o2 -.fftcfgtype=LE -ya -.fftprj=C:\Users\JFDuv
 ======================================================================
 
 vlogfe V6.3 IR 41:  Verilog parser
-Tue Feb 10 16:09:55 2015
+Tue Feb 10 19:19:06 2015
 
 
 ======================================================================
@@ -55,7 +55,7 @@ Options  :    -yv2 -q10 execute_1_0.v
 ======================================================================
 
 vpp V6.3 IR 41:  Verilog Pre-Processor
-Tue Feb 10 16:09:55 2015
+Tue Feb 10 19:19:06 2015
 
 Flattening file 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\..\psoc\content\cyprimitives\CyPrimitives.cylib\cy_analog_virtualmux_v1_0\cy_analog_virtualmux_v1_0.v'
 Flattening file 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\..\psoc\content\cyprimitives\CyPrimitives.cylib\cy_vref_v1_60\cy_vref_v1_60.v'
@@ -130,7 +130,7 @@ Options  :    -yv2 -v3 -ygs -q10 -o2 -.fftcfgtype=LE -ya -.fftprj=C:\Users\JFDuv
 ======================================================================
 
 tovif V6.3 IR 41:  High-level synthesis
-Tue Feb 10 16:09:57 2015
+Tue Feb 10 19:19:08 2015
 
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\common\std.vhd'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\common\cypress.vhd'.
@@ -179,7 +179,7 @@ Options  :    -yv2 -v3 -ygs -q10 -o2 -.fftcfgtype=LE -ya -.fftprj=C:\Users\JFDuv
 ======================================================================
 
 topld V6.3 IR 41:  Synthesis and optimization
-Tue Feb 10 16:10:00 2015
+Tue Feb 10 19:19:11 2015
 
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\common\std.vhd'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\common\cypress.vhd'.
@@ -1719,14 +1719,14 @@ CYPRESS_DIR    : C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\wa
 Warp Program   : C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\bin/warp.exe
 Warp Arguments : -yv2 -v3 -ygs -q10 -o2 -.fftcfgtype=LE -ya -.fftprj=C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\execute_1_0.cyprj -dcpsoc3 execute_1_0.v -verilog
 </CYPRESSTAG>
-Warp synthesis phase: Elapsed time ==> 6s.498ms
+Warp synthesis phase: Elapsed time ==> 6s.577ms
 <CYPRESSTAG name="Fitter results...">
 <CYPRESSTAG name="Fitter startup details...">
-cyp3fit: V3.0.0.3140, Family: PSoC3, Started at: Tuesday, 10 February 2015 16:10:01
+cyp3fit: V3.0.0.3140, Family: PSoC3, Started at: Tuesday, 10 February 2015 19:19:13
 Options: -yv2 -v3 -ygs -q10 -o2 -.fftcfgtype=LE -ya -.fftprj=C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\execute_1_0.cyprj -d CY8C5888AXI-LP096 execute_1_0.v -verilog
 </CYPRESSTAG>
 <CYPRESSTAG name="Design parsing">
-Design parsing phase: Elapsed time ==> 0s.054ms
+Design parsing phase: Elapsed time ==> 0s.053ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Tech mapping">
 <CYPRESSTAG name="Initial Mapping" icon="FILE_RPT_TECHM">
@@ -1759,9 +1759,9 @@ Assigning clock timer_clock to clock HBUS_40MHZ because it is a pass-through
     Digital Clock 1: Automatic-assigning  clock 'ADC_DelSig_1_Ext_CP_Clk'. Fanout=1, Signal=\ADC_DelSig_1:Net_93\
     Digital Clock 2: Automatic-assigning  clock 'i2cclk'. Fanout=1, Signal=Net_153
     Digital Clock 3: Automatic-assigning  clock 'Clock_4'. Fanout=1, Signal=Net_284
-    Digital Clock 4: Automatic-assigning  clock 'UART_2_IntClock'. Fanout=1, Signal=\UART_2:Net_9\
     Analog  Clock 0: Automatic-assigning  clock 'ADC_SAR_1_theACLK'. Fanout=2, Signal=\ADC_SAR_1:Net_221\
     Analog  Clock 1: Automatic-assigning  clock 'ADC_SAR_2_theACLK'. Fanout=2, Signal=\ADC_SAR_2:Net_221\
+    Digital Clock 4: Automatic-assigning  clock 'UART_2_IntClock'. Fanout=1, Signal=\UART_2:Net_9\
     Analog  Clock 2: Automatic-assigning  clock 'ADC_DelSig_1_theACLK'. Fanout=1, Signal=\ADC_DelSig_1:Net_488\
     Digital Clock 5: Automatic-assigning  clock 'CLK_100kHz'. Fanout=1, Signal=Net_976
 </CYPRESSTAG>
@@ -7201,9 +7201,9 @@ EMIF Fixed Blocks             :    0 :    1 :    1 :   0.00%
 LPF Fixed Blocks              :    0 :    2 :    2 :   0.00%
 SAR Fixed Blocks              :    2 :    0 :    2 : 100.00%
 </CYPRESSTAG>
-Technology Mapping: Elapsed time ==> 0s.537ms
+Technology Mapping: Elapsed time ==> 0s.533ms
 Info: mpr.M0037: Unused pieces of the design have been optimized out. See the Tech mapping section of the report file for details. (App=cydsfit)
-Tech mapping phase: Elapsed time ==> 0s.654ms
+Tech mapping phase: Elapsed time ==> 0s.633ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Analog Placement">
 Info: apr.M0002: Analog signal "\ADC_DelSig_1:Net_690\" is connected to one terminal only. (App=cydsfit)
@@ -7369,7 +7369,7 @@ VIDAC[3]@[FFB(VIDAC,3)] : \VDAC8_1:viDAC8\
 VIDAC[2]@[FFB(VIDAC,2)] : \VDAC8_3:viDAC8\
 Vref[1]@[FFB(Vref,1)] : vRef_1
 
-Analog Placement phase: Elapsed time ==> 7s.224ms
+Analog Placement phase: Elapsed time ==> 6s.992ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Analog Routing">
 Net "Net_281" overuses wire "AGL[4]"
@@ -7384,7 +7384,7 @@ Net "Net_281" overuses wire "amuxbusL"
 Net "AmuxEye::AMux_2" overuses wire "amuxbusL"
 Net "Net_281" overuses wire "AGL[4]"
 Net "Net_276" overuses wire "AGL[4]"
-Analog Routing phase: Elapsed time ==> 0s.069ms
+Analog Routing phase: Elapsed time ==> 0s.065ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Analog Code Generation">
 ============ Analog Final Answer Routes ============
@@ -7895,7 +7895,7 @@ Dump of CyP35AnalogRoutingResultsDB
 IsVddaHalfUsedForComp = True
 IsVddaHalfUsedForSar0 = True
 IsVddaHalfUsedForSar1 = True
-Analog Code Generation phase: Elapsed time ==> 0s.021ms
+Analog Code Generation phase: Elapsed time ==> 0s.022ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Digital Placement">
 <CYPRESSTAG name="Detailed placement messages">
@@ -7930,7 +7930,7 @@ PLD Packing: Elapsed time ==> 0s.003ms
 Initial Partitioning Summary not displayed at this verbose level.</CYPRESSTAG>
 <CYPRESSTAG name="Final Partitioning Summary">
 Final Partitioning Summary not displayed at this verbose level.</CYPRESSTAG>
-Partitioning: Elapsed time ==> 0s.440ms
+Partitioning: Elapsed time ==> 0s.432ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Simulated Annealing">
 Annealing: Elapsed time ==> 0s.002ms
@@ -13794,8 +13794,6 @@ Fixed Function block hod @ [FFB(Clock,0)]:
             dclk_glb_3 => Net_284 ,
             dclk_3 => Net_284_local ,
             dsi_dig_div_3 => ClockBlock_HBUS_40MHZ_local ,
-            dclk_glb_4 => \UART_2:Net_9\ ,
-            dclk_4 => \UART_2:Net_9_local\ ,
             aclk_glb_0 => \ADC_SAR_1:Net_221\ ,
             aclk_0 => \ADC_SAR_1:Net_221_local\ ,
             clk_a_dig_glb_0 => \ADC_SAR_1:Net_221_adig\ ,
@@ -13806,6 +13804,8 @@ Fixed Function block hod @ [FFB(Clock,0)]:
             clk_a_dig_glb_1 => \ADC_SAR_2:Net_221_adig\ ,
             clk_a_dig_1 => \ADC_SAR_2:Net_221_adig_local\ ,
             dsi_ana_div_1 => ClockBlock_HBUS_40MHZ_local ,
+            dclk_glb_4 => \UART_2:Net_9\ ,
+            dclk_4 => \UART_2:Net_9_local\ ,
             aclk_glb_2 => \ADC_DelSig_1:Net_488\ ,
             aclk_2 => \ADC_DelSig_1:Net_488_local\ ,
             clk_a_dig_glb_2 => \ADC_DelSig_1:Net_488_adig\ ,
@@ -14281,34 +14281,34 @@ Info: plm.M0038: The pin named SCL_1(0) at location P12[0] prevents usage of spe
 Info: plm.M0038: The pin named SDA_1(0) at location P12[1] prevents usage of special purposes: I2C:SDA. (App=cydsfit)
 </CYPRESSTAG>
 </CYPRESSTAG>
-Digital component placer commit/Report: Elapsed time ==> 0s.012ms
-Digital Placement phase: Elapsed time ==> 3s.761ms
+Digital component placer commit/Report: Elapsed time ==> 0s.014ms
+Digital Placement phase: Elapsed time ==> 3s.731ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Digital Routing">
 Routing successful.
-Digital Routing phase: Elapsed time ==> 4s.433ms
+Digital Routing phase: Elapsed time ==> 4s.359ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Bitstream and API generation">
-Bitstream and API generation phase: Elapsed time ==> 0s.242ms
+Bitstream and API generation phase: Elapsed time ==> 0s.233ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Bitstream verification">
-Bitstream verification phase: Elapsed time ==> 0s.057ms
+Bitstream verification phase: Elapsed time ==> 0s.044ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Static timing analysis">
 Warning: sta.M0019: execute_1_0_timing.html: Warning-1366: Setup time violation found in a path from clock ( CyBUS_CLK ) to clock ( UART_2_IntClock ). (File=C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\execute_1_0_timing.html)
 Warning: sta.M0019: execute_1_0_timing.html: Warning-1366: Setup time violation found in a path from clock ( CyBUS_CLK ) to clock ( CyBUS_CLK ). (File=C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\execute_1_0_timing.html)
 Timing report is in execute_1_0_timing.html.
-Static timing analysis phase: Elapsed time ==> 1s.297ms
+Static timing analysis phase: Elapsed time ==> 1s.269ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Data reporting">
-Data reporting phase: Elapsed time ==> 0s.000ms
+Data reporting phase: Elapsed time ==> 0s.001ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Database update...">
-Design database save phase: Elapsed time ==> 0s.310ms
+Design database save phase: Elapsed time ==> 0s.302ms
 </CYPRESSTAG>
-cydsfit: Elapsed time ==> 18s.137ms
+cydsfit: Elapsed time ==> 17s.718ms
 </CYPRESSTAG>
-Fitter phase: Elapsed time ==> 18s.169ms
-API generation phase: Elapsed time ==> 2s.690ms
+Fitter phase: Elapsed time ==> 17s.748ms
+API generation phase: Elapsed time ==> 2s.657ms
 Dependency generation phase: Elapsed time ==> 0s.009ms
 Cleanup phase: Elapsed time ==> 0s.001ms
