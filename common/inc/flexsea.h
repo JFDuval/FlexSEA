@@ -14,6 +14,8 @@
 // Include(s)
 //****************************************************************************
 
+#include <stdint.h>	
+	
 //All the FlexSEA stack includes:
 #include "flexsea_comm.h"
 #include "flexsea_payload.h"
@@ -26,6 +28,8 @@
 
 void test_flexsea_network(void);
 unsigned int flexsea_error(unsigned int err_code);
+void uint32_to_bytes(uint32_t x, uint8_t *b0, uint8_t *b1, uint8_t *b2, uint8_t *b3);
+void uint16_to_bytes(uint32_t x, uint8_t *b0, uint8_t *b1);
 
 //****************************************************************************
 // Definition(s):
@@ -82,12 +86,9 @@ unsigned int flexsea_error(unsigned int err_code);
 
 //Old / to change:
 #define CMD_NO_COMMAND              	0
-#define CMD_SET_PID_GAINS           	1
 #define CMD_MOVE_TRAP_ABSOLUTE      	2
 #define CMD_MOVE_TRAP_RELATIVE      	3
-#define CMD_SET_CLUTCH              	4
 #define CMD_SET_DIGITAL             	5
-//#define CMD_SET_LEDS                	7
 #define CMD_SET_Z_GAINS                 11
 #define CMD_READ             		    20
 #define CMD_REPLY			            21
@@ -105,12 +106,14 @@ unsigned int flexsea_error(unsigned int err_code);
 #define CMD_STRAIN_CONFIG				69
 
 //Expansion commands:
+#define CMD_CLUTCH_WRITE				91	// CMD_SET_CLUTCH	4
 #define CMD_ANALOG_READ					95
 #define CMD_ANALOG_READ_REPLY			96
 
 //Motor commands:
 #define CMD_CTRL_MODE_WRITE				110	// CMD_SET_CONTROL	9
 #define CMD_CTRL_I_GAINS_WRITE			116	// CMD_SET_CURRENT_GAINS 10
+#define CMD_CTRL_P_GAINS_WRITE			119	// CMD_SET_PID_GAINS 1
 #define CMD_CTRL_O_WRITE				125	// CMD_SET_OPEN_SPEED 6
 #define CMD_CTRL_I_WRITE				128	// CMD_SET_CURRENT 8
 #define CMD_CTRL_I_READ					129
@@ -190,10 +193,10 @@ unsigned int flexsea_error(unsigned int err_code);
 #define BYTES_TO_UINT32(b0,b1,b2,b3)	(((uint32)b0 << 24) + \
 										((uint32)b1 << 16) + \
 										((uint32)b2 << 8) + \
-										((uint32)b3));
+										((uint32)b3))
 
 //Reassembles a uint16 from 2 bytes. b0 is the MSB.
 #define BYTES_TO_UINT16(b0,b1)			(((uint16)b0 << 8) + \
-										((uint16)b1));
+										((uint16)b1))
 
 #endif

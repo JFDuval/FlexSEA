@@ -208,6 +208,8 @@ int imu_read(uint8 internal_reg_addr, uint8 *pData, uint16 length)
 	I2C_1_GENERATE_STOP_MANUAL;		//Generate STOP
     I2C_1_state = I2C_1_SM_IDLE;	//Reset state to IDLE
 	//Scopped the bus, all clean.
+	
+	return 0;
 }
 
 //Copy of the test code used in main.c to test the hardware:

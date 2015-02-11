@@ -60,17 +60,17 @@ extern struct enc_s encoder;
 // Function(s)
 //****************************************************************************
 
-void rx_set_pid_gains(uint8_t *buf)
+void rx_cmd_ctrl_p_gains_write(uint8_t *buf)
 {
     #ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
-	uint32 tmp1 = 0, tmp2 = 0, tmp3 = 0, tmp4 = 0;
+	uint16_t tmp1 = 0, tmp2 = 0, tmp3 = 0, tmp4 = 0;
 		
 	//Rebuild 16bit data:
-    tmp1 = (buf[CP_DATA1] << 8) + buf[CP_DATA1 + 1];
-    tmp2 = (buf[CP_DATA1 + 2] << 8) + buf[CP_DATA1 + 3];
-    tmp3 = (buf[CP_DATA1 + 4] << 8) + buf[CP_DATA1 + 5];
-    tmp4 = (buf[CP_DATA1 + 6] << 8) + buf[CP_DATA1 + 7];	
+	tmp1 = (int16_t)(BYTES_TO_UINT16(buf[CP_DATA1], buf[CP_DATA1+1]));
+	tmp2 = (int16_t)(BYTES_TO_UINT16(buf[CP_DATA1+2], buf[CP_DATA1+3]));
+	tmp3 = (int16_t)(BYTES_TO_UINT16(buf[CP_DATA1+4], buf[CP_DATA1+5]));
+	tmp4 = (int16_t)(BYTES_TO_UINT16(buf[CP_DATA1+6], buf[CP_DATA1+7]));
 		
 	//ToDo Add more safety checks!
 	if(tmp1 > 0)
@@ -96,6 +96,7 @@ void rx_set_pid_gains(uint8_t *buf)
 	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
 
+//ToDo *** Fix or Remove ***
 void rx_move_trap_absolute(unsigned char *buf)
 {
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
@@ -148,7 +149,7 @@ void rx_move_trap_absolute(unsigned char *buf)
 	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
 
-void rx_set_clutch(unsigned char *buf)
+void rx_cmd_clutch_write(uint8_t *buf)
 {
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -167,7 +168,7 @@ void rx_set_clutch(unsigned char *buf)
 	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
 
-void rx_cmd_ctrl_o_write(unsigned char *buf)
+void rx_cmd_ctrl_o_write(uint8_t *buf)
 {
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -196,6 +197,7 @@ void rx_cmd_ctrl_o_write(unsigned char *buf)
 	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
 
+//ToDo *** Fix or Remove ***
 //Display the data received from a slave after a read request
 void rx_read_reply(unsigned char *buf, unsigned int verbal)
 {
@@ -322,6 +324,7 @@ void rx_read_reply(unsigned char *buf, unsigned int verbal)
 	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
 
+//ToDo *** Fix or Remove ***
 void rx_read(unsigned char *buf)
 {
     //Set Read offset
@@ -365,7 +368,7 @@ void rx_read(unsigned char *buf)
 
 }
 
-void rx_cmd_ctrl_i_write(unsigned char *buf)
+void rx_cmd_ctrl_i_write(uint8_t *buf)
 {
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -389,16 +392,12 @@ void rx_cmd_ctrl_i_write(unsigned char *buf)
 	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
 
-void rx_ctrl_mode_write(unsigned char *buf)
+void rx_cmd_ctrl_mode_write(uint8_t *buf)
 {
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
-	unsigned char tmp_ctrl;
-
-    tmp_ctrl = buf[CP_DATA1];
-
 	//Apply the new strategy
-	control_strategy(tmp_ctrl);
+	control_strategy(buf[CP_DATA1]);
 
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -413,11 +412,11 @@ void rx_ctrl_mode_write(unsigned char *buf)
 	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
 
-void rx_cmd_ctrl_i_gains(unsigned char *buf)
+void rx_cmd_ctrl_i_gains(uint8_t *buf)
 {
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
-	unsigned int tmp_current_gain_p = 0, tmp_current_gain_i = 0, tmp_current_gain_d = 0;
+	uint32_t tmp_current_gain_p = 0, tmp_current_gain_i = 0, tmp_current_gain_d = 0;
 
 	//Rebuild 16bit data:
     tmp_current_gain_p = BYTES_TO_UINT16(buf[CP_DATA1], buf[CP_DATA1+1]);
@@ -442,6 +441,7 @@ void rx_cmd_ctrl_i_gains(unsigned char *buf)
 	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
 
+//ToDo *** Fix or Remove ***
 void rx_set_z_gains(unsigned char *buf)
 {
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
@@ -493,7 +493,7 @@ void rx_cmd_xxx(unsigned char *buf)
 */
 
 //Write value to encoder
-void rx_cmd_encoder_write(unsigned char *buf)
+void rx_cmd_encoder_write(uint8_t *buf)
 {
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -516,11 +516,89 @@ void rx_cmd_encoder_write(unsigned char *buf)
 }
 
 //Write strain configuration
-void rx_cmd_strain_config(unsigned char *buf)
+void rx_cmd_strain_config(uint8_t *buf)
 {
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
 	strain_config(buf[CP_DATA1], buf[CP_DATA1+1], buf[CP_DATA1]+2);
+		
+	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+	//No code (yet), you shouldn't be here...
+	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+	#ifdef BOARD_TYPE_FLEXSEA_PLAN
+	//No code (yet), you shouldn't be here...
+	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+	#endif	//BOARD_TYPE_FLEXSEA_PLAN
+}
+
+// *** Everything below this line is a place holder, needs to be completed ***
+
+//
+void rx_cmd_encoder_read(uint8_t *buf)
+{
+	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+
+		
+	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+	//No code (yet), you shouldn't be here...
+	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+	#ifdef BOARD_TYPE_FLEXSEA_PLAN
+	//No code (yet), you shouldn't be here...
+	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+	#endif	//BOARD_TYPE_FLEXSEA_PLAN
+}
+
+//
+void rx_cmd_strain_read(uint8_t *buf)
+{
+	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+
+		
+	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+	//No code (yet), you shouldn't be here...
+	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+	#ifdef BOARD_TYPE_FLEXSEA_PLAN
+	//No code (yet), you shouldn't be here...
+	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+	#endif	//BOARD_TYPE_FLEXSEA_PLAN
+}
+
+//
+void rx_cmd_imu_read(uint8_t *buf)
+{
+	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+
+		
+	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+	//No code (yet), you shouldn't be here...
+	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+	#ifdef BOARD_TYPE_FLEXSEA_PLAN
+	//No code (yet), you shouldn't be here...
+	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+	#endif	//BOARD_TYPE_FLEXSEA_PLAN
+}
+
+//
+void rx_cmd_analog_read(uint8_t *buf)
+{
+	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+
 		
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 

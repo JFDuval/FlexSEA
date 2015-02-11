@@ -18,18 +18,25 @@
 // Prototype(s):
 //****************************************************************************
 
-void rx_set_pid_gains(unsigned char *buf);
+void rx_cmd_ctrl_p_gains_write(uint8_t *buf);
 void rx_move_trap_absolute(unsigned char *buf);
-void rx_cmd_ctrl_o_write(unsigned char *buf);
+void rx_cmd_clutch_write(uint8_t *buf);
+void rx_cmd_ctrl_o_write(uint8_t *buf);
 void rx_read_reply(unsigned char *buf, unsigned int verbal);
 void rx_read(unsigned char *buf);
-void rx_set_clutch(unsigned char *buf);
-void rx_cmd_ctrl_i_write(unsigned char *buf);
-void rx_ctrl_mode_write(unsigned char *buf);
-void rx_cmd_ctrl_i_gains(unsigned char *buf);
+void rx_cmd_ctrl_i_write(uint8_t *buf);
+void rx_cmd_ctrl_mode_write(uint8_t *buf);
+void rx_cmd_ctrl_i_gains(uint8_t *buf);
 void rx_set_z_gains(unsigned char *buf);
-void rx_cmd_encoder_write(unsigned char *buf);
-void rx_cmd_strain_config(unsigned char *buf);
+void rx_cmd_encoder_write(uint8_t *buf);
+void rx_cmd_strain_config(uint8_t *buf);
+
+// *** Everything below this line is a place holder, needs to be completed ***
+
+void rx_cmd_encoder_read(uint8_t *buf);
+void rx_cmd_strain_read(uint8_t *buf);
+void rx_cmd_imu_read(uint8_t *buf);
+void rx_cmd_analog_read(uint8_t *buf);
 
 //****************************************************************************
 // Definition(s):

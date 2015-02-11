@@ -156,3 +156,21 @@ unsigned int flexsea_error(unsigned int err_code)
 	//ToDo something useful
 	return err_code;
 }
+
+//From 1 uint32 to 4 uint8
+void uint32_to_bytes(uint32_t x, uint8_t *b0, uint8_t *b1, uint8_t *b2, uint8_t *b3)
+{
+	*b0 = (uint8_t) ((x >> 24) & 0xFF);
+	*b1 = (uint8_t) ((x >> 16) & 0xFF);
+	*b2 = (uint8_t) ((x >> 8) & 0xFF);
+	*b3 = (uint8_t) (x & 0xFF);
+}
+
+//From 1 uint16 to 2 uint8
+void uint16_to_bytes(uint32_t x, uint8_t *b0, uint8_t *b1)
+{
+	*b0 = (uint8_t) ((x >> 8) & 0xFF);
+	*b1 = (uint8_t) (x & 0xFF);
+}
+
+//ToDo: look at inline functions

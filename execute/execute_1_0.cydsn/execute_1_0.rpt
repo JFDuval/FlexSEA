@@ -1,17 +1,17 @@
-Loading plugins phase: Elapsed time ==> 0s.345ms
-Initializing data phase: Elapsed time ==> 2s.026ms
+Loading plugins phase: Elapsed time ==> 0s.268ms
+Initializing data phase: Elapsed time ==> 3s.142ms
 <CYPRESSTAG name="CyDsfit arguments...">
-cydsfit arguments: -.fdsnotice -.fdswarpdepfile=warp_dependencies.txt -.fdselabdepfile=elab_dependencies.txt -.fdsbldfile=generated_files.txt -p C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\execute_1_0.cyprj -d CY8C5888AXI-LP096 -s C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\Generated_Source\PSoC5 -- -yv2 -v3 -ygs -q10 -o2 -.fftcfgtype=LE</CYPRESSTAG>
+cydsfit arguments: -.fdsnotice -.fdswarpdepfile=warp_dependencies.txt -.fdselabdepfile=elab_dependencies.txt -.fdsbldfile=generated_files.txt -p D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\execute_1_0.cyprj -d CY8C5888AXI-LP096 -s D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\Generated_Source\PSoC5 -- -yv2 -v3 -ygs -q10 -o2 -.fftcfgtype=LE</CYPRESSTAG>
 <CYPRESSTAG name="Design elaboration results...">
 ADD: pft.M0035: information: Voltage Reference Information: Vref 'Vdda/2' is connected to terminal 'analog_0' of 'HalfV' but no direct hardware connection exists.
- * C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\TopDesign\TopDesign.cysch (Instance: vRef_1)
- * C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\TopDesign\TopDesign.cysch (Instance: HalfV)
+ * D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\TopDesign\TopDesign.cysch (Instance: vRef_1)
+ * D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\TopDesign\TopDesign.cysch (Instance: HalfV)
 
 </CYPRESSTAG>
-Elaboration phase: Elapsed time ==> 7s.606ms
+Elaboration phase: Elapsed time ==> 12s.418ms
 <CYPRESSTAG name="HDL generation results...">
 </CYPRESSTAG>
-HDL generation phase: Elapsed time ==> 0s.302ms
+HDL generation phase: Elapsed time ==> 0s.483ms
 <CYPRESSTAG name="Synthesis results...">
 
      | | | | | | |
@@ -29,23 +29,23 @@ HDL generation phase: Elapsed time ==> 0s.302ms
 ======================================================================
 Compiling:  execute_1_0.v
 Program  :   C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\bin/warp.exe
-Options  :    -yv2 -v3 -ygs -q10 -o2 -.fftcfgtype=LE -ya -.fftprj=C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\execute_1_0.cyprj -dcpsoc3 execute_1_0.v -verilog
+Options  :    -yv2 -v3 -ygs -q10 -o2 -.fftcfgtype=LE -ya -.fftprj=D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\execute_1_0.cyprj -dcpsoc3 execute_1_0.v -verilog
 ======================================================================
 
 ======================================================================
 Compiling:  execute_1_0.v
 Program  :   C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\bin/warp.exe
-Options  :    -yv2 -v3 -ygs -q10 -o2 -.fftcfgtype=LE -ya -.fftprj=C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\execute_1_0.cyprj -dcpsoc3 execute_1_0.v -verilog
+Options  :    -yv2 -v3 -ygs -q10 -o2 -.fftcfgtype=LE -ya -.fftprj=D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\execute_1_0.cyprj -dcpsoc3 execute_1_0.v -verilog
 ======================================================================
 
 ======================================================================
 Compiling:  execute_1_0.v
 Program  :   vlogfe
-Options  :    -yv2 -v3 -ygs -q10 -o2 -.fftcfgtype=LE -ya -.fftprj=C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\execute_1_0.cyprj -dcpsoc3 -verilog execute_1_0.v
+Options  :    -yv2 -v3 -ygs -q10 -o2 -.fftcfgtype=LE -ya -.fftprj=D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\execute_1_0.cyprj -dcpsoc3 -verilog execute_1_0.v
 ======================================================================
 
 vlogfe V6.3 IR 41:  Verilog parser
-Tue Feb 10 19:19:06 2015
+Wed Feb 11 11:51:58 2015
 
 
 ======================================================================
@@ -55,7 +55,7 @@ Options  :    -yv2 -q10 execute_1_0.v
 ======================================================================
 
 vpp V6.3 IR 41:  Verilog Pre-Processor
-Tue Feb 10 19:19:06 2015
+Wed Feb 11 11:51:58 2015
 
 Flattening file 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\..\psoc\content\cyprimitives\CyPrimitives.cylib\cy_analog_virtualmux_v1_0\cy_analog_virtualmux_v1_0.v'
 Flattening file 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\..\psoc\content\cyprimitives\CyPrimitives.cylib\cy_vref_v1_60\cy_vref_v1_60.v'
@@ -126,11 +126,11 @@ vlogfe:  No errors.
 ======================================================================
 Compiling:  execute_1_0.v
 Program  :   tovif
-Options  :    -yv2 -v3 -ygs -q10 -o2 -.fftcfgtype=LE -ya -.fftprj=C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\execute_1_0.cyprj -dcpsoc3 -verilog execute_1_0.v
+Options  :    -yv2 -v3 -ygs -q10 -o2 -.fftcfgtype=LE -ya -.fftprj=D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\execute_1_0.cyprj -dcpsoc3 -verilog execute_1_0.v
 ======================================================================
 
 tovif V6.3 IR 41:  High-level synthesis
-Tue Feb 10 19:19:08 2015
+Wed Feb 11 11:52:01 2015
 
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\common\std.vhd'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\common\cypress.vhd'.
@@ -141,9 +141,9 @@ Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\c
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\common\stdlogic\mod_cnst.vif'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\common\stdlogic\mod_mthv.vif'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\common\stdlogic\mod_genv.vif'.
-Linking 'C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\codegentemp\execute_1_0.ctl'.
+Linking 'D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\codegentemp\execute_1_0.ctl'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\cy_analog_virtualmux_v1_0\cy_analog_virtualmux_v1_0.v'.
-Linking 'C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\codegentemp\execute_1_0.v'.
+Linking 'D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\codegentemp\execute_1_0.v'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\cy_vref_v1_60\cy_vref_v1_60.v'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\AMux_v1_80\AMux_v1_80.v'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\common\cypress.v'.
@@ -175,11 +175,11 @@ tovif:  No errors.
 ======================================================================
 Compiling:  execute_1_0.v
 Program  :   topld
-Options  :    -yv2 -v3 -ygs -q10 -o2 -.fftcfgtype=LE -ya -.fftprj=C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\execute_1_0.cyprj -dcpsoc3 -verilog execute_1_0.v
+Options  :    -yv2 -v3 -ygs -q10 -o2 -.fftcfgtype=LE -ya -.fftprj=D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\execute_1_0.cyprj -dcpsoc3 -verilog execute_1_0.v
 ======================================================================
 
 topld V6.3 IR 41:  Synthesis and optimization
-Tue Feb 10 19:19:11 2015
+Wed Feb 11 11:52:06 2015
 
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\common\std.vhd'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\common\cypress.vhd'.
@@ -190,9 +190,9 @@ Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\c
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\common\stdlogic\mod_cnst.vif'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\common\stdlogic\mod_mthv.vif'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\common\stdlogic\mod_genv.vif'.
-Linking 'C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\codegentemp\execute_1_0.ctl'.
+Linking 'D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\codegentemp\execute_1_0.ctl'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\cy_analog_virtualmux_v1_0\cy_analog_virtualmux_v1_0.v'.
-Linking 'C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\codegentemp\execute_1_0.v'.
+Linking 'D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\codegentemp\execute_1_0.v'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\cy_vref_v1_60\cy_vref_v1_60.v'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\AMux_v1_80\AMux_v1_80.v'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\lib\common\cypress.v'.
@@ -1717,16 +1717,16 @@ topld:  No errors.
 
 CYPRESS_DIR    : C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp
 Warp Program   : C:\Program Files (x86)\Cypress\PSoC Creator\3.0\PSoC Creator\warp\bin/warp.exe
-Warp Arguments : -yv2 -v3 -ygs -q10 -o2 -.fftcfgtype=LE -ya -.fftprj=C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\execute_1_0.cyprj -dcpsoc3 execute_1_0.v -verilog
+Warp Arguments : -yv2 -v3 -ygs -q10 -o2 -.fftcfgtype=LE -ya -.fftprj=D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\execute_1_0.cyprj -dcpsoc3 execute_1_0.v -verilog
 </CYPRESSTAG>
-Warp synthesis phase: Elapsed time ==> 6s.577ms
+Warp synthesis phase: Elapsed time ==> 9s.998ms
 <CYPRESSTAG name="Fitter results...">
 <CYPRESSTAG name="Fitter startup details...">
-cyp3fit: V3.0.0.3140, Family: PSoC3, Started at: Tuesday, 10 February 2015 19:19:13
-Options: -yv2 -v3 -ygs -q10 -o2 -.fftcfgtype=LE -ya -.fftprj=C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\execute_1_0.cyprj -d CY8C5888AXI-LP096 execute_1_0.v -verilog
+cyp3fit: V3.0.0.3140, Family: PSoC3, Started at: Wednesday, 11 February 2015 11:52:08
+Options: -yv2 -v3 -ygs -q10 -o2 -.fftcfgtype=LE -ya -.fftprj=D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\execute_1_0.cyprj -d CY8C5888AXI-LP096 execute_1_0.v -verilog
 </CYPRESSTAG>
 <CYPRESSTAG name="Design parsing">
-Design parsing phase: Elapsed time ==> 0s.053ms
+Design parsing phase: Elapsed time ==> 0s.092ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Tech mapping">
 <CYPRESSTAG name="Initial Mapping" icon="FILE_RPT_TECHM">
@@ -7201,9 +7201,9 @@ EMIF Fixed Blocks             :    0 :    1 :    1 :   0.00%
 LPF Fixed Blocks              :    0 :    2 :    2 :   0.00%
 SAR Fixed Blocks              :    2 :    0 :    2 : 100.00%
 </CYPRESSTAG>
-Technology Mapping: Elapsed time ==> 0s.533ms
+Technology Mapping: Elapsed time ==> 0s.673ms
 Info: mpr.M0037: Unused pieces of the design have been optimized out. See the Tech mapping section of the report file for details. (App=cydsfit)
-Tech mapping phase: Elapsed time ==> 0s.633ms
+Tech mapping phase: Elapsed time ==> 0s.853ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Analog Placement">
 Info: apr.M0002: Analog signal "\ADC_DelSig_1:Net_690\" is connected to one terminal only. (App=cydsfit)
@@ -7369,7 +7369,7 @@ VIDAC[3]@[FFB(VIDAC,3)] : \VDAC8_1:viDAC8\
 VIDAC[2]@[FFB(VIDAC,2)] : \VDAC8_3:viDAC8\
 Vref[1]@[FFB(Vref,1)] : vRef_1
 
-Analog Placement phase: Elapsed time ==> 6s.992ms
+Analog Placement phase: Elapsed time ==> 12s.268ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Analog Routing">
 Net "Net_281" overuses wire "AGL[4]"
@@ -7384,7 +7384,7 @@ Net "Net_281" overuses wire "amuxbusL"
 Net "AmuxEye::AMux_2" overuses wire "amuxbusL"
 Net "Net_281" overuses wire "AGL[4]"
 Net "Net_276" overuses wire "AGL[4]"
-Analog Routing phase: Elapsed time ==> 0s.065ms
+Analog Routing phase: Elapsed time ==> 0s.111ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Analog Code Generation">
 ============ Analog Final Answer Routes ============
@@ -7895,11 +7895,11 @@ Dump of CyP35AnalogRoutingResultsDB
 IsVddaHalfUsedForComp = True
 IsVddaHalfUsedForSar0 = True
 IsVddaHalfUsedForSar1 = True
-Analog Code Generation phase: Elapsed time ==> 0s.022ms
+Analog Code Generation phase: Elapsed time ==> 0s.031ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Digital Placement">
 <CYPRESSTAG name="Detailed placement messages">
-I2076: Total run-time: 3.1 sec.
+I2076: Total run-time: 4.9 sec.
 
 </CYPRESSTAG>
 <CYPRESSTAG name="PLD Packing">
@@ -7923,17 +7923,17 @@ PLD Packing Summary
 <CYPRESSTAG name="Packed PLD Contents">
 Packed PLD Contents not displayed at this verbose level.</CYPRESSTAG>
 </CYPRESSTAG>
-PLD Packing: Elapsed time ==> 0s.003ms
+PLD Packing: Elapsed time ==> 0s.004ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Partitioning">
 <CYPRESSTAG name="Initial Partitioning Summary">
 Initial Partitioning Summary not displayed at this verbose level.</CYPRESSTAG>
 <CYPRESSTAG name="Final Partitioning Summary">
 Final Partitioning Summary not displayed at this verbose level.</CYPRESSTAG>
-Partitioning: Elapsed time ==> 0s.432ms
+Partitioning: Elapsed time ==> 0s.820ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Simulated Annealing">
-Annealing: Elapsed time ==> 0s.002ms
+Annealing: Elapsed time ==> 0s.004ms
 <CYPRESSTAG name="Simulated Annealing Results">
 The seed used for moves was 114161200.
 Inital cost was 1485, final cost is 1485 (0.00% improvement).</CYPRESSTAG>
@@ -14281,34 +14281,34 @@ Info: plm.M0038: The pin named SCL_1(0) at location P12[0] prevents usage of spe
 Info: plm.M0038: The pin named SDA_1(0) at location P12[1] prevents usage of special purposes: I2C:SDA. (App=cydsfit)
 </CYPRESSTAG>
 </CYPRESSTAG>
-Digital component placer commit/Report: Elapsed time ==> 0s.014ms
-Digital Placement phase: Elapsed time ==> 3s.731ms
+Digital component placer commit/Report: Elapsed time ==> 0s.024ms
+Digital Placement phase: Elapsed time ==> 6s.078ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Digital Routing">
 Routing successful.
-Digital Routing phase: Elapsed time ==> 4s.359ms
+Digital Routing phase: Elapsed time ==> 7s.263ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Bitstream and API generation">
-Bitstream and API generation phase: Elapsed time ==> 0s.233ms
+Bitstream and API generation phase: Elapsed time ==> 0s.368ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Bitstream verification">
-Bitstream verification phase: Elapsed time ==> 0s.044ms
+Bitstream verification phase: Elapsed time ==> 0s.085ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Static timing analysis">
-Warning: sta.M0019: execute_1_0_timing.html: Warning-1366: Setup time violation found in a path from clock ( CyBUS_CLK ) to clock ( UART_2_IntClock ). (File=C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\execute_1_0_timing.html)
-Warning: sta.M0019: execute_1_0_timing.html: Warning-1366: Setup time violation found in a path from clock ( CyBUS_CLK ) to clock ( CyBUS_CLK ). (File=C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\execute_1_0_timing.html)
+Warning: sta.M0019: execute_1_0_timing.html: Warning-1366: Setup time violation found in a path from clock ( CyBUS_CLK ) to clock ( UART_2_IntClock ). (File=D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\execute_1_0_timing.html)
+Warning: sta.M0019: execute_1_0_timing.html: Warning-1366: Setup time violation found in a path from clock ( CyBUS_CLK ) to clock ( CyBUS_CLK ). (File=D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute\execute_1_0.cydsn\execute_1_0_timing.html)
 Timing report is in execute_1_0_timing.html.
-Static timing analysis phase: Elapsed time ==> 1s.269ms
+Static timing analysis phase: Elapsed time ==> 2s.042ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Data reporting">
-Data reporting phase: Elapsed time ==> 0s.001ms
+Data reporting phase: Elapsed time ==> 0s.000ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Database update...">
-Design database save phase: Elapsed time ==> 0s.302ms
+Design database save phase: Elapsed time ==> 0s.489ms
 </CYPRESSTAG>
-cydsfit: Elapsed time ==> 17s.718ms
+cydsfit: Elapsed time ==> 29s.704ms
 </CYPRESSTAG>
-Fitter phase: Elapsed time ==> 17s.748ms
-API generation phase: Elapsed time ==> 2s.657ms
-Dependency generation phase: Elapsed time ==> 0s.009ms
-Cleanup phase: Elapsed time ==> 0s.001ms
+Fitter phase: Elapsed time ==> 29s.750ms
+API generation phase: Elapsed time ==> 4s.014ms
+Dependency generation phase: Elapsed time ==> 0s.042ms
+Cleanup phase: Elapsed time ==> 0s.000ms

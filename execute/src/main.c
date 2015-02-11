@@ -67,8 +67,6 @@ extern uint8 usb_success;
 //DelSig ADC:
 extern uint8 adc_delsig_flag;
 
-extern struct strain_s strain;
-
 //****************************************************************************
 // Function(s)
 //****************************************************************************

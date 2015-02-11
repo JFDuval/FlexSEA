@@ -103,7 +103,6 @@ unsigned int payload_parse_str(unsigned char *cp_str)
 {
     unsigned char cmd = 0, output = PARSE_SUCCESSFUL, numb = 0;
     unsigned int id = 0;
-    unsigned int tmp1 = 0, tmp2 = 0, tmp3 = 0, tmp4 = 0;
 
     //Command
     cmd = cp_str[CP_CMD1];
@@ -112,19 +111,13 @@ unsigned int payload_parse_str(unsigned char *cp_str)
     id = payload_check_slave_id(cp_str);
     if(id == ID_MATCH)
     {
-        //It's addressed to me, what can I do with it?
+        //It's addressed to me. What should I do with it?
         switch(cmd)
         {
-			//Old / to change:
-            case CMD_SET_PID_GAINS:                
-                rx_set_pid_gains(cp_str);
-                break;
+			//Old / to change:            
             case CMD_MOVE_TRAP_ABSOLUTE:
                 rx_move_trap_absolute(cp_str);
-                break;
-            case CMD_SET_CLUTCH:
-                rx_set_clutch(cp_str);
-                break;            
+                break;                      
             case CMD_REPLY:
                 rx_read_reply(cp_str, 0);
                 break;
@@ -136,18 +129,36 @@ unsigned int payload_parse_str(unsigned char *cp_str)
                 break;
 			
 			//System commands:
+				//...
 				
 			//Sensor commands:
 			case CMD_ENCODER_WRITE:
 				rx_cmd_encoder_write(cp_str);
 				break;
+			case CMD_ENCODER_READ:
+				rx_cmd_encoder_read(cp_str);
+				break;
 			case CMD_STRAIN_CONFIG:
 				rx_cmd_strain_config(cp_str);
 				break;
+			case CMD_STRAIN_READ:
+				rx_cmd_strain_read(cp_str);
+				break;
+			case CMD_IMU_READ:
+				rx_cmd_imu_read(cp_str);
+				break;
+				
+			//Expansion commands:
+			case CMD_CLUTCH_WRITE:
+                rx_cmd_clutch_write(cp_str);
+                break;  
+			case CMD_ANALOG_READ:
+                rx_cmd_analog_read(cp_str);
+                break;  
 				
 			//Motor commands:
 			case CMD_CTRL_MODE_WRITE:
-                rx_ctrl_mode_write(cp_str);
+                rx_cmd_ctrl_mode_write(cp_str);
                 break;
 			case CMD_CTRL_I_GAINS_WRITE:
                 rx_cmd_ctrl_i_gains(cp_str);
@@ -158,7 +169,11 @@ unsigned int payload_parse_str(unsigned char *cp_str)
             case CMD_CTRL_I_WRITE:
                 rx_cmd_ctrl_i_write(cp_str);
                 break;
-				
+			case CMD_CTRL_P_GAINS_WRITE:                
+                rx_cmd_ctrl_p_gains_write(cp_str);
+                break;
+			
+			//Unknown command:	
             default:
                 output = PARSE_UNKNOWN_CMD;
                 break;
@@ -230,7 +245,7 @@ void payload_local_console_test(void)
 #endif
 
     //"Send" command
-    tx_set_pid_gains(board_id, kp, ki, kd);
+    tx_cmd_ctrl_p_gains_write(board_id, kp, ki, kd);
 
     //"Receive" command
     result = payload_parse_str(payload_str);

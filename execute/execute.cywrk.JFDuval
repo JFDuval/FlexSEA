@@ -13,7 +13,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="execute\execute_1_0\Source Files\common\flexsea_tx_cmd.c">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="execute\execute_1_0">
 <ExpandedNodeIds>
 <v>execute</v>
 <v>execute\execute_1_0</v>
@@ -51,6 +51,18 @@
 <v>execute\execute_1_0\Generated_Source\PSoC5\MotorDirection\MotorDirection.h</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
+<v>execute</v>
+<v>execute\execute_1_0</v>
+<v>execute\execute_1_0\TopDesign.cysch</v>
+<v>execute\execute_1_0\execute_1_0.cydwr</v>
+<v>execute\execute_1_0\Header Files</v>
+<v>execute\execute_1_0\Header Files\common</v>
+<v>execute\execute_1_0\Header Files\common\flexsea.h</v>
+<v>execute\execute_1_0\Header Files\common\flexsea_comm.h</v>
+<v>execute\execute_1_0\Header Files\common\flexsea_payload.h</v>
+<v>execute\execute_1_0\Header Files\common\flexsea_rx_cmd.h</v>
+<v>execute\execute_1_0\Header Files\common\flexsea_tx_cmd.h</v>
+<v>execute\execute_1_0\Header Files\inc</v>
 <v>execute\execute_1_0\Header Files\inc\analog.h</v>
 <v>execute\execute_1_0\Header Files\inc\flexsea_local.h</v>
 <v>execute\execute_1_0\Header Files\inc\imu.h</v>
@@ -87,18 +99,6 @@
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1\ADC_DelSig_1.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1\ADC_DelSig_1.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1\ADC_DelSig_1_INT.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1\ADC_DelSig_1_PM.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1_AMux</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1_Ext_CP_Clk</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1_IRQ</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1_IRQ\ADC_DelSig_1_IRQ.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1_IRQ\ADC_DelSig_1_IRQ.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1_theACLK</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1\ADC_SAR_1.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1\ADC_SAR_1.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1\ADC_SAR_1_INT.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1\ADC_SAR_1_PM.c</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
@@ -296,179 +296,6 @@
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\execute_1_0.elf</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\execute_1_0.hex</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_473\Debug\execute_1_0.map</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\ADC_DelSig_1.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\ADC_DelSig_1_AMux.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\ADC_DelSig_1_Ext_CP_Clk.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\ADC_DelSig_1_INT.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\ADC_DelSig_1_IRQ.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\ADC_DelSig_1_PM.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\ADC_DelSig_1_theACLK.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\ADC_SAR_1.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\ADC_SAR_1_INT.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\ADC_SAR_1_IRQ.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\ADC_SAR_1_PM.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\ADC_SAR_1_theACLK.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\ADC_SAR_2.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\ADC_SAR_2_INT.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\ADC_SAR_2_IRQ.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\ADC_SAR_2_PM.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\ADC_SAR_2_theACLK.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\AMux_1.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\AMux_2.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\AOP_IN.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\AOP_OUT.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\CLK_100kHz.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\Clock_4.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\Cm3Start.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\CS1.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\CS2.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\CS3.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\CyBootAsmGnu.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\CyDmac.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\cyfitter_cfg.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\CyFlash.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\CyHBUS_40MHZ.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\CyLib.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\cymetadata.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\cyPm.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\CySpc.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\cyutils.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\DE.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\DE2.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\DE3.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\DI.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\DieTemp_1.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\EXP0.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\EXP1.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\EXP10.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\EXP11.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\EXP2.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\EXP3.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\EXP4.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\EXP5.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\EXP6_SDA.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\EXP7_SCL.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\EXP8.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\EXP9.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\flexsea.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\flexsea_comm.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\flexsea_local.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\flexsea_payload.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\flexsea_rx_cmd.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\flexsea_tx_cmd.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\H1.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\H2.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\H3.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\HalfV.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\I2C_1.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\I2C_1_BOOT.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\I2C_1_INT.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\I2C_1_MASTER.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\I2C_1_PM.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\I2C_1_SLAVE.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\I2C_2.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\I2C_2_BOOT.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\I2C_2_INT.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\I2C_2_MASTER.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\I2C_2_PM.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\I2C_2_SLAVE.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\I2C_OPT_PU.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\imu.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\isr_t1.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\isr_t2.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\isr_t3.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\LED_B.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\LED_G.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\LED_HB.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\LED_R.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\main.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\misc.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\motor.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\MUXO.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\MV1.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\MV2.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\MV3.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\NOT_RE.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\NOT_RE2.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\NOT_RE3.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\Opamp_1.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\Opamp_1_PM.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\Opamp_2.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\Opamp_2_PM.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\Opamp_3.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\Opamp_3_PM.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\PGA_1.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\PGA_1_PM.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\PWM_1.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\PWM_1_PM.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\PWM_2.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\PWM_2_PM.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\PWMH1.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\PWMH2.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\PWMH3.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\PWML1.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\PWML2.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\PWML3.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\Q1_A.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\Q1_B.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\Q1_I.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\QuadDec_1.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\QuadDec_1_Cnt16.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\QuadDec_1_Cnt16_PM.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\QuadDec_1_INT.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\QuadDec_1_isr.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\QuadDec_1_PM.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\REF.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\RO.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\RX2.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\RX3.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\SCL_1.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\SDA_1.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\SG_VO1.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\SG_VO2.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\Timer_1.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\Timer_1_PM.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\Timer_2.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\Timer_2_PM.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\Timer_3.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\Timer_3_PM.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\trapez.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\TX2.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\TX3.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\UART_2.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\UART_2_BOOT.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\UART_2_INT.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\UART_2_IntClock.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\UART_2_PM.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\USBUART_1.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\USBUART_1_audio.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\USBUART_1_boot.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\USBUART_1_cdc.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\USBUART_1_cls.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\USBUART_1_descr.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\USBUART_1_Dm.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\USBUART_1_Dp.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\USBUART_1_drv.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\USBUART_1_episr.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\USBUART_1_hid.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\USBUART_1_midi.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\USBUART_1_pm.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\USBUART_1_std.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\USBUART_1_vnd.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\VB_SNS.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\VDAC8_1.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\VDAC8_1_PM.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\VDAC8_3.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\VDAC8_3_PM.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\VR1.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\VR1_PRE.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\VR2.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\Listing Files\WDCLK.lst</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\execute_1_0.elf</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\execute_1_0.hex</v>
-<v>execute\execute_1_0\CortexM3\ARM_GCC_473\Release\execute_1_0.map</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
 <v>execute</v>
@@ -486,7 +313,6 @@
 <v>execute\execute_1_0\PSoC 5 Architecture TRM</v>
 <v>execute\execute_1_0\CY8C58LP Family Datasheet</v>
 <v>execute\execute_1_0\System Reference Guide v4_11</v>
-<v>execute\execute_1_0\Project Datasheet</v>
 <v>execute\execute_1_0\ADC_DelSig_v3_10</v>
 <v>execute\execute_1_0\ADC_SAR_v2_10</v>
 <v>execute\execute_1_0\AMux_v1_80</v>
@@ -528,33 +354,13 @@
 </CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
 <Unloaded />
 <OpenDocs>
-<name v=".\execute_1_0.cydsn\TopDesign\TopDesign.cysch" />
-<name v=".\src\main.c" />
-<name v=".\execute_1_0.cydsn\execute_1_0.cydwr" />
-<name v=".\inc\main.h" />
-<name v=".\src\peripherals.c" />
-<name v=".\src\strain.c" />
-<name v=".\inc\strain.h" />
-<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\ADC_DelSig_1_INT.c" />
-<name v=".\src\analog.c" />
-<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\WDCLK.c" />
-<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\UART_2.c" />
-<name v=".\src\motor.c" />
-<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\cyfitter_cfg.c" />
-<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\isr_t3.c" />
-<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\ADC_SAR_2_INT.c" />
-<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\ADC_SAR_1_INT.c" />
-<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\ADC_SAR_1.c" />
-<name v=".\inc\misc.h" />
-<name v=".\src\misc.c" />
-<name v=".\inc\analog.h" />
-<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\ADC_SAR_2.c" />
-<name v=".\src\imu.c" />
-<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\USBUART_1_cdc.c" />
-<name v="..\common\src\flexsea_payload.c" />
-<name v="..\common\src\flexsea_rx_cmd.c" />
-<name v="..\common\inc\flexsea_rx_cmd.h" />
+<name v="..\common\inc\flexsea_tx_cmd.h" />
 <name v="..\common\src\flexsea_tx_cmd.c" />
+<name v="..\common\inc\flexsea.h" />
+<name v="..\common\src\flexsea.c" />
+<name v="..\common\src\flexsea_payload.c" />
+<name v=".\src\imu.c" />
+<name v="..\common\src\flexsea_rx_cmd.c" />
 </OpenDocs>
 <config v="" />
 <AutoUpdate v="true" />
