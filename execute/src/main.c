@@ -105,6 +105,9 @@ int main(void)
 	//motor_fixed_pwm_test_code_blocking(800);
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 	
+	//RGB Off
+	LED_R_Write(1); LED_G_Write(1); LED_B_Write(1); 
+	
 	//Main loop
 	while(1)
 	{
