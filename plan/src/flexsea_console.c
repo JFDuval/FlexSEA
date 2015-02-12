@@ -395,7 +395,7 @@ void flexsea_console_parser(int argc, char *argv[])
             }
 
             //Send data
-            //numb = COMM_STR_BUF_LEN - 1;    //Fixed length for now
+            numb = COMM_STR_BUF_LEN - 1;    //Fixed length for now	//Steven: without that line the success rate depends on the # of bytes
 			#ifdef USE_PRINTF
             printf("Sending %i bytes.\n", numb+1);
 			#endif
