@@ -44,7 +44,7 @@
 
 int main(void);
 void init_peripherals(void);
-//void send_IMU_data(imu_data_set imu_data_mode);	ToDo Clean
+uint16_t refresh_slave_data(uint8_t slave, uint8_t port);
 
 //****************************************************************************
 // Definition(s):

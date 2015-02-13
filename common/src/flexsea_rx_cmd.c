@@ -39,6 +39,12 @@ unsigned char read_offset = 0;
 unsigned char execute_1_data[SLAVE_READ_BUFFER_LEN];
 unsigned char manage_1_data[SLAVE_READ_BUFFER_LEN];
 
+#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+
+struct execute_s exec1;
+
+#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
 //****************************************************************************
 // External variable(s)
 //****************************************************************************
@@ -694,7 +700,7 @@ void rx_cmd_encoder_read_reply(uint8_t *buf)
 	int32_t tmp_enc = 0;
 
 	//Decode the reply we received:
-	tmp_enc = (int32_t) (BYTES_TO_UINT32(buf[CP_DATA1], buf[CP_DATA1+1], buf[CP_DATA1+1], buf[CP_DATA1+1]));
+	tmp_enc = (int32_t) (BYTES_TO_UINT32(buf[CP_DATA1], buf[CP_DATA1+1], buf[CP_DATA1+2], buf[CP_DATA1+3]));
 	//ToDo store that value somewhere useful
 
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
@@ -705,8 +711,9 @@ void rx_cmd_encoder_read_reply(uint8_t *buf)
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
 	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
-	//No code (yet), you shouldn't be here...
-	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+
+	exec1.encoder = tmp_enc;
+
 	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
 	#ifdef BOARD_TYPE_FLEXSEA_PLAN
@@ -722,8 +729,6 @@ void rx_cmd_encoder_read_reply(uint8_t *buf)
 
 void rx_cmd_imu_read_reply(uint8_t *buf)
 {
-	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
-		
 	int16_t tmp_gyro_x = 0, tmp_gyro_y = 0, tmp_gyro_z = 0;
 
 	//Decode the reply we received:
@@ -732,22 +737,20 @@ void rx_cmd_imu_read_reply(uint8_t *buf)
 	tmp_gyro_z = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+5], buf[CP_DATA1+6]));
 	//ToDo store that value somewhere useful
 	//ToDo: we need to check the base address and assign the bytes to the right variables
+
+	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 		
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
 	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
-	//No code (yet), you shouldn't be here...
-	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+
+	exec1.imu.x = tmp_gyro_x;
+	exec1.imu.y = tmp_gyro_y;
+	exec1.imu.z = tmp_gyro_z;
+
 	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
 	#ifdef BOARD_TYPE_FLEXSEA_PLAN
-
-	int16_t tmp_gyro_x = 0, tmp_gyro_y = 0, tmp_gyro_z = 0;
-
-	//Decode the reply we received:
-	tmp_gyro_x = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+1], buf[CP_DATA1+2]));
-	tmp_gyro_y = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+3], buf[CP_DATA1+4]));
-	tmp_gyro_z = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+5], buf[CP_DATA1+6]));
 
 	#ifdef USE_PRINTF
 	printf("Received CMD_IMU_READ_REPLY (gyro): x = %i, y = %i, z = %i.\n", tmp_gyro_x, tmp_gyro_y, tmp_gyro_z);
@@ -760,28 +763,24 @@ void rx_cmd_imu_read_reply(uint8_t *buf)
 
 void rx_cmd_strain_read_reply(uint8_t *buf)
 {
-	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
-		
 	uint16_t tmp_strain = 0;
 
 	//Decode the reply we received:
 	tmp_strain = (BYTES_TO_UINT16(buf[CP_DATA1], buf[CP_DATA1+1]));
 	//ToDo store that value somewhere useful
+
+	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+
 		
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
 	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
-	//No code (yet), you shouldn't be here...
-	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+
+	exec1.strain = tmp_strain;
+
 	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
 	#ifdef BOARD_TYPE_FLEXSEA_PLAN
-
-	uint16_t tmp_strain = 0;
-
-	//Decode the reply we received:
-	tmp_strain = (BYTES_TO_UINT16(buf[CP_DATA1], buf[CP_DATA1+1]));
-	//ToDo store that value somewhere useful
 
 	#ifdef USE_PRINTF
 	printf("Received CMD_STRAIN_READ_REPLY: %i.\n", tmp_strain);
@@ -792,27 +791,24 @@ void rx_cmd_strain_read_reply(uint8_t *buf)
 
 void rx_cmd_analog_read_reply(uint8_t *buf)
 {
-	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
-		
 	uint16_t tmp_analog = 0;
 
 	//Decode the reply we received:
 	tmp_analog = (BYTES_TO_UINT16(buf[CP_DATA1+1], buf[CP_DATA1+2]));
 	//ToDo store that value somewhere useful
 	//ToDo: we need to check the base address and assign the bytes to the right variables
+
+	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 		
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
 	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
-	//No code (yet), you shouldn't be here...
-	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+
+	exec1.analog = tmp_analog;
+
 	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
 	#ifdef BOARD_TYPE_FLEXSEA_PLAN
-
-	uint16_t tmp_analog = 0;
-	//Decode the reply we received:
-	tmp_analog = (BYTES_TO_UINT16(buf[CP_DATA1+1], buf[CP_DATA1+2]));
 
 	#ifdef USE_PRINTF
 	printf("Received CMD_ANALOG_READ_REPLY. Analog 0 = %i.\n", tmp_analog);
@@ -825,30 +821,26 @@ void rx_cmd_analog_read_reply(uint8_t *buf)
 
 void rx_cmd_ctrl_i_read_reply(uint8_t *buf)
 {
-	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
-		
 	int16_t tmp_wanted_current = 0, tmp_measured_current = 0;
 
 	//Decode the reply we received:
 	tmp_measured_current = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1], buf[CP_DATA1+1]));
 	tmp_wanted_current = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+2], buf[CP_DATA1+3]));
 	//ToDo store that value somewhere useful
+
+	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+
 		
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
 	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
-	//No code (yet), you shouldn't be here...
-	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+
+	exec1.current = tmp_measured_current;
+
 	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
 	#ifdef BOARD_TYPE_FLEXSEA_PLAN
 
-	int16_t tmp_wanted_current = 0, tmp_measured_current = 0;
-
-	//Decode the reply we received:
-	tmp_measured_current = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1], buf[CP_DATA1+1]));
-	tmp_wanted_current = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+2], buf[CP_DATA1+3]));
-	//ToDo store that value somewhere useful
 
 	#ifdef USE_PRINTF
 	printf("Received CMD_CTRL_I_READ_REPLY. Wanted = %i, Measured = %i.\n", tmp_wanted_current, tmp_measured_current);

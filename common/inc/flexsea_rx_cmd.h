@@ -48,5 +48,33 @@ void rx_cmd_ctrl_i_read_reply(uint8_t *buf);
 // Definition(s):
 //****************************************************************************
 
+//****************************************************************************
+// Structure(s):
+//****************************************************************************
+
+//#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+
+//ToDo quick hack, fix
+
+//Inner structure for the gyro and the accelero
+struct xyz_s
+{
+     int16_t x;
+     int16_t y;
+     int16_t z;
+};
+
+struct execute_s
+{
+	struct xyz_s imu;
+
+	uint16_t strain;
+	uint16_t analog;
+	int16_t current;
+	int32_t encoder;
+};
+
+//#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
 #endif
 

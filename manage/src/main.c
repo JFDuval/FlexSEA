@@ -135,6 +135,9 @@ int main(void)
 			//Constant LED0 flashing while the code runs
 			toggle_led0 ^= 1;
 			LED0(toggle_led0);
+
+			//Update our slave read array:
+			refresh_slave_data(FLEXSEA_EXECUTE_1, PORT_RS485_1);
 		}
 
 		if(systick_1000ms_flag)
@@ -200,3 +203,43 @@ void SPI_new_data_Callback(void)
 	spi_new_data_flag = 1;
 	//Got new data in, try to decode
 }
+
+//Sequentially acquire data from a slave
+//Will request a new read everytime it's called
+uint16_t refresh_slave_data(uint8_t slave, uint8_t port)
+{
+	static uint16_t cnt = 0;
+
+	//We start by generating 1 read request:
+	switch(cnt)
+	{
+		case 0:
+			tx_cmd_strain_read(slave);
+			cnt++;
+			break;
+		case 1:
+			tx_cmd_encoder_read(slave);
+			cnt++;
+			break;
+		case 2:
+			tx_cmd_imu_read(slave, 0, 3);
+			cnt++;
+			break;
+		case 3:
+			tx_cmd_analog_read(slave, 0, 1);
+			cnt++;
+			break;
+		case 4:
+			tx_cmd_ctrl_i_read(slave);
+			cnt = 0;	//Last commands resets the counter
+			break;
+	}
+
+	//Then we package and send it out:
+	comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+	flexsea_send_serial_slave(port, comm_str, COMM_STR_BUF_LEN + 1);
+	start_listening_flag = 1;
+
+	return cnt;
+}
+
