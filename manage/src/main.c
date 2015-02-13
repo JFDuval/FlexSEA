@@ -71,7 +71,7 @@ int main(void)
 		//RS-485 reception from an Execute board:
 		flexsea_receive_from_slave();
 
-		//ToDo make sure we don't mix things up with 2 comm_success
+		//ToDo make sure we don't mix things up with 2 comm_success flags. SHould we have 1 per comm interface?
 
 		//Valid communication?
 		if(comm_success == 1)
@@ -125,7 +125,8 @@ int main(void)
 		{
 			systick_10ms_flag = 0;
 
-			//...
+			//Update our slave read array:
+			refresh_slave_data(FLEXSEA_EXECUTE_1, PORT_RS485_1);
 		}
 
 		if(systick_100ms_flag)
@@ -135,9 +136,6 @@ int main(void)
 			//Constant LED0 flashing while the code runs
 			toggle_led0 ^= 1;
 			LED0(toggle_led0);
-
-			//Update our slave read array:
-			refresh_slave_data(FLEXSEA_EXECUTE_1, PORT_RS485_1);
 		}
 
 		if(systick_1000ms_flag)
@@ -206,6 +204,7 @@ void SPI_new_data_Callback(void)
 
 //Sequentially acquire data from a slave
 //Will request a new read everytime it's called
+//Should we include a mechanism to insert Slave commands here? I think so
 uint16_t refresh_slave_data(uint8_t slave, uint8_t port)
 {
 	static uint16_t cnt = 0;
@@ -231,7 +230,7 @@ uint16_t refresh_slave_data(uint8_t slave, uint8_t port)
 			break;
 		case 4:
 			tx_cmd_ctrl_i_read(slave);
-			cnt = 0;	//Last commands resets the counter
+			cnt = 0;	//Last command resets the counter
 			break;
 	}
 
@@ -242,4 +241,3 @@ uint16_t refresh_slave_data(uint8_t slave, uint8_t port)
 
 	return cnt;
 }
-

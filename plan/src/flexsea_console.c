@@ -34,9 +34,9 @@ unsigned char slave_id[MAX_SLAVE] = {FLEXSEA_DEFAULT, FLEXSEA_MANAGE_1, FLEXSEA_
 //Console command list:
 char fcp_list[MAX_CMD][TXT_STR_LEN] = 	{"info", "cmd_imu_read", "cmd_encoder_write", "cmd_encoder_read", "cmd_strain_read", "cmd_strain_config", \
 										"cmd_clutch_write", "cmd_analog_read", "cmd_ctrl_mode_write", "cmd_ctrl_i_gains_write", "cmd_ctrl_p_gains_write", \
-										"cmd_ctrl_o_write", "cmd_ctrl_i_write", "cmd_ctrl_i_read"};
+										"cmd_ctrl_o_write", "cmd_ctrl_i_write", "cmd_ctrl_i_read", "cmd_mem_read", "stream"};
 //info is command 0, set_pid is 1, etc...
-char fcp_args[MAX_CMD] = {0, 2, 1, 0, 0, 3, 1, 2, 1, 3, 3, 1, 1, 0};
+char fcp_args[MAX_CMD] = {0, 2, 1, 0, 0, 3, 1, 2, 1, 3, 3, 1, 1, 0, 2, 0};
 //fcp_args contains the number of arguments for each command
 
 //****************************************************************************
@@ -66,6 +66,8 @@ extern unsigned char payload_str[];
 //rx_cmd:
 extern unsigned char execute_1_data[SLAVE_READ_BUFFER_LEN];
 extern unsigned char manage_1_data[SLAVE_READ_BUFFER_LEN];
+
+extern struct execute_s exec1;
 
 //****************************************************************************
 // Function(s)
@@ -387,6 +389,24 @@ void flexsea_console_parser(int argc, char *argv[])
 					numb = comm_gen_str(payload_str, numb);
 					break;
 
+				case 14: //'cmd_mem_read'
+					tmp0 = atoi(argv[3]);
+					tmp1 = atoi(argv[4]);
+					#ifdef USE_PRINTF
+					printf("[Memory Read]: Base addr. = %i, bytes = %i.\n", tmp0, tmp1);
+					#endif
+					//Prepare and send data:
+					numb = tx_cmd_mem_read(slave_id[c], 0, tmp0, tmp1);
+					numb = comm_gen_str(payload_str, numb);
+					break;
+
+				case 15: //'stream'
+					#ifdef USE_PRINTF
+					printf("[Stream]\n");
+					#endif
+					flexsea_console_stream_slave_read(slave_id[c], 0);
+					break;
+
 				default:
 					#ifdef USE_PRINTF
 					printf("Invalid command.\n");
@@ -446,11 +466,16 @@ void flexsea_console_print_manage(void)
 	#ifdef USE_PRINTF
     printf("==> MANAGE BOARD <== \n\n");
 
-    printf("SW1: %i, SW2: %i\n", (manage_1_data[SRB_MANAGE_STATUS]&0x01), ((manage_1_data[SRB_MANAGE_STATUS]&0x02)>>1));
-    printf("Digital IO (B1): 0x%02X\n", manage_1_data[SRB_MANAGE_DIGITAL_IO_B1]);
-    printf("Digital IO (B2): 0x%02X\n", manage_1_data[SRB_MANAGE_DIGITAL_IO_B2]);
-    printf("Analog 0: %i\n", ((manage_1_data[SRB_MANAGE_AN0_MSB] << 8) + manage_1_data[SRB_MANAGE_AN0_LSB]));
-    printf("Analog 1: %i\n", ((manage_1_data[SRB_MANAGE_AN1_MSB] << 8) + manage_1_data[SRB_MANAGE_AN1_LSB]));
+	printf("Gyro X: %i\n", exec1.imu.x);
+	printf("Gyro Y: %i\n", exec1.imu.y);
+	printf("Gyro Z: %i\n", exec1.imu.z);
+
+	printf("Strain: %i\n", exec1.strain);
+	printf("Analog: %i\n", exec1.analog);
+	printf("Current: %i\n", exec1.current);
+
+	printf("Encoder: %i\n", exec1.encoder);
+
 	#endif
 }
 
@@ -467,12 +492,20 @@ void flexsea_console_stream_slave_read(unsigned char slaveid, unsigned char offs
         system("clear");
 
         //EXECUTE has too much data for 1 offset read
-        if(slaveid == FLEXSEA_EXECUTE_1)
+        if(slaveid == FLEXSEA_MANAGE_1)
         {
             if(offset == 0)
-                offset = 7;
+            {
+                offset = 6;
+            }
+            else if(offset == 6)
+            {
+            	offset = 12;
+            }
             else
+            {
                 offset = 0;
+            }
         }
         else
         {
@@ -482,7 +515,7 @@ void flexsea_console_stream_slave_read(unsigned char slaveid, unsigned char offs
 
         //Copy of the console "read" code:
 
-        tx_read(slaveid, offs);
+        tx_cmd_mem_read(slaveid, 0, offs, 0);
 		#ifdef USE_PRINTF
         printf("[Read]: offset = %i.\n", offs);
 		#endif
@@ -516,7 +549,7 @@ void flexsea_console_stream_slave_read(unsigned char slaveid, unsigned char offs
             else
                 slaveid == FLEXSEA_EXECUTE_1;
 
-            tx_read(slaveid, offs);
+            tx_cmd_mem_read(slaveid, 0, offs, 0);
 			#ifdef USE_PRINTF
             printf("[Read]: offset = %i.\n", offs);
 			#endif

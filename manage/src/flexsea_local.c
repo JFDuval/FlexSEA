@@ -52,6 +52,9 @@ extern int spi_new_data_flag;
 extern unsigned char read_offset;
 unsigned char start_listening_flag;
 
+//rx_cmd:
+extern struct execute_s exec1;
+
 //****************************************************************************
 // Function(s)
 //****************************************************************************
@@ -148,107 +151,46 @@ void flexsea_receive_from_slave(void)
 	}
 }
 
-//***ToDo Clean this whole thing!***
-
-//send IMU data.
-#if SEND_IMU == 1
-void flexsea_update_slave_read_buffer(unsigned char read_offset) {
-	// function to send fresh imu data over to the plan board. for testing.
-	// data convention: AXL AXH AYL AYH AZL AZH GXL GXH GYL GYH GZL GZH
-    //  (LSB first, XYZ order, accel first when sending all data)
-	 imu_data_set imu_data_mode = GYRO_ONLY;
-	  //all of the data we want.
-	  uint16_t a_x = get_accel_x();
-	  uint16_t a_y = get_accel_y();
-	  uint16_t a_z = get_accel_z();
-	  uint16_t g_x = get_gyro_x();
-	  uint16_t g_y = get_gyro_y();
-	  uint16_t g_z = get_gyro_z();
-
-	  //how many bytes are going to be in our string?
-	  uint8_t num_data_bytes = 0;
-
-	  //num bytes in generated comm_str
-	  unsigned char gen_bytes = 0;
-
-	  //switch on the kinds of data we want.
-	  // right shifting/casting is so that we can turn the
-	  // 16 bit numbers into 8 bit chunks for transmission.
-	  switch(imu_data_mode) {
-		  case ACCEL_ONLY:
-			  num_data_bytes = 6;
-			  slave_read_buffer[0] = (uint8_t) a_x;
-			  slave_read_buffer[1] = (uint8_t) (a_x >> 8);
-			  slave_read_buffer[2] = (uint8_t) a_y;
-			  slave_read_buffer[3] = (uint8_t) (a_y >> 8);
-			  slave_read_buffer[4] = (uint8_t) a_z;
-			  slave_read_buffer[5] = (uint8_t) (a_z >> 8);
-			  break;
-		  case GYRO_ONLY:
-			  num_data_bytes = 6;
-			  slave_read_buffer[0] = (uint8_t) g_x;
-			  slave_read_buffer[1] = (uint8_t) (g_x >> 8);
-			  slave_read_buffer[2] = (uint8_t) g_y;
-			  slave_read_buffer[3] = (uint8_t) (g_y >> 8);
-			  slave_read_buffer[4] = (uint8_t) g_z;
-			  slave_read_buffer[5] = (uint8_t) (g_z >> 8);
-			  break;
-		  case ALL:
-			  num_data_bytes = 12;
-			  slave_read_buffer[0] = (uint8_t) a_x;
-			  slave_read_buffer[1] = (uint8_t) (a_x >> 8);
-			  slave_read_buffer[2] = (uint8_t) a_y;
-			  slave_read_buffer[3] = (uint8_t) (a_y >> 8);
-			  slave_read_buffer[4] = (uint8_t) a_z;
-			  slave_read_buffer[5] = (uint8_t) (a_z >> 8);
-			  slave_read_buffer[6] = (uint8_t) g_x;
-			  slave_read_buffer[7] = (uint8_t) (g_x >> 8);
-			  slave_read_buffer[8] = (uint8_t) g_y;
-			  slave_read_buffer[9] = (uint8_t) (g_y >> 8);
-			  slave_read_buffer[10] = (uint8_t) g_z;
-			  slave_read_buffer[11] = (uint8_t) (g_z >> 8);
-			  break;
-	  }
-	return;
-}
-#else
 //Packages data in one unified array: slave_read_buffer[]
 void flexsea_update_slave_read_buffer(unsigned char read_offset)
 {
-	//ToDo: this should be in a separated function, but for now here it is:
-	unsigned char tmp_dio = 0;
-	unsigned char tmp_switches = 0;
+	uint8_t b0 = 0, b1 = 0, b2 = 0, b3 = 0;
 
-	tmp_dio = dio_port_read();
-	tmp_switches = (read_sw1() & 0x01);
+	//Base address:
+	slave_read_buffer[0] = read_offset;
 
-	//End of ToDo comment
+	//IMU, 3x2 bytes:
+	uint16_to_bytes((uint16_t)exec1.imu.x, &b0, &b1);
+	slave_read_buffer[1] = b0;
+	slave_read_buffer[2] = b1;
+	uint16_to_bytes((uint16_t)exec1.imu.y, &b0, &b1);
+	slave_read_buffer[3] = b0;
+	slave_read_buffer[4] = b1;
+	uint16_to_bytes((uint16_t)exec1.imu.z, &b0, &b1);
+	slave_read_buffer[5] = b0;
+	slave_read_buffer[6] = b1;
 
-	//Offset, Status and Digital IOs:
-	slave_read_buffer[SRB_MANAGE_OFFSET] = read_offset;
-	slave_read_buffer[SRB_MANAGE_STATUS] = tmp_switches;
-	slave_read_buffer[SRB_MANAGE_DIGITAL_IO_B1] = tmp_dio;
-	slave_read_buffer[SRB_MANAGE_DIGITAL_IO_B2] = 0xEE;	//Fixed value for debugging. ToDo remove.
+	//Strain:
+	uint16_to_bytes(exec1.strain, &b0, &b1);
+	slave_read_buffer[7] = b0;
+	slave_read_buffer[8] = b1;
 
-	//Analog: - All hardcoded for now (ToDo)
-	slave_read_buffer[SRB_MANAGE_AN0_MSB] = 0x08;
-	slave_read_buffer[SRB_MANAGE_AN0_LSB] = 0x00;
-	slave_read_buffer[SRB_MANAGE_AN1_MSB] = 0x02;
-	slave_read_buffer[SRB_MANAGE_AN1_LSB] = 0x9A;
-	slave_read_buffer[SRB_MANAGE_AN2_MSB] = 5;
-	slave_read_buffer[SRB_MANAGE_AN2_LSB] = 6;
-	slave_read_buffer[SRB_MANAGE_AN3_MSB] = 7;
-	slave_read_buffer[SRB_MANAGE_AN3_LSB] = 8;
-	slave_read_buffer[SRB_MANAGE_AN4_MSB] = 9;
-	slave_read_buffer[SRB_MANAGE_AN4_LSB] = 10;
-	slave_read_buffer[SRB_MANAGE_AN5_MSB] = 11;
-	slave_read_buffer[SRB_MANAGE_AN5_LSB] = 12;
-	slave_read_buffer[SRB_MANAGE_AN6_MSB] = 13;
-	slave_read_buffer[SRB_MANAGE_AN6_LSB] = 14;
-	slave_read_buffer[SRB_MANAGE_AN7_MSB] = 15;
-	slave_read_buffer[SRB_MANAGE_AN7_LSB] = 16;
+	//Analog:
+	uint16_to_bytes(exec1.analog, &b0, &b1);
+	slave_read_buffer[9] = b0;
+	slave_read_buffer[10] = b1;
+
+	//Current:
+	uint16_to_bytes((uint16_t)exec1.current, &b0, &b1);
+	slave_read_buffer[11] = b0;
+	slave_read_buffer[12] = b1;
+
+	uint32_to_bytes((uint32_t)exec1.encoder, &b0, &b1, &b2, &b3);
+	slave_read_buffer[13] = b0;
+	slave_read_buffer[14] = b1;
+	slave_read_buffer[15] = b2;
+	slave_read_buffer[16] = b3;
 }
-#endif
 
 void build_slave_payload(unsigned char base_addr)
 {
@@ -259,7 +201,7 @@ void build_slave_payload(unsigned char base_addr)
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_REPLY;
+    payload_str[CP_CMD1] = CMD_MEM_READ_REPLY;
 
     //Copy a portion of slave_read_buffer[] in payload_str[]
     payload_str[CP_DATA1] = slave_read_buffer[SRB_MANAGE_OFFSET];	//Always the offset
@@ -285,11 +227,10 @@ void comm_str_to_txbuffer(void)
 
 //Everytime we receive an SPI string we transmit data
 //This function prepares the data to be sent.
-void flexsea_prepare_spi_tx_buffer(void)
+void flexsea_prepare_spi_tx_buffer(uint8_t base_addr)
 {
-	flexsea_update_slave_read_buffer(read_offset);
-	build_slave_payload(read_offset);
+	flexsea_update_slave_read_buffer(base_addr);
+	build_slave_payload(base_addr);
 	comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
 	comm_str_to_txbuffer();
 }
-

@@ -36,7 +36,7 @@ void flexsea_clear_slave_read_buffer(void);
 void flexsea_update_slave_read_buffer(unsigned char read_offset);
 void build_slave_payload(unsigned char base_addr);
 void comm_str_to_txbuffer(void);
-void flexsea_prepare_spi_tx_buffer(void);
+void flexsea_prepare_spi_tx_buffer(uint8_t base_addr);
 
 //****************************************************************************
 // Definition(s):

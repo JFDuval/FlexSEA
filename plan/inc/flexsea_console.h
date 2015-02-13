@@ -31,7 +31,7 @@ void flexsea_console_stream_slave_read(unsigned char slaveid, unsigned char offs
 //****************************************************************************
 
 //MAX_CMD has to equal the number of FCP_xx lines!
-#define MAX_CMD         14
+#define MAX_CMD         16
 #define NO_CMD_FOUND    127
 
 //MAX_SLAVE has to equal the number of slave_list lines!

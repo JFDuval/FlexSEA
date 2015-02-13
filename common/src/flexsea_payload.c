@@ -118,18 +118,17 @@ unsigned int payload_parse_str(unsigned char *cp_str)
             case CMD_MOVE_TRAP_ABSOLUTE:
                 rx_move_trap_absolute(cp_str);
                 break;                      
-            case CMD_REPLY:
-                rx_read_reply(cp_str, 0);
-                break;
-            case CMD_READ:
-                rx_read(cp_str);
-                break;
             case CMD_SET_Z_GAINS:
                 rx_set_z_gains(cp_str);
                 break;
 			
 			//System commands:
-				//...
+            case CMD_MEM_READ:
+                rx_cmd_mem_read(cp_str);
+                break;
+            case CMD_MEM_READ_REPLY:
+            	rx_cmd_mem_read_reply(cp_str, 0);
+                break;
 				
 			//Sensor commands:
 			case CMD_ENCODER_WRITE:

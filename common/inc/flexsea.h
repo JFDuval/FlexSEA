@@ -90,10 +90,10 @@ void uint16_to_bytes(uint32_t x, uint8_t *b0, uint8_t *b1);
 #define CMD_MOVE_TRAP_RELATIVE      	3
 #define CMD_SET_DIGITAL             	5
 #define CMD_SET_Z_GAINS                 11
-#define CMD_READ             		    20
-#define CMD_REPLY			            21
 
 //System commands:
+#define CMD_MEM_READ					21
+#define CMD_MEM_READ_REPLY				22
 
 //Sensor commands:
 #define CMD_IMU_READ					57

@@ -23,11 +23,10 @@
 //Old / to change:
 
 unsigned int tx_set_trapeze(unsigned char slave, int posi, int posf, int spdm, int acc);
-unsigned int tx_read(unsigned char slave, unsigned char offset);
 unsigned int tx_set_z_gains(unsigned char slave, int z_k, int z_b, int z_i);
 
 //System commands:
-//...
+uint32_t tx_cmd_mem_read(uint8_t slave, uint8_t mem, uint8_t base_addr, uint8_t bytes);
 				
 //Sensor commands:
 

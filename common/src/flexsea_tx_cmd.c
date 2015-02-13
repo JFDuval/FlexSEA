@@ -149,17 +149,17 @@ unsigned int tx_set_trapeze(unsigned char slave, int posi, int posf, int spdm, i
 
 //ToDo *** Fix or Remove ***
 //Read from slave, starting at offset
-unsigned int tx_read(unsigned char slave, unsigned char offset)
+uint32_t tx_cmd_mem_read(uint8_t slave, uint8_t mem, uint8_t base_addr, uint8_t bytes)
 {
     //Fresh string:
     payload_build_basic_str(slave);
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_READ;
+    payload_str[CP_CMD1] = CMD_MEM_READ;
 
     //Parameters:
-    payload_str[CP_DATA1] = offset;
+    payload_str[CP_DATA1] = base_addr;
 
     //At this point the string is ready to be packaged in comm_str
     return 5;

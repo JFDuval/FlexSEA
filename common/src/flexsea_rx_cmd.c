@@ -39,7 +39,7 @@ unsigned char read_offset = 0;
 unsigned char execute_1_data[SLAVE_READ_BUFFER_LEN];
 unsigned char manage_1_data[SLAVE_READ_BUFFER_LEN];
 
-#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+#if defined(BOARD_TYPE_FLEXSEA_MANAGE) || defined(BOARD_TYPE_FLEXSEA_PLAN)
 
 struct execute_s exec1;
 
@@ -206,9 +206,8 @@ void rx_cmd_ctrl_o_write(uint8_t *buf)
 	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
 
-//ToDo *** Fix or Remove ***
 //Display the data received from a slave after a read request
-void rx_read_reply(unsigned char *buf, unsigned int verbal)
+void rx_cmd_mem_read_reply(uint8_t *buf, uint8_t verbal)
 {
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 	//No code (yet), you shouldn't be here...
@@ -231,27 +230,48 @@ void rx_read_reply(unsigned char *buf, unsigned int verbal)
     {
         if(buf[CP_DATA1] == 0)
         {
-            //Store into array:
-            manage_1_data[SRB_MANAGE_OFFSET] = buf[CP_DATA1];
-            manage_1_data[SRB_MANAGE_STATUS] = buf[CP_DATA1 + 1];
-            manage_1_data[SRB_MANAGE_DIGITAL_IO_B1] = buf[CP_DATA1 + 2];
-            manage_1_data[SRB_MANAGE_DIGITAL_IO_B2] = buf[CP_DATA1 + 3];
-            manage_1_data[SRB_MANAGE_AN0_MSB] = buf[CP_DATA1 + 4];
-            manage_1_data[SRB_MANAGE_AN0_LSB] = buf[CP_DATA1 + 5];
-            manage_1_data[SRB_MANAGE_AN1_MSB] = buf[CP_DATA1 + 6];
-            manage_1_data[SRB_MANAGE_AN1_LSB] = buf[CP_DATA1 + 7];
+            //Store into structure
+        	exec1.imu.x = (int16_t)BYTES_TO_UINT16(buf[CP_DATA1 + 1], buf[CP_DATA1 + 2]);
+        	exec1.imu.y = (int16_t)BYTES_TO_UINT16(buf[CP_DATA1 + 3], buf[CP_DATA1 + 4]);
+        	exec1.imu.z = (int16_t)BYTES_TO_UINT16(buf[CP_DATA1 + 5], buf[CP_DATA1 + 6]);
 
             if(verbal)
             {
                 #ifdef USE_PRINTF
-                 printf("\nReading from FLEXSEA_MANAGE_1:\n");
-                 printf("SW1: %i, SW2: %i\n", (manage_1_data[SRB_MANAGE_STATUS]&0x01), ((manage_1_data[SRB_MANAGE_STATUS]&0x02)>>1));
-                 printf("Digital IO (B1): 0x%02X\n", manage_1_data[SRB_MANAGE_DIGITAL_IO_B1]);
-                 printf("Digital IO (B2): 0x%02X\n", manage_1_data[SRB_MANAGE_DIGITAL_IO_B2]);
-                 printf("Analog 0: %i\n", ((manage_1_data[SRB_MANAGE_AN0_MSB] << 8) + manage_1_data[SRB_MANAGE_AN0_LSB]));
-                 printf("Analog 1: %i\n", ((manage_1_data[SRB_MANAGE_AN1_MSB] << 8) + manage_1_data[SRB_MANAGE_AN1_LSB]));
-                 #endif
+            	printf("Gyro X: %i\n", exec1.imu.x);
+            	printf("Gyro Y: %i\n", exec1.imu.y);
+            	printf("Gyro Z: %i\n", exec1.imu.z);
+            	//printf("Strain: %i\n", exec1.strain);
+				#endif
             }
+        }
+        else if(buf[CP_DATA1] == 6)
+        {
+        	exec1.strain = BYTES_TO_UINT16(buf[CP_DATA1 + 1], buf[CP_DATA1 + 2]);
+        	exec1.analog = BYTES_TO_UINT16(buf[CP_DATA1 + 3], buf[CP_DATA1 + 4]);
+        	exec1.current = (int16_t)BYTES_TO_UINT16(buf[CP_DATA1 + 5], buf[CP_DATA1 + 6]);
+
+            if(verbal)
+            {
+                #ifdef USE_PRINTF
+            	printf("Strain: %i\n", exec1.strain);
+            	printf("Analog: %i\n", exec1.analog);
+            	printf("Current: %i\n", exec1.current);
+				#endif
+            }
+
+        }
+        else if(buf[CP_DATA1] == 12)
+        {
+        	exec1.encoder = (int32_t)BYTES_TO_UINT32(buf[CP_DATA1 + 1], buf[CP_DATA1 + 2], buf[CP_DATA1 + 3], buf[CP_DATA1 + 4]);
+
+            if(verbal)
+            {
+                #ifdef USE_PRINTF
+            	printf("Encoder: %i\n", exec1.encoder);
+				#endif
+            }
+
         }
         else
         {
@@ -333,11 +353,10 @@ void rx_read_reply(unsigned char *buf, unsigned int verbal)
 	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
 
-//ToDo *** Fix or Remove ***
-void rx_read(unsigned char *buf)
+//ToDo: currently using a simplified implementation, only using base_addr and a fixed # of bytes
+void rx_cmd_mem_read(unsigned char *buf)
 {
-    //Set Read offset
-	read_offset = buf[CP_DATA1];
+	uint8_t base_addr = buf[CP_DATA1];
 
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -365,7 +384,7 @@ void rx_read(unsigned char *buf)
 	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
 
 	//Prepare data to be sent, place it in buffer
-	flexsea_prepare_spi_tx_buffer();
+	flexsea_prepare_spi_tx_buffer(base_addr);
 	flexsea_send_serial_master(0, comm_str, 24);
 
 	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
@@ -719,7 +738,7 @@ void rx_cmd_encoder_read_reply(uint8_t *buf)
 	#ifdef BOARD_TYPE_FLEXSEA_PLAN
 
 	#ifdef USE_PRINTF
-	printf("Received CMD_ENCODER_READ_REPLY: %i.\n", tmp);
+	printf("Received CMD_ENCODER_READ_REPLY: %i.\n", tmp_enc);
 	#endif	//USE_PRINTF
 
 	//ToDo do something more useful that a printf
@@ -753,7 +772,7 @@ void rx_cmd_imu_read_reply(uint8_t *buf)
 	#ifdef BOARD_TYPE_FLEXSEA_PLAN
 
 	#ifdef USE_PRINTF
-	printf("Received CMD_IMU_READ_REPLY (gyro): x = %i, y = %i, z = %i.\n", tmp_gyro_x, tmp_gyro_y, tmp_gyro_z);
+	printf("Received CMD_IMU_READ_REPLY (gyro): \nx = %i\ny = %i\nz = %i.\n\n", tmp_gyro_x, tmp_gyro_y, tmp_gyro_z);
 	#endif	//USE_PRINTF
 
 	//ToDo do something more useful that a printf
