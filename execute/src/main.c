@@ -83,8 +83,16 @@ int main(void)
 	unsigned char ledr_state = 0, ledg_state = 0, ledb_state = 0;
 	uint8 toggle_wdclk = 0;	
 
-	//Power on delay
-	CyDelay(750);
+	
+	//Power on delay with LEDs
+	LED_R_Write(0); LED_G_Write(1); LED_B_Write(1); 
+	CyDelay(250);
+	LED_R_Write(1); LED_G_Write(1); LED_B_Write(0); 
+	CyDelay(250);
+	LED_R_Write(1); LED_G_Write(1); LED_B_Write(1); 
+	CyDelay(250);
+	LED_R_Write(1); LED_G_Write(0); LED_B_Write(1); 
+	CyDelay(250);
 	
    	//Enable Global Interrupts
     CyGlobalIntEnable;        
@@ -102,12 +110,10 @@ int main(void)
 	//strain_test_blocking();
 	//safety_cop_comm_test_blocking();
 	//imu_test_code_blocking();
-	//motor_fixed_pwm_test_code_blocking(800);
+	//motor_fixed_pwm_test_code_blocking(1000);
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 	
-	//RGB Off
-	LED_R_Write(1); LED_G_Write(1); LED_B_Write(1); 
-	
+
 	//Main loop
 	while(1)
 	{

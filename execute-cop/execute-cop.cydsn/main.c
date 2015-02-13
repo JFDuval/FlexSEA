@@ -59,7 +59,7 @@ void init_peripherals(void)
 	I2C_1_Start();
 	
 	//WDCLK:
-	Control_Reg_2_Write(100);	//500Hz min.
+	Control_Reg_2_Write(250);
 	isr_wdclk_Start();
 }
 

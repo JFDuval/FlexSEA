@@ -66,7 +66,8 @@ uint8 adc_delsig_flag = 0;
 		
 		uint16 tmp = 0;
 		//Store last value:
-		strain.vo2 = (uint16)ADC_DelSig_1_GetResult16();
+		tmp = (uint16)ADC_DelSig_1_GetResult16();
+		strain.vo2 = tmp;
 		
 		//Raise flag:
 		adc_delsig_flag = 1;

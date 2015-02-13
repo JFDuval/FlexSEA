@@ -689,7 +689,7 @@ void rx_cmd_ctrl_i_read(uint8_t *buf)
 	uint8_t numb = 0;
 
 	//Generate the reply:
-	tx_cmd_ctrl_i_read_reply(buf[CP_XID], ctrl.current.actual_val, ctrl.current.setpoint_val);
+	tx_cmd_ctrl_i_read_reply(buf[CP_XID], (ctrl.current.actual_val - CURRENT_ZERO), ctrl.current.setpoint_val);
 	numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
 	
 	//Send it out:

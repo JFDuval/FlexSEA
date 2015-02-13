@@ -45,7 +45,7 @@ void init_imu()
 	
 	//Send the config sequence
 	imu_write(IMU_CONFIG, config, 4);
-	while(I2C_1_MasterStatus() != I2C_1_MSTAT_WR_CMPLT);
+	//while(I2C_1_MasterStatus() != I2C_1_MSTAT_WR_CMPLT);
 	//ToDo: add a timeout
 }
 
@@ -159,14 +159,26 @@ void reset_imu(void)
 int imu_write(uint8 internal_reg_addr, uint8* pData, uint16 length) 
 {
 	int i = 0;
+	uint8_t stat = 0;
 	
 	i2c_tmp_buf[0] = internal_reg_addr;
 	for(i = 1; i < length + 1; i++)
 	{
 		i2c_tmp_buf[i] = pData[i-1];
 	}
+	
+	//Try to write it up to 5 times
+	for(i = 0; i < 5; i++)
+	{
+		stat = I2C_1_MasterWriteBuf(IMU_ADDR, (uint8 *) i2c_tmp_buf, length + 1, I2C_1_MODE_COMPLETE_XFER);
 		
-	I2C_1_MasterWriteBuf(IMU_ADDR, (uint8 *) i2c_tmp_buf, length + 1, I2C_1_MODE_COMPLETE_XFER);
+		if(stat == I2C_1_MSTR_NO_ERROR)
+		{
+			break;
+		}
+		
+		CyDelay(10);
+	}
 
 	return 0;
 }

@@ -43,6 +43,9 @@ void update_sensors(void)
 		#endif	//USE_IMU
 		
 	#endif	//USE_I2C_INT	
+	
+	//Now that the I2C isn't in use we convert the starin:
+	ADC_DelSig_1_StartConvert();
 }
 
 //ToDo should probably be in a different file

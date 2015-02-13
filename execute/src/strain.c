@@ -47,7 +47,7 @@ void init_strain(void)
 	//16-bits ADC:
 	ADC_DelSig_1_Start();
 	ADC_DelSig_1_IRQ_Enable();
-	ADC_DelSig_1_StartConvert();
+	//ADC_DelSig_1_StartConvert();
 	
 	//Defaults:
 	//=-=-=-=-=-=

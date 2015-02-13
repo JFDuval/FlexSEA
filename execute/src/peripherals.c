@@ -34,9 +34,6 @@ uint8 usb_success = 0;
 //Initialize and enables all the peripherals
 void init_peripherals(void)
 {
-	//RGB LED (all colors ON)
-	LED_R_Write(0); LED_G_Write(0);	LED_B_Write(0);
-	
 	//Motor control variables & peripherals:
 	init_motor();
 	

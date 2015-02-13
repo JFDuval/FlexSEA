@@ -439,7 +439,7 @@ uint32_t tx_cmd_encoder_read_reply(uint8_t master, int32_t enc)
     payload_str[CP_CMD1] = CMD_ENCODER_READ_REPLY;
  
     //Arguments:
-	uint32_to_bytes(enc, &tmp0, &tmp1, &tmp2, &tmp3);
+	uint32_to_bytes((uint32_t)enc, &tmp0, &tmp1, &tmp2, &tmp3);
     payload_str[CP_DATA1] = tmp0;
     payload_str[CP_DATA1 + 1] = tmp1;
     payload_str[CP_DATA1 + 2] = tmp2;

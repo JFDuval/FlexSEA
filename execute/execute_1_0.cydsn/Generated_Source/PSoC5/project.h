@@ -124,7 +124,6 @@
 #include <EXP7_SCL.h>
 #include <I2C_2.h>
 #include <I2C_2_PVT.h>
-#include <PGA_1.h>
 #include <AMux_1.h>
 #include <EXP2_aliases.h>
 #include <EXP2.h>

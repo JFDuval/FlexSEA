@@ -35,7 +35,7 @@ int16 adc1_res_filtered[ADC1_CHANNELS];
 void init_analog(void)
 {
 	//Analog amplifiers & multiplexer(s):
-	PGA_1_Start();	
+	//PGA_1_Start();	
 	Opamp_3_Start();
 	AMux_1_Start();
 	AMux_1_Select(0);

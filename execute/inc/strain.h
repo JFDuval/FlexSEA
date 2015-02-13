@@ -50,7 +50,7 @@ void strain_test_blocking(void);
 
 //Default values (experimental, expected to change)
 #define STRAIN_DEFAULT_OREF		156
-#define STRAIN_DEFAULT_OFFSET	120
+#define STRAIN_DEFAULT_OFFSET	127
 #define STRAIN_DEFAULT_GAIN		10
 
 //Strain filtering:
