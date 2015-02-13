@@ -211,6 +211,8 @@ void init_rs485_outputs(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 
+	//ToDo Support the other transceivers!
+
 	// Enable GPIO Peripheral clock on ports E & F
 	__GPIOE_CLK_ENABLE();
 	__GPIOF_CLK_ENABLE();
@@ -238,7 +240,7 @@ void rs485_set_mode(uint32_t port, unsigned char rx_tx)
 	//!RE1 : PF12
 	//DE1: PF11
 
-	if(port == 0)	//RS-485 #1 / USART1
+	if(port == PORT_RS485_1)	//RS-485 #1 / USART1
 	{
 		if(rx_tx == RS485_TX)
 		{
@@ -249,14 +251,14 @@ void rs485_set_mode(uint32_t port, unsigned char rx_tx)
 		else if(rx_tx == RS485_RX)
 		{
 			//Half-duplex RX (Transmit disabled):
-			HAL_GPIO_WritePin(GPIOF, GPIO_PIN_12, 0);	//DE
-			HAL_GPIO_WritePin(GPIOF, GPIO_PIN_11, 0);	//RE
+			HAL_GPIO_WritePin(GPIOF, GPIO_PIN_12, 0);	//RE
+			HAL_GPIO_WritePin(GPIOF, GPIO_PIN_11, 0);	//DE
 		}
 		else if(rx_tx == RS485_RX_TX)
 		{
 			//Read & Write:
 			HAL_GPIO_WritePin(GPIOF, GPIO_PIN_12, 0);	//RE
-			HAL_GPIO_WritePin(GPIOF, GPIO_PIN_1, 1);	//DE
+			HAL_GPIO_WritePin(GPIOF, GPIO_PIN_11, 1);	//DE
 		}
 		else
 		{
@@ -289,7 +291,7 @@ void puts_rs485_1(uint8_t *str, unsigned char length)
 	*/
 
 	//Transmit enable
-	rs485_set_mode(0, RS485_TX);
+	rs485_set_mode(PORT_RS485_1, RS485_TX);
 
 	//ToDo replace by valid delay function!
 	for(i = 0; i < 1000; i++);
@@ -313,7 +315,7 @@ unsigned char getc_rs485_1_blocking(void)
 	for(delay = 0; delay < 1000; delay++);		//Short delay
 
 	//Receive enable
-	rs485_set_mode(0, RS485_RX);
+	rs485_set_mode(PORT_RS485_1, RS485_RX);
 	for(delay = 0; delay < 5000; delay++);		//Short delay
 	tmp = USART1->DR;	//Read buffer to clear
 
@@ -326,7 +328,7 @@ void puts_rs485_6(uint8_t *str, unsigned char length)
 	unsigned int i = 0;
 
 	//Transmit enable
-	rs485_set_mode(1, RS485_TX);
+	rs485_set_mode(PORT_RS485_2, RS485_TX);
 
 	//ToDo replace by valid delay function!
 	for(i = 0; i < 1000; i++);
@@ -335,7 +337,7 @@ void puts_rs485_6(uint8_t *str, unsigned char length)
 	HAL_USART_Transmit(&husart6,str,length,5000);
 
 	//Transceiver in RX_TX
-	rs485_set_mode(1, RS485_RX);
+	rs485_set_mode(PORT_RS485_2, RS485_RX);
 	//ToDo: is that what we want? What about receive?
 }
 
@@ -350,7 +352,7 @@ unsigned char getc_rs485_6_blocking(void)
 	for(delay = 0; delay < 1000; delay++);		//Short delay
 
 	//Receive enable
-	rs485_set_mode(1, RS485_RX);
+	rs485_set_mode(PORT_RS485_2, RS485_RX);
 	for(delay = 0; delay < 5000; delay++);		//Short delay
 	tmp = USART6->DR;	//Read buffer to clear
 

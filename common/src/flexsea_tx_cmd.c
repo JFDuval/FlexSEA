@@ -543,6 +543,30 @@ uint32_t tx_cmd_analog_read_reply(uint8_t master, uint8_t base_addr, uint8_t byt
 
 	#endif 	//BOARD_TYPE_FLEXSEA_EXECUTE
 
+	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+
+	uint8_t tmp0 = 0, tmp1 = 0;
+
+	//Fresh string:
+	payload_build_basic_str(master);
+
+	//Command:
+	payload_str[CP_CMDS] = 1;                     //1 command in string
+	payload_str[CP_CMD1] = CMD_ANALOG_READ_REPLY;
+
+	//Arguments:
+	//ToDo ***for now we ignore the 'bytes' and we send 1 value ***
+	payload_str[CP_DATA1] = 0xAB;
+	payload_str[CP_DATA1 + 1] = 0xCD;
+	payload_str[CP_DATA1 + 2] = 0xEF;
+
+	//At this point the string is ready to be packaged in comm_str
+	#ifdef ENABLE_TERMINAL_DEBUG
+	payload_print_str();
+	#endif // ENABLE_TERMINAL_DEBUG
+
+	#endif 	//BOARD_TYPE_FLEXSEA_MANAGE
+
     return 7;
 }
 

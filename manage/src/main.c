@@ -21,6 +21,7 @@
 
 int comm_res = 0, comm_success = 0;
 unsigned char comm_str_payload1[16];
+int spi_new_data_flag = 0;
 
 //****************************************************************************
 // External variable(s)
@@ -36,6 +37,9 @@ volatile unsigned char systick_1ms_flag;
 volatile unsigned char systick_10ms_flag;
 volatile unsigned char systick_100ms_flag;
 volatile unsigned char systick_1000ms_flag;
+
+//flexsea_payload.c:
+extern unsigned char start_listening_flag;
 
 //****************************************************************************
 // Function(s)
@@ -62,6 +66,8 @@ int main(void)
 	//Infinite loop
 	while (1)
     {
+		flexsea_receive_from_master();
+
 		//RS-485 reception from an Execute board:
 		flexsea_receive_from_slave();
 
@@ -136,6 +142,18 @@ int main(void)
 			systick_1000ms_flag = 0;
 
 			//...
+
+
+			/*
+			//Test code:
+			tx_cmd_encoder_read(FLEXSEA_EXECUTE_1);
+
+			comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+			flexsea_send_serial_slave(PORT_RS485_1, comm_str, COMM_STR_BUF_LEN + 1);
+
+			start_listening_flag = 1;
+			*/
+
 		}		
 		
     }
@@ -145,10 +163,10 @@ int main(void)
 void init_peripherals(void)
 {	
 	init_systick_timer();		//SysTick timer	
-	init_usart1(460800);		//USART1 (RS-485 #1)
+	init_usart1(115200);		//USART1 (RS-485 #1)
 	init_leds();
 	init_switches();
-	init_dio();			//All inputs by default
+	init_dio();					//All inputs by default
 	init_rs485_outputs();
 	init_adc1();
 	init_spi4();
@@ -179,12 +197,6 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *UartHandle)
 
 void SPI_new_data_Callback(void)
 {
+	spi_new_data_flag = 1;
 	//Got new data in, try to decode
-	comm_res = comm_decode_str();
-	if(comm_res)
-	{
-		comm_res = 0;
-		//Lift flag - this is the signal for the parser
-		comm_success = 1;
-	}
 }

@@ -208,14 +208,15 @@ unsigned int payload_parse_str(unsigned char *cp_str)
         numb = COMM_STR_BUF_LEN;    //Fixed length for now
 		if(id == ID_SUB1_MATCH)
 		{
-			flexsea_send_serial_slave(0, comm_str, numb + 1);
+			flexsea_send_serial_slave(PORT_RS485_1, comm_str, numb + 1);
 		}
 		else if(id == ID_SUB2_MATCH)
 		{
-			flexsea_send_serial_slave(1, comm_str, numb + 1);
+			flexsea_send_serial_slave(PORT_RS485_2, comm_str, numb + 1);
 		}
 
-        if(cmd == CMD_READ)
+		//ToDo: this is ugly, I need a better solution. Table with [CMD Code][R/W][Arguments]?
+        if((cmd == CMD_IMU_READ) || (cmd == CMD_ENCODER_READ) || (cmd == CMD_STRAIN_READ) || (cmd == CMD_ANALOG_READ) | (cmd == CMD_CTRL_I_READ))
         {
             //Place code here to deal with slave answering
             start_listening_flag = 1;
@@ -240,7 +241,7 @@ unsigned int payload_parse_str(unsigned char *cp_str)
         //Repackages the payload. ToDo: would be more efficient to just resend the comm_str
         numb = comm_gen_str(cp_str, PAYLOAD_BUF_LEN);
         numb = COMM_STR_BUF_LEN;    //Fixed length for now
-        flexsea_send_serial_master(0,comm_str, numb + 1);
+        flexsea_send_serial_master(0, comm_str, numb);
     }
     else
     {

@@ -65,8 +65,8 @@ void uint16_to_bytes(uint32_t x, uint8_t *b0, uint8_t *b1);
 #define ID_NO_MATCH                 	0
 
 //Communication ports:
-#define PORT_RS485_1					1
-#define PORT_RS485_2					2
+#define PORT_RS485_1					0
+#define PORT_RS485_2					1
 
 //ToDo update naming convention
 //Communication protocol fields:
@@ -120,7 +120,6 @@ void uint16_to_bytes(uint32_t x, uint8_t *b0, uint8_t *b1);
 #define CMD_CTRL_I_READ_REPLY			130
 
 //Note: do not use codes that are framing or escape chars!
-
 
 //List of controllers:
 #define CTRL_NONE						0		//No PID gains, no PWM (no motor)
@@ -190,13 +189,13 @@ void uint16_to_bytes(uint32_t x, uint8_t *b0, uint8_t *b1);
 //****************************************************************************
 
 //Reassembles a uint32 from 4 bytes. b0 is the MSB.
-#define BYTES_TO_UINT32(b0,b1,b2,b3)	(((uint32)b0 << 24) + \
-										((uint32)b1 << 16) + \
-										((uint32)b2 << 8) + \
-										((uint32)b3))
+#define BYTES_TO_UINT32(b0,b1,b2,b3)	(((uint32_t)b0 << 24) + \
+										((uint32_t)b1 << 16) + \
+										((uint32_t)b2 << 8) + \
+										((uint32_t)b3))
 
 //Reassembles a uint16 from 2 bytes. b0 is the MSB.
-#define BYTES_TO_UINT16(b0,b1)			(((uint16)b0 << 8) + \
-										((uint16)b1))
+#define BYTES_TO_UINT16(b0,b1)			(((uint16_t)b0 << 8) + \
+										((uint16_t)b1))
 
 #endif

@@ -47,6 +47,7 @@ extern unsigned char comm_str[COMM_STR_BUF_LEN];
 extern unsigned char payload_str[];
 //main:
 extern int comm_res, comm_success;
+extern int spi_new_data_flag;
 
 extern unsigned char read_offset;
 unsigned char start_listening_flag;
@@ -99,6 +100,17 @@ void flexsea_clear_slave_read_buffer(void)
 
 void flexsea_receive_from_master(void)
 {
+	if (spi_new_data_flag)
+	{
+		spi_new_data_flag = 0;
+		comm_res = comm_decode_str();
+		if(comm_res)
+		{
+			comm_res = 0;
+			//Lift flag - this is the signal for the parser
+			comm_success = 1;
+		}
+	}
 	// i'm not sure what to do here now that all reception is done by interrupt
 	//ToDo: check if that function is called, otherwise comment it from this board with the comment above
 }

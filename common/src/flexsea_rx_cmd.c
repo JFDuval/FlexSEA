@@ -636,8 +636,18 @@ void rx_cmd_analog_read(uint8_t *buf)
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
 	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
-	//No code (yet), you shouldn't be here...
-	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+
+	uint8_t numb = 0;
+
+	//Generate the reply:
+	tx_cmd_analog_read_reply(buf[CP_XID], buf[CP_DATA1], buf[CP_DATA1+1]);
+	numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+
+	//Send it out: //ToDo *******
+	//Prepare data to be sent, place it in buffer
+	//flexsea_prepare_spi_tx_buffer();
+	flexsea_send_serial_master(0, comm_str, 24);
+
 	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
 	#ifdef BOARD_TYPE_FLEXSEA_PLAN
@@ -681,14 +691,17 @@ void rx_cmd_ctrl_i_read(uint8_t *buf)
 //
 void rx_cmd_encoder_read_reply(uint8_t *buf)
 {
-	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
-		
 	int32_t tmp_enc = 0;
 
 	//Decode the reply we received:
 	tmp_enc = (int32_t) (BYTES_TO_UINT32(buf[CP_DATA1], buf[CP_DATA1+1], buf[CP_DATA1+1], buf[CP_DATA1+1]));
 	//ToDo store that value somewhere useful
+
+	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 		
+	//No code (yet), you shouldn't be here...
+	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
 	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
@@ -697,8 +710,13 @@ void rx_cmd_encoder_read_reply(uint8_t *buf)
 	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
 	#ifdef BOARD_TYPE_FLEXSEA_PLAN
-	//No code (yet), you shouldn't be here...
-	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+
+	#ifdef USE_PRINTF
+	printf("Received CMD_ENCODER_READ_REPLY: %i.\n", tmp);
+	#endif	//USE_PRINTF
+
+	//ToDo do something more useful that a printf
+
 	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
 
@@ -723,8 +741,20 @@ void rx_cmd_imu_read_reply(uint8_t *buf)
 	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
 	#ifdef BOARD_TYPE_FLEXSEA_PLAN
-	//No code (yet), you shouldn't be here...
-	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+
+	int16_t tmp_gyro_x = 0, tmp_gyro_y = 0, tmp_gyro_z = 0;
+
+	//Decode the reply we received:
+	tmp_gyro_x = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+1], buf[CP_DATA1+2]));
+	tmp_gyro_y = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+3], buf[CP_DATA1+4]));
+	tmp_gyro_z = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+5], buf[CP_DATA1+6]));
+
+	#ifdef USE_PRINTF
+	printf("Received CMD_IMU_READ_REPLY (gyro): x = %i, y = %i, z = %i.\n", tmp_gyro_x, tmp_gyro_y, tmp_gyro_z);
+	#endif	//USE_PRINTF
+
+	//ToDo do something more useful that a printf
+
 	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
 
@@ -746,8 +776,17 @@ void rx_cmd_strain_read_reply(uint8_t *buf)
 	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
 	#ifdef BOARD_TYPE_FLEXSEA_PLAN
-	//No code (yet), you shouldn't be here...
-	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+
+	uint16_t tmp_strain = 0;
+
+	//Decode the reply we received:
+	tmp_strain = (BYTES_TO_UINT16(buf[CP_DATA1], buf[CP_DATA1+1]));
+	//ToDo store that value somewhere useful
+
+	#ifdef USE_PRINTF
+	printf("Received CMD_STRAIN_READ_REPLY: %i.\n", tmp_strain);
+	#endif	//USE_PRINTF
+
 	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
 
@@ -770,8 +809,17 @@ void rx_cmd_analog_read_reply(uint8_t *buf)
 	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
 	#ifdef BOARD_TYPE_FLEXSEA_PLAN
-	//No code (yet), you shouldn't be here...
-	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+
+	uint16_t tmp_analog = 0;
+	//Decode the reply we received:
+	tmp_analog = (BYTES_TO_UINT16(buf[CP_DATA1+1], buf[CP_DATA1+2]));
+
+	#ifdef USE_PRINTF
+	printf("Received CMD_ANALOG_READ_REPLY. Analog 0 = %i.\n", tmp_analog);
+	#endif	//USE_PRINTF
+
+	//ToDo do something more useful that a printf
+
 	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
 
@@ -794,7 +842,17 @@ void rx_cmd_ctrl_i_read_reply(uint8_t *buf)
 	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
 	#ifdef BOARD_TYPE_FLEXSEA_PLAN
-	//No code (yet), you shouldn't be here...
-	flexsea_error(SE_CMD_NOT_PROGRAMMED);
+
+	int16_t tmp_wanted_current = 0, tmp_measured_current = 0;
+
+	//Decode the reply we received:
+	tmp_measured_current = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1], buf[CP_DATA1+1]));
+	tmp_wanted_current = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+2], buf[CP_DATA1+3]));
+	//ToDo store that value somewhere useful
+
+	#ifdef USE_PRINTF
+	printf("Received CMD_CTRL_I_READ_REPLY. Wanted = %i, Measured = %i.\n", tmp_wanted_current, tmp_measured_current);
+	#endif	//USE_PRINTF
+
 	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
