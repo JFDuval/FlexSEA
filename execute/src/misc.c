@@ -44,7 +44,8 @@ void update_sensors(void)
 		
 	#endif	//USE_I2C_INT	
 	
-	//Now that the I2C isn't in use we convert the starin:
+	//Now that the I2C isn't in use we convert the strain:
+	EXP2_Write(1);	//Used to test the timing - can be removed	
 	ADC_DelSig_1_StartConvert();
 }
 

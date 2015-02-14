@@ -19,10 +19,14 @@
 //****************************************************************************
 
 struct strain_s strain;
+uint16 adc_strain_filtered = 0;
 
 //****************************************************************************
 // External variable(s)
 //****************************************************************************
+
+//Del Sig Int:
+extern volatile uint16 adc_strain;
 
 //****************************************************************************
 // Function(s)
@@ -73,12 +77,13 @@ void strain_config(uint8 offs, uint8 gain, uint8 oref)
 	i2c_init_buf[0] = STRAIN_OFFSET;
 	i2c_init_buf[1] = offs;		//Offset
 	I2C_1_MasterWriteBuf(I2C_POT_ADDR, (uint8 *) i2c_init_buf, 2, I2C_1_MODE_COMPLETE_XFER);	
-	CyDelay(10);	//ToDo test but it should be much faster than this!
+	CyDelayUs(100);
 	
 	//Second stage gain:
 	i2c_init_buf[0] = STRAIN_GAIN;
 	i2c_init_buf[1] = gain;		//Gain
-	I2C_1_MasterWriteBuf(I2C_POT_ADDR, (uint8 *) i2c_init_buf, 2, I2C_1_MODE_COMPLETE_XFER);	
+	I2C_1_MasterWriteBuf(I2C_POT_ADDR, (uint8 *) i2c_init_buf, 2, I2C_1_MODE_COMPLETE_XFER);
+	CyDelayUs(100);
 }
 
 //Returns the latest filtered strain measurement
@@ -86,7 +91,8 @@ uint16 strain_read(void)
 {
 	//ADC is auto-sampling, this function simply returns the last filtered value
 	
-	return strain.filtered_strain;
+	//return strain.filtered_strain;	//Buggy
+	return adc_strain_filtered;
 }
 
 //Moving average filter:
@@ -95,21 +101,25 @@ uint16 strain_filter(void)
 	uint32 sum = 0;
 	uint8 cnt = 0;
 	uint16 avg = 0;
+	static uint16 vo2_buf[STRAIN_BUF_LEN];
 	
 	//Shift buffer and sum all but last term
 	for(cnt = 1; cnt < (STRAIN_BUF_LEN); cnt++)
 	{
-		strain.vo2_buf[cnt-1] = strain.vo2_buf[cnt];
-		sum += strain.vo2_buf[cnt-1];
+		vo2_buf[cnt-1] = vo2_buf[cnt];
+		sum += vo2_buf[cnt-1];
 	}
-	strain.vo2_buf[STRAIN_BUF_LEN - 1] = strain.vo2;
-	sum += strain.vo2;
+	
+	//vo2_buf[STRAIN_BUF_LEN - 1] = strain.vo2;	//Buggy, see Evernote
+	vo2_buf[STRAIN_BUF_LEN - 1] = adc_strain;
+	sum += vo2_buf[STRAIN_BUF_LEN - 1];
 		
 	//Average
 	avg = (uint16)(sum >> STRAIN_SHIFT);
 	
 	//Store in structure:
 	strain.filtered_strain = avg;
+	adc_strain_filtered = avg;
 	
 	return avg;	
 }
@@ -124,20 +134,24 @@ void strain_test_blocking(void)
 	uint8 ledg_state = 0;
 	
 	VDAC8_3_SetValue(156);	
-	i2c_test_wbuf[0] = MCP4661_REG_RAM_W1;
+	i2c_test_wbuf[0] = STRAIN_OFFSET;
 	i2c_test_wbuf[1] = 120;	//Offset of ~ V/2
 	I2C_1_MasterWriteBuf(I2C_POT_ADDR, (uint8 *) i2c_test_wbuf, 2, I2C_1_MODE_COMPLETE_XFER);	
 	CyDelay(10);
-	i2c_test_wbuf[0] = MCP4661_REG_RAM_W0;
+	i2c_test_wbuf[0] = STRAIN_GAIN;
 	i2c_test_wbuf[1] = 10;	//Relatively small gain
 	I2C_1_MasterWriteBuf(I2C_POT_ADDR, (uint8 *) i2c_test_wbuf, 2, I2C_1_MODE_COMPLETE_XFER);	
+	
+	i2c_test_wbuf[0] = STRAIN_OFFSET;
 	while(1)
 	{
-		vr1++;			
+		vr1++;		
+		i2c_test_wbuf[1] = vr1;	//Enable this line to test the offset
+		I2C_1_MasterWriteBuf(I2C_POT_ADDR, (uint8 *) i2c_test_wbuf, 2, I2C_1_MODE_COMPLETE_XFER);	
 		
 		ledg_state ^= 1;
 		LED_G_Write(ledg_state);
 		
-		CyDelay(1);
+		CyDelayUs(100);
 	}
 }

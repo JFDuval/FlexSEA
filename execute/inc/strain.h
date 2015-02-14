@@ -50,7 +50,7 @@ void strain_test_blocking(void);
 
 //Default values (experimental, expected to change)
 #define STRAIN_DEFAULT_OREF		156
-#define STRAIN_DEFAULT_OFFSET	127
+#define STRAIN_DEFAULT_OFFSET	110
 #define STRAIN_DEFAULT_GAIN		10
 
 //Strain filtering:
@@ -74,7 +74,6 @@ struct strain_s
     uint16 vo2;
 	 
 	//Filtering:
-	uint16 vo2_buf[STRAIN_BUF_LEN];
 	uint16 filtered_strain;
 };
 
