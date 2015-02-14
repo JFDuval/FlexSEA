@@ -597,3 +597,21 @@ uint32_t tx_cmd_ctrl_i_read_reply(uint8_t master, int16_t measured, int16_t want
 
     return 8;
 }
+
+//Set acquisition mode
+uint32_t tx_cmd_acq_mode_write(uint8_t slave, uint8_t mode)
+{
+    //Fresh string:
+    payload_build_basic_str(slave);
+
+    //Command:
+    payload_str[CP_CMDS] = 1;                     //1 command in string
+    payload_str[CP_CMD1] = CMD_CLUTCH_WRITE;
+
+    //Parameters:
+    payload_str[CP_DATA1 + 1] = mode;
+
+    //At this point the string is ready to be packaged in comm_str
+    return 6;
+}
+

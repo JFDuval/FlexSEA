@@ -23,6 +23,8 @@ int comm_res = 0, comm_success = 0;
 unsigned char comm_str_payload1[16];
 int spi_new_data_flag = 0;
 
+uint8_t autosampling = 0;
+
 //****************************************************************************
 // External variable(s)
 //****************************************************************************
@@ -40,6 +42,9 @@ volatile unsigned char systick_1000ms_flag;
 
 //flexsea_payload.c:
 extern unsigned char start_listening_flag;
+extern unsigned char xmit_flag;
+extern uint8_t comm_str_xmit[COMM_STR_BUF_LEN];
+extern uint8_t cmd_xmit;
 
 //****************************************************************************
 // Function(s)
@@ -53,6 +58,7 @@ int main(void)
 	unsigned char good_commands = 0;
 	unsigned int timed_cleanup = 0;
 	unsigned char toggle_led0 = 0, toggle_led1 = 0, toggle_ledr = 0;
+	uint8_t tbdiv = 0;
 
 	//Initialize all the peripherals
 	init_peripherals();
@@ -71,7 +77,7 @@ int main(void)
 		//RS-485 reception from an Execute board:
 		flexsea_receive_from_slave();
 
-		//ToDo make sure we don't mix things up with 2 comm_success flags. SHould we have 1 per comm interface?
+		//ToDo make sure we don't mix things up with 2 comm_success flags. Should we have 1 per comm interface?
 
 		//Valid communication?
 		if(comm_success == 1)
@@ -119,14 +125,23 @@ int main(void)
 		if(systick_1ms_flag)
 		{
 			systick_1ms_flag = 0;
+
+			tbdiv++;
+			if(tbdiv == 4)	//5ms
+			{
+				tbdiv = 0;
+
+				//Update our slave read array:
+				refresh_slave_data(FLEXSEA_EXECUTE_1, PORT_RS485_1, autosampling);
+			}
+
 		}
 
 		if(systick_10ms_flag)
 		{
 			systick_10ms_flag = 0;
 
-			//Update our slave read array:
-			refresh_slave_data(FLEXSEA_EXECUTE_1, PORT_RS485_1);
+
 		}
 
 		if(systick_100ms_flag)
@@ -187,7 +202,7 @@ void init_peripherals(void)
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *UartHandle)
 {
 	unsigned char UartReady = 0;
-  /* Set transmission flag: trasfer complete*/
+  /* Set transmission flag: transfer complete*/
   UartReady++;
   asm("mov r0,r0");	//Nop()
 
@@ -205,39 +220,62 @@ void SPI_new_data_Callback(void)
 //Sequentially acquire data from a slave
 //Will request a new read everytime it's called
 //Should we include a mechanism to insert Slave commands here? I think so
-uint16_t refresh_slave_data(uint8_t slave, uint8_t port)
+uint16_t refresh_slave_data(uint8_t slave, uint8_t port, uint8_t autosample)
 {
 	static uint16_t cnt = 0;
 
-	//We start by generating 1 read request:
-	switch(cnt)
+	if(!xmit_flag)
 	{
-		case 0:
-			tx_cmd_strain_read(slave);
-			cnt++;
-			break;
-		case 1:
-			tx_cmd_encoder_read(slave);
-			cnt++;
-			break;
-		case 2:
-			tx_cmd_imu_read(slave, 0, 3);
-			cnt++;
-			break;
-		case 3:
-			tx_cmd_analog_read(slave, 0, 1);
-			cnt++;
-			break;
-		case 4:
-			tx_cmd_ctrl_i_read(slave);
-			cnt = 0;	//Last command resets the counter
-			break;
-	}
+		if(autosample)
+		{
+			//We start by generating 1 read request:
+			switch(cnt)
+			{
+				case 0:
+					tx_cmd_strain_read(slave);
+					cnt++;
+					break;
+				case 1:
+					tx_cmd_encoder_read(slave);
+					cnt++;
+					break;
+				case 2:
+					tx_cmd_imu_read(slave, 0, 3);
+					cnt++;
+					break;
+				case 3:
+					tx_cmd_analog_read(slave, 0, 1);
+					cnt++;
+					break;
+				case 4:
+					tx_cmd_ctrl_i_read(slave);
+					cnt = 0;	//Last command resets the counter
+					break;
+			}
 
-	//Then we package and send it out:
-	comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
-	flexsea_send_serial_slave(port, comm_str, COMM_STR_BUF_LEN + 1);
-	start_listening_flag = 1;
+			//Then we package and send it out:
+			comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+			flexsea_send_serial_slave(port, comm_str, COMM_STR_BUF_LEN + 1);
+			start_listening_flag = 1;
+		}
+	}
+	else
+	{
+		//xmit flag is high, we skip refreshing the sensors to send one packet
+
+		//Always RS-485#1 for now
+		flexsea_send_serial_slave(PORT_RS485_1, comm_str_xmit, COMM_STR_BUF_LEN + 1);
+
+		//ToDo: this is ugly, I need a better solution. Table with [CMD Code][R/W][Arguments]?
+        if((cmd_xmit == CMD_IMU_READ) || (cmd_xmit == CMD_ENCODER_READ) || (cmd_xmit == CMD_STRAIN_READ) || (cmd_xmit == CMD_ANALOG_READ) || (cmd_xmit == CMD_CTRL_I_READ))
+        {
+            //Place code here to deal with slave answering
+            start_listening_flag = 1;
+        }
+
+        //Lowers the flag
+        xmit_flag = 0;
+	}
 
 	return cnt;
 }

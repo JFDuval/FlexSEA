@@ -64,6 +64,10 @@ extern struct enc_s encoder;
 
 #endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
+#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+//main.c
+extern uint8_t autosampling;
+#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
 //****************************************************************************
 // Function(s)
@@ -865,5 +869,24 @@ void rx_cmd_ctrl_i_read_reply(uint8_t *buf)
 	printf("Received CMD_CTRL_I_READ_REPLY. Wanted = %i, Measured = %i.\n", tmp_wanted_current, tmp_measured_current);
 	#endif	//USE_PRINTF
 
+	#endif	//BOARD_TYPE_FLEXSEA_PLAN
+}
+
+void rx_cmd_acq_mode_write(uint8_t *buf)
+{
+	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+	//No code (yet), you shouldn't be here...
+	flexsea_error(0);
+	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+
+	autosampling = buf[CP_DATA1];
+
+	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+	#ifdef BOARD_TYPE_FLEXSEA_PLAN
+	//No code (yet), you shouldn't be here...
+	flexsea_error(0);
 	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }

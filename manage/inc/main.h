@@ -44,7 +44,7 @@
 
 int main(void);
 void init_peripherals(void);
-uint16_t refresh_slave_data(uint8_t slave, uint8_t port);
+uint16_t refresh_slave_data(uint8_t slave, uint8_t port, uint8_t autosample);
 
 //****************************************************************************
 // Definition(s):

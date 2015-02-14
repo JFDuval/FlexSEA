@@ -38,6 +38,8 @@ void rx_cmd_imu_read(uint8_t *buf);
 void rx_cmd_analog_read(uint8_t *buf);
 void rx_cmd_ctrl_i_read(uint8_t *buf);
 
+void rx_cmd_acq_mode_write(uint8_t *buf);
+
 void rx_cmd_encoder_read_reply(uint8_t *buf);
 void rx_cmd_imu_read_reply(uint8_t *buf);
 void rx_cmd_strain_read_reply(uint8_t *buf);

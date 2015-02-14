@@ -92,6 +92,9 @@ void uint16_to_bytes(uint32_t x, uint8_t *b0, uint8_t *b1);
 #define CMD_SET_Z_GAINS                 11
 
 //System commands:
+#define CMD_ACQ_MODE_WRITE				15
+
+//Data commands:
 #define CMD_MEM_READ					21
 #define CMD_MEM_READ_REPLY				22
 

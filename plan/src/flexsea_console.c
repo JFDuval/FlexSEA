@@ -34,9 +34,9 @@ unsigned char slave_id[MAX_SLAVE] = {FLEXSEA_DEFAULT, FLEXSEA_MANAGE_1, FLEXSEA_
 //Console command list:
 char fcp_list[MAX_CMD][TXT_STR_LEN] = 	{"info", "cmd_imu_read", "cmd_encoder_write", "cmd_encoder_read", "cmd_strain_read", "cmd_strain_config", \
 										"cmd_clutch_write", "cmd_analog_read", "cmd_ctrl_mode_write", "cmd_ctrl_i_gains_write", "cmd_ctrl_p_gains_write", \
-										"cmd_ctrl_o_write", "cmd_ctrl_i_write", "cmd_ctrl_i_read", "cmd_mem_read", "stream"};
+										"cmd_ctrl_o_write", "cmd_ctrl_i_write", "cmd_ctrl_i_read", "cmd_mem_read", "cmd_acq_mode_write", "stream"};
 //info is command 0, set_pid is 1, etc...
-char fcp_args[MAX_CMD] = {0, 2, 1, 0, 0, 3, 1, 2, 1, 3, 3, 1, 1, 0, 2, 0};
+char fcp_args[MAX_CMD] = {0, 2, 1, 0, 0, 3, 1, 2, 1, 3, 3, 1, 1, 0, 2, 1, 0};
 //fcp_args contains the number of arguments for each command
 
 //****************************************************************************
@@ -400,7 +400,17 @@ void flexsea_console_parser(int argc, char *argv[])
 					numb = comm_gen_str(payload_str, numb);
 					break;
 
-				case 15: //'stream'
+				case 15: //'cmd_acq_mode_write'
+					#ifdef USE_PRINTF
+					tmp0 = atoi(argv[3]);
+					printf("[Acquisition mode]: %i.\n", tmp0);
+					#endif
+					//Prepare and send data:
+					numb = tx_cmd_acq_mode_write(slave_id[c], tmp0);
+					numb = comm_gen_str(payload_str, numb);
+					break;
+
+				case 16: //'stream'
 					#ifdef USE_PRINTF
 					printf("[Stream]\n");
 					#endif

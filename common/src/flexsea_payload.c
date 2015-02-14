@@ -25,6 +25,10 @@ unsigned char test_kp = 0, test_ki = 0, test_kd = 0;
 unsigned char start_listening_flag = 0;
 unsigned char uart_rx_test = 0, delay = 0;
 
+unsigned char xmit_flag = 0;
+uint8_t comm_str_xmit[COMM_STR_BUF_LEN];
+uint8_t cmd_xmit = 0;
+
 //****************************************************************************
 // External variable(s)
 //****************************************************************************
@@ -103,6 +107,7 @@ unsigned int payload_parse_str(unsigned char *cp_str)
 {
     unsigned char cmd = 0, output = PARSE_SUCCESSFUL, numb = 0;
     unsigned int id = 0;
+    uint8_t i = 0;
 
     //Command
     cmd = cp_str[CP_CMD1];
@@ -200,11 +205,22 @@ unsigned int payload_parse_str(unsigned char *cp_str)
     }
     else if((id == ID_SUB1_MATCH) || (id == ID_SUB2_MATCH))
     {
-        //For one of my slaves. For now, they can only be on 1 RS-485 bus.
+        //For one of my slaves.
 
         //Repackages the payload. ToDo: would be more efficient to just resend the comm_str
         numb = comm_gen_str(cp_str, PAYLOAD_BUF_LEN);
         numb = COMM_STR_BUF_LEN;    //Fixed length for now
+
+        //Synchronous sending. Hacky... copy the comm_str in a new one, comm_str_xmit.
+
+        for(i = 0; i < COMM_STR_BUF_LEN; i++)
+        {
+        	comm_str_xmit[i] = comm_str[i];
+        }
+        cmd_xmit = cmd;
+        xmit_flag = 1;
+
+        /*
 		if(id == ID_SUB1_MATCH)
 		{
 			flexsea_send_serial_slave(PORT_RS485_1, comm_str, numb + 1);
@@ -215,12 +231,13 @@ unsigned int payload_parse_str(unsigned char *cp_str)
 		}
 
 		//ToDo: this is ugly, I need a better solution. Table with [CMD Code][R/W][Arguments]?
-        if((cmd == CMD_IMU_READ) || (cmd == CMD_ENCODER_READ) || (cmd == CMD_STRAIN_READ) || (cmd == CMD_ANALOG_READ) | (cmd == CMD_CTRL_I_READ))
+        if((cmd == CMD_IMU_READ) || (cmd == CMD_ENCODER_READ) || (cmd == CMD_STRAIN_READ) || (cmd == CMD_ANALOG_READ) || (cmd == CMD_CTRL_I_READ))
         {
             //Place code here to deal with slave answering
             start_listening_flag = 1;
 
         }
+        */
     }
     /*
     else if(id == ID_SUB2_MATCH)
