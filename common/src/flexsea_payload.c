@@ -128,6 +128,11 @@ unsigned int payload_parse_str(unsigned char *cp_str)
                 break;
 			
 			//System commands:
+            case CMD_ACQ_MODE_WRITE:
+            	rx_cmd_acq_mode_write(cp_str);
+            	break;
+
+            //Data commands:
             case CMD_MEM_READ:
                 rx_cmd_mem_read(cp_str);
                 break;

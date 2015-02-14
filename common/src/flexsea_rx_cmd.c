@@ -881,7 +881,16 @@ void rx_cmd_acq_mode_write(uint8_t *buf)
 
 	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
 
+	uint8_t tmp0 = 0, tmp1 = 0, tmp2 = 0, tmp3 = 0, tmp4 = 0, tmp5 = 0;;
+	tmp0 = buf[CP_XID];
+	tmp1 = buf[CP_RID];
+	tmp2 = buf[CP_CMDS];
+	tmp3 = buf[CP_CMD1];
+	tmp4 = buf[CP_DATA1];
+	tmp5 = buf[CP_DATA1+1];
+
 	autosampling = buf[CP_DATA1];
+	tmp0 = tmp1;
 
 	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 

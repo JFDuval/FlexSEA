@@ -85,7 +85,7 @@ uint32_t tx_cmd_clutch_write(uint8_t slave, uint8_t clutch_pwm)
     payload_str[CP_CMD1] = CMD_CLUTCH_WRITE;
 
     //Parameters:
-    payload_str[CP_DATA1 + 1] = clutch_pwm;
+    payload_str[CP_DATA1] = clutch_pwm;
 
     //At this point the string is ready to be packaged in comm_str
     return 6;
@@ -606,12 +606,12 @@ uint32_t tx_cmd_acq_mode_write(uint8_t slave, uint8_t mode)
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_CLUTCH_WRITE;
+    payload_str[CP_CMD1] = CMD_ACQ_MODE_WRITE;
 
     //Parameters:
-    payload_str[CP_DATA1 + 1] = mode;
+    payload_str[CP_DATA1] = mode;
 
     //At this point the string is ready to be packaged in comm_str
-    return 6;
+    return 6;	//5
 }
 
