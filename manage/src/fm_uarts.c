@@ -195,14 +195,14 @@ void putc_usart1(char c)
 {
 	data[1] = c;
 	//huart1.State = HAL_USART_STATE_READY;
-	HAL_USART_Transmit(&husart1,(uint8_t*)UARTaTxBuffer,3,5000);
+	HAL_USART_Transmit(&husart1,(uint8_t*)UARTaTxBuffer,3, UART_TIMEOUT);
 }
 
 void putc_usart6(char c)
 {
 	data[1] = c;
 	//huart1.State = HAL_USART_STATE_READY;
-	HAL_USART_Transmit(&husart6,(uint8_t*)UARTaTxBuffer,3,5000);
+	HAL_USART_Transmit(&husart6,(uint8_t*)UARTaTxBuffer,3, UART_TIMEOUT);
 }
 
 //Initialize GPIOs for RS-485: RE, DE
@@ -233,7 +233,6 @@ void init_rs485_outputs(void)
 }
 
 //Receive or Transmit
-//ToDo: Jake, this function is recursive... is there a good justification?
 void rs485_set_mode(uint32_t port, unsigned char rx_tx)
 {
 	//USART1:
@@ -275,29 +274,15 @@ void puts_rs485_1(uint8_t *str, unsigned char length)
 {
 	unsigned int i = 0;
 
-	/*
-	//USART1 in TX mode
-	husart1.Init.Mode = USART_MODE_TX;
-	HAL_USART_Init(&husart1);
-	//USART1->CR1 |= 0b0100100;		//Receive enable, enable interrupts
-	USART1->CR1 &= 0b1011011;		//Receive disabled, disable interrupts
-	*/
-
-	/*
-	USART1->CR1 &= 0b1111111111111011;		//Disable receiver
-	//Rising edge, end of reception
-	HAL_GPIO_WritePin(GPIOF, GPIO_PIN_0, 1);
-	HAL_GPIO_WritePin(GPIOF, GPIO_PIN_0, 0);
-	*/
-
 	//Transmit enable
 	rs485_set_mode(PORT_RS485_1, RS485_TX);
 
 	//ToDo replace by valid delay function!
 	for(i = 0; i < 1000; i++);
+	//ToDo Delay
 
 	//Send data
-	HAL_USART_Transmit(&husart1,str,length,5000);
+	HAL_USART_Transmit(&husart1, str, length, UART_TIMEOUT);
 
 	//Transceiver in standby
 	//rs485_set_mode(RS485_STANDBY);
@@ -334,7 +319,7 @@ void puts_rs485_6(uint8_t *str, unsigned char length)
 	for(i = 0; i < 1000; i++);
 
 	//Send data
-	HAL_USART_Transmit(&husart6,str,length,5000);
+	HAL_USART_Transmit(&husart6, str, length, UART_TIMEOUT);
 
 	//Transceiver in RX_TX
 	rs485_set_mode(PORT_RS485_2, RS485_RX);
