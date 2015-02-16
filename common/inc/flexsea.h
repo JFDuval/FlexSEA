@@ -41,6 +41,7 @@ void uint16_to_bytes(uint32_t x, uint8_t *b0, uint8_t *b1);
 #define PAYLOAD_BUF_LEN             	12		//Number of bytes in a payload string
 #define PAYLOAD_BYTES					(PAYLOAD_BUF_LEN - 4)
 #define COMM_STR_BUF_LEN            	24		//Number of bytes in a comm. string
+#define PACKAGED_PAYLOAD_LEN			24	//Temporary
 #define PAYLOAD_BUFFERS             	4		//Max # of payload strings we expect to find
 
 //Board types:

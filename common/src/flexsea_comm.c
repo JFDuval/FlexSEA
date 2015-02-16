@@ -49,6 +49,8 @@ unsigned char comm_str[COMM_STR_BUF_LEN], comm_str_tmp[COMM_STR_BUF_LEN];
 //New RX buffers:
 uint8_t rx_buf_spi[RX_BUF_LEN];
 uint8_t rx_buf_485_1[RX_BUF_LEN];
+uint8_t rx_command_spi[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
+uint8_t rx_command_485_1[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
 
 //****************************************************************************
 // External variable(s)
@@ -259,8 +261,8 @@ unsigned char comm_decode_str(void)
 }
 
 //New version of comm_decode_str
-//Take a buffer as an argument
-uint8_t unpack_payload(uint8_t *buf)
+//Take a buffer as an argument, returns the number of decoded payload packets
+uint8_t unpack_payload(uint8_t *buf, uint8_t rx_cmd[][PACKAGED_PAYLOAD_LEN])
 {
     uint32_t i = 0, j = 0, k = 0, idx = 0, h = 0;
     uint8_t bytes = 0, possible_footer = 0, possible_footer_pos = 0;
@@ -331,7 +333,7 @@ uint8_t unpack_payload(uint8_t *buf)
                             else
                             {
                                 skip = 0;
-                                comm_str_payload[payload_strings][idx] = rx_buf_tmp[k];
+                                rx_cmd[payload_strings][idx] = rx_buf_tmp[k];
                                 idx++;
                             }
                         }
@@ -342,10 +344,10 @@ uint8_t unpack_payload(uint8_t *buf)
                         //Remove the string to avoid double detection
                         for(h = i; h <= possible_footer_pos; h++)
                         {
-                            buf[h] = '0';
+                            buf[h] = 0;
                         }
 
-                        DEBUG_PRINTF("payload: %s\n",comm_str_payload[payload_strings]);
+                        DEBUG_PRINTF("payload: %s\n",rx_cmd[payload_strings]);
                     }
                     else
                     {
@@ -367,6 +369,30 @@ uint8_t unpack_payload(uint8_t *buf)
     //Returns the number of decoded strings
     return payload_strings;
 }
+
+//To avoid sharing buffers in multiple files we use specific functions:
+
+uint8_t unpack_payload_spi(void)
+{
+	return unpack_payload(rx_buf_spi, rx_command_spi);
+}
+
+uint8_t unpack_payload_485_1(void)
+{
+	return unpack_payload(rx_buf_485_1, rx_command_485_1);
+}
+
+/*
+uint8_t unpack_payload_485_2(void)
+{
+	return unpack_payload(rx_buf_485_2, rx_command_485_2);
+}
+
+uint8_t unpack_payload_usb(void)
+{
+	return unpack_payload(rx_buf_usb, rx_command_usb);
+}
+*/
 
 //Fills the comm_str_payload buffer with zeros
 void comm_clear_str_payload(void)
@@ -441,6 +467,44 @@ void comm_update_rx_buffer(unsigned char last_byte)
     //rx_buf[] is now up to date
 }
 
+void update_rx_buf(uint8_t *buf, uint8_t *idx, uint8_t new_byte)
+{
+	uint8_t i = 0;
+
+	if(*idx < RX_BUF_LEN)
+	{
+		buf[*idx] = new_byte;
+		idx++;
+	}
+	else
+	{
+		//Shift buffer to clear one spot
+		for(i = 1; i < RX_BUF_LEN; i++)
+		{
+			buf[i-1] = buf[i];
+		}
+		//Add last byte to the buffer
+		buf[RX_BUF_LEN-1] = new_byte;
+	}
+
+	//buf[] is now up to date
+}
+
+void update_rx_buf_spi(uint8_t new_byte)
+{
+	static uint8_t idx_spi = 0;
+
+	update_rx_buf(rx_buf_spi, &idx_spi, new_byte);
+}
+
+void update_rx_buf_485_1(uint8_t new_byte)
+{
+	static uint8_t idx_485_1 = 0;
+
+	update_rx_buf(rx_buf_spi, &idx_485_1, new_byte);
+}
+
+//ToDo add buffer argument
 void comm_clear_rx_buffer(void)
 {
     unsigned char i = 0;
@@ -451,6 +515,7 @@ void comm_clear_rx_buffer(void)
     }
 }
 
+//ToDo: update
 //Quick way to debug the comm functions with the debugger
 void comm_test_functions(void)
 {

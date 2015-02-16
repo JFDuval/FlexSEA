@@ -19,10 +19,8 @@
 // Local variable(s)
 //****************************************************************************
 
-int comm_res = 0, comm_success = 0;
-unsigned char comm_str_payload1[16];
-int spi_new_data_flag = 0;
-
+uint8_t tmp_rx_command_spi[PAYLOAD_BUF_LEN];
+uint8_t tmp_rx_command_485_1[PAYLOAD_BUF_LEN];
 uint8_t autosampling = 0;
 
 //****************************************************************************
@@ -46,8 +44,12 @@ extern unsigned char xmit_flag;
 extern uint8_t comm_str_xmit[COMM_STR_BUF_LEN];
 extern uint8_t cmd_xmit;
 
-//ToDo remove, test only
-extern unsigned char rx_buf[RX_BUF_LEN];          //Contains the input data
+extern uint8_t bytes_ready_spi;
+extern uint8_t cmd_ready_spi;
+extern uint8_t cmd_ready_485_1;
+
+extern uint8_t rx_command_spi[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
+extern uint8_t rx_command_485_1[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
 
 //****************************************************************************
 // Function(s)
@@ -58,8 +60,6 @@ int main(void)
 	//Variables:
 	int i = 0;
 	unsigned int result = 0;
-	unsigned char good_commands = 0;
-	unsigned int timed_cleanup = 0;
 	unsigned char toggle_led0 = 0, toggle_led1 = 0, toggle_ledr = 0;
 	uint8_t tbdiv = 0;
 
@@ -72,62 +72,56 @@ int main(void)
 	// start receiving from master via interrupts
 	flexsea_start_receiving_from_master();
 
-	//ToDo remove test code
-	unpack_payload(rx_buf);
-
 	//Infinite loop
 	while (1)
     {
+		//SPI reception from a Plan board:
 		flexsea_receive_from_master();
 
 		//RS-485 reception from an Execute board:
 		flexsea_receive_from_slave();
 
-		//ToDo make sure we don't mix things up with 2 comm_success flags. Should we have 1 per comm interface?
-
-		//Valid communication?
-		if(comm_success == 1)
+		//Valid communication from SPI?
+		if(cmd_ready_spi != 0)
 		{
-			comm_success = 0;
-			good_commands++;
-			timed_cleanup = 0;
+			cmd_ready_spi = 0;
 
 			//Cheap trick to get first line	//ToDo: support more than 1
 			for(i = 0; i < PAYLOAD_BUF_LEN; i++)
 			{
-				comm_str_payload1[i] = comm_str_payload[0][i];
+				tmp_rx_command_spi[i] = rx_command_spi[0][i];
 			}
 			// parse the command and execute it
-			result = payload_parse_str(comm_str_payload1);
-			
+			result = payload_parse_str(tmp_rx_command_spi);
+
 			//Toggle LED1 when we get a new valid communication
 			toggle_led1 ^= 1;
 			LED1(toggle_led1);
 		}
-		else
-		{
-			timed_cleanup++;
-			if(timed_cleanup > 100000)
-			{
-				//It's been long enough since the last comm success, let's run a dry test
-				timed_cleanup = 0;
 
-				comm_res = comm_decode_str();
-				if(comm_res)
-				{
-					comm_res = 0;
-					//Lift flag
-					comm_success = 1;
-				}
-				else
-				{
-					i++;	//Debug only
-					//comm_success = 0;
-				}
+		//Valid communication from RS-485 #1?
+		if(cmd_ready_485_1 != 0)
+		{
+			cmd_ready_485_1 = 0;
+
+			//Cheap trick to get first line	//ToDo: support more than 1
+			for(i = 0; i < PAYLOAD_BUF_LEN; i++)
+			{
+				tmp_rx_command_485_1[i] = rx_command_485_1[0][i];
 			}
+			// parse the command and execute it
+			result = payload_parse_str(tmp_rx_command_485_1);
+
+			//Toggle LED1 when we get a new valid communication
+			toggle_led1 ^= 1;
+			LED1(toggle_led1);
 		}
 
+
 		//1, 10, 100 & 1000ms timebases:
+		//==============================
+
+		//1ms
 		if(systick_1ms_flag)
 		{
 			systick_1ms_flag = 0;
@@ -143,6 +137,7 @@ int main(void)
 
 		}
 
+		//10ms
 		if(systick_10ms_flag)
 		{
 			systick_10ms_flag = 0;
@@ -150,6 +145,7 @@ int main(void)
 
 		}
 
+		//100ms
 		if(systick_100ms_flag)
 		{
 			systick_100ms_flag = 0;
@@ -159,6 +155,7 @@ int main(void)
 			LED0(toggle_led0);
 		}
 
+		//1000ms
 		if(systick_1000ms_flag)
 		{
 			systick_1000ms_flag = 0;
@@ -176,8 +173,7 @@ int main(void)
 			start_listening_flag = 1;
 			*/
 
-		}		
-		
+		}
     }
 }
 
@@ -219,7 +215,7 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *UartHandle)
 
 void SPI_new_data_Callback(void)
 {
-	spi_new_data_flag = 1;
+	bytes_ready_spi = 1;
 	//Got new data in, try to decode
 }
 

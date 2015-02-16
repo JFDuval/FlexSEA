@@ -21,7 +21,7 @@
 
 char name[] = "FlexSEA-Manage";
 char version[] = "1.0";
-char date[] = "02/04/2015";
+char date[] = "02/16/2015";
 
 //Board ID (this board) -  - pick from Board list in /common/inc/flexsea.h
 unsigned char board_id = FLEXSEA_MANAGE_1;
@@ -32,6 +32,9 @@ unsigned char board_sub2_id = FLEXSEA_EXECUTE_2;
 
 //Slave Read Buffer:
 unsigned char slave_read_buffer[SLAVE_READ_BUFFER_LEN];
+
+uint8_t bytes_ready_spi = 0, bytes_ready_485_1 = 0;
+uint8_t cmd_ready_spi = 0, cmd_ready_485_1 = 0;
 
 //****************************************************************************
 // External variable(s)
@@ -45,9 +48,6 @@ extern uint8_t aTxBuffer[COMM_STR_BUF_LEN];
 extern unsigned char comm_str[COMM_STR_BUF_LEN];
 //flexsea_payload:
 extern unsigned char payload_str[];
-//main:
-extern int comm_res, comm_success;
-extern int spi_new_data_flag;
 
 extern unsigned char read_offset;
 unsigned char start_listening_flag;
@@ -82,6 +82,7 @@ void flexsea_send_serial_master(unsigned char port, unsigned char *str, unsigned
 {
 	//comm_str was already generated, now we place it in the buffer:
 	comm_str_to_txbuffer();
+
 	// transmit over SPI using interrupts
 	if(HAL_SPI_Transmit_IT(&spi4_handle, aTxBuffer, length) != HAL_OK)
 	{
@@ -103,19 +104,11 @@ void flexsea_clear_slave_read_buffer(void)
 
 void flexsea_receive_from_master(void)
 {
-	if (spi_new_data_flag)
+	if (bytes_ready_spi)
 	{
-		spi_new_data_flag = 0;
-		comm_res = comm_decode_str();
-		if(comm_res)
-		{
-			comm_res = 0;
-			//Lift flag - this is the signal for the parser
-			comm_success = 1;
-		}
+		bytes_ready_spi = 0;
+		cmd_ready_spi = unpack_payload_spi();
 	}
-	// i'm not sure what to do here now that all reception is done by interrupt
-	//ToDo: check if that function is called, otherwise comment it from this board with the comment above
 }
 
 void flexsea_start_receiving_from_master(void)
@@ -148,6 +141,13 @@ void flexsea_receive_from_slave(void)
 		uart_rx_test = getc_rs485_1_blocking();
 		//From this point on data will be received via the interrupt.
 		//ToDo why is it called Blocking if it's ISR based?
+	}
+
+	//Did we receive new bytes?
+	if(bytes_ready_485_1 != 0)
+	{
+        //Got new data in, try to decode
+		cmd_ready_485_1 = unpack_payload_485_1();
 	}
 }
 

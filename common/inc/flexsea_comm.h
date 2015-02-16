@@ -14,6 +14,8 @@
 // Include(s)
 //****************************************************************************
 
+#include "flexsea.h"
+
 //****************************************************************************
 // Local variable(s)
 //****************************************************************************
@@ -24,9 +26,14 @@
 
 unsigned char comm_gen_str(unsigned char payload[], unsigned char bytes);
 unsigned char comm_decode_str(void);
-uint8_t unpack_payload(uint8_t *buf);
+uint8_t unpack_payload(uint8_t *buf, uint8_t rx_cmd[][24]);	//ToDo should be PACKAGED_PAYLOAD_LEN
+uint8_t unpack_payload_spi(void);
+uint8_t unpack_payload_485_1(void);
 void comm_clear_rx_buffer(void);
 void comm_update_rx_buffer(unsigned char last_byte);
+void update_rx_buf(uint8_t *buf, uint8_t *idx, uint8_t new_byte);
+void update_rx_buf_spi(uint8_t new_byte);
+void update_rx_buf_485_1(uint8_t new_byte);
 void comm_build_input_buffer(void);
 void comm_clear_str_payload(void);
 void comm_test_functions(void);

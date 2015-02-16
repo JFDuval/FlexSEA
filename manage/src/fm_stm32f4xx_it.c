@@ -43,6 +43,9 @@
 
 //main:
 extern int comm_success;
+
+//flexsea_local.c:
+extern uint8_t bytes_ready_485_1;
    
 /** @addtogroup STM32F4xx_HAL_Examples
   * @{
@@ -214,7 +217,7 @@ void EXTI4_IRQHandler(void)
 void USART1_IRQHandler(void)
 {
 	uint32_t tmp1 = 0;
-	unsigned int tmp = 0, comm_res = 0;
+	unsigned int tmp = 0;
 
 
 	tmp1 = __HAL_USART_GET_FLAG(&husart1, USART_FLAG_RXNE);
@@ -224,15 +227,10 @@ void USART1_IRQHandler(void)
 		tmp = USART1->DR;
 
 		//Let's try to feed the bytes straight in rx_buf:
-		comm_update_rx_buffer((unsigned char)(tmp&0xFF));
-		//Got new data in, try to decode
-		comm_res = comm_decode_str();
-		if(comm_res)
-		{
-			comm_res = 0;
-			//Lift flag - this is the signal for the parser
-			comm_success = 1;
-		}
+		update_rx_buf_485_1((uint8_t)(tmp & 0xFF));
+
+		//Notify the code that we have new data
+		bytes_ready_485_1++;
 	}
 
 	HAL_USART_IRQHandler(&husart1);
