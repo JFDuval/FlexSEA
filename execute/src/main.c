@@ -35,6 +35,7 @@
 //Misc. variables, used for debugging only
 uint8 last_byte = 0;
 int steps = 0, current_step = 0;
+uint8_t tmp_rx_command_485_1[PAYLOAD_BUF_LEN];
 
 //****************************************************************************
 // External variable(s)
@@ -67,6 +68,8 @@ extern uint8 usb_success;
 //DelSig ADC:
 extern uint8 adc_delsig_flag;
 
+extern uint8_t rx_command_485_1[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
+
 //****************************************************************************
 // Function(s)
 //****************************************************************************
@@ -75,14 +78,13 @@ int main(void)
 {
 	//Local variables:
 	int16 comm_res = 0, comm_success = 0;
-	uint8 good_commands = 0;
 	uint8 last_byte = 0, uart_buf_size = 0;
 	uint8 i = 0;
 	unsigned char result = 0;
 	unsigned char comm_str_payload1[16];
 	unsigned char ledr_state = 0, ledg_state = 0, ledb_state = 0;
 	uint8 toggle_wdclk = 0;	
-
+	uint8 cmd_ready_485_1 = 0;
 	
 	//Power on delay with LEDs
 	LED_R_Write(0); LED_G_Write(1); LED_B_Write(1); 
@@ -112,13 +114,11 @@ int main(void)
 	//imu_test_code_blocking();
 	//motor_fixed_pwm_test_code_blocking(1000);
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-	
 
 	//Main loop
 	while(1)
 	{
 		//1ms timebase
-		//ToDo confirm that it doesn't take more than 1ms to execute with all the new sensor functions
 		if(t1_1ms_flag)
 		{
 			t1_1ms_flag = 0;
@@ -127,8 +127,8 @@ int main(void)
 			
 			#ifdef USE_QEI1
 				
-				//Refresh encoder readings
-				encoder_read();
+			//Refresh encoder readings
+			encoder_read();
 				
 			#endif	//USE_QEI1			
 			
@@ -162,12 +162,12 @@ int main(void)
 			
 			#ifdef USE_TRAPEZ	
 				
-				if((ctrl.active_ctrl == CTRL_POSITION) || (ctrl.active_ctrl == CTRL_IMPEDANCE))
-				{	
-					//Trapezoidal trajectories (can be used for both Position & Impedance)				
-					ctrl.position.setpoint_val = trapez_get_pos(steps);	//New setpoint
-					//ToDo Move it to 1ms in the future (trapez.c will need to be updated first)
-				}
+			if((ctrl.active_ctrl == CTRL_POSITION) || (ctrl.active_ctrl == CTRL_IMPEDANCE))
+			{	
+				//Trapezoidal trajectories (can be used for both Position & Impedance)				
+				ctrl.position.setpoint_val = trapez_get_pos(steps);	//New setpoint
+				//ToDo Move it to 1ms in the future (trapez.c will need to be updated first)
+			}
 			
 			#endif	//USE_TRAPEZ	
 			
@@ -211,45 +211,41 @@ int main(void)
 			if(uart2_flag)
 			{
 				uart2_flag = 0;
+				
+				uart_buf_size = UART_2_GetRxBufferSize();
+				if(uart_buf_size)
+				{
+					for(i = 0; i < uart_buf_size; i++)
+					{
+						last_byte = UART_2_GetChar();
+						update_rx_buf_485_1(last_byte);
+					}
+					
+					//Got new data in, try to decode
+					cmd_ready_485_1 = unpack_payload_485_1();
+				}
 			}
 			
-			uart_buf_size = UART_2_GetRxBufferSize();
-			if(uart_buf_size)
-			{
-				for(i = 0; i < uart_buf_size; i++)
-				{
-					last_byte = UART_2_GetChar();
-					comm_update_rx_buffer(last_byte);
-				}
-				
-				//Got new data in, try to decode
-				comm_res = comm_decode_str();
-				if(comm_res)
-				{
-					comm_res = 0;
-					comm_success = 1;
-				}
-			}
+
 			
 		#endif	//USE_RS485
 		
 		//FlexSEA Network Communication
 		#ifdef USE_COMM
 			
-			//We received a communication string (from RS-485 or from USB)
-			if(comm_success)
+			//Valid communication from RS-485 #1?
+			if(cmd_ready_485_1 != 0)
 			{
-				comm_success = 0;
-				good_commands++;	//Only used for debugging
+				cmd_ready_485_1 = 0;
 				
-				//Cheap trick to get first line
-				for(i = 0; i < 16; i++)
+				//Cheap trick to get first line	//ToDo: support more than 1
+				for(i = 0; i < PAYLOAD_BUF_LEN; i++)
 				{
-					comm_str_payload1[i] = comm_str_payload[0][i];
+					tmp_rx_command_485_1[i] = rx_command_485_1[0][i];
 				}
 				
 				//payload_parse_str() calls the functions (if valid)
-				result = payload_parse_str(comm_str_payload1);
+				result = payload_parse_str(tmp_rx_command_485_1);
 				
 				//Toggle LED1 with new commands
 				ledb_state ^= 1;
