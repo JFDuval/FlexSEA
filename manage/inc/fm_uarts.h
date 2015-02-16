@@ -35,7 +35,7 @@ void rs485_set_mode(uint32_t port, unsigned char rx_tx);
 // Definition(s):
 //****************************************************************************
 
-#define UART_TIMEOUT	500	//ms
+#define UART_TIMEOUT	5000	//ms?
 
 //USART1:
 //=======

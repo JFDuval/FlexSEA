@@ -312,7 +312,7 @@ void update_rx_buf_485_1(uint8_t new_byte)
 {
 	static uint8_t idx_485_1 = 0;
 
-	update_rx_buf(rx_buf_spi, &idx_485_1, new_byte);
+	update_rx_buf(rx_buf_485_1, &idx_485_1, new_byte);
 }
 
 //Quick way to debug the comm functions with the debugger and the terminal.

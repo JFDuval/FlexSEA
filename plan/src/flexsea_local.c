@@ -40,6 +40,9 @@ unsigned char spi_rx[COMM_STR_BUF_LEN];
 extern unsigned char payload_str[];
 extern unsigned char comm_str_payload[PAYLOAD_BUFFERS][PAYLOAD_BUF_LEN];
 
+//flexsea_comm.c:
+extern uint8_t rx_command_spi[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
+
 //****************************************************************************
 // Function(s)
 //****************************************************************************
@@ -59,7 +62,9 @@ void flexsea_send_serial_master(unsigned char port, unsigned char *str, unsigned
 //Parse the spi_rx buffer
 void decode_spi_rx(void)
 {
-    int i = 0, comm_res = 0, comm_success = 0, result = 0;
+    int i = 0, result = 0;
+    uint8_t cmd_ready_spi = 0;
+    uint8_t tmp_rx_command_spi[PACKAGED_PAYLOAD_LEN];
 
     //Transfer spi_rx to flexsea's buffer
     for(i = 0; i < COMM_STR_BUF_LEN; i++)
@@ -68,34 +73,31 @@ void decode_spi_rx(void)
     }
 
     //Try to decode
-    comm_res = unpack_payload_spi();
-    if(comm_res)
+    cmd_ready_spi = unpack_payload_spi();
+    if(cmd_ready_spi != 0)
     {
-        comm_res = 0;
-        //Lift flag
-        comm_success = 1;
-#ifdef USE_PRINTF
+		#ifdef USE_PRINTF
         printf("[Received a valid comm_str!]\n");
-#endif
+		#endif
     }
     else
     {
-        i++;	//Debug only
-        comm_success = 0;
-#ifdef USE_PRINTF
+		#ifdef USE_PRINTF
         printf("[No intelligent data received]\n");
-#endif
+		#endif
     }
 
     //Try to parse
-    if(comm_success)
+    if(cmd_ready_spi != 0)
     {
+    	cmd_ready_spi = 0;
+
         //Cheap trick to get first line	//ToDo: support more than 1
         for(i = 0; i < PAYLOAD_BUF_LEN; i++)
         {
-            comm_str_payload1[i] = comm_str_payload[0][i];
+        	tmp_rx_command_spi[i] = rx_command_spi[0][i];
         }
 
-        result = payload_parse_str(comm_str_payload1);
+        result = payload_parse_str(tmp_rx_command_spi);
     }
 }
