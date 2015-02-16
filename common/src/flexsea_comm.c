@@ -46,6 +46,10 @@ unsigned char comm_str_payload[PAYLOAD_BUF_LEN][COMM_STR_BUF_LEN];
 unsigned char test_data[] = {'1', FOOTER, HEADER, '2', '3', HEADER}; //Test payload
 unsigned char comm_str[COMM_STR_BUF_LEN], comm_str_tmp[COMM_STR_BUF_LEN];
 
+//New RX buffers:
+uint8_t rx_buf_spi[RX_BUF_LEN];
+uint8_t rx_buf_485_1[RX_BUF_LEN];
+
 //****************************************************************************
 // External variable(s)
 //****************************************************************************
@@ -254,6 +258,116 @@ unsigned char comm_decode_str(void)
     return payload_strings;
 }
 
+//New version of comm_decode_str
+//Take a buffer as an argument
+uint8_t unpack_payload(uint8_t *buf)
+{
+    uint32_t i = 0, j = 0, k = 0, idx = 0, h = 0;
+    uint8_t bytes = 0, possible_footer = 0, possible_footer_pos = 0;
+    uint8_t checksum = 0, skip = 0, payload_strings = 0;
+    uint8_t rx_buf_tmp[RX_BUF_LEN];
+
+    for(i = 0; i < (RX_BUF_LEN - 2); i++)
+    {
+        if(buf[i] == HEADER)
+        {
+            //We found a header
+        	DEBUG_PRINTF("===\nFound header\n");
+
+            bytes = buf[i+1];
+            DEBUG_PRINTF("bytes = %i\n", bytes);
+
+            possible_footer_pos = i+3+bytes;
+
+            DEBUG_PRINTF("pos foot pos: %i\n", possible_footer_pos);
+
+            if(possible_footer_pos <= RX_BUF_LEN)
+            {
+                //We have enough bytes for a full string
+            	DEBUG_PRINTF("Enough data\n");
+                possible_footer = buf[possible_footer_pos];
+                if(possible_footer == FOOTER)
+                {
+                    //Correctly framed string
+                	DEBUG_PRINTF("Correctly framed\n");
+
+                    k = 0;
+                    for(j = i; j <= possible_footer_pos; j++)
+                    {
+                        //Copy string in temp buffer
+                        rx_buf_tmp[k] = buf[j];
+                        k++;
+                    }
+
+                    DEBUG_PRINTF("rx_buf_tmp: %s\n",rx_buf_tmp);
+
+                    //Is the checksum OK?
+                    checksum = 0;
+                    for (k = 0; k < bytes; k++)
+                    {
+                    	DEBUG_PRINTF("cs b[%i] = %c\n", k, rx_buf_tmp[2+k]);
+
+                        checksum = checksum + rx_buf_tmp[2+k];
+                    }
+
+                    DEBUG_PRINTF("checksum: %i\n", checksum);
+                    DEBUG_PRINTF("Compared to: %i\n", rx_buf_tmp[2+bytes]);
+
+                    if(checksum == rx_buf_tmp[2+bytes])
+                    {
+                    	DEBUG_PRINTF("Checksum matches\n");
+
+                        //Now we de-escap and de-frame to get the payload
+                        idx = 0;
+                        skip = 0;
+                        for(k = 2; k < (unsigned int)(2+bytes); k++)
+                        {
+                            if(((rx_buf_tmp[k] == HEADER) || (rx_buf_tmp[k] == FOOTER) || (rx_buf_tmp[k] == ESCAPE)) && skip == 0)
+                            {
+                            	DEBUG_PRINTF("Skipped 1 ESC\n");
+
+                                skip = 1;
+                            }
+                            else
+                            {
+                                skip = 0;
+                                comm_str_payload[payload_strings][idx] = rx_buf_tmp[k];
+                                idx++;
+                            }
+                        }
+
+                        //At this point we have extracted a valid string
+                        payload_strings++;
+
+                        //Remove the string to avoid double detection
+                        for(h = i; h <= possible_footer_pos; h++)
+                        {
+                            buf[h] = '0';
+                        }
+
+                        DEBUG_PRINTF("payload: %s\n",comm_str_payload[payload_strings]);
+                    }
+                    else
+                    {
+                    	DEBUG_PRINTF("Wrong checksum\n");
+                    }
+                }
+                else
+                {
+                	DEBUG_PRINTF("Scrap\n");
+                }
+            }
+            else
+            {
+            	DEBUG_PRINTF("Not enough data (too short)\n");
+            }
+        }
+    }
+
+    //Returns the number of decoded strings
+    return payload_strings;
+}
+
 //Fills the comm_str_payload buffer with zeros
 void comm_clear_str_payload(void)
 {
@@ -333,7 +447,7 @@ void comm_clear_rx_buffer(void)
 
     for(i = 0; i < RX_BUF_LEN; i++)
     {
-        rx_buf[i] = '0';
+        rx_buf[i] = '0';	//ToDo 0
     }
 }
 

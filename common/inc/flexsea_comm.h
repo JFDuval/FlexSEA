@@ -24,6 +24,7 @@
 
 unsigned char comm_gen_str(unsigned char payload[], unsigned char bytes);
 unsigned char comm_decode_str(void);
+uint8_t unpack_payload(uint8_t *buf);
 void comm_clear_rx_buffer(void);
 void comm_update_rx_buffer(unsigned char last_byte);
 void comm_build_input_buffer(void);

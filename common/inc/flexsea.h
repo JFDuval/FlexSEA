@@ -15,6 +15,7 @@
 //****************************************************************************
 
 #include <stdint.h>	
+#include <stdarg.h>
 	
 //All the FlexSEA stack includes:
 #include "flexsea_comm.h"
@@ -186,6 +187,8 @@ void uint16_to_bytes(uint32_t x, uint8_t *b0, uint8_t *b1);
 #define SE_INVALID_SLAVE				1024
 #define SE_RECEIVE_FROM_MASTER			2048
 #define SE_CMD_NOT_PROGRAMMED			4096
+#define SE_INVALID_READ_TYPE			8192
+#define SE_WRONG_PARSING				16384
 
 //****************************************************************************
 // Macro(s):
@@ -200,5 +203,12 @@ void uint16_to_bytes(uint32_t x, uint8_t *b0, uint8_t *b1);
 //Reassembles a uint16 from 2 bytes. b0 is the MSB.
 #define BYTES_TO_UINT16(b0,b1)			(((uint16_t)b0 << 8) + \
 										((uint16_t)b1))
+
+//Conditional printf() statement:
+#ifdef USE_DEBUG_PRINTF
+	#define DEBUG_PRINTF(...) printf(__VA_ARGS__)
+#else
+	#define DEBUG_PRINTF(...) do {} while (0)
+#endif	//USE_DEBUG_PRINTF
 
 #endif

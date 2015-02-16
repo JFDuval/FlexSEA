@@ -41,8 +41,6 @@
 #include "main.h"
 #include "fm_stm32f4xx_it.h"
 
-unsigned char log_rx_bytes[20];
-unsigned char cnt = 0;
 //main:
 extern int comm_success;
    
@@ -218,21 +216,12 @@ void USART1_IRQHandler(void)
 	uint32_t tmp1 = 0;
 	unsigned int tmp = 0, comm_res = 0;
 
-	//Rising edge, end of reception
-	HAL_GPIO_WritePin(GPIOF, GPIO_PIN_0, 1);
-	HAL_GPIO_WritePin(GPIOF, GPIO_PIN_0, 0);
 
 	tmp1 = __HAL_USART_GET_FLAG(&husart1, USART_FLAG_RXNE);
 	if(tmp1)
 	{
 		//Data ready, read it
 		tmp = USART1->DR;
-
-		//Test buffer: (ToDo remove)
-		log_rx_bytes[cnt] = tmp;
-		cnt++;
-		if(cnt >= 20)
-			cnt = 0;
 
 		//Let's try to feed the bytes straight in rx_buf:
 		comm_update_rx_buffer((unsigned char)(tmp&0xFF));

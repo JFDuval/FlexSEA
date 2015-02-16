@@ -46,6 +46,9 @@ extern unsigned char xmit_flag;
 extern uint8_t comm_str_xmit[COMM_STR_BUF_LEN];
 extern uint8_t cmd_xmit;
 
+//ToDo remove, test only
+extern unsigned char rx_buf[RX_BUF_LEN];          //Contains the input data
+
 //****************************************************************************
 // Function(s)
 //****************************************************************************
@@ -68,6 +71,9 @@ int main(void)
 
 	// start receiving from master via interrupts
 	flexsea_start_receiving_from_master();
+
+	//ToDo remove test code
+	unpack_payload(rx_buf);
 
 	//Infinite loop
 	while (1)
