@@ -59,8 +59,13 @@ int main(int argc, char *argv[])
     int i = 0;
 #endif  //MULTIPLE_COMMANDS
 
+#ifndef DEBUG
     //Open SPI:
     flexsea_spi_open();
+#else
+    printf("\nFlexSEA-Plan - Native\n=====================\n\n");
+#endif
+
 
 #ifdef MULTIPLE_COMMANDS
     while(fgets(command, sizeof(command), stdin))
@@ -118,8 +123,10 @@ int main(int argc, char *argv[])
 
 #endif  //SINGLE_COMMAND
 
+#ifndef DEBUG
     //Close SPI:
     flexsea_spi_close();
+#endif
 
     return 0;
 }

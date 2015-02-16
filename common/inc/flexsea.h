@@ -27,7 +27,6 @@
 // Prototype(s):
 //****************************************************************************
 
-void test_flexsea_network(void);
 unsigned int flexsea_error(unsigned int err_code);
 void uint32_to_bytes(uint32_t x, uint8_t *b0, uint8_t *b1, uint8_t *b2, uint8_t *b3);
 void uint16_to_bytes(uint32_t x, uint8_t *b0, uint8_t *b1);
@@ -204,6 +203,9 @@ void uint16_to_bytes(uint32_t x, uint8_t *b0, uint8_t *b1);
 //Reassembles a uint16 from 2 bytes. b0 is the MSB.
 #define BYTES_TO_UINT16(b0,b1)			(((uint16_t)b0 << 8) + \
 										((uint16_t)b1))
+
+//Enable this to debug with the terminal:
+//#define USE_DEBUG_PRINTF
 
 //Conditional printf() statement:
 #ifdef USE_DEBUG_PRINTF

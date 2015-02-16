@@ -64,12 +64,11 @@ void decode_spi_rx(void)
     //Transfer spi_rx to flexsea's buffer
     for(i = 0; i < COMM_STR_BUF_LEN; i++)
     {
-        //last_byte = UART_2_GetChar();
-        comm_update_rx_buffer(spi_rx[i]);
+        update_rx_buf_spi(spi_rx[i]);
     }
 
     //Try to decode
-    comm_res = comm_decode_str();
+    comm_res = unpack_payload_spi();
     if(comm_res)
     {
         comm_res = 0;
