@@ -87,14 +87,7 @@ int main(void)
 	uint8 cmd_ready_485_1 = 0;
 	
 	//Power on delay with LEDs
-	LED_R_Write(0); LED_G_Write(1); LED_B_Write(1); 
-	CyDelay(250);
-	LED_R_Write(1); LED_G_Write(1); LED_B_Write(0); 
-	CyDelay(250);
-	LED_R_Write(1); LED_G_Write(1); LED_B_Write(1); 
-	CyDelay(250);
-	LED_R_Write(1); LED_G_Write(0); LED_B_Write(1); 
-	CyDelay(250);
+	power_on();
 	
    	//Enable Global Interrupts
     CyGlobalIntEnable;        
@@ -220,13 +213,11 @@ int main(void)
 						last_byte = UART_2_GetChar();
 						update_rx_buf_485_1(last_byte);
 					}
-					
-					//Got new data in, try to decode
-					cmd_ready_485_1 = unpack_payload_485_1();
 				}
+				
+				//Got new data in, try to decode
+				cmd_ready_485_1 = unpack_payload_485_1();
 			}
-			
-
 			
 		#endif	//USE_RS485
 		

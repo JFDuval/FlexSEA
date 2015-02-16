@@ -117,3 +117,16 @@ void alive_led(void)
 		LED_HB_Write(toggle0);
 	}
 }
+
+//Power On Delay with LEDs
+void power_on(void)
+{
+	LED_R_Write(0); LED_G_Write(1); LED_B_Write(1); 
+	CyDelay(250);
+	LED_R_Write(1); LED_G_Write(1); LED_B_Write(0); 
+	CyDelay(250);
+	LED_R_Write(1); LED_G_Write(1); LED_B_Write(1); 
+	CyDelay(250);
+	LED_R_Write(1); LED_G_Write(0); LED_B_Write(1); 
+	CyDelay(250);
+}

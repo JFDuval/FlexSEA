@@ -25,6 +25,7 @@ void rs485_puts(uint8 *buf, uint32 len);
 void i2c_write_minm_rgb(uint8 cmd, uint8 r, uint8 g, uint8 b);
 void update_sensors(void);
 void alive_led(void);
+void power_on(void);
 
 //****************************************************************************
 // Definition(s):

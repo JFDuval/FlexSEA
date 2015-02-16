@@ -121,11 +121,12 @@ int16 get_gyro_z(void)
 //Puts all the gyroscope values in the structure:
 void get_gyro_xyz(void)
 {
-	uint8 tmp_data[6] = {0,0,0,0,0,0};
+	uint8 tmp_data[7] = {0,0,0,0,0,0, 0};
 	uint16 tmp = 0;
 	
 	//According to the documentation it's X_H, X_L, Y_H, ...
-	imu_read(IMU_GYRO_XOUT_H, tmp_data, 6);
+	imu_read(IMU_GYRO_XOUT_H, tmp_data, 7);
+	//Note: reading 6 bytes causes a bad reading on Z ([6] always 0).
 	
 	//Gyro X:
 	tmp = ((uint16)tmp_data[0] << 8) | ((uint16) tmp_data[1]);
