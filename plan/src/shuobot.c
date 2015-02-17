@@ -38,4 +38,11 @@ extern struct execute_s exec1;
 // Function(s)
 //****************************************************************************
 
-
+void shuobot(void)
+{
+	printf("\nShuoBot!\n\n");
+	
+	//while(1)
+	{
+	}	
+}
