@@ -23,6 +23,7 @@
 #include "../inc/plan_spi.h"
 #include "../../common/inc/flexsea_rx_cmd.h"
 #include "../../common/inc/flexsea_tx_cmd.h"
+#include "shuobot.h"
 
 //****************************************************************************
 // Local variable(s)
@@ -34,9 +35,9 @@ unsigned char slave_id[MAX_SLAVE] = {FLEXSEA_DEFAULT, FLEXSEA_MANAGE_1, FLEXSEA_
 //Console command list:
 char fcp_list[MAX_CMD][TXT_STR_LEN] = 	{"info", "cmd_imu_read", "cmd_encoder_write", "cmd_encoder_read", "cmd_strain_read", "cmd_strain_config", \
 										"cmd_clutch_write", "cmd_analog_read", "cmd_ctrl_mode_write", "cmd_ctrl_i_gains_write", "cmd_ctrl_p_gains_write", \
-										"cmd_ctrl_o_write", "cmd_ctrl_i_write", "cmd_ctrl_i_read", "cmd_mem_read", "cmd_acq_mode_write", "stream"};
+										"cmd_ctrl_o_write", "cmd_ctrl_i_write", "cmd_ctrl_i_read", "cmd_mem_read", "cmd_acq_mode_write", "stream", "shuobot"};
 //info is command 0, set_pid is 1, etc...
-char fcp_args[MAX_CMD] = {0, 2, 1, 0, 0, 3, 1, 2, 1, 3, 3, 1, 1, 0, 2, 1, 0};
+char fcp_args[MAX_CMD] = {0, 2, 1, 0, 0, 3, 1, 2, 1, 3, 3, 1, 1, 0, 2, 1, 0, 0};
 //fcp_args contains the number of arguments for each command
 
 //****************************************************************************
@@ -417,6 +418,13 @@ void flexsea_console_parser(int argc, char *argv[])
 					flexsea_console_stream_slave_read(slave_id[c], 0);
 					break;
 
+				case 17: //'shuobot'
+					#ifdef USE_PRINTF
+					printf("[Calling ShuoBot()]\n");
+					#endif
+					shuobot();
+					break;
+
 				default:
 					#ifdef USE_PRINTF
 					printf("Invalid command.\n");
@@ -579,6 +587,6 @@ void flexsea_console_stream_slave_read(unsigned char slaveid, unsigned char offs
         }
 
         //Delay
-        usleep(20000);
+        usleep(5000);
     }
 }

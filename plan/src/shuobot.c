@@ -18,9 +18,10 @@
 #include <fcntl.h>
 #include <string.h>
 #include <time.h>
-#include "../inc/flexsea_console.h"
+//#include "../inc/flexsea_console.h"
+#include "shuobot.h"
 #include "../../common/inc/flexsea.h"
-#include "../inc/plan_spi.h"
+//#include "../inc/plan_spi.h"
 #include "../../common/inc/flexsea_rx_cmd.h"
 #include "../../common/inc/flexsea_tx_cmd.h"
 

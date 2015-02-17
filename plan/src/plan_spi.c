@@ -119,6 +119,7 @@ void flexsea_spi_close(void)
 
 void flexsea_spi_transmit(char bytes_to_send, unsigned char spi_tx_data[], unsigned char verbal)
 {
+#ifndef DEBUG
     int ret;
 
     struct spi_ioc_transfer tr =
@@ -152,6 +153,9 @@ void flexsea_spi_transmit(char bytes_to_send, unsigned char spi_tx_data[], unsig
         puts("");
     }
 #endif
+#endif
+#else
+    printf("\nSPI Disabled when using the native Linux system.\n");
 #endif
 
 }
