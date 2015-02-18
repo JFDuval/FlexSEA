@@ -184,14 +184,15 @@ int main(void)
 void init_peripherals(void)
 {	
 	init_systick_timer();		//SysTick timer	
-	init_usart1(230400);		//USART1 (RS-485 #1)
-	//init_usart1(1000000);		//USART1 (RS-485 #1)
+	init_usart1(1000000);		//USART1 (RS-485 #1)
 	init_leds();
 	init_switches();
 	init_dio();					//All inputs by default
 	init_rs485_outputs();
 	init_adc1();
 	init_spi4();
+	//init_spi5();				//FLASH
+	//init_spi6();				//Expansion
 	init_i2c1();
 	init_imu();
 	init_adva_fc_pins();

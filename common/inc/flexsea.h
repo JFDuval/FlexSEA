@@ -176,13 +176,13 @@ void uint16_to_bytes(uint32_t x, uint8_t *b0, uint8_t *b1);
 //Software error (SE) codes. Values will be ORed
 #define SE_DEFAULT						0
 #define SE_INVALID_SPI					2
-#define SE_INIT_SPI4					4
-#define SE_INIT_SPI6					8
+#define SE_INIT_SPI						4
+
 #define SE_INVALID_DIO_AF				16
 #define SE_INVALID_USART				32
-#define SE_INIT_USART1					64
-#define SE_INIT_USART3					128
-#define SE_INIT_USART6					256
+
+#define SE_INIT_USART					64
+
 #define SE_SEND_SERIAL_MASTER			512
 #define SE_INVALID_SLAVE				1024
 #define SE_RECEIVE_FROM_MASTER			2048

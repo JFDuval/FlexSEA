@@ -123,7 +123,7 @@ void init_usart1(uint32_t baudrate)
 	HAL_USART_Init(&husart1);
 
 	//ToDo Add HAL_OK check and call
-	//flexsea_error(SE_INIT_USART1);
+	//flexsea_error(SE_INIT_USART);
 
 	//Manually setting some important bits:
 	USART1->CR1 |= USART_CR1_OVER8;		//8x oversampling (for higher baudrates)
@@ -198,7 +198,7 @@ void init_usart6(uint32_t baudrate)
 	HAL_USART_Init(&husart6);
 
 	//ToDo Add HAL_OK check and call
-	//flexsea_error(SE_INIT_USART3);
+	//flexsea_error(SE_INIT_USART);
 
 	//With only HAL_USART_Init() I never get an interrupt. Manually setting 5 bits:
 	USART6->CR1 |= 0b00000000000000010000000000100100;	//16x oversampling, Receive enable, enable RXNE interrupts
@@ -227,7 +227,7 @@ void init_usart3(uint32_t baudrate)
 	HAL_USART_Init(&husart3);
 
 	//ToDo Add HAL_OK check and call
-	//flexsea_error(SE_INIT_USART3);
+	//flexsea_error(SE_INIT_USART);
 
 	//With only HAL_USART_Init() I never get an interrupt. Manually setting 5 bits:
 	USART6->CR1 |= 0b00000000000000010000000000100100;	//16x oversampling, Receive enable, enable RXNE interrupts

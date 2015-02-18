@@ -23,6 +23,7 @@
 
 void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi);
 void init_spi4(void);
+void init_spi5(void);
 void init_spi6(void);
 unsigned int spi4_blocking_rx(void);
 void Error_Handler(void);
@@ -39,11 +40,15 @@ unsigned int spi4_it_rx(void);
 //MISO4: 	PE5
 //SCK4: 	PE2
 
-//NSS6: 	P
-//MOSI6: 	P
-//MISO6: 	P
-//SCK6: 	P
-//ToDo
+//NSS5: 	PF6
+//MOSI5: 	PF9
+//MISO5: 	PF8
+//SCK5: 	PF7
+
+//NSS6: 	PG8
+//MOSI6: 	PG14
+//MISO6: 	PG12
+//SCK6: 	PG13
 
 
 #endif // FM_SPI_H_
