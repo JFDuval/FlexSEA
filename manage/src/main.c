@@ -72,6 +72,9 @@ int main(void)
 	// start receiving from master via interrupts
 	flexsea_start_receiving_from_master();
 
+	//Test code:
+	test_dma_uart();
+
 	//Infinite loop
 	while (1)
     {
@@ -181,8 +184,8 @@ int main(void)
 void init_peripherals(void)
 {	
 	init_systick_timer();		//SysTick timer	
-	//init_usart1(115200);		//USART1 (RS-485 #1)
-	init_usart1(1000000);		//USART1 (RS-485 #1)
+	init_usart1(230400);		//USART1 (RS-485 #1)
+	//init_usart1(1000000);		//USART1 (RS-485 #1)
 	init_leds();
 	init_switches();
 	init_dio();					//All inputs by default

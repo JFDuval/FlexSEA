@@ -31,6 +31,8 @@ void init_rs485_outputs(void);
 void puts_rs485_1(uint8_t *str, unsigned char length);
 unsigned char getc_rs485_1_blocking(void);
 void rs485_set_mode(uint32_t port, unsigned char rx_tx);
+void test_dma_uart(void);
+void DMA_Cmplt_Callback(DMA_HandleTypeDef *hdma);
 
 //****************************************************************************
 // Definition(s):

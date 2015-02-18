@@ -217,6 +217,8 @@ void EXTI4_IRQHandler(void)
   * @Note   This function is redefined in "main.h" and related to DMA stream
   *         used for USART data transmission
   */
+
+
 void USART1_IRQHandler(void)
 {
 	uint32_t tmp1 = 0;
@@ -239,44 +241,23 @@ void USART1_IRQHandler(void)
 	HAL_USART_IRQHandler(&husart1);
 }
 
+
+/*
+void UART1_IRQHandler(void)
+{
+
+	HAL_UART_IRQHandler(&husart1);
+}
+*/
+
 void DMA2_Stream2_IRQHandler(void)
 {
 	//From stm32f4xx_hal_dma.h __HAL_DMA_GET_DME_FLAG_INDEX() I know that:
 	// ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA2_Stream2))? DMA_FLAG_DMEIF2_6 :
 
-/*
-  if(__HAL_DMA_GET_FLAG(&hdma2, DMA_FLAG_TCIF2_6))
-  {
-	  __HAL_DMA_CLEAR_FLAG(&hdma2, DMA_FLAG_TCIF2_6);
-  }
+	HAL_NVIC_ClearPendingIRQ(DMA2_Stream2_IRQn);
 
-  if(__HAL_DMA_GET_FLAG(&hdma2, DMA_FLAG_HTIF2_6))
-  {
-	  __HAL_DMA_CLEAR_FLAG(&hdma2, DMA_FLAG_HTIF2_6);
-  }
-
-  if(__HAL_DMA_GET_FLAG(&hdma2, DMA_FLAG_TEIF2_6))
-  {
-	  __HAL_DMA_CLEAR_FLAG(&hdma2, DMA_FLAG_TEIF2_6);
-  }
-
-  if(__HAL_DMA_GET_FLAG(&hdma2, DMA_FLAG_DMEIF2_6))
-  {
-	  __HAL_DMA_CLEAR_FLAG(&hdma2, DMA_FLAG_DMEIF2_6);
-  }
-
-  if(__HAL_DMA_GET_FLAG(&hdma2, DMA_FLAG_FEIF2_6))
-  {
-	  __HAL_DMA_CLEAR_FLAG(&hdma2, DMA_FLAG_FEIF2_6);
-  }
-
-  //HAL_DMA_Start_IT(&hdma2, (uint32_t)&USART1->DR, (uint32_t)uart1_dma_buf, 8);
-   *
-   */
-
-	USART1->CR3 |= 0b00000000000000000000000001000000;	//Enable DMAR (RX DMA)
-
-  HAL_DMA_IRQHandler(&hdma2);
+	HAL_DMA_IRQHandler(&hdma2);
 }
 
 /**

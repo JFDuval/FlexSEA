@@ -29,7 +29,7 @@ DMA_HandleTypeDef hdma2;
 
 unsigned char tmp_buf[10] = {0,0,0,0,0,0,0,0,0,0};
 
-uint8_t uart1_dma_buf[64];
+__attribute__ ((aligned (4))) uint8_t uart1_dma_buf[64];
 
 //****************************************************************************
 // External variable(s)
@@ -54,8 +54,8 @@ void HAL_USART_MspInit(USART_HandleTypeDef* husart)
 
 		GPIO_InitStruct.Pin = GPIO_PIN_9|GPIO_PIN_10;
 		GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-		//GPIO_InitStruct.Pull = GPIO_NOPULL;
-		GPIO_InitStruct.Pull = GPIO_PULLUP;		//Transceiver's R is Hi-Z when !RE=1
+		GPIO_InitStruct.Pull = GPIO_NOPULL;
+		//GPIO_InitStruct.Pull = GPIO_PULLUP;		//Transceiver's R is Hi-Z when !RE=1
 		GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
 		GPIO_InitStruct.Alternate = GPIO_AF7_USART1;
 		HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
@@ -111,28 +111,34 @@ void init_usart1(uint32_t baudrate)
 
 	//Interrupts:
 	//ToDo fix hack, should be USART1_IRQn and not a hardcoded 37
-	//HAL_NVIC_SetPriority(37, 0, 1);
-	//HAL_NVIC_EnableIRQ(37);
+	HAL_NVIC_SetPriority(37, 0, 1);
+	HAL_NVIC_EnableIRQ(37);
 
 	//UART1 module:
-	//husart1.Init.BaudRate = 115200;
-	//husart1.Init.BaudRate = 921600;
-	husart1.Init.BaudRate = baudrate;
+	husart1.Init.BaudRate = 500000;
 	husart1.Init.WordLength = USART_WORDLENGTH_8B;
 	husart1.Init.StopBits = USART_STOPBITS_1;
 	husart1.Init.Parity = USART_PARITY_NONE;
 	husart1.Init.Mode = USART_MODE_TX_RX;
+	//husart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+	//husart1.Init.OverSampling = UART_OVERSAMPLING_16;
 	HAL_USART_Init(&husart1);
 
 	//ToDo Add HAL_OK check and call
 	//flexsea_error(SE_INIT_USART1);
 
 	//With only HAL_USART_Init() I never get an interrupt. Manually setting 5 bits:
-	//USART1->CR1 |= 0b00000000000000010000000000100100;	//16x oversampling, Receive enable, enable RXNE interrupts
-	USART1->CR1 |= 0b00000000000000010000000000000100;	//16x oversampling, Receive enable, do not enable RXNE interrupts
-	USART1->CR2 &= 0b11111111111111111111011111111111;	//Disable synchronous clock
-	USART1->CR3 &= 0b11111111111111111111011111111111;	//3 bits method
-	USART1->CR3 |= 0b00000000000000000000000001000000;	//Enable DMAR (RX DMA)
+		//USART1->CR1 |= 0b00000000000000010000000000100100;	//16x oversampling, Receive enable, enable RXNE interrupts
+	//USART1->CR1 |= 0b00000000000000010000000000000100;	//16x oversampling, Receive enable, do not enable RXNE interrupts
+	//USART1->CR2 &= 0b11111111111111111111011111111111;	//Disable synchronous clock
+	//USART1->CR3 &= 0b11111111111111111111011111111111;	//3 bits method
+	//USART1->CR3 |= 0b00000000000000000000000001000000;	//Enable DMAR (RX DMA)
+
+	USART1->CR1 |= USART_CR1_OVER8;
+	USART1->CR1 |= USART_CR1_RE;
+	USART1->CR2 &= ~USART_CR2_CLKEN;
+	USART1->CR3 |= USART_CR3_ONEBIT;	//1 sample per bit
+	USART1->CR3 |= USART_CR3_DMAR;
 
 	//Enable DMA:
 	init_dma2();
@@ -161,7 +167,11 @@ void init_dma2(void)
 	hdma2.Init.MemBurst = DMA_MBURST_SINGLE;
 	hdma2.Init.PeriphBurst = DMA_PBURST_SINGLE;
 
+	hdma2.XferCpltCallback = DMA_Cmplt_Callback;
+
 	HAL_DMA_Init(&hdma2);
+
+	//__HAL_LINKDMA(husart1, hdmarx, hdma2);
 
 	//Interrupts:
 	HAL_NVIC_SetPriority(58, 7, 7);
@@ -169,7 +179,9 @@ void init_dma2(void)
 
 	//Start the peripheral:
 	__HAL_DMA_ENABLE_IT(&hdma2, DMA_IT_TC);
-	HAL_DMA_Start_IT(&hdma2, (uint32_t)&USART1->DR, &uart1_dma_buf, 8);
+	uint32_t *tmp;
+	tmp = (uint32_t*)&uart1_dma_buf;
+	HAL_DMA_Start_IT(&hdma2, (uint32_t)&USART1->DR, tmp, 8);
 }
 
 //USART6 init function: RS-485 #2
@@ -238,7 +250,7 @@ void putc_usart1(char c)
 {
 	data[1] = c;
 	//huart1.State = HAL_USART_STATE_READY;
-	HAL_USART_Transmit(&husart1,(uint8_t*)UARTaTxBuffer,3, UART_TIMEOUT);
+	HAL_USART_Transmit(&husart1,(uint8_t*)data,1, UART_TIMEOUT);
 }
 
 void putc_usart6(char c)
@@ -385,4 +397,50 @@ unsigned char getc_rs485_6_blocking(void)
 	tmp = USART6->DR;	//Read buffer to clear
 
 	return 0;
+}
+
+void test_dma_uart(void)
+{
+	//Start DMA:
+	//__HAL_UART_FLUSH_DRREGISTER(&husart1);
+	//HAL_UART_Receive_DMA(&husart1, &uart1_dma_buf, 8);
+
+	while(1)
+	{
+
+	}
+}
+
+/*
+//Callbacks:
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *husart)
+{
+	volatile static uint8_t complete = 0;
+	complete++;
+
+	//__HAL_UART_FLUSH_DRREGISTER(&husart1);
+
+}
+
+void HAL_UART_RxHalfCpltCallback(UART_HandleTypeDef *husart)
+{
+	volatile static uint8_t half = 0;
+	half++;
+}
+*/
+
+void DMA_Cmplt_Callback(DMA_HandleTypeDef *hdma)
+{
+	volatile static uint8_t full = 0;
+	uint32_t empty_dr = 0;
+	full++;
+
+	empty_dr = USART1->DR;
+
+	uint32_t *tmp;
+	tmp = (uint32_t*)&uart1_dma_buf;
+	//HAL_DMA_Start_IT(&hdma2, (uint32_t)&USART1->DR, tmp, 8);
+
+	uint8_t data[] = {10,20,30};
+	//HAL_USART_Transmit(&husart1, data, 3, UART_TIMEOUT);
 }
