@@ -32,8 +32,8 @@
 #define UART_2_TX_ENABLED                     (1u)
 #define UART_2_HD_ENABLED                     (0u)
 #define UART_2_RX_INTERRUPT_ENABLED           (1u)
-#define UART_2_TX_INTERRUPT_ENABLED           (0u)
-#define UART_2_INTERNAL_CLOCK_USED            (1u)
+#define UART_2_TX_INTERRUPT_ENABLED           (1u)
+#define UART_2_INTERNAL_CLOCK_USED            (0u)
 #define UART_2_RXHW_ADDRESS_ENABLED           (0u)
 #define UART_2_OVER_SAMPLE_COUNT              (8u)
 #define UART_2_PARITY_TYPE                    (0u)
@@ -45,7 +45,7 @@
 #define UART_2_USE23POLLING                   (1u)
 #define UART_2_FLOW_CONTROL                   (0u)
 #define UART_2_CLK_FREQ                       (0u)
-#define UART_2_TXBUFFERSIZE                   (4u)
+#define UART_2_TXBUFFERSIZE                   (64u)
 #define UART_2_RXBUFFERSIZE                   (32u)
 
 /* Check to see if required defines such as CY_PSOC5LP are available */
@@ -390,8 +390,8 @@ extern uint8 UART_2_initVar;
                                         | (0 << UART_2_RX_STS_OVERRUN_SHIFT))
 
 #define UART_2_INIT_TX_INTERRUPTS_MASK \
-                                  (uint8)((0 << UART_2_TX_STS_COMPLETE_SHIFT) \
-                                        | (0 << UART_2_TX_STS_FIFO_EMPTY_SHIFT) \
+                                  (uint8)((1 << UART_2_TX_STS_COMPLETE_SHIFT) \
+                                        | (1 << UART_2_TX_STS_FIFO_EMPTY_SHIFT) \
                                         | (0 << UART_2_TX_STS_FIFO_FULL_SHIFT) \
                                         | (0 << UART_2_TX_STS_FIFO_NOT_FULL_SHIFT))
 

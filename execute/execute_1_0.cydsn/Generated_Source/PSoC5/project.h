@@ -179,6 +179,7 @@
 #include <AMux_2.h>
 #include <SG_VO1_aliases.h>
 #include <SG_VO1.h>
+#include <C8M.h>
 #include <ADC_DelSig_1_AMux.h>
 #include <ADC_DelSig_1_Ext_CP_Clk.h>
 #include <ADC_DelSig_1_IRQ.h>
@@ -187,7 +188,6 @@
 #include <ADC_SAR_2_theACLK.h>
 #include <ADC_SAR_1_IRQ.h>
 #include <ADC_SAR_1_theACLK.h>
-#include <UART_2_IntClock.h>
 #include <QuadDec_1_isr.h>
 #include <QuadDec_1_Cnt16.h>
 #include <USBUART_1_Dm_aliases.h>

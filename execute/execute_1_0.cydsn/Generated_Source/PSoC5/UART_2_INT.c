@@ -25,7 +25,10 @@
 ***************************************/
 /* `#START CUSTOM_DECLARATIONS` Place your declaration here */
 
+#include <project.h>
+
 volatile unsigned char uart2_flag = 0;
+extern volatile int8_t tx_cnt;
 
 /* `#END` */
 
@@ -212,6 +215,8 @@ volatile unsigned char uart2_flag = 0;
         /* User code required at start of ISR */
         /* `#START UART_2_TXISR_START` */
 
+		static uint8 toggle = 0;
+		
         /* `#END` */
 
         #if(CY_PSOC3)   /* Make sure nested interrupt is enabled */
@@ -237,6 +242,15 @@ volatile unsigned char uart2_flag = 0;
         /* User code required at end of ISR (Optional) */
         /* `#START UART_2_TXISR_END` */
 
+		//if(UART_2_TXSTATUS_REG & UART_2_TX_STS_COMPLETE)
+		/*
+		{
+			toggle ^= 1;
+			EXP2_Write(toggle);
+			tx_cnt--;
+		}
+		*/
+	
         /* `#END` */
 
         #if(CY_PSOC3)

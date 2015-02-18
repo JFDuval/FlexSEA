@@ -20,6 +20,8 @@
 // Local variable(s)
 //****************************************************************************
 
+volatile int8_t tx_cnt = 0;
+
 //****************************************************************************
 // External variable(s)
 //****************************************************************************
@@ -45,7 +47,6 @@ void update_sensors(void)
 	#endif	//USE_I2C_INT	
 	
 	//Now that the I2C isn't in use we convert the strain:
-	EXP2_Write(1);	//Used to test the timing - can be removed	
 	ADC_DelSig_1_StartConvert();
 }
 
@@ -62,10 +63,13 @@ void rs485_putc(uint8 byte)
 //ToDo test, optimize/remove fixed delays
 void rs485_puts(uint8 *buf, uint32 len)
 {
-	uint32_t i = 0;
+	uint32_t i = 0, log = 0;
 	
 	NOT_RE_Write(1);				//Disable Receiver
-	CyDelayUs(500);					//Wait (ToDo optimize/eliminate)
+	CyDelayUs(1);					//Wait (ToDo optimize/eliminate)
+	DE_Write(1);
+	CyDelayUs(1);
+	tx_cnt = len;
 	
 	//Sends the bytes:
 	for(i = 0; i < len; i++)
@@ -73,9 +77,12 @@ void rs485_puts(uint8 *buf, uint32 len)
 		UART_2_PutChar(buf[i]);
 	}
 	
-	CyDelayUs(50);					//Wait (ToDo optimize/eliminate)
-	NOT_RE_Write(0);				//Back to normal, enable Receiver
-		
+	CyDelayUs(1200);					//Wait (ToDo optimize/eliminate)
+	//log = UART_2_GetTxBufferSize();
+	//while((UART_2_GetTxBufferSize() != 64));	// && (UART_2_TXSTATUS_REG & UART_2_TX_STS_FIFO_EMPTY) != 1);
+	//while((UART_2_TXSTATUS_REG & UART_2_TX_STS_FIFO_EMPTY) != 1);
+	NOT_RE_Write(0);				//Back to normal, enable Receiver	
+	DE_Write(0);
 }
 
 //Write to MinM RGB LED

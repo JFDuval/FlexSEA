@@ -108,6 +108,19 @@ int main(void)
 	//motor_fixed_pwm_test_code_blocking(1000);
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
+	//Sends one packet every 100ms
+	//uint8 tbuf[8] = {1,2,3,4,5,250,251,252};
+	uint8 tbuf[8] = {0,20,30,40,50,25,21,52};
+	uint8 val = 0;
+	while(1)
+	{
+		tbuf[0] = val++;
+		rs485_puts(tbuf, 8);
+		CyDelay(1000);
+		ledg_state ^= 1;
+		LED_G_Write(ledg_state);
+	}
+	
 	//Main loop
 	while(1)
 	{

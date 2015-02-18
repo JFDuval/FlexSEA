@@ -67,14 +67,10 @@ volatile uint16 adc_strain = 0;
 		
 		//Store last value:
 		adc_strain = (uint16)ADC_DelSig_1_GetResult16();
-		strain.vo2 = adc_strain;	//Bugs a lot... unclear why
-		
-		if(adc_strain < 20000)
-			EXP2_Write(0);
-		
+		strain.vo2 = adc_strain;	//Bugs a lot... unclear why		
+			
 		//Raise flag:
 		adc_delsig_flag = 1;
-		EXP2_Write(0);	//Used to test the timing - can be removed	
 		
         /* `#END`  */
 

@@ -367,21 +367,11 @@ void rx_cmd_mem_read(unsigned char *buf)
 	unsigned int i = 0;
 	unsigned char numb = 0;
 
-    //ToDo: quick test. Should be a full structure.
+    //ToDo: quick test. Should be a full structure.		
 
-	//ToDo minimalist test: delay then send byte(s)
-	NOT_RE_Write(1);			//Disable receiver
 	numb = flexsea_prepare_rs485_tx_buffer();	//Prepare data
-	CyDelayUs(500);				//Wait (ToDo optimize)
+	rs485_puts(comm_str, numb);
 
-	for(i = 0; i < numb; i++)
-	{
-		//ToDo use puts
-		rs485_putc(comm_str[i]);
-	}
-
-	CyDelayUs(50);				//Wait
-	NOT_RE_Write(0);			//Back to normal, enable receiver
 
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
