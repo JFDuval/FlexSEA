@@ -133,7 +133,7 @@ unsigned char comm_gen_str(unsigned char payload[], unsigned char bytes)
 uint8_t unpack_payload(uint8_t *buf, uint8_t rx_cmd[][PACKAGED_PAYLOAD_LEN])
 {
     uint32_t i = 0, j = 0, k = 0, idx = 0, h = 0;
-    uint8_t bytes = 0, possible_footer = 0, possible_footer_pos = 0;
+    uint32_t bytes = 0, possible_footer = 0, possible_footer_pos = 0;
     uint8_t checksum = 0, skip = 0, payload_strings = 0;
     uint8_t rx_buf_tmp[RX_BUF_LEN];
 

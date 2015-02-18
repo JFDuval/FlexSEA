@@ -43,6 +43,12 @@ void shuobot(void)
 {
 	printf("\nShuoBot!\n\n");
 	
+	//Encoder:
+	printf("Encoder: %i.\n", exec1.encoder);
+	//Writing a fake encoder value:
+	exec1.encoder = 1234;
+	printf("Modified encoder: %i.\n", exec1.encoder);
+
 	//while(1)
 	{
 	}	

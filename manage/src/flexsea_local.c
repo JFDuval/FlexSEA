@@ -104,7 +104,7 @@ void flexsea_clear_slave_read_buffer(void)
 
 void flexsea_receive_from_master(void)
 {
-	if (bytes_ready_spi)
+	if(bytes_ready_spi != 0)
 	{
 		bytes_ready_spi = 0;
 		cmd_ready_spi = unpack_payload_spi();

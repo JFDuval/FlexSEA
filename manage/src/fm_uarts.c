@@ -25,8 +25,11 @@ USART_HandleTypeDef husart1;	//RS-485 #1
 USART_HandleTypeDef husart6;	//RS-485 #2
 USART_HandleTypeDef husart3;	//Expansion port
 GPIO_InitTypeDef GPIO_InitStruct;
+DMA_HandleTypeDef hdma2;
 
 unsigned char tmp_buf[10] = {0,0,0,0,0,0,0,0,0,0};
+
+uint8_t uart1_dma_buf[64];
 
 //****************************************************************************
 // External variable(s)
@@ -108,8 +111,8 @@ void init_usart1(uint32_t baudrate)
 
 	//Interrupts:
 	//ToDo fix hack, should be USART1_IRQn and not a hardcoded 37
-	HAL_NVIC_SetPriority(37, 0, 1);
-	HAL_NVIC_EnableIRQ(37);
+	//HAL_NVIC_SetPriority(37, 0, 1);
+	//HAL_NVIC_EnableIRQ(37);
 
 	//UART1 module:
 	//husart1.Init.BaudRate = 115200;
@@ -130,14 +133,14 @@ void init_usart1(uint32_t baudrate)
 	USART1->CR2 &= 0b11111111111111111111011111111111;	//Disable synchronous clock
 	USART1->CR3 &= 0b11111111111111111111011111111111;	//3 bits method
 	USART1->CR3 |= 0b00000000000000000000000001000000;	//Enable DMAR (RX DMA)
+
+	//Enable DMA:
+	init_dma2();
 }
 
 //Using DMA2 Ch 4 Stream 2 for USART1 RX
 void init_dma2(void)
 {
-	//Handle
-	DMA_HandleTypeDef hdma2;
-
 	//Enable clock
 	__DMA2_CLK_ENABLE();
 
@@ -151,7 +154,7 @@ void init_dma2(void)
 	hdma2.Init.MemInc = DMA_MINC_ENABLE;					//Memory increment
 	hdma2.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;	//Align: bytes
 	hdma2.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;		//Align: bytes
-	hdma2.Init.Mode = DMA_NORMAL;
+	hdma2.Init.Mode = DMA_CIRCULAR;	//DMA_NORMAL;
 	hdma2.Init.Priority = DMA_PRIORITY_MEDIUM;
 	hdma2.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
 	hdma2.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
@@ -165,7 +168,8 @@ void init_dma2(void)
 	HAL_NVIC_EnableIRQ(58);
 
 	//Start the peripheral:
-	HAL_DMA_Start(&hdma2, (uint32_t)&USART1->DR, (uint32_t)uart1_dma_buf, 4);
+	__HAL_DMA_ENABLE_IT(&hdma2, DMA_IT_TC);
+	HAL_DMA_Start_IT(&hdma2, (uint32_t)&USART1->DR, &uart1_dma_buf, 8);
 }
 
 //USART6 init function: RS-485 #2

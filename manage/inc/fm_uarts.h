@@ -23,6 +23,7 @@
 
 void HAL_UART_MspInit(UART_HandleTypeDef* huart);
 void init_usart1(uint32_t baudrate);
+void init_dma2(void);
 void init_usart3(uint32_t baudrate);
 void init_usart6(uint32_t baudrate);
 void putc_usart1(char c);

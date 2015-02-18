@@ -127,7 +127,7 @@ int main(void)
 			systick_1ms_flag = 0;
 
 			tbdiv++;
-			if(tbdiv == 4)	//5ms
+			if(tbdiv == 3)	//4 = 5ms
 			{
 				tbdiv = 0;
 
@@ -181,7 +181,8 @@ int main(void)
 void init_peripherals(void)
 {	
 	init_systick_timer();		//SysTick timer	
-	init_usart1(115200);		//USART1 (RS-485 #1)
+	//init_usart1(115200);		//USART1 (RS-485 #1)
+	init_usart1(1000000);		//USART1 (RS-485 #1)
 	init_leds();
 	init_switches();
 	init_dio();					//All inputs by default
@@ -225,6 +226,7 @@ void SPI_new_data_Callback(void)
 uint16_t refresh_slave_data(uint8_t slave, uint8_t port, uint8_t autosample)
 {
 	static uint16_t cnt = 0;
+	uint8_t bytes = 0, bytes2 = 0;
 
 	if(!xmit_flag)
 	{
@@ -234,30 +236,30 @@ uint16_t refresh_slave_data(uint8_t slave, uint8_t port, uint8_t autosample)
 			switch(cnt)
 			{
 				case 0:
-					tx_cmd_strain_read(slave);
+					bytes = tx_cmd_strain_read(slave);
 					cnt++;
 					break;
 				case 1:
-					tx_cmd_encoder_read(slave);
+					bytes = tx_cmd_encoder_read(slave);
 					cnt++;
 					break;
 				case 2:
-					tx_cmd_imu_read(slave, 0, 3);
+					bytes = tx_cmd_imu_read(slave, 0, 3);
 					cnt++;
 					break;
 				case 3:
-					tx_cmd_analog_read(slave, 0, 1);
+					bytes = tx_cmd_analog_read(slave, 0, 1);
 					cnt++;
 					break;
 				case 4:
-					tx_cmd_ctrl_i_read(slave);
+					bytes = tx_cmd_ctrl_i_read(slave);
 					cnt = 0;	//Last command resets the counter
 					break;
 			}
 
 			//Then we package and send it out:
-			comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
-			flexsea_send_serial_slave(port, comm_str, COMM_STR_BUF_LEN + 1);
+			bytes2 = comm_gen_str(payload_str, bytes + 1);	//Might not need the +1, TBD
+			flexsea_send_serial_slave(port, comm_str, bytes2 + 1);
 			start_listening_flag = 1;
 		}
 	}

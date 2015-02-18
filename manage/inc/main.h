@@ -23,6 +23,7 @@
 #include "stm32f4xx_hal_usart.h"
 #include "stm32f4xx_hal_gpio.h"
 #include "stm32f4xx_hal_adc.h"
+#include "stm32f4xx_hal_dma.h"
 #include "fm_timer.h"
 #include "fm_ui.h"
 #include "fm_uarts.h"

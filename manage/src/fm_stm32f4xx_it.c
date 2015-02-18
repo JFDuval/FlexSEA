@@ -46,6 +46,8 @@ extern int comm_success;
 
 //flexsea_local.c:
 extern uint8_t bytes_ready_485_1;
+
+extern uint8_t uart1_dma_buf[64];
    
 /** @addtogroup STM32F4xx_HAL_Examples
   * @{
@@ -62,6 +64,7 @@ extern uint8_t bytes_ready_485_1;
 /* SPI handler declared in "main.c" file */
 extern SPI_HandleTypeDef spi4_handle;
 extern USART_HandleTypeDef husart1;
+extern DMA_HandleTypeDef hdma2;
 
 volatile unsigned int spi_bytes_ready = 0;
 
@@ -234,6 +237,46 @@ void USART1_IRQHandler(void)
 	}
 
 	HAL_USART_IRQHandler(&husart1);
+}
+
+void DMA2_Stream2_IRQHandler(void)
+{
+	//From stm32f4xx_hal_dma.h __HAL_DMA_GET_DME_FLAG_INDEX() I know that:
+	// ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA2_Stream2))? DMA_FLAG_DMEIF2_6 :
+
+/*
+  if(__HAL_DMA_GET_FLAG(&hdma2, DMA_FLAG_TCIF2_6))
+  {
+	  __HAL_DMA_CLEAR_FLAG(&hdma2, DMA_FLAG_TCIF2_6);
+  }
+
+  if(__HAL_DMA_GET_FLAG(&hdma2, DMA_FLAG_HTIF2_6))
+  {
+	  __HAL_DMA_CLEAR_FLAG(&hdma2, DMA_FLAG_HTIF2_6);
+  }
+
+  if(__HAL_DMA_GET_FLAG(&hdma2, DMA_FLAG_TEIF2_6))
+  {
+	  __HAL_DMA_CLEAR_FLAG(&hdma2, DMA_FLAG_TEIF2_6);
+  }
+
+  if(__HAL_DMA_GET_FLAG(&hdma2, DMA_FLAG_DMEIF2_6))
+  {
+	  __HAL_DMA_CLEAR_FLAG(&hdma2, DMA_FLAG_DMEIF2_6);
+  }
+
+  if(__HAL_DMA_GET_FLAG(&hdma2, DMA_FLAG_FEIF2_6))
+  {
+	  __HAL_DMA_CLEAR_FLAG(&hdma2, DMA_FLAG_FEIF2_6);
+  }
+
+  //HAL_DMA_Start_IT(&hdma2, (uint32_t)&USART1->DR, (uint32_t)uart1_dma_buf, 8);
+   *
+   */
+
+	USART1->CR3 |= 0b00000000000000000000000001000000;	//Enable DMAR (RX DMA)
+
+  HAL_DMA_IRQHandler(&hdma2);
 }
 
 /**
