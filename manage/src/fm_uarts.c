@@ -110,35 +110,27 @@ void init_usart1(uint32_t baudrate)
 	HAL_USART_MspInit(&husart1);
 
 	//Interrupts:
-	//ToDo fix hack, should be USART1_IRQn and not a hardcoded 37
-	HAL_NVIC_SetPriority(37, 0, 1);
-	HAL_NVIC_EnableIRQ(37);
+	HAL_NVIC_SetPriority(USART1_IRQn, 0, 1);
+	HAL_NVIC_EnableIRQ(USART1_IRQn);
 
 	//UART1 module:
 	husart1.Init.BaudRate = 500000;
+	//Note: 500000 gives me 1MBaud. Why a factor of 2? No idea. Tested on the scope.
 	husart1.Init.WordLength = USART_WORDLENGTH_8B;
 	husart1.Init.StopBits = USART_STOPBITS_1;
 	husart1.Init.Parity = USART_PARITY_NONE;
 	husart1.Init.Mode = USART_MODE_TX_RX;
-	//husart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-	//husart1.Init.OverSampling = UART_OVERSAMPLING_16;
 	HAL_USART_Init(&husart1);
 
 	//ToDo Add HAL_OK check and call
 	//flexsea_error(SE_INIT_USART1);
 
-	//With only HAL_USART_Init() I never get an interrupt. Manually setting 5 bits:
-		//USART1->CR1 |= 0b00000000000000010000000000100100;	//16x oversampling, Receive enable, enable RXNE interrupts
-	//USART1->CR1 |= 0b00000000000000010000000000000100;	//16x oversampling, Receive enable, do not enable RXNE interrupts
-	//USART1->CR2 &= 0b11111111111111111111011111111111;	//Disable synchronous clock
-	//USART1->CR3 &= 0b11111111111111111111011111111111;	//3 bits method
-	//USART1->CR3 |= 0b00000000000000000000000001000000;	//Enable DMAR (RX DMA)
-
-	USART1->CR1 |= USART_CR1_OVER8;
-	USART1->CR1 |= USART_CR1_RE;
-	USART1->CR2 &= ~USART_CR2_CLKEN;
+	//Manually setting some important bits:
+	USART1->CR1 |= USART_CR1_OVER8;		//8x oversampling (for higher baudrates)
+	USART1->CR1 |= USART_CR1_RE;		//Enable receiver
+	USART1->CR2 &= ~USART_CR2_CLKEN;	//Disable synchronous clock
 	USART1->CR3 |= USART_CR3_ONEBIT;	//1 sample per bit
-	USART1->CR3 |= USART_CR3_DMAR;
+	USART1->CR3 |= USART_CR3_DMAR;		//Enable DMA
 
 	//Enable DMA:
 	init_dma2();
@@ -147,6 +139,10 @@ void init_usart1(uint32_t baudrate)
 //Using DMA2 Ch 4 Stream 2 for USART1 RX
 void init_dma2(void)
 {
+	//Pointer to our storage buffer:
+	uint32_t *uart1_dma_buf_ptr;
+	uart1_dma_buf_ptr = (uint32_t*)&uart1_dma_buf;
+
 	//Enable clock
 	__DMA2_CLK_ENABLE();
 
@@ -160,28 +156,25 @@ void init_dma2(void)
 	hdma2.Init.MemInc = DMA_MINC_ENABLE;					//Memory increment
 	hdma2.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;	//Align: bytes
 	hdma2.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;		//Align: bytes
-	hdma2.Init.Mode = DMA_CIRCULAR;	//DMA_NORMAL;
+	hdma2.Init.Mode = DMA_CIRCULAR;
 	hdma2.Init.Priority = DMA_PRIORITY_MEDIUM;
 	hdma2.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
 	hdma2.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
 	hdma2.Init.MemBurst = DMA_MBURST_SINGLE;
 	hdma2.Init.PeriphBurst = DMA_PBURST_SINGLE;
 
-	hdma2.XferCpltCallback = DMA_Cmplt_Callback;
+	hdma2.XferCpltCallback = DMA2_Str2_CompleteTransfer_Callback;
 
 	HAL_DMA_Init(&hdma2);
 
-	//__HAL_LINKDMA(husart1, hdmarx, hdma2);
-
 	//Interrupts:
-	HAL_NVIC_SetPriority(58, 7, 7);
-	HAL_NVIC_EnableIRQ(58);
-
-	//Start the peripheral:
+	HAL_NVIC_SetPriority(DMA2_Stream2_IRQn, 7, 7);
+	HAL_NVIC_EnableIRQ(DMA2_Stream2_IRQn);
 	__HAL_DMA_ENABLE_IT(&hdma2, DMA_IT_TC);
-	uint32_t *tmp;
-	tmp = (uint32_t*)&uart1_dma_buf;
-	HAL_DMA_Start_IT(&hdma2, (uint32_t)&USART1->DR, tmp, 8);
+
+	//Start the DMA peripheral
+	HAL_DMA_Start_IT(&hdma2, (uint32_t)&USART1->DR, uart1_dma_buf_ptr, 8);
+	//'8' here is for the number of bytes before a transmission is completed
 }
 
 //USART6 init function: RS-485 #2
@@ -399,48 +392,17 @@ unsigned char getc_rs485_6_blocking(void)
 	return 0;
 }
 
-void test_dma_uart(void)
+//Function called after a completed DMA transfer.
+void DMA2_Str2_CompleteTransfer_Callback(DMA_HandleTypeDef *hdma)
 {
-	//Start DMA:
-	//__HAL_UART_FLUSH_DRREGISTER(&husart1);
-	//HAL_UART_Receive_DMA(&husart1, &uart1_dma_buf, 8);
-
-	while(1)
-	{
-
-	}
-}
-
-/*
-//Callbacks:
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *husart)
-{
-	volatile static uint8_t complete = 0;
-	complete++;
-
-	//__HAL_UART_FLUSH_DRREGISTER(&husart1);
-
-}
-
-void HAL_UART_RxHalfCpltCallback(UART_HandleTypeDef *husart)
-{
-	volatile static uint8_t half = 0;
-	half++;
-}
-*/
-
-void DMA_Cmplt_Callback(DMA_HandleTypeDef *hdma)
-{
-	volatile static uint8_t full = 0;
 	uint32_t empty_dr = 0;
-	full++;
 
-	empty_dr = USART1->DR;
+	if(hdma->Instance == DMA2_Stream2)
+	{
+		//Clear the UART receiver. Might not be needed, but harmless
+		empty_dr = USART1->DR;
+	}
 
-	uint32_t *tmp;
-	tmp = (uint32_t*)&uart1_dma_buf;
-	//HAL_DMA_Start_IT(&hdma2, (uint32_t)&USART1->DR, tmp, 8);
-
-	uint8_t data[] = {10,20,30};
-	//HAL_USART_Transmit(&husart1, data, 3, UART_TIMEOUT);
+	//Deal with FlexSEA buffers here:
+	//...
 }

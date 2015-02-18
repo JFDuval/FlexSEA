@@ -219,8 +219,10 @@ void EXTI4_IRQHandler(void)
   */
 
 
+//Should not be used anymore, everything is done via DMA
 void USART1_IRQHandler(void)
 {
+/*
 	uint32_t tmp1 = 0;
 	unsigned int tmp = 0;
 
@@ -237,18 +239,10 @@ void USART1_IRQHandler(void)
 		//Notify the code that we have new data
 		bytes_ready_485_1++;
 	}
+*/
 
 	HAL_USART_IRQHandler(&husart1);
 }
-
-
-/*
-void UART1_IRQHandler(void)
-{
-
-	HAL_UART_IRQHandler(&husart1);
-}
-*/
 
 void DMA2_Stream2_IRQHandler(void)
 {

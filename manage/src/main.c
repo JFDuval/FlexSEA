@@ -72,8 +72,8 @@ int main(void)
 	// start receiving from master via interrupts
 	flexsea_start_receiving_from_master();
 
-	//Test code:
-	test_dma_uart();
+	//Test code:	todo disable
+	while(1);
 
 	//Infinite loop
 	while (1)
