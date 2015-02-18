@@ -107,8 +107,9 @@ void init_usart1(uint32_t baudrate)
 	HAL_USART_MspInit(&husart1);
 
 	//Interrupts:
-	HAL_NVIC_SetPriority(USART1_IRQn, 0, 1);
-	HAL_NVIC_EnableIRQ(USART1_IRQn);
+	//ToDo fix hack, should be USART1_IRQn and not a hardcoded 37
+	HAL_NVIC_SetPriority(37, 0, 1);
+	HAL_NVIC_EnableIRQ(37);
 
 	//UART1 module:
 	//husart1.Init.BaudRate = 115200;
@@ -124,9 +125,47 @@ void init_usart1(uint32_t baudrate)
 	//flexsea_error(SE_INIT_USART1);
 
 	//With only HAL_USART_Init() I never get an interrupt. Manually setting 5 bits:
-	USART1->CR1 |= 0b00000000000000010000000000100100;	//16x oversampling, Receive enable, enable RXNE interrupts
+	//USART1->CR1 |= 0b00000000000000010000000000100100;	//16x oversampling, Receive enable, enable RXNE interrupts
+	USART1->CR1 |= 0b00000000000000010000000000000100;	//16x oversampling, Receive enable, do not enable RXNE interrupts
 	USART1->CR2 &= 0b11111111111111111111011111111111;	//Disable synchronous clock
 	USART1->CR3 &= 0b11111111111111111111011111111111;	//3 bits method
+	USART1->CR3 |= 0b00000000000000000000000001000000;	//Enable DMAR (RX DMA)
+}
+
+//Using DMA2 Ch 4 Stream 2 for USART1 RX
+void init_dma2(void)
+{
+	//Handle
+	DMA_HandleTypeDef hdma2;
+
+	//Enable clock
+	__DMA2_CLK_ENABLE();
+
+	//Instance:
+	hdma2.Instance = DMA2_Stream2;
+
+	//Initialization:
+	hdma2.Init.Channel = DMA_CHANNEL_4;
+	hdma2.Init.Direction = DMA_PERIPH_TO_MEMORY; 			//Receive, so Periph to Mem
+	hdma2.Init.PeriphInc = DMA_PINC_DISABLE;				//No Periph increment
+	hdma2.Init.MemInc = DMA_MINC_ENABLE;					//Memory increment
+	hdma2.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;	//Align: bytes
+	hdma2.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;		//Align: bytes
+	hdma2.Init.Mode = DMA_NORMAL;
+	hdma2.Init.Priority = DMA_PRIORITY_MEDIUM;
+	hdma2.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
+	hdma2.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
+	hdma2.Init.MemBurst = DMA_MBURST_SINGLE;
+	hdma2.Init.PeriphBurst = DMA_PBURST_SINGLE;
+
+	HAL_DMA_Init(&hdma2);
+
+	//Interrupts:
+	HAL_NVIC_SetPriority(58, 7, 7);
+	HAL_NVIC_EnableIRQ(58);
+
+	//Start the peripheral:
+	HAL_DMA_Start(&hdma2, (uint32_t)&USART1->DR, (uint32_t)uart1_dma_buf, 4);
 }
 
 //USART6 init function: RS-485 #2
