@@ -18,6 +18,7 @@
 #include <stdarg.h>
 	
 //All the FlexSEA stack includes:
+#include "flexsea_buffers.h"
 #include "flexsea_comm.h"
 #include "flexsea_payload.h"
 #include "flexsea_rx_cmd.h"

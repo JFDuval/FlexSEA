@@ -276,45 +276,6 @@ void clear_rx_command(uint8_t x, uint8_t y, uint8_t rx_cmd[][PACKAGED_PAYLOAD_LE
     }
 }
 
-//By convention rx_buf[RX_BUF_LEN-1] is the latest byte
-//That function makes sure that rx_buf[] has the last x bytes
-void update_rx_buf(uint8_t *buf, uint8_t *idx, uint8_t new_byte)
-{
-	uint8_t i = 0;
-
-	if(*idx < RX_BUF_LEN)
-	{
-		buf[*idx] = new_byte;
-		(*idx)++;
-	}
-	else
-	{
-		//Shift buffer to clear one spot
-		for(i = 1; i < RX_BUF_LEN; i++)
-		{
-			buf[i-1] = buf[i];
-		}
-		//Add last byte to the buffer
-		buf[RX_BUF_LEN-1] = new_byte;
-	}
-
-	//buf[] is now up to date
-}
-
-void update_rx_buf_spi(uint8_t new_byte)
-{
-	static uint8_t idx_spi = 0;
-
-	update_rx_buf(rx_buf_spi, &idx_spi, new_byte);
-}
-
-void update_rx_buf_485_1(uint8_t new_byte)
-{
-	static uint8_t idx_485_1 = 0;
-
-	update_rx_buf(rx_buf_485_1, &idx_485_1, new_byte);
-}
-
 //Quick way to debug the comm functions with the debugger and the terminal.
 //Make sure to enable the printf statements.
 extern unsigned char payload_str[PAYLOAD_BUF_LEN];
@@ -346,7 +307,7 @@ void test_flexsea_comm(void)
     //Feed it to the input buffer
     for(i = 0; i < PACKAGED_PAYLOAD_LEN; i++)
     {
-        update_rx_buf_spi(comm_str[i]);
+        update_rx_buf_byte_spi(comm_str[i]);
     }
 
     printf("rx_buf_spi[]: >> %s <<\n", (char*)rx_buf_spi);

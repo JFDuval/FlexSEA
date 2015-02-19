@@ -250,7 +250,8 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 		// Todo: transfer over the number of bytes that have been received instead of 24 every time
 		for (unsigned char i = 0; i < 24; i++)
 		{
-			update_rx_buf_spi(aRxBuffer[i]);
+			update_rx_buf_byte_spi(aRxBuffer[i]);
+			//ToDo update to array
 		}
 		// clear the SPI buffer
 		for (unsigned char i = 0; i < 24; i++)
