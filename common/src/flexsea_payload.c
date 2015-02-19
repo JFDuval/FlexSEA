@@ -47,6 +47,7 @@ extern unsigned char comm_str[COMM_STR_BUF_LEN];
 //****************************************************************************
 
 //Clears payload_str (all 0)
+//ToDo remove, see below
 unsigned int payload_clear_str(void)
 {
     int i = 0;
@@ -59,7 +60,19 @@ unsigned int payload_clear_str(void)
     return 0;
 }
 
-//Start a new payload_str
+//Can be used to fill a buffer of any length with any value
+//ToDo might move this to another file
+void fill_uint8_buf(uint8_t *buf, uint32_t len, uint8_t filler)
+{
+	uint32_t i = 0;
+
+	for(i = 0; i < len; i++)
+	{
+		buf[i] = filler;
+	}
+}
+
+//Start a new payload_str - ToDo delete, see below
 unsigned int payload_build_basic_str(unsigned char to)
 {
     //Start fresh:
@@ -71,6 +84,22 @@ unsigned int payload_build_basic_str(unsigned char to)
 
     return 0;
 }
+
+//New version of the command above
+void prepare_empty_payload(uint8_t from, uint8_t to, uint8_t *buf, uint32_t len)
+{
+	//Start fresh:
+	fill_uint8_buf(buf, len, 0);
+
+    //Addresses:
+    buf[CP_XID] = from;
+    buf[CP_RID] = to;
+}
+
+//Add a buffer at the end of a partially filled payload buffer
+//void todo(void)
+
+
 
 //Is it addressed to me? To a board "below" me? Or to my Master?
 unsigned int payload_check_slave_id(unsigned char *pldata)
@@ -99,6 +128,25 @@ unsigned int payload_check_slave_id(unsigned char *pldata)
     }
 
     return ID_NO_MATCH;
+}
+
+//Returns one if it was sent from a slave, 0 otherwise
+uint8_t sent_from_a_slave(uint8_t *buf)
+{
+	//Slaves have higher addresses than their master.
+	if(buf[CP_XID] > buf[CP_RID])
+	{
+		//Slave
+		return 1;
+	}
+	else
+	{
+		//Master
+		return 0;
+	}
+
+	//Should not happen
+	return 0;
 }
 
 //Decode/parse received string

@@ -24,6 +24,7 @@ unsigned int payload_build_basic_str(unsigned char to);
 unsigned int payload_check_slave_id(unsigned char *data);
 unsigned int payload_parse_str(unsigned char *cp_str);
 void payload_print_str(void);
+uint8_t sent_from_a_slave(uint8_t *buf);
 
 //****************************************************************************
 // Definition(s):
