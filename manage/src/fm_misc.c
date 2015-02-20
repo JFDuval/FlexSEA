@@ -4,44 +4,60 @@
 // jfduval@mit.edu
 // 02/2015
 //****************************************************************************
-// flexsea_buffers: everything related to the reception buffers
+// fm_misc: when it doesn't belong in any another file, it ends up here...
 //****************************************************************************
-
-#ifndef INC_FLEXSEA_BUF_H
-#define INC_FLEXSEA_BUF_H
 
 //****************************************************************************
 // Include(s)
 //****************************************************************************
 
-#include "flexsea.h"
+#include "main.h"
+#include "fm_misc.h"
 
 //****************************************************************************
 // Local variable(s)
 //****************************************************************************
 
 //****************************************************************************
-// Prototype(s):
+// External variable(s)
 //****************************************************************************
 
-//Private (no need for a prototype):
-//static void update_rx_buf_byte(uint8_t *buf, uint32_t *idx, uint8_t new_byte);
-//static void update_rx_buf_array(uint8_t *buf, uint32_t *idx, uint8_t *new_data, uint8_t len);
-//static void update_rx_buf_spi(uint8_t byte_array, uint8_t new_byte, uint8_t *new_array, uint32_t len);
-//static void update_rx_buf_485_1(uint8_t byte_array, uint8_t new_byte, uint8_t *new_array, uint32_t len);
+//flexsea_payload.c:
+extern unsigned char start_listening_flag;
+extern unsigned char xmit_flag;
+extern uint8_t comm_str_xmit[COMM_STR_BUF_LEN];
+extern uint8_t cmd_xmit;
 
-//User:
-void update_rx_buf_byte_spi(uint8_t new_byte);
-void update_rx_buf_array_spi(uint8_t *new_array, uint32_t len);
-void update_rx_buf_byte_485_1(uint8_t new_byte);
-void update_rx_buf_array_485_1(uint8_t *new_array, uint32_t len);
+//FlexSEA:
+extern unsigned char payload_str[];
+extern unsigned char comm_str_payload[PAYLOAD_BUFFERS][PAYLOAD_BUF_LEN];
+extern unsigned char comm_str[COMM_STR_BUF_LEN];
 
 //****************************************************************************
-// Definition(s):
+// Function(s)
 //****************************************************************************
 
-//#define RX_BUF_LEN 			24
-#define UPDATE_BYTE				0
-#define UPDATE_ARRAY			1
+//Initialize all the peripherals
+void init_peripherals(void)
+{
+	init_systick_timer();		//SysTick timer
+	init_usart1(1000000);		//USART1 (RS-485 #1)
+	init_leds();
+	init_switches();
+	init_dio();					//All inputs by default
+	init_rs485_outputs();
+	init_adc1();
+	init_spi4();
+	//init_spi5();				//FLASH
+	//init_spi6();				//Expansion
+	init_i2c1();
+	init_imu();
+	init_adva_fc_pins();
+	init_pwr_out();
 
-#endif
+	//All RGB LEDs OFF
+	LEDR(0); LEDG(0); LEDB(0);
+
+	//Default analog input states:
+	set_default_analog();
+}

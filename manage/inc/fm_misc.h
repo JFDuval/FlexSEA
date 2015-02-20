@@ -4,31 +4,26 @@
 // jfduval@mit.edu
 // 02/2015
 //****************************************************************************
-// flexsea_payload: deals with the "intelligent" data packaged in a comm_str
+// fm_misc: when it doesn't belong in any another file, it ends up here...
 //****************************************************************************
 
-#ifndef INC_FLEXSEA_PAYLOAD_H
-#define INC_FLEXSEA_PAYLOAD_H
+#ifndef INC_MISC_H_
+#define INC_MISC_H_
 
 //****************************************************************************
 // Include(s)
 //****************************************************************************
 
+#include "main.h"
 
 //****************************************************************************
 // Prototype(s):
 //****************************************************************************
 
-unsigned int payload_clear_str(void);
-unsigned int payload_build_basic_str(unsigned char to);
-unsigned int payload_check_slave_id(unsigned char *data);
-unsigned int payload_parse_str(unsigned char *cp_str);
-void fill_uint8_buf(uint8_t *buf, uint32_t len, uint8_t filler);
-uint8_t sent_from_a_slave(uint8_t *buf);
-void prepare_empty_payload(uint8_t from, uint8_t to, uint8_t *buf, uint32_t len);
+void init_peripherals(void);
 
 //****************************************************************************
 // Definition(s):
 //****************************************************************************
 
-#endif
+#endif // INC_MISC_H_

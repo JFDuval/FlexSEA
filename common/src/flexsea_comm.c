@@ -289,7 +289,7 @@ void test_flexsea_comm(void)
     bytes = tx_cmd_ctrl_i_read_reply(FLEXSEA_PLAN_1, 100, 200);
     //(this fills payload_str[])
 
-    printf("bytes = %i\n", bytes);
+    DEBUG_PRINTF("bytes = %i\n", bytes);
 
     //Clear current payload:
     clear_rx_command(PAYLOAD_BUFFERS, PACKAGED_PAYLOAD_LEN, rx_command_spi);
@@ -299,10 +299,10 @@ void test_flexsea_comm(void)
     //Build comm_str
     res = comm_gen_str(payload_str, bytes);
 
-    printf("comm_str[]: >> %s <<\n", (char*)comm_str);
-    printf("res = %i\n", res);
+    DEBUG_PRINTF("comm_str[]: >> %s <<\n", (char*)comm_str);
+    DEBUG_PRINTF("res = %i\n", res);
 
-    printf("\nrx_buf_spi[]: >> %s <<\n", (char*)rx_buf_spi);
+    DEBUG_PRINTF("\nrx_buf_spi[]: >> %s <<\n", (char*)rx_buf_spi);
 
     //Feed it to the input buffer
     for(i = 0; i < PACKAGED_PAYLOAD_LEN; i++)
@@ -310,12 +310,12 @@ void test_flexsea_comm(void)
         update_rx_buf_byte_spi(comm_str[i]);
     }
 
-    printf("rx_buf_spi[]: >> %s <<\n", (char*)rx_buf_spi);
+    DEBUG_PRINTF("rx_buf_spi[]: >> %s <<\n", (char*)rx_buf_spi);
 
     //Try to decode
     res = unpack_payload_spi();
 
-    printf("Found %i payload(s).\n", res);
+    DEBUG_PRINTF("Found %i payload(s).\n", res);
 
     //Can we parse it?
 

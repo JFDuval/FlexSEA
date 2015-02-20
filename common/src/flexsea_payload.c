@@ -85,6 +85,7 @@ unsigned int payload_build_basic_str(unsigned char to)
     return 0;
 }
 
+//Start a new payload string
 //New version of the command above
 void prepare_empty_payload(uint8_t from, uint8_t to, uint8_t *buf, uint32_t len)
 {
@@ -97,8 +98,12 @@ void prepare_empty_payload(uint8_t from, uint8_t to, uint8_t *buf, uint32_t len)
 }
 
 //Add a buffer at the end of a partially filled payload buffer
-//void todo(void)
-
+//Payload is the partially filled buffer, idx is the last position used, new_data is.. well, the new bytes
+//and len is the number of bytes you want to add
+uint32_t append_to_payload(uint8_t *payload, uint32_t *idx, uint8_t *new_data, uint32_t len)
+{
+	return 0;	//ToDO Should return the # of bytes in the buffer
+}
 
 
 //Is it addressed to me? To a board "below" me? Or to my Master?
@@ -260,47 +265,14 @@ unsigned int payload_parse_str(unsigned char *cp_str)
     {
         //For one of my slaves.
 
-        //Repackages the payload. ToDo: would be more efficient to just resend the comm_str
-        numb = comm_gen_str(cp_str, PAYLOAD_BUF_LEN);
-        numb = COMM_STR_BUF_LEN;    //Fixed length for now
-
-        //Synchronous sending. Hacky... copy the comm_str in a new one, comm_str_xmit.
-
-        for(i = 0; i < COMM_STR_BUF_LEN; i++)
-        {
-        	comm_str_xmit[i] = comm_str[i];
-        }
-        cmd_xmit = cmd;
-        xmit_flag = 1;
-
-        /*
-		if(id == ID_SUB1_MATCH)
-		{
-			flexsea_send_serial_slave(PORT_RS485_1, comm_str, numb + 1);
-		}
-		else if(id == ID_SUB2_MATCH)
-		{
-			flexsea_send_serial_slave(PORT_RS485_2, comm_str, numb + 1);
-		}
-
-		//ToDo: this is ugly, I need a better solution. Table with [CMD Code][R/W][Arguments]?
-        if((cmd == CMD_IMU_READ) || (cmd == CMD_ENCODER_READ) || (cmd == CMD_STRAIN_READ) || (cmd == CMD_ANALOG_READ) || (cmd == CMD_CTRL_I_READ))
-        {
-            //Place code here to deal with slave answering
-            start_listening_flag = 1;
-
-        }
-        */
+    	route_to_slave(cp_str, PAYLOAD_BUF_LEN);
+    	//ToDo compute length rather then sending the max
     }
     /*
     else if(id == ID_SUB2_MATCH)
     {
     	//For one of my slaves:
-
-    	//Repackages the payload. ToDo: would be more efficient to just resend the comm_str
-    	numb = comm_gen_str(cp_str, PAYLOAD_BUF_LEN);
-    	numb = COMM_STR_BUF_LEN;    //Fixed length for now
-    	flexsea_send_serial(0,comm_str, numb + 1);
+		//...
     }
     */
     else if(id == ID_UP_MATCH)
@@ -321,48 +293,21 @@ unsigned int payload_parse_str(unsigned char *cp_str)
     return PARSE_DEFAULT;
 }
 
-//Use this to test the Payload functions in a terminal
-void payload_local_console_test(void)
+
+void route_to_slave(uint8_t *buf, uint32_t len)
 {
-    unsigned char kp = 1, ki = 2, kd = 3;
-    unsigned char result = 0;
+	uint32_t numb = 0, i = 0;
 
-#ifdef USE_PRINTF
-    printf("[[Test flexsea_payload]]\n\n");
-    printf("PID gains: kp = %u, ki = %u, kd = %u.\n", test_kp, test_ki, test_kd);
-#endif
+    //Repackages the payload. ToDo: would be more efficient to just resend the comm_str
+    numb = comm_gen_str(buf, len);
+    //numb = COMM_STR_BUF_LEN;    //Fixed length for now
 
-    //"Send" command
-    tx_cmd_ctrl_p_gains_write(board_id, kp, ki, kd);
+    //Copy string:
+    for(i = 0; i < numb; i++)
+    {
+    	comm_str_xmit[i] = comm_str[i];
+    }
 
-    //"Receive" command
-    result = payload_parse_str(payload_str);
-#ifdef USE_PRINTF
-    print_parse_result(result);
-#endif
-
-#ifdef USE_PRINTF
-    printf("PID gains: kp = %u, ki = %u, kd = %u.\n", test_kp, test_ki, test_kd);
-#endif
-}
-
-//Print payload_str - debugging
-void payload_print_str(void)
-{
-#ifdef USE_PRINTF
-    printf("\n-----------\n");
-    printf("[CP_XID]: %u\n", payload_str[CP_XID]);
-    printf("[CP_RID]: %u\n", payload_str[CP_RID]);
-    printf("[CP_CMDS]: %u\n", payload_str[CP_CMDS]);
-    printf("[CP_CMD1]: %u\n", payload_str[CP_CMD1]);
-    printf("[CP_DATA1]: %u\n", payload_str[CP_DATA1]);
-    printf("[CP_DATA1 + 1]: %u\n", payload_str[CP_DATA1 + 1]);
-    printf("[CP_DATA1 + 2]: %u\n", payload_str[CP_DATA1 + 2]);
-    printf("[CP_DATA1 + 3]: %u\n", payload_str[CP_DATA1 + 3]);
-    printf("[CP_DATA1 + 4]: %u\n", payload_str[CP_DATA1 + 4]);
-    printf("[CP_DATA1 + 5]: %u\n", payload_str[CP_DATA1 + 5]);
-    printf("[CP_DATA1 + 6]: %u\n", payload_str[CP_DATA1 + 6]);
-    printf("[CP_DATA1 + 7]: %u\n", payload_str[CP_DATA1 + 7]);
-    printf("-----------\n\n");
-#endif
+    cmd_xmit = buf[CP_CMD1];
+    xmit_flag = 1;
 }

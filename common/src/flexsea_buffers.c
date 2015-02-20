@@ -27,44 +27,14 @@ uint8_t rx_buf_485_1[RX_BUF_LEN];
 //****************************************************************************
 
 //****************************************************************************
-// User function(s)
-//****************************************************************************
-
-//Add one byte to the SPI RX buffer
-void update_rx_buf_byte_spi(uint8_t new_byte)
-{
-	uint8_t empty_array[1] = {0};
-	update_rx_buf_spi(UPDATE_BYTE, new_byte, empty_array, 0);
-}
-
-//Add an array of bytes to the SPI RX buffer
-void update_rx_buf_array_spi(uint8_t *new_array, uint8_t len)
-{
-	update_rx_buf_spi(UPDATE_ARRAY, 0, new_array, len);
-}
-
-//Add one byte to the RS-485 #1 RX buffer
-void update_rx_buf_byte_485_1(uint8_t new_byte)
-{
-	uint8_t empty_array[1] = {0};
-	update_rx_buf_485_1(UPDATE_BYTE, new_byte, empty_array, 0);
-}
-
-//Add an array of bytes to the RS-485 #1 RX buffer
-void update_rx_buf_array_485_1(uint8_t *new_array, uint8_t len)
-{
-	update_rx_buf_485_1(UPDATE_ARRAY, 0, new_array, len);
-}
-
-//****************************************************************************
 // Private function(s)
 //****************************************************************************
 
 //Add one byte to the FIFO buffer
 //Do not call that function directly, call update_rx_buf_byte_n() where n is your communication port.
-static void update_rx_buf_byte(uint8_t *buf, uint8_t *idx, uint8_t new_byte)
+static void update_rx_buf_byte(uint8_t *buf, uint32_t *idx, uint8_t new_byte)
 {
-	uint8_t i = 0;
+	uint32_t i = 0;
 
 	if(idx < RX_BUF_LEN)
 	{
@@ -88,9 +58,9 @@ static void update_rx_buf_byte(uint8_t *buf, uint8_t *idx, uint8_t new_byte)
 
 //Add 'len' bytes from the 'new_data' array to the FIFO buffer
 //Do not call that function directly, call update_rx_buf_array_n() where n is your communication port.
-static void update_rx_buf_array(uint8_t *buf, uint8_t *idx, uint8_t *new_data, uint8_t len)
+static void update_rx_buf_array(uint8_t *buf, uint32_t *idx, uint8_t *new_data, uint32_t len)
 {
-	uint8_t i = 0, cnt = 0, remaining = 0;
+	uint32_t i = 0, cnt = 0, remaining = 0;
 
 	if(idx < RX_BUF_LEN)
 	{
@@ -140,9 +110,9 @@ static void update_rx_buf_array(uint8_t *buf, uint8_t *idx, uint8_t *new_data, u
 
 //Wraps update_rx_buf_byte()/update_rx_buf_array() for the SPI peripheral. Keeps track of the index.
 //Do not use directly, call update_rx_buf_byte_spi() or update_rx_buf_array_spi()
-static void update_rx_buf_spi(uint8_t byte_array, uint8_t new_byte, uint8_t *new_array, uint8_t len)
+static void update_rx_buf_spi(uint8_t byte_array, uint8_t new_byte, uint8_t *new_array, uint32_t len)
 {
-	static idx_spi = 0;
+	static uint32_t idx_spi = 0;
 
 	if(byte_array == UPDATE_BYTE)
 	{
@@ -163,9 +133,9 @@ static void update_rx_buf_spi(uint8_t byte_array, uint8_t new_byte, uint8_t *new
 
 //Wraps update_rx_buf_byte()/update_rx_buf_array() for the RS-485 #1 peripheral. Keeps track of the index.
 //Do not use directly, call update_rx_buf_byte_485_1() or update_rx_buf_array_485_1()
-static void update_rx_buf_485_1(uint8_t byte_array, uint8_t new_byte, uint8_t *new_array, uint8_t len)
+static void update_rx_buf_485_1(uint8_t byte_array, uint8_t new_byte, uint8_t *new_array, uint32_t len)
 {
-	static idx_485_1 = 0;
+	static uint32_t idx_485_1 = 0;
 
 	if(byte_array == UPDATE_BYTE)
 	{
@@ -182,4 +152,34 @@ static void update_rx_buf_485_1(uint8_t byte_array, uint8_t new_byte, uint8_t *n
 		//Error
 		//flexsea_error(0);	ToDo
 	}
+}
+
+//****************************************************************************
+// User function(s)
+//****************************************************************************
+
+//Add one byte to the SPI RX buffer
+void update_rx_buf_byte_spi(uint8_t new_byte)
+{
+	uint8_t empty_array[1] = {0};
+	update_rx_buf_spi(UPDATE_BYTE, new_byte, empty_array, 0);
+}
+
+//Add an array of bytes to the SPI RX buffer
+void update_rx_buf_array_spi(uint8_t *new_array, uint32_t len)
+{
+	update_rx_buf_spi(UPDATE_ARRAY, 0, new_array, len);
+}
+
+//Add one byte to the RS-485 #1 RX buffer
+void update_rx_buf_byte_485_1(uint8_t new_byte)
+{
+	uint8_t empty_array[1] = {0};
+	update_rx_buf_485_1(UPDATE_BYTE, new_byte, empty_array, 0);
+}
+
+//Add an array of bytes to the RS-485 #1 RX buffer
+void update_rx_buf_array_485_1(uint8_t *new_array, uint32_t len)
+{
+	update_rx_buf_485_1(UPDATE_ARRAY, 0, new_array, len);
 }

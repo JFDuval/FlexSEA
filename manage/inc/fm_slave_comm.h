@@ -4,31 +4,26 @@
 // jfduval@mit.edu
 // 02/2015
 //****************************************************************************
-// flexsea_payload: deals with the "intelligent" data packaged in a comm_str
+// fm_slave_comm: Slave R/W
 //****************************************************************************
 
-#ifndef INC_FLEXSEA_PAYLOAD_H
-#define INC_FLEXSEA_PAYLOAD_H
+#ifndef INC_SLAVE_COMM_H_
+#define INC_SLAVE_COMM_H_
 
 //****************************************************************************
 // Include(s)
 //****************************************************************************
 
+#include "main.h"
 
 //****************************************************************************
 // Prototype(s):
 //****************************************************************************
 
-unsigned int payload_clear_str(void);
-unsigned int payload_build_basic_str(unsigned char to);
-unsigned int payload_check_slave_id(unsigned char *data);
-unsigned int payload_parse_str(unsigned char *cp_str);
-void fill_uint8_buf(uint8_t *buf, uint32_t len, uint8_t filler);
-uint8_t sent_from_a_slave(uint8_t *buf);
-void prepare_empty_payload(uint8_t from, uint8_t to, uint8_t *buf, uint32_t len);
+uint16_t slave_comm(uint8_t slave, uint8_t port, uint8_t autosample);
 
 //****************************************************************************
 // Definition(s):
 //****************************************************************************
 
-#endif
+#endif // INC_SLAVE_COMM_H_

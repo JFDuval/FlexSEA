@@ -7,8 +7,8 @@
 // fm_pwr_out: Deals with the 2 power outputs
 //****************************************************************************
 
-#ifndef PWRO_H_
-#define PWRO_H_
+#ifndef INC_PWRO_H_
+#define INC_PWRO_H_
 
 //****************************************************************************
 // Include(s)
@@ -28,4 +28,4 @@ void write_pwr_out(unsigned int pwr0, unsigned int pwr1);
 // Definition(s):
 //****************************************************************************
 
-#endif // DIO_H_
+#endif // INC_PWRO_H_

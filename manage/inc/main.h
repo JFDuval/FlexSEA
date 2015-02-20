@@ -24,7 +24,9 @@
 #include "stm32f4xx_hal_gpio.h"
 #include "stm32f4xx_hal_adc.h"
 #include "stm32f4xx_hal_dma.h"
+#include "fm_slave_comm.h"
 #include "fm_timer.h"
+#include "fm_misc.h"
 #include "fm_ui.h"
 #include "fm_uarts.h"
 #include "fm_adc.h"
@@ -35,6 +37,7 @@
 #include "fm_imu.h"
 #include "fm_pwr_out.h"
 #include "fm_demonstrations.h"
+#include "fm_stm32f4xx_hal_spi.h"
 #include "flexsea_local.h"
 #include "../../common/inc/flexsea.h"
 // ToDo: should have some include for the new spi lib
@@ -44,8 +47,6 @@
 //****************************************************************************
 
 int main(void);
-void init_peripherals(void);
-uint16_t refresh_slave_data(uint8_t slave, uint8_t port, uint8_t autosample);
 
 //****************************************************************************
 // Definition(s):

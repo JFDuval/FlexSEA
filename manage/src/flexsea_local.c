@@ -127,7 +127,7 @@ void flexsea_start_receiving_from_master(void)
 //Receive data from a slave
 void flexsea_receive_from_slave(void)
 {
-	static unsigned char uart_rx_test = 0;
+	static volatile uint8_t uart_rx_test = 0;
 	unsigned int delay = 0;
 
 	//We only listen if we requested a reply:
