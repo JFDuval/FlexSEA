@@ -117,6 +117,7 @@ int main(void)
 		//Toggle LED1 when we get a new valid communication, interface independent
 		if(new_cmd_led)
 		{
+			new_cmd_led = 0;
 			toggle_led1 ^= 1;
 			LED1(toggle_led1);
 		}
@@ -164,6 +165,8 @@ int main(void)
 			systick_1000ms_flag = 0;
 
 			//...
+
+			//write_test_cmd_execute(PORT_RS485_1, 66);
 		}
     }
 }

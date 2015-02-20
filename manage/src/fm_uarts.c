@@ -114,8 +114,7 @@ void init_usart1(uint32_t baudrate)
 	HAL_NVIC_EnableIRQ(USART1_IRQn);
 
 	//UART1 module:
-	husart1.Init.BaudRate = 500000;
-	//Note: 500000 gives me 1MBaud. Why a factor of 2? No idea. Tested on the scope.
+	husart1.Init.BaudRate = baudrate;	//Wrong, see below
 	husart1.Init.WordLength = USART_WORDLENGTH_8B;
 	husart1.Init.StopBits = USART_STOPBITS_1;
 	husart1.Init.Parity = USART_PARITY_NONE;
@@ -131,6 +130,10 @@ void init_usart1(uint32_t baudrate)
 	USART1->CR2 &= ~USART_CR2_CLKEN;	//Disable synchronous clock
 	USART1->CR3 |= USART_CR3_ONEBIT;	//1 sample per bit
 	USART1->CR3 |= USART_CR3_DMAR;		//Enable DMA
+
+	//The baudrate calculated by the HAL function is wrong by 5% because
+	//I manually change the OVER8 bit. Manually setting it for a precise 1000000:
+	USART1->BRR = USART1_2MBAUD;
 
 	//Enable DMA:
 	init_dma2();

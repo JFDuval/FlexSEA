@@ -83,7 +83,7 @@ uint16_t slave_comm(uint8_t slave, uint8_t port, uint8_t autosample)
 	{
 		//xmit flag is high, we skip refreshing the sensors to send one packet
 
-		flexsea_send_serial_slave(port, comm_str_xmit, COMM_STR_BUF_LEN + 1);	//ToDo: this will always send the max length, not what we want.
+		flexsea_send_serial_slave(port, comm_str_xmit, COMM_STR_BUF_LEN-5);	//ToDo: this will always send the max length, not what we want.
 
 		//ToDo: this is ugly, I need a better solution. Table with [CMD Code][R/W][Arguments]?
 		//The new R/W commands will fix that
@@ -98,5 +98,23 @@ uint16_t slave_comm(uint8_t slave, uint8_t port, uint8_t autosample)
 	}
 
 	return cnt;
+}
+
+void write_test_cmd_execute(uint8_t port, uint8_t value)
+{
+	uint32_t bytes = 0, bytes2 = 0;
+
+	bytes = tx_cmd_clutch_write(FLEXSEA_EXECUTE_1, value);
+	bytes2 = comm_gen_str(payload_str, bytes + 1);	//Might not need the +1, TBD
+
+	/*
+
+	comm_str[0] = 0; comm_str[1] = 255; comm_str[2] = 0; comm_str[3] = 255;
+	comm_str[4] = 0; comm_str[5] = 255; comm_str[6] = 0; comm_str[7] = 255;
+	comm_str[8] = 0;
+	flexsea_send_serial_slave(port, comm_str, 9);
+	*/
+
+	flexsea_send_serial_slave(port, comm_str, bytes2 + 1);
 }
 

@@ -39,6 +39,13 @@ void DMA2_Str2_CompleteTransfer_Callback(DMA_HandleTypeDef *hdma);
 
 #define UART_TIMEOUT	5000	//ms?
 
+//Baud = fck/(8*(2-OVER8)*USARTDIV) and OVER8 = 1 so Baud = fck/(8*USARTDIV)
+//USARTDIV = fck / (8*Baud)
+//1Mbits/s: 84MHz / (8*1e6) = 10.5 => 1010 0 100 => 164
+#define USART1_1MBAUD	164
+#define USART1_2MBAUD	82
+#define USART1_4MBAUD	37
+
 //USART1:
 //=======
 //RE1 : PF12

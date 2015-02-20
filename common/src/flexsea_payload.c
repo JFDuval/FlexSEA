@@ -303,7 +303,7 @@ void route_to_slave(uint8_t *buf, uint32_t len)
     //numb = COMM_STR_BUF_LEN;    //Fixed length for now
 
     //Copy string:
-    for(i = 0; i < numb; i++)
+    for(i = 0; i < numb+1; i++)
     {
     	comm_str_xmit[i] = comm_str[i];
     }
