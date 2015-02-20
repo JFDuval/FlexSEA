@@ -108,18 +108,21 @@ int main(void)
 	//motor_fixed_pwm_test_code_blocking(1000);
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
+/*
+	// ToDo remove
 	//Sends one packet every 100ms
 	//uint8 tbuf[8] = {1,2,3,4,5,250,251,252};
-	uint8 tbuf[8] = {0,20,30,40,50,25,21,52};
+	uint8 tbuf[9] = {0,255,0,255,0,255,0,255, 0};
 	uint8 val = 0;
 	while(1)
 	{
 		tbuf[0] = val++;
-		rs485_puts(tbuf, 8);
-		CyDelay(1000);
+		rs485_puts(tbuf, 9);
+		CyDelay(100);
 		ledg_state ^= 1;
 		LED_G_Write(ledg_state);
 	}
+*/
 	
 	//Main loop
 	while(1)
@@ -219,12 +222,12 @@ int main(void)
 				uart2_flag = 0;
 				
 				uart_buf_size = UART_2_GetRxBufferSize();
-				if(uart_buf_size)
+				if(uart_buf_size > 0)
 				{
 					for(i = 0; i < uart_buf_size; i++)
 					{
-						last_byte = UART_2_GetChar();
-						update_rx_buf_485_1(last_byte);
+						last_byte = UART_2_GetChar();	//It's a shame but there is no gets function
+						update_rx_buf_byte_485_1(last_byte);
 					}
 				}
 				
