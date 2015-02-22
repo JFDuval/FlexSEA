@@ -30,10 +30,13 @@ DMA_HandleTypeDef hdma2;
 unsigned char tmp_buf[10] = {0,0,0,0,0,0,0,0,0,0};
 
 __attribute__ ((aligned (4))) uint8_t uart1_dma_buf[64];
+uint32_t rs485_1_dma_xfer_len = 0;
 
 //****************************************************************************
 // External variable(s)
 //****************************************************************************
+
+extern uint8_t bytes_ready_485_1;
 
 //****************************************************************************
 // Function(s)
@@ -132,7 +135,7 @@ void init_usart1(uint32_t baudrate)
 	USART1->CR3 |= USART_CR3_DMAR;		//Enable DMA
 
 	//The baudrate calculated by the HAL function is wrong by 5% because
-	//I manually change the OVER8 bit. Manually setting it for a precise 1000000:
+	//I manually change the OVER8 bit. Manually setting it:
 	USART1->BRR = USART1_2MBAUD;
 
 	//Enable DMA:
@@ -398,7 +401,7 @@ unsigned char getc_rs485_6_blocking(void)
 //Function called after a completed DMA transfer.
 void DMA2_Str2_CompleteTransfer_Callback(DMA_HandleTypeDef *hdma)
 {
-	uint32_t empty_dr = 0;
+	volatile uint32_t empty_dr = 0;
 
 	if(hdma->Instance == DMA2_Stream2)
 	{
@@ -407,5 +410,18 @@ void DMA2_Str2_CompleteTransfer_Callback(DMA_HandleTypeDef *hdma)
 	}
 
 	//Deal with FlexSEA buffers here:
-	//...
+	update_rx_buf_array_485_1(uart1_dma_buf, rs485_1_dma_xfer_len);
+	bytes_ready_485_1++;
+}
+
+void rs485_1_xmit_dma_rx_test(void)
+{
+	//Send a packet, requesting a read:
+	write_test_cmd_execute(PORT_RS485_1, 0);
+
+	//4 data bytes, 4 bytes for the payload, 4 bytes for the packaging = 12 bytes
+	rs485_1_dma_xfer_len = 12;
+	hdma2.Instance->NDTR = rs485_1_dma_xfer_len;
+
+	//At this point use a breakpoint in DMA2_Str2_CompleteTransfer_Callback()
 }

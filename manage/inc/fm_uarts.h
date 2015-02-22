@@ -32,6 +32,7 @@ void puts_rs485_1(uint8_t *str, unsigned char length);
 unsigned char getc_rs485_1_blocking(void);
 void rs485_set_mode(uint32_t port, unsigned char rx_tx);
 void DMA2_Str2_CompleteTransfer_Callback(DMA_HandleTypeDef *hdma);
+void rs485_1_xmit_dma_rx_test(void);
 
 //****************************************************************************
 // Definition(s):

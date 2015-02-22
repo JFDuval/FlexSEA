@@ -104,16 +104,9 @@ void write_test_cmd_execute(uint8_t port, uint8_t value)
 {
 	uint32_t bytes = 0, bytes2 = 0;
 
-	bytes = tx_cmd_clutch_write(FLEXSEA_EXECUTE_1, value);
+	//bytes = tx_cmd_clutch_write(FLEXSEA_EXECUTE_1, value);
+	bytes = tx_cmd_encoder_read(FLEXSEA_EXECUTE_1);
 	bytes2 = comm_gen_str(payload_str, bytes + 1);	//Might not need the +1, TBD
-
-	/*
-
-	comm_str[0] = 0; comm_str[1] = 255; comm_str[2] = 0; comm_str[3] = 255;
-	comm_str[4] = 0; comm_str[5] = 255; comm_str[6] = 0; comm_str[7] = 255;
-	comm_str[8] = 0;
-	flexsea_send_serial_slave(port, comm_str, 9);
-	*/
 
 	flexsea_send_serial_slave(port, comm_str, bytes2 + 1);
 }

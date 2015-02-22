@@ -165,6 +165,7 @@ int main(void)
 			//...
 
 			//write_test_cmd_execute(PORT_RS485_1, 66);
+			rs485_1_xmit_dma_rx_test();
 		}
     }
 }
