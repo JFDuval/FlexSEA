@@ -30,7 +30,7 @@ DMA_HandleTypeDef hdma2;
 unsigned char tmp_buf[10] = {0,0,0,0,0,0,0,0,0,0};
 
 __attribute__ ((aligned (4))) uint8_t uart1_dma_buf[64];
-uint32_t rs485_1_dma_xfer_len = 16;
+uint32_t rs485_1_dma_xfer_len = COMM_STR_BUF_LEN+1;
 
 //****************************************************************************
 // External variable(s)
@@ -430,8 +430,8 @@ void rs485_1_xmit_dma_rx_test(void)
 	rs485_set_mode(PORT_RS485_1, RS485_RX);
 
 	//4 data bytes, 4 bytes for the payload, 4 bytes for the packaging = 12 bytes
-	rs485_1_dma_xfer_len = 16;
-	hdma2.Instance->NDTR = rs485_1_dma_xfer_len;
+	//rs485_1_dma_xfer_len = 16;
+	//hdma2.Instance->NDTR = rs485_1_dma_xfer_len;
 
 
 	//At this point use a breakpoint in DMA2_Str2_CompleteTransfer_Callback()

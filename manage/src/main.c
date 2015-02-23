@@ -132,7 +132,7 @@ int main(void)
 			}
 
 			tbdiv++;
-			if(tbdiv == 3)	//4 = 5ms
+			//if(tbdiv == 3)	//4 = 5ms
 			{
 				tbdiv = 0;
 
@@ -168,7 +168,7 @@ int main(void)
 			//...
 
 			//write_test_cmd_execute(PORT_RS485_1, 66);
-			rs485_1_xmit_dma_rx_test();
+			//rs485_1_xmit_dma_rx_test();
 		}
     }
 }
