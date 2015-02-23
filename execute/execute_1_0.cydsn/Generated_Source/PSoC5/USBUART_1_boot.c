@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: USBUART_1_boot.c
-* Version 2.70
+* Version 2.80
 *
 * Description:
 *  Boot loader API for USBFS Component.
@@ -8,7 +8,7 @@
 *  Note:
 *
 ********************************************************************************
-* Copyright 2008-2013, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -132,7 +132,7 @@ cystatus USBUART_1_CyBtldrCommWrite(const uint8 pData[], uint16 size, uint16 *co
     uint16 timeoutMs;
 
     timeoutMs = ((uint16) 10u * timeOut);  /* Convert from 10mS check to number 1mS checks */
-    
+
     /* Enable IN transfer */
     USBUART_1_LoadInEP(USBUART_1_BTLDR_IN_EP, pData, USBUART_1_BTLDR_SIZEOF_READ_BUFFER);
 
@@ -190,7 +190,7 @@ cystatus USBUART_1_CyBtldrCommRead(uint8 pData[], uint16 size, uint16 *count, ui
     uint16 timeoutMs;
 
     timeoutMs = ((uint16) 10u * timeOut);  /* Convert from 10mS check to number 1mS checks */
-    
+
     if (size > USBUART_1_BTLDR_SIZEOF_WRITE_BUFFER)
     {
         size = USBUART_1_BTLDR_SIZEOF_WRITE_BUFFER;
@@ -205,7 +205,7 @@ cystatus USBUART_1_CyBtldrCommRead(uint8 pData[], uint16 size, uint16 *count, ui
             CyDelay(USBUART_1_BTLDR_WAIT_1_MS);
             timeoutMs--;
         }
-        
+
         /* Enable first OUT, if enumeration complete */
         if (0u != USBUART_1_GetConfiguration())
         {
@@ -224,9 +224,9 @@ cystatus USBUART_1_CyBtldrCommRead(uint8 pData[], uint16 size, uint16 *count, ui
             }
         }
     }
-    
+
     timeoutMs = ((uint16) 10u * timeOut); /* Re-arm timeout */
-    
+
     /* Wait on next packet */
     while((USBUART_1_GetEPState(USBUART_1_BTLDR_OUT_EP) != USBUART_1_OUT_BUFFER_FULL) && \
           (0u != timeoutMs))
@@ -246,7 +246,7 @@ cystatus USBUART_1_CyBtldrCommRead(uint8 pData[], uint16 size, uint16 *count, ui
         *count = 0u;
         retCode = CYRET_TIMEOUT;
     }
-    
+
     return(retCode);
 }
 

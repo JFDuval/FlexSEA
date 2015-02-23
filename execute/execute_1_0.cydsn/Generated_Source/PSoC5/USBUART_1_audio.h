@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: USBUART_1_audio.h
-* Version 2.70
+* Version 2.80
 *
 * Description:
 *  Header File for the USBFS component. Contains prototypes and constant values.
@@ -9,7 +9,7 @@
 *  Universal Serial Bus Device Class Definition for Audio Devices Release 1.0
 *
 ********************************************************************************
-* Copyright 2008-2013, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.

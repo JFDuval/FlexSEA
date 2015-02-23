@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: RO.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -25,7 +25,7 @@
 /***************************************
 *              Constants        
 ***************************************/
-#define RO_0		RO__0__PC
+#define RO_0		(RO__0__PC)
 
 #endif /* End Pins RO_ALIASES_H */
 

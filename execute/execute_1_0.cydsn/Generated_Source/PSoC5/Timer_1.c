@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: Timer_1.c
-* Version 2.60
+* Version 2.70
 *
 * Description:
 *  The Timer component consists of a 8, 16, 24 or 32-bit timer with
@@ -302,7 +302,11 @@ void Timer_1_SetInterruptMode(uint8 interruptMode)
 void Timer_1_SoftwareCapture(void) 
 {
     /* Generate a software capture by reading the counter register */
-    (void)Timer_1_COUNTER_LSB;
+    #if(Timer_1_UsingFixedFunction)
+        (void)CY_GET_REG16(Timer_1_COUNTER_LSB_PTR);
+    #else
+        (void)CY_GET_REG8(Timer_1_COUNTER_LSB_PTR_8BIT);
+    #endif/* (Timer_1_UsingFixedFunction) */
     /* Capture Data is now in the FIFO */
 }
 

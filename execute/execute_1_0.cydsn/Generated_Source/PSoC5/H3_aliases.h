@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: H3.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -25,7 +25,7 @@
 /***************************************
 *              Constants        
 ***************************************/
-#define H3_0		H3__0__PC
+#define H3_0		(H3__0__PC)
 
 #endif /* End Pins H3_ALIASES_H */
 

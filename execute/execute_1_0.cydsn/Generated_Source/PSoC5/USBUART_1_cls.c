@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: USBUART_1_cls.c
-* Version 2.70
+* Version 2.80
 *
 * Description:
 *  USB Class request handler.
@@ -8,7 +8,7 @@
 * Note:
 *
 ********************************************************************************
-* Copyright 2008-2013, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -57,7 +57,7 @@ uint8 USBUART_1_DispatchClassRqst(void)
             break;
         case USBUART_1_RQST_RCPT_EP:         /* Class-specific request directed to the endpoint */
             /* Find related interface to the endpoint, wIndexLo contain EP number */
-            interfaceNumber = USBUART_1_EP[CY_GET_REG8(USBUART_1_wIndexLo) & 
+            interfaceNumber = USBUART_1_EP[CY_GET_REG8(USBUART_1_wIndexLo) &
                               USBUART_1_DIR_UNUSED].interface;
             break;
         default:    /* RequestHandled is initialized as FALSE by default */

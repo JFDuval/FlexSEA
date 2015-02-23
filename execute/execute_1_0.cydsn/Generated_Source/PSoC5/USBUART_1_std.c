@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: USBUART_1_std.c
-* Version 2.70
+* Version 2.80
 *
 * Description:
 *  USB Standard request handler.
@@ -8,7 +8,7 @@
 * Note:
 *
 ********************************************************************************
-* Copyright 2008-2013, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -155,7 +155,7 @@ uint8 USBUART_1_HandleStandardRqst(void)
                             (CY_GET_REG8(USBUART_1_wValueLo) ==
                             USBUART_1_DEVICE0_DESCR[USBUART_1_DEVICE_DESCR_SN_SHIFT]) )
                         {
-                            
+
                             #if defined(USBUART_1_ENABLE_IDSN_STRING)
                                 /* Read DIE ID and generate string descriptor in RAM */
                                 USBUART_1_ReadDieID(USBUART_1_idSerialNumberStringDescriptor);
@@ -234,15 +234,15 @@ uint8 USBUART_1_HandleStandardRqst(void)
                 break;
             case USBUART_1_SET_CONFIGURATION:
                 configurationN = CY_GET_REG8(USBUART_1_wValueLo);
-                if(configurationN > 0)
+                if(configurationN > 0u)
                 {   /* Verify that configuration descriptor exists */
                     pTmp = USBUART_1_GetConfigTablePtr(configurationN - 1u);
                 }
                 /* Responds with a Request Error when configuration number is invalid */
-                if (((configurationN > 0) && (pTmp != NULL)) || (configurationN == 0u))
+                if (((configurationN > 0u) && (pTmp != NULL)) || (configurationN == 0u))
                 {
                     /* Set new configuration if it has been changed */
-                    if(configurationN != USBUART_1_configuration)        
+                    if(configurationN != USBUART_1_configuration)
                     {
                         USBUART_1_configuration = configurationN;
                         USBUART_1_configurationChanged = USBUART_1_TRUE;
@@ -886,7 +886,7 @@ const T_USBUART_1_LUT CYCODE *USBUART_1_GetConfigTablePtr(uint8 confIndex)
     {
         pTmp = (const T_USBUART_1_LUT CYCODE *) pTmp[confIndex].p_list;
     }
-    
+
     return( pTmp );
 }
 
@@ -948,7 +948,7 @@ const uint8 CYCODE *USBUART_1_GetInterfaceClassTablePtr(void)
     {
         pInterfaceClass = (const uint8 CYCODE *) NULL;
     }
-    
+
     return( pInterfaceClass );
 }
 

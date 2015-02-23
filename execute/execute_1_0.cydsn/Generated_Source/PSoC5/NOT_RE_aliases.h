@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: NOT_RE.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -25,7 +25,7 @@
 /***************************************
 *              Constants        
 ***************************************/
-#define NOT_RE_0		NOT_RE__0__PC
+#define NOT_RE_0		(NOT_RE__0__PC)
 
 #endif /* End Pins NOT_RE_ALIASES_H */
 

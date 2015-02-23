@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: USBUART_1_audio.c
-* Version 2.70
+* Version 2.80
 *
 * Description:
 *  USB AUDIO Class request handler.
@@ -9,7 +9,7 @@
 *  Universal Serial Bus Device Class Definition for Audio Devices Release 1.0
 *
 ********************************************************************************
-* Copyright 2008-2013, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -95,12 +95,12 @@ uint8 USBUART_1_DispatchAUDIOClassRqst(void)
 {
     uint8 requestHandled = USBUART_1_FALSE;
     uint8 bmRequestType  = CY_GET_REG8(USBUART_1_bmRequestType);
-    
+
     #if defined(USBUART_1_ENABLE_AUDIO_STREAMING)
         uint8 epNumber;
         epNumber = CY_GET_REG8(USBUART_1_wIndexLo) & USBUART_1_DIR_UNUSED;
     #endif /*  USBUART_1_ENABLE_AUDIO_STREAMING */
-    
+
 
     if ((bmRequestType & USBUART_1_RQST_DIR_MASK) == USBUART_1_RQST_DIR_D2H)
     {
@@ -214,7 +214,7 @@ uint8 USBUART_1_DispatchAUDIOClassRqst(void)
         {   /* USBUART_1_RQST_RCPT_OTHER */
         }
     }
-    else if ((bmRequestType & USBUART_1_RQST_DIR_MASK) == USBUART_1_RQST_DIR_H2D)
+    else
     {
         /* Control Write */
         if((bmRequestType & USBUART_1_RQST_RCPT_MASK) == USBUART_1_RQST_RCPT_EP)
@@ -288,13 +288,9 @@ uint8 USBUART_1_DispatchAUDIOClassRqst(void)
             }
         }
         else
-        {   
+        {
             /* USBUART_1_RQST_RCPT_OTHER */
         }
-    }
-    else
-    {   
-        /* requestHandled is initialized as FALSE by default */
     }
 
     return(requestHandled);

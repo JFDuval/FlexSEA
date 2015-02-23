@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: PWML1.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -25,7 +25,7 @@
 /***************************************
 *              Constants        
 ***************************************/
-#define PWML1_0		PWML1__0__PC
+#define PWML1_0		(PWML1__0__PC)
 
 #endif /* End Pins PWML1_ALIASES_H */
 

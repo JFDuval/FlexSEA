@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: CyFlash.c
-* Version 4.11
+* Version 4.20
 *
 *  Description:
 *   Provides an API for the FLASH/EEPROM.
@@ -21,6 +21,9 @@
 
 #include "CyFlash.h"
 
+/*  The number of EEPROM arrays */
+#define CY_FLASH_EEPROM_NUMBER_ARRAYS                 (1u)
+
 
 /*******************************************************************************
 * Holds the die temperature, updated by CySetTemp(). Used for flash writing.
@@ -35,6 +38,7 @@ uint8 dieTemperature[CY_FLASH_DIE_TEMP_DATA_SIZE];
 
 
 static cystatus CySetTempInt(void);
+static cystatus CyFlashGetSpcAlgorithm(void);
 
 
 /*******************************************************************************
@@ -53,13 +57,48 @@ static cystatus CySetTempInt(void);
 *******************************************************************************/
 void CyFlash_Start(void) 
 {
-    /* Active Power Mode */
-    *CY_FLASH_PM_ACT_EEFLASH_PTR |= CY_FLASH_PM_FLASH_MASK;
+    uint8 interruptState;
 
-    /* Standby Power Mode */
-    *CY_FLASH_PM_ALTACT_EEFLASH_PTR |= CY_FLASH_PM_FLASH_MASK;
+    interruptState = CyEnterCriticalSection();
 
-    CyDelayUs(CY_FLASH_EE_STARTUP_DELAY);
+
+    /***************************************************************************
+    * Enable SPC clock. This also internally enables the 36MHz IMO, since this
+    * is required for the SPC to function.
+    ***************************************************************************/
+    CY_FLASH_PM_ACT_CFG0_REG    |= CY_FLASH_PM_ACT_CFG0_EN_CLK_SPC;
+    CY_FLASH_PM_ALTACT_CFG0_REG |= CY_FLASH_PM_ALTACT_CFG0_EN_CLK_SPC;
+
+
+    /***************************************************************************
+    * The wake count defines the number of Bus Clock cycles it takes for the
+    * flash or eeprom to wake up from a low power mode independent of the chip
+    * power mode. Wake up time for these blocks is 5 us.
+    * The granularity of this register is 2 Bus Clock cycles, so a value of 0x1E
+    * (30d) defines the wake up time as 60 cycles of the Bus Clock.
+    * This register needs to be written with a value dependent on the Bus Clock
+    * frequency so that the duration of the cycles is equal to or greater than
+    * the 5 us delay required.
+    ***************************************************************************/
+    CY_FLASH_SPC_FM_EE_WAKE_CNT_REG = CY_FLASH_SPC_FM_EE_WAKE_CNT_80MHZ;
+
+
+    /***************************************************************************
+    * Enable flash. Active flash macros consume current, but re-enabling a
+    * disabled flash macro takes 5us. If the CPU attempts to fetch out of the
+    * macro during that time, it will be stalled. This bit allows the flash to
+    * be enabled even if the CPU is disabled, which allows a quicker return to
+    * code execution.
+    ***************************************************************************/
+    CY_FLASH_PM_ACT_CFG12_REG    |= CY_FLASH_PM_ACT_CFG12_EN_FM;
+    CY_FLASH_PM_ALTACT_CFG12_REG |= CY_FLASH_PM_ALTACT_CFG12_EN_FM;
+
+    while(0u == (CY_FLASH_SPC_FM_EE_CR_REG & CY_FLASH_EE_EE_AWAKE))
+    {
+        /* Non-zero status denotes that the EEPROM/Flash is awake & powered. */
+    }
+
+    CyExitCriticalSection(interruptState);
 }
 
 
@@ -83,11 +122,14 @@ void CyFlash_Start(void)
 *******************************************************************************/
 void CyFlash_Stop(void) 
 {
-    /* Active Power Mode */
-    *CY_FLASH_PM_ACT_EEFLASH_PTR &= ((uint8)(~CY_FLASH_PM_FLASH_MASK));
+    uint8 interruptState;
 
-    /* Standby Power Mode */
-    *CY_FLASH_PM_ALTACT_EEFLASH_PTR &= ((uint8)(~CY_FLASH_PM_FLASH_MASK));
+    interruptState = CyEnterCriticalSection();
+
+    CY_FLASH_PM_ACT_CFG12_REG    &= ((uint8)(~CY_FLASH_PM_ACT_CFG12_EN_FM));
+    CY_FLASH_PM_ALTACT_CFG12_REG &= ((uint8)(~CY_FLASH_PM_ALTACT_CFG12_EN_FM));
+
+    CyExitCriticalSection(interruptState);
 }
 
 
@@ -154,6 +196,58 @@ static cystatus CySetTempInt(void)
 
 
 /*******************************************************************************
+* Function Name: CyFlashGetSpcAlgorithm
+********************************************************************************
+*
+* Summary:
+*  Sends a command to the SPC to download code into RAM.
+*
+* Parameters:
+*  None
+*
+* Return:
+*  status:
+*   CYRET_SUCCESS - if successful
+*   CYRET_LOCKED  - if Flash writing already in use
+*   CYRET_UNKNOWN - if there was an SPC error
+*
+*******************************************************************************/
+static cystatus CyFlashGetSpcAlgorithm(void) 
+{
+    cystatus status;
+
+    /* Make sure SPC is powered */
+    CySpcStart();
+
+    if(CySpcLock() == CYRET_SUCCESS)
+    {
+        status = CySpcGetAlgorithm();
+
+        if(CYRET_STARTED == status)
+        {
+            while(CY_SPC_BUSY)
+            {
+                /* Spin until idle. */
+                CyDelayUs(1u);
+            }
+
+            if(CY_SPC_STATUS_SUCCESS == CY_SPC_READ_STATUS)
+            {
+                status = CYRET_SUCCESS;
+            }
+        }
+        CySpcUnlock();
+    }
+    else
+    {
+        status = CYRET_LOCKED;
+    }
+
+    return (status);
+}
+
+
+/*******************************************************************************
 * Function Name: CySetTemp
 ********************************************************************************
 *
@@ -178,7 +272,7 @@ static cystatus CySetTempInt(void)
 *******************************************************************************/
 cystatus CySetTemp(void) 
 {
-    cystatus status = CySetTempInt();
+    cystatus status = CyFlashGetSpcAlgorithm();
 
     if(status == CYRET_SUCCESS)
     {
@@ -244,120 +338,48 @@ cystatus CySetFlashEEBuffer(uint8 * buffer)
 }
 
 
-#if(CYDEV_ECC_ENABLE == 1)
+/*******************************************************************************
+* Function Name: CyWriteRowData
+********************************************************************************
+*
+* Summary:
+*  Sends a command to the SPC to load and program a row of data in
+*  Flash or EEPROM.
+*
+* Parameters:
+*  arrayID:    ID of the array to write.
+*   The type of write, Flash or EEPROM, is determined from the array ID.
+*   The arrays in the part are sequential starting at the first ID for the
+*   specific memory type. The array ID for the Flash memory lasts from 0x00 to
+*   0x3F and for the EEPROM memory it lasts from 0x40 to 0x7F.
+*  rowAddress: rowAddress of flash row to program.
+*  rowData:    Array of bytes to write.
+*
+* Return:
+*  status:
+*   CYRET_SUCCESS if successful.
+*   CYRET_LOCKED if the SPC is already in use.
+*   CYRET_CANCELED if command not accepted
+*   CYRET_UNKNOWN if there was an SPC error.
+*
+*******************************************************************************/
+cystatus CyWriteRowData(uint8 arrayId, uint16 rowAddress, const uint8 * rowData) 
+{
+    uint16 rowSize;
+    cystatus status;
 
-    /*******************************************************************************
-    * Function Name: CyWriteRowData
-    ********************************************************************************
-    *
-    * Summary:
-    *  Sends a command to the SPC to load and program a row of data in
-    *  Flash or EEPROM.
-    *
-    * Parameters:
-    *  arrayID:    ID of the array to write.
-    *   The type of write, Flash or EEPROM, is determined from the array ID.
-    *   The arrays in the part are sequential starting at the first ID for the
-    *   specific memory type. The array ID for the Flash memory lasts from 0x00 to
-    *   0x3F and for the EEPROM memory it lasts from 0x40 to 0x7F.
-    *  rowAddress: rowAddress of flash row to program.
-    *  rowData:    Array of bytes to write.
-    *
-    * Return:
-    *  status:
-    *   CYRET_SUCCESS if successful.
-    *   CYRET_LOCKED if the SPC is already in use.
-    *   CYRET_CANCELED if command not accepted
-    *   CYRET_UNKNOWN if there was an SPC error.
-    *
-    *******************************************************************************/
-    cystatus CyWriteRowData(uint8 arrayId, uint16 rowAddress, const uint8 * rowData) 
-    {
-        uint16 rowSize;
-        cystatus status;
+    rowSize = (arrayId > CY_SPC_LAST_FLASH_ARRAYID) ? CYDEV_EEPROM_ROW_SIZE : CYDEV_FLS_ROW_SIZE;
+    status = CyWriteRowFull(arrayId, rowAddress, rowData, rowSize);
 
-        rowSize = (arrayId > CY_SPC_LAST_FLASH_ARRAYID) ? CYDEV_EEPROM_ROW_SIZE : CYDEV_FLS_ROW_SIZE;
-        status = CyWriteRowFull(arrayId, rowAddress, rowData, rowSize);
-
-        return(status);
-    }
-
-#else
-
-    /*******************************************************************************
-    * Function Name: CyWriteRowData
-    ********************************************************************************
-    *
-    * Summary:
-    *   Sends a command to the SPC to load and program a row of data in
-    *   Flash or EEPROM.
-    *
-    * Parameters:
-    *  arrayID      : ID of the array to write.
-    *   The type of write, Flash or EEPROM, is determined from the array ID.
-    *   The arrays in the part are sequential starting at the first ID for the
-    *   specific memory type. The array ID for the Flash memory lasts from 0x00 to
-    *   0x3F and for the EEPROM memory it lasts from 0x40 to 0x7F.
-    *  rowAddress   : rowAddress of flash row to program.
-    *  rowData      : Array of bytes to write.
-    *
-    * Return:
-    *  status:
-    *   CYRET_SUCCESS if successful.
-    *   CYRET_LOCKED if the SPC is already in use.
-    *   CYRET_CANCELED if command not accepted
-    *   CYRET_UNKNOWN if there was an SPC error.
-    *
-    *******************************************************************************/
-    cystatus CyWriteRowData(uint8 arrayId, uint16 rowAddress, const uint8 * rowData) 
-    {
-        uint8 i;
-        uint32 offset;
-        uint16 rowSize;
-        cystatus status;
-
-        /* Check whether rowBuffer pointer has been initialized by CySetFlashEEBuffer() */
-        if(NULL != rowBuffer)
-        {
-            if(arrayId > CY_SPC_LAST_FLASH_ARRAYID)
-            {
-                rowSize = CYDEV_EEPROM_ROW_SIZE;
-            }
-            else
-            {
-                rowSize = CYDEV_FLS_ROW_SIZE + CYDEV_ECC_ROW_SIZE;
-
-                /* Save ECC area. */
-                offset = CYDEV_ECC_BASE +
-                        ((uint32)arrayId * CYDEV_ECC_SECTOR_SIZE) +
-                        ((uint32)rowAddress * CYDEV_ECC_ROW_SIZE);
-
-                for(i = 0u; i < CYDEV_ECC_ROW_SIZE; i++)
-                {
-                    *(rowBuffer + CYDEV_FLS_ROW_SIZE + i) = CY_GET_XTND_REG8((void CYFAR *)(offset + i));
-                }
-            }
-
-            /* Copy rowdata to temporary buffer. */
-        #if(CY_PSOC3)
-            (void) memcpy((void *) rowBuffer, (void *)((uint32) rowData), (int16) CYDEV_FLS_ROW_SIZE);
-        #else
-            (void) memcpy((void *) rowBuffer, (const void *) rowData, CYDEV_FLS_ROW_SIZE);
-        #endif  /* (CY_PSOC3) */
-
-            status = CyWriteRowFull(arrayId, rowAddress, rowBuffer, rowSize);
-        }
-        else
-        {
-            status = CYRET_UNKNOWN;
-        }
-
-        return(status);
-    }
-
-#endif /* (CYDEV_ECC_ENABLE == 0u) */
+    return(status);
+}
 
 
+/*******************************************************************
+* If "Enable Error Correcting Code (ECC)" and "Store Configuration
+* Data in ECC" DWR options are disabled, ECC section is available
+* for user data.
+*******************************************************************/
 #if ((CYDEV_ECC_ENABLE == 0u) && (CYDEV_CONFIGURATION_ECC == 0u))
 
     /*******************************************************************************
@@ -387,42 +409,9 @@ cystatus CySetFlashEEBuffer(uint8 * buffer)
     cystatus CyWriteRowConfig(uint8 arrayId, uint16 rowAddress, const uint8 * rowECC)\
     
     {
-        uint32 offset;
-        uint16 i;
         cystatus status;
 
-        /* Check whether rowBuffer pointer has been initialized by CySetFlashEEBuffer() */
-        if(NULL != rowBuffer)
-        {
-            /* Read existing flash data. */
-            offset = ((uint32)arrayId * CYDEV_FLS_SECTOR_SIZE) +
-                     ((uint32)rowAddress * CYDEV_FLS_ROW_SIZE);
-
-            #if (CYDEV_FLS_BASE != 0u)
-                offset += CYDEV_FLS_BASE;
-            #endif  /* (CYDEV_FLS_BASE != 0u) */
-
-            for (i = 0u; i < CYDEV_FLS_ROW_SIZE; i++)
-            {
-                rowBuffer[i] = CY_GET_XTND_REG8((void CYFAR *)(offset + i));
-            }
-
-            #if(CY_PSOC3)
-                (void) memcpy((void *)&rowBuffer[CYDEV_FLS_ROW_SIZE],
-                              (void *)(uint32)rowECC,
-                              (int16)CYDEV_ECC_ROW_SIZE);
-            #else
-                (void) memcpy((void *)&rowBuffer[CYDEV_FLS_ROW_SIZE],
-                              (const void *)rowECC,
-                              CYDEV_ECC_ROW_SIZE);
-            #endif  /* (CY_PSOC3) */
-
-            status = CyWriteRowFull(arrayId, rowAddress, rowBuffer, CYDEV_FLS_ROW_SIZE + CYDEV_ECC_ROW_SIZE);
-        }
-        else
-        {
-            status = CYRET_UNKNOWN;
-        }
+        status = CyWriteRowFull(arrayId, rowAddress, rowECC, CYDEV_ECC_ROW_SIZE);
 
         return (status);
     }
@@ -454,63 +443,107 @@ cystatus CySetFlashEEBuffer(uint8 * buffer)
 cystatus CyWriteRowFull(uint8 arrayId, uint16 rowNumber, const uint8* rowData, uint16 rowSize) \
         
 {
-    cystatus status;
+    cystatus status = CYRET_SUCCESS;
 
-    if(CySpcLock() == CYRET_SUCCESS)
+    if((arrayId <=  CY_SPC_LAST_FLASH_ARRAYID) && (arrayId > (CY_FLASH_NUMBER_ARRAYS  + CY_SPC_FIRST_FLASH_ARRAYID)))
     {
-        /* Load row data into SPC internal latch */
-        status = CySpcLoadRow(arrayId, rowData, rowSize);
+        status = CYRET_BAD_PARAM;
+    }
 
-        if(CYRET_STARTED == status)
+    if(arrayId > CY_SPC_LAST_EE_ARRAYID)
+    {
+        status = CYRET_BAD_PARAM;
+    }
+
+    if((arrayId >= CY_SPC_FIRST_EE_ARRAYID) && (arrayId > (CY_FLASH_EEPROM_NUMBER_ARRAYS + CY_SPC_FIRST_EE_ARRAYID)))
+    {
+        status = CYRET_BAD_PARAM;
+    }
+
+    if(arrayId <=  CY_SPC_LAST_FLASH_ARRAYID)
+    {
+        /* Flash */
+        if(rowNumber > (CY_FLASH_NUMBER_ROWS/CY_FLASH_NUMBER_ARRAYS))
         {
-            while(CY_SPC_BUSY)
-            {
-                /* Wait for SPC to finish and get SPC status */
-                CyDelayUs(1u);
-            }
-
-            /* Hide SPC status */
-            if(CY_SPC_STATUS_SUCCESS == CY_SPC_READ_STATUS)
-            {
-                status = CYRET_SUCCESS;
-            }
-            else
-            {
-                status = CYRET_UNKNOWN;
-            }
-
-            if(CYRET_SUCCESS == status)
-            {
-                /* Erase and program flash with data from SPC interval latch */
-                status = CySpcWriteRow(arrayId, rowNumber, dieTemperature[0u], dieTemperature[1u]);
-
-                if(CYRET_STARTED == status)
-                {
-                    while(CY_SPC_BUSY)
-                    {
-                        /* Wait for SPC to finish and get SPC status */
-                        CyDelayUs(1u);
-                    }
-
-                    /* Hide SPC status */
-                    if(CY_SPC_STATUS_SUCCESS == CY_SPC_READ_STATUS)
-                    {
-                        status = CYRET_SUCCESS;
-                    }
-                    else
-                    {
-                        status = CYRET_UNKNOWN;
-                    }
-                }
-            }
-
+            status = CYRET_BAD_PARAM;
         }
-
-        CySpcUnlock();
     }
     else
     {
-        status = CYRET_LOCKED;
+        /* EEPROM */
+        if(rowNumber > (CY_EEPROM_NUMBER_ROWS/CY_FLASH_EEPROM_NUMBER_ARRAYS))
+        {
+            status = CYRET_BAD_PARAM;
+        }
+
+        if(CY_EEPROM_SIZEOF_ROW != rowSize)
+        {
+            status = CYRET_BAD_PARAM;
+        }
+    }
+
+    if(rowData == NULL)
+    {
+        status = CYRET_BAD_PARAM;
+    }
+
+
+    if(status == CYRET_SUCCESS)
+    {
+        if(CySpcLock() == CYRET_SUCCESS)
+        {
+            /* Load row data into SPC internal latch */
+            status = CySpcLoadRowFull(arrayId, rowNumber, rowData, rowSize);
+
+            if(CYRET_STARTED == status)
+            {
+                while(CY_SPC_BUSY)
+                {
+                    /* Wait for SPC to finish and get SPC status */
+                    CyDelayUs(1u);
+                }
+
+                /* Hide SPC status */
+                if(CY_SPC_STATUS_SUCCESS == CY_SPC_READ_STATUS)
+                {
+                    status = CYRET_SUCCESS;
+                }
+                else
+                {
+                    status = CYRET_UNKNOWN;
+                }
+
+                if(CYRET_SUCCESS == status)
+                {
+                    /* Erase and program flash with data from SPC interval latch */
+                    status = CySpcWriteRow(arrayId, rowNumber, dieTemperature[0u], dieTemperature[1u]);
+
+                    if(CYRET_STARTED == status)
+                    {
+                        while(CY_SPC_BUSY)
+                        {
+                            /* Wait for SPC to finish and get SPC status */
+                            CyDelayUs(1u);
+                        }
+
+                        /* Hide SPC status */
+                        if(CY_SPC_STATUS_SUCCESS == CY_SPC_READ_STATUS)
+                        {
+                            status = CYRET_SUCCESS;
+                        }
+                        else
+                        {
+                            status = CYRET_UNKNOWN;
+                        }
+                    }
+                }
+            }
+            CySpcUnlock();
+        }   /* if(CySpcLock() == CYRET_SUCCESS) */
+        else
+        {
+            status = CYRET_LOCKED;
+        }
     }
 
     return(status);
@@ -548,51 +581,38 @@ void CyFlash_SetWaitCycles(uint8 freq)
     * outlined in clock cycles.
     ***************************************************************************/
 
-    #if (CY_PSOC3)
-
-        if (freq <= 22u)
-        {
-            *CY_FLASH_CONTROL_PTR = ((*CY_FLASH_CONTROL_PTR & ((uint8)(~CY_FLASH_CYCLES_MASK))) |
-                ((uint8)(CY_FLASH_LESSER_OR_EQUAL_22MHz << CY_FLASH_CYCLES_MASK_SHIFT)));
-        }
-        else if (freq <= 44u)
-        {
-            *CY_FLASH_CONTROL_PTR = ((*CY_FLASH_CONTROL_PTR & ((uint8)(~CY_FLASH_CYCLES_MASK))) |
-                ((uint8)(CY_FLASH_LESSER_OR_EQUAL_44MHz << CY_FLASH_CYCLES_MASK_SHIFT)));
-        }
-        else
-        {
-            *CY_FLASH_CONTROL_PTR = ((*CY_FLASH_CONTROL_PTR & ((uint8)(~CY_FLASH_CYCLES_MASK))) |
-                ((uint8)(CY_FLASH_GREATER_44MHz << CY_FLASH_CYCLES_MASK_SHIFT)));
-        }
-
-    #endif  /* (CY_PSOC3) */
-
-
-    #if (CY_PSOC5)
-
-        if (freq <= 16u)
-        {
-            *CY_FLASH_CONTROL_PTR = ((*CY_FLASH_CONTROL_PTR & ((uint8)(~CY_FLASH_CYCLES_MASK))) |
-                ((uint8)(CY_FLASH_LESSER_OR_EQUAL_16MHz << CY_FLASH_CYCLES_MASK_SHIFT)));
-        }
-        else if (freq <= 33u)
-        {
-            *CY_FLASH_CONTROL_PTR = ((*CY_FLASH_CONTROL_PTR & ((uint8)(~CY_FLASH_CYCLES_MASK))) |
-                ((uint8)(CY_FLASH_LESSER_OR_EQUAL_33MHz << CY_FLASH_CYCLES_MASK_SHIFT)));
-        }
-        else if (freq <= 50u)
-        {
-            *CY_FLASH_CONTROL_PTR = ((*CY_FLASH_CONTROL_PTR & ((uint8)(~CY_FLASH_CYCLES_MASK))) |
-                ((uint8)(CY_FLASH_LESSER_OR_EQUAL_50MHz << CY_FLASH_CYCLES_MASK_SHIFT)));
-        }
-        else
-        {
-            *CY_FLASH_CONTROL_PTR = ((*CY_FLASH_CONTROL_PTR & ((uint8)(~CY_FLASH_CYCLES_MASK))) |
-                ((uint8)(CY_FLASH_GREATER_51MHz << CY_FLASH_CYCLES_MASK_SHIFT)));
-        }
-
-    #endif  /* (CY_PSOC5) */
+    if (freq < CY_FLASH_CACHE_WS_1_FREQ_MAX)
+    {
+        CY_FLASH_CONTROL_REG = (CY_FLASH_CONTROL_REG & (uint8)(~CY_FLASH_CACHE_WS_VALUE_MASK)) |
+                                    CY_FLASH_CACHE_WS_1_VALUE_MASK;
+    }
+    else if (freq < CY_FLASH_CACHE_WS_2_FREQ_MAX)
+    {
+        CY_FLASH_CONTROL_REG = (CY_FLASH_CONTROL_REG & (uint8)(~CY_FLASH_CACHE_WS_VALUE_MASK)) |
+                                    CY_FLASH_CACHE_WS_2_VALUE_MASK;
+    }
+    else if (freq < CY_FLASH_CACHE_WS_3_FREQ_MAX)
+    {
+        CY_FLASH_CONTROL_REG = (CY_FLASH_CONTROL_REG & (uint8)(~CY_FLASH_CACHE_WS_VALUE_MASK)) |
+                                    CY_FLASH_CACHE_WS_3_VALUE_MASK;
+    }
+#if (CY_PSOC5)
+    else if (freq < CY_FLASH_CACHE_WS_4_FREQ_MAX)
+    {
+        CY_FLASH_CONTROL_REG = (CY_FLASH_CONTROL_REG & (uint8)(~CY_FLASH_CACHE_WS_VALUE_MASK)) |
+                                    CY_FLASH_CACHE_WS_4_VALUE_MASK;
+    }
+    else if (freq <= CY_FLASH_CACHE_WS_5_FREQ_MAX)
+    {
+        CY_FLASH_CONTROL_REG = (CY_FLASH_CONTROL_REG & (uint8)(~CY_FLASH_CACHE_WS_VALUE_MASK)) |
+                                    CY_FLASH_CACHE_WS_5_VALUE_MASK;
+    }
+#endif  /* (CY_PSOC5) */
+    else
+    {
+        /* Halt CPU in debug mode if frequency is invalid */
+        CYASSERT(0u != 0u);
+    }
 
     /* Restore global interrupt enable state */
     CyExitCriticalSection(interruptState);
@@ -615,11 +635,45 @@ void CyFlash_SetWaitCycles(uint8 freq)
 *******************************************************************************/
 void CyEEPROM_Start(void) 
 {
-    /* Active Power Mode */
-    *CY_FLASH_PM_ACT_EEFLASH_PTR |= CY_FLASH_PM_EE_MASK;
+    uint8 interruptState;
 
-    /* Standby Power Mode */
-    *CY_FLASH_PM_ALTACT_EEFLASH_PTR |= CY_FLASH_PM_EE_MASK;
+    interruptState = CyEnterCriticalSection();
+
+
+    /***************************************************************************
+    * Enable SPC clock. This also internally enables the 36MHz IMO, since this
+    * is required for the SPC to function.
+    ***************************************************************************/
+    CY_FLASH_PM_ACT_CFG0_REG    |= CY_FLASH_PM_ACT_CFG0_EN_CLK_SPC;
+    CY_FLASH_PM_ALTACT_CFG0_REG |= CY_FLASH_PM_ALTACT_CFG0_EN_CLK_SPC;
+
+
+    /***************************************************************************
+    * The wake count defines the number of Bus Clock cycles it takes for the
+    * flash or EEPROM to wake up from a low power mode independent of the chip
+    * power mode. Wake up time for these blocks is 5 us.
+    * The granularity of this register is 2 Bus Clock cycles, so a value of 0x1E
+    * (30d) defines the wake up time as 60 cycles of the Bus Clock.
+    * This register needs to be written with a value dependent on the Bus Clock
+    * frequency so that the duration of the cycles is equal to or greater than
+    * the 5 us delay required.
+    ***************************************************************************/
+    CY_FLASH_SPC_FM_EE_WAKE_CNT_REG = CY_FLASH_SPC_FM_EE_WAKE_CNT_80MHZ;
+
+
+    /***************************************************************************
+    * Enable EEPROM. Re-enabling an EEPROM macro takes 5us. During this time,
+    * the EE will not acknowledge a PHUB request.
+    ***************************************************************************/
+    CY_FLASH_PM_ACT_CFG12_REG    |= CY_FLASH_PM_ACT_CFG12_EN_EE;
+    CY_FLASH_PM_ALTACT_CFG12_REG |= CY_FLASH_PM_ALTACT_CFG12_EN_EE;
+
+    while(0u == (CY_FLASH_SPC_FM_EE_CR_REG & CY_FLASH_EE_EE_AWAKE))
+    {
+        /* Non-zero status denotes that the EEPROM/Flash is awake & powered. */
+    }
+
+    CyExitCriticalSection(interruptState);
 }
 
 
@@ -639,11 +693,14 @@ void CyEEPROM_Start(void)
 *******************************************************************************/
 void CyEEPROM_Stop (void) 
 {
-    /* Active Power Mode */
-    *CY_FLASH_PM_ACT_EEFLASH_PTR &= ((uint8)(~CY_FLASH_PM_EE_MASK));
+    uint8 interruptState;
 
-    /* Standby Power Mode */
-    *CY_FLASH_PM_ALTACT_EEFLASH_PTR &= ((uint8)(~CY_FLASH_PM_EE_MASK));
+    interruptState = CyEnterCriticalSection();
+
+    CY_FLASH_PM_ACT_CFG12_REG    &= ((uint8)(~CY_FLASH_PM_ACT_CFG12_EN_EE));
+    CY_FLASH_PM_ALTACT_CFG12_REG &= ((uint8)(~CY_FLASH_PM_ALTACT_CFG12_EN_EE));
+
+    CyExitCriticalSection(interruptState);
 }
 
 
@@ -668,7 +725,7 @@ void CyEEPROM_ReadReserve(void)
 
     while (0u == (CY_FLASH_EE_SCR_REG & CY_FLASH_EE_SCR_AHB_EE_ACK))
     {
-        /* Wait for acknowledgement from PHUB */
+        /* Wait for acknowledgment from PHUB */
     }
 }
 

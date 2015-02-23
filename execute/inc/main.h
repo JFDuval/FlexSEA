@@ -35,6 +35,7 @@
 //****************************************************************************
 
 int main(void);
+void get_uart_data(void);
 
 //****************************************************************************
 // Definition(s):
@@ -49,7 +50,7 @@ int main(void);
 //#define USE_DIETEMP
 #define USE_I2C_INT
 //#define USE_I2C_EXT
-//#define USE_IMU			//Requires USE_I2C_INT
+#define USE_IMU			//Requires USE_I2C_INT
 #define USE_STRAIN		//Requires USE_I2C_INT
 
 //Trapez test parameters

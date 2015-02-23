@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: MUXO.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -25,7 +25,7 @@
 /***************************************
 *              Constants        
 ***************************************/
-#define MUXO_0		MUXO__0__PC
+#define MUXO_0		(MUXO__0__PC)
 
 #endif /* End Pins MUXO_ALIASES_H */
 

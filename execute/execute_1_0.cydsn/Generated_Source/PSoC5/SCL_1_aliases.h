@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: SCL_1.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -25,7 +25,7 @@
 /***************************************
 *              Constants        
 ***************************************/
-#define SCL_1_0		SCL_1__0__PC
+#define SCL_1_0		(SCL_1__0__PC)
 
 #endif /* End Pins SCL_1_ALIASES_H */
 

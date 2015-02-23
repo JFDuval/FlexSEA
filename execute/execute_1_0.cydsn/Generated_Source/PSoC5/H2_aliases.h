@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: H2.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -25,7 +25,7 @@
 /***************************************
 *              Constants        
 ***************************************/
-#define H2_0		H2__0__PC
+#define H2_0		(H2__0__PC)
 
 #endif /* End Pins H2_ALIASES_H */
 

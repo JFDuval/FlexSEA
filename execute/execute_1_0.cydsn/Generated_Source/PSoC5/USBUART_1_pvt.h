@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: .h
-* Version 2.70
+* Version 2.80
 *
 * Description:
 *  This private file provides constants and parameter values for the
@@ -10,7 +10,7 @@
 * Note:
 *
 ********************************************************************************
-* Copyright 2013, Cypress Semiconductor Corporation. All rights reserved.
+* Copyright 2013-2014, Cypress Semiconductor Corporation. All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -59,6 +59,7 @@ extern volatile T_USBUART_1_TD USBUART_1_currentTD;
 #endif /*  USBUART_1_EP_MM */
 #if((USBUART_1_EP_MM == USBUART_1__EP_DMAAUTO) && (USBUART_1_EP_DMA_AUTO_OPT == 0u))
     extern uint8 USBUART_1_DmaNextTd[USBUART_1_MAX_EP];
+    extern const uint8 USBUART_1_epX_TD_TERMOUT_EN[USBUART_1_MAX_EP];
     extern volatile uint16 USBUART_1_inLength[USBUART_1_MAX_EP];
     extern const uint8 *USBUART_1_inDataPointer[USBUART_1_MAX_EP];
     extern volatile uint8 USBUART_1_inBufFull[USBUART_1_MAX_EP];
@@ -118,7 +119,7 @@ void USBUART_1_RestoreConfig(void) ;
 #if ((USBUART_1_EP_MM == USBUART_1__EP_DMAAUTO) && (USBUART_1_EP_DMA_AUTO_OPT == 0u))
     void USBUART_1_LoadNextInEP(uint8 epNumber, uint8 mode) ;
 #endif /* (USBUART_1_EP_MM == USBUART_1__EP_DMAAUTO) && (USBUART_1_EP_DMA_AUTO_OPT == 0u) */
-    
+
 #if defined(USBUART_1_ENABLE_IDSN_STRING)
     void USBUART_1_ReadDieID(uint8 descr[]) ;
 #endif /* USBUART_1_ENABLE_IDSN_STRING */

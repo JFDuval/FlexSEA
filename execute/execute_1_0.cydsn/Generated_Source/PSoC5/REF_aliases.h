@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: REF.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -25,7 +25,7 @@
 /***************************************
 *              Constants        
 ***************************************/
-#define REF_0		REF__0__PC
+#define REF_0		(REF__0__PC)
 
 #endif /* End Pins REF_ALIASES_H */
 

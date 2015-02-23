@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: Timer_1.h
-* Version 2.60
+* Version 2.70
 *
 *  Description:
 *     Contains the function prototypes and constants available to the timer
@@ -28,7 +28,7 @@ extern uint8 Timer_1_initVar;
 /* Check to see if required defines such as CY_PSOC5LP are available */
 /* They are defined starting with cy_boot v3.0 */
 #if !defined (CY_PSOC5LP)
-    #error Component Timer_v2_60 requires cy_boot v3.0 or later
+    #error Component Timer_v2_70 requires cy_boot v3.0 or later
 #endif /* (CY_ PSOC5LP) */
 
 

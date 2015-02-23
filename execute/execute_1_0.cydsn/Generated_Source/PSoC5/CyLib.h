@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: CyLib.h
-* Version 4.11
+* Version 4.20
 *
 * Description:
 *  Provides the function definitions for the system, clocking, interrupts and
@@ -163,6 +163,30 @@ uint8 CyVdRealTimeStatus(void) ;
 
 void CySetScPumps(uint8 enable) ;
 
+#if(CY_PSOC5)
+    /* Default interrupt handler */
+    CY_ISR_PROTO(IntDefaultHandler);
+#endif  /* (CY_PSOC5) */
+
+#if(CY_PSOC5)
+    /* System tick timer APIs */
+    typedef void (*cySysTickCallback)(void);
+
+    void CySysTickStart(void);
+    void CySysTickInit(void);
+    void CySysTickEnable(void);
+    void CySysTickStop(void);
+    void CySysTickEnableInterrupt(void);
+    void CySysTickDisableInterrupt(void);
+    void CySysTickSetReload(uint32 value);
+    uint32 CySysTickGetReload(void);
+    uint32 CySysTickGetValue(void);
+    cySysTickCallback CySysTickSetCallback(uint32 number, cySysTickCallback function);
+    cySysTickCallback CySysTickGetCallback(uint32 number);
+    void CySysTickSetClockSource(uint32 clockSource);
+    uint32 CySysTickGetCountFlag(void);
+    void CySysTickClear(void);
+#endif  /* (CY_PSOC5) */
 
 /***************************************
 * API Constants
@@ -398,6 +422,23 @@ void CySetScPumps(uint8 enable) ;
 /* CyUSB_PowerOnCheck() */
 #define CY_ACT_USB_ENABLED              (0x01u)
 #define CY_ALT_ACT_USB_ENABLED          (0x01u)
+
+
+#if(CY_PSOC5)
+
+    /***************************************************************************
+    * Instruction Synchronization Barrier flushes the pipeline in the processor,
+    * so that all instructions following the ISB are fetched from cache or
+    * memory, after the instruction has been completed.
+    ***************************************************************************/
+
+    #if defined(__ARMCC_VERSION)
+        #define CY_SYS_ISB       __isb(0x0f)
+    #else   /* ASM for GCC & IAR */
+        #define CY_SYS_ISB       asm volatile ("isb \n")
+    #endif /* (__ARMCC_VERSION) */
+
+#endif /* (CY_PSOC5) */
 
 
 /***************************************
@@ -689,6 +730,19 @@ void CySetScPumps(uint8 enable) ;
     #define CY_CACHE_CONTROL_REG        (* (reg16 *) CYREG_CACHE_CC_CTL )
     #define CY_CACHE_CONTROL_PTR        (  (reg16 *) CYREG_CACHE_CC_CTL )
 
+    /* System tick registers */
+    #define CY_SYS_SYST_CSR_REG         (*(reg32 *) CYREG_NVIC_SYSTICK_CTL)
+    #define CY_SYS_SYST_CSR_PTR         ( (reg32 *) CYREG_NVIC_SYSTICK_CTL)
+
+    #define CY_SYS_SYST_RVR_REG         (*(reg32 *) CYREG_NVIC_SYSTICK_RELOAD)
+    #define CY_SYS_SYST_RVR_PTR         ( (reg32 *) CYREG_NVIC_SYSTICK_RELOAD)
+
+    #define CY_SYS_SYST_CVR_REG         (*(reg32 *) CYREG_NVIC_SYSTICK_CURRENT)
+    #define CY_SYS_SYST_CVR_PTR         ( (reg32 *) CYREG_NVIC_SYSTICK_CURRENT)
+
+    #define CY_SYS_SYST_CALIB_REG       (*(reg32 *) CYREG_NVIC_SYSTICK_CAL)
+    #define CY_SYS_SYST_CALIB_PTR       ( (reg32 *) CYREG_NVIC_SYSTICK_CAL)
+
 #elif (CY_PSOC3)
 
     /* Interrupt Address Vector registers */
@@ -844,6 +898,19 @@ void CySetScPumps(uint8 enable) ;
 #define CY_CACHE_CONTROL_FLUSH          (0x0004u)
 #define CY_LIB_RESET_CR2_RESET          (0x01u)
 
+#if(CY_PSOC5)
+    /* System tick API constants */
+    #define CY_SYS_SYST_CSR_ENABLE              ((uint32) (0x01u))
+    #define CY_SYS_SYST_CSR_ENABLE_INT          ((uint32) (0x02u))
+    #define CY_SYS_SYST_CSR_CLK_SOURCE_SHIFT    ((uint32) (0x02u))
+    #define CY_SYS_SYST_CSR_COUNTFLAG_SHIFT     ((uint32) (16u))
+    #define CY_SYS_SYST_CSR_CLK_SRC_SYSCLK      ((uint32) (1u))
+    #define CY_SYS_SYST_CSR_CLK_SRC_LFCLK       ((uint32) (0u))
+    #define CY_SYS_SYST_RVR_CNT_MASK            ((uint32) (0x00FFFFFFu))
+    #define CY_SYS_SYST_NUM_OF_CALLBACKS        ((uint32) (5u))
+#endif /* (CY_PSOC5) */
+
+
 
 /*******************************************************************************
 * Interrupt API constants
@@ -876,6 +943,20 @@ void CySetScPumps(uint8 enable) ;
 /* Mask to get valid range of system interrupt 0-15 */
 #define CY_INT_SYS_NUMBER_MASK          (0xFu)
 
+#if(CY_PSOC5)
+
+    /* CyIntSetSysVector()/CyIntGetSysVector() - parameter definitions */
+    #define CY_INT_NMI_IRQN                  ( 2u)      /* Non Maskable Interrupt      */
+    #define CY_INT_HARD_FAULT_IRQN           ( 3u)      /* Hard Fault Interrupt        */
+    #define CY_INT_MEM_MANAGE_IRQN           ( 4u)      /* Memory Management Interrupt */
+    #define CY_INT_BUS_FAULT_IRQN            ( 5u)      /* Bus Fault Interrupt         */
+    #define CY_INT_USAGE_FAULT_IRQN          ( 6u)      /* Usage Fault Interrupt       */
+    #define CY_INT_SVCALL_IRQN               (11u)      /* SV Call Interrupt           */
+    #define CY_INT_DEBUG_MONITOR_IRQN        (12u)      /* Debug Monitor Interrupt     */
+    #define CY_INT_PEND_SV_IRQN              (14u)      /* Pend SV Interrupt           */
+    #define CY_INT_SYSTICK_IRQN              (15u)      /* System Tick Interrupt       */
+
+#endif  /* (CY_PSOC5) */
 
 /*******************************************************************************
 * Interrupt Macros

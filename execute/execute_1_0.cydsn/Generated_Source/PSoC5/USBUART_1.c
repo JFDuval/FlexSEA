@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: USBUART_1.c
-* Version 2.70
+* Version 2.80
 *
 * Description:
 *  API for USBFS Component.
@@ -11,7 +11,7 @@
 *  registers are indexed by variations of epNumber - 1.
 *
 ********************************************************************************
-* Copyright 2008-2013, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -403,7 +403,7 @@ void USBUART_1_InitComponent(uint8 device, uint8 mode)
             USBUART_1_ARB_CFG_REG = USBUART_1_ARB_CFG_AUTO_DMA | USBUART_1_ARB_CFG_AUTO_MEM;
             #if(USBUART_1_EP_DMA_AUTO_OPT == 0u)
                 /* Init interrupt which handles verification of the successful DMA transaction */
-                USBUART_1_EP_DMA_Done_isr_StartEx(USBUART_1_EP_DMA_DONE_ISR);
+                USBUART_1_EP_DMA_Done_isr_StartEx(&USBUART_1_EP_DMA_DONE_ISR);
                 USBUART_1_EP17_DMA_Done_SR_InterruptEnable();
                 USBUART_1_EP8_DMA_Done_SR_InterruptEnable();
             #endif /* USBUART_1_EP_DMA_AUTO_OPT == 0u */
@@ -1104,7 +1104,7 @@ void USBUART_1_LoadInEP(uint8 epNumber, const uint8 pData[], uint16 length)
                 (void) CyDmaTdSetConfiguration(USBUART_1_DmaTd[epNumber], length,
                                                USBUART_1_DmaTd[epNumber], TD_TERMIN_EN | TD_INC_SRC_ADR);
                 (void) CyDmaTdSetAddress(USBUART_1_DmaTd[epNumber],  LO16((uint32)pData), LO16((uint32)p));
-            #endif /* USBUART_1_EP_DMA_AUTO_OPT == 0u */    
+            #endif /* USBUART_1_EP_DMA_AUTO_OPT == 0u */
 
                 /* Clear Any potential pending DMA requests before starting the DMA channel to transfer data */
                 (void) CyDmaClearPendingDrq(USBUART_1_DmaChan[epNumber]);

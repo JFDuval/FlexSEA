@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: Q1_A.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -25,7 +25,7 @@
 /***************************************
 *              Constants        
 ***************************************/
-#define Q1_A_0		Q1_A__0__PC
+#define Q1_A_0		(Q1_A__0__PC)
 
 #endif /* End Pins Q1_A_ALIASES_H */
 

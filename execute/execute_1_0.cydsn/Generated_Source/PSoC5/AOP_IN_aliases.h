@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: AOP_IN.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -25,7 +25,7 @@
 /***************************************
 *              Constants        
 ***************************************/
-#define AOP_IN_0		AOP_IN__0__PC
+#define AOP_IN_0		(AOP_IN__0__PC)
 
 #endif /* End Pins AOP_IN_ALIASES_H */
 

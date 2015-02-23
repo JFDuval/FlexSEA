@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: EXP0.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -25,7 +25,7 @@
 /***************************************
 *              Constants        
 ***************************************/
-#define EXP0_0		EXP0__0__PC
+#define EXP0_0		(EXP0__0__PC)
 
 #endif /* End Pins EXP0_ALIASES_H */
 

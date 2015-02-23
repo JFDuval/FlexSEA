@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: CyLib.c
-* Version 4.11
+* Version 4.20
 *
 *  Description:
 *   Provides a system API for the clocking, interrupts and watchdog timer.
@@ -48,6 +48,12 @@ uint32 cydelay_32k_ms   = 32768u * ((BCLK__BUS_CLK__HZ + 999u) / 1000u);
 static uint8 CyUSB_PowerOnCheck(void)  ;
 static void CyIMO_SetTrimValue(uint8 freq) ;
 static void CyBusClk_Internal_SetDivider(uint16 divider);
+
+#if(CY_PSOC5)
+	static cySysTickCallback CySysTickCallbacks[CY_SYS_SYST_NUM_OF_CALLBACKS];
+    static void CySysTickServiceCallbacks(void);
+    uint32 CySysTickInitVar = 0u;
+#endif  /* (CY_PSOC5) */
 
 
 /*******************************************************************************
@@ -2261,28 +2267,11 @@ void CyEnableInts(uint32 mask)
         /* All entries in cache are invalidated on next clock cycle. */
         CY_CACHE_CONTROL_REG |= CY_CACHE_CONTROL_FLUSH;
 
+        /* Once this is executed it's guaranteed the cache has been flushed */
+        (void) CY_CACHE_CONTROL_REG;
 
-        /***********************************************************************
-        * The prefetch unit could/would be filled with the instructions that
-        * succeed the flush. Since a flush is desired then theoretically those
-        * instructions might be considered stale/invalid.
-        ***********************************************************************/
-        CY_NOP;
-        CY_NOP;
-        CY_NOP;
-        CY_NOP;
-        CY_NOP;
-        CY_NOP;
-        CY_NOP;
-        CY_NOP;
-        CY_NOP;
-        CY_NOP;
-        CY_NOP;
-        CY_NOP;
-        CY_NOP;
-        CY_NOP;
-        CY_NOP;
-        CY_NOP;
+        /* Flush the pipeline */
+        CY_SYS_ISB;
 
         /* Restore global interrupt enable state */
         CyExitCriticalSection(interruptState);
@@ -2298,8 +2287,18 @@ void CyEnableInts(uint32 mask)
     *  SysTick, PendSV and others.
     *
     * Parameters:
-    *  number: Interrupt number, valid range [0-15].
-       address: Pointer to an interrupt service routine.
+    *  number: System interrupt number:
+    *    CY_INT_NMI_IRQN                - Non Maskable Interrupt
+    *    CY_INT_HARD_FAULT_IRQN         - Hard Fault Interrupt
+    *    CY_INT_MEM_MANAGE_IRQN         - Memory Management Interrupt
+    *    CY_INT_BUS_FAULT_IRQN          - Bus Fault Interrupt
+    *    CY_INT_USAGE_FAULT_IRQN        - Usage Fault Interrupt
+    *    CY_INT_SVCALL_IRQN             - SV Call Interrupt
+    *    CY_INT_DEBUG_MONITOR_IRQN      - Debug Monitor Interrupt
+    *    CY_INT_PEND_SV_IRQN            - Pend SV Interrupt
+    *    CY_INT_SYSTICK_IRQN            - System Tick Interrupt
+    *
+    *  address: Pointer to an interrupt service routine.
     *
     * Return:
     *   The old ISR vector at this location.
@@ -2332,7 +2331,16 @@ void CyEnableInts(uint32 mask)
     *  SysTick, PendSV and others.
     *
     * Parameters:
-    *   number: The interrupt number, valid range [0-15].
+    *  number: System interrupt number:
+    *    CY_INT_NMI_IRQN                - Non Maskable Interrupt
+    *    CY_INT_HARD_FAULT_IRQN         - Hard Fault Interrupt
+    *    CY_INT_MEMORY_MANAGEMENT_IRQN  - Memory Management Interrupt
+    *    CY_INT_BUS_FAULT_IRQN          - Bus Fault Interrupt
+    *    CY_INT_USAGE_FAULT_IRQN        - Usage Fault Interrupt
+    *    CY_INT_SVCALL_IRQN             - SV Call Interrupt
+    *    CY_INT_DEBUG_MONITOR_IRQN      - Debug Monitor Interrupt
+    *    CY_INT_PEND_SV_IRQN            - Pend SV Interrupt
+    *    CY_INT_SYSTICK_IRQN            - System Tick Interrupt
     *
     * Return:
     *   Address of the ISR in the interrupt vector table.
@@ -2705,6 +2713,393 @@ void CyEnableInts(uint32 mask)
     }
 
 #endif  /* (CYDEV_VARIABLE_VDDA == 1) */
+
+
+#if(CY_PSOC5)
+    /*******************************************************************************
+    * Function Name: CySysTickStart
+    ********************************************************************************
+    *
+    * Summary:
+    *  Configures the SysTick timer to generate interrupt every 1 ms by call to the
+    *  CySysTickInit() function and starts it by calling CySysTickEnable() function.
+    *  Refer to the corresponding function description for the details.
+
+    * Parameters:
+    *  None
+    *
+    * Return:
+    *  None
+    *
+    * Side Effects:
+    *  Clears SysTick count flag if it was set
+    *
+    *******************************************************************************/
+    void CySysTickStart(void)
+    {
+        if (0u == CySysTickInitVar)
+        {
+            CySysTickInit();
+            CySysTickInitVar = 1u;
+        }
+
+        CySysTickEnable();
+    }
+
+
+    /*******************************************************************************
+    * Function Name: CySysTickInit
+    ********************************************************************************
+    *
+    * Summary:
+    *  Initializes the callback addresses with pointers to NULL, associates the
+    *  SysTick system vector with the function that is responsible for calling
+    *  registered callback functions, configures SysTick timer to generate interrupt
+    * every 1 ms.
+    *
+    * Parameters:
+    *  None
+    *
+    * Return:
+    *  None
+    *
+    * Side Effects:
+    *  Clears SysTick count flag if it was set.
+    *
+    *  The 1 ms interrupt interval is configured based on the frequency determined
+    *  by PSoC Creator at build time. If System clock frequency is changed in
+    *  runtime, the CyDelayFreq() with the appropriate parameter should be called.
+    *
+    *******************************************************************************/
+    void CySysTickInit(void)
+    {
+        uint32 i;
+
+        for (i = 0u; i<CY_SYS_SYST_NUM_OF_CALLBACKS; i++)
+        {
+            CySysTickCallbacks[i] = (void *) 0;
+        }
+
+    	(void) CyIntSetSysVector(CY_INT_SYSTICK_IRQN, &CySysTickServiceCallbacks);
+        CySysTickSetClockSource(CY_SYS_SYST_CSR_CLK_SRC_SYSCLK);
+        CySysTickSetReload(cydelay_freq_hz/1000u);
+        CySysTickClear();
+        CyIntEnable(CY_INT_SYSTICK_IRQN);
+    }
+
+
+    /*******************************************************************************
+    * Function Name: CySysTickEnable
+    ********************************************************************************
+    *
+    * Summary:
+    *  Enables the SysTick timer and its interrupt.
+    *
+    * Parameters:
+    *  None
+    *
+    * Return:
+    *  None
+    *
+    * Side Effects:
+    *  Clears SysTick count flag if it was set
+    *
+    *******************************************************************************/
+    void CySysTickEnable(void)
+    {
+        CySysTickEnableInterrupt();
+        CY_SYS_SYST_CSR_REG |= CY_SYS_SYST_CSR_ENABLE;
+    }
+
+
+    /*******************************************************************************
+    * Function Name: CySysTickStop
+    ********************************************************************************
+    *
+    * Summary:
+    *  Stops the system timer (SysTick).
+    *
+    * Parameters:
+    *  None
+    *
+    * Return:
+    *  None
+    *
+    * Side Effects:
+    *  Clears SysTick count flag if it was set
+    *
+    *******************************************************************************/
+    void CySysTickStop(void)
+    {
+        CY_SYS_SYST_CSR_REG &= ((uint32) ~(CY_SYS_SYST_CSR_ENABLE));
+    }
+
+
+    /*******************************************************************************
+    * Function Name: CySysTickEnableInterrupt
+    ********************************************************************************
+    *
+    * Summary:
+    *  Enables the SysTick interrupt.
+    *
+    * Parameters:
+    *  None
+    *
+    * Return:
+    *  None
+    *
+    * Side Effects:
+    *  Clears SysTick count flag if it was set
+    *
+    *******************************************************************************/
+    void CySysTickEnableInterrupt(void)
+    {
+        CY_SYS_SYST_CSR_REG |= CY_SYS_SYST_CSR_ENABLE_INT;
+    }
+
+
+    /*******************************************************************************
+    * Function Name: CySysTickDisableInterrupt
+    ********************************************************************************
+    *
+    * Summary:
+    *  Disables the SysTick interrupt.
+    *
+    * Parameters:
+    *  None
+    *
+    * Return:
+    *  None
+    *
+    * Side Effects:
+    *  Clears SysTick count flag if it was set
+    *
+    *******************************************************************************/
+    void CySysTickDisableInterrupt(void)
+    {
+        CY_SYS_SYST_CSR_REG &= ((uint32) ~(CY_SYS_SYST_CSR_ENABLE_INT));
+    }
+
+
+    /*******************************************************************************
+    * Function Name: CySysTickSetReload
+    ********************************************************************************
+    *
+    * Summary:
+    *  Sets value the counter is set to on startup and after it reaches zero. This
+    *  function do not change or reset current sysTick counter value, so it should
+    *  be cleared using CySysTickClear() API.
+    *
+    * Parameters:
+    *  value: Valid range [0x0-0x00FFFFFF]. Counter reset value.
+    *
+    * Return:
+    *  None
+    *
+    *******************************************************************************/
+    void CySysTickSetReload(uint32 value)
+    {
+        CY_SYS_SYST_RVR_REG = (value & CY_SYS_SYST_RVR_CNT_MASK);
+    }
+
+
+    /*******************************************************************************
+    * Function Name: CySysTickGetReload
+    ********************************************************************************
+    *
+    * Summary:
+    *  Sets value the counter is set to on startup and after it reaches zero.
+    *
+    * Parameters:
+    *  None
+    *
+    * Return:
+    *  Counter reset value
+    *
+    *******************************************************************************/
+    uint32 CySysTickGetReload(void)
+    {
+        return(CY_SYS_SYST_RVR_REG & CY_SYS_SYST_RVR_CNT_MASK);
+    }
+
+
+    /*******************************************************************************
+    * Function Name: CySysTickGetValue
+    ********************************************************************************
+    *
+    * Summary:
+    *  Gets current SysTick counter value.
+    *
+    * Parameters:
+    *  None
+    *
+    * Return:
+    *  Current SysTick counter value
+    *
+    *******************************************************************************/
+    uint32 CySysTickGetValue(void)
+    {
+        return(CY_SYS_SYST_RVR_REG & CY_SYS_SYST_CVR_REG);
+    }
+
+
+    /*******************************************************************************
+    * Function Name: CySysTickSetClockSource
+    ********************************************************************************
+    *
+    * Summary:
+    *  Sets the clock source for the SysTick counter.
+    *
+    * Parameters:
+    *  clockSource: Clock source for SysTick counter
+    *         Define                     Clock Source
+    *   CY_SYS_SYST_CSR_CLK_SRC_SYSCLK     SysTick is clocked by CPU clock.
+    *   CY_SYS_SYST_CSR_CLK_SRC_LFCLK      SysTick is clocked by the low frequency
+    *                              clock (ILO 100 KHz for PSoC 5LP, LFCLK for PSoC 4).
+    *
+    * Return:
+    *  None
+    *
+    * Side Effects:
+    *  Clears SysTick count flag if it was set. If clock source is not ready this
+    *  function call will have no effect. After changing clock source to the low frequency
+    *  clock the counter and reload register values will remain unchanged so time to
+    *  the interrupt will be significantly bigger and vice versa.
+    *
+    *******************************************************************************/
+    void CySysTickSetClockSource(uint32 clockSource)
+    {
+        if (clockSource == CY_SYS_SYST_CSR_CLK_SRC_SYSCLK)
+        {
+            CY_SYS_SYST_CSR_REG |= (uint32)(CY_SYS_SYST_CSR_CLK_SRC_SYSCLK << CY_SYS_SYST_CSR_CLK_SOURCE_SHIFT);
+        }
+        else
+        {
+            CY_SYS_SYST_CSR_REG &= ((uint32) ~(CY_SYS_SYST_CSR_CLK_SRC_SYSCLK << CY_SYS_SYST_CSR_CLK_SOURCE_SHIFT));
+        }
+    }
+
+
+    /*******************************************************************************
+    * Function Name: CySysTickGetCountFlag
+    ********************************************************************************
+    *
+    * Summary:
+    *  The count flag is set once SysTick counter reaches zero.
+    *   The flag cleared on read.
+    *
+    * Parameters:
+    *  None
+    *
+    * Return:
+    *  Returns non-zero value if counter is set, otherwise zero is returned.
+    *
+    *******************************************************************************/
+    uint32 CySysTickGetCountFlag(void)
+    {
+        return ((CY_SYS_SYST_CSR_REG>>CY_SYS_SYST_CSR_COUNTFLAG_SHIFT) & 0x01u);
+    }
+
+
+    /*******************************************************************************
+    * Function Name: CySysTickClear
+    ********************************************************************************
+    *
+    * Summary:
+    *  Clears the SysTick counter for well-defined startup.
+    *
+    * Parameters:
+    *  None
+    *
+    * Return:
+    *  None
+    *
+    *******************************************************************************/
+    void CySysTickClear(void)
+    {
+        CY_SYS_SYST_CVR_REG = 0u;
+    }
+
+
+    /*******************************************************************************
+    * Function Name: CySysTickSetCallback
+    ********************************************************************************
+    *
+    * Summary:
+    *  The function set the pointers to the functions that will be called on
+    *  SysTick interrupt.
+    *
+    * Parameters:
+    *  number:  The number of callback function address to be set.
+    *           The valid range is from 0 to 4.
+    *  CallbackFunction: Function address.
+    *
+    * Return:
+    *  Returns the address of the previous callback function.
+    *  The NULL is returned if the specified address in not set.
+    *
+    *******************************************************************************/
+    cySysTickCallback CySysTickSetCallback(uint32 number, cySysTickCallback function)
+    {
+        cySysTickCallback retVal;
+
+        retVal = CySysTickCallbacks[number];
+        CySysTickCallbacks[number] = function;
+        return (retVal);
+    }
+
+
+    /*******************************************************************************
+    * Function Name: CySysTickGetCallback
+    ********************************************************************************
+    *
+    * Summary:
+    *  The function get the specified callback pointer.
+    *
+    * Parameters:
+    *  None
+    *
+    * Return:
+    *  None
+    *
+    *******************************************************************************/
+    cySysTickCallback CySysTickGetCallback(uint32 number)
+    {
+        return ((cySysTickCallback) CySysTickCallbacks[number]);
+    }
+
+
+    /*******************************************************************************
+    * Function Name: CySysTickServiceCallbacks
+    ********************************************************************************
+    *
+    * Summary:
+    *  System Tick timer interrupt routine
+    *
+    * Parameters:
+    *  None
+    *
+    * Return:
+    *  None
+    *
+    *******************************************************************************/
+    static void CySysTickServiceCallbacks(void)
+    {
+        uint32 i;
+
+        /* Verify that tick timer flag was set */
+        if (1u == CySysTickGetCountFlag())
+        {
+            for (i=0u; i < CY_SYS_SYST_NUM_OF_CALLBACKS; i++)
+            {
+                if (CySysTickCallbacks[i] != (void *) 0)
+                {
+                    (void)(CySysTickCallbacks[i])();
+                }
+            }
+        }
+    }
+#endif /* (CY_PSOC5) */
 
 
 /* [] END OF FILE */

@@ -1,6 +1,6 @@
 /*******************************************************************************
 * FILENAME: cytypes.h
-* Version 4.11
+* Version 4.20
 *
 *  Description:
 *  CyTypes provides register access macros and approved types for use in
@@ -61,32 +61,102 @@
 /*******************************************************************************
 * MEMBER encodes both the family and the detailed architecture
 *******************************************************************************/
-#define CY_PSOC4A  (CYDEV_CHIP_MEMBER_USED == CYDEV_CHIP_MEMBER_4A)
 #ifdef CYDEV_CHIP_MEMBER_4D
-    #define CY_PSOC4D   (CYDEV_CHIP_MEMBER_USED == CYDEV_CHIP_MEMBER_4D)
-    #define CY_PSOC4SF  (CY_PSOC4D)
+    #define CY_PSOC4_4000   (CYDEV_CHIP_MEMBER_USED == CYDEV_CHIP_MEMBER_4D)
 #else
-    #define CY_PSOC4D   (0u != 0u)
-    #define CY_PSOC4SF  (CY_PSOC4D)
+    #define CY_PSOC4_4000   (0u != 0u)
 #endif  /* CYDEV_CHIP_MEMBER_4D */
 
-#define CY_PSOC5A  (CYDEV_CHIP_MEMBER_USED == CYDEV_CHIP_MEMBER_5A)
-#ifdef CYDEV_CHIP_MEMBER_5B
-    #define CY_PSOC5LP  (CYDEV_CHIP_MEMBER_USED == CYDEV_CHIP_MEMBER_5B)
+#define CY_PSOC4_4100       (CYDEV_CHIP_MEMBER_USED == CYDEV_CHIP_MEMBER_4A)
+#define CY_PSOC4_4200       (CYDEV_CHIP_MEMBER_USED == CYDEV_CHIP_MEMBER_4A)
+
+#ifdef CYDEV_CHIP_MEMBER_4F
+    #define CY_PSOC4_4100BL (CYDEV_CHIP_MEMBER_USED == CYDEV_CHIP_MEMBER_4F)
+    #define CY_PSOC4_4200BL (CYDEV_CHIP_MEMBER_USED == CYDEV_CHIP_MEMBER_4F)
 #else
-    #define CY_PSOC5LP  (0u != 0u)
-#endif  /* CYDEV_CHIP_MEMBER_5B */
+    #define CY_PSOC4_4100BL (0u != 0u)
+    #define CY_PSOC4_4200BL (0u != 0u)
+#endif  /* CYDEV_CHIP_MEMBER_4F */
 
 
 /*******************************************************************************
-* UDB revisions
+* IP blocks
 *******************************************************************************/
-#define CY_UDB_V0 (CY_PSOC5A)
-#define CY_UDB_V1 (!CY_UDB_V0)
+#if (CY_PSOC4)
+
+    /* Using SRSSv2 or SRS-Lite */
+    #if (CY_PSOC4_4100 || CY_PSOC4_4200)
+        #define CY_IP_SRSSV2            (0u == 0u)
+        #define CY_IP_SRSSLT            (!CY_IP_SRSSV2)
+    #else
+        #define CY_IP_SRSSV2            (0u != 0u)
+        #define CY_IP_SRSSLT            (!CY_IP_SRSSV2)
+    #endif  /* (CY_PSOC4_4100 || CY_PSOC4_4200) */
+
+    #if (CY_PSOC4_4100 || CY_PSOC4_4200)
+        #define CY_IP_CPUSSV2           (0u != 0u)
+        #define CY_IP_CPUSS             (0u == 0u)
+    #else
+        #define CY_IP_CPUSSV2           (0u != 0u)
+        #define CY_IP_CPUSS             (!CY_IP_CPUSSV2)
+    #endif  /* (CY_PSOC4_4100 || CY_PSOC4_4200) */
+
+    /* Product uses FLASH-Lite or regular FLASH */
+    #if (CY_PSOC4_4100 || CY_PSOC4_4200)
+        #define CY_IP_FMLT              (0u != 0u)          /* FLASH-Lite */
+        #define CY_IP_FM                (!CY_IP_FMLT)       /* Regular FLASH */
+    #else
+        #define CY_IP_FMLT              (-1u != 0u)
+        #define CY_IP_FM                (!CY_IP_FMLT)
+    #endif  /* (CY_PSOC4_4100 || CY_PSOC4_4200) */
+
+    /* Number of interrupt request inputs to CM0 */
+    #if (CY_PSOC4_4100 || CY_PSOC4_4200)
+        #define CY_IP_INT_NR            (32u)
+    #else
+        #define CY_IP_INT_NR            (-1u)
+    #endif  /* (CY_PSOC4_4100 || CY_PSOC4_4200) */
+
+    /* Number of Flash macros used in the device (0, 1 or 2) */
+    #if (CY_PSOC4_4100 || CY_PSOC4_4200)
+        #define CY_IP_FLASH_MACROS      (1u)
+    #else
+        #define CY_IP_FLASH_MACROS      (-1u)
+    #endif  /* (CY_PSOC4_4100 || CY_PSOC4_4200) */
+
+
+    /* Number of Flash macros used in the device (0, 1 or 2) */
+    #if (CY_PSOC4_4100 || CY_PSOC4_4200)
+        #define CY_IP_BLESS             (0u != 0u)
+    #else
+        #define CY_IP_BLESS             (0u != 0u)
+    #endif  /* (CY_PSOC4_4100 || CY_PSOC4_4200) */
+
+    /* Watch Crystal Oscillator (WCO) is present (32kHz) */
+    #if (CY_PSOC4_4000 || CY_PSOC4_4100 || CY_PSOC4_4200)
+        #define CY_IP_WCO               (0u != 0u)
+    #elif CY_IP_BLESS || defined (CYIPBLOCK_s8swco_VERSION)
+        #define CY_IP_WCO               (0u == 0u)
+    #elif (CY_IP_SRSSV2)
+        #define CY_IP_WCO               (-1u)
+    #else
+        #define CY_IP_WCO               (0u != 0u)
+    #endif  /* (CY_PSOC4_4000 || CY_PSOC4_4100 || CY_PSOC4_4200) */
+
+#endif  /* (CY_PSOC4) */
 
 
 /*******************************************************************************
-*   Base Types. Acceptable types from MISRA-C specifying sign and size.
+* The components version defines. Available started from cy_boot 4.20
+* Use the following construction in order to identify cy_boot version:
+* (defined(CY_BOOT_VERSION) && CY_BOOT_VERSION >= CY_BOOT_4_20)
+*******************************************************************************/
+#define CY_BOOT_4_20            (420u)
+#define CY_BOOT_VERSION         (CY_BOOT_4_20)
+
+
+/*******************************************************************************
+*   Base Types. Acceptable types from MISRA-C specifying signedness and size.
 *******************************************************************************/
 typedef unsigned char   uint8;
 typedef unsigned short  uint16;
@@ -204,18 +274,39 @@ typedef          char   char8;
     #define XDATA
 
     #if defined(__ARMCC_VERSION)
+
         #define CY_NOINIT           __attribute__ ((section(".noinit"), zero_init))
         #define CY_NORETURN         __attribute__ ((noreturn))
         #define CY_SECTION(name)    __attribute__ ((section(name)))
+
+        /* Specifies a minimum alignment (in bytes) for variables of the
+        *  specified type.
+        */
         #define CY_ALIGN(align)     __align(align)
+
+
+        /* Attached to an enum, struct, or union type definition, specified that
+        *  the minimum required memory be used to represent the type.
+        */
+        #define CY_PACKED
+        #define CY_PACKED_ATTR      __attribute__ ((packed))
+        #define CY_INLINE           __inline
     #elif defined (__GNUC__)
+
         #define CY_NOINIT           __attribute__ ((section(".noinit")))
         #define CY_NORETURN         __attribute__ ((noreturn))
         #define CY_SECTION(name)    __attribute__ ((section(name)))
         #define CY_ALIGN(align)     __attribute__ ((aligned(align)))
+        #define CY_PACKED
+        #define CY_PACKED_ATTR      __attribute__ ((packed))
+        #define CY_INLINE           inline
     #elif defined (__ICCARM__)
+
         #define CY_NOINIT           __no_init
         #define CY_NORETURN         __noreturn
+        #define CY_PACKED           __packed
+        #define CY_PACKED_ATTR
+        #define CY_INLINE           inline
     #endif  /* (__ARMCC_VERSION) */
 
 #endif  /* (CY_PSOC3) */
@@ -364,7 +455,7 @@ typedef volatile uint32 CYXDATA reg32;
 
 
 /*******************************************************************************
-* Defines the standard return values used the PSoC content. A function is
+* Defines the standard return values used in PSoC content. A function is
 * not limited to these return values but can use them when returning standard
 * error values. Return values can be overloaded if documented in the function
 * header. On the 8051 a function can use a larger return type but still use the
@@ -426,21 +517,42 @@ typedef volatile uint32 CYXDATA reg32;
 *       used in the application and their modification might lead to unexpected
 *       consequences.
 *******************************************************************************/
-/* Device is PSoC 3 and the revision is ES2 or earlier */
-#define CY_PSOC3_ES2 ((CYDEV_CHIP_MEMBER_USED == CYDEV_CHIP_MEMBER_3A) && \
-    (CYDEV_CHIP_REVISION_USED <= CYDEV_CHIP_REVISION_3A_ES2))
+#define CY_UDB_V0           (CYDEV_CHIP_MEMBER_USED == CYDEV_CHIP_MEMBER_5A)
+#define CY_UDB_V1           (!CY_UDB_V0)
+#define CY_PSOC4A  (CYDEV_CHIP_MEMBER_USED == CYDEV_CHIP_MEMBER_4A)
+#ifdef CYDEV_CHIP_MEMBER_4D
+    #define CY_PSOC4D   (CYDEV_CHIP_MEMBER_USED == CYDEV_CHIP_MEMBER_4D)
+    #define CY_PSOC4SF  (CY_PSOC4D)
+#else
+    #define CY_PSOC4D   (0u != 0u)
+    #define CY_PSOC4SF  (CY_PSOC4D)
+#endif  /* CYDEV_CHIP_MEMBER_4D */
+#define CY_PSOC5A  (CYDEV_CHIP_MEMBER_USED == CYDEV_CHIP_MEMBER_5A)
+#ifdef CYDEV_CHIP_MEMBER_5B
+    #define CY_PSOC5LP  (CYDEV_CHIP_MEMBER_USED == CYDEV_CHIP_MEMBER_5B)
+#else
+    #define CY_PSOC5LP  (0u != 0u)
+#endif  /* CYDEV_CHIP_MEMBER_5B */
 
-/* Device is PSoC 3 and the revision is ES3 or later */
-#define CY_PSOC3_ES3 ((CYDEV_CHIP_MEMBER_USED == CYDEV_CHIP_MEMBER_3A) && \
-    (CYDEV_CHIP_REVISION_USED >= CYDEV_CHIP_REVISION_3A_ES3))
+#if (!CY_PSOC4)
 
-/* Device is PSoC 5 and the revision is ES1 or earlier */
-#define CY_PSOC5_ES1 (CY_PSOC5A && \
-    (CYDEV_CHIP_REVISION_USED <= CYDEV_CHIP_REVISION_5A_ES1))
+    /* Device is PSoC 3 and the revision is ES2 or earlier */
+    #define CY_PSOC3_ES2 ((CYDEV_CHIP_MEMBER_USED == CYDEV_CHIP_MEMBER_3A) && \
+        (CYDEV_CHIP_REVISION_USED <= CYDEV_CHIP_REVISION_3A_ES2))
 
-/* Device is PSoC 5 and the revision is ES2 or later */
-#define CY_PSOC5_ES2 (CY_PSOC5A && \
-    (CYDEV_CHIP_REVISION_USED > CYDEV_CHIP_REVISION_5A_ES1))
+    /* Device is PSoC 3 and the revision is ES3 or later */
+    #define CY_PSOC3_ES3 ((CYDEV_CHIP_MEMBER_USED == CYDEV_CHIP_MEMBER_3A) && \
+        (CYDEV_CHIP_REVISION_USED >= CYDEV_CHIP_REVISION_3A_ES3))
+
+    /* Device is PSoC 5 and the revision is ES1 or earlier */
+    #define CY_PSOC5_ES1 (CY_PSOC5A && \
+        (CYDEV_CHIP_REVISION_USED <= CYDEV_CHIP_REVISION_5A_ES1))
+
+    /* Device is PSoC 5 and the revision is ES2 or later */
+    #define CY_PSOC5_ES2 (CY_PSOC5A && \
+        (CYDEV_CHIP_REVISION_USED > CYDEV_CHIP_REVISION_5A_ES1))
+
+#endif  /* (!CY_PSOC4) */
 
 #endif  /* CY_BOOT_CYTYPES_H */
 

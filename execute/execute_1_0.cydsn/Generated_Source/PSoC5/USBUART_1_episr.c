@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: USBUART_1_episr.c
-* Version 2.70
+* Version 2.80
 *
 * Description:
 *  Data endpoint Interrupt Service Routines
@@ -8,7 +8,7 @@
 * Note:
 *
 ********************************************************************************
-* Copyright 2008-2013, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -761,7 +761,7 @@ CY_ISR(USBUART_1_BUS_RESET_ISR)
                 int17Status >>= 1u;
             }
             int8Status >>= 1u;
-            if(int8Status != 0)
+            if(int8Status != 0u)
             {
                 /* Prepare pointer for EP8 */
                 ptr = ((USBUART_1_EP8 - USBUART_1_EP1) << USBUART_1_EPX_CNTX_ADDR_SHIFT);

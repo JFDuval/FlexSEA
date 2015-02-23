@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: PWMH1.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -25,7 +25,7 @@
 /***************************************
 *              Constants        
 ***************************************/
-#define PWMH1_0		PWMH1__0__PC
+#define PWMH1_0		(PWMH1__0__PC)
 
 #endif /* End Pins PWMH1_ALIASES_H */
 

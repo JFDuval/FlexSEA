@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: USBUART_1_pm.c
-* Version 2.70
+* Version 2.80
 *
 * Description:
 *  This file provides Suspend/Resume APIs functionality.
@@ -8,7 +8,7 @@
 * Note:
 *
 ********************************************************************************
-* Copyright 2008-2013, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -180,7 +180,7 @@ void USBUART_1_Suspend(void)
     {
         USBUART_1_backup.enableState = 0u;
     }
-    
+
     CyExitCriticalSection(enableInterrupts);
 
     /* Set the DP Interrupt for wake-up from sleep mode. */

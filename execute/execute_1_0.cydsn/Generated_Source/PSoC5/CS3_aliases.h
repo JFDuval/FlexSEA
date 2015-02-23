@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: CS3.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -25,7 +25,7 @@
 /***************************************
 *              Constants        
 ***************************************/
-#define CS3_0		CS3__0__PC
+#define CS3_0		(CS3__0__PC)
 
 #endif /* End Pins CS3_ALIASES_H */
 

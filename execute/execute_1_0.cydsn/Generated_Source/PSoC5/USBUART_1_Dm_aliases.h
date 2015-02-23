@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: USBUART_1_Dm.h  
-* Version 2.0
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -25,7 +25,7 @@
 /***************************************
 *              Constants        
 ***************************************/
-#define USBUART_1_Dm_0		USBUART_1_Dm__0__PC
+#define USBUART_1_Dm_0		(USBUART_1_Dm__0__PC)
 
 #endif /* End Pins USBUART_1_Dm_ALIASES_H */
 

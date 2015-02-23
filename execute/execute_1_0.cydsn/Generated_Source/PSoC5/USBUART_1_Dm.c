@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: USBUART_1_Dm.c  
-* Version 2.0
+* Version 2.10
 *
 * Description:
 *  This file contains API to enable firmware control of a Pins component.

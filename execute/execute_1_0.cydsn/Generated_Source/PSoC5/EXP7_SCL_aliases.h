@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: EXP7_SCL.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -25,7 +25,7 @@
 /***************************************
 *              Constants        
 ***************************************/
-#define EXP7_SCL_0		EXP7_SCL__0__PC
+#define EXP7_SCL_0		(EXP7_SCL__0__PC)
 
 #endif /* End Pins EXP7_SCL_ALIASES_H */
 

@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: DI.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -25,7 +25,7 @@
 /***************************************
 *              Constants        
 ***************************************/
-#define DI_0		DI__0__PC
+#define DI_0		(DI__0__PC)
 
 #endif /* End Pins DI_ALIASES_H */
 

@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: PWML3.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -25,7 +25,7 @@
 /***************************************
 *              Constants        
 ***************************************/
-#define PWML3_0		PWML3__0__PC
+#define PWML3_0		(PWML3__0__PC)
 
 #endif /* End Pins PWML3_ALIASES_H */
 

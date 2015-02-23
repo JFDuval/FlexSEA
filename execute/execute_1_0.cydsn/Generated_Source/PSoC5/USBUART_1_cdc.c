@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: USBUART_1_cdc.c
-* Version 2.70
+* Version 2.80
 *
 * Description:
 *  USB CDC class request handler.
@@ -9,7 +9,7 @@
 *  Universal Serial Bus Class Definitions for Communication Devices Version 1.1
 *
 ********************************************************************************
-* Copyright 2012-2013, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2012-2014, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -304,7 +304,7 @@ uint8 USBUART_1_DispatchCDCClassRqst(void)
                 {
                     ;
                 }
-                /* If the last sent packet is exactly maximum packet size, 
+                /* If the last sent packet is exactly maximum packet size,
                 *  it shall be followed by a zero-length packet to assure the
                 *  end of segment is properly identified by the terminal.
                 */

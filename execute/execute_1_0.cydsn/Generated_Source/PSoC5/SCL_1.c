@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: SCL_1.c  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file contains API to enable firmware control of a Pins component.

@@ -567,6 +567,7 @@ void rx_cmd_encoder_read(uint8_t *buf)
 	//Generate the reply:
 	tx_cmd_encoder_read_reply(buf[CP_XID], encoder_read());
 	numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+	numb = COMM_STR_BUF_LEN;	//Fixed length for now
 	
 	//Send it out:
 	rs485_puts(comm_str, (numb+1));	
@@ -594,6 +595,7 @@ void rx_cmd_strain_read(uint8_t *buf)
 	//Generate the reply:
 	tx_cmd_strain_read_reply(buf[CP_XID], strain_read());
 	numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+	numb = COMM_STR_BUF_LEN;	//Fixed length for now
 	
 	//Send it out:
 	rs485_puts(comm_str, (numb+1));			
@@ -621,6 +623,7 @@ void rx_cmd_imu_read(uint8_t *buf)
 	//Generate the reply:
 	tx_cmd_imu_read_reply(buf[CP_XID], buf[CP_DATA1], buf[CP_DATA1+1]);
 	numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+	numb = COMM_STR_BUF_LEN;	//Fixed length for now
 	
 	//Send it out:
 	rs485_puts(comm_str, (numb+1));	
@@ -648,6 +651,7 @@ void rx_cmd_analog_read(uint8_t *buf)
 	//Generate the reply:
 	tx_cmd_analog_read_reply(buf[CP_XID], buf[CP_DATA1], buf[CP_DATA1+1]);
 	numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+	numb = COMM_STR_BUF_LEN;	//Fixed length for now
 	
 	//Send it out:
 	rs485_puts(comm_str, (numb+1));			
@@ -685,6 +689,7 @@ void rx_cmd_ctrl_i_read(uint8_t *buf)
 	//Generate the reply:
 	tx_cmd_ctrl_i_read_reply(buf[CP_XID], (ctrl.current.actual_val - CURRENT_ZERO), ctrl.current.setpoint_val);
 	numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+	numb = COMM_STR_BUF_LEN;	//Fixed length for now
 	
 	//Send it out:
 	rs485_puts(comm_str, (numb+1));			

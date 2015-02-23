@@ -58,7 +58,7 @@ extern unsigned char adc_sar1_flag;
 extern unsigned int adc_res_filtered[ADC1_CHANNELS];
 
 //RS-485:
-extern volatile unsigned char uart2_flag;
+extern volatile unsigned char uart2_flag, data_ready_485_1;
 
 //motor.c:
 extern struct ctrl_s ctrl;
@@ -220,6 +220,7 @@ int main(void)
 		//RS-485 Byte Input
 		#ifdef USE_RS485
 			
+			/*
 			//UART2 (RS485)
 			if(uart2_flag)
 			{
@@ -235,6 +236,16 @@ int main(void)
 					}
 				}
 				
+				//Got new data in, try to decode
+				cmd_ready_485_1 = unpack_payload_485_1();
+			}
+			*/
+			
+			get_uart_data();
+			
+			if(data_ready_485_1)
+			{
+				data_ready_485_1 = 0;
 				//Got new data in, try to decode
 				cmd_ready_485_1 = unpack_payload_485_1();
 			}
@@ -283,4 +294,21 @@ int main(void)
 		toggle_wdclk ^= 1;
 		WDCLK_Write(toggle_wdclk);
 	}
+}
+
+void get_uart_data(void)
+{
+	uint32 uart_buf_size = 0, i = 0;
+	
+	uart_buf_size = UART_2_GetRxBufferSize();
+	if(uart_buf_size > 0)
+	{
+		for(i = 0; i < uart_buf_size; i++)
+		{
+			last_byte = UART_2_GetChar();	//It's a shame but there is no gets function
+			update_rx_buf_byte_485_1(last_byte);
+		}
+		
+		data_ready_485_1++;
+	}		
 }

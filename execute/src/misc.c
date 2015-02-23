@@ -77,7 +77,7 @@ void rs485_puts(uint8 *buf, uint32 len)
 		UART_2_PutChar(buf[i]);
 	}
 	
-	CyDelayUs(1200);					//Wait (ToDo optimize/eliminate)
+	CyDelayUs(100);					//Wait (ToDo optimize/eliminate)
 	//log = UART_2_GetTxBufferSize();
 	//while((UART_2_GetTxBufferSize() != 64));	// && (UART_2_TXSTATUS_REG & UART_2_TX_STS_FIFO_EMPTY) != 1);
 	//while((UART_2_TXSTATUS_REG & UART_2_TX_STS_FIFO_EMPTY) != 1);

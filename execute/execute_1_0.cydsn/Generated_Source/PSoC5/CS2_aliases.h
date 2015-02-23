@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: CS2.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -25,7 +25,7 @@
 /***************************************
 *              Constants        
 ***************************************/
-#define CS2_0		CS2__0__PC
+#define CS2_0		(CS2__0__PC)
 
 #endif /* End Pins CS2_ALIASES_H */
 

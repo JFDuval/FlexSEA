@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: CyDmac.h
-* Version 4.11
+* Version 4.20
 *
 *  Description:
 *   Provides the function definitions for the DMA Controller.

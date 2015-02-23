@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: USBUART_1_midi.c
-* Version 2.70
+* Version 2.80
 *
 * Description:
 *  MIDI Streaming request handler.
@@ -12,7 +12,7 @@
 *  MIDI 1.0 Detailed Specification Document Version 4.2
 *
 ********************************************************************************
-* Copyright 2008-2013, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -215,7 +215,7 @@ void USBUART_1_MIDI_EP_Init(void)
             #else
                 outLength = (uint8)USBUART_1_GetEPCount(USBUART_1_midi_out_ep);
             #endif /* (USBUART_1_MIDI_OUT_BUFF_SIZE >= 256) */
-            
+
             #if(USBUART_1_EP_MM != USBUART_1__EP_DMAAUTO)
                 #if (USBUART_1_MIDI_OUT_BUFF_SIZE >= 256)
                     outLength = USBUART_1_ReadOutEP(USBUART_1_midi_out_ep,
@@ -224,7 +224,7 @@ void USBUART_1_MIDI_EP_Init(void)
                     outLength = (uint8)USBUART_1_ReadOutEP(USBUART_1_midi_out_ep,
                                                                     USBUART_1_midiOutBuffer, (uint16)outLength);
                 #endif /* (USBUART_1_MIDI_OUT_BUFF_SIZE >= 256) */
-                
+
                 #if(USBUART_1_EP_MM == USBUART_1__EP_DMAMANUAL)
                     do  /* wait for DMA transfer complete */
                     {
@@ -232,14 +232,14 @@ void USBUART_1_MIDI_EP_Init(void)
                     }
                     while((dmaState & (STATUS_TD_ACTIVE | STATUS_CHAIN_ACTIVE)) != 0u);
                 #endif /* (USBFS_EP_MM == USBFS__EP_DMAMANUAL) */
-                
+
             #endif /* (USBUART_1_EP_MM != USBUART_1__EP_DMAAUTO) */
-            
+
             if(dmaState != 0u)
             {
                 /* Suppress compiler warning */
             }
-            
+
             if (outLength >= USBUART_1_EVENT_LENGTH)
             {
                 outPointer = 0u;
@@ -494,7 +494,7 @@ void USBUART_1_MIDI_EP_Init(void)
                         (USBUART_1_EP[USBUART_1_midi_in_ep].bufferSize - USBUART_1_EVENT_LENGTH))
                     {
                         USBUART_1_MIDI_IN_EP_Service();
-                        if(USBUART_1_midiInPointer > 
+                        if(USBUART_1_midiInPointer >
                           (USBUART_1_EP[USBUART_1_midi_in_ep].bufferSize - USBUART_1_EVENT_LENGTH))
                         {
                             /* Error condition. HOST is not ready to receive this packet. */
@@ -935,7 +935,7 @@ void USBUART_1_MIDI_EP_Init(void)
         #else
             uint8 rxBufferRead;
         #endif /* (MIDI1_UART_RXBUFFERSIZE >= 256u) */
-        
+
         uint8 rxBufferLoopDetect;
         /* Read buffer loop condition to the local variable */
         rxBufferLoopDetect = MIDI1_UART_rxBufferLoopDetect;
@@ -1120,7 +1120,7 @@ void USBUART_1_MIDI_EP_Init(void)
         /* `#END` */
     }
 
-    
+
 #if (USBUART_1_MIDI_EXT_MODE >= USBUART_1_TWO_EXT_INTRF)
 
 
@@ -1159,7 +1159,7 @@ void USBUART_1_MIDI_EP_Init(void)
         #else
             uint8 rxBufferRead;
         #endif /* (MIDI2_UART_RXBUFFERSIZE >= 256) */
-        
+
         uint8 rxBufferLoopDetect;
         /* Read buffer loop condition to the local variable */
         rxBufferLoopDetect = MIDI2_UART_rxBufferLoopDetect;

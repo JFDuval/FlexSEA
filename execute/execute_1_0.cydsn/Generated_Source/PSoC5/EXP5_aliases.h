@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: EXP5.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -25,7 +25,7 @@
 /***************************************
 *              Constants        
 ***************************************/
-#define EXP5_0		EXP5__0__PC
+#define EXP5_0		(EXP5__0__PC)
 
 #endif /* End Pins EXP5_ALIASES_H */
 

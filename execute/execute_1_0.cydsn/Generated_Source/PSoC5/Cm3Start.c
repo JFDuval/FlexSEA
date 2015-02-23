@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: Cm3Start.c
-* Version 4.11
+* Version 4.20
 *
 *  Description:
 *  Startup code for the ARM CM3.
@@ -51,6 +51,12 @@ CY_ISR(IntDefaultHandler);
     extern void __iar_program_start( void );
     extern void __iar_data_init3 (void);
 #endif  /* (__ARMCC_VERSION) */
+
+#if defined(__GNUC__)
+    #include <errno.h>
+    extern int  errno;
+    extern int  end;
+#endif  /* defined(__GNUC__) */
 
 /* Global variables */
 #if !defined (__ICCARM__)
@@ -212,6 +218,84 @@ extern const char __cy_region_num __attribute__((weak));
 
 
 /*******************************************************************************
+* System Calls of the Red Hat newlib C Library
+*******************************************************************************/
+
+
+/*******************************************************************************
+* Function Name: _exit
+********************************************************************************
+*
+* Summary:
+*  Exit a program without cleaning up files. If your system doesn't provide
+*  this, it is best to avoid linking with subroutines that require it (exit,
+*  system).
+*
+* Parameters:
+*  status: Status caused program exit.
+*
+* Return:
+*  None
+*
+*******************************************************************************/
+__attribute__((weak))
+void _exit(int status)
+{
+    /* Cause divide by 0 exception */
+    int x = status / (int) INT_MAX;
+    x = 4 / x;
+
+    while(1)
+    {
+
+    }
+}
+
+
+/*******************************************************************************
+* Function Name: _sbrk
+********************************************************************************
+*
+* Summary:
+*  Increase program data space. As malloc and related functions depend on this,
+*  it is useful to have a working implementation. The following suffices for a
+*  standalone system; it exploits the symbol end automatically defined by the
+*  GNU linker.
+*
+* Parameters:
+*  nbytes: The number of bytes requested (if the parameter value is positive)
+*  from the heap or returned back to the heap (if the parameter value is
+*  negative).
+*
+* Return:
+*  None
+*
+*******************************************************************************/
+__attribute__((weak))
+void * _sbrk (int nbytes)
+{
+    extern int  end;            /* Symbol defined by linker map. Start of free memory (as symbol). */
+    void *      returnValue;
+
+    /* The statically held previous end of the heap, with its initialization. */
+    static void *heapPointer = (void *) &end;                 /* Previous end */
+
+    if (((heapPointer + nbytes) - (void *) &end) <= CYDEV_HEAP_SIZE)
+    {
+        returnValue  = heapPointer;
+        heapPointer += nbytes;
+    }
+    else
+    {
+        errno = ENOMEM;
+        returnValue = (void *) -1;
+    }
+
+    return (returnValue);
+}
+
+
+/*******************************************************************************
 * Function Name: Reset
 ********************************************************************************
 *
@@ -249,17 +333,6 @@ void Reset(void)
     Start_c();
 }
 
-__attribute__((weak))
-void _exit(int status)
-{
-    /* Cause divide by 0 exception */
-    int x = status / INT_MAX;
-    x = 4 / x;
-
-    while(1)
-    {
-    }
-}
 
 /*******************************************************************************
 * Function Name: Start_c
@@ -284,7 +357,7 @@ void Start_c(void)
     const struct __cy_region *rptr = __cy_regions;
 
     /* Initialize memory */
-    for (regions = __cy_region_num, rptr = __cy_regions; regions--; rptr++)
+    for (regions = __cy_region_num; regions != 0u; regions--)
     {
         uint32 *src = (uint32 *)rptr->init;
         uint32 *dst = (uint32 *)rptr->data;
@@ -293,13 +366,18 @@ void Start_c(void)
 
         for (count = 0u; count != limit; count += sizeof (uint32))
         {
-            *dst++ = *src++;
+            *dst = *src;
+            dst++;
+            src++;
         }
         limit = rptr->zero_size;
         for (count = 0u; count != limit; count += sizeof (uint32))
         {
-            *dst++ = 0u;
+            *dst = 0u;
+            dst++;
         }
+
+        rptr++;
     }
 
     /* Invoke static objects constructors */

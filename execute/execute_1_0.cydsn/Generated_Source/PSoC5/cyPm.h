@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: cyPm.h
-* Version 4.11
+* Version 4.20
 *
 * Description:
 *  Provides the function definitions for the power management API.
@@ -219,7 +219,7 @@ void CyPmOppsSet(void) ;
 /*******************************************************************************
 * This macro defines the IMO frequency that will be set by CyPmSaveClocks()
 * function based on Enable Fast IMO during Startup option from the DWR file.
-* The CyPmSleep()/CyPmHibernate() will set IMO 12 MHz just before entering the 
+* The CyPmSleep()/CyPmHibernate() will set IMO 12 MHz just before entering the
 * low power mode and restore IMO back to the value set by CyPmSaveClocks()
 * immediately on wakeup.
 *******************************************************************************/
@@ -648,7 +648,7 @@ typedef struct cyPmBackupStruct
 
 /*******************************************************************************
 * The following code is OBSOLETE and must not be used starting with cy_boot 3.30
-* 
+*
 * If the obsoleted macro definitions intended for use in the application use the
 * following scheme, redefine your own versions of these definitions:
 *    #ifdef <OBSOLETED_DEFINE>

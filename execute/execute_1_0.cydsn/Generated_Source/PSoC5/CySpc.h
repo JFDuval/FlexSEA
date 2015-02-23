@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: CySpc.c
-* Version 4.11
+* Version 4.20
 *
 * Description:
 *  Provides definitions for the System Performance Component API.
@@ -37,10 +37,13 @@ uint8    CySpcReadData(uint8 buffer[], uint8 size);
 cystatus CySpcLoadMultiByte(uint8 array, uint16 address, const uint8 buffer[], uint8 size)\
 ;
 cystatus CySpcLoadRow(uint8 array, const uint8 buffer[], uint16 size);
+cystatus CySpcLoadRowFull(uint8 array, uint16 row, const uint8 buffer[], uint16 size)\
+;
 cystatus CySpcWriteRow(uint8 array, uint16 address, uint8 tempPolarity, uint8 tempMagnitude)\
 ;
 cystatus CySpcEraseSector(uint8 array, uint8 sectorNumber);
 cystatus CySpcGetTemp(uint8 numSamples);
+cystatus CySpcGetAlgorithm(void);
 cystatus CySpcLock(void);
 void     CySpcUnlock(void);
 

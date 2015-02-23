@@ -176,7 +176,6 @@ void I2C_1_Enable(void)
 *  Starts the I2C hardware. Enables Active mode power template bits or clock
 *  gating as appropriate. It is required to be executed before I2C bus
 *  operation.
-*  The I2C interrupt remains disabled after this function call.
 *
 * Parameters:
 *  None

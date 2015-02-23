@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: SDA_1.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -25,7 +25,7 @@
 /***************************************
 *              Constants        
 ***************************************/
-#define SDA_1_0		SDA_1__0__PC
+#define SDA_1_0		(SDA_1__0__PC)
 
 #endif /* End Pins SDA_1_ALIASES_H */
 

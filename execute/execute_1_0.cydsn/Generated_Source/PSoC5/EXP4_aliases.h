@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: EXP4.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -25,7 +25,7 @@
 /***************************************
 *              Constants        
 ***************************************/
-#define EXP4_0		EXP4__0__PC
+#define EXP4_0		(EXP4__0__PC)
 
 #endif /* End Pins EXP4_ALIASES_H */
 

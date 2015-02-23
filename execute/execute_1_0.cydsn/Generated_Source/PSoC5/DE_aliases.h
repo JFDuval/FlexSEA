@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: DE.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -25,7 +25,7 @@
 /***************************************
 *              Constants        
 ***************************************/
-#define DE_0		DE__0__PC
+#define DE_0		(DE__0__PC)
 
 #endif /* End Pins DE_ALIASES_H */
 

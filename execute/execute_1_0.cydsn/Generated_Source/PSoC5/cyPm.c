@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: cyPm.c
-* Version 4.11
+* Version 4.20
 *
 * Description:
 *  Provides an API for the power management.
@@ -874,8 +874,9 @@ void CyPmSleep(uint8 wakeupTime, uint16 wakeupSource)
     *   be also disabled.
     *
     * PSoC3 >= TO6:
-    * - Voltage supervision (HVI/LVI) requires hardware buzz, so hardware buzz must be
-    *   enabled before the sleep mode entry and restored on the wakeup.
+    * - Voltage supervision (HVI/LVI) requires hardware buzz, so hardware
+    *   buzz must be enabled before the sleep mode entry and restored on
+    *   the wakeup.
     ***********************************************************************/
     #if(CY_PSOC3)
 

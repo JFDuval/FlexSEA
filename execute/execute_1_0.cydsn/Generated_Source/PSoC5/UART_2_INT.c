@@ -26,8 +26,8 @@
 /* `#START CUSTOM_DECLARATIONS` Place your declaration here */
 
 #include <project.h>
-
-volatile unsigned char uart2_flag = 0;
+#include "main.h"
+volatile unsigned char uart2_flag = 0, data_ready_485_1 = 0;
 extern volatile int8_t tx_cnt;
 
 /* `#END` */
@@ -80,6 +80,8 @@ extern volatile int8_t tx_cnt;
         /* `#START UART_2_RXISR_START` */
 
 		uart2_flag = 1;
+		
+		
 		
         /* `#END` */
 

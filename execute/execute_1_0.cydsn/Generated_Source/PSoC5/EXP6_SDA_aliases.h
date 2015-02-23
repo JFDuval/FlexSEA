@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: EXP6_SDA.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -25,7 +25,7 @@
 /***************************************
 *              Constants        
 ***************************************/
-#define EXP6_SDA_0		EXP6_SDA__0__PC
+#define EXP6_SDA_0		(EXP6_SDA__0__PC)
 
 #endif /* End Pins EXP6_SDA_ALIASES_H */
 

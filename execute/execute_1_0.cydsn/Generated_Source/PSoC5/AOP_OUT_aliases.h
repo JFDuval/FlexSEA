@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: AOP_OUT.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -25,7 +25,7 @@
 /***************************************
 *              Constants        
 ***************************************/
-#define AOP_OUT_0		AOP_OUT__0__PC
+#define AOP_OUT_0		(AOP_OUT__0__PC)
 
 #endif /* End Pins AOP_OUT_ALIASES_H */
 

@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: cypins.h
-* Version 4.11
+* Version 4.20
 *
 *  Description:
 *   This file contains the function prototypes and constants used for a port/pin
@@ -103,6 +103,13 @@
 *  Note that this only has an effect for pins configured as software pins that
 *  are not driven by hardware.
 *
+*  The macro operation is not atomic. It is not guaranteed that shared register
+*  will remain uncorrupted during simultaneous read-modify-write operations
+*  performed by two threads (main and interrupt threads). To guarantee data
+*  integrity in such cases, the macro should be invoked while the specific
+*  interrupt is disabled or within critical section (all interrupts are
+*  disabled).
+*
 * Parameters:
 *   pinPC: Port pin configuration register (uint16).
 *   #defines for each pin on a chip are provided in the cydevice_trm.h file
@@ -123,7 +130,14 @@
 ********************************************************************************
 *
 * Summary:
-*  This macro sets the state of the specified pin to 0
+*  This macro sets the state of the specified pin to 0.
+*
+*  The macro operation is not atomic. It is not guaranteed that shared register
+*  will remain uncorrupted during simultaneous read-modify-write operations
+*  performed by two threads (main and interrupt threads). To guarantee data
+*  integrity in such cases, the macro should be invoked while the specific
+*  interrupt is disabled or within critical section (all interrupts are
+*  disabled).
 *
 * Parameters:
 *   pinPC: address of a Pin Configuration register.
@@ -146,6 +160,13 @@
 *
 * Summary:
 *  Sets the drive mode for the pin (DM).
+*
+*  The macro operation is not atomic. It is not guaranteed that shared register
+*  will remain uncorrupted during simultaneous read-modify-write operations
+*  performed by two threads (main and interrupt threads). To guarantee data
+*  integrity in such cases, the macro should be invoked while the specific
+*  interrupt is disabled or within critical section (all interrupts are
+*  disabled).
 *
 * Parameters:
 *   pinPC: Port pin configuration register (uint16)
@@ -218,6 +239,13 @@
 *  Note that this only applies for pins in strong output drive modes,
 *  not to resistive drive modes.
 *
+*  The macro operation is not atomic. It is not guaranteed that shared register
+*  will remain uncorrupted during simultaneous read-modify-write operations
+*  performed by two threads (main and interrupt threads). To guarantee data
+*  integrity in such cases, the macro should be invoked while the specific
+*  interrupt is disabled or within critical section (all interrupts are
+*  disabled).
+*
 * Parameters:
 *   pinPC: address of a Pin Configuration register.
 *   #defines for each pin on a chip are provided in the cydevice_trm.h file
@@ -242,6 +270,13 @@
 *  Set the slew rate for the pin to slow the edge rate.
 *  Note that this only applies for pins in strong output drive modes,
 *  not to resistive drive modes.
+*
+*  The macro operation is not atomic. It is not guaranteed that shared register
+*  will remain uncorrupted during simultaneous read-modify-write operations
+*  performed by two threads (main and interrupt threads). To guarantee data
+*  integrity in such cases, the macro should be invoked while the specific
+*  interrupt is disabled or within critical section (all interrupts are
+*  disabled).
 *
 * Parameters:
 *   pinPC: address of a Pin Configuration register.

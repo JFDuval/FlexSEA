@@ -4,7 +4,7 @@
 
 ;********************************************************************************
 ;* File Name: Cm3RealView.scat
-;* Version 4.11
+;* Version 4.20
 ;*
 ;*  Description:
 ;*  This Linker Descriptor file describes the memory layout of the PSoC5
