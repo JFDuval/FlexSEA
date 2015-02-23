@@ -299,7 +299,7 @@ void rx_cmd_ctrl_mode(uint8_t *buf)
 			#ifdef BOARD_TYPE_FLEXSEA_MANAGE
 
 			//Store value:
-			exec1.current = ctrl;
+			exec1.current = controller;
 
 			#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
