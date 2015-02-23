@@ -66,11 +66,6 @@ uint32_t tx_cmd_ctrl_p_gains_write(uint8_t slave, int16_t kp, int16_t ki, int16_
     payload_str[CP_DATA1 + 4] = (unsigned char)((kd >> 8) & 0xFF);
     payload_str[CP_DATA1 + 5] = (unsigned char)(kd & 0xFF);
 
-    //At this point the string is ready to be packaged in comm_str
-	#ifdef ENABLE_TERMINAL_DEBUG
-    payload_print_str();
-	#endif // ENABLE_TERMINAL_DEBUG
-
     return 10;
 }
 
@@ -110,11 +105,6 @@ uint32_t tx_cmd_ctrl_o_write(uint8_t slave, int32_t pwmdc)
     payload_str[CP_DATA1 + 2] = tmp2;
     payload_str[CP_DATA1 + 3] = tmp3;
 
-    //At this point the string is ready to be packaged in comm_str
-	#ifdef ENABLE_TERMINAL_DEBUG
-    payload_print_str();
-	#endif // ENABLE_TERMINAL_DEBUG
-
     return 8;
 }
 
@@ -138,11 +128,6 @@ unsigned int tx_set_trapeze(unsigned char slave, int posi, int posf, int spdm, i
     payload_str[CP_DATA1 + 5] = (unsigned char)(spdm & 0xFF);
     payload_str[CP_DATA1 + 6] = (unsigned char)((acc >> 8) & 0xFF);
     payload_str[CP_DATA1 + 7] = (unsigned char)(acc & 0xFF);
-
-    //At this point the string is ready to be packaged in comm_str
-	#ifdef ENABLE_TERMINAL_DEBUG
-    payload_print_str();
-	#endif // ENABLE_TERMINAL_DEBUG
 
     return 12;
 }
@@ -182,11 +167,6 @@ uint32_t tx_cmd_ctrl_i_write(uint8_t slave, int16_t curr)
     payload_str[CP_DATA1] = tmp0;
     payload_str[CP_DATA1 + 1] = tmp1;
 
-    //At this point the string is ready to be packaged in comm_str
-	#ifdef ENABLE_TERMINAL_DEBUG
-    payload_print_str();
-	#endif // ENABLE_TERMINAL_DEBUG
-
     return 6;
 }
 
@@ -202,11 +182,6 @@ uint32_t tx_cmd_ctrl_mode_write(uint8_t slave, uint8_t ctrl)
 
     //Parameters:
     payload_str[CP_DATA1] = ctrl;
-
-    //At this point the string is ready to be packaged in comm_str
-	#ifdef ENABLE_TERMINAL_DEBUG
-    payload_print_str();
-	#endif // ENABLE_TERMINAL_DEBUG
 
     return 5;
 }
@@ -234,11 +209,6 @@ uint32_t tx_cmd_ctrl_i_gains_write(uint8_t slave, int16_t kp, int16_t ki, int16_
     payload_str[CP_DATA1 + 4] = tmp0;
     payload_str[CP_DATA1 + 5] = tmp1;
 
-    //At this point the string is ready to be packaged in comm_str
-	#ifdef ENABLE_TERMINAL_DEBUG
-    payload_print_str();
-	#endif // ENABLE_TERMINAL_DEBUG
-
     return 10;
 }
 
@@ -261,11 +231,6 @@ unsigned int tx_set_z_gains(unsigned char slave, int z_k, int z_b, int z_i)
     payload_str[CP_DATA1 + 4] = (unsigned char)((z_i >> 8) & 0xFF);
     payload_str[CP_DATA1 + 5] = (unsigned char)(z_i & 0xFF);
 
-    //At this point the string is ready to be packaged in comm_str
-	#ifdef ENABLE_TERMINAL_DEBUG
-    payload_print_str();
-	#endif // ENABLE_TERMINAL_DEBUG
-
     return 10;
 }
 
@@ -283,11 +248,6 @@ uint32_t tx_cmd_strain_config(uint8_t slave, uint8_t offs, uint8_t gain, uint8_t
     payload_str[CP_DATA1] = offs;
     payload_str[CP_DATA1 + 1] = gain;
     payload_str[CP_DATA1 + 2] = oref;
-
-    //At this point the string is ready to be packaged in comm_str
-	#ifdef ENABLE_TERMINAL_DEBUG
-    payload_print_str();
-	#endif // ENABLE_TERMINAL_DEBUG
 
     return 7;
 }
@@ -311,11 +271,6 @@ uint32_t tx_cmd_encoder_write(uint8_t slave, int32_t enc)
     payload_str[CP_DATA1 + 2] = tmp2;
     payload_str[CP_DATA1 + 3] = tmp3;
 
-    //At this point the string is ready to be packaged in comm_str
-	#ifdef ENABLE_TERMINAL_DEBUG
-    payload_print_str();
-	#endif // ENABLE_TERMINAL_DEBUG
-
     return 8;
 }
 
@@ -333,11 +288,6 @@ uint32_t tx_cmd_imu_read(uint8_t slave, uint8_t base_addr, uint8_t bytes)
     payload_str[CP_DATA1] = base_addr;
     payload_str[CP_DATA1 + 1] = bytes;
 
-    //At this point the string is ready to be packaged in comm_str
-	#ifdef ENABLE_TERMINAL_DEBUG
-    payload_print_str();
-	#endif // ENABLE_TERMINAL_DEBUG
-
     return 6;
 }
 
@@ -354,11 +304,6 @@ uint32_t tx_cmd_encoder_read(uint8_t slave)
     //Arguments:
 	//(No parameters for this one)
 
-    //At this point the string is ready to be packaged in comm_str
-	#ifdef ENABLE_TERMINAL_DEBUG
-    payload_print_str();
-	#endif // ENABLE_TERMINAL_DEBUG
-
     return 4;
 }
 
@@ -374,11 +319,6 @@ uint32_t tx_cmd_strain_read(uint8_t slave)
 
     //Arguments:
 	//(No parameters for this one)
-
-    //At this point the string is ready to be packaged in comm_str
-	#ifdef ENABLE_TERMINAL_DEBUG
-    payload_print_str();
-	#endif // ENABLE_TERMINAL_DEBUG
 
     return 4;
 }
@@ -397,11 +337,6 @@ uint32_t tx_cmd_analog_read(uint8_t slave, uint8_t base_addr, uint8_t bytes)
     payload_str[CP_DATA1] = base_addr;
     payload_str[CP_DATA1 + 1] = bytes;
 
-    //At this point the string is ready to be packaged in comm_str
-	#ifdef ENABLE_TERMINAL_DEBUG
-    payload_print_str();
-	#endif // ENABLE_TERMINAL_DEBUG
-
     return 6;
 }
 
@@ -417,11 +352,6 @@ uint32_t tx_cmd_ctrl_i_read(uint8_t slave)
 
     //Arguments:
 	//(No parameters for this one)
-
-    //At this point the string is ready to be packaged in comm_str
-	#ifdef ENABLE_TERMINAL_DEBUG
-    payload_print_str();
-	#endif // ENABLE_TERMINAL_DEBUG
 
     return 4;
 }
@@ -445,11 +375,6 @@ uint32_t tx_cmd_encoder_read_reply(uint8_t master, int32_t enc)
     payload_str[CP_DATA1 + 2] = tmp2;
     payload_str[CP_DATA1 + 3] = tmp3;
 
-    //At this point the string is ready to be packaged in comm_str
-	#ifdef ENABLE_TERMINAL_DEBUG
-    payload_print_str();
-	#endif // ENABLE_TERMINAL_DEBUG
-
     return 8;
 }
 
@@ -469,11 +394,6 @@ uint32_t tx_cmd_strain_read_reply(uint8_t master, uint16_t strain)
 	uint16_to_bytes(strain, &tmp0, &tmp1);
     payload_str[CP_DATA1] = tmp0;
     payload_str[CP_DATA1 + 1] = tmp1;
-
-    //At this point the string is ready to be packaged in comm_str
-	#ifdef ENABLE_TERMINAL_DEBUG
-    payload_print_str();
-	#endif // ENABLE_TERMINAL_DEBUG
 
     return 6;
 }
@@ -589,11 +509,6 @@ uint32_t tx_cmd_ctrl_i_read_reply(uint8_t master, int16_t measured, int16_t want
 	uint16_to_bytes(wanted, &tmp0, &tmp1);
     payload_str[CP_DATA1 + 2] = tmp0;
     payload_str[CP_DATA1 + 3] = tmp1;
-
-    //At this point the string is ready to be packaged in comm_str
-	#ifdef ENABLE_TERMINAL_DEBUG
-    payload_print_str();
-	#endif // ENABLE_TERMINAL_DEBUG
 
     return 8;
 }

@@ -66,6 +66,11 @@ int main(int argc, char *argv[])
     printf("\nFlexSEA-Plan - Native\n=====================\n\n");
 #endif
 
+    //Test Code ToDo Remove
+    while(1)
+    {
+    	test_cmd_ctrl_i();
+    }
 
 #ifdef MULTIPLE_COMMANDS
     while(fgets(command, sizeof(command), stdin))

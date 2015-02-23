@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include "../inc/flexsea.h"
 #include "flexsea_local.h"
+#include "flexsea_cmd_control.h"
 
 //Plan boards only:
 #ifdef BOARD_TYPE_FLEXSEA_PLAN
@@ -107,7 +108,7 @@ void rx_cmd_ctrl_i(uint8_t *buf)
 	uint8_t numb = 0;
 	int16_t tmp_wanted_current = 0, tmp_measured_current = 0;
 
-	if(IS_CMD_RW(buf[CP_CMD1] == READ)
+	if(IS_CMD_RW(buf[CP_CMD1]) == READ)
 	{
 		//Received a Read command from our master, prepare a reply:
 
@@ -133,7 +134,7 @@ void rx_cmd_ctrl_i(uint8_t *buf)
 		flexsea_error(SE_CMD_NOT_PROGRAMMED);
 		#endif	//BOARD_TYPE_FLEXSEA_PLAN
 	}
-	else if(IS_CMD_RW(buf[CP_CMD1] == WRITE)
+	else if(IS_CMD_RW(buf[CP_CMD1]) == WRITE)
 	{
 		//Two options: from Master of from slave (a read reply)
 
@@ -186,5 +187,18 @@ void rx_cmd_ctrl_i(uint8_t *buf)
 			flexsea_error(SE_CMD_NOT_PROGRAMMED);
 			#endif	//BOARD_TYPE_FLEXSEA_PLAN
 		}
+	}
+}
+
+void test_cmd_ctrl_i(void)
+{
+	//First, we generate a TX Write:
+	tx_cmd_ctrl_i(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, -333, 666);
+
+	//Minimalist parsing:
+	if(CMD_7BITS(tmp_payload_xmit[CP_CMD1]) == CMD_CTRL_I)
+	{
+		//Decode it:
+		rx_cmd_ctrl_i(tmp_payload_xmit);
 	}
 }

@@ -69,7 +69,7 @@ void decode_spi_rx(void)
     //Transfer spi_rx to flexsea's buffer
     for(i = 0; i < COMM_STR_BUF_LEN; i++)
     {
-        update_rx_buf_spi(spi_rx[i]);
+        update_rx_buf_byte_spi(spi_rx[i]);
     }
 
     //Try to decode
