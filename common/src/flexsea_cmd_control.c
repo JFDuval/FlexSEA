@@ -64,7 +64,8 @@ extern uint8_t board_id;
 //Transmission of a CTRL_I command
 uint32_t tx_cmd_ctrl_i(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, int16_t wanted, int16_t measured)
 {
-	uint8_t tmp0 = 0, tmp1 = 0, bytes = 0;
+	uint8_t tmp0 = 0, tmp1 = 0;
+	uint32_t bytes = 0;
 
 	//Fresh payload string:
 	prepare_empty_payload(board_id, receiver, buf, len);
@@ -105,7 +106,7 @@ uint32_t tx_cmd_ctrl_i(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_
 //Reception of a CTRL_I command
 void rx_cmd_ctrl_i(uint8_t *buf)
 {
-	uint8_t numb = 0;
+	uint32_t numb = 0;
 	int16_t tmp_wanted_current = 0, tmp_measured_current = 0;
 
 	if(IS_CMD_RW(buf[CP_CMD1]) == READ)
@@ -200,5 +201,122 @@ void test_cmd_ctrl_i(void)
 	{
 		//Decode it:
 		rx_cmd_ctrl_i(tmp_payload_xmit);
+	}
+}
+
+//Transmission of a CTRL_MODE command
+uint32_t tx_cmd_ctrl_mode(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, int16_t ctrl)
+{
+	uint32_t bytes = 0;
+
+	//Fresh payload string:
+	prepare_empty_payload(board_id, receiver, buf, len);
+
+	//Command:
+	buf[CP_CMDS] = 1;                     //1 command in string
+
+	if(cmd_type == CMD_READ)
+	{
+		buf[CP_CMD1] = CMD_R(CMD_CTRL_MODE);
+
+		bytes = CP_CMD1 + 1;     //Bytes is always last+1
+	}
+	else if(cmd_type == CMD_WRITE)
+	{
+		buf[CP_CMD1] = CMD_W(CMD_CTRL_MODE);
+
+		//Arguments:
+		buf[CP_DATA1] = ctrl;
+
+		bytes = CP_DATA1 + 1;     //Bytes is always last+1
+	}
+	else
+	{
+		//Invalid
+		flexsea_error(SE_INVALID_READ_TYPE);
+		bytes = 0;
+	}
+
+	return bytes;
+}
+
+//Reception of a CTRL_I command
+void rx_cmd_ctrl_mode(uint8_t *buf)
+{
+	uint8_t numb = 0, ctrl = 0;
+
+	if(IS_CMD_RW(buf[CP_CMD1]) == READ)
+	{
+		//Received a Read command from our master, prepare a reply:
+
+		#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+
+		//Generate the reply:
+		numb = tx_cmd_ctrl_mode(buf[CP_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, ctrl.mode);
+		numb = comm_gen_str(payload_str, numb);
+
+		//Notify the code that a buffer is ready to be transmitted:
+		xmit_flag = 1;
+
+		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+		#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+		//No code (yet), you shouldn't be here...
+		flexsea_error(SE_CMD_NOT_PROGRAMMED);
+		#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+		#ifdef BOARD_TYPE_FLEXSEA_PLAN
+		//No code (yet), you shouldn't be here...
+		flexsea_error(SE_CMD_NOT_PROGRAMMED);
+		#endif	//BOARD_TYPE_FLEXSEA_PLAN
+	}
+	else if(IS_CMD_RW(buf[CP_CMD1]) == WRITE)
+	{
+		//Two options: from Master of from slave (a read reply)
+
+		//Decode data:
+		ctrl = buf[CP_DATA1];
+		//ToDo store that value somewhere useful
+
+		if(sent_from_a_slave(buf))
+		{
+			//We received a reply to our read request
+
+			#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+			
+			
+			#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+			#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+
+			//Store value:
+			exec1.current = ctrl;
+
+			#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+			#ifdef BOARD_TYPE_FLEXSEA_PLAN
+
+			#endif	//BOARD_TYPE_FLEXSEA_PLAN
+		}
+		else
+		{
+			//Master is writing a value to this board
+
+			#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+
+			//ToDo call relevant functions ****
+
+			#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+			#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+			//No code (yet), you shouldn't be here...
+			flexsea_error(SE_CMD_NOT_PROGRAMMED);
+			#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+			#ifdef BOARD_TYPE_FLEXSEA_PLAN
+			//No code (yet), you shouldn't be here...
+			flexsea_error(SE_CMD_NOT_PROGRAMMED);
+			#endif	//BOARD_TYPE_FLEXSEA_PLAN
+		}
 	}
 }
