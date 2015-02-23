@@ -23,6 +23,13 @@
 #include "flexsea_payload.h"
 #include "flexsea_rx_cmd.h"
 #include "flexsea_tx_cmd.h"
+#include "flexsea_cmd_comm.h"
+#include "flexsea_cmd_control.h"
+#include "flexsea_cmd_data.h"
+#include "flexsea_cmd_external.h"
+#include "flexsea_cmd_sensors.h"
+#include "flexsea_cmd_system.h"
+//#include "flexsea_cmd_user.h"
 
 //****************************************************************************
 // Prototype(s):

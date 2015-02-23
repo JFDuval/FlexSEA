@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include "../inc/flexsea.h"
 #include "flexsea_local.h"
-#include "flexsea_cmd_control.h"
+//#include "flexsea_cmd_control.h"
 
 //Plan boards only:
 #ifdef BOARD_TYPE_FLEXSEA_PLAN
@@ -44,8 +44,15 @@ unsigned char tmp_payload_xmit[PAYLOAD_BUF_LEN];
 //****************************************************************************
 
 extern uint8_t board_id;
+extern uint8_t xmit_flag;
 
 #ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+
+extern int steps;
+	
+//motor.c:
+extern struct ctrl_s ctrl;
+extern struct enc_s encoder;	
 
 #endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -120,7 +127,7 @@ void rx_cmd_ctrl_i(uint8_t *buf)
 		//Generate the reply:
 		numb = tx_cmd_ctrl_i(buf[CP_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, \
 			(ctrl.current.actual_val - CURRENT_ZERO), ctrl.current.setpoint_val);
-		numb = comm_gen_str(payload_str, numb);
+		numb = comm_gen_str(tmp_payload_xmit, numb);
 
 		//Notify the code that a buffer is ready to be transmitted:
 		xmit_flag = 1;
@@ -245,7 +252,7 @@ uint32_t tx_cmd_ctrl_mode(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint
 //Reception of a CTRL_I command
 void rx_cmd_ctrl_mode(uint8_t *buf)
 {
-	uint8_t numb = 0, ctrl = 0;
+	uint8_t numb = 0, controller = 0;
 
 	if(IS_CMD_RW(buf[CP_CMD1]) == READ)
 	{
@@ -254,8 +261,8 @@ void rx_cmd_ctrl_mode(uint8_t *buf)
 		#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
 		//Generate the reply:
-		numb = tx_cmd_ctrl_mode(buf[CP_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, ctrl.mode);
-		numb = comm_gen_str(payload_str, numb);
+		numb = tx_cmd_ctrl_mode(buf[CP_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, ctrl.active_ctrl);
+		numb = comm_gen_str(tmp_payload_xmit, numb);
 
 		//Notify the code that a buffer is ready to be transmitted:
 		xmit_flag = 1;
@@ -277,7 +284,7 @@ void rx_cmd_ctrl_mode(uint8_t *buf)
 		//Two options: from Master of from slave (a read reply)
 
 		//Decode data:
-		ctrl = buf[CP_DATA1];
+		controller = buf[CP_DATA1];
 		//ToDo store that value somewhere useful
 
 		if(sent_from_a_slave(buf))

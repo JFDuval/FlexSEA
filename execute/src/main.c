@@ -44,6 +44,7 @@ uint8_t tmp_rx_command_485_1[PAYLOAD_BUF_LEN];
 //FlexSEA Network
 extern unsigned char payload_str[];
 extern unsigned char comm_str_payload[PAYLOAD_BUFFERS][PAYLOAD_BUF_LEN];
+extern unsigned char comm_str[];
 
 //Timer(s)
 extern volatile uint8 t1_1ms_flag;
@@ -113,14 +114,17 @@ int main(void)
 	//Sends one packet every 100ms
 	//uint8 tbuf[8] = {1,2,3,4,5,250,251,252};
 	uint8 tbuf[9] = {0,255,0,255,0,255,0,255, 0};
-	uint8 val = 0;
+	uint8 val = 0, numb = 0;
 	while(1)
 	{
-		tbuf[0] = val++;
-		rs485_puts(tbuf, 9);
-		CyDelay(100);
-		ledg_state ^= 1;
-		LED_G_Write(ledg_state);
+		//Generate the reply:
+		tx_cmd_encoder_read_reply(FLEXSEA_MANAGE_1, 125);
+		numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+		
+		//Send it out:
+		rs485_puts(comm_str, (numb+1));	
+		
+		CyDelay(1000);
 	}
 */
 	
