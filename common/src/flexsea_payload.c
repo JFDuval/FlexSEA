@@ -98,13 +98,21 @@ void prepare_empty_payload(uint8_t from, uint8_t to, uint8_t *buf, uint32_t len)
 }
 
 //Add a buffer at the end of a partially filled payload buffer
-//Payload is the partially filled buffer, idx is the last position used, new_data is.. well, the new bytes
+//Payload is the partially filled buffer, idx is the next position to use, new_data is.. well, the new bytes
 //and len is the number of bytes you want to add
-uint32_t append_to_payload(uint8_t *payload, uint32_t *idx, uint8_t *new_data, uint32_t len)
+uint32_t append_to_payload(uint8_t *payload, uint32_t idx, uint8_t *new_data, uint32_t len)
 {
-	return 0;	//ToDO Should return the # of bytes in the buffer
-}
+	uint32_t i = 0, cnt = 0;
 
+	//Append the new data:
+	for(i = idx; i < (idx+len); i++)
+	{
+		payload[i] = new_data[cnt++];
+	}
+
+	//Index for the next call:
+	return i;
+}
 
 //Is it addressed to me? To a board "below" me? Or to my Master?
 unsigned int payload_check_slave_id(unsigned char *pldata)
