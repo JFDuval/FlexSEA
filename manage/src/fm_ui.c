@@ -85,9 +85,9 @@ void set_led_rgb(unsigned char r, unsigned char g, unsigned char b)
 {
 	//No fading, we use 1 or 0 for now. Flipping the sign so x = 1 means ON
 
-	LEDR((r ^ 1) & 0x01);
-	LEDG((g ^ 1) & 0x01);
-	LEDB((b ^ 1) & 0x01);
+	LEDR(r & 0x01);
+	LEDG(g & 0x01);
+	LEDB(b & 0x01);
 }
 
 //Call this function every ms in main while()

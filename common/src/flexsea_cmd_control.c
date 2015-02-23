@@ -51,6 +51,8 @@ extern uint8_t board_id;
 
 #ifdef BOARD_TYPE_FLEXSEA_MANAGE
 
+struct execute_s exec1;
+
 #endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
 #ifdef BOARD_TYPE_FLEXSEA_PLAN

@@ -31,7 +31,8 @@ void rx_cmd_ctrl_mode(uint8_t *buf);
 //****************************************************************************
 
 //ToDo move to flexsea.h when it's debugged
-#define CMD_CTRL_I		55
+#define CMD_CTRL_I			55
+#define CMD_CTRL_MODE		60
 
 //****************************************************************************
 // Structure(s):

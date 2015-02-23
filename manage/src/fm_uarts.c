@@ -30,7 +30,7 @@ DMA_HandleTypeDef hdma2;
 unsigned char tmp_buf[10] = {0,0,0,0,0,0,0,0,0,0};
 
 __attribute__ ((aligned (4))) uint8_t uart1_dma_buf[64];
-uint32_t rs485_1_dma_xfer_len = 0;
+uint32_t rs485_1_dma_xfer_len = 16;
 
 //****************************************************************************
 // External variable(s)
@@ -57,8 +57,8 @@ void HAL_USART_MspInit(USART_HandleTypeDef* husart)
 
 		GPIO_InitStruct.Pin = GPIO_PIN_9|GPIO_PIN_10;
 		GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-		GPIO_InitStruct.Pull = GPIO_NOPULL;
-		//GPIO_InitStruct.Pull = GPIO_PULLUP;		//Transceiver's R is Hi-Z when !RE=1
+		//GPIO_InitStruct.Pull = GPIO_NOPULL;
+		GPIO_InitStruct.Pull = GPIO_PULLUP;		//Transceiver's R is Hi-Z when !RE=1
 		GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
 		GPIO_InitStruct.Alternate = GPIO_AF7_USART1;
 		HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
@@ -179,7 +179,7 @@ void init_dma2(void)
 	__HAL_DMA_ENABLE_IT(&hdma2, DMA_IT_TC);
 
 	//Start the DMA peripheral
-	HAL_DMA_Start_IT(&hdma2, (uint32_t)&USART1->DR, uart1_dma_buf_ptr, 8);
+	HAL_DMA_Start_IT(&hdma2, (uint32_t)&USART1->DR, uart1_dma_buf_ptr, rs485_1_dma_xfer_len);
 	//'8' here is for the number of bytes before a transmission is completed
 }
 
@@ -416,12 +416,23 @@ void DMA2_Str2_CompleteTransfer_Callback(DMA_HandleTypeDef *hdma)
 
 void rs485_1_xmit_dma_rx_test(void)
 {
+	uint32_t delay = 0;
+
+	//Transmit mode:
+	rs485_set_mode(PORT_RS485_1, RS485_TX);
+	for(delay = 0; delay < 5000; delay++);		//Short delay
+
 	//Send a packet, requesting a read:
 	write_test_cmd_execute(PORT_RS485_1, 0);
 
+	//Receive enable
+	for(delay = 0; delay < 5000; delay++);		//Short delay
+	rs485_set_mode(PORT_RS485_1, RS485_RX);
+
 	//4 data bytes, 4 bytes for the payload, 4 bytes for the packaging = 12 bytes
-	rs485_1_dma_xfer_len = 12;
+	rs485_1_dma_xfer_len = 16;
 	hdma2.Instance->NDTR = rs485_1_dma_xfer_len;
+
 
 	//At this point use a breakpoint in DMA2_Str2_CompleteTransfer_Callback()
 }

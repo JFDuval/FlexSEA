@@ -26,6 +26,7 @@ unsigned int payload_parse_str(unsigned char *cp_str);
 void fill_uint8_buf(uint8_t *buf, uint32_t len, uint8_t filler);
 uint8_t sent_from_a_slave(uint8_t *buf);
 void prepare_empty_payload(uint8_t from, uint8_t to, uint8_t *buf, uint32_t len);
+void route_to_slave(uint8_t *buf, uint32_t len);
 
 //****************************************************************************
 // Definition(s):

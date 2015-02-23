@@ -78,9 +78,6 @@ int main(void)
 		//RS-485 reception from an Execute board:
 		flexsea_receive_from_slave();
 
-		//Start at 0, will become 1 if we have a new command
-		new_cmd_led = 0;
-
 		//Valid communication from SPI?
 		if(cmd_ready_spi != 0)
 		{
@@ -112,9 +109,11 @@ int main(void)
 			// parse the command and execute it
 			result = payload_parse_str(tmp_rx_command_485_1);
 
-
 			//LED:
 			new_cmd_led = 1;
+
+			toggle_led1 ^= 1;
+			LED1(toggle_led1);
 		}
 
 		//1, 10, 100 & 1000ms timebases:
@@ -127,6 +126,10 @@ int main(void)
 
 			//UI RGB LED
 			rgb_led_ui(0, 0, 0, new_cmd_led);	//ToDo add error codes
+			if(new_cmd_led)
+			{
+				new_cmd_led = 0;
+			}
 
 			tbdiv++;
 			if(tbdiv == 3)	//4 = 5ms
