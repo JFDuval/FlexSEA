@@ -65,6 +65,8 @@ void rs485_puts(uint8 *buf, uint32 len)
 {
 	uint32_t i = 0, log = 0;
 	
+	EXP8_Write(1);
+	
 	NOT_RE_Write(1);				//Disable Receiver
 	CyDelayUs(1);					//Wait (ToDo optimize/eliminate)
 	//UART_2_ClearTxBuffer();			//Flush the TX buffer
@@ -72,12 +74,20 @@ void rs485_puts(uint8 *buf, uint32 len)
 	CyDelayUs(1);
 	tx_cnt = len;
 	
+	EXP8_Write(0);
+	EXP8_Write(1);
+	
 	//Can we store all the bytes we want to send?
 	if((UART_2_TXBUFFERSIZE - UART_2_GetTxBufferSize()) < len)
 	{
+				EXP5_Write(1);
 		//Buffer is overflowing, flush it:
 		UART_2_ClearTxBuffer();
+				EXP5_Write(0);
 	}	
+	
+	EXP8_Write(0);
+	EXP8_Write(1);
 		
 	//Sends the bytes:
 	for(i = 0; i < len; i++)
@@ -85,12 +95,17 @@ void rs485_puts(uint8 *buf, uint32 len)
 		UART_2_PutChar(buf[i]);
 	}	
 	
+	EXP8_Write(0);
+	EXP8_Write(1);
+	
 	//Wait till they get out
-	CyDelayUs(100);					//Wait (ToDo optimize/eliminate)
+	CyDelayUs(60);					//Wait (ToDo optimize/eliminate)
 		
 	//Back to normal, enable Receiver disable emitter
 	NOT_RE_Write(0);				
 	DE_Write(0);
+	
+	EXP8_Write(0);
 }
 
 //Write to MinM RGB LED

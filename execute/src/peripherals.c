@@ -108,10 +108,12 @@ void init_tb_timers(void)
 	Timer_1_Start();
 	isr_t1_Start();
 	
+	/*
 	//Timer 2: 50ms (safety)
 	Timer_2_Init();
 	Timer_2_Start();
 	isr_t2_Start();
+	*/
 }
 
 void init_rs485(void)

@@ -29,6 +29,8 @@
 
 #include <project.h>
 #define ERROR_HALF_T		70		//ms	
+	
+volatile uint8 t1_100us_flag = 0;
 volatile uint8 t1_1ms_flag = 0;
 	
 /* `#END` */
@@ -151,27 +153,25 @@ CY_ISR(isr_t1_Interrupt)
 	//Timer 1: 1ms
 	//We divide by 250 to blink the "alive" LED0
 
-	static uint8 toggle2 = 1, count2 = 0;
+	static uint8 cnt10 = 0;
 	
 	//Clear interrupt
 	Timer_1_ReadStatusRegister();
 	isr_t1_ClearPending();
 	
-	//Fast blinking - Error LED
-	count2++;
-	if(count2 >= ERROR_HALF_T)
+	//1ms timebase:
+	cnt10++;
+	if(cnt10 > 9)
 	{
-		count2 = 0;
-		toggle2^=1;
+		cnt10 = 0;
 		
-		/* ToDo use that function for the Error LED code (TBD)
-		if(active_error)
-			LED_R_Write(toggle2);
-		*/
+		//Flag for the main code
+		t1_1ms_flag = 1;
 	}
 	
 	//Flag for the main code
-	t1_1ms_flag = 1;
+	t1_100us_flag = 1;
+	
 	
     /* `#END` */
 }

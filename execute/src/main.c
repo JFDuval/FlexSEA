@@ -47,6 +47,7 @@ extern unsigned char comm_str_payload[PAYLOAD_BUFFERS][PAYLOAD_BUF_LEN];
 extern unsigned char comm_str[];
 
 //Timer(s)
+extern volatile uint8 t1_100us_flag;
 extern volatile uint8 t1_1ms_flag;
 extern volatile uint8 t2_10ms_flag;
 extern volatile uint8 t2_50ms_flag;
@@ -94,6 +95,15 @@ int main(void)
 	//Initialize all the peripherals
 	init_peripherals();
 	
+	//Test code, remove:
+	uint8 testdata[64];
+	uint8 index = 0;
+	for(index = 0; index < 24; index++)
+	{
+		testdata[index] = index+1;
+	}
+	
+	
 	//Start with an empty buffer
 	flexsea_clear_slave_read_buffer();	
 	
@@ -115,7 +125,7 @@ int main(void)
 		{
 			t1_1ms_flag = 0;
 			
-			EXP8_Write(1);	//Used to test the timing - can be removed	
+			//EXP8_Write(1);	//Used to test the timing - can be removed	
 			
 			#ifdef USE_QEI1
 				
@@ -151,9 +161,10 @@ int main(void)
 				new_cmd_led = 0;
 			}
 			
-			EXP8_Write(0);	//Used to test the timing - can be removed	
+			//EXP8_Write(0);	//Used to test the timing - can be removed	
 		}
 		
+		/* Temporarily removing the 10 & 50ms timbases. Their code isn't used for now anyway
 		//10ms timebase
 		if(t2_10ms_flag)
 		{
@@ -184,6 +195,7 @@ int main(void)
 			
 			dietemp_read();	//ToDo store in variable			
 		}
+		*/
 				
 		#ifdef USE_USB
 			
@@ -227,9 +239,13 @@ int main(void)
 			}
 			*/
 			
-			EXP9_Write(1);
-			get_uart_data();
-			EXP9_Write(0);
+			if(t1_100us_flag)
+			{
+				t1_100us_flag = 0;
+				EXP9_Write(1);
+				get_uart_data();
+				EXP9_Write(0);
+			}
 			
 			
 			if(data_ready_485_1)
