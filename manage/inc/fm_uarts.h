@@ -45,6 +45,7 @@ void rs485_1_xmit_dma_rx_test(void);
 //1Mbits/s: 84MHz / (8*1e6) = 10.5 => 1010 0 100 => 164
 #define USART1_1MBAUD	164
 #define USART1_2MBAUD	82
+#define USART1_3MBAUD	49	//It's 3.333
 #define USART1_4MBAUD	37
 
 //USART1:

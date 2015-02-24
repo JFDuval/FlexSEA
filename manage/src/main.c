@@ -130,7 +130,7 @@ int main(void)
 			}
 
 			tbdiv++;
-			if(tbdiv == 4)	//4 = 5ms
+			//if(tbdiv == 4)	//4 = 5ms
 			{
 				tbdiv = 0;
 
