@@ -286,6 +286,7 @@ int main(void)
 	}
 }
 
+uint8 uart_tmp_buf[RX_BUF_LEN];
 void get_uart_data(void)
 {
 	uint32 uart_buf_size = 0, i = 0;
@@ -295,9 +296,12 @@ void get_uart_data(void)
 	{
 		for(i = 0; i < uart_buf_size; i++)
 		{
-			last_byte = UART_2_GetChar();	//It's a shame but there is no gets function
-			update_rx_buf_byte_485_1(last_byte);
+			//It's a shame but there is no gets function
+			uart_tmp_buf[i] = UART_2_GetChar();	//Get as many bytes as possible...
 		}
+		
+		//...then mass update rx_buf:
+		update_rx_buf_array_485_1(uart_tmp_buf, uart_buf_size);
 		
 		data_ready_485_1++;
 	}		
