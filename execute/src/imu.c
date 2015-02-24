@@ -20,6 +20,8 @@
 
 uint8 i2c_tmp_buf[IMU_MAX_BUF_SIZE];
 
+volatile uint8 i2c_r_buf[16];
+
 struct imu_s imu;
 
 //****************************************************************************
@@ -184,7 +186,8 @@ int imu_write(uint8 internal_reg_addr, uint8* pData, uint16 length)
 	return 0;
 }
 
-//Manual I2C [Write - Restart - Read n] function
+/*
+//Manual I2C [Write - Restart - Read n bytes] function
 int imu_read(uint8 internal_reg_addr, uint8 *pData, uint16 length)
 {
 	uint8 status = 0, i = 0;
@@ -211,16 +214,43 @@ int imu_read(uint8 internal_reg_addr, uint8 *pData, uint16 length)
 	}
 	pData[i+1] = I2C_1_MasterReadByte(0);	//Nack the last byte
 	
-	//Send stop
-	/*
-	status = I2C_1_MasterSendStop();
-	if(status != I2C_1_MSTR_NO_ERROR)
-		return 4;
-	*/
 	//I2C_1_MasterSendStop() is blocking, and it blocked me every few seconds. This seems to work better:
 	I2C_1_GENERATE_STOP_MANUAL;		//Generate STOP
-    I2C_1_state = I2C_1_SM_IDLE;	//Reset state to IDLE
+	I2C_1_state = I2C_1_SM_IDLE;	//Reset state to IDLE
 	//Scopped the bus, all clean.
+	
+	return 0;
+}
+*/
+
+//Manual I2C [Write - Restart - Read n bytes] function
+//Takes around 90us (400kHz) to run, then the ISR takes care of everything.
+int imu_read(uint8 internal_reg_addr, uint8 *pData, uint16 length)
+{
+	uint8 status = 0, i = 0;
+	
+	//Currently having trouble detecting the flags to know when data is ready.
+	//For now I'll transfer the previous buffer.
+	for(i = 0; i < length; i++)
+	{
+		pData[i] = i2c_r_buf[i];
+	}
+	
+	//Clear status:
+	//I2C_1_MasterClearStatus();
+	
+	//Start, address, Write mode
+	status = I2C_1_MasterSendStart(IMU_ADDR, 0);		
+	if(status != I2C_1_MSTR_NO_ERROR)
+		return 1;
+	
+	//Write to register
+	status = I2C_1_MasterWriteByte(internal_reg_addr);
+	if(status != I2C_1_MSTR_NO_ERROR)
+		return 2;
+
+	//Repeat start, read then stop (all by ISR):
+	I2C_1_MasterReadBuf(IMU_ADDR, (uint8 *)i2c_r_buf, length, (I2C_1_MODE_COMPLETE_XFER | I2C_1_MODE_REPEAT_START));
 	
 	return 0;
 }

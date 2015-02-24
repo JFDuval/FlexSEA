@@ -45,8 +45,8 @@
 #define UART_2_USE23POLLING                   (1u)
 #define UART_2_FLOW_CONTROL                   (0u)
 #define UART_2_CLK_FREQ                       (0u)
-#define UART_2_TXBUFFERSIZE                   (64u)
-#define UART_2_RXBUFFERSIZE                   (32u)
+#define UART_2_TXBUFFERSIZE                   (128u)
+#define UART_2_RXBUFFERSIZE                   (64u)
 
 /* Check to see if required defines such as CY_PSOC5LP are available */
 /* They are defined starting with cy_boot v3.0 */

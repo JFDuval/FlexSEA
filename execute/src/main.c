@@ -88,10 +88,7 @@ int main(void)
 	uint8 cmd_ready_485_1 = 0;
 	
 	//Power on delay with LEDs
-	power_on();
-	
-   	//Enable Global Interrupts
-    CyGlobalIntEnable;        
+	power_on();	     
 
 	//Initialize all the peripherals
 	init_peripherals();

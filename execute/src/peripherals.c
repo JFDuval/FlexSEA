@@ -46,6 +46,12 @@ void init_peripherals(void)
 	//Analog, expansion port:
 	init_analog();
 	
+	//Clutch:
+	init_clutch();	
+	
+	//Enable Global Interrupts
+    CyGlobalIntEnable; 
+	
 	//I2C1 (internal, potentiometers, Safety-CoP & IMU)
 	init_i2c1();
 	
@@ -74,9 +80,6 @@ void init_peripherals(void)
 	i2c_write_minm_rgb(SET_RGB, 0, 255, 0);
 	
 	#endif //USE_I2C_EXT
-	
-	//Clutch:
-	init_clutch();
 	
 	// First DieTemp reading is always inaccurate -- throw out the first one
 	#ifdef USE_DIETEMP	
