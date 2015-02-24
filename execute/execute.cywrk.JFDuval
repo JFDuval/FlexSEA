@@ -582,19 +582,11 @@
 </CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
 <Unloaded />
 <OpenDocs>
-<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\I2C_1_MASTER.c" />
-<name v=".\execute_1_0.cydsn\execute_1_0.cydwr" />
-<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\I2C_1.h" />
-<name v=".\src\imu.c" />
-<name v=".\inc\imu.h" />
-<name v=".\src\main.c" />
-<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\CyLib.c" />
-<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\UART_2_INT.c" />
-<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\UART_2.c" />
 <name v=".\src\misc.c" />
+<name v=".\src\main.c" />
 <name v=".\execute_1_0.cydsn\TopDesign\TopDesign.cysch" />
-<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\ADC_SAR_1.c" />
-<name v=".\inc\misc.h" />
+<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\isr_t1.c" />
+<name v=".\src\peripherals.c" />
 </OpenDocs>
 <config v="" />
 <AutoUpdate v="true" />
