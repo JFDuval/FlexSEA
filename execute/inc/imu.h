@@ -90,6 +90,23 @@ typedef enum {
 #define D_SIGNAL_PATH_RESET		0x07	//write to SIGNAL_PATH_RESET: reset signal paths only
 #define D_DEVICE_RESET			0x80	//write to PWR_MGMT_1: reset internal regs
 
+//A lot of the I2C macros are blocking. Modified version:
+
+#define I2C_1_TRANSMIT_DATA_MANUAL_TIMEOUT													\
+                                    do{														\
+                                        I2C_1_TRANSMIT_DATA;								\
+                                        while(I2C_1_CHECK_BYTE_COMPLETE(I2C_1_CSR_REG))		\
+                                        {													\
+                                            /* Wait when byte complete is cleared */		\
+											t++;											\
+											if(t > timeout)									\
+												break;										\
+											else											\
+												CyDelayUs(1);								\
+                                        }													\
+                                    }while(0)
+
+
 //****************************************************************************
 // Prototype(s):
 //****************************************************************************
@@ -110,6 +127,7 @@ void disable_imu(void);					//disable the IMU by shutting down clocks, etc.
 int imu_write(uint8 internal_reg_addr, uint8* pData, uint16 length); 
 int imu_read(uint8 internal_reg_addr, uint8 *pData, uint16 length);
 void imu_test_code_blocking(void);
+uint8 I2C_1_MasterWriteByteTimeOut(uint8 theByte, uint32 timeout);
 
 //****************************************************************************
 // Structure(s):

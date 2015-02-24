@@ -79,8 +79,9 @@ extern volatile int8_t tx_cnt;
         /* User code required at start of ISR */
         /* `#START UART_2_RXISR_START` */
 
+		EXP5_Write(1);
 		uart2_flag = 1;
-		
+		EXP5_Write(0);
 		
 		
         /* `#END` */

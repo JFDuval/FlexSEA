@@ -245,9 +245,14 @@ int imu_read(uint8 internal_reg_addr, uint8 *pData, uint16 length)
 		return 1;
 	
 	//Write to register
-	status = I2C_1_MasterWriteByte(internal_reg_addr);
+	status = I2C_1_MasterWriteByteTimeOut(internal_reg_addr, 500);
 	if(status != I2C_1_MSTR_NO_ERROR)
+	{
+		//Release bus:
+		I2C_1_BUS_RELEASE;
+		
 		return 2;
+	}
 
 	//Repeat start, read then stop (all by ISR):
 	I2C_1_MasterReadBuf(IMU_ADDR, (uint8 *)i2c_r_buf, length, (I2C_1_MODE_COMPLETE_XFER | I2C_1_MODE_REPEAT_START));
@@ -291,4 +296,66 @@ void imu_test_code_blocking(void)
 		
 		CyDelay(75);		
 	}
+}
+
+//Simplified version of I2C_1_MasterWriteByte() (single master only) with timeouts
+//timeout is in us
+uint8 I2C_1_MasterWriteByteTimeOut(uint8 theByte, uint32 timeout)
+{
+    uint8 errStatus;
+	uint32 t = 0;	//For the timeout
+
+    errStatus = I2C_1_MSTR_NOT_READY;
+
+    /* Check if START condition was generated */
+    if(I2C_1_CHECK_MASTER_MODE(I2C_1_MCSR_REG))
+    {
+        I2C_1_DATA_REG = theByte;                        /* Write DATA register */
+		t = 0;
+		
+		
+        //I2C_1_TRANSMIT_DATA_MANUAL_TIMEOUT;                      /* Set transmit mode */
+		
+        I2C_1_TRANSMIT_DATA;								
+        while(I2C_1_CHECK_BYTE_COMPLETE(I2C_1_CSR_REG))		
+        {													
+            /* Wait when byte complete is cleared */		
+			t++;											
+			if(t > timeout)									
+				break;										
+			else											
+				CyDelayUs(1);								
+        }	
+		
+		
+        I2C_1_state = I2C_1_SM_MSTR_WR_DATA;  /* Set state WR_DATA */
+
+        /* Make sure the last byte has been transfered first */
+		t = 0;
+        while(I2C_1_WAIT_BYTE_COMPLETE(I2C_1_CSR_REG))
+        {
+			/*
+           //Wait for byte to be written
+			t++;
+			if(t > timeout)	
+				break;
+			else
+				CyDelayUs(1);
+			*/
+        }
+
+
+        if(I2C_1_CHECK_DATA_ACK(I2C_1_CSR_REG))
+        {
+            I2C_1_state = I2C_1_SM_MSTR_HALT;     /* Set state to HALT */
+            errStatus = I2C_1_MSTR_NO_ERROR;                 /* The LRB was ACKed */
+        }
+        else
+        {
+            I2C_1_state = I2C_1_SM_MSTR_HALT;     /* Set state to HALT */
+            errStatus = I2C_1_MSTR_ERR_LB_NAK;               /* The LRB was NACKed */
+        }
+    }
+
+    return(errStatus);
 }

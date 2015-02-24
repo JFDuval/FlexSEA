@@ -86,6 +86,7 @@ int main(void)
 	unsigned char ledr_state = 0, ledg_state = 0, ledb_state = 0;
 	uint8 toggle_wdclk = 0;	
 	uint8 cmd_ready_485_1 = 0;
+	static uint8 new_cmd_led = 0;
 	
 	//Power on delay with LEDs
 	power_on();	     
@@ -106,25 +107,6 @@ int main(void)
 	//motor_fixed_pwm_test_code_blocking(1000);
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
-/*
-	// ToDo remove
-	//Sends one packet every 100ms
-	//uint8 tbuf[8] = {1,2,3,4,5,250,251,252};
-	uint8 tbuf[9] = {0,255,0,255,0,255,0,255, 0};
-	uint8 val = 0, numb = 0;
-	while(1)
-	{
-		//Generate the reply:
-		tx_cmd_encoder_read_reply(FLEXSEA_MANAGE_1, 125);
-		numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
-		
-		//Send it out:
-		rs485_puts(comm_str, (numb+1));	
-		
-		CyDelay(1000);
-	}
-*/
-	
 	//Main loop
 	while(1)
 	{
@@ -161,6 +143,13 @@ int main(void)
 			
 			//Alive LED
 			alive_led();
+			
+			//UI RGB LED:
+			rgb_led_ui(0, 0, 0, new_cmd_led);	//ToDo add error codes
+			if(new_cmd_led)
+			{
+				new_cmd_led = 0;
+			}
 			
 			EXP8_Write(0);	//Used to test the timing - can be removed	
 		}
@@ -238,13 +227,18 @@ int main(void)
 			}
 			*/
 			
+			EXP9_Write(1);
 			get_uart_data();
+			EXP9_Write(0);
+			
 			
 			if(data_ready_485_1)
 			{
+				EXP2_Write(1);
 				data_ready_485_1 = 0;
 				//Got new data in, try to decode
 				cmd_ready_485_1 = unpack_payload_485_1();
+				EXP2_Write(0);
 			}
 			
 		#endif	//USE_RS485
@@ -266,9 +260,8 @@ int main(void)
 				//payload_parse_str() calls the functions (if valid)
 				result = payload_parse_str(tmp_rx_command_485_1);
 				
-				//Toggle LED1 with new commands
-				ledb_state ^= 1;
-				LED_B_Write(ledb_state);
+				//LED:
+				new_cmd_led = 1;
 			}
 		
 		#endif	//USE_COMM
