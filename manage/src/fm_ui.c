@@ -83,7 +83,7 @@ void init_switches(void)
 
 void set_led_rgb(unsigned char r, unsigned char g, unsigned char b)
 {
-	//No fading, we use 1 or 0 for now. Flipping the sign so x = 1 means ON
+	//No fading, we use 1 or 0 for now.
 
 	LEDR(r & 0x01);
 	LEDG(g & 0x01);

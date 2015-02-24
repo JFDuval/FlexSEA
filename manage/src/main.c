@@ -109,9 +109,7 @@ int main(void)
 			// parse the command and execute it
 			result = payload_parse_str(tmp_rx_command_485_1);
 
-			//LED:
-			new_cmd_led = 1;
-
+			//LED to display comm. w/ slave:
 			toggle_led1 ^= 1;
 			LED1(toggle_led1);
 		}
