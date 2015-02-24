@@ -503,8 +503,19 @@ void flexsea_console_stream_slave_read(unsigned char slaveid, unsigned char offs
     unsigned char c = 0;
     unsigned char offset = 0;
 
+    //Log file:
+    //=========
+
+	FILE *logfile;
+	time_t t = time(NULL);
+	struct tm tm = *localtime(&t);
+
+	//File will be named with the date & time:
+	char str[100];
+	sprintf((char *)str, "%d-%d-%d-%d:%d:%d.txt", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+	logfile = fopen(str, "w+");
+
     while(!kbhit())
-        //for(i = 0; i < 100; i++)
     {
         //Clear terminal:
         system("clear");
@@ -586,7 +597,16 @@ void flexsea_console_stream_slave_read(unsigned char slaveid, unsigned char offs
             flexsea_console_print_manage();
         }
 
+        //Log to file:
+        sprintf((char *)str, "[%d:%d],%i,%i,%i,%i,%i,%i,%i\n", tm.tm_min, tm.tm_sec, \
+        		exec1.encoder, exec1.current, exec1.imu.x, exec1.imu.y, exec1.imu.z, \
+				exec1.strain, exec1.analog);
+        fprintf(logfile, (char *)str);
+
         //Delay
-        usleep(5000);
+        usleep(2500);
     }
+
+    //Close log file:
+    fclose(logfile);
 }
