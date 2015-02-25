@@ -131,6 +131,11 @@ void uint16_to_bytes(uint32_t x, uint8_t *b0, uint8_t *b1);
 #define CMD_CTRL_I_READ					129
 #define CMD_CTRL_I_READ_REPLY			130
 
+//Change these codes!
+#define CMD_SPECIAL_1					100
+#define CMD_SPECIAL_1_R					CMD_R(CMD_SPECIAL_1)
+#define CMD_SPECIAL_1_W					CMD_W(CMD_SPECIAL_1)
+
 //Note: do not use codes that are framing or escape chars!
 
 //List of controllers:

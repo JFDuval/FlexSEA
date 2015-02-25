@@ -51,6 +51,7 @@ extern uint8_t xmit_flag;
 //motor.c:
 extern struct ctrl_s ctrl;
 extern struct enc_s encoder;	
+extern struct imu_s imu;
 
 #endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -73,13 +74,13 @@ struct execute_s exec1;
 
 //Transmission of a CTRL_SPECIAL_1 command
 //Arguments are only for data that the user will change at runtime.
-//ctrl_w (Write New Controller): KEEP/CHANGE
-//ctrl (New controller): ignored if ctrl_w == KEEP
+//controller_w (Write New Controller): KEEP/CHANGE
+//controller (New controller): ignored if ctrl_w == KEEP
 //encoder_w (Write New Encoder value): KEEP/CHANGE
 //encoder_cnt (New encoder count): ignored if encoder_w == KEEP
 //current: current controller setpoint
 uint32_t tx_cmd_ctrl_special_1(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
-								uint8_t ctrl_w, uint8_t ctrl, uint8_t encoder_w, int32_t encoder, \
+								uint8_t controller_w, uint8_t controller, uint8_t encoder_w, int32_t encoder, \
 								int16_t current)
 {
 	uint8_t tmp0 = 0, tmp1 = 0, tmp2 = 0, tmp3 = 0;
@@ -99,8 +100,8 @@ uint32_t tx_cmd_ctrl_special_1(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 		buf[CP_CMD1] = CMD_R(CMD_SPECIAL_1);
 		
 		//Arguments:
-		buf[CP_DATA1] = ctrl_w;
-		buf[CP_DATA1 + 1] = ctrl;
+		buf[CP_DATA1] = controller_w;
+		buf[CP_DATA1 + 1] = controller;
 		uint16_to_bytes((uint16_t)current, &tmp0, &tmp1);
 		buf[CP_DATA1 + 2] = tmp0;
 		buf[CP_DATA1 + 3] = tmp1;
@@ -168,22 +169,47 @@ uint32_t tx_cmd_ctrl_special_1(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 	return bytes;
 }
 
-/* ToDo
-//Reception of a CTRL_I command
+//Reception of a CMD_SPECIAL_1 command
 void rx_cmd_special_1(uint8_t *buf)
 {
 	uint32_t numb = 0;
-	int16_t tmp_wanted_current = 0, tmp_measured_current = 0;
+	int16_t tmp_wanted_current = 0;
+	int32_t tmp_enc = 0;
 
 	if(IS_CMD_RW(buf[CP_CMD1]) == READ)
 	{
-		//Received a Read command from our master, prepare a reply:
+		//Received a Read command from our master.
 
 		#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+			
+		//Decode its data:
+		//===============
+		
+		//Controller:	
+		if(buf[CP_DATA1] == CHANGE)
+		{
+			//User wants to change the type of controller:
+			control_strategy(buf[CP_DATA1]);
+		}
+		
+		//Current:
+		tmp_wanted_current = BYTES_TO_UINT16(buf[CP_DATA1 + 2], buf[CP_DATA1 + 3]);
+		ctrl.current.setpoint_val = tmp_wanted_current;
+		
+		//Encoder:
+		if(buf[CP_DATA1 + 4] == CHANGE)
+		{
+			//User wants to overwrite the encoder:
+			int32 tmp_enc = (int32)BYTES_TO_UINT32(buf[CP_DATA1 + 5], buf[CP_DATA1 + 6], \
+													buf[CP_DATA1 + 7], buf[CP_DATA1 + 8]);	
+			encoder_write(tmp_enc);	
+		}
 
 		//Generate the reply:
-		numb = tx_cmd_ctrl_i(buf[CP_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, \
-			(ctrl.current.actual_val - CURRENT_ZERO), ctrl.current.setpoint_val);
+		//===================
+		
+		numb = tx_cmd_ctrl_special_1(buf[CP_XID], CMD_WRITE, tmp_payload_xmit, \
+									PAYLOAD_BUF_LEN, KEEP, 0, KEEP, 0, 0);		
 		numb = comm_gen_str(tmp_payload_xmit, numb);
 
 		//Notify the code that a buffer is ready to be transmitted:
@@ -205,11 +231,6 @@ void rx_cmd_special_1(uint8_t *buf)
 	{
 		//Two options: from Master of from slave (a read reply)
 
-		//Decode data:
-		tmp_measured_current = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1], buf[CP_DATA1+1]));
-		tmp_wanted_current = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+2], buf[CP_DATA1+3]));
-		//ToDo store that value somewhere useful
-
 		if(sent_from_a_slave(buf))
 		{
 			//We received a reply to our read request
@@ -221,8 +242,19 @@ void rx_cmd_special_1(uint8_t *buf)
 
 			#ifdef BOARD_TYPE_FLEXSEA_MANAGE
 
-			//Store value:
-			exec1.current = tmp_measured_current;
+			//Store values:
+				
+			exec1.imu.x = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+0], buf[CP_DATA1+1]));
+			exec1.imu.y = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+2], buf[CP_DATA1+3]));
+			exec1.imu.z = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+4], buf[CP_DATA1+5]));
+			
+			exec1.strain = (BYTES_TO_UINT16(buf[CP_DATA1+6], buf[CP_DATA1+7]));
+			exec1.analog = (BYTES_TO_UINT16(buf[CP_DATA1+8], buf[CP_DATA1+9]));
+	
+			exec1.encoder = (int32_t) (BYTES_TO_UINT32(buf[CP_DATA1+10], buf[CP_DATA1+11], \
+										buf[CP_DATA1+12], buf[CP_DATA1+13]));
+			
+			exec1.current = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+14], buf[CP_DATA1+15]));
 
 			#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
@@ -256,4 +288,3 @@ void rx_cmd_special_1(uint8_t *buf)
 		}
 	}
 }
-*/

@@ -23,15 +23,11 @@
 uint32_t tx_cmd_ctrl_special_1(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
 								uint8_t ctrl_w, uint8_t ctrl, uint8_t encoder_w, int32_t encoder, \
 								int16_t current);
-//void rx_cmd_special_1(uint8_t *buf);
+void rx_cmd_special_1(uint8_t *buf);
 
 //****************************************************************************
 // Definition(s):
 //****************************************************************************
-
-//ToDo move to flexsea.h when it's debugged
-#define CMD_SPECIAL_1		100
-
 
 //****************************************************************************
 // Structure(s):

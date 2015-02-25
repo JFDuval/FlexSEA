@@ -261,6 +261,12 @@ unsigned int payload_parse_str(unsigned char *cp_str)
                 rx_cmd_ctrl_p_gains_write(cp_str);
                 break;
 			
+			//ToDo: temporary integration of the new commands:	
+			case CMD_SPECIAL_1_W:     
+			case CMD_SPECIAL_1_R:    	
+                rx_cmd_special_1(cp_str);
+                break;	
+			
 			//Unknown command:	
             default:
                 output = PARSE_UNKNOWN_CMD;
