@@ -22,6 +22,7 @@
 
 uint16_t slave_comm(uint8_t slave, uint8_t port, uint8_t autosample);
 void write_test_cmd_execute(uint8_t port, uint8_t value);
+void write_test_cmd_execute2(uint8_t port, uint8_t value);
 
 //****************************************************************************
 // Definition(s):

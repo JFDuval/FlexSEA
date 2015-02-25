@@ -15,7 +15,6 @@
 #include <stdlib.h>
 #include "../inc/flexsea.h"
 #include "flexsea_local.h"
-//#include "flexsea_cmd_control.h"
 
 //Plan boards only:
 #ifdef BOARD_TYPE_FLEXSEA_PLAN
@@ -68,9 +67,6 @@ struct execute_s exec1;
 //****************************************************************************
 // Function(s)
 //****************************************************************************
-
-#define KEEP			0
-#define CHANGE			1	 
 
 //Transmission of a CTRL_SPECIAL_1 command
 //Arguments are only for data that the user will change at runtime.
