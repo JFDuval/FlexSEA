@@ -29,7 +29,7 @@
 #include "flexsea_cmd_external.h"
 #include "flexsea_cmd_sensors.h"
 #include "flexsea_cmd_system.h"
-//#include "flexsea_cmd_user.h"
+#include "flexsea_cmd_user.h"
 
 //****************************************************************************
 // Prototype(s):
