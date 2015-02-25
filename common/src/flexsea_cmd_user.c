@@ -51,6 +51,8 @@ extern uint8_t xmit_flag;
 extern struct ctrl_s ctrl;
 extern struct enc_s encoder;	
 extern struct imu_s imu;
+	
+extern unsigned char comm_str[COMM_STR_BUF_LEN];
 
 #endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -210,6 +212,9 @@ void rx_cmd_special_1(uint8_t *buf)
 
 		//Notify the code that a buffer is ready to be transmitted:
 		xmit_flag = 1;
+		
+		//(for now, send it)
+		rs485_puts(comm_str, (numb+1));	
 
 		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
