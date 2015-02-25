@@ -247,19 +247,19 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	if(GPIO_Pin == GPIO_PIN_4)
 	{
 		// transfer over the buffer
-		// Todo: transfer over the number of bytes that have been received instead of 24 every time
-		for (unsigned char i = 0; i < 24; i++)
+		// Todo: transfer over the number of bytes that have been received instead of COMM_STR_BUF_LEN every time
+		for (unsigned char i = 0; i < COMM_STR_BUF_LEN; i++)
 		{
 			update_rx_buf_byte_spi(aRxBuffer[i]);
 			//ToDo update to array
 		}
 		// clear the SPI buffer
-		for (unsigned char i = 0; i < 24; i++)
+		for (unsigned char i = 0; i < COMM_STR_BUF_LEN; i++)
 		{
 			aRxBuffer[i] = 0;
 		}
 		// reset the SPI pointer and counter
-		spi4_handle.RxXferCount = 24;
+		spi4_handle.RxXferCount = COMM_STR_BUF_LEN;
 		spi4_handle.pRxBuffPtr = aRxBuffer;
 
 		// handle the new data however this device wants to

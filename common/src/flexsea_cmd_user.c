@@ -108,7 +108,7 @@ uint32_t tx_cmd_ctrl_special_1(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 		buf[CP_DATA1 + 7] = tmp2;
 		buf[CP_DATA1 + 8] = tmp3;
 
-		bytes = CP_DATA1 + 1;     //Bytes is always last+1
+		bytes = CP_DATA1 + 9;     //Bytes is always last+1
 	}
 	else if(cmd_type == CMD_WRITE)
 	{
@@ -257,7 +257,7 @@ void rx_cmd_special_1(uint8_t *buf)
 			#ifdef BOARD_TYPE_FLEXSEA_PLAN
 
 			#ifdef USE_PRINTF
-			printf("Received CMD_CTRL_I_READ_REPLY. Wanted = %i, Measured = %i.\n", tmp_wanted_current, tmp_measured_current);
+			printf("Received CMD_CTRL_I_READ_REPLY. Wanted = %i, Measured = %i.\n", 123, 456);	//tmp_wanted_current, tmp_measured_current);
 			#endif	//USE_PRINTF
 
 			#endif	//BOARD_TYPE_FLEXSEA_PLAN

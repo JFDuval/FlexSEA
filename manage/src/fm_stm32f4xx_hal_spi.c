@@ -92,6 +92,7 @@
 //ToDo 2: update the file header (from STM, modified by Steven, etc)
 
 #include "stm32f4xx_hal.h"
+#include "flexsea.h"
 
 /** @addtogroup STM32F4xx_HAL_Driver
  * @{
@@ -1124,7 +1125,7 @@ HAL_StatusTypeDef HAL_SPI_Read_IT(SPI_HandleTypeDef *hspi, uint8_t pSPIBuffer[],
 	 */
 
 	// delete the data
-	for (uint16_t j=0; j<24; j++)
+	for (uint16_t j=0; j<COMM_STR_BUF_LEN; j++)
 	{
 		pSPIBuffer[j] = 0;
 	}

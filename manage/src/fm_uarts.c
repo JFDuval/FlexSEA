@@ -423,7 +423,8 @@ void rs485_1_xmit_dma_rx_test(void)
 	for(delay = 0; delay < 5000; delay++);		//Short delay
 
 	//Send a packet, requesting a read:
-	write_test_cmd_execute(PORT_RS485_1, 0);
+	//write_test_cmd_execute(PORT_RS485_1, 0);
+	write_test_cmd_execute2(PORT_RS485_1, 77);
 
 	//Receive enable
 	for(delay = 0; delay < 5000; delay++);		//Short delay

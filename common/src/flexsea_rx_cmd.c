@@ -379,7 +379,7 @@ void rx_cmd_mem_read(unsigned char *buf)
 
 	//Prepare data to be sent, place it in buffer
 	flexsea_prepare_spi_tx_buffer(base_addr);
-	flexsea_send_serial_master(0, comm_str, 24);
+	flexsea_send_serial_master(0, comm_str, COMM_STR_BUF_LEN);
 
 	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
@@ -669,7 +669,7 @@ void rx_cmd_analog_read(uint8_t *buf)
 	//Send it out: //ToDo *******
 	//Prepare data to be sent, place it in buffer
 	//flexsea_prepare_spi_tx_buffer();
-	flexsea_send_serial_master(0, comm_str, 24);
+	flexsea_send_serial_master(0, comm_str, COMM_STR_BUF_LEN);
 
 	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
