@@ -71,7 +71,7 @@ unsigned char comm_gen_str(unsigned char payload[], unsigned char bytes)
     //Fill comm_str with zeros
     for(i = 0; i < COMM_STR_BUF_LEN; i++)
     {
-        comm_str[i] = '0';
+        comm_str[i] = 0xAA; //'0';
     }
 #ifdef DEBUG_COMM_USING_PRINTF
     printf("comm_str: %s\n", comm_str);

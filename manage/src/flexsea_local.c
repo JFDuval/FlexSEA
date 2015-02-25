@@ -116,7 +116,8 @@ void flexsea_start_receiving_from_master(void)
 	// start receive over SPI
 	if (HAL_SPI_GetState(&spi4_handle) == HAL_SPI_STATE_READY)
 	{
-		if(HAL_Start_SPI_Receiving_IT(&spi4_handle, aRxBuffer, RX_BUF_LEN) != HAL_OK)
+		if(HAL_Start_SPI_Receiving_IT(&spi4_handle, aRxBuffer, COMM_STR_BUF_LEN) != HAL_OK)
+		//if(HAL_SPI_TransmitReceive_IT(&spi4_handle, aRxBuffer, aTxBuffer, COMM_STR_BUF_LEN) != HAL_OK)
 		{
 			// Transfer error in transmission process
 			flexsea_error(SE_RECEIVE_FROM_MASTER);

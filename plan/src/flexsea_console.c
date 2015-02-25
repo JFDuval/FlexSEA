@@ -489,7 +489,7 @@ void flexsea_console_print_execute(void)
 void flexsea_console_print_manage(void)
 {
 	#ifdef USE_PRINTF
-    printf("==> MANAGE BOARD <== \n\n");
+    //printf("==> MANAGE BOARD <== \n\n");
 
 	printf("Gyro X: %i\n", exec1.imu.x);
 	printf("Gyro Y: %i\n", exec1.imu.y);
@@ -515,6 +515,7 @@ void flexsea_console_stream_slave_read(unsigned char slaveid, unsigned char offs
         //Clear terminal:
         system("clear");
 
+        /*
         //EXECUTE has too much data for 1 offset read
         if(slaveid == FLEXSEA_MANAGE_1)
         {
@@ -543,48 +544,18 @@ void flexsea_console_stream_slave_read(unsigned char slaveid, unsigned char offs
         numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
         numb = COMM_STR_BUF_LEN - 1;
         flexsea_spi_transmit(numb+1, comm_str, 0);
+        */
+
+        numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
+        									KEEP, 0, KEEP, 0, 77);
+        numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+        numb = COMM_STR_BUF_LEN;
+        flexsea_spi_transmit(numb, comm_str, 0);
 
         //Can we decode what we received?
         decode_spi_rx();
 
-        //Special print according to slave:
-        if(slaveid == FLEXSEA_EXECUTE_1)
-        {
-            flexsea_console_print_execute();
-        }
-        else if(slaveid == FLEXSEA_MANAGE_1)
-        {
-            flexsea_console_print_manage();
-        }
-        else if(slaveid == FLEXSEA_DEFAULT)
-        {
-            //ToDo Terrible way of doing this!
-            //And it's not even functional.
-            //ToDo fixS
-
-            if(slaveid == FLEXSEA_EXECUTE_1)
-                slaveid == FLEXSEA_MANAGE_1;
-            else
-                slaveid == FLEXSEA_EXECUTE_1;
-
-            tx_cmd_mem_read(slaveid, 0, offs, 0);
-			#ifdef USE_PRINTF
-            printf("[Read]: offset = %i.\n", offs);
-			#endif
-            numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
-            numb = COMM_STR_BUF_LEN - 1;
-			#ifdef USE_PRINTF
-            printf("Sending %i bytes.\n", numb+1);
-			#endif
-            flexsea_spi_transmit(numb+1, comm_str, 0);
-
-            //Can we decode what we received?
-            decode_spi_rx();
-
-            //Print both:
-            flexsea_console_print_execute();
-            flexsea_console_print_manage();
-        }
+        flexsea_console_print_manage();
 
         //Delay
         usleep(10000);
@@ -619,6 +590,7 @@ void flexsea_console_datalogger(unsigned char slaveid, unsigned char offs)
 
     while(!kbhit())
     {
+
         //EXECUTE has too much data for 1 offset read
         if(slaveid == FLEXSEA_MANAGE_1)
         {
@@ -643,10 +615,19 @@ void flexsea_console_datalogger(unsigned char slaveid, unsigned char offs)
 
         //Copy of the console "read" code:
 
+        /*
         tx_cmd_mem_read(slaveid, 0, offs, 0);
         numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
         numb = COMM_STR_BUF_LEN - 1;
         flexsea_spi_transmit(numb+1, comm_str, 0);
+         	*/
+
+    	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
+    	        									KEEP, 0, KEEP, 0, 77);
+		numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+		numb = COMM_STR_BUF_LEN;
+		flexsea_spi_transmit(numb, comm_str, 0);
+
 
         //Can we decode what we received?
         tmp = decode_spi_rx();
@@ -659,8 +640,8 @@ void flexsea_console_datalogger(unsigned char slaveid, unsigned char offs)
 				exec1.strain, exec1.analog);
         fprintf(logfile, (char *)str);
 
-        //Delay 10ms
-        usleep(10000);
+        //Delay 500us
+        usleep(500);
     }
 
     //Close log file:

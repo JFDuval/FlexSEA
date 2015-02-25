@@ -64,6 +64,8 @@ struct execute_s exec1;
 
 #ifdef BOARD_TYPE_FLEXSEA_PLAN
 
+struct execute_s exec1;
+
 #endif	//BOARD_TYPE_FLEXSEA_PLAN
 
 //****************************************************************************
@@ -241,7 +243,7 @@ void rx_cmd_special_1(uint8_t *buf)
 			flexsea_error(SE_CMD_NOT_PROGRAMMED);
 			#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
-			#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+			#if((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
 
 			//Store values:
 				
@@ -260,10 +262,6 @@ void rx_cmd_special_1(uint8_t *buf)
 			#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
 			#ifdef BOARD_TYPE_FLEXSEA_PLAN
-
-			#ifdef USE_PRINTF
-			printf("Received CMD_CTRL_I_READ_REPLY. Wanted = %i, Measured = %i.\n", 123, 456);	//tmp_wanted_current, tmp_measured_current);
-			#endif	//USE_PRINTF
 
 			#endif	//BOARD_TYPE_FLEXSEA_PLAN
 		}

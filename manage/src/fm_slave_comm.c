@@ -62,11 +62,12 @@ uint16_t slave_comm(uint8_t slave, uint8_t port, uint8_t autosample)
 	{
 		//xmit flag is high, we skip refreshing the sensors to send one packet
 
-		flexsea_send_serial_slave(port, comm_str_xmit, COMM_STR_BUF_LEN-5);	//ToDo: this will always send the max length, not what we want.
+		flexsea_send_serial_slave(port, comm_str_xmit, COMM_STR_BUF_LEN);	//ToDo: this will always send the max length, not what we want.
 
 		//ToDo: this is ugly, I need a better solution. Table with [CMD Code][R/W][Arguments]?
 		//The new R/W commands will fix that
-        if((cmd_xmit == CMD_IMU_READ) || (cmd_xmit == CMD_ENCODER_READ) || (cmd_xmit == CMD_STRAIN_READ) || (cmd_xmit == CMD_ANALOG_READ) || (cmd_xmit == CMD_CTRL_I_READ))
+        if((cmd_xmit == CMD_IMU_READ) || (cmd_xmit == CMD_ENCODER_READ) || (cmd_xmit == CMD_STRAIN_READ) || (cmd_xmit == CMD_ANALOG_READ) \
+        		|| (cmd_xmit == CMD_CTRL_I_READ) || (cmd_xmit == CMD_R(CMD_SPECIAL_1)))
         {
             //Place code here to deal with slave answering
             start_listening_flag = 1;

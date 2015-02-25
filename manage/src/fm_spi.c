@@ -261,6 +261,15 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 		// reset the SPI pointer and counter
 		spi4_handle.RxXferCount = COMM_STR_BUF_LEN;
 		spi4_handle.pRxBuffPtr = aRxBuffer;
+		spi4_handle.pTxBuffPtr = aTxBuffer;	//Test
+
+		/*
+		if(HAL_SPI_TransmitReceive_IT(&spi4_handle, (uint8_t *)aRxBuffer, (uint8_t *)aTxBuffer, COMM_STR_BUF_LEN) != HAL_OK)
+		{
+			// Transfer error in transmission process
+			flexsea_error(SE_SEND_SERIAL_MASTER);
+		}
+		*/
 
 		// handle the new data however this device wants to
 		SPI_new_data_Callback();
