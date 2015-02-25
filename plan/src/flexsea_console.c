@@ -35,9 +35,9 @@ unsigned char slave_id[MAX_SLAVE] = {FLEXSEA_DEFAULT, FLEXSEA_MANAGE_1, FLEXSEA_
 //Console command list:
 char fcp_list[MAX_CMD][TXT_STR_LEN] = 	{"info", "cmd_imu_read", "cmd_encoder_write", "cmd_encoder_read", "cmd_strain_read", "cmd_strain_config", \
 										"cmd_clutch_write", "cmd_analog_read", "cmd_ctrl_mode_write", "cmd_ctrl_i_gains_write", "cmd_ctrl_p_gains_write", \
-										"cmd_ctrl_o_write", "cmd_ctrl_i_write", "cmd_ctrl_i_read", "cmd_mem_read", "cmd_acq_mode_write", "stream", "shuobot"};
+										"cmd_ctrl_o_write", "cmd_ctrl_i_write", "cmd_ctrl_i_read", "cmd_mem_read", "cmd_acq_mode_write", "stream", "log", "shuobot"};
 //info is command 0, set_pid is 1, etc...
-char fcp_args[MAX_CMD] = {0, 2, 1, 0, 0, 3, 1, 2, 1, 3, 3, 1, 1, 0, 2, 1, 0, 0};
+char fcp_args[MAX_CMD] = {0, 2, 1, 0, 0, 3, 1, 2, 1, 3, 3, 1, 1, 0, 2, 1, 0, 0, 0};
 //fcp_args contains the number of arguments for each command
 
 //****************************************************************************
@@ -418,7 +418,14 @@ void flexsea_console_parser(int argc, char *argv[])
 					flexsea_console_stream_slave_read(slave_id[c], 0);
 					break;
 
-				case 17: //'shuobot'
+				case 17: //'log'
+					#ifdef USE_PRINTF
+					printf("[Log]\n");
+					#endif
+					flexsea_console_datalogger(slave_id[c], 0);
+					break;
+
+				case 18: //'shuobot'
 					#ifdef USE_PRINTF
 					printf("[Calling ShuoBot()]\n");
 					#endif
@@ -503,18 +510,6 @@ void flexsea_console_stream_slave_read(unsigned char slaveid, unsigned char offs
     unsigned char c = 0;
     unsigned char offset = 0;
 
-    //Log file:
-    //=========
-
-	FILE *logfile;
-	time_t t = time(NULL);
-	struct tm tm = *localtime(&t);
-
-	//File will be named with the date & time:
-	char str[100];
-	sprintf((char *)str, "%d-%d-%d-%d:%d:%d.txt", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
-	logfile = fopen(str, "w+");
-
     while(!kbhit())
     {
         //Clear terminal:
@@ -545,14 +540,8 @@ void flexsea_console_stream_slave_read(unsigned char slaveid, unsigned char offs
         //Copy of the console "read" code:
 
         tx_cmd_mem_read(slaveid, 0, offs, 0);
-		#ifdef USE_PRINTF
-        printf("[Read]: offset = %i.\n", offs);
-		#endif
         numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
         numb = COMM_STR_BUF_LEN - 1;
-		#ifdef USE_PRINTF
-        printf("Sending %i bytes.\n", numb+1);
-		#endif
         flexsea_spi_transmit(numb+1, comm_str, 0);
 
         //Can we decode what we received?
@@ -597,16 +586,86 @@ void flexsea_console_stream_slave_read(unsigned char slaveid, unsigned char offs
             flexsea_console_print_manage();
         }
 
+        //Delay
+        usleep(10000);
+    }
+}
+
+void flexsea_console_datalogger(unsigned char slaveid, unsigned char offs)
+{
+    unsigned int i = 0, numb = 0;
+    unsigned char c = 0;
+    unsigned char offset = 0;
+    uint32_t tmp = 0, lines = 0, good = 0;
+
+    //Clear terminal:
+	system("clear");
+    printf("[FlexSEA-Plan Datalogging]\n");
+    printf("==========================\n\n");
+
+    //Log file:
+    //=========
+
+	FILE *logfile;
+	time_t t = time(NULL);
+	struct tm tm = *localtime(&t);
+
+	//File will be named with the date & time:
+	char str[100];
+	sprintf((char *)str, "log-%d-%d-%d-%d:%d:%d.txt", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+	logfile = fopen(str, "w+");
+	printf("Logfile created (%s)\n", str);
+	printf("\nPress any key to exit...\n\n");
+
+    while(!kbhit())
+    {
+        //EXECUTE has too much data for 1 offset read
+        if(slaveid == FLEXSEA_MANAGE_1)
+        {
+            if(offset == 0)
+            {
+                offset = 6;
+            }
+            else if(offset == 6)
+            {
+            	offset = 12;
+            }
+            else
+            {
+                offset = 0;
+            }
+        }
+        else
+        {
+            offset = 0;
+        }
+        offs = offset;
+
+        //Copy of the console "read" code:
+
+        tx_cmd_mem_read(slaveid, 0, offs, 0);
+        numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+        numb = COMM_STR_BUF_LEN - 1;
+        flexsea_spi_transmit(numb+1, comm_str, 0);
+
+        //Can we decode what we received?
+        tmp = decode_spi_rx();
+        lines++;
+        good += tmp;
+
         //Log to file:
         sprintf((char *)str, "[%d:%d],%i,%i,%i,%i,%i,%i,%i\n", tm.tm_min, tm.tm_sec, \
         		exec1.encoder, exec1.current, exec1.imu.x, exec1.imu.y, exec1.imu.z, \
 				exec1.strain, exec1.analog);
         fprintf(logfile, (char *)str);
 
-        //Delay
-        usleep(2500);
+        //Delay 10ms
+        usleep(10000);
     }
 
     //Close log file:
     fclose(logfile);
+
+    printf("\n%i lines (%i with valid data)\n", lines, good);
+    printf("Log file closed. Exiting.\n\n\n");
 }

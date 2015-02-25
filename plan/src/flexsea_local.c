@@ -60,11 +60,12 @@ void flexsea_send_serial_master(unsigned char port, unsigned char *str, unsigned
 }
 
 //Parse the spi_rx buffer
-void decode_spi_rx(void)
+uint8_t decode_spi_rx(void)
 {
     int i = 0, result = 0;
     uint8_t cmd_ready_spi = 0;
     uint8_t tmp_rx_command_spi[PACKAGED_PAYLOAD_LEN];
+    uint8_t valid = 0;
 
     //Transfer spi_rx to flexsea's buffer
     for(i = 0; i < COMM_STR_BUF_LEN; i++)
@@ -77,13 +78,15 @@ void decode_spi_rx(void)
     if(cmd_ready_spi != 0)
     {
 		#ifdef USE_PRINTF
-        printf("[Received a valid comm_str!]\n");
+        //printf("[Received a valid comm_str!]\n");
+    	valid = 1;
 		#endif
     }
     else
     {
 		#ifdef USE_PRINTF
-        printf("[No intelligent data received]\n");
+        //printf("[No intelligent data received]\n");
+    	valid = 0;
 		#endif
     }
 
@@ -100,4 +103,6 @@ void decode_spi_rx(void)
 
         result = payload_parse_str(tmp_rx_command_spi);
     }
+
+    return valid;
 }

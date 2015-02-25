@@ -25,7 +25,7 @@
 
 void flexsea_send_serial_slave(unsigned char port, unsigned char *str, unsigned char length);
 void flexsea_send_serial_master(unsigned char port, unsigned char *str, unsigned char length);
-void decode_spi_rx(void);
+uint8_t decode_spi_rx(void);
 
 //****************************************************************************
 // Definition(s):
