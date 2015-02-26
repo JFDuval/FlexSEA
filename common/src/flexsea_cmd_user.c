@@ -211,6 +211,7 @@ void rx_cmd_special_1(uint8_t *buf)
 		numb = tx_cmd_ctrl_special_1(buf[CP_XID], CMD_WRITE, tmp_payload_xmit, \
 									PAYLOAD_BUF_LEN, KEEP, 0, KEEP, 0, 0);		
 		numb = comm_gen_str(tmp_payload_xmit, numb);
+		numb = COMM_STR_BUF_LEN;	//Fixed length for now to accomodate the DMA
 
 		//Notify the code that a buffer is ready to be transmitted:
 		xmit_flag = 1;

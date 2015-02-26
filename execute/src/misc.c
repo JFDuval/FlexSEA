@@ -99,11 +99,13 @@ void rs485_puts(uint8 *buf, uint32 len)
 	EXP8_Write(1);
 	
 	//Wait till they get out
-	CyDelayUs(60);					//Wait (ToDo optimize/eliminate)
+	CyDelayUs(100);					//Wait (ToDo optimize/eliminate)
 		
 	//Back to normal, enable Receiver disable emitter
-	NOT_RE_Write(0);				
 	DE_Write(0);
+	CyDelayUs(1);
+	NOT_RE_Write(0);				
+	
 	
 	EXP8_Write(0);
 }
