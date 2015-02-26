@@ -591,6 +591,7 @@ void flexsea_console_datalogger(unsigned char slaveid, unsigned char offs)
     while(!kbhit())
     {
 
+    	/*
         //EXECUTE has too much data for 1 offset read
         if(slaveid == FLEXSEA_MANAGE_1)
         {
@@ -612,6 +613,7 @@ void flexsea_console_datalogger(unsigned char slaveid, unsigned char offs)
             offset = 0;
         }
         offs = offset;
+        */
 
         //Copy of the console "read" code:
 

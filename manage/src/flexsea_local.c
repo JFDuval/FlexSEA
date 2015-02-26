@@ -81,7 +81,9 @@ void flexsea_send_serial_slave(unsigned char port, unsigned char *str, unsigned 
 void flexsea_send_serial_master(unsigned char port, unsigned char *str, unsigned char length)
 {
 	//comm_str was already generated, now we place it in the buffer:
-	comm_str_to_txbuffer();
+	//comm_str_to_txbuffer();
+
+	/*
 
 	// transmit over SPI using interrupts
 	if(HAL_SPI_Transmit_IT(&spi4_handle, aTxBuffer, length) != HAL_OK)
@@ -89,6 +91,8 @@ void flexsea_send_serial_master(unsigned char port, unsigned char *str, unsigned
 		// Transfer error in transmission process
 		flexsea_error(SE_SEND_SERIAL_MASTER);
 	}
+	*/
+
 }
 
 //Fill the buffer with 0s
@@ -116,8 +120,8 @@ void flexsea_start_receiving_from_master(void)
 	// start receive over SPI
 	if (HAL_SPI_GetState(&spi4_handle) == HAL_SPI_STATE_READY)
 	{
-		if(HAL_Start_SPI_Receiving_IT(&spi4_handle, aRxBuffer, COMM_STR_BUF_LEN) != HAL_OK)
-		//if(HAL_SPI_TransmitReceive_IT(&spi4_handle, aRxBuffer, aTxBuffer, COMM_STR_BUF_LEN) != HAL_OK)
+		//if(HAL_Start_SPI_Receiving_IT(&spi4_handle, aRxBuffer, COMM_STR_BUF_LEN) != HAL_OK)
+		if(HAL_SPI_TransmitReceive_IT(&spi4_handle, (uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, COMM_STR_BUF_LEN) != HAL_OK)
 		{
 			// Transfer error in transmission process
 			flexsea_error(SE_RECEIVE_FROM_MASTER);

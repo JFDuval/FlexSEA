@@ -110,8 +110,11 @@ int main(void)
 			result = payload_parse_str(tmp_rx_command_485_1);
 
 			//LED to display comm. w/ slave:
-			toggle_led1 ^= 1;
-			LED1(toggle_led1);
+			if(result)
+			{
+				toggle_led1 ^= 1;
+				LED1(toggle_led1);
+			}
 		}
 
 		//1, 10, 100 & 1000ms timebases:
@@ -156,6 +159,8 @@ int main(void)
 			//Constant LED0 flashing while the code runs
 			toggle_led0 ^= 1;
 			LED0(toggle_led0);
+
+			//rs485_1_xmit_dma_rx_test();
 		}
 
 		//1000ms
