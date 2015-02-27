@@ -28,6 +28,7 @@ unsigned char comm_gen_str(unsigned char payload[], unsigned char bytes);
 uint8_t unpack_payload(uint8_t *buf, uint8_t rx_cmd[][48]);	//ToDo should be PACKAGED_PAYLOAD_LEN
 uint8_t unpack_payload_spi(void);
 uint8_t unpack_payload_485_1(void);
+uint8_t unpack_payload_485_2(void);
 void clear_rx_command(uint8_t x, uint8_t y, uint8_t rx_cmd[][48]);	//ToDo should be PACKAGED_PAYLOAD_LEN
 void test_flexsea_comm(void);
 

@@ -28,13 +28,12 @@ GPIO_InitTypeDef GPIO_InitStruct;
 DMA_HandleTypeDef hdma2_str2_ch4;	//DMA for RS-485 #1
 DMA_HandleTypeDef hdma2_str1_ch5;	//DMA for RS-485 #2
 
-unsigned char tmp_buf[10] = {0,0,0,0,0,0,0,0,0,0};
-
+//DMA buffers and config.
 __attribute__ ((aligned (4))) uint8_t uart1_dma_buf[RX_BUF_LEN];
 uint32_t rs485_1_dma_xfer_len = COMM_STR_BUF_LEN+1;			//ToDo Should not have +1! Fix/test *****
-
 __attribute__ ((aligned (4))) uint8_t uart6_dma_buf[RX_BUF_LEN];
 uint32_t rs485_2_dma_xfer_len = COMM_STR_BUF_LEN+1;			//ToDo Should not have +1! Fix/test *****
+//Note: Not sure if they have to be aligned, but can't hurt too much.
 
 //****************************************************************************
 // External variable(s)
@@ -295,22 +294,20 @@ void init_usart3(uint32_t baudrate)
 	USART6->CR3 &= 0b11111111111111111111011111111111;	//3 bits method
 }
 
-//ToDo clean
-uint8_t UARTaTxBuffer[] = "123";
 
-unsigned char data[1];
+uint8_t putc_data[1];
 void putc_usart1(char c)
 {
-	data[1] = c;
+	putc_data[1] = c;
 	//huart1.State = HAL_USART_STATE_READY;
-	HAL_USART_Transmit(&husart1,(uint8_t*)data,1, UART_TIMEOUT);
+	HAL_USART_Transmit(&husart1,(uint8_t*)putc_data, 1, UART_TIMEOUT);
 }
 
 void putc_usart6(char c)
 {
-	data[1] = c;
+	putc_data[1] = c;
 	//huart1.State = HAL_USART_STATE_READY;
-	HAL_USART_Transmit(&husart6,(uint8_t*)UARTaTxBuffer,3, UART_TIMEOUT);
+	HAL_USART_Transmit(&husart6,(uint8_t*)putc_data, 3, UART_TIMEOUT);
 }
 
 //Initialize GPIOs for RS-485: RE, DE
@@ -318,8 +315,6 @@ void putc_usart6(char c)
 void init_rs485_outputs(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
-
-	//ToDo Support the other transceivers!
 
 	// Enable GPIO Peripheral clock on ports E & F
 	__GPIOE_CLK_ENABLE();
@@ -338,17 +333,21 @@ void init_rs485_outputs(void)
 	GPIO_InitStructure.Speed = GPIO_SPEED_LOW;
 	GPIO_InitStructure.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(GPIOF, &GPIO_InitStructure);
+
+	//Note: currently only configuring for asynch RS-485 #1 & #2
+	//(so 2 of the 6 transceivers)
 }
 
 //Receive or Transmit
-void rs485_set_mode(uint32_t port, unsigned char rx_tx)
+void rs485_set_mode(uint32_t port, uint8_t rx_tx)
 {
-	//USART1:
-	//!RE1 : PF12
-	//DE1: PF11
-
 	if(port == PORT_RS485_1)	//RS-485 #1 / USART1
 	{
+		//USART1 (RS-485 #1):
+		//===================
+		//RE1:	 	PF12
+		//DE1: 		PF11
+
 		if(rx_tx == RS485_TX)
 		{
 			//Half-duplex TX (Receive disabled):
@@ -374,11 +373,42 @@ void rs485_set_mode(uint32_t port, unsigned char rx_tx)
 			HAL_GPIO_WritePin(GPIOF, GPIO_PIN_11, 0);	//DE
 		}
 	}
-	//ToDo finalize the port when the 0.0 code will be stable and tested.
+	else if(port == PORT_RS485_2)	//RS-485 #2 / USART6
+	{
+		//USART6 (RS-485 #2):
+		//===================
+		//RE4:		PE11
+		//DE4:		PE12
+
+		if(rx_tx == RS485_TX)
+		{
+			//Half-duplex TX (Receive disabled):
+			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_11, 1);	//RE
+			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_12, 1);	//DE
+		}
+		else if(rx_tx == RS485_RX)
+		{
+			//Half-duplex RX (Transmit disabled):
+			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_11, 0);	//RE
+			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_12, 0);	//DE
+		}
+		else if(rx_tx == RS485_RX_TX)
+		{
+			//Read & Write:
+			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_11, 0);	//RE
+			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_12, 1);	//DE
+		}
+		else
+		{
+			//Standby: no transmission, no reception
+			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_11, 1);	//RE
+			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_12, 0);	//DE
+		}
+	}
 }
 
 //Sends a string via RS-485 #1 (USART1)
-void puts_rs485_1(uint8_t *str, unsigned char length)
+void puts_rs485_1(uint8_t *str, uint16_t length)
 {
 	unsigned int i = 0;
 
@@ -391,10 +421,6 @@ void puts_rs485_1(uint8_t *str, unsigned char length)
 
 	//Send data
 	HAL_USART_Transmit(&husart1, str, length, UART_TIMEOUT);
-
-	//Transceiver in standby
-	//rs485_set_mode(RS485_STANDBY);
-	//ToDo: is that what we want? What about receive?
 }
 
 //Prepares the board for a Reply (reception). Blocking.
@@ -416,7 +442,7 @@ unsigned char getc_rs485_1_blocking(void)
 }
 
 //Sends a string via RS-485 #2 (USART6)
-void puts_rs485_6(uint8_t *str, unsigned char length)
+void puts_rs485_2(uint8_t *str, uint16_t length)
 {
 	unsigned int i = 0;
 
@@ -425,17 +451,14 @@ void puts_rs485_6(uint8_t *str, unsigned char length)
 
 	//ToDo replace by valid delay function!
 	for(i = 0; i < 1000; i++);
+	//ToDo Delay
 
 	//Send data
 	HAL_USART_Transmit(&husart6, str, length, UART_TIMEOUT);
-
-	//Transceiver in RX_TX
-	rs485_set_mode(PORT_RS485_2, RS485_RX);
-	//ToDo: is that what we want? What about receive?
 }
 
 //Prepares the board for a Reply (reception). Blocking.
-unsigned char getc_rs485_6_blocking(void)
+unsigned char getc_rs485_2_blocking(void)
 {
 	unsigned int delay = 0;
 	unsigned int tmp = 0;

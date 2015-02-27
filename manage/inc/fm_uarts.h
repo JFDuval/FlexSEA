@@ -29,9 +29,10 @@ void init_usart3(uint32_t baudrate);
 void init_usart6(uint32_t baudrate);
 void putc_usart1(char c);
 void init_rs485_outputs(void);
-void puts_rs485_1(uint8_t *str, unsigned char length);
+void puts_rs485_1(uint8_t *str, uint16_t length);
+void puts_rs485_2(uint8_t *str, uint16_t length);
 unsigned char getc_rs485_1_blocking(void);
-void rs485_set_mode(uint32_t port, unsigned char rx_tx);
+void rs485_set_mode(uint32_t port, uint8_t rx_tx);
 void DMA2_Str2_CompleteTransfer_Callback(DMA_HandleTypeDef *hdma);
 void DMA2_Str1_CompleteTransfer_Callback(DMA_HandleTypeDef *hdma);
 void rs485_1_xmit_dma_rx_test(void);
@@ -59,7 +60,7 @@ void rs485_2_xmit_dma_rx_test(void);
 //USART6 (RS-485 #2):
 //===================
 //RE4:		PE11
-//DE5:		PE12
+//DE4:		PE12
 
 //Common define
 #define RS485_STANDBY	0x00

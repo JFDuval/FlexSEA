@@ -18,12 +18,16 @@
 // Local variable(s)
 //****************************************************************************
 
+uint8_t tmp_rx_command_spi[PAYLOAD_BUF_LEN];
+uint8_t tmp_rx_command_485_1[PAYLOAD_BUF_LEN];
+uint8_t tmp_rx_command_485_2[PAYLOAD_BUF_LEN];
+
 //****************************************************************************
 // External variable(s)
 //****************************************************************************
 
 //flexsea_payload.c:
-extern unsigned char start_listening_flag;
+extern unsigned char receive_485_1;
 extern unsigned char xmit_flag;
 extern uint8_t comm_str_xmit[COMM_STR_BUF_LEN];
 extern uint8_t cmd_xmit;
@@ -31,6 +35,16 @@ extern uint8_t cmd_xmit;
 //FlexSEA:
 extern unsigned char payload_str[];
 extern unsigned char comm_str[COMM_STR_BUF_LEN];
+
+//flexsea_local.c:
+extern uint8_t cmd_ready_spi;
+extern uint8_t cmd_ready_485_1;
+extern uint8_t cmd_ready_485_2;
+
+//flexsea_comm.c:
+extern uint8_t rx_command_spi[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
+extern uint8_t rx_command_485_1[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
+extern uint8_t rx_command_485_2[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
 
 //****************************************************************************
 // Function(s)
@@ -55,7 +69,7 @@ uint16_t slave_comm(uint8_t slave, uint8_t port, uint8_t autosample)
 			//Then we package and send it out:
 			bytes2 = comm_gen_str(payload_str, bytes + 1);	//Might not need the +1, TBD
 			flexsea_send_serial_slave(port, comm_str, bytes2 + 1);
-			start_listening_flag = 1;
+			receive_485_1 = 1;
 		}
 	}
 	else
@@ -70,7 +84,7 @@ uint16_t slave_comm(uint8_t slave, uint8_t port, uint8_t autosample)
         		|| (cmd_xmit == CMD_CTRL_I_READ) || (cmd_xmit == CMD_R(CMD_SPECIAL_1)))
         {
             //Place code here to deal with slave answering
-            start_listening_flag = 1;
+        	receive_485_1 = 1;
         }
 
         //Lowers the flag
@@ -145,6 +159,57 @@ uint16_t slave_comm(uint8_t slave, uint8_t port, uint8_t autosample)
 	return cnt;
 }
 */
+
+//Did we receive new commands? Can we parse them?
+void parse_master_slave_commands(uint8_t *new_cmd)
+{
+	volatile uint32_t result = 0, i = 0;
+
+	//Valid communication from SPI?
+	if(cmd_ready_spi != 0)
+	{
+		cmd_ready_spi = 0;
+
+		//Cheap trick to get first line	//ToDo: support more than 1
+		for(i = 0; i < PAYLOAD_BUF_LEN; i++)
+		{
+			tmp_rx_command_spi[i] = rx_command_spi[0][i];
+		}
+		// parse the command and execute it
+		result = payload_parse_str(tmp_rx_command_spi);
+
+		//LED:
+		new_cmd = 1;
+	}
+
+	//Valid communication from RS-485 #1?
+	if(cmd_ready_485_1 != 0)
+	{
+		cmd_ready_485_1 = 0;
+
+		//Cheap trick to get first line	//ToDo: support more than 1
+		for(i = 0; i < PAYLOAD_BUF_LEN; i++)
+		{
+			tmp_rx_command_485_1[i] = rx_command_485_1[0][i];
+		}
+		// parse the command and execute it
+		result = payload_parse_str(tmp_rx_command_485_1);
+	}
+
+	//Valid communication from RS-485 #2?
+	if(cmd_ready_485_2 != 0)
+	{
+		cmd_ready_485_2 = 0;
+
+		//Cheap trick to get first line	//ToDo: support more than 1
+		for(i = 0; i < PAYLOAD_BUF_LEN; i++)
+		{
+			tmp_rx_command_485_2[i] = rx_command_485_2[0][i];
+		}
+		// parse the command and execute it
+		result = payload_parse_str(tmp_rx_command_485_2);
+	}
+}
 
 //Simple test code:
 void write_test_cmd_execute(uint8_t port, uint8_t value)

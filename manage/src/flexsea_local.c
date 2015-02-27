@@ -44,13 +44,15 @@ uint8_t cmd_ready_spi = 0, cmd_ready_485_1 = 0, cmd_ready_485_2 = 0;
 extern SPI_HandleTypeDef spi4_handle;
 extern uint8_t aRxBuffer[COMM_STR_BUF_LEN];
 extern uint8_t aTxBuffer[COMM_STR_BUF_LEN];
+
 //flexsea_comm:
 extern unsigned char comm_str[COMM_STR_BUF_LEN];
+
 //flexsea_payload:
 extern unsigned char payload_str[];
 
-extern unsigned char read_offset;
-unsigned char start_listening_flag;
+//extern unsigned char read_offset;
+extern uint8_t receive_485_1, receive_485_2;
 
 //rx_cmd:
 extern struct execute_s exec1;
@@ -136,14 +138,27 @@ void flexsea_receive_from_slave(void)
 	unsigned int delay = 0;
 
 	//We only listen if we requested a reply:
-	if(start_listening_flag)
+	if(receive_485_1)
 	{
-		start_listening_flag = 0;
+		receive_485_1 = 0;
 
 		for(delay = 0; delay < 5000; delay++);		//Short delay
 		//ToDo: do we need this delay? How long is it?
 		//Sets the transceiver to Receive:
 		uart_rx_test = getc_rs485_1_blocking();
+		//From this point on data will be received via the interrupt.
+		//ToDo why is it called Blocking if it's ISR based?
+	}
+
+	//ToDo this is a copy of the one above, optimize
+	if(receive_485_2)
+	{
+		receive_485_2 = 0;
+
+		for(delay = 0; delay < 5000; delay++);		//Short delay
+		//ToDo: do we need this delay? How long is it?
+		//Sets the transceiver to Receive:
+		uart_rx_test = getc_rs485_2_blocking();
 		//From this point on data will be received via the interrupt.
 		//ToDo why is it called Blocking if it's ISR based?
 	}
@@ -155,6 +170,15 @@ void flexsea_receive_from_slave(void)
         //Got new data in, try to decode
 		cmd_ready_485_1 = unpack_payload_485_1();
 	}
+
+	//Did we receive new bytes?
+	if(bytes_ready_485_2 != 0)
+	{
+		bytes_ready_485_2 = 0;
+        //Got new data in, try to decode
+		cmd_ready_485_2 = unpack_payload_485_2();
+	}
+
 }
 
 //Packages data in one unified array: slave_read_buffer[]

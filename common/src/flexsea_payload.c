@@ -21,10 +21,7 @@
 //****************************************************************************
 
 unsigned char payload_str[PAYLOAD_BUF_LEN];
-unsigned char test_kp = 0, test_ki = 0, test_kd = 0;
-unsigned char start_listening_flag = 0;
-unsigned char uart_rx_test = 0, delay = 0;
-
+uint8_t receive_485_1 = 0, receive_485_2 = 0;
 unsigned char xmit_flag = 0;
 uint8_t comm_str_xmit[COMM_STR_BUF_LEN];
 uint8_t cmd_xmit = 0;

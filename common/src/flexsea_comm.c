@@ -252,12 +252,12 @@ uint8_t unpack_payload_485_1(void)
 	return unpack_payload(rx_buf_485_1, rx_command_485_1);
 }
 
-/*
 uint8_t unpack_payload_485_2(void)
 {
 	return unpack_payload(rx_buf_485_2, rx_command_485_2);
 }
 
+/*
 uint8_t unpack_payload_usb(void)
 {
 	return unpack_payload(rx_buf_usb, rx_command_usb);

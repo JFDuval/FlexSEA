@@ -19,9 +19,6 @@
 // Local variable(s)
 //****************************************************************************
 
-uint8_t tmp_rx_command_spi[PAYLOAD_BUF_LEN];
-uint8_t tmp_rx_command_485_1[PAYLOAD_BUF_LEN];
-uint8_t tmp_rx_command_485_2[PAYLOAD_BUF_LEN];
 uint8_t autosampling = 0;
 
 //****************************************************************************
@@ -34,16 +31,6 @@ volatile unsigned char systick_10ms_flag;
 volatile unsigned char systick_100ms_flag;
 volatile unsigned char systick_1000ms_flag;
 
-//flexsea_local.c:
-extern uint8_t cmd_ready_spi;
-extern uint8_t cmd_ready_485_1;
-extern uint8_t cmd_ready_485_2;
-
-//flexsea_comm.c:
-extern uint8_t rx_command_spi[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
-extern uint8_t rx_command_485_1[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
-extern uint8_t rx_command_485_2[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
-
 //****************************************************************************
 // Function(s)
 //****************************************************************************
@@ -51,8 +38,6 @@ extern uint8_t rx_command_485_2[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
 int main(void)
 {
 	//Variables:
-	int i = 0;
-	uint32_t result = 0;
 	unsigned char toggle_led0 = 0, toggle_led1 = 0;
 	uint8_t new_cmd_led = 0;
 
@@ -68,63 +53,17 @@ int main(void)
 	//Infinite loop
 	while (1)
     {
+		//Communication with our Master & Slave(s):
+		//=========================================
+
 		//SPI reception from a Plan board:
 		flexsea_receive_from_master();
 
 		//RS-485 reception from an Execute board:
 		flexsea_receive_from_slave();
 
-		//Valid communication from SPI?
-		if(cmd_ready_spi != 0)
-		{
-			cmd_ready_spi = 0;
-
-			//Cheap trick to get first line	//ToDo: support more than 1
-			for(i = 0; i < PAYLOAD_BUF_LEN; i++)
-			{
-				tmp_rx_command_spi[i] = rx_command_spi[0][i];
-			}
-			// parse the command and execute it
-			result = payload_parse_str(tmp_rx_command_spi);
-
-			//LED:
-			new_cmd_led = 1;
-		}
-
-		//Valid communication from RS-485 #1?
-		if(cmd_ready_485_1 != 0)
-		{
-			cmd_ready_485_1 = 0;
-
-			//Cheap trick to get first line	//ToDo: support more than 1
-			for(i = 0; i < PAYLOAD_BUF_LEN; i++)
-			{
-				tmp_rx_command_485_1[i] = rx_command_485_1[0][i];
-			}
-			// parse the command and execute it
-			result = payload_parse_str(tmp_rx_command_485_1);
-
-			//LED to display comm. w/ slave:
-			if(result)
-			{
-				toggle_led1 ^= 1;
-				LED1(toggle_led1);
-			}
-		}
-
-		//Valid communication from RS-485 #2?
-		if(cmd_ready_485_2 != 0)
-		{
-			cmd_ready_485_2 = 0;
-
-			//Cheap trick to get first line	//ToDo: support more than 1
-			for(i = 0; i < PAYLOAD_BUF_LEN; i++)
-			{
-				tmp_rx_command_485_2[i] = rx_command_485_2[0][i];
-			}
-			// parse the command and execute it
-			result = payload_parse_str(tmp_rx_command_485_2);
-		}
+		//Did we receive new commands? Can we parse them?
+		parse_master_slave_commands(&new_cmd_led);
 
 		//1, 10, 100 & 1000ms timebases:
 		//==============================
