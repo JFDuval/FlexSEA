@@ -64,7 +64,9 @@ extern uint8_t uart1_dma_buf[64];
 /* SPI handler declared in "main.c" file */
 extern SPI_HandleTypeDef spi4_handle;
 extern USART_HandleTypeDef husart1;
-extern DMA_HandleTypeDef hdma2;
+extern USART_HandleTypeDef husart6;
+extern DMA_HandleTypeDef hdma2_str2_ch4;
+extern DMA_HandleTypeDef hdma2_str1_ch5;
 
 volatile unsigned int spi_bytes_ready = 0;
 
@@ -219,39 +221,33 @@ void EXTI4_IRQHandler(void)
   */
 
 
-//Should not be used anymore, everything is done via DMA
+//Should not be used, everything is done via DMA
 void USART1_IRQHandler(void)
 {
-/*
-	uint32_t tmp1 = 0;
-	unsigned int tmp = 0;
-
-
-	tmp1 = __HAL_USART_GET_FLAG(&husart1, USART_FLAG_RXNE);
-	if(tmp1)
-	{
-		//Data ready, read it
-		tmp = USART1->DR;
-
-		//Let's try to feed the bytes straight in rx_buf:
-		update_rx_buf_485_1((uint8_t)(tmp & 0xFF));
-
-		//Notify the code that we have new data
-		bytes_ready_485_1++;
-	}
-*/
-
 	HAL_USART_IRQHandler(&husart1);
 }
 
+//Should not be used, everything is done via DMA
+void USART6_IRQHandler(void)
+{
+	HAL_USART_IRQHandler(&husart6);
+}
+
+//DMA2 Stream2 - USART1
 void DMA2_Stream2_IRQHandler(void)
 {
-	//From stm32f4xx_hal_dma.h __HAL_DMA_GET_DME_FLAG_INDEX() I know that:
-	// ((uint32_t)((__HANDLE__)->Instance) == ((uint32_t)DMA2_Stream2))? DMA_FLAG_DMEIF2_6 :
-
 	HAL_NVIC_ClearPendingIRQ(DMA2_Stream2_IRQn);
 
-	HAL_DMA_IRQHandler(&hdma2);
+	HAL_DMA_IRQHandler(&hdma2_str2_ch4);
+}
+
+//DMA2 Stream1 - USART6
+void DMA2_Stream1_IRQHandler(void)
+{
+
+	HAL_NVIC_ClearPendingIRQ(DMA2_Stream1_IRQn);
+
+	HAL_DMA_IRQHandler(&hdma2_str1_ch5);
 }
 
 /**

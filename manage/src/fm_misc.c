@@ -22,17 +22,6 @@
 // External variable(s)
 //****************************************************************************
 
-//flexsea_payload.c:
-extern unsigned char start_listening_flag;
-extern unsigned char xmit_flag;
-extern uint8_t comm_str_xmit[COMM_STR_BUF_LEN];
-extern uint8_t cmd_xmit;
-
-//FlexSEA:
-extern unsigned char payload_str[];
-extern unsigned char comm_str_payload[PAYLOAD_BUFFERS][PAYLOAD_BUF_LEN];
-extern unsigned char comm_str[COMM_STR_BUF_LEN];
-
 //****************************************************************************
 // Function(s)
 //****************************************************************************
@@ -41,13 +30,14 @@ extern unsigned char comm_str[COMM_STR_BUF_LEN];
 void init_peripherals(void)
 {
 	init_systick_timer();		//SysTick timer
-	init_usart1(1000000);		//USART1 (RS-485 #1)
+	init_usart1(2000000);		//USART1 (RS-485 #1)
+	init_usart6(2000000);		//USART6 (RS-485 #2)
+	init_rs485_outputs();
 	init_leds();
 	init_switches();
 	init_dio();					//All inputs by default
-	init_rs485_outputs();
 	init_adc1();
-	init_spi4();
+	init_spi4();				//Plan
 	//init_spi5();				//FLASH
 	//init_spi6();				//Expansion
 	init_i2c1();

@@ -20,6 +20,7 @@
 
 uint8_t rx_buf_spi[RX_BUF_LEN];
 uint8_t rx_buf_485_1[RX_BUF_LEN];
+uint8_t rx_buf_485_2[RX_BUF_LEN];
 
 //****************************************************************************
 // External variable(s)
@@ -153,6 +154,29 @@ static void update_rx_buf_485_1(uint8_t byte_array, uint8_t new_byte, uint8_t *n
 	}
 }
 
+//Wraps update_rx_buf_byte()/update_rx_buf_array() for the RS-485 #2 peripheral. Keeps track of the index.
+//Do not use directly, call update_rx_buf_byte_485_2() or update_rx_buf_array_485_2()
+static void update_rx_buf_485_2(uint8_t byte_array, uint8_t new_byte, uint8_t *new_array, uint32_t len)
+{
+	static uint32_t idx_485_2 = 0;
+
+	if(byte_array == UPDATE_BYTE)
+	{
+		//Updating buffer with one byte
+		update_rx_buf_byte(rx_buf_485_2, &idx_485_2, new_byte);
+	}
+	else if(byte_array == UPDATE_ARRAY)
+	{
+		//Updating buffer with an array
+		update_rx_buf_array(rx_buf_485_2, &idx_485_2, new_array, len);
+	}
+	else
+	{
+		//Error
+		//flexsea_error(0);	ToDo
+	}
+}
+
 //****************************************************************************
 // User function(s)
 //****************************************************************************
@@ -181,4 +205,17 @@ void update_rx_buf_byte_485_1(uint8_t new_byte)
 void update_rx_buf_array_485_1(uint8_t *new_array, uint32_t len)
 {
 	update_rx_buf_485_1(UPDATE_ARRAY, 0, new_array, len);
+}
+
+//Add one byte to the RS-485 #2 RX buffer
+void update_rx_buf_byte_485_2(uint8_t new_byte)
+{
+	uint8_t empty_array[1] = {0};
+	update_rx_buf_485_2(UPDATE_BYTE, new_byte, empty_array, 0);
+}
+
+//Add an array of bytes to the RS-485 #2 RX buffer
+void update_rx_buf_array_485_2(uint8_t *new_array, uint32_t len)
+{
+	update_rx_buf_485_2(UPDATE_ARRAY, 0, new_array, len);
 }

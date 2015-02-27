@@ -28,6 +28,7 @@ void init_spi6(void);
 unsigned int spi4_blocking_rx(void);
 void Error_Handler(void);
 unsigned int spi4_it_rx(void);
+void SPI_new_data_Callback(void);
 
 //****************************************************************************
 // Definition(s):

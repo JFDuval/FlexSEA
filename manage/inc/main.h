@@ -2,11 +2,10 @@
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
 // jfduval@mit.edu
-// 01/2015
+// 02/2015
 //****************************************************************************
 // main: FlexSEA-Manage
 //****************************************************************************
-
 
 #ifndef MAIN_H_
 #define MAIN_H_
@@ -41,7 +40,6 @@
 //#include "fm_stm32f4xx_hal_spi.h"
 #include "flexsea_local.h"
 #include "../../common/inc/flexsea.h"
-// ToDo: should have some include for the new spi lib
 
 //****************************************************************************
 // Prototype(s):

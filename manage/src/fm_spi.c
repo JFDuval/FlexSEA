@@ -1,8 +1,8 @@
 //****************************************************************************
 // MIT Media Lab - Biomechatronics
-// Jean-Francois (Jeff) Duval
-// jfduval@mit.edu
-// 12/2014
+// Jean-Francois (Jeff) Duval, Steven Keyes
+// jfduval@mit.edu, srkeyes@mit.edu
+// 02/2015
 //****************************************************************************
 // fm_spi: SPI Slave
 //****************************************************************************
@@ -22,19 +22,16 @@
 SPI_HandleTypeDef spi4_handle;
 SPI_HandleTypeDef spi5_handle;
 SPI_HandleTypeDef spi6_handle;
-uint8_t spi_led_toggle = 0;
 
-//Test only:	//ToDo clean/remove
-/* Size of buffer */
-/* Buffer used for transmission */
-uint8_t aTxBuffer[COMM_STR_BUF_LEN] = {0x01,0x02,0x03,0x04,0x05,0x06,0x11,0x12,0x13,0x14,0x15,0x16,0xAA,0xBB,0xCC,0xDD,0xEE,0xFF,0x88,0x99,0xFE,0xFD,0xFC,0xFB};
-/* Buffer used for reception */
-uint8_t aRxBuffer[COMM_STR_BUF_LEN];
+uint8_t aTxBuffer[COMM_STR_BUF_LEN];	//SPI TX buffer
+uint8_t aRxBuffer[COMM_STR_BUF_LEN];	//SPI RX buffer
 
 //****************************************************************************
 // External variable(s)
 //****************************************************************************
 
+//flexsea_local.c:
+extern uint8_t bytes_ready_spi;
 
 //****************************************************************************
 // Function(s)
@@ -218,6 +215,7 @@ void init_spi6(void)
 	}
 }
 
+/*
 //ToDo can we can rid of this buffer?
 unsigned char spi4_rx_buf[COMM_STR_BUF_LEN] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
 
@@ -231,11 +229,7 @@ unsigned int spi4_blocking_rx(void)
 
 	return flag;
 }
-
-//ToDo: delete?
-__weak void SPI_new_data_Callback(void)
-{
-}
+*/
 
 /**
  * @brief EXTI line detection callbacks
@@ -278,4 +272,10 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 		// handle the new data however this device wants to
 		SPI_new_data_Callback();
 	}
+}
+
+void SPI_new_data_Callback(void)
+{
+	bytes_ready_spi = 1;
+	//Got new data in, try to decode
 }

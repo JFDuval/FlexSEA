@@ -33,8 +33,8 @@ unsigned char board_sub2_id = FLEXSEA_EXECUTE_2;
 //Slave Read Buffer:
 unsigned char slave_read_buffer[SLAVE_READ_BUFFER_LEN];
 
-uint8_t bytes_ready_spi = 0, bytes_ready_485_1 = 0;
-uint8_t cmd_ready_spi = 0, cmd_ready_485_1 = 0;
+uint8_t bytes_ready_spi = 0, bytes_ready_485_1 = 0, bytes_ready_485_2 = 0;
+uint8_t cmd_ready_spi = 0, cmd_ready_485_1 = 0, cmd_ready_485_2 = 0;
 
 //****************************************************************************
 // External variable(s)
@@ -221,6 +221,7 @@ void build_slave_payload(unsigned char base_addr)
 
 //Copies the generated comm_str to the aTxBuffer
 //It will be transfered the next time the master writes to us.
+//ToDo generalize, use buffers as arguments
 void comm_str_to_txbuffer(void)
 {
 	unsigned char i = 0;
@@ -233,6 +234,7 @@ void comm_str_to_txbuffer(void)
 
 //Everytime we receive an SPI string we transmit data
 //This function prepares the data to be sent.
+//ToDo delete?
 void flexsea_prepare_spi_tx_buffer(uint8_t base_addr)
 {
 	flexsea_update_slave_read_buffer(base_addr);

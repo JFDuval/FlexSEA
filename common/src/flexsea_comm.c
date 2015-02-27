@@ -50,8 +50,10 @@ unsigned char comm_str[COMM_STR_BUF_LEN], comm_str_tmp[COMM_STR_BUF_LEN];
 //New RX buffers:
 uint8_t rx_buf_spi[RX_BUF_LEN];
 uint8_t rx_buf_485_1[RX_BUF_LEN];
+uint8_t rx_buf_485_2[RX_BUF_LEN];
 uint8_t rx_command_spi[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
 uint8_t rx_command_485_1[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
+uint8_t rx_command_485_2[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
 
 //****************************************************************************
 // External variable(s)
