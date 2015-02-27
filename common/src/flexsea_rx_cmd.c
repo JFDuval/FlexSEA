@@ -570,7 +570,7 @@ void rx_cmd_encoder_read(uint8_t *buf)
 	numb = COMM_STR_BUF_LEN;	//Fixed length for now
 	
 	//Send it out:
-	rs485_puts(comm_str, (numb+1));	
+	rs485_puts(comm_str, (numb));	
 		
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -598,7 +598,7 @@ void rx_cmd_strain_read(uint8_t *buf)
 	numb = COMM_STR_BUF_LEN;	//Fixed length for now
 	
 	//Send it out:
-	rs485_puts(comm_str, (numb+1));			
+	rs485_puts(comm_str, (numb));			
 		
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -626,7 +626,7 @@ void rx_cmd_imu_read(uint8_t *buf)
 	numb = COMM_STR_BUF_LEN;	//Fixed length for now
 	
 	//Send it out:
-	rs485_puts(comm_str, (numb+1));	
+	rs485_puts(comm_str, (numb));	
 		
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -654,7 +654,7 @@ void rx_cmd_analog_read(uint8_t *buf)
 	numb = COMM_STR_BUF_LEN;	//Fixed length for now
 	
 	//Send it out:
-	rs485_puts(comm_str, (numb+1));			
+	rs485_puts(comm_str, (numb));			
 		
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -692,7 +692,7 @@ void rx_cmd_ctrl_i_read(uint8_t *buf)
 	numb = COMM_STR_BUF_LEN;	//Fixed length for now
 	
 	//Send it out:
-	rs485_puts(comm_str, (numb+1));			
+	rs485_puts(comm_str, (numb));			
 		
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 

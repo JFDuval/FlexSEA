@@ -217,7 +217,7 @@ void rx_cmd_special_1(uint8_t *buf)
 		xmit_flag = 1;
 		
 		//(for now, send it)
-		rs485_puts(comm_str, (numb+1));	
+		rs485_puts(comm_str, (numb));	
 
 		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
