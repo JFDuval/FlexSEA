@@ -143,6 +143,7 @@ int main(void)
 
 			//Update our slave read array:
 			slave_comm(FLEXSEA_EXECUTE_1, PORT_RS485_1, autosampling);	//ToDo rework this
+			//ToDo: what about slave 2?
 
 		}
 
