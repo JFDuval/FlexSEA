@@ -58,7 +58,7 @@ extern unsigned char comm_str[COMM_STR_BUF_LEN];
 
 #ifdef BOARD_TYPE_FLEXSEA_MANAGE
 
-struct execute_s exec1;
+struct execute_s exec1, exec2;
 
 #endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
@@ -176,6 +176,22 @@ void rx_cmd_special_1(uint8_t *buf)
 	int16_t tmp_wanted_current = 0;
 	int32_t tmp_enc = 0;
 
+	#if((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
+
+	struct execute_s *exec_s_ptr;
+
+	//Point to the appropriate structure:
+	if(buf[CP_XID] == FLEXSEA_EXECUTE_1)
+	{
+		exec_s_ptr = &exec1;
+	}
+	else if(buf[CP_XID] == FLEXSEA_EXECUTE_2)
+	{
+		exec_s_ptr = &exec2;
+	}
+
+	#endif	//((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
+
 	if(IS_CMD_RW(buf[CP_CMD1]) == READ)
 	{
 		//Received a Read command from our master.
@@ -248,17 +264,17 @@ void rx_cmd_special_1(uint8_t *buf)
 
 			//Store values:
 				
-			exec1.imu.x = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+0], buf[CP_DATA1+1]));
-			exec1.imu.y = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+2], buf[CP_DATA1+3]));
-			exec1.imu.z = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+4], buf[CP_DATA1+5]));
+			exec_s_ptr->imu.x = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+0], buf[CP_DATA1+1]));
+			exec_s_ptr->imu.y = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+2], buf[CP_DATA1+3]));
+			exec_s_ptr->imu.z = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+4], buf[CP_DATA1+5]));
 			
-			exec1.strain = (BYTES_TO_UINT16(buf[CP_DATA1+6], buf[CP_DATA1+7]));
-			exec1.analog = (BYTES_TO_UINT16(buf[CP_DATA1+8], buf[CP_DATA1+9]));
+			exec_s_ptr->strain = (BYTES_TO_UINT16(buf[CP_DATA1+6], buf[CP_DATA1+7]));
+			exec_s_ptr->analog = (BYTES_TO_UINT16(buf[CP_DATA1+8], buf[CP_DATA1+9]));
 	
-			exec1.encoder = (int32_t) (BYTES_TO_UINT32(buf[CP_DATA1+10], buf[CP_DATA1+11], \
+			exec_s_ptr->encoder = (int32_t) (BYTES_TO_UINT32(buf[CP_DATA1+10], buf[CP_DATA1+11], \
 										buf[CP_DATA1+12], buf[CP_DATA1+13]));
 			
-			exec1.current = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+14], buf[CP_DATA1+15]));
+			exec_s_ptr->current = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+14], buf[CP_DATA1+15]));
 
 			#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
