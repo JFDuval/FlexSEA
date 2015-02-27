@@ -104,6 +104,11 @@ int main(void)
 			LED0(toggle_led0);
 
 			//rs485_1_xmit_dma_rx_test();
+
+			if(toggle_led0)
+				rs485_1_xmit_dma_rx_test();
+			else
+				rs485_2_xmit_dma_rx_test();
 		}
 
 		//1000ms
@@ -114,7 +119,7 @@ int main(void)
 			//...
 
 			//write_test_cmd_execute(PORT_RS485_2, FLEXSEA_EXECUTE_2, 66);
-			rs485_2_xmit_dma_rx_test();
+			//rs485_2_xmit_dma_rx_test();
 		}
     }
 }
