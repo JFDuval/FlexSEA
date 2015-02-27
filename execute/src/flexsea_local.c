@@ -23,7 +23,7 @@ char version[] = "0.0";
 char date[] = "08/01/2014";
 
 //Board ID (this board) -  - pick from Board list in /common/inc/flexsea.h
-unsigned char board_id = FLEXSEA_EXECUTE_1;
+unsigned char board_id = FLEXSEA_EXECUTE_2;
 unsigned char board_up_id = FLEXSEA_MANAGE_1;
 unsigned char board_sub1_id = FLEXSEA_DEFAULT;
 unsigned char board_sub2_id = FLEXSEA_DEFAULT;
