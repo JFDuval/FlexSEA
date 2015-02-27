@@ -113,8 +113,8 @@ int main(void)
 
 			//...
 
-			//write_test_cmd_execute(PORT_RS485_1, 66);
-			//rs485_1_xmit_dma_rx_test();
+			//write_test_cmd_execute(PORT_RS485_2, FLEXSEA_EXECUTE_2, 66);
+			//rs485_2_xmit_dma_rx_test();
 		}
     }
 }

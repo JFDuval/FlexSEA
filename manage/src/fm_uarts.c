@@ -28,7 +28,7 @@ GPIO_InitTypeDef GPIO_InitStruct;
 DMA_HandleTypeDef hdma2_str2_ch4;	//DMA for RS-485 #1
 DMA_HandleTypeDef hdma2_str1_ch5;	//DMA for RS-485 #2
 
-//DMA buffers and config.
+//DMA buffers and config:
 __attribute__ ((aligned (4))) uint8_t uart1_dma_buf[RX_BUF_LEN];
 uint32_t rs485_1_dma_xfer_len = COMM_STR_BUF_LEN;
 __attribute__ ((aligned (4))) uint8_t uart6_dma_buf[RX_BUF_LEN];
@@ -66,7 +66,7 @@ void HAL_USART_MspInit(USART_HandleTypeDef* husart)
 		HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
 	}
-	else if(husart->Instance==USART6)	//RS-485 #2
+	else if(husart->Instance == USART6)	//RS-485 #2
 	{
 		//Peripheral clock enable:
 		__USART6_CLK_ENABLE();
@@ -83,7 +83,7 @@ void HAL_USART_MspInit(USART_HandleTypeDef* husart)
 		GPIO_InitStruct.Alternate = GPIO_AF8_USART6;
 		HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 	}
-	else if(husart->Instance==USART3)	//Expansion port
+	else if(husart->Instance == USART3)	//Expansion port
 	{
 		//Peripheral clock enable:
 		__USART3_CLK_ENABLE();
@@ -378,31 +378,31 @@ void rs485_set_mode(uint32_t port, uint8_t rx_tx)
 		//USART6 (RS-485 #2):
 		//===================
 		//RE4:		PE11
-		//DE4:		PE12
+		//DE4:		PE10
 
 		if(rx_tx == RS485_TX)
 		{
 			//Half-duplex TX (Receive disabled):
 			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_11, 1);	//RE
-			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_12, 1);	//DE
+			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_10, 1);	//DE
 		}
 		else if(rx_tx == RS485_RX)
 		{
 			//Half-duplex RX (Transmit disabled):
 			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_11, 0);	//RE
-			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_12, 0);	//DE
+			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_10, 0);	//DE
 		}
 		else if(rx_tx == RS485_RX_TX)
 		{
 			//Read & Write:
 			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_11, 0);	//RE
-			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_12, 1);	//DE
+			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_10, 1);	//DE
 		}
 		else
 		{
 			//Standby: no transmission, no reception
 			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_11, 1);	//RE
-			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_12, 0);	//DE
+			HAL_GPIO_WritePin(GPIOE, GPIO_PIN_10, 0);	//DE
 		}
 	}
 }
@@ -517,13 +517,13 @@ void rs485_1_xmit_dma_rx_test(void)
 
 	//Send a packet, requesting a read:
 	//write_test_cmd_execute(PORT_RS485_1, 0);
-	write_test_cmd_execute2(PORT_RS485_1, 77);
+	write_test_cmd_execute2(PORT_RS485_1, FLEXSEA_EXECUTE_1, 77);
 
 	//Receive enable
 	for(delay = 0; delay < 5000; delay++);		//Short delay
 	rs485_set_mode(PORT_RS485_1, RS485_RX);
 
-	//At this point use a breakpoint in DMA2_Str2_CompleteTransfer_Callback()
+	//At this point use a breakpoint in DMA2_Str1_CompleteTransfer_Callback()
 }
 
 void rs485_2_xmit_dma_rx_test(void)
@@ -536,7 +536,7 @@ void rs485_2_xmit_dma_rx_test(void)
 
 	//Send a packet, requesting a read:
 	//write_test_cmd_execute(PORT_RS485_1, 0);
-	write_test_cmd_execute2(PORT_RS485_2, 77);
+	write_test_cmd_execute2(PORT_RS485_2, FLEXSEA_EXECUTE_2, 77);
 
 	//Receive enable
 	for(delay = 0; delay < 5000; delay++);		//Short delay

@@ -69,7 +69,7 @@ void init_usart3(uint32_t baudrate);
 //USART6 (RS-485 #2):
 //===================
 //RE4:		PE11
-//DE4:		PE12
+//DE4:		PE10
 
 //Common define
 #define RS485_STANDBY		0x00

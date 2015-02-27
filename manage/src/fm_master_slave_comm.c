@@ -29,7 +29,7 @@ uint8_t tmp_rx_command_485_2[PAYLOAD_BUF_LEN];
 //flexsea_payload.c:
 extern unsigned char receive_485_1;
 extern unsigned char xmit_flag;
-extern uint8_t comm_str_xmit[COMM_STR_BUF_LEN];
+extern uint8_t comm_str_xmit_1[COMM_STR_BUF_LEN], comm_str_xmit_2[COMM_STR_BUF_LEN];
 extern uint8_t cmd_xmit;
 
 //FlexSEA:
@@ -76,7 +76,7 @@ uint16_t slave_comm(uint8_t slave, uint8_t port, uint8_t autosample)
 	{
 		//xmit flag is high, we skip refreshing the sensors to send one packet
 
-		flexsea_send_serial_slave(port, comm_str_xmit, COMM_STR_BUF_LEN);	//ToDo: this will always send the max length, not what we want.
+		flexsea_send_serial_slave(port, comm_str_xmit_1, COMM_STR_BUF_LEN);	//ToDo: this will always send the max length, not what we want.
 
 		//ToDo: this is ugly, I need a better solution. Table with [CMD Code][R/W][Arguments]?
 		//The new R/W commands will fix that
@@ -212,19 +212,19 @@ void parse_master_slave_commands(uint8_t *new_cmd)
 }
 
 //Simple test code:
-void write_test_cmd_execute(uint8_t port, uint8_t value)
+void write_test_cmd_execute(uint8_t port, uint8_t slave, uint8_t value)
 {
 	uint32_t bytes = 0, bytes2 = 0;
 
 	//bytes = tx_cmd_clutch_write(FLEXSEA_EXECUTE_1, value);
-	bytes = tx_cmd_encoder_read(FLEXSEA_EXECUTE_1);
+	bytes = tx_cmd_encoder_read(slave);
 	bytes2 = comm_gen_str(payload_str, bytes + 1);	//Might not need the +1, TBD
 
 	flexsea_send_serial_slave(port, comm_str, bytes2 + 1);
 }
 
 //Simple test code, modified for the new Special Command:
-void write_test_cmd_execute2(uint8_t port, uint8_t value)
+void write_test_cmd_execute2(uint8_t port, uint8_t slave, uint8_t value)
 {
 	uint32_t bytes = 0, bytes2 = 0;
 
@@ -233,7 +233,7 @@ void write_test_cmd_execute2(uint8_t port, uint8_t value)
 	//encoder_w (Write New Encoder value): KEEP/CHANGE
 	//encoder_cnt (New encoder count): ignored if encoder_w == KEEP
 	//current: current controller setpoint
-	bytes = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
+	bytes = tx_cmd_ctrl_special_1(slave, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
 									KEEP, 0, KEEP, 0, value);
 
 	bytes2 = comm_gen_str(payload_str, bytes + 1);	//Might not need the +1, TBD

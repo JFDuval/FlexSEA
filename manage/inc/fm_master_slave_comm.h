@@ -7,8 +7,8 @@
 // fm_slave_comm: Slave R/W
 //****************************************************************************
 
-#ifndef INC_SLAVE_COMM_H_
-#define INC_SLAVE_COMM_H_
+#ifndef INC_MAST_SLAVE_COMM_H_
+#define INC_MAST_SLAVE_COMM_H_
 
 //****************************************************************************
 // Include(s)
@@ -22,8 +22,8 @@
 
 uint16_t slave_comm(uint8_t slave, uint8_t port, uint8_t autosample);
 void parse_master_slave_commands(uint8_t *new_cmd);
-void write_test_cmd_execute(uint8_t port, uint8_t value);
-void write_test_cmd_execute2(uint8_t port, uint8_t value);
+void write_test_cmd_execute(uint8_t port, uint8_t slave, uint8_t value);
+void write_test_cmd_execute2(uint8_t port, uint8_t slave, uint8_t value);
 
 //****************************************************************************
 // Definition(s):

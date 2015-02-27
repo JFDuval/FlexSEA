@@ -23,7 +23,7 @@
 unsigned char payload_str[PAYLOAD_BUF_LEN];
 uint8_t receive_485_1 = 0, receive_485_2 = 0;
 unsigned char xmit_flag = 0;
-uint8_t comm_str_xmit[COMM_STR_BUF_LEN];
+uint8_t comm_str_xmit_1[COMM_STR_BUF_LEN], comm_str_xmit_2[COMM_STR_BUF_LEN];
 uint8_t cmd_xmit = 0;
 
 //****************************************************************************
@@ -320,7 +320,7 @@ void route_to_slave(uint8_t *buf, uint32_t len)
     //Copy string:
     for(i = 0; i < numb+1; i++)
     {
-    	comm_str_xmit[i] = comm_str[i];
+    	comm_str_xmit_1[i] = comm_str[i];
     }
 
     cmd_xmit = buf[CP_CMD1];
