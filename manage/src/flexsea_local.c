@@ -71,7 +71,7 @@ void flexsea_send_serial_slave(unsigned char port, unsigned char *str, unsigned 
 	}
 	else if(port == PORT_RS485_2)
 	{
-		//puts_rs485_2(str, length);
+		puts_rs485_2(str, length);
 	}
 	else
 	{
@@ -82,19 +82,7 @@ void flexsea_send_serial_slave(unsigned char port, unsigned char *str, unsigned 
 
 void flexsea_send_serial_master(unsigned char port, unsigned char *str, unsigned char length)
 {
-	//comm_str was already generated, now we place it in the buffer:
-	//comm_str_to_txbuffer();
-
-	/*
-
-	// transmit over SPI using interrupts
-	if(HAL_SPI_Transmit_IT(&spi4_handle, aTxBuffer, length) != HAL_OK)
-	{
-		// Transfer error in transmission process
-		flexsea_error(SE_SEND_SERIAL_MASTER);
-	}
-	*/
-
+	// Everything is done "automatically"
 }
 
 //Fill the buffer with 0s
@@ -122,7 +110,6 @@ void flexsea_start_receiving_from_master(void)
 	// start receive over SPI
 	if (HAL_SPI_GetState(&spi4_handle) == HAL_SPI_STATE_READY)
 	{
-		//if(HAL_Start_SPI_Receiving_IT(&spi4_handle, aRxBuffer, COMM_STR_BUF_LEN) != HAL_OK)
 		if(HAL_SPI_TransmitReceive_IT(&spi4_handle, (uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, COMM_STR_BUF_LEN) != HAL_OK)
 		{
 			// Transfer error in transmission process
@@ -134,20 +121,13 @@ void flexsea_start_receiving_from_master(void)
 //Receive data from a slave
 void flexsea_receive_from_slave(void)
 {
-	static volatile uint8_t uart_rx_test = 0;
-	unsigned int delay = 0;
-
 	//We only listen if we requested a reply:
 	if(receive_485_1)
 	{
 		receive_485_1 = 0;
 
-		for(delay = 0; delay < 5000; delay++);		//Short delay
-		//ToDo: do we need this delay? How long is it?
-		//Sets the transceiver to Receive:
-		uart_rx_test = getc_rs485_1_blocking();
+		reception_rs485_1_blocking();	//Sets the transceiver to Receive
 		//From this point on data will be received via the interrupt.
-		//ToDo why is it called Blocking if it's ISR based?
 	}
 
 	//ToDo this is a copy of the one above, optimize
@@ -155,12 +135,8 @@ void flexsea_receive_from_slave(void)
 	{
 		receive_485_2 = 0;
 
-		for(delay = 0; delay < 5000; delay++);		//Short delay
-		//ToDo: do we need this delay? How long is it?
-		//Sets the transceiver to Receive:
-		uart_rx_test = getc_rs485_2_blocking();
+		reception_rs485_2_blocking();	//Sets the transceiver to Receive
 		//From this point on data will be received via the interrupt.
-		//ToDo why is it called Blocking if it's ISR based?
 	}
 
 	//Did we receive new bytes?
@@ -178,7 +154,6 @@ void flexsea_receive_from_slave(void)
         //Got new data in, try to decode
 		cmd_ready_485_2 = unpack_payload_485_2();
 	}
-
 }
 
 //Packages data in one unified array: slave_read_buffer[]

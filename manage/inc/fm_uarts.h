@@ -21,22 +21,31 @@
 // Prototype(s):
 //****************************************************************************
 
+//General:
 void HAL_UART_MspInit(UART_HandleTypeDef* huart);
+void init_rs485_outputs(void);
+void rs485_set_mode(uint32_t port, uint8_t rx_tx);
+
+//RS-485 #1:
 void init_usart1(uint32_t baudrate);
 void init_dma2_stream2_ch4(void);
-void init_dma2_stream1_ch5(void);
-void init_usart3(uint32_t baudrate);
-void init_usart6(uint32_t baudrate);
 void putc_usart1(char c);
-void init_rs485_outputs(void);
 void puts_rs485_1(uint8_t *str, uint16_t length);
-void puts_rs485_2(uint8_t *str, uint16_t length);
-unsigned char getc_rs485_1_blocking(void);
-void rs485_set_mode(uint32_t port, uint8_t rx_tx);
+uint8_t reception_rs485_1_blocking(void);
 void DMA2_Str2_CompleteTransfer_Callback(DMA_HandleTypeDef *hdma);
-void DMA2_Str1_CompleteTransfer_Callback(DMA_HandleTypeDef *hdma);
 void rs485_1_xmit_dma_rx_test(void);
+
+//RS-485 #2:
+void init_usart6(uint32_t baudrate);
+void init_dma2_stream1_ch5(void);
+void putc_usart6(char c);
+void puts_rs485_2(uint8_t *str, uint16_t length);
+uint8_t reception_rs485_2_blocking(void);
+void DMA2_Str1_CompleteTransfer_Callback(DMA_HandleTypeDef *hdma);
 void rs485_2_xmit_dma_rx_test(void);
+
+//Other USART:
+void init_usart3(uint32_t baudrate);
 
 //****************************************************************************
 // Definition(s):
@@ -63,9 +72,9 @@ void rs485_2_xmit_dma_rx_test(void);
 //DE4:		PE12
 
 //Common define
-#define RS485_STANDBY	0x00
-#define RS485_RX		0x01
-#define RS485_TX		0x02
-#define RS485_RX_TX		0x03
+#define RS485_STANDBY		0x00
+#define RS485_RX			0x01
+#define RS485_TX			0x02
+#define RS485_RX_TX			0x03
 
 #endif // UARTS_H_

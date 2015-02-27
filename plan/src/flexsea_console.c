@@ -643,7 +643,7 @@ void flexsea_console_datalogger(unsigned char slaveid, unsigned char offs)
         fprintf(logfile, (char *)str);
 
         //Delay 500us
-        usleep(500);
+        usleep(350);
     }
 
     //Close log file:

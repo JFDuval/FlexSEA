@@ -30,9 +30,9 @@ DMA_HandleTypeDef hdma2_str1_ch5;	//DMA for RS-485 #2
 
 //DMA buffers and config.
 __attribute__ ((aligned (4))) uint8_t uart1_dma_buf[RX_BUF_LEN];
-uint32_t rs485_1_dma_xfer_len = COMM_STR_BUF_LEN+1;			//ToDo Should not have +1! Fix/test *****
+uint32_t rs485_1_dma_xfer_len = COMM_STR_BUF_LEN;
 __attribute__ ((aligned (4))) uint8_t uart6_dma_buf[RX_BUF_LEN];
-uint32_t rs485_2_dma_xfer_len = COMM_STR_BUF_LEN+1;			//ToDo Should not have +1! Fix/test *****
+uint32_t rs485_2_dma_xfer_len = COMM_STR_BUF_LEN;
 //Note: Not sure if they have to be aligned, but can't hurt too much.
 
 //****************************************************************************
@@ -424,7 +424,7 @@ void puts_rs485_1(uint8_t *str, uint16_t length)
 }
 
 //Prepares the board for a Reply (reception). Blocking.
-unsigned char getc_rs485_1_blocking(void)
+uint8_t reception_rs485_1_blocking(void)
 {
 	unsigned int delay = 0;
 	unsigned int tmp = 0;
@@ -458,7 +458,7 @@ void puts_rs485_2(uint8_t *str, uint16_t length)
 }
 
 //Prepares the board for a Reply (reception). Blocking.
-unsigned char getc_rs485_2_blocking(void)
+uint8_t reception_rs485_2_blocking(void)
 {
 	unsigned int delay = 0;
 	unsigned int tmp = 0;
@@ -543,14 +543,4 @@ void rs485_2_xmit_dma_rx_test(void)
 	rs485_set_mode(PORT_RS485_2, RS485_RX);
 
 	//At this point use a breakpoint in DMA2_Str2_CompleteTransfer_Callback()
-}
-
-//ToDo: clean this
-void HAL_UART_TxCpltCallback(UART_HandleTypeDef *UartHandle)
-{
-	unsigned char UartReady = 0;
-  //Set transmission flag: transfer complete
-  UartReady++;
-  asm("mov r0,r0");	//Nop()
-
 }

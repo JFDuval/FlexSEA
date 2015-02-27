@@ -179,7 +179,7 @@ void parse_master_slave_commands(uint8_t *new_cmd)
 		result = payload_parse_str(tmp_rx_command_spi);
 
 		//LED:
-		new_cmd = 1;
+		*new_cmd = 1;
 	}
 
 	//Valid communication from RS-485 #1?
