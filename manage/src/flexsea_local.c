@@ -23,12 +23,27 @@ char name[] = "FlexSEA-Manage";
 char version[] = "1.0";
 char date[] = "02/16/2015";
 
-//Board ID (this board) -  - pick from Board list in /common/inc/flexsea.h
-unsigned char board_id = FLEXSEA_MANAGE_1;
-unsigned char board_up_id = FLEXSEA_PLAN_1;
-unsigned char board_sub1_id = FLEXSEA_EXECUTE_1;
-unsigned char board_sub2_id = FLEXSEA_EXECUTE_2;
-//ToDo: change this, it needs to be a flexible config
+//<FlexSEA User>
+//==============
+//Board architecture. Has to be changed in all the flexsea_local files!
+//Symbols are listed in /common/inc/flexsea.h
+
+uint8_t board_id = FLEXSEA_MANAGE_1;		//This board
+uint8_t board_up_id = FLEXSEA_PLAN_1;		//This board's master
+
+//Slave bus #1 (RS-485 #1):
+//=========================
+uint8_t board_sub1_id[SLAVE_BUS_1_CNT] = {FLEXSEA_EXECUTE_1};
+
+//Slave bus #2 (RS-485 #2):
+//=========================
+uint8_t board_sub2_id[SLAVE_BUS_2_CNT] = {FLEXSEA_EXECUTE_2};
+
+//(make sure to update SLAVE_BUS_x_CNT in flexsea_local.h!)
+
+//===============
+//</FlexSEA User>
+
 
 //Slave Read Buffer:
 unsigned char slave_read_buffer[SLAVE_READ_BUFFER_LEN];
@@ -202,7 +217,7 @@ void build_slave_payload(unsigned char base_addr)
 	unsigned char i = 0;
 
     //Fresh string:
-    payload_build_basic_str(FLEXSEA_PLAN_1);	//ToDo extract from command, not hcoded
+    prepare_empty_payload(board_id, FLEXSEA_PLAN_1, payload_str, PAYLOAD_BUF_LEN); //ToDo extract from command, not hcoded
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string

@@ -30,7 +30,7 @@ void dio_pin_write(unsigned int pin, unsigned int value);
 void dio_port_write(unsigned int value);
 void dio_set_af(unsigned int periph);
 unsigned int dio_read_port_direction(void);
-void dio_map_pin_port(unsigned int pin, unsigned int *port, unsigned int *gpio);
+void dio_map_pin_port(unsigned int pin, GPIO_TypeDef *port, uint16_t *gpio);
 
 //****************************************************************************
 // Definition(s):

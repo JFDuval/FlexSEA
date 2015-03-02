@@ -34,11 +34,22 @@ uint8_t decode_spi_rx(void);
 //Un-comment to debug on the terminal:
 #define ENABLE_TERMINAL_DEBUG
 
+//<FlexSEA User>
+//==============
+
 //Board type - un-comment only one!
 //Make sure it matches with board_id!
 #define BOARD_TYPE_FLEXSEA_PLAN
 //#define BOARD_TYPE_FLEXSEA_MANAGE
 //#define BOARD_TYPE_FLEXSEA_EXECUTE
+
+//How many slaves on this bus?
+#define SLAVE_BUS_1_CNT		1
+#define SLAVE_BUS_2_CNT		0
+//Note: only Manage can have a value different than 0 or 1
+
+//===============
+//</FlexSEA User>
 
 
 #endif

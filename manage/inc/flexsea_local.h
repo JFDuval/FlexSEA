@@ -42,10 +42,22 @@ void flexsea_prepare_spi_tx_buffer(uint8_t base_addr);
 // Definition(s):
 //****************************************************************************
 
+//<FlexSEA User>
+//==============
+
 //Board type - un-comment only one!
 //Make sure it matches with board_id!
 //#define BOARD_TYPE_FLEXSEA_PLAN
 #define BOARD_TYPE_FLEXSEA_MANAGE
 //#define BOARD_TYPE_FLEXSEA_EXECUTE
+
+//How many slaves on this bus?
+#define SLAVE_BUS_1_CNT		1
+#define SLAVE_BUS_2_CNT		1
+//Note: only Manage can have a value different than 0 or 1
+
+//===============
+//</FlexSEA User>
+
 
 #endif

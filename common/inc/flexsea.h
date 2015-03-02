@@ -38,20 +38,13 @@
 unsigned int flexsea_error(unsigned int err_code);
 void uint32_to_bytes(uint32_t x, uint8_t *b0, uint8_t *b1, uint8_t *b2, uint8_t *b3);
 void uint16_to_bytes(uint32_t x, uint8_t *b0, uint8_t *b1);
+void fill_uint8_buf(uint8_t *buf, uint32_t len, uint8_t filler);
 
 //****************************************************************************
 // Definition(s):
 //****************************************************************************
 
 //Buffers and packets:
-/*
-#define RX_BUF_LEN                  	64		//Reception buffer (flexsea_comm)
-#define PAYLOAD_BUF_LEN             	12		//Number of bytes in a payload string
-#define PAYLOAD_BYTES					(PAYLOAD_BUF_LEN - 4)
-#define COMM_STR_BUF_LEN            	24		//Number of bytes in a comm. string
-#define PACKAGED_PAYLOAD_LEN			24	//Temporary
-#define PAYLOAD_BUFFERS             	4		//Max # of payload strings we expect to find
-*/
 #define RX_BUF_LEN                  	64		//Reception buffer (flexsea_comm)
 #define PAYLOAD_BUF_LEN             	24		//Number of bytes in a payload string
 #define PAYLOAD_BYTES					(PAYLOAD_BUF_LEN - 4)
@@ -66,18 +59,21 @@ void uint16_to_bytes(uint32_t x, uint8_t *b0, uint8_t *b1);
 
 //Board addresses:
 #define FLEXSEA_DEFAULT             	0
-#define FLEXSEA_PLAN_1              	10		//Plan: from 10 to 19
-#define FLEXSEA_MANAGE_1            	20		//Manage: from 20 to 39
-#define FLEXSEA_MANAGE_2            	21
-#define FLEXSEA_EXECUTE_1           	40		//Execute: from 40 to 255
-#define FLEXSEA_EXECUTE_2           	41
-#define FLEXSEA_EXECUTE_3           	42
-#define FLEXSEA_EXECUTE_4           	43
+#define FLEXSEA_PLAN_BASE              	10						//Plan: from 10 to 19
+#define FLEXSEA_PLAN_1					(FLEXSEA_PLAN_BASE + 0)
+#define FLEXSEA_MANAGE_BASE				20						//Manage: from 20 to 39
+#define FLEXSEA_MANAGE_1            	(FLEXSEA_MANAGE_BASE + 0)
+#define FLEXSEA_MANAGE_2            	(FLEXSEA_MANAGE_BASE + 1)
+#define FLEXSEA_EXECUTE_BASE          	40						//Execute: from 40 to 255
+#define FLEXSEA_EXECUTE_1				(FLEXSEA_EXECUTE_BASE + 0)
+#define FLEXSEA_EXECUTE_2           	(FLEXSEA_EXECUTE_BASE + 1)
+#define FLEXSEA_EXECUTE_3           	(FLEXSEA_EXECUTE_BASE + 2)
+#define FLEXSEA_EXECUTE_4           	(FLEXSEA_EXECUTE_BASE + 3)
 
 //Board ID related defines:
 #define ID_MATCH                    	1		//Addressed to me
-#define ID_SUB1_MATCH               	2		//Addressed to a board below me
-#define ID_SUB2_MATCH               	3
+#define ID_SUB1_MATCH               	2		//Addressed to a board on slave bus #1
+#define ID_SUB2_MATCH               	3		//Addressed to a board on slave bus #2
 #define ID_UP_MATCH               		4		//Addressed to my master
 #define ID_NO_MATCH                 	0
 

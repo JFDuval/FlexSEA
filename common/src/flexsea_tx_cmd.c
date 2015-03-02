@@ -36,6 +36,9 @@ unsigned char mm_leds = 0;
 
 extern unsigned char payload_str[PAYLOAD_BUF_LEN];
 
+//flexsea_local.c:
+extern uint8_t board_id;
+
 #ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 	
 extern struct ctrl_s ctrl;
@@ -52,7 +55,7 @@ extern struct imu_s imu;
 uint32_t tx_cmd_ctrl_p_gains_write(uint8_t slave, int16_t kp, int16_t ki, int16_t kd)
 {
     //Fresh string:
-    payload_build_basic_str(slave);
+	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string
@@ -73,7 +76,7 @@ uint32_t tx_cmd_ctrl_p_gains_write(uint8_t slave, int16_t kp, int16_t ki, int16_
 uint32_t tx_cmd_clutch_write(uint8_t slave, uint8_t clutch_pwm)
 {
     //Fresh string:
-    payload_build_basic_str(slave);
+	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string
@@ -92,7 +95,7 @@ uint32_t tx_cmd_ctrl_o_write(uint8_t slave, int32_t pwmdc)
 	uint8_t tmp0 = 0, tmp1 = 0, tmp2 = 0, tmp3 = 0;
 	
     //Fresh string:
-    payload_build_basic_str(slave);
+	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string
@@ -113,7 +116,7 @@ uint32_t tx_cmd_ctrl_o_write(uint8_t slave, int32_t pwmdc)
 unsigned int tx_set_trapeze(unsigned char slave, int posi, int posf, int spdm, int acc)
 {
     //Fresh string:
-    payload_build_basic_str(slave);
+	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string
@@ -137,7 +140,7 @@ unsigned int tx_set_trapeze(unsigned char slave, int posi, int posf, int spdm, i
 uint32_t tx_cmd_mem_read(uint8_t slave, uint8_t mem, uint8_t base_addr, uint8_t bytes)
 {
     //Fresh string:
-    payload_build_basic_str(slave);
+	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string
@@ -156,7 +159,7 @@ uint32_t tx_cmd_ctrl_i_write(uint8_t slave, int16_t curr)
 	uint8_t tmp0 = 0, tmp1 = 0;
 	
     //Fresh string:
-    payload_build_basic_str(slave);
+	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string
@@ -174,7 +177,7 @@ uint32_t tx_cmd_ctrl_i_write(uint8_t slave, int16_t curr)
 uint32_t tx_cmd_ctrl_mode_write(uint8_t slave, uint8_t ctrl)
 {
     //Fresh string:
-    payload_build_basic_str(slave);
+	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string
@@ -192,7 +195,7 @@ uint32_t tx_cmd_ctrl_i_gains_write(uint8_t slave, int16_t kp, int16_t ki, int16_
 	uint8_t tmp0 = 0, tmp1 = 0;
 	
     //Fresh string:
-    payload_build_basic_str(slave);
+	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string
@@ -217,7 +220,7 @@ uint32_t tx_cmd_ctrl_i_gains_write(uint8_t slave, int16_t kp, int16_t ki, int16_
 unsigned int tx_set_z_gains(unsigned char slave, int z_k, int z_b, int z_i)
 {
     //Fresh string:
-    payload_build_basic_str(slave);
+	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string
@@ -238,7 +241,7 @@ unsigned int tx_set_z_gains(unsigned char slave, int z_k, int z_b, int z_i)
 uint32_t tx_cmd_strain_config(uint8_t slave, uint8_t offs, uint8_t gain, uint8_t oref)
 {
     //Fresh string:
-    payload_build_basic_str(slave);
+	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string
@@ -258,7 +261,7 @@ uint32_t tx_cmd_encoder_write(uint8_t slave, int32_t enc)
 	uint8_t tmp0 = 0, tmp1 = 0, tmp2 = 0, tmp3 = 0;
 
     //Fresh string:
-    payload_build_basic_str(slave);
+	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string
@@ -278,7 +281,7 @@ uint32_t tx_cmd_encoder_write(uint8_t slave, int32_t enc)
 uint32_t tx_cmd_imu_read(uint8_t slave, uint8_t base_addr, uint8_t bytes)
 {
     //Fresh string:
-    payload_build_basic_str(slave);
+	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string
@@ -295,7 +298,7 @@ uint32_t tx_cmd_imu_read(uint8_t slave, uint8_t base_addr, uint8_t bytes)
 uint32_t tx_cmd_encoder_read(uint8_t slave)
 {
     //Fresh string:
-    payload_build_basic_str(slave);
+	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string
@@ -311,7 +314,7 @@ uint32_t tx_cmd_encoder_read(uint8_t slave)
 uint32_t tx_cmd_strain_read(uint8_t slave)
 {
     //Fresh string:
-    payload_build_basic_str(slave);
+	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string
@@ -327,7 +330,7 @@ uint32_t tx_cmd_strain_read(uint8_t slave)
 uint32_t tx_cmd_analog_read(uint8_t slave, uint8_t base_addr, uint8_t bytes)
 {
     //Fresh string:
-    payload_build_basic_str(slave);
+	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string
@@ -344,7 +347,7 @@ uint32_t tx_cmd_analog_read(uint8_t slave, uint8_t base_addr, uint8_t bytes)
 uint32_t tx_cmd_ctrl_i_read(uint8_t slave)
 {
     //Fresh string:
-    payload_build_basic_str(slave);
+	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string
@@ -362,7 +365,7 @@ uint32_t tx_cmd_encoder_read_reply(uint8_t master, int32_t enc)
 	uint8_t tmp0 = 0, tmp1 = 0, tmp2 = 0, tmp3 = 0;
 
     //Fresh string:
-    payload_build_basic_str(master);
+	prepare_empty_payload(board_id, master, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string
@@ -384,7 +387,7 @@ uint32_t tx_cmd_strain_read_reply(uint8_t master, uint16_t strain)
 	uint8_t tmp0 = 0, tmp1 = 0;
 
     //Fresh string:
-    payload_build_basic_str(master);
+	prepare_empty_payload(board_id, master, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string
@@ -468,7 +471,7 @@ uint32_t tx_cmd_analog_read_reply(uint8_t master, uint8_t base_addr, uint8_t byt
 	uint8_t tmp0 = 0, tmp1 = 0;
 
 	//Fresh string:
-	payload_build_basic_str(master);
+	prepare_empty_payload(board_id, master, payload_str, PAYLOAD_BUF_LEN);
 
 	//Command:
 	payload_str[CP_CMDS] = 1;                     //1 command in string
@@ -496,7 +499,7 @@ uint32_t tx_cmd_ctrl_i_read_reply(uint8_t master, int16_t measured, int16_t want
 	uint8_t tmp0 = 0, tmp1 = 0;
 
     //Fresh string:
-    payload_build_basic_str(master);
+	prepare_empty_payload(board_id, master, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string
@@ -517,7 +520,7 @@ uint32_t tx_cmd_ctrl_i_read_reply(uint8_t master, int16_t measured, int16_t want
 uint32_t tx_cmd_acq_mode_write(uint8_t slave, uint8_t mode)
 {
     //Fresh string:
-    payload_build_basic_str(slave);
+	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string

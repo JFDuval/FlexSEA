@@ -91,9 +91,12 @@ unsigned int dio_port_read(void)
 }
 
 //Sets an individual pin as input (1) or output (0)
+//ToDo test and confirm that it works!
 void dio_set_pin_direction(unsigned int pin, unsigned int dir)
 {
-	unsigned int port = 0, gpio = 0, direction = 0;
+	unsigned int direction = 0;
+	GPIO_TypeDef port;
+	uint16_t gpio;
 
 	GPIO_InitTypeDef GPIO_InitStructure;
 
@@ -115,7 +118,7 @@ void dio_set_pin_direction(unsigned int pin, unsigned int dir)
 	GPIO_InitStructure.Mode = direction;
 	GPIO_InitStructure.Speed = GPIO_SPEED_LOW;
 	GPIO_InitStructure.Pull = GPIO_NOPULL;
-	HAL_GPIO_Init(port, &GPIO_InitStructure);
+	HAL_GPIO_Init((GPIO_TypeDef *)port.MODER, &GPIO_InitStructure);
 
 	//Update the status word:
 	dio_direction &= (dir << pin);
@@ -125,7 +128,9 @@ void dio_set_pin_direction(unsigned int pin, unsigned int dir)
 //Sets new directions for the whole DIO port
 void dio_set_port_direction(unsigned int dir)
 {
-	unsigned int port = 0, gpio = 0, direction = 0, i = 0;
+	unsigned int direction = 0, i = 0;
+	GPIO_TypeDef port;
+	uint16_t gpio;
 
 	GPIO_InitTypeDef GPIO_InitStructure;
 
@@ -150,7 +155,7 @@ void dio_set_port_direction(unsigned int dir)
 		GPIO_InitStructure.Mode = direction;
 		GPIO_InitStructure.Speed = GPIO_SPEED_LOW;
 		GPIO_InitStructure.Pull = GPIO_NOPULL;
-		HAL_GPIO_Init(port, &GPIO_InitStructure);
+		HAL_GPIO_Init((GPIO_TypeDef *)port.MODER, &GPIO_InitStructure);
 	}
 
 	//Update the status word:
@@ -161,9 +166,10 @@ void dio_set_port_direction(unsigned int dir)
 //Writes to a single DIO pin
 void dio_pin_write(unsigned int pin, unsigned int value)
 {
-	unsigned int port = 0, gpio = 0;
+	GPIO_TypeDef port;
+	uint16_t gpio;
 
-	GPIO_InitTypeDef GPIO_InitStructure;
+	//GPIO_InitTypeDef GPIO_InitStructure;
 
 	//Assign port & pin:
 	dio_map_pin_port(pin, &port, &gpio);
@@ -171,16 +177,18 @@ void dio_pin_write(unsigned int pin, unsigned int value)
 	//Write to the output (ignore if it's an input)
 	if(!((dio_direction >> pin) & 0x01))
 	{
-		HAL_GPIO_WritePin(port, pin, value);
+		HAL_GPIO_WritePin((GPIO_TypeDef *)port.MODER, pin, value);
 	}
 }
 
 //Writes to all the outputs.
 void dio_port_write(unsigned int value)
 {
-	unsigned int port = 0, gpio = 0, i = 0;
+	unsigned int i = 0;
+	GPIO_TypeDef port;
+	uint16_t gpio;
 
-	GPIO_InitTypeDef GPIO_InitStructure;
+	//GPIO_InitTypeDef GPIO_InitStructure;
 
 	//Update the outputs one by one
 	for(i = 0; i < MAX_DIO; i++)
@@ -191,7 +199,7 @@ void dio_port_write(unsigned int value)
 		//Write to the output (ignore if it's an input)
 		if(!((dio_direction >> i) & 0x01))
 		{
-			HAL_GPIO_WritePin(port, gpio, ((value >> i) & 0x01));
+			HAL_GPIO_WritePin((GPIO_TypeDef *)port.MODER, gpio, ((value >> i) & 0x01));
 		}
 	}
 }
@@ -228,51 +236,51 @@ unsigned int dio_read_port_direction(void)
 }
 
 //Mapping between a DIO pin and it's STM32 port & pin
-void dio_map_pin_port(unsigned int pin, unsigned int *port, unsigned int *gpio)
+void dio_map_pin_port(unsigned int pin, GPIO_TypeDef *port, uint16_t *gpio)
 {
 	switch(pin)
 	{
 		case 0:
 			port = GPIOF;
-			gpio = GPIO_PIN_0;
+			*gpio = GPIO_PIN_0;
 			break;
 		case 1:
 			port = GPIOF;
-			gpio = GPIO_PIN_1;
+			*gpio = GPIO_PIN_1;
 			break;
 		case 2:
 			port = GPIOD;
-			gpio = GPIO_PIN_8;
+			*gpio = GPIO_PIN_8;
 			break;
 		case 3:
 			port = GPIOD;
-			gpio = GPIO_PIN_9;
+			*gpio = GPIO_PIN_9;
 			break;
 		case 4:
 			port = GPIOG;
-			gpio = GPIO_PIN_8;
+			*gpio = GPIO_PIN_8;
 			break;
 		case 5:
 			port = GPIOG;
-			gpio = GPIO_PIN_13;
+			*gpio = GPIO_PIN_13;
 			break;
 		case 6:
 			port = GPIOG;
-			gpio = GPIO_PIN_12;
+			*gpio = GPIO_PIN_12;
 			break;
 		case 7:
 			port = GPIOG;
-			gpio = GPIO_PIN_14;
+			*gpio = GPIO_PIN_14;
 			break;
 /* ToDo
 		case 8:
 			port = GPIOF;
-			gpio = GPIO_PIN_1;
+			*gpio = GPIO_PIN_1;
 			break;
 */
 		default:
 			port = GPIOA;
-			gpio = GPIO_PIN_0;
+			*gpio = GPIO_PIN_0;
 	}
 }
 

@@ -22,19 +22,19 @@
 
 unsigned char payload_str[PAYLOAD_BUF_LEN];
 uint8_t receive_485_1 = 0, receive_485_2 = 0;
-unsigned char xmit_flag = 0;
+uint8_t xmit_flag_1 = 0, xmit_flag_2 = 0;
 uint8_t comm_str_xmit_1[COMM_STR_BUF_LEN], comm_str_xmit_2[COMM_STR_BUF_LEN];
-uint8_t cmd_xmit = 0;
+uint8_t cmd_xmit_1 = 0, cmd_xmit_2 = 0;
 
 //****************************************************************************
 // External variable(s)
 //****************************************************************************
 
 //From flexsea_local:
-extern unsigned char board_id;
-extern unsigned char board_up_id;
-extern unsigned char board_sub1_id;
-extern unsigned char board_sub2_id;
+extern uint8_t board_id;
+extern uint8_t board_up_id;
+extern uint8_t board_sub1_id[];
+extern uint8_t board_sub2_id[];
 
 //From flexsea_comm:
 extern unsigned char comm_str[COMM_STR_BUF_LEN];
@@ -43,47 +43,7 @@ extern unsigned char comm_str[COMM_STR_BUF_LEN];
 // Function(s)
 //****************************************************************************
 
-//Clears payload_str (all 0)
-//ToDo remove, see below
-unsigned int payload_clear_str(void)
-{
-    int i = 0;
-
-    for(i = 0; i < PAYLOAD_BUF_LEN; i++)
-    {
-        payload_str[i] = 0;
-    }
-
-    return 0;
-}
-
-//Can be used to fill a buffer of any length with any value
-//ToDo might move this to another file
-void fill_uint8_buf(uint8_t *buf, uint32_t len, uint8_t filler)
-{
-	uint32_t i = 0;
-
-	for(i = 0; i < len; i++)
-	{
-		buf[i] = filler;
-	}
-}
-
-//Start a new payload_str - ToDo delete, see below
-unsigned int payload_build_basic_str(unsigned char to)
-{
-    //Start fresh:
-    payload_clear_str();
-
-    //Addresses:
-    payload_str[CP_XID] = board_id;
-    payload_str[CP_RID] = to;
-
-    return 0;
-}
-
 //Start a new payload string
-//New version of the command above
 void prepare_empty_payload(uint8_t from, uint8_t to, uint8_t *buf, uint32_t len)
 {
 	//Start fresh:
@@ -112,32 +72,44 @@ uint32_t append_to_payload(uint8_t *payload, uint32_t idx, uint8_t *new_data, ui
 }
 
 //Is it addressed to me? To a board "below" me? Or to my Master?
-unsigned int payload_check_slave_id(unsigned char *pldata)
+uint8_t get_rid(uint8_t *pldata)
 {
-    unsigned char cp_rid = pldata[CP_RID];
+	uint8_t cp_rid = pldata[CP_RID];
+	uint8_t i = 0;
 
-    if(cp_rid == board_id)
-    {
-        return ID_MATCH;
-    }
-    else if(cp_rid == board_sub1_id)	//First "lower" board. ToDo optimize this, needs to be more general
-    {
-        return ID_SUB1_MATCH;
-    }
-    else if(cp_rid == board_sub2_id)	//Second "lower" board. ToDo optimize this, needs to be more general
-    {
-        return ID_SUB2_MATCH;
-    }
-    else if(cp_rid == board_up_id)		//Master. ToDo optimize this, needs to be more general
-    {
-        return ID_UP_MATCH;
-    }
-    else
-    {
-        return ID_NO_MATCH;
-    }
+	if(cp_rid == board_id)				//This board?
+	{
+		return ID_MATCH;
+	}
+	else if(cp_rid == board_up_id)		//Master?
+	{
+		return ID_UP_MATCH;
+	}
+	else
+	{
+		//Can be on a slave bus, or can be invalid.
 
-    return ID_NO_MATCH;
+		//Search on slave bus #1:
+		for(i = 0; i < SLAVE_BUS_1_CNT; i++)
+		{
+			if(cp_rid == board_sub1_id[i])
+			{
+				return ID_SUB1_MATCH;
+			}
+		}
+
+		//Then on bus #2:
+		for(i = 0; i < SLAVE_BUS_1_CNT; i++)
+		{
+			if(cp_rid == board_sub2_id[i])
+			{
+				return ID_SUB2_MATCH;
+			}
+		}
+	}
+
+	//If we end up here it's because we didn't get a match:
+	return ID_NO_MATCH;
 }
 
 //Returns one if it was sent from a slave, 0 otherwise
@@ -165,13 +137,12 @@ unsigned int payload_parse_str(unsigned char *cp_str)
 {
     unsigned char cmd = 0, output = PARSE_SUCCESSFUL, numb = 0;
     unsigned int id = 0;
-    uint8_t i = 0;
 
     //Command
     cmd = cp_str[CP_CMD1];
 
-    //First, check ID
-    id = payload_check_slave_id(cp_str);
+    //First, get RID code
+    id = get_rid(cp_str);
     if(id == ID_MATCH)
     {
         //It's addressed to me. What should I do with it?
@@ -272,25 +243,27 @@ unsigned int payload_parse_str(unsigned char *cp_str)
 
         return output;
     }
-    else if((id == ID_SUB1_MATCH) || (id == ID_SUB2_MATCH))
+    else if(id == ID_SUB1_MATCH)
     {
-        //For one of my slaves.
+        //For a slave on bus #1:
 
-    	route_to_slave(cp_str, PAYLOAD_BUF_LEN);
+    	route_to_slave(PORT_RS485_1, cp_str, PAYLOAD_BUF_LEN);
     	//ToDo compute length rather then sending the max
     }
-    /*
     else if(id == ID_SUB2_MATCH)
     {
-    	//For one of my slaves:
-		//...
+    	//For a slave on bus #2:
+
+    	route_to_slave(PORT_RS485_2, cp_str, PAYLOAD_BUF_LEN);
+    	//ToDo compute length rather then sending the max
     }
-    */
     else if(id == ID_UP_MATCH)
     {
         //For my master:
 
 		#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+
+    	//Manage is the only board that can receive a package destined to his master
 			
         //Repackages the payload. ToDo: would be more efficient to just resend the comm_str
         numb = comm_gen_str(cp_str, PAYLOAD_BUF_LEN);
@@ -308,21 +281,33 @@ unsigned int payload_parse_str(unsigned char *cp_str)
     return PARSE_DEFAULT;
 }
 
-
-void route_to_slave(uint8_t *buf, uint32_t len)
+//ToDo not the greatest function...
+void route_to_slave(uint8_t port, uint8_t *buf, uint32_t len)
 {
 	uint32_t numb = 0, i = 0;
+	uint8_t *comm_str_ptr = comm_str_xmit_1;
 
     //Repackages the payload. ToDo: would be more efficient to just resend the comm_str
     numb = comm_gen_str(buf, len);
     //numb = COMM_STR_BUF_LEN;    //Fixed length for now
 
+    //Port specific flags and buffer:
+    if(port == PORT_RS485_1)
+    {
+    	comm_str_ptr = comm_str_xmit_1;
+    	cmd_xmit_1 = buf[CP_CMD1];
+    	xmit_flag_1 = 1;
+    }
+    else if(port == PORT_RS485_2)
+    {
+    	comm_str_ptr = comm_str_xmit_2;
+    	cmd_xmit_2 = buf[CP_CMD1];
+    	xmit_flag_2 = 1;
+    }
+
     //Copy string:
     for(i = 0; i < numb+1; i++)
     {
-    	comm_str_xmit_1[i] = comm_str[i];
+    	comm_str_ptr[i] = comm_str[i];
     }
-
-    cmd_xmit = buf[CP_CMD1];
-    xmit_flag = 1;
 }

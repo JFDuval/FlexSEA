@@ -56,27 +56,6 @@
 // External variable(s)
 //****************************************************************************
 
-//From flexsea_local
-extern unsigned char board_id;
-extern unsigned char board_sub1_id;
-extern unsigned char board_sub2_id;
-
-//From flexsea_commands:
-extern unsigned int pid_kp, pid_ki, pid_kd; //Test only
-
-//From flexsea_local:
-extern char name[];
-extern char version[];
-extern char date[];
-//extern char spi_xmit[];
-
-//From payload and comm:
-extern unsigned char comm_str[];
-extern unsigned char input_buffer[];    //Test only
-extern unsigned char rx_buf[];
-extern unsigned char comm_str_payload[PAYLOAD_BUFFERS][PAYLOAD_BUF_LEN];
-extern unsigned char payload_str[];
-
 //****************************************************************************
 // Function(s)
 //****************************************************************************
@@ -105,3 +84,15 @@ void uint16_to_bytes(uint32_t x, uint8_t *b0, uint8_t *b1)
 }
 
 //ToDo: look at inline functions
+
+//Can be used to fill a buffer of any length with any value
+void fill_uint8_buf(uint8_t *buf, uint32_t len, uint8_t filler)
+{
+	uint32_t i = 0;
+
+	for(i = 0; i < len; i++)
+	{
+		buf[i] = filler;
+	}
+}
+

@@ -21,6 +21,7 @@
 #include "../inc/flexsea_console.h"
 #include "../../common/inc/flexsea.h"
 #include "../inc/plan_spi.h"
+#include "../inc/flexsea_local.h"
 #include "../../common/inc/flexsea_rx_cmd.h"
 #include "../../common/inc/flexsea_tx_cmd.h"
 #include "shuobot.h"
@@ -44,12 +45,6 @@ char fcp_args[MAX_CMD] = {0, 2, 1, 0, 0, 3, 1, 2, 1, 3, 3, 1, 1, 0, 2, 1, 0, 0, 
 // External variable(s)
 //****************************************************************************
 
-//From flexsea_rx/tx_cmd:
-extern unsigned int pid_kp, pid_ki, pid_kd;
-extern int open_speed, current;
-extern int trapeze_pos_i, trapeze_pos_f, trapeze_max_spd, trapeze_acc;
-extern unsigned char mm_leds;
-
 //flexsea_local.c:
 extern char name[];
 extern char version[];
@@ -57,16 +52,11 @@ extern char date[];
 //extern char spi_xmit[];
 
 //From payload and comm:
-extern unsigned char test_data[]; //Test payload
 extern unsigned char comm_str[];
-extern unsigned char input_buffer[];    //Test only
-extern unsigned char rx_buf[];
-extern unsigned char comm_str_payload[PAYLOAD_BUFFERS][PAYLOAD_BUF_LEN];
 extern unsigned char payload_str[];
 
 //rx_cmd:
 extern unsigned char execute_1_data[SLAVE_READ_BUFFER_LEN];
-extern unsigned char manage_1_data[SLAVE_READ_BUFFER_LEN];
 
 extern struct execute_s exec1;
 
@@ -562,7 +552,7 @@ void flexsea_console_stream_slave_read(unsigned char slaveid, unsigned char offs
     }
 }
 
-void flexsea_console_datalogger(unsigned char slaveid, unsigned char offs)
+void flexsea_console_datalogger(uint8_t slaveid, uint8_t offs)
 {
     unsigned int i = 0, numb = 0;
     unsigned char c = 0;
@@ -637,12 +627,11 @@ void flexsea_console_datalogger(unsigned char slaveid, unsigned char offs)
         good += tmp;
 
         //Log to file:
-        sprintf((char *)str, "[%d:%d],%i,%i,%i,%i,%i,%i,%i\n", tm.tm_min, tm.tm_sec, \
-        		exec1.encoder, exec1.current, exec1.imu.x, exec1.imu.y, exec1.imu.z, \
-				exec1.strain, exec1.analog);
-        fprintf(logfile, (char *)str);
+        fprintf(logfile, "[%d:%d],%i,%i,%i,%i,%i,%i,%i\n", tm.tm_min, tm.tm_sec, \
+                		exec1.encoder, exec1.current, exec1.imu.x, exec1.imu.y, exec1.imu.z, \
+        				exec1.strain, exec1.analog);
 
-        //Delay 500us
+        //Delay 350us
         usleep(350);
     }
 

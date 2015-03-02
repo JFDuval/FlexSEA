@@ -44,7 +44,7 @@ unsigned char tmp_payload_xmit[PAYLOAD_BUF_LEN];
 //****************************************************************************
 
 extern uint8_t board_id;
-extern uint8_t xmit_flag;
+extern uint8_t xmit_flag_1, xmit_flag_2;
 
 #ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -130,7 +130,7 @@ void rx_cmd_ctrl_i(uint8_t *buf)
 		numb = comm_gen_str(tmp_payload_xmit, numb);
 
 		//Notify the code that a buffer is ready to be transmitted:
-		xmit_flag = 1;
+		xmit_flag_1 = 1;
 
 		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -265,7 +265,7 @@ void rx_cmd_ctrl_mode(uint8_t *buf)
 		numb = comm_gen_str(tmp_payload_xmit, numb);
 
 		//Notify the code that a buffer is ready to be transmitted:
-		xmit_flag = 1;
+		xmit_flag_1 = 1;
 
 		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 

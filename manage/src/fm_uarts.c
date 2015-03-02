@@ -182,7 +182,7 @@ void init_dma2_stream2_ch4(void)
 	__HAL_DMA_ENABLE_IT(&hdma2_str2_ch4, DMA_IT_TC);
 
 	//Start the DMA peripheral
-	HAL_DMA_Start_IT(&hdma2_str2_ch4, (uint32_t)&USART1->DR, uart1_dma_buf_ptr, rs485_1_dma_xfer_len);
+	HAL_DMA_Start_IT(&hdma2_str2_ch4, (uint32_t)&USART1->DR, (uint32_t)uart1_dma_buf_ptr, rs485_1_dma_xfer_len);
 }
 
 
@@ -261,7 +261,7 @@ void init_dma2_stream1_ch5(void)
 	__HAL_DMA_ENABLE_IT(&hdma2_str1_ch5, DMA_IT_TC);
 
 	//Start the DMA peripheral
-	HAL_DMA_Start_IT(&hdma2_str1_ch5, (uint32_t)&USART6->DR, uart6_dma_buf_ptr, rs485_2_dma_xfer_len);
+	HAL_DMA_Start_IT(&hdma2_str1_ch5, (uint32_t)&USART6->DR, (uint32_t)uart6_dma_buf_ptr, rs485_2_dma_xfer_len);
 }
 
 

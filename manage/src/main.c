@@ -65,8 +65,8 @@ int main(void)
 		//Did we receive new commands? Can we parse them?
 		parse_master_slave_commands(&new_cmd_led);
 
-		//1, 10, 100 & 1000ms timebases:
-		//==============================
+		//1, 10, 100 & 1000ms time bases:
+		//===============================
 
 		//1ms
 		if(systick_1ms_flag)
@@ -105,10 +105,12 @@ int main(void)
 
 			//rs485_1_xmit_dma_rx_test();
 
+			/*
 			if(toggle_led0)
 				rs485_1_xmit_dma_rx_test();
 			else
 				rs485_2_xmit_dma_rx_test();
+			*/
 		}
 
 		//1000ms

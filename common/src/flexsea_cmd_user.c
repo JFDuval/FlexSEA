@@ -43,7 +43,7 @@ unsigned char tmp_payload_xmit[PAYLOAD_BUF_LEN];
 //****************************************************************************
 
 extern uint8_t board_id;
-extern uint8_t xmit_flag;
+extern uint8_t xmit_flag_1, xmit_flag_2;
 
 #ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -57,16 +57,18 @@ extern unsigned char comm_str[COMM_STR_BUF_LEN];
 #endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
 #ifdef BOARD_TYPE_FLEXSEA_MANAGE
-
-struct execute_s exec1, exec2;
-
+//...
 #endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
 #ifdef BOARD_TYPE_FLEXSEA_PLAN
-
-struct execute_s exec1;
-
+//...
 #endif	//BOARD_TYPE_FLEXSEA_PLAN
+
+#if((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
+
+struct execute_s exec1, exec2;
+
+#endif	//((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
 
 //****************************************************************************
 // Function(s)
@@ -178,7 +180,8 @@ void rx_cmd_special_1(uint8_t *buf)
 
 	#if((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
 
-	struct execute_s *exec_s_ptr;
+	//Structure pointer. Points to exec1 by default.
+	struct execute_s *exec_s_ptr = &exec1;
 
 	//Point to the appropriate structure:
 	if(buf[CP_XID] == FLEXSEA_EXECUTE_1)
@@ -230,7 +233,7 @@ void rx_cmd_special_1(uint8_t *buf)
 		numb = COMM_STR_BUF_LEN;	//Fixed length for now to accomodate the DMA
 
 		//Notify the code that a buffer is ready to be transmitted:
-		xmit_flag = 1;
+		xmit_flag_1 = 1;
 		
 		//(for now, send it)
 		rs485_puts(comm_str, (numb));	
