@@ -2,7 +2,7 @@
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
 // jfduval@mit.edu
-// 02/2015
+// 03/2015
 //****************************************************************************
 // fm_misc: Slave R/W
 //****************************************************************************
@@ -21,6 +21,8 @@
 uint8_t tmp_rx_command_spi[PAYLOAD_BUF_LEN];
 uint8_t tmp_rx_command_485_1[PAYLOAD_BUF_LEN];
 uint8_t tmp_rx_command_485_2[PAYLOAD_BUF_LEN];
+
+struct slave_comm_s slaves_485_1, slaves_485_2;
 
 //****************************************************************************
 // External variable(s)
@@ -50,10 +52,49 @@ extern uint8_t rx_command_485_2[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
 // Function(s)
 //****************************************************************************
 
-//Sequentially acquire data from a slave
-//Will request a new read every time it's called
+//Manage can be in slave_comm_mode = TRANSPARENT or slave_comm_mode = AUTOSAMPLING
+//TRANSPARENT: Manage routes communication between the Master and the Slaves. All
+//	the timings come from the Master (Manage routes as fast as possible)
+//AUTOSAMPLING: Manage will do periodic Write/Read to n slaves and update a local structure
+//	Master can Write/Read to that structure at any point. The timing of the communications with
+//	the Master doesn't influence the timing of the communications between Manage and its slave(s)
+//	other than the fact that a new packet from Master will have priority for the next slot.
+//The 2 slave busses can have a different slave_comm_mode.
+
+//Prepares the structures:
+void init_master_slave_comm(void)
+{
+	//Port #1:
+	slaves_485_1.mode = SC_TRANSPARENT;
+	slaves_485_1.port = PORT_RS485_1;
+	slaves_485_1.xmit.flag = 0;
+	slaves_485_1.xmit.length = COMM_STR_BUF_LEN;
+	slaves_485_1.xmit.cmd = 0;
+	slaves_485_1.xmit.listen = 0;
+	slaves_485_1.autosample.flag = 0;
+	slaves_485_1.autosample.length = COMM_STR_BUF_LEN;
+	slaves_485_1.autosample.cmd = 0;
+	slaves_485_1.autosample.listen = 0;
+
+	//Port #2:
+	slaves_485_2.mode = SC_TRANSPARENT;
+	slaves_485_2.port = PORT_RS485_1;
+	slaves_485_2.xmit.flag = 0;
+	slaves_485_2.xmit.length = COMM_STR_BUF_LEN;
+	slaves_485_2.xmit.cmd = 0;
+	slaves_485_2.xmit.listen = 0;
+	slaves_485_2.autosample.flag = 0;
+	slaves_485_2.autosample.length = COMM_STR_BUF_LEN;
+	slaves_485_2.autosample.cmd = 0;
+	slaves_485_2.autosample.listen = 0;
+}
+
 //ToDo terrible code, redo!
-uint16_t slave_comm(uint8_t slave, uint8_t port, uint8_t autosample)
+
+//This function gets called at a much higher frequency than the slave communication to
+//make sure that we don't add delays in Transparent mode. autosample_trig will clock the
+//autosampling state machine(s)
+uint16_t slave_comm(uint8_t *autosample_trig)
 {
 	static uint16_t cnt = 0;
 	uint8_t bytes = 0, bytes2 = 0;
@@ -61,6 +102,50 @@ uint16_t slave_comm(uint8_t slave, uint8_t port, uint8_t autosample)
 	//Slave bus #1:
 	//=============
 
+	if(slaves_485_1.mode == SC_TRANSPARENT)
+	{
+		//In Transparent mode we do our best to route packets as fast as possible
+
+		//New data ready to be transmitted?
+		if(slaves_485_1.xmit.flag == 1)
+		{
+			//Transmit data:
+			write_to_slave_xmit(&slaves_485_1);
+
+	        //We are done, lower the flag
+	        slaves_485_1.xmit.flag = 0;
+		}
+	}
+	else if(slaves_485_1.mode == SC_AUTOSAMPLING)
+	{
+		//Autosampling is enabled. Will be bypassed is xmit_flag is set.
+
+		//New data ready to be transmitted?
+		if(slaves_485_1.xmit.flag == 1)
+		{
+			//Transmit data:
+			write_to_slave_xmit(&slaves_485_1);
+
+	        //We are done, lower the flag
+	        slaves_485_1.xmit.flag = 0;
+		}
+		else
+		{
+			//No bypassing
+
+			if(autosample_trig == 1)
+			{
+				//Time to send a new packet:
+				slaves_485_1_autosample();
+
+				autosample_trig = 0;
+			}
+		}
+
+	}
+
+	return 0;
+/*
 	if(!xmit_flag_1)
 	{
 		if(autosample)
@@ -131,6 +216,74 @@ uint16_t slave_comm(uint8_t slave, uint8_t port, uint8_t autosample)
 	}
 
 	return cnt;
+	*/
+}
+
+//Sends a packet to RS-485, xmit mode. Sets the Listen flag if needed.
+void write_to_slave_xmit(struct slave_comm_s *slave)
+{
+	//Transmit data:
+	flexsea_send_serial_slave(slave->port, slave->xmit.str, slave->xmit.length);
+
+	//Are we trying to read?
+    if(IS_CMD_RW(slave->xmit.cmd) == READ)
+    {
+        //We expect an answer, start listening:
+    	slave->xmit.listen = 1;
+    }
+}
+
+//Sends a packet to RS-485, autosample mode. Sets the Listen flag if needed.
+void write_to_slave_autosample(struct slave_comm_s *slave)
+{
+	//Transmit data:
+	flexsea_send_serial_slave(slave->port, slave->autosample.str, slave->autosample.length);
+
+	//Are we trying to read?
+    if(IS_CMD_RW(slave->autosample.cmd) == READ)
+    {
+        //We expect an answer, start listening:
+    	slave->autosample.listen = 1;
+    }
+}
+
+//State-machine for the autosampling on bus #1
+void slaves_485_1_autosample(void)
+{
+	/*
+	static uint16_t cnt = 0;
+	uint8_t bytes = 0, bytes2 = 0;
+
+	//We start by generating 1 read request:
+	switch(cnt)
+	{
+		case 0:
+			bytes = tx_cmd_strain_read(slave);
+			cnt++;
+			break;
+		case 1:
+			bytes = tx_cmd_encoder_read(slave);
+			cnt++;
+			break;
+		case 2:
+			bytes = tx_cmd_imu_read(slave, 0, 3);
+			cnt++;
+			break;
+		case 3:
+			bytes = tx_cmd_analog_read(slave, 0, 1);
+			cnt++;
+			break;
+		case 4:
+			bytes = tx_cmd_ctrl_i_read(slave);
+			cnt = 0;	//Last command resets the counter
+			break;
+	}
+
+	//Then we package and send it out:
+	bytes2 = comm_gen_str(payload_str, bytes + 1);	//Might not need the +1, TBD
+	flexsea_send_serial_slave(port, comm_str, bytes2 + 1);
+	start_listening_flag = 1;
+	*/
 }
 
 /*

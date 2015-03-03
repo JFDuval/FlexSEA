@@ -29,6 +29,7 @@
 //Initialize all the peripherals
 void init_peripherals(void)
 {
+	//Hardware modules:
 	init_systick_timer();		//SysTick timer
 	init_usart1(2000000);		//USART1 (RS-485 #1)
 	init_usart6(2000000);		//USART6 (RS-485 #2)
@@ -44,6 +45,9 @@ void init_peripherals(void)
 	init_imu();
 	init_adva_fc_pins();
 	init_pwr_out();
+
+	//Software:
+	init_master_slave_comm();
 
 	//All RGB LEDs OFF
 	LEDR(0); LEDG(0); LEDB(0);

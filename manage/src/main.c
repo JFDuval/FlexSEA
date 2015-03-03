@@ -40,6 +40,7 @@ int main(void)
 	//Variables:
 	unsigned char toggle_led0 = 0, toggle_led1 = 0;
 	uint8_t new_cmd_led = 0;
+	uint8_t slave_comm_trig = 0;
 
 	//Initialize all the peripherals
 	init_peripherals();
@@ -65,6 +66,9 @@ int main(void)
 		//Did we receive new commands? Can we parse them?
 		parse_master_slave_commands(&new_cmd_led);
 
+		//Master-Slave communications
+		slave_comm(&slave_comm_trig);
+
 		//1, 10, 100 & 1000ms time bases:
 		//===============================
 
@@ -80,10 +84,9 @@ int main(void)
 				new_cmd_led = 0;
 			}
 
-			//Update our slave read array:
-			slave_comm(FLEXSEA_EXECUTE_1, PORT_RS485_1, autosampling);	//ToDo rework this
-			//ToDo: what about slave 2?
-
+			//Slave comm clocking:
+			slave_comm_trig = 1;
+			//ToDo should be faster
 		}
 
 		//10ms
