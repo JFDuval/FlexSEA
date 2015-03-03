@@ -7,8 +7,8 @@
 // flexsea_local: configuration and functions for this particular board
 //****************************************************************************
 
-#ifndef INC_FLEXSEA_LOCAL_H
-#define INC_FLEXSEA_LOCAL_H
+#ifndef INC_FX_LOCAL_H
+#define INC_FX_LOCAL_H
 
 // Although it's a part of the FlexSEA stack that file doesn't live in /common/
 // as it needs to be unique to each board.

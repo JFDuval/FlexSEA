@@ -21,10 +21,6 @@
 //****************************************************************************
 
 unsigned char payload_str[PAYLOAD_BUF_LEN];
-uint8_t receive_485_1 = 0, receive_485_2 = 0;
-uint8_t xmit_flag_1 = 0, xmit_flag_2 = 0;
-uint8_t comm_str_xmit_1[COMM_STR_BUF_LEN], comm_str_xmit_2[COMM_STR_BUF_LEN];
-uint8_t cmd_xmit_1 = 0, cmd_xmit_2 = 0;
 
 //****************************************************************************
 // External variable(s)
@@ -36,8 +32,9 @@ extern uint8_t board_up_id;
 extern uint8_t board_sub1_id[];
 extern uint8_t board_sub2_id[];
 
-//From flexsea_comm:
+//From flexsea_comm.c:
 extern unsigned char comm_str[COMM_STR_BUF_LEN];
+extern struct slave_comm_s slaves_485_1, slaves_485_2;
 
 //****************************************************************************
 // Function(s)
@@ -285,7 +282,7 @@ unsigned int payload_parse_str(unsigned char *cp_str)
 void route_to_slave(uint8_t port, uint8_t *buf, uint32_t len)
 {
 	uint32_t numb = 0, i = 0;
-	uint8_t *comm_str_ptr = comm_str_xmit_1;
+	uint8_t *comm_str_ptr = slaves_485_1.xmit.str;
 
     //Repackages the payload. ToDo: would be more efficient to just resend the comm_str
     numb = comm_gen_str(buf, len);
@@ -294,15 +291,15 @@ void route_to_slave(uint8_t port, uint8_t *buf, uint32_t len)
     //Port specific flags and buffer:
     if(port == PORT_RS485_1)
     {
-    	comm_str_ptr = comm_str_xmit_1;
-    	cmd_xmit_1 = buf[CP_CMD1];
-    	xmit_flag_1 = 1;
+    	comm_str_ptr = slaves_485_1.xmit.str;
+    	slaves_485_1.xmit.cmd = buf[CP_CMD1];
+    	slaves_485_1.xmit.flag = 1;
     }
     else if(port == PORT_RS485_2)
     {
-    	comm_str_ptr = comm_str_xmit_2;
-    	cmd_xmit_2 = buf[CP_CMD1];
-    	xmit_flag_2 = 1;
+    	comm_str_ptr = slaves_485_2.xmit.str;
+    	slaves_485_2.xmit.cmd = buf[CP_CMD1];
+    	slaves_485_2.xmit.flag = 1;
     }
 
     //Copy string:

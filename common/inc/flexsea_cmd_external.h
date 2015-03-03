@@ -7,8 +7,8 @@
 // flexsea_cmd_external: External/Expansion Commands
 //****************************************************************************
 
-#ifndef INC_FLEXSEA_CMD_EXTERNAL_H
-#define INC_FLEXSEA_CMD_EXTERNAL_H
+#ifndef INC_FX_CMD_EXT_H
+#define INC_FX_CMD_EXT_H
 
 //****************************************************************************
 // Include(s)

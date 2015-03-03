@@ -39,8 +39,7 @@ uint32_t rs485_2_dma_xfer_len = COMM_STR_BUF_LEN;
 // External variable(s)
 //****************************************************************************
 
-extern uint8_t bytes_ready_485_1;
-extern uint8_t bytes_ready_485_2;
+extern struct slave_comm_s slaves_485_1, slaves_485_2;
 
 //****************************************************************************
 // Function(s)
@@ -488,7 +487,7 @@ void DMA2_Str2_CompleteTransfer_Callback(DMA_HandleTypeDef *hdma)
 
 	//Deal with FlexSEA buffers here:
 	update_rx_buf_array_485_1(uart1_dma_buf, rs485_1_dma_xfer_len);
-	bytes_ready_485_1++;
+	slaves_485_1.bytes_ready++;
 }
 
 //Function called after a completed DMA transfer.
@@ -504,7 +503,7 @@ void DMA2_Str1_CompleteTransfer_Callback(DMA_HandleTypeDef *hdma)
 
 	//Deal with FlexSEA buffers here:
 	update_rx_buf_array_485_2(uart6_dma_buf, rs485_2_dma_xfer_len);
-	bytes_ready_485_2++;
+	slaves_485_2.bytes_ready++;
 }
 
 void rs485_1_xmit_dma_rx_test(void)

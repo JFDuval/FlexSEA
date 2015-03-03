@@ -7,8 +7,8 @@
 // flexsea_cmd_comm: Communication Commands
 //****************************************************************************
 
-#ifndef INC_FLEXSEA_CMD_COMM_H
-#define INC_FLEXSEA_CMD_COMM_H
+#ifndef INC_FX_CMD_COMM_H
+#define INC_FX_CMD_COMM_H
 
 //****************************************************************************
 // Include(s)

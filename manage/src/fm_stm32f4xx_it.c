@@ -41,14 +41,6 @@
 #include "main.h"
 #include "fm_stm32f4xx_it.h"
 
-//main:
-extern int comm_success;
-
-//flexsea_local.c:
-extern uint8_t bytes_ready_485_1;
-
-extern uint8_t uart1_dma_buf[64];
-   
 /** @addtogroup STM32F4xx_HAL_Examples
   * @{
   */

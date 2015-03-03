@@ -7,8 +7,8 @@
 // flexsea_cmd_control: User Commands
 //****************************************************************************
 
-#ifndef INC_FLEXSEA_CMD_USER_H
-#define INC_FLEXSEA_CMD_USER_H
+#ifndef INC_FX_CMD_USER_H
+#define INC_FX_CMD_USER_H
 
 //****************************************************************************
 // Include(s)

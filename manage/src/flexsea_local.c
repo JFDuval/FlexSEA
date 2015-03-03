@@ -44,12 +44,11 @@ uint8_t board_sub2_id[SLAVE_BUS_2_CNT] = {FLEXSEA_EXECUTE_2};
 //===============
 //</FlexSEA User>
 
-
 //Slave Read Buffer:
 unsigned char slave_read_buffer[SLAVE_READ_BUFFER_LEN];
 
-uint8_t bytes_ready_spi = 0, bytes_ready_485_1 = 0, bytes_ready_485_2 = 0;
-uint8_t cmd_ready_spi = 0, cmd_ready_485_1 = 0, cmd_ready_485_2 = 0;
+uint8_t bytes_ready_spi = 0;
+uint8_t cmd_ready_spi = 0;
 
 //****************************************************************************
 // External variable(s)
@@ -62,12 +61,10 @@ extern uint8_t aTxBuffer[COMM_STR_BUF_LEN];
 
 //flexsea_comm:
 extern unsigned char comm_str[COMM_STR_BUF_LEN];
+extern struct slave_comm_s slaves_485_1, slaves_485_2;
 
 //flexsea_payload:
 extern unsigned char payload_str[];
-
-//extern unsigned char read_offset;
-extern uint8_t receive_485_1, receive_485_2;
 
 //rx_cmd:
 extern struct execute_s exec1;
@@ -137,40 +134,42 @@ void flexsea_start_receiving_from_master(void)
 void flexsea_receive_from_slave(void)
 {
 	//We only listen if we requested a reply:
-	if(receive_485_1)
+	if((slaves_485_1.xmit.listen == 1) || (slaves_485_1.autosample.listen == 1))
 	{
-		receive_485_1 = 0;
+		slaves_485_1.xmit.listen = 0;
+		slaves_485_1.autosample.listen = 0;
 
 		reception_rs485_1_blocking();	//Sets the transceiver to Receive
 		//From this point on data will be received via the interrupt.
 	}
 
-	//ToDo this is a copy of the one above, optimize
-	if(receive_485_2)
+	if((slaves_485_2.xmit.listen == 1) || (slaves_485_2.autosample.listen == 1))
 	{
-		receive_485_2 = 0;
+		slaves_485_2.xmit.listen = 0;
+		slaves_485_2.autosample.listen = 0;
 
 		reception_rs485_2_blocking();	//Sets the transceiver to Receive
 		//From this point on data will be received via the interrupt.
 	}
 
 	//Did we receive new bytes?
-	if(bytes_ready_485_1 != 0)
+	if(slaves_485_1.bytes_ready != 0)
 	{
-		bytes_ready_485_1 = 0;
+		slaves_485_1.bytes_ready = 0;
         //Got new data in, try to decode
-		cmd_ready_485_1 = unpack_payload_485_1();
+		slaves_485_1.cmd_ready = unpack_payload_485_1();
 	}
 
 	//Did we receive new bytes?
-	if(bytes_ready_485_2 != 0)
+	if(slaves_485_2.bytes_ready != 0)
 	{
-		bytes_ready_485_2 = 0;
+		slaves_485_2.bytes_ready = 0;
         //Got new data in, try to decode
-		cmd_ready_485_2 = unpack_payload_485_2();
+		slaves_485_2.cmd_ready = unpack_payload_485_2();
 	}
 }
 
+//ToDo: deprecated function?
 //Packages data in one unified array: slave_read_buffer[]
 void flexsea_update_slave_read_buffer(unsigned char read_offset)
 {

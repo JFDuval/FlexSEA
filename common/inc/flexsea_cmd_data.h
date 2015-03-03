@@ -7,8 +7,8 @@
 // flexsea_cmd_data: Data Commands
 //****************************************************************************
 
-#ifndef INC_FLEXSEA_CMD_DATA_H
-#define INC_FLEXSEA_CMD_DATA_H
+#ifndef INC_FX_CMD_DATA_H
+#define INC_FX_CMD_DATA_H
 
 //****************************************************************************
 // Include(s)

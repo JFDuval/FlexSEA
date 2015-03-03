@@ -7,8 +7,8 @@
 // flexsea_tx_cmd: prepare commands before we send them out
 //****************************************************************************
 
-#ifndef INC_FLEXSEA_TX_CMD_H
-#define INC_FLEXSEA_TX_CMD_H
+#ifndef INC_FX_TX_CMD_H
+#define INC_FX_TX_CMD_H
 
 //****************************************************************************
 // Include(s)

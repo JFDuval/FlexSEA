@@ -7,8 +7,8 @@
 // flexsea_cmd_system: System Commands
 //****************************************************************************
 
-#ifndef INC_FLEXSEA_CMD_SYS_H
-#define INC_FLEXSEA_CMD_SYS_H
+#ifndef INC_FX_CMD_SYS_H
+#define INC_FX_CMD_SYS_H
 
 //****************************************************************************
 // Include(s)

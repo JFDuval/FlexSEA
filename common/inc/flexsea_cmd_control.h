@@ -7,8 +7,8 @@
 // flexsea_cmd_control: Control Commands
 //****************************************************************************
 
-#ifndef INC_FLEXSEA_CMD_CONTROL_H
-#define INC_FLEXSEA_CMD_CONTROL_H
+#ifndef INC_FX_CMD_CTRL_H
+#define INC_FX_CMD_CTRL_H
 
 //****************************************************************************
 // Include(s)

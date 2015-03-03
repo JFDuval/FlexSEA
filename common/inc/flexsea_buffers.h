@@ -7,8 +7,8 @@
 // flexsea_buffers: everything related to the reception buffers
 //****************************************************************************
 
-#ifndef INC_FLEXSEA_BUF_H
-#define INC_FLEXSEA_BUF_H
+#ifndef INC_FX_BUF_H
+#define INC_FX_BUF_H
 
 //****************************************************************************
 // Include(s)

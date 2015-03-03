@@ -55,12 +55,22 @@ uint8_t rx_command_spi[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
 uint8_t rx_command_485_1[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
 uint8_t rx_command_485_2[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
 
+//Slave communication:
+struct slave_comm_s slaves_485_1, slaves_485_2;
+
 //****************************************************************************
 // External variable(s)
 //****************************************************************************
 
 //****************************************************************************
-// Function(s)
+// Private Function Prototype(s):
+//****************************************************************************
+
+static uint8_t unpack_payload(uint8_t *buf, uint8_t rx_cmd[][PACKAGED_PAYLOAD_LEN]);
+static void clear_rx_command(uint8_t x, uint8_t y, uint8_t rx_cmd[][PACKAGED_PAYLOAD_LEN]);
+
+//****************************************************************************
+// Public Function(s)
 //****************************************************************************
 
 //Takes payload, adds ESCAPES, checksum, header, ...
@@ -130,9 +140,88 @@ unsigned char comm_gen_str(unsigned char payload[], unsigned char bytes)
     return (3 + total_bytes);
 }
 
+
+
+//To avoid sharing buffers in multiple files we use specific functions:
+
+uint8_t unpack_payload_spi(void)
+{
+	return unpack_payload(rx_buf_spi, rx_command_spi);
+}
+
+uint8_t unpack_payload_485_1(void)
+{
+	return unpack_payload(rx_buf_485_1, rx_command_485_1);
+}
+
+uint8_t unpack_payload_485_2(void)
+{
+	return unpack_payload(rx_buf_485_2, rx_command_485_2);
+}
+
+/*
+uint8_t unpack_payload_usb(void)
+{
+	return unpack_payload(rx_buf_usb, rx_command_usb);
+}
+*/
+
+//Quick way to debug the comm functions with the debugger and the terminal.
+//Make sure to enable the printf statements.
+extern unsigned char payload_str[PAYLOAD_BUF_LEN];
+void test_flexsea_comm(void)
+{
+    uint8_t i = 0, res = 0, bytes = 0;
+    //uint8_t test_data[] = {'1', '2', '3', '4', '5', '6'}; //Test payload
+    //printf("test_data: >> %s <<\n", (char*) test_data);
+
+    //We are using a command that Plan can receive to test the parser too:
+    bytes = tx_cmd_ctrl_i_read_reply(FLEXSEA_PLAN_1, 100, 200);
+    //(this fills payload_str[])
+
+    DEBUG_PRINTF("bytes = %i\n", bytes);
+
+    //Clear current payload:
+    clear_rx_command(PAYLOAD_BUFFERS, PACKAGED_PAYLOAD_LEN, rx_command_spi);
+
+    //printf("rx_command_spi[0][]: >> %s <<\n", (char*)rx_command_spi[0]);
+
+    //Build comm_str
+    res = comm_gen_str(payload_str, bytes);
+
+    DEBUG_PRINTF("comm_str[]: >> %s <<\n", (char*)comm_str);
+    DEBUG_PRINTF("res = %i\n", res);
+
+    DEBUG_PRINTF("\nrx_buf_spi[]: >> %s <<\n", (char*)rx_buf_spi);
+
+    //Feed it to the input buffer
+    for(i = 0; i < PACKAGED_PAYLOAD_LEN; i++)
+    {
+        update_rx_buf_byte_spi(comm_str[i]);
+    }
+
+    DEBUG_PRINTF("rx_buf_spi[]: >> %s <<\n", (char*)rx_buf_spi);
+
+    //Try to decode
+    res = unpack_payload_spi();
+
+    DEBUG_PRINTF("Found %i payload(s).\n", res);
+
+    //Can we parse it?
+
+    res = payload_parse_str(rx_command_spi[0]);
+
+    //If it works, the console/terminal should display
+    //"Received CMD_CTRL_I_READ_REPLY. Wanted = 200, Measured = 100."
+}
+
+//****************************************************************************
+// Private Function(s)
+//****************************************************************************
+
 //New version of comm_decode_str
 //Take a buffer as an argument, returns the number of decoded payload packets
-uint8_t unpack_payload(uint8_t *buf, uint8_t rx_cmd[][PACKAGED_PAYLOAD_LEN])
+static uint8_t unpack_payload(uint8_t *buf, uint8_t rx_cmd[][PACKAGED_PAYLOAD_LEN])
 {
     uint32_t i = 0, j = 0, k = 0, idx = 0, h = 0;
     uint32_t bytes = 0, possible_footer = 0, possible_footer_pos = 0;
@@ -240,32 +329,8 @@ uint8_t unpack_payload(uint8_t *buf, uint8_t rx_cmd[][PACKAGED_PAYLOAD_LEN])
     return payload_strings;
 }
 
-//To avoid sharing buffers in multiple files we use specific functions:
-
-uint8_t unpack_payload_spi(void)
-{
-	return unpack_payload(rx_buf_spi, rx_command_spi);
-}
-
-uint8_t unpack_payload_485_1(void)
-{
-	return unpack_payload(rx_buf_485_1, rx_command_485_1);
-}
-
-uint8_t unpack_payload_485_2(void)
-{
-	return unpack_payload(rx_buf_485_2, rx_command_485_2);
-}
-
-/*
-uint8_t unpack_payload_usb(void)
-{
-	return unpack_payload(rx_buf_usb, rx_command_usb);
-}
-*/
-
 //Empties the buffer
-void clear_rx_command(uint8_t x, uint8_t y, uint8_t rx_cmd[][PACKAGED_PAYLOAD_LEN])
+static void clear_rx_command(uint8_t x, uint8_t y, uint8_t rx_cmd[][PACKAGED_PAYLOAD_LEN])
 {
     unsigned char i = 0, j = 0;
 
@@ -276,53 +341,4 @@ void clear_rx_command(uint8_t x, uint8_t y, uint8_t rx_cmd[][PACKAGED_PAYLOAD_LE
         	rx_cmd[i][j] = 0;
         }
     }
-}
-
-//Quick way to debug the comm functions with the debugger and the terminal.
-//Make sure to enable the printf statements.
-extern unsigned char payload_str[PAYLOAD_BUF_LEN];
-void test_flexsea_comm(void)
-{
-    uint8_t i = 0, res = 0, bytes = 0;
-    //uint8_t test_data[] = {'1', '2', '3', '4', '5', '6'}; //Test payload
-    //printf("test_data: >> %s <<\n", (char*) test_data);
-
-    //We are using a command that Plan can receive to test the parser too:
-    bytes = tx_cmd_ctrl_i_read_reply(FLEXSEA_PLAN_1, 100, 200);
-    //(this fills payload_str[])
-
-    DEBUG_PRINTF("bytes = %i\n", bytes);
-
-    //Clear current payload:
-    clear_rx_command(PAYLOAD_BUFFERS, PACKAGED_PAYLOAD_LEN, rx_command_spi);
-
-    //printf("rx_command_spi[0][]: >> %s <<\n", (char*)rx_command_spi[0]);
-
-    //Build comm_str
-    res = comm_gen_str(payload_str, bytes);
-
-    DEBUG_PRINTF("comm_str[]: >> %s <<\n", (char*)comm_str);
-    DEBUG_PRINTF("res = %i\n", res);
-
-    DEBUG_PRINTF("\nrx_buf_spi[]: >> %s <<\n", (char*)rx_buf_spi);
-
-    //Feed it to the input buffer
-    for(i = 0; i < PACKAGED_PAYLOAD_LEN; i++)
-    {
-        update_rx_buf_byte_spi(comm_str[i]);
-    }
-
-    DEBUG_PRINTF("rx_buf_spi[]: >> %s <<\n", (char*)rx_buf_spi);
-
-    //Try to decode
-    res = unpack_payload_spi();
-
-    DEBUG_PRINTF("Found %i payload(s).\n", res);
-
-    //Can we parse it?
-
-    res = payload_parse_str(rx_command_spi[0]);
-
-    //If it works, the console/terminal should display
-    //"Received CMD_CTRL_I_READ_REPLY. Wanted = 200, Measured = 100."
 }

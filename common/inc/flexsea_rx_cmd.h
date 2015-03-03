@@ -7,8 +7,8 @@
 // flexsea_rx_cmd: how do we deal with the commands we received?
 //****************************************************************************
 
-#ifndef INC_FLEXSEA_RX_CMD_H
-#define INC_FLEXSEA_RX_CMD_H
+#ifndef INC_FX_RX_CMD_H
+#define INC_FX_RX_CMD_H
 
 //****************************************************************************
 // Include(s)

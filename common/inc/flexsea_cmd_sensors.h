@@ -7,8 +7,8 @@
 // flexsea_cmd_sensors: Sensor Commands
 //****************************************************************************
 
-#ifndef INC_FLEXSEA_CMD_SENSORS_H
-#define INC_FLEXSEA_CMD_SENSORS_H
+#ifndef INC_FX_CMD_SENSORS_H
+#define INC_FX_CMD_SENSORS_H
 
 //****************************************************************************
 // Include(s)

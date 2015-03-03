@@ -7,8 +7,8 @@
 // flexsea: Master file for the FlexSEA stack.
 //****************************************************************************
 
-#ifndef INC_FLEXSEA_H
-#define INC_FLEXSEA_H
+#ifndef INC_FLEXSEA_H_
+#define INC_FLEXSEA_H_
 
 //****************************************************************************
 // Include(s)
