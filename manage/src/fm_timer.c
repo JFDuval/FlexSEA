@@ -16,10 +16,10 @@ void timer_tick (void);
 // ----------------------------------------------------------------------------
 
 volatile timer_ticks_t timer_delayCount;
-volatile unsigned char systick_1ms_flag = 0;
-volatile unsigned char systick_10ms_flag = 0;
-volatile unsigned char systick_100ms_flag = 0;
-volatile unsigned int systick_1000ms_flag = 0;
+volatile uint8_t systick_1ms_flag = 0;
+volatile uint8_t systick_10ms_flag = 0;
+volatile uint8_t systick_100ms_flag = 0;
+volatile uint8_t systick_1000ms_flag = 0;
 
 // ----------------------------------------------------------------------------
 

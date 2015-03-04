@@ -16,20 +16,10 @@
 #include "main.h"
 
 //****************************************************************************
-// Local variable(s)
+// Variable(s)
 //****************************************************************************
 
 uint8_t autosampling = 0;
-
-//****************************************************************************
-// External variable(s)
-//****************************************************************************
-
-//fm_timer:
-volatile unsigned char systick_1ms_flag;
-volatile unsigned char systick_10ms_flag;
-volatile unsigned char systick_100ms_flag;
-volatile unsigned char systick_1000ms_flag;
 
 //****************************************************************************
 // Function(s)

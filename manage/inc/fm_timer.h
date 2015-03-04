@@ -8,6 +8,15 @@
 
 #include "cmsis_device.h"
 
+//****************************************************************************
+// Shared Variable(s)
+//****************************************************************************
+
+extern volatile uint8_t systick_1ms_flag;
+extern volatile uint8_t systick_10ms_flag;
+extern volatile uint8_t systick_100ms_flag;
+extern volatile uint8_t systick_1000ms_flag;
+
 // ----------------------------------------------------------------------------
 
 #define TIMER_FREQUENCY_HZ (1000u)
@@ -18,8 +27,7 @@ extern volatile timer_ticks_t timer_delayCount;
 
 extern void init_systick_timer(void);
 
-extern void
-timer_sleep (timer_ticks_t ticks);
+extern void timer_sleep (timer_ticks_t ticks);
 
 // ----------------------------------------------------------------------------
 

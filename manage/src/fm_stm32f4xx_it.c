@@ -54,11 +54,6 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* SPI handler declared in "main.c" file */
-extern SPI_HandleTypeDef spi4_handle;
-extern USART_HandleTypeDef husart1;
-extern USART_HandleTypeDef husart6;
-extern DMA_HandleTypeDef hdma2_str2_ch4;
-extern DMA_HandleTypeDef hdma2_str1_ch5;
 
 volatile unsigned int spi_bytes_ready = 0;
 

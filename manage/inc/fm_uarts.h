@@ -18,6 +18,16 @@
 #include "stm32f4xx_hal.h"
 
 //****************************************************************************
+// Shared Variable(s)
+//****************************************************************************
+
+extern USART_HandleTypeDef husart1;		//RS-485 #1
+extern USART_HandleTypeDef husart6;		//RS-485 #2
+extern USART_HandleTypeDef husart3;		//Expansion port
+extern DMA_HandleTypeDef hdma2_str2_ch4;	//DMA for RS-485 #1
+extern DMA_HandleTypeDef hdma2_str1_ch5;	//DMA for RS-485 #2
+
+//****************************************************************************
 // Prototype(s):
 //****************************************************************************
 

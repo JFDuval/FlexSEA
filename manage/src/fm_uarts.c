@@ -18,7 +18,7 @@
 #include "fm_uarts.h"
 
 //****************************************************************************
-// Local variable(s)
+// Variable(s)
 //****************************************************************************
 
 USART_HandleTypeDef husart1;		//RS-485 #1
@@ -34,12 +34,6 @@ uint32_t rs485_1_dma_xfer_len = COMM_STR_BUF_LEN;
 __attribute__ ((aligned (4))) uint8_t uart6_dma_buf[RX_BUF_LEN];
 uint32_t rs485_2_dma_xfer_len = COMM_STR_BUF_LEN;
 //Note: Not sure if they have to be aligned, but can't hurt too much.
-
-//****************************************************************************
-// External variable(s)
-//****************************************************************************
-
-extern struct slave_comm_s slaves_485_1, slaves_485_2;
 
 //****************************************************************************
 // Function(s)

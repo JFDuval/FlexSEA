@@ -35,7 +35,7 @@ uint8_t tmp_rx_command_485_2[PAYLOAD_BUF_LEN];
 // Private Function Prototype(s):
 //****************************************************************************
 
-static void slave_comm_single(struct slave_comm_s *slave, uint8_t *autosample_trig);
+static void slave_comm_single(struct slave_comm_s *slave, uint8_t *trig);
 static void write_to_slave_xmit(struct slave_comm_s *slave);
 static void write_to_slave_autosample(struct slave_comm_s *slave);
 static void slaves_485_1_autosample(void);
@@ -79,10 +79,10 @@ void init_master_slave_comm(void)
 void slave_comm(uint8_t *autosample_trig)
 {
 	//Slave bus #1:
-	slave_comm_single(&slaves_485_1, &autosample_trig);
+	slave_comm_single(&slaves_485_1, autosample_trig);
 
 	//Slave bus #2:
-	slave_comm_single(&slaves_485_2, &autosample_trig);
+	slave_comm_single(&slaves_485_2, autosample_trig);
 }
 
 //Did we receive new commands? Can we parse them?
@@ -171,7 +171,7 @@ void write_test_cmd_execute2(uint8_t port, uint8_t slave, uint8_t value)
 //****************************************************************************
 
 //slave_comm takes care of 2 slave busses. To simplify code it will call slave_comm_single twice.
-static void slave_comm_single(struct slave_comm_s *slave, uint8_t *autosample_trig)
+static void slave_comm_single(struct slave_comm_s *slave, uint8_t *trig)
 {
 	if(slave->mode == SC_TRANSPARENT)
 	{
@@ -204,12 +204,12 @@ static void slave_comm_single(struct slave_comm_s *slave, uint8_t *autosample_tr
 		{
 			//No bypassing
 
-			if(autosample_trig == 1)
+			if(trig == 1)
 			{
 				//Time to send a new packet:
 				slaves_485_1_autosample();			//******wrong ToDo use fct ptr
 
-				autosample_trig = 0;
+				trig = 0;
 			}
 		}
 	}

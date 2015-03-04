@@ -32,25 +32,9 @@
 #endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
 //****************************************************************************
-// Local variable(s)
+// Variable(s)
 //****************************************************************************
 
-
-//****************************************************************************
-// External variable(s)
-//****************************************************************************
-
-#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
-
-#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
-
-#ifdef BOARD_TYPE_FLEXSEA_MANAGE
-
-#endif	//BOARD_TYPE_FLEXSEA_MANAGE
-
-#ifdef BOARD_TYPE_FLEXSEA_PLAN
-
-#endif	//BOARD_TYPE_FLEXSEA_PLAN
 
 //****************************************************************************
 // Function(s)
