@@ -26,11 +26,9 @@ extern uint8_t payload_str[PAYLOAD_BUF_LEN];
 // Public Function Prototype(s):
 //****************************************************************************
 
-uint8_t get_rid(uint8_t *pldata);
 unsigned int payload_parse_str(unsigned char *cp_str);
 uint8_t sent_from_a_slave(uint8_t *buf);
 void prepare_empty_payload(uint8_t from, uint8_t to, uint8_t *buf, uint32_t len);
-void route_to_slave(uint8_t port, uint8_t *buf, uint32_t len);
 
 //****************************************************************************
 // Definition(s):

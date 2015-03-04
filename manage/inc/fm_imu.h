@@ -23,7 +23,7 @@
 //****************************************************************************
 
 //set to 1 if we want to use blocking read/write
-#define IMU_BLOCKING 1
+#define IMU_BLOCKING 	1
 
 //****************************************************************************
 // Definition(s):
@@ -93,22 +93,17 @@ typedef enum {
 #define D_DEVICE_RESET		0x80	//write to PWR_MGMT_1: reset internal regs
 
 //****************************************************************************
-// Prototype(s):
+// Public Function Prototype(s):
 //****************************************************************************
-// functions you'll use in main.c, probably
-void init_imu(void);		//turn on IMU, initialize IMU registers to starting values
-uint16_t get_accel_x(void);	//read&return IMU Xaccel
-uint16_t get_accel_y(void);	//Yaccel data
-uint16_t get_accel_z(void);	//Zaccel data
-uint16_t get_gyro_x(void);	//Xgyro data
-uint16_t get_gyro_y(void);	//Ygyro data
-uint16_t get_gyro_z(void);	//Zgyro data
-void reset_imu(void);	//reset IMU registers to default
-void disable_imu(void);	//disable the IMU by shutting down clocks, etc.
 
-// low level functions; probably don't have to call them in main.c
-HAL_StatusTypeDef imu_write(uint8_t internal_reg_addr, uint8_t* pData, uint16_t Size); 
-HAL_StatusTypeDef imu_read(uint8_t internal_reg_addr, uint8_t *pData, uint16_t Size);
+void init_imu(void);			//turn on IMU, initialize IMU registers to starting values
+uint16_t get_accel_x(void);		//read&return IMU Xaccel
+uint16_t get_accel_y(void);		//Yaccel data
+uint16_t get_accel_z(void);		//Zaccel data
+uint16_t get_gyro_x(void);		//Xgyro data
+uint16_t get_gyro_y(void);		//Ygyro data
+uint16_t get_gyro_z(void);		//Zgyro data
+void reset_imu(void);			//reset IMU registers to default
+void disable_imu(void);			//disable the IMU by shutting down clocks, etc.
 
 #endif //_FM_I2C_H_ 
-

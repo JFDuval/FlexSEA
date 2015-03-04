@@ -27,7 +27,146 @@ uint8_t aTxBuffer[COMM_STR_BUF_LEN];	//SPI TX buffer
 uint8_t aRxBuffer[COMM_STR_BUF_LEN];	//SPI RX buffer
 
 //****************************************************************************
-// Function(s)
+// Private Function Prototype(s):
+//****************************************************************************
+
+void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi);
+
+//****************************************************************************
+// Public Function(s)
+//****************************************************************************
+
+//SPI4 peripheral initialization. SPI4 is used to communicate with the Plan board
+void init_spi4(void)
+{
+	//Configure SPI4 in Mode 0, Slave
+	//CPOL = 0 --> clock is low when idle
+	//CPHA = 0 --> data is sampled at the first edge
+
+	spi4_handle.Instance = SPI4;
+	spi4_handle.Init.Direction = SPI_DIRECTION_2LINES; 				// Full duplex
+	spi4_handle.Init.Mode = SPI_MODE_SLAVE;     					// Slave to the Plan board
+	spi4_handle.Init.DataSize = SPI_DATASIZE_8BIT; 					// 8bits words
+	spi4_handle.Init.CLKPolarity = SPI_POLARITY_LOW;        		// clock is low when idle (CPOL = 0)
+	spi4_handle.Init.CLKPhase = SPI_PHASE_1EDGE;      				// data sampled at first (rising) edge (CPHA = 0)
+	spi4_handle.Init.NSS = SPI_NSS_SOFT; 							// uses software slave select
+	spi4_handle.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4; 	// SPI frequency is APB2 frequency / 4	ToDo Adjust!
+	spi4_handle.Init.FirstBit = SPI_FIRSTBIT_MSB;					// data is transmitted MSB first
+	spi4_handle.Init.TIMode = SPI_TIMODE_DISABLED;					//
+	spi4_handle.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLED;
+	spi4_handle.Init.CRCPolynomial = 7;
+
+	if(HAL_SPI_Init(&spi4_handle) != HAL_OK)
+	{
+		flexsea_error(SE_INIT_SPI);
+	}
+}
+
+//SPI5 peripheral initialization. SPI5 is connected to the FLASH
+void init_spi5(void)
+{
+
+	//Configure SPI5 in Mode 0, Master
+	//CPOL = 0 --> clock is low when idle
+	//CPHA = 0 --> data is sampled at the first edge
+
+	spi5_handle.Instance = SPI5;
+	spi5_handle.Init.Direction = SPI_DIRECTION_2LINES; 				// Full duplex
+	spi5_handle.Init.Mode = SPI_MODE_MASTER;     					// Master
+	spi5_handle.Init.DataSize = SPI_DATASIZE_8BIT; 					// 8bits words
+	spi5_handle.Init.CLKPolarity = SPI_POLARITY_LOW;        		// clock is low when idle (CPOL = 0)
+	spi5_handle.Init.CLKPhase = SPI_PHASE_1EDGE;      				// data sampled at first (rising) edge (CPHA = 0)
+	spi5_handle.Init.NSS = SPI_NSS_HARD_OUTPUT; 					// uses hardware slave select
+	spi5_handle.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4; 	// SPI frequency is APB2 frequency / 4	****ToDo Adjust!
+	spi5_handle.Init.FirstBit = SPI_FIRSTBIT_MSB;					// data is transmitted MSB first
+	spi5_handle.Init.TIMode = SPI_TIMODE_DISABLED;					//
+	spi5_handle.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLED;
+	spi5_handle.Init.CRCPolynomial = 7;
+
+	if(HAL_SPI_Init(&spi5_handle) != HAL_OK)
+	{
+		flexsea_error(SE_INIT_SPI);
+	}
+}
+
+//SPI6 peripheral initialization. SPI6 is available on the Expansion connector
+void init_spi6(void)
+{
+
+	//Configure SPI6 in Mode 0, Master
+	//CPOL = 0 --> clock is low when idle
+	//CPHA = 0 --> data is sampled at the first edge
+
+	spi6_handle.Instance = SPI6;
+	spi6_handle.Init.Direction = SPI_DIRECTION_2LINES; 				// Full duplex
+	spi6_handle.Init.Mode = SPI_MODE_MASTER;     					// Master
+	spi6_handle.Init.DataSize = SPI_DATASIZE_8BIT; 					// 8bits words
+	spi6_handle.Init.CLKPolarity = SPI_POLARITY_LOW;        		// clock is low when idle (CPOL = 0)
+	spi6_handle.Init.CLKPhase = SPI_PHASE_1EDGE;      				// data sampled at first (rising) edge (CPHA = 0)
+	spi6_handle.Init.NSS = SPI_NSS_HARD_OUTPUT; 					// uses hardware slave select
+	spi6_handle.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4; 	// SPI frequency is APB2 frequency / 4	****ToDo Adjust!
+	spi6_handle.Init.FirstBit = SPI_FIRSTBIT_MSB;					// data is transmitted MSB first
+	spi6_handle.Init.TIMode = SPI_TIMODE_DISABLED;					//
+	spi6_handle.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLED;
+	spi6_handle.Init.CRCPolynomial = 7;
+
+	if(HAL_SPI_Init(&spi6_handle) != HAL_OK)
+	{
+		flexsea_error(SE_INIT_SPI);
+	}
+}
+
+/**
+ * @brief EXTI line detection callbacks
+ * @param GPIO_Pin: Specifies the pins connected EXTI line
+ * @retval None
+ */
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+	if(GPIO_Pin == GPIO_PIN_4)
+	{
+		// transfer over the buffer
+		// Todo: transfer over the number of bytes that have been received instead of COMM_STR_BUF_LEN every time
+		for (unsigned char i = 0; i < COMM_STR_BUF_LEN; i++)
+		{
+			update_rx_buf_byte_spi(aRxBuffer[i]);
+			//ToDo update to array
+		}
+		// clear the SPI buffer
+		for (unsigned char i = 0; i < COMM_STR_BUF_LEN; i++)
+		{
+			aRxBuffer[i] = 0;
+		}
+		// reset the SPI pointer and counter
+		spi4_handle.RxXferCount = COMM_STR_BUF_LEN;
+		spi4_handle.pRxBuffPtr = aRxBuffer;
+		spi4_handle.pTxBuffPtr = aTxBuffer;	//Test
+
+		//Data for the next cycle:
+		//comm_str was already generated, now we place it in the buffer:
+		comm_str_to_txbuffer();
+
+
+		if(HAL_SPI_TransmitReceive_IT(&spi4_handle, (uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, COMM_STR_BUF_LEN) != HAL_OK)
+		{
+			// Transfer error in transmission process
+			flexsea_error(SE_SEND_SERIAL_MASTER);
+		}
+
+
+		// handle the new data however this device wants to
+		SPI_new_data_Callback();
+	}
+}
+
+void SPI_new_data_Callback(void)
+{
+	bytes_ready_spi = 1;
+	//Got new data in, try to decode
+}
+
+//****************************************************************************
+// Private Function(s)
 //****************************************************************************
 
 void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi)
@@ -126,149 +265,4 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi)
 		//Trying to configure a port that doesn't exist, flag the error
 		flexsea_error(SE_INVALID_SPI);
 	}
-}
-
-//SPI4 peripheral initialization. SPI4 is used to communicate with the Plan board
-void init_spi4(void)
-{
-	//Configure SPI4 in Mode 0, Slave
-	//CPOL = 0 --> clock is low when idle
-	//CPHA = 0 --> data is sampled at the first edge
-
-	spi4_handle.Instance = SPI4;
-	spi4_handle.Init.Direction = SPI_DIRECTION_2LINES; 				// Full duplex
-	spi4_handle.Init.Mode = SPI_MODE_SLAVE;     					// Slave to the Plan board
-	spi4_handle.Init.DataSize = SPI_DATASIZE_8BIT; 					// 8bits words
-	spi4_handle.Init.CLKPolarity = SPI_POLARITY_LOW;        		// clock is low when idle (CPOL = 0)
-	spi4_handle.Init.CLKPhase = SPI_PHASE_1EDGE;      				// data sampled at first (rising) edge (CPHA = 0)
-	spi4_handle.Init.NSS = SPI_NSS_SOFT; 							// uses software slave select
-	spi4_handle.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4; 	// SPI frequency is APB2 frequency / 4	ToDo Adjust!
-	spi4_handle.Init.FirstBit = SPI_FIRSTBIT_MSB;					// data is transmitted MSB first
-	spi4_handle.Init.TIMode = SPI_TIMODE_DISABLED;					//
-	spi4_handle.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLED;
-	spi4_handle.Init.CRCPolynomial = 7;
-
-	if(HAL_SPI_Init(&spi4_handle) != HAL_OK)
-	{
-		flexsea_error(SE_INIT_SPI);
-	}
-}
-
-//SPI5 peripheral initialization. SPI5 is connected to the FLASH
-void init_spi5(void)
-{
-
-	//Configure SPI5 in Mode 0, Master
-	//CPOL = 0 --> clock is low when idle
-	//CPHA = 0 --> data is sampled at the first edge
-
-	spi5_handle.Instance = SPI5;
-	spi5_handle.Init.Direction = SPI_DIRECTION_2LINES; 				// Full duplex
-	spi5_handle.Init.Mode = SPI_MODE_MASTER;     					// Master
-	spi5_handle.Init.DataSize = SPI_DATASIZE_8BIT; 					// 8bits words
-	spi5_handle.Init.CLKPolarity = SPI_POLARITY_LOW;        		// clock is low when idle (CPOL = 0)
-	spi5_handle.Init.CLKPhase = SPI_PHASE_1EDGE;      				// data sampled at first (rising) edge (CPHA = 0)
-	spi5_handle.Init.NSS = SPI_NSS_HARD_OUTPUT; 					// uses hardware slave select
-	spi5_handle.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4; 	// SPI frequency is APB2 frequency / 4	****ToDo Adjust!
-	spi5_handle.Init.FirstBit = SPI_FIRSTBIT_MSB;					// data is transmitted MSB first
-	spi5_handle.Init.TIMode = SPI_TIMODE_DISABLED;					//
-	spi5_handle.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLED;
-	spi5_handle.Init.CRCPolynomial = 7;
-
-	if(HAL_SPI_Init(&spi5_handle) != HAL_OK)
-	{
-		flexsea_error(SE_INIT_SPI);
-	}
-}
-
-//SPI6 peripheral initialization. SPI6 is available on the Expansion connector
-void init_spi6(void)
-{
-
-	//Configure SPI6 in Mode 0, Master
-	//CPOL = 0 --> clock is low when idle
-	//CPHA = 0 --> data is sampled at the first edge
-
-	spi6_handle.Instance = SPI6;
-	spi6_handle.Init.Direction = SPI_DIRECTION_2LINES; 				// Full duplex
-	spi6_handle.Init.Mode = SPI_MODE_MASTER;     					// Master
-	spi6_handle.Init.DataSize = SPI_DATASIZE_8BIT; 					// 8bits words
-	spi6_handle.Init.CLKPolarity = SPI_POLARITY_LOW;        		// clock is low when idle (CPOL = 0)
-	spi6_handle.Init.CLKPhase = SPI_PHASE_1EDGE;      				// data sampled at first (rising) edge (CPHA = 0)
-	spi6_handle.Init.NSS = SPI_NSS_HARD_OUTPUT; 					// uses hardware slave select
-	spi6_handle.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4; 	// SPI frequency is APB2 frequency / 4	****ToDo Adjust!
-	spi6_handle.Init.FirstBit = SPI_FIRSTBIT_MSB;					// data is transmitted MSB first
-	spi6_handle.Init.TIMode = SPI_TIMODE_DISABLED;					//
-	spi6_handle.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLED;
-	spi6_handle.Init.CRCPolynomial = 7;
-
-	if(HAL_SPI_Init(&spi6_handle) != HAL_OK)
-	{
-		flexsea_error(SE_INIT_SPI);
-	}
-}
-
-/*
-//ToDo can we can rid of this buffer?
-unsigned char spi4_rx_buf[COMM_STR_BUF_LEN] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
-
-//Dumb function to test SPI4 RX
-unsigned int spi4_blocking_rx(void)
-{
-	unsigned char flag = 0;
-
-	HAL_SPI_Receive(&spi4_handle, spi4_rx_buf, 12, 10000);
-	flag = 1;
-
-	return flag;
-}
-*/
-
-/**
- * @brief EXTI line detection callbacks
- * @param GPIO_Pin: Specifies the pins connected EXTI line
- * @retval None
- */
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-{
-	if(GPIO_Pin == GPIO_PIN_4)
-	{
-		// transfer over the buffer
-		// Todo: transfer over the number of bytes that have been received instead of COMM_STR_BUF_LEN every time
-		for (unsigned char i = 0; i < COMM_STR_BUF_LEN; i++)
-		{
-			update_rx_buf_byte_spi(aRxBuffer[i]);
-			//ToDo update to array
-		}
-		// clear the SPI buffer
-		for (unsigned char i = 0; i < COMM_STR_BUF_LEN; i++)
-		{
-			aRxBuffer[i] = 0;
-		}
-		// reset the SPI pointer and counter
-		spi4_handle.RxXferCount = COMM_STR_BUF_LEN;
-		spi4_handle.pRxBuffPtr = aRxBuffer;
-		spi4_handle.pTxBuffPtr = aTxBuffer;	//Test
-
-		//Data for the next cycle:
-		//comm_str was already generated, now we place it in the buffer:
-		comm_str_to_txbuffer();
-
-
-		if(HAL_SPI_TransmitReceive_IT(&spi4_handle, (uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, COMM_STR_BUF_LEN) != HAL_OK)
-		{
-			// Transfer error in transmission process
-			flexsea_error(SE_SEND_SERIAL_MASTER);
-		}
-
-
-		// handle the new data however this device wants to
-		SPI_new_data_Callback();
-	}
-}
-
-void SPI_new_data_Callback(void)
-{
-	bytes_ready_spi = 1;
-	//Got new data in, try to decode
 }

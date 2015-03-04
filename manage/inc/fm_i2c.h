@@ -39,12 +39,10 @@ extern I2C_HandleTypeDef hi2c1;
 
 
 //****************************************************************************
-// Prototype(s):
+// Public Function Prototype(s):
 //****************************************************************************
 
-// low level functions; probably don't have to call them in main.c
-void HAL_I2C_MspInit(I2C_HandleTypeDef *hi2c);
-void HAL_I2C_MspDeInit(I2C_HandleTypeDef *hi2c);
 void init_i2c1(void);
+void disable_i2c(void);
 
 #endif //_FM_I2C_H_ 

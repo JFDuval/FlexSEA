@@ -21,24 +21,22 @@
 // Shared Variable(s)
 //****************************************************************************
 
-extern USART_HandleTypeDef husart1;		//RS-485 #1
-extern USART_HandleTypeDef husart6;		//RS-485 #2
-extern USART_HandleTypeDef husart3;		//Expansion port
+extern USART_HandleTypeDef husart1;			//RS-485 #1
+extern USART_HandleTypeDef husart6;			//RS-485 #2
+extern USART_HandleTypeDef husart3;			//Expansion port
 extern DMA_HandleTypeDef hdma2_str2_ch4;	//DMA for RS-485 #1
 extern DMA_HandleTypeDef hdma2_str1_ch5;	//DMA for RS-485 #2
 
 //****************************************************************************
-// Prototype(s):
+// Public Function Prototype(s):
 //****************************************************************************
 
 //General:
-void HAL_UART_MspInit(UART_HandleTypeDef* huart);
 void init_rs485_outputs(void);
 void rs485_set_mode(uint32_t port, uint8_t rx_tx);
 
 //RS-485 #1:
 void init_usart1(uint32_t baudrate);
-void init_dma2_stream2_ch4(void);
 void putc_usart1(char c);
 void puts_rs485_1(uint8_t *str, uint16_t length);
 uint8_t reception_rs485_1_blocking(void);
@@ -47,7 +45,6 @@ void rs485_1_xmit_dma_rx_test(void);
 
 //RS-485 #2:
 void init_usart6(uint32_t baudrate);
-void init_dma2_stream1_ch5(void);
 void putc_usart6(char c);
 void puts_rs485_2(uint8_t *str, uint16_t length);
 uint8_t reception_rs485_2_blocking(void);

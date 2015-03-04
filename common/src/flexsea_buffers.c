@@ -184,7 +184,7 @@ static void update_rx_buf_485_2(uint8_t byte_array, uint8_t new_byte, uint8_t *n
 }
 
 //****************************************************************************
-// User function(s)
+// Public Function(s)
 //****************************************************************************
 
 //Add one byte to the SPI RX buffer

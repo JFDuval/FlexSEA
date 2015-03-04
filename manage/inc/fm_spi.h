@@ -29,16 +29,12 @@ extern uint8_t aTxBuffer[COMM_STR_BUF_LEN];	//SPI TX buffer
 extern uint8_t aRxBuffer[COMM_STR_BUF_LEN];	//SPI RX buffer
 
 //****************************************************************************
-// Prototype(s):
+// Public Function Prototype(s):
 //****************************************************************************
 
-void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi);
 void init_spi4(void);
 void init_spi5(void);
 void init_spi6(void);
-unsigned int spi4_blocking_rx(void);
-void Error_Handler(void);
-unsigned int spi4_it_rx(void);
 void SPI_new_data_Callback(void);
 
 //****************************************************************************

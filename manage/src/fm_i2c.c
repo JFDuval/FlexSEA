@@ -21,19 +21,44 @@
 I2C_HandleTypeDef hi2c1;
 
 //****************************************************************************
-// Function(s)
-//****************************************************************************svcn
+// Private Function Prototype(s):
+//****************************************************************************
 
-//// HIGH LEVEL FUNCTIONS ////
+void HAL_I2C_MspInit(I2C_HandleTypeDef *hi2c);
+void HAL_I2C_MspDeInit(I2C_HandleTypeDef *hi2c) ;
+
+//****************************************************************************
+// Public Function(s)
+//****************************************************************************
+
+// Initialize i2c1. Currently connected to the IMU and the digital pot
+void init_i2c1(void)
+{
+	//I2C_HandleTypeDef *hi2c1 contains our handle information
+	//set config for the initial state of the i2c.
+	hi2c1.Instance = I2C1;
+	hi2c1.Init.ClockSpeed = I2C_CLOCK_RATE;  //clock frequency; less than 400kHz
+	hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2; //for fast mode (doesn't matter now)
+	hi2c1.Init.OwnAddress1 = 0x0; //device address of the STM32 (doesn't matter)
+	hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;//using 7 bit addresses
+	hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLED;//disable dual address
+	hi2c1.Init.OwnAddress2 = 0x0;	//second device addr (doesn't matter)
+	hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLED; 	//don't use 0x0 addr
+	hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLED; //allow slave to stretch SCL
+	hi2c1.State = HAL_I2C_STATE_RESET;
+	HAL_I2C_Init(&hi2c1);
+}
 
 // Disable I2C and free the I2C handle.
-void disable_i2c(void) 
+void disable_i2c(void)
 {
 	HAL_I2C_DeInit(&hi2c1);
 	//free((void *)hi2c1);
 }
 
-//// LOW LEVEL FUNCTIONS /////
+//****************************************************************************
+// Private Function(s)
+//****************************************************************************
 
 // Implement I2C MSP Init, as called for in the stm32f4xx_hal_i2c.c file
 void HAL_I2C_MspInit(I2C_HandleTypeDef *hi2c) 
@@ -89,22 +114,3 @@ void HAL_I2C_MspDeInit(I2C_HandleTypeDef *hi2c)
 	//uhh should be careful about this since SPI is on the same bus!
 	//__GPIOB_CLK_DISABLE();
 }
-
-// Initialize i2c1. Currently connected to the IMU and the digital pot
-void init_i2c1(void) 
-{
-	//I2C_HandleTypeDef *hi2c1 contains our handle information
-	//set config for the initial state of the i2c.
-	hi2c1.Instance = I2C1;
-	hi2c1.Init.ClockSpeed = I2C_CLOCK_RATE;  //clock frequency; less than 400kHz
-	hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2; //for fast mode (doesn't matter now)
-	hi2c1.Init.OwnAddress1 = 0x0; //device address of the STM32 (doesn't matter)
-	hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;//using 7 bit addresses
-	hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLED;//disable dual address
-	hi2c1.Init.OwnAddress2 = 0x0;	//second device addr (doesn't matter)
-	hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLED; 	//don't use 0x0 addr
-	hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLED; //allow slave to stretch SCL
-	hi2c1.State = HAL_I2C_STATE_RESET;
-	HAL_I2C_Init(&hi2c1);
-}
-

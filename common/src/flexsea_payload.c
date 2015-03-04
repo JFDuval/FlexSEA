@@ -23,7 +23,14 @@
 uint8_t payload_str[PAYLOAD_BUF_LEN];
 
 //****************************************************************************
-// Function(s)
+// Private Function Prototype(s):
+//****************************************************************************
+
+static uint8_t get_rid(uint8_t *pldata);
+static void route_to_slave(uint8_t port, uint8_t *buf, uint32_t len);
+
+//****************************************************************************
+// Public Function(s):
 //****************************************************************************
 
 //Start a new payload string
@@ -54,46 +61,7 @@ uint32_t append_to_payload(uint8_t *payload, uint32_t idx, uint8_t *new_data, ui
 	return i;
 }
 
-//Is it addressed to me? To a board "below" me? Or to my Master?
-uint8_t get_rid(uint8_t *pldata)
-{
-	uint8_t cp_rid = pldata[CP_RID];
-	uint8_t i = 0;
 
-	if(cp_rid == board_id)				//This board?
-	{
-		return ID_MATCH;
-	}
-	else if(cp_rid == board_up_id)		//Master?
-	{
-		return ID_UP_MATCH;
-	}
-	else
-	{
-		//Can be on a slave bus, or can be invalid.
-
-		//Search on slave bus #1:
-		for(i = 0; i < SLAVE_BUS_1_CNT; i++)
-		{
-			if(cp_rid == board_sub1_id[i])
-			{
-				return ID_SUB1_MATCH;
-			}
-		}
-
-		//Then on bus #2:
-		for(i = 0; i < SLAVE_BUS_1_CNT; i++)
-		{
-			if(cp_rid == board_sub2_id[i])
-			{
-				return ID_SUB2_MATCH;
-			}
-		}
-	}
-
-	//If we end up here it's because we didn't get a match:
-	return ID_NO_MATCH;
-}
 
 //Returns one if it was sent from a slave, 0 otherwise
 uint8_t sent_from_a_slave(uint8_t *buf)
@@ -264,8 +232,12 @@ unsigned int payload_parse_str(unsigned char *cp_str)
     return PARSE_DEFAULT;
 }
 
+//****************************************************************************
+// Private Function(s):
+//****************************************************************************
+
 //ToDo not the greatest function...
-void route_to_slave(uint8_t port, uint8_t *buf, uint32_t len)
+static void route_to_slave(uint8_t port, uint8_t *buf, uint32_t len)
 {
 	uint32_t numb = 0, i = 0;
 	uint8_t *comm_str_ptr = slaves_485_1.xmit.str;
@@ -293,4 +265,45 @@ void route_to_slave(uint8_t port, uint8_t *buf, uint32_t len)
     {
     	comm_str_ptr[i] = comm_str[i];
     }
+}
+
+//Is it addressed to me? To a board "below" me? Or to my Master?
+static uint8_t get_rid(uint8_t *pldata)
+{
+	uint8_t cp_rid = pldata[CP_RID];
+	uint8_t i = 0;
+
+	if(cp_rid == board_id)				//This board?
+	{
+		return ID_MATCH;
+	}
+	else if(cp_rid == board_up_id)		//Master?
+	{
+		return ID_UP_MATCH;
+	}
+	else
+	{
+		//Can be on a slave bus, or can be invalid.
+
+		//Search on slave bus #1:
+		for(i = 0; i < SLAVE_BUS_1_CNT; i++)
+		{
+			if(cp_rid == board_sub1_id[i])
+			{
+				return ID_SUB1_MATCH;
+			}
+		}
+
+		//Then on bus #2:
+		for(i = 0; i < SLAVE_BUS_1_CNT; i++)
+		{
+			if(cp_rid == board_sub2_id[i])
+			{
+				return ID_SUB2_MATCH;
+			}
+		}
+	}
+
+	//If we end up here it's because we didn't get a match:
+	return ID_NO_MATCH;
 }

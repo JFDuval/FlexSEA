@@ -2,13 +2,10 @@
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
 // jfduval@mit.edu
-// 02/2015
+// 03/2015
 //****************************************************************************
 // fm_uarts: Deals with the 3 USARTs
 //****************************************************************************
-
-//ToDo: this code only deals with 1 transceiver for now! (work in progress for the other 2)
-//ToDo add support for configurable baudrate (at least for the exp port)
 
 //****************************************************************************
 // Include(s)
@@ -36,69 +33,16 @@ uint32_t rs485_2_dma_xfer_len = COMM_STR_BUF_LEN;
 //Note: Not sure if they have to be aligned, but can't hurt too much.
 
 //****************************************************************************
-// Function(s)
+// Private Function Prototype(s):
 //****************************************************************************
 
-void HAL_USART_MspInit(USART_HandleTypeDef* husart)
-{
-	if(husart->Instance == USART1)		//RS-485 #1
-  	{
-    	//Peripheral clock enable:
-		__USART1_CLK_ENABLE();
-		__GPIOA_CLK_ENABLE();
+void HAL_UART_MspInit(UART_HandleTypeDef* huart);
+static void init_dma2_stream2_ch4(void);
+static void init_dma2_stream1_ch5(void);
 
-		//GPIOs:
-		//PA9   ------> USART1_TX
-		//PA10   ------> USART1_RX
-
-		GPIO_InitStruct.Pin = GPIO_PIN_9|GPIO_PIN_10;
-		GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-		GPIO_InitStruct.Pull = GPIO_PULLUP;		//Transceiver's R is Hi-Z when !RE=1
-		GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
-		GPIO_InitStruct.Alternate = GPIO_AF7_USART1;
-		HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-	}
-	else if(husart->Instance == USART6)	//RS-485 #2
-	{
-		//Peripheral clock enable:
-		__USART6_CLK_ENABLE();
-		__GPIOC_CLK_ENABLE();
-
-		//GPIOs:
-		//PC6   ------> USART6_TX
-		//PC7   ------> USART6_RX
-
-		GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_7;
-		GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-		GPIO_InitStruct.Pull = GPIO_PULLUP;		//Transceiver's R is Hi-Z when !RE=1
-		GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
-		GPIO_InitStruct.Alternate = GPIO_AF8_USART6;
-		HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-	}
-	else if(husart->Instance == USART3)	//Expansion port
-	{
-		//Peripheral clock enable:
-		__USART3_CLK_ENABLE();
-		__GPIOD_CLK_ENABLE();
-
-		//GPIOs:
-		//PD8   ------> USART3_TX
-		//PD9   ------> USART3_RX
-
-		GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9;
-		GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-		GPIO_InitStruct.Pull = GPIO_PULLUP;
-		GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
-		GPIO_InitStruct.Alternate = GPIO_AF7_USART3;
-		HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
-	}
-	else
-	{
-		//Invalid peripheral
-		flexsea_error(SE_INVALID_USART);
-	}
-}
+//****************************************************************************
+// Public Function(s)
+//****************************************************************************
 
 //USART1 init function: RS-485 #1
 void init_usart1(uint32_t baudrate)
@@ -138,47 +82,6 @@ void init_usart1(uint32_t baudrate)
 	init_dma2_stream2_ch4();
 }
 
-//Using DMA2 Ch 4 Stream 2 for USART1 RX
-void init_dma2_stream2_ch4(void)
-{
-	//Pointer to our storage buffer:
-	uint32_t *uart1_dma_buf_ptr;
-	uart1_dma_buf_ptr = (uint32_t*)&uart1_dma_buf;
-
-	//Enable clock
-	__DMA2_CLK_ENABLE();
-
-	//Instance:
-	hdma2_str2_ch4.Instance = DMA2_Stream2;
-
-	//Initialization:
-	hdma2_str2_ch4.Init.Channel = DMA_CHANNEL_4;
-	hdma2_str2_ch4.Init.Direction = DMA_PERIPH_TO_MEMORY; 			//Receive, so Periph to Mem
-	hdma2_str2_ch4.Init.PeriphInc = DMA_PINC_DISABLE;				//No Periph increment
-	hdma2_str2_ch4.Init.MemInc = DMA_MINC_ENABLE;					//Memory increment
-	hdma2_str2_ch4.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;	//Align: bytes
-	hdma2_str2_ch4.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;		//Align: bytes
-	hdma2_str2_ch4.Init.Mode = DMA_CIRCULAR;
-	hdma2_str2_ch4.Init.Priority = DMA_PRIORITY_MEDIUM;
-	hdma2_str2_ch4.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
-	hdma2_str2_ch4.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
-	hdma2_str2_ch4.Init.MemBurst = DMA_MBURST_SINGLE;
-	hdma2_str2_ch4.Init.PeriphBurst = DMA_PBURST_SINGLE;
-
-	hdma2_str2_ch4.XferCpltCallback = DMA2_Str2_CompleteTransfer_Callback;
-
-	HAL_DMA_Init(&hdma2_str2_ch4);
-
-	//Interrupts:
-	HAL_NVIC_SetPriority(DMA2_Stream2_IRQn, 7, 7);
-	HAL_NVIC_EnableIRQ(DMA2_Stream2_IRQn);
-	__HAL_DMA_ENABLE_IT(&hdma2_str2_ch4, DMA_IT_TC);
-
-	//Start the DMA peripheral
-	HAL_DMA_Start_IT(&hdma2_str2_ch4, (uint32_t)&USART1->DR, (uint32_t)uart1_dma_buf_ptr, rs485_1_dma_xfer_len);
-}
-
-
 //USART6 init function: RS-485 #2
 void init_usart6(uint32_t baudrate)
 {
@@ -216,47 +119,6 @@ void init_usart6(uint32_t baudrate)
 	//Enable DMA:
 	init_dma2_stream1_ch5();
 }
-
-//Using DMA2 Ch 5 Stream 1 for USART6 RX
-void init_dma2_stream1_ch5(void)
-{
-	//Pointer to our storage buffer:
-	uint32_t *uart6_dma_buf_ptr;
-	uart6_dma_buf_ptr = (uint32_t*)&uart6_dma_buf;
-
-	//Enable clock
-	__DMA2_CLK_ENABLE();
-
-	//Instance:
-	hdma2_str1_ch5.Instance = DMA2_Stream1;
-
-	//Initialization:
-	hdma2_str1_ch5.Init.Channel = DMA_CHANNEL_5;
-	hdma2_str1_ch5.Init.Direction = DMA_PERIPH_TO_MEMORY; 			//Receive, so Periph to Mem
-	hdma2_str1_ch5.Init.PeriphInc = DMA_PINC_DISABLE;				//No Periph increment
-	hdma2_str1_ch5.Init.MemInc = DMA_MINC_ENABLE;					//Memory increment
-	hdma2_str1_ch5.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;	//Align: bytes
-	hdma2_str1_ch5.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;		//Align: bytes
-	hdma2_str1_ch5.Init.Mode = DMA_CIRCULAR;
-	hdma2_str1_ch5.Init.Priority = DMA_PRIORITY_MEDIUM;
-	hdma2_str1_ch5.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
-	hdma2_str1_ch5.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
-	hdma2_str1_ch5.Init.MemBurst = DMA_MBURST_SINGLE;
-	hdma2_str1_ch5.Init.PeriphBurst = DMA_PBURST_SINGLE;
-
-	hdma2_str1_ch5.XferCpltCallback = DMA2_Str1_CompleteTransfer_Callback;
-
-	HAL_DMA_Init(&hdma2_str1_ch5);
-
-	//Interrupts:
-	HAL_NVIC_SetPriority(DMA2_Stream1_IRQn, 7, 7);
-	HAL_NVIC_EnableIRQ(DMA2_Stream1_IRQn);
-	__HAL_DMA_ENABLE_IT(&hdma2_str1_ch5, DMA_IT_TC);
-
-	//Start the DMA peripheral
-	HAL_DMA_Start_IT(&hdma2_str1_ch5, (uint32_t)&USART6->DR, (uint32_t)uart6_dma_buf_ptr, rs485_2_dma_xfer_len);
-}
-
 
 //USART3 init function: Expansion port
 void init_usart3(uint32_t baudrate)
@@ -536,4 +398,150 @@ void rs485_2_xmit_dma_rx_test(void)
 	rs485_set_mode(PORT_RS485_2, RS485_RX);
 
 	//At this point use a breakpoint in DMA2_Str2_CompleteTransfer_Callback()
+}
+
+//****************************************************************************
+// Private Function(s)
+//****************************************************************************
+
+void HAL_USART_MspInit(USART_HandleTypeDef* husart)
+{
+	if(husart->Instance == USART1)		//RS-485 #1
+  	{
+    	//Peripheral clock enable:
+		__USART1_CLK_ENABLE();
+		__GPIOA_CLK_ENABLE();
+
+		//GPIOs:
+		//PA9   ------> USART1_TX
+		//PA10   ------> USART1_RX
+
+		GPIO_InitStruct.Pin = GPIO_PIN_9|GPIO_PIN_10;
+		GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+		GPIO_InitStruct.Pull = GPIO_PULLUP;		//Transceiver's R is Hi-Z when !RE=1
+		GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
+		GPIO_InitStruct.Alternate = GPIO_AF7_USART1;
+		HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+	}
+	else if(husart->Instance == USART6)	//RS-485 #2
+	{
+		//Peripheral clock enable:
+		__USART6_CLK_ENABLE();
+		__GPIOC_CLK_ENABLE();
+
+		//GPIOs:
+		//PC6   ------> USART6_TX
+		//PC7   ------> USART6_RX
+
+		GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_7;
+		GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+		GPIO_InitStruct.Pull = GPIO_PULLUP;		//Transceiver's R is Hi-Z when !RE=1
+		GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
+		GPIO_InitStruct.Alternate = GPIO_AF8_USART6;
+		HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+	}
+	else if(husart->Instance == USART3)	//Expansion port
+	{
+		//Peripheral clock enable:
+		__USART3_CLK_ENABLE();
+		__GPIOD_CLK_ENABLE();
+
+		//GPIOs:
+		//PD8   ------> USART3_TX
+		//PD9   ------> USART3_RX
+
+		GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9;
+		GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+		GPIO_InitStruct.Pull = GPIO_PULLUP;
+		GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
+		GPIO_InitStruct.Alternate = GPIO_AF7_USART3;
+		HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+	}
+	else
+	{
+		//Invalid peripheral
+		flexsea_error(SE_INVALID_USART);
+	}
+}
+
+//Using DMA2 Ch 4 Stream 2 for USART1 RX
+static void init_dma2_stream2_ch4(void)
+{
+	//Pointer to our storage buffer:
+	uint32_t *uart1_dma_buf_ptr;
+	uart1_dma_buf_ptr = (uint32_t*)&uart1_dma_buf;
+
+	//Enable clock
+	__DMA2_CLK_ENABLE();
+
+	//Instance:
+	hdma2_str2_ch4.Instance = DMA2_Stream2;
+
+	//Initialization:
+	hdma2_str2_ch4.Init.Channel = DMA_CHANNEL_4;
+	hdma2_str2_ch4.Init.Direction = DMA_PERIPH_TO_MEMORY; 			//Receive, so Periph to Mem
+	hdma2_str2_ch4.Init.PeriphInc = DMA_PINC_DISABLE;				//No Periph increment
+	hdma2_str2_ch4.Init.MemInc = DMA_MINC_ENABLE;					//Memory increment
+	hdma2_str2_ch4.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;	//Align: bytes
+	hdma2_str2_ch4.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;		//Align: bytes
+	hdma2_str2_ch4.Init.Mode = DMA_CIRCULAR;
+	hdma2_str2_ch4.Init.Priority = DMA_PRIORITY_MEDIUM;
+	hdma2_str2_ch4.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
+	hdma2_str2_ch4.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
+	hdma2_str2_ch4.Init.MemBurst = DMA_MBURST_SINGLE;
+	hdma2_str2_ch4.Init.PeriphBurst = DMA_PBURST_SINGLE;
+
+	hdma2_str2_ch4.XferCpltCallback = DMA2_Str2_CompleteTransfer_Callback;
+
+	HAL_DMA_Init(&hdma2_str2_ch4);
+
+	//Interrupts:
+	HAL_NVIC_SetPriority(DMA2_Stream2_IRQn, 7, 7);
+	HAL_NVIC_EnableIRQ(DMA2_Stream2_IRQn);
+	__HAL_DMA_ENABLE_IT(&hdma2_str2_ch4, DMA_IT_TC);
+
+	//Start the DMA peripheral
+	HAL_DMA_Start_IT(&hdma2_str2_ch4, (uint32_t)&USART1->DR, (uint32_t)uart1_dma_buf_ptr, rs485_1_dma_xfer_len);
+}
+
+
+//Using DMA2 Ch 5 Stream 1 for USART6 RX
+static void init_dma2_stream1_ch5(void)
+{
+	//Pointer to our storage buffer:
+	uint32_t *uart6_dma_buf_ptr;
+	uart6_dma_buf_ptr = (uint32_t*)&uart6_dma_buf;
+
+	//Enable clock
+	__DMA2_CLK_ENABLE();
+
+	//Instance:
+	hdma2_str1_ch5.Instance = DMA2_Stream1;
+
+	//Initialization:
+	hdma2_str1_ch5.Init.Channel = DMA_CHANNEL_5;
+	hdma2_str1_ch5.Init.Direction = DMA_PERIPH_TO_MEMORY; 			//Receive, so Periph to Mem
+	hdma2_str1_ch5.Init.PeriphInc = DMA_PINC_DISABLE;				//No Periph increment
+	hdma2_str1_ch5.Init.MemInc = DMA_MINC_ENABLE;					//Memory increment
+	hdma2_str1_ch5.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;	//Align: bytes
+	hdma2_str1_ch5.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;		//Align: bytes
+	hdma2_str1_ch5.Init.Mode = DMA_CIRCULAR;
+	hdma2_str1_ch5.Init.Priority = DMA_PRIORITY_MEDIUM;
+	hdma2_str1_ch5.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
+	hdma2_str1_ch5.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
+	hdma2_str1_ch5.Init.MemBurst = DMA_MBURST_SINGLE;
+	hdma2_str1_ch5.Init.PeriphBurst = DMA_PBURST_SINGLE;
+
+	hdma2_str1_ch5.XferCpltCallback = DMA2_Str1_CompleteTransfer_Callback;
+
+	HAL_DMA_Init(&hdma2_str1_ch5);
+
+	//Interrupts:
+	HAL_NVIC_SetPriority(DMA2_Stream1_IRQn, 7, 7);
+	HAL_NVIC_EnableIRQ(DMA2_Stream1_IRQn);
+	__HAL_DMA_ENABLE_IT(&hdma2_str1_ch5, DMA_IT_TC);
+
+	//Start the DMA peripheral
+	HAL_DMA_Start_IT(&hdma2_str1_ch5, (uint32_t)&USART6->DR, (uint32_t)uart6_dma_buf_ptr, rs485_2_dma_xfer_len);
 }
