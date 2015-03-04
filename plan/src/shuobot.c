@@ -18,27 +18,15 @@
 #include <fcntl.h>
 #include <string.h>
 #include <time.h>
+#include "../../common/inc/flexsea.h"
 #include "../inc/flexsea_console.h"
 #include "../inc/flexsea_local.h"
-#include "shuobot.h"
-#include "../../common/inc/flexsea.h"
 #include "../inc/plan_spi.h"
-#include "../../common/inc/flexsea_rx_cmd.h"
-#include "../../common/inc/flexsea_tx_cmd.h"
+#include "shuobot.h"
 
 //****************************************************************************
 // Local variable(s)
 //****************************************************************************
-
-//****************************************************************************
-// External variable(s)
-//****************************************************************************
-
-extern struct execute_s exec1;
-
-//From payload and comm:
-extern unsigned char comm_str[];
-extern unsigned char payload_str[];
 
 //****************************************************************************
 // Private Function Prototype(s):
@@ -70,7 +58,7 @@ static void shuobot_demo(void)
     uint16_t current = 0;
     uint8_t enc_rw = KEEP;
     int32_t enc_cnt = 0;
-    uint32_t lines = 0, good = 0;
+    uint32_t lines = 0, good = 0, tmp = 0;
 
     //Log file:
     //=========
@@ -129,7 +117,9 @@ static void shuobot_demo(void)
     	send_cmd_slave();
 
         //Can we decode what we received?
-        decode_spi_rx();
+        tmp = decode_spi_rx();
+        lines++;
+        good += tmp;
 
         //Enable these 2 lines to print ("Stream" mode):
         system("clear");					//Clear terminal

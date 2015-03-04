@@ -22,30 +22,13 @@
 #endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
 //****************************************************************************
-// Local variable(s)
+// Variable(s)
 //****************************************************************************
 
 unsigned int pid_kp = 0, pid_ki = 0, pid_kd = 0;
 int open_speed = 0, current = 0;
 int trapeze_pos_i = 0, trapeze_pos_f = 0, trapeze_max_spd = 0, trapeze_acc = 0;
 unsigned char mm_leds = 0;
-
-//****************************************************************************
-// External variable(s)
-//****************************************************************************
-
-extern unsigned char payload_str[PAYLOAD_BUF_LEN];
-
-//flexsea_local.c:
-extern uint8_t board_id;
-
-#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
-	
-extern struct ctrl_s ctrl;
-extern struct enc_s encoder;	
-extern struct imu_s imu;
-	
-#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
 //****************************************************************************
 // Function(s)

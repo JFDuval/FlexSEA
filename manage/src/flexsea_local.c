@@ -16,9 +16,10 @@
 #include "../../common/inc/flexsea.h"
 
 //****************************************************************************
-// Local variable(s)
+// Variable(s)
 //****************************************************************************
 
+//ToDo make automatic or delete
 char name[] = "FlexSEA-Manage";
 char version[] = "1.0";
 char date[] = "02/16/2015";
@@ -49,25 +50,6 @@ unsigned char slave_read_buffer[SLAVE_READ_BUFFER_LEN];
 
 uint8_t bytes_ready_spi = 0;
 uint8_t cmd_ready_spi = 0;
-
-//****************************************************************************
-// External variable(s)
-//****************************************************************************
-
-//fm_spi:
-extern SPI_HandleTypeDef spi4_handle;
-extern uint8_t aRxBuffer[COMM_STR_BUF_LEN];
-extern uint8_t aTxBuffer[COMM_STR_BUF_LEN];
-
-//flexsea_comm:
-extern unsigned char comm_str[COMM_STR_BUF_LEN];
-extern struct slave_comm_s slaves_485_1, slaves_485_2;
-
-//flexsea_payload:
-extern unsigned char payload_str[];
-
-//rx_cmd:
-extern struct execute_s exec1;
 
 //****************************************************************************
 // Function(s)

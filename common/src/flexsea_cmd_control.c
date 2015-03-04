@@ -40,33 +40,6 @@
 unsigned char tmp_payload_xmit[PAYLOAD_BUF_LEN];
 
 //****************************************************************************
-// External variable(s)
-//****************************************************************************
-
-extern uint8_t board_id;
-extern uint8_t xmit_flag_1, xmit_flag_2;
-
-#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
-
-extern int steps;
-	
-//motor.c:
-extern struct ctrl_s ctrl;
-extern struct enc_s encoder;	
-
-#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
-
-#ifdef BOARD_TYPE_FLEXSEA_MANAGE
-
-struct execute_s exec1;
-
-#endif	//BOARD_TYPE_FLEXSEA_MANAGE
-
-#ifdef BOARD_TYPE_FLEXSEA_PLAN
-
-#endif	//BOARD_TYPE_FLEXSEA_PLAN
-
-//****************************************************************************
 // Function(s)
 //****************************************************************************
 

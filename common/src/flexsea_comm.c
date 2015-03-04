@@ -39,28 +39,16 @@
 #include "../inc/flexsea.h"
 
 //****************************************************************************
-// Local variable(s)
+// Variable(s)
 //****************************************************************************
 
-unsigned char rx_buf[RX_BUF_LEN];          //Contains the input data
-unsigned char input_buffer[RX_BUF_LEN];    //For test functions only
-unsigned char comm_str_payload[PAYLOAD_BUF_LEN][COMM_STR_BUF_LEN];
-unsigned char comm_str[COMM_STR_BUF_LEN], comm_str_tmp[COMM_STR_BUF_LEN];
+uint8_t comm_str[COMM_STR_BUF_LEN], comm_str_tmp[COMM_STR_BUF_LEN];	//ToDo will be replaced
 
-//New RX buffers:
-uint8_t rx_buf_spi[RX_BUF_LEN];
-uint8_t rx_buf_485_1[RX_BUF_LEN];
-uint8_t rx_buf_485_2[RX_BUF_LEN];
 uint8_t rx_command_spi[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
 uint8_t rx_command_485_1[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
 uint8_t rx_command_485_2[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
 
-//Slave communication:
 struct slave_comm_s slaves_485_1, slaves_485_2;
-
-//****************************************************************************
-// External variable(s)
-//****************************************************************************
 
 //****************************************************************************
 // Private Function Prototype(s):
@@ -168,7 +156,6 @@ uint8_t unpack_payload_usb(void)
 
 //Quick way to debug the comm functions with the debugger and the terminal.
 //Make sure to enable the printf statements.
-extern unsigned char payload_str[PAYLOAD_BUF_LEN];
 void test_flexsea_comm(void)
 {
     uint8_t i = 0, res = 0, bytes = 0;

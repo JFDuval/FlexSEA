@@ -30,7 +30,7 @@
 #endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
 //****************************************************************************
-// Local variable(s)
+// Variable(s)
 //****************************************************************************
 
 unsigned char read_offset = 0;
@@ -41,32 +41,8 @@ unsigned char manage_1_data[SLAVE_READ_BUFFER_LEN];
 
 #if defined(BOARD_TYPE_FLEXSEA_MANAGE) || defined(BOARD_TYPE_FLEXSEA_PLAN)
 
-struct execute_s exec1;
+struct execute_s exec1, exec2;
 
-#endif	//BOARD_TYPE_FLEXSEA_MANAGE
-
-//****************************************************************************
-// External variable(s)
-//****************************************************************************
-
-extern unsigned char comm_str[COMM_STR_BUF_LEN];
-
-//flexsea_payload:
-extern unsigned char payload_str[];
-
-#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
-
-extern int steps;
-
-//motor.c:
-extern struct ctrl_s ctrl;
-extern struct enc_s encoder;	
-
-#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
-
-#ifdef BOARD_TYPE_FLEXSEA_MANAGE
-//main.c
-extern uint8_t autosampling;
 #endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
 //****************************************************************************
@@ -884,7 +860,7 @@ void rx_cmd_acq_mode_write(uint8_t *buf)
 	tmp4 = buf[CP_DATA1];
 	tmp5 = buf[CP_DATA1+1];
 
-	autosampling = buf[CP_DATA1];
+	//autosampling = buf[CP_DATA1];	//Broken
 	tmp0 = tmp1;
 
 	#endif	//BOARD_TYPE_FLEXSEA_MANAGE

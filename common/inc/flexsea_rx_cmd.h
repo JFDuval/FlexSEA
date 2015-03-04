@@ -14,8 +14,10 @@
 // Include(s)
 //****************************************************************************
 
+#include "flexsea.h"
+#include "flexsea_local.h"
 #include <stdint.h>	
-	
+
 //****************************************************************************
 // Prototype(s):
 //****************************************************************************
@@ -54,10 +56,6 @@ void rx_cmd_ctrl_i_read_reply(uint8_t *buf);
 // Structure(s):
 //****************************************************************************
 
-//#ifdef BOARD_TYPE_FLEXSEA_MANAGE
-
-//ToDo quick hack, fix
-
 //Inner structure for the gyro and the accelero
 struct xyz_s
 {
@@ -76,7 +74,15 @@ struct execute_s
 	int32_t encoder;
 };
 
-//#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+//****************************************************************************
+// Shared variable(s)
+//****************************************************************************
+
+#if defined(BOARD_TYPE_FLEXSEA_MANAGE) || defined(BOARD_TYPE_FLEXSEA_PLAN)
+
+extern struct execute_s exec1, exec2;
+
+#endif	//defined(BOARD_TYPE_FLEXSEA_MANAGE) || defined(BOARD_TYPE_FLEXSEA_PLAN)
 
 #endif
 

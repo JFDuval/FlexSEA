@@ -18,6 +18,17 @@
 #include "stm32f4xx_hal.h"
 
 //****************************************************************************
+// Shared variable(s)
+//****************************************************************************
+
+extern SPI_HandleTypeDef spi4_handle;
+extern SPI_HandleTypeDef spi5_handle;
+extern SPI_HandleTypeDef spi6_handle;
+
+extern uint8_t aTxBuffer[COMM_STR_BUF_LEN];	//SPI TX buffer
+extern uint8_t aRxBuffer[COMM_STR_BUF_LEN];	//SPI RX buffer
+
+//****************************************************************************
 // Prototype(s):
 //****************************************************************************
 

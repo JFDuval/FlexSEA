@@ -18,12 +18,13 @@
 #include <fcntl.h>
 #include <string.h>
 #include <time.h>
+#include "flexsea.h"
 #include "../inc/flexsea_console.h"
-#include "../../common/inc/flexsea.h"
+//#include "../../common/inc/flexsea.h"
 #include "../inc/plan_spi.h"
 #include "../inc/flexsea_local.h"
-#include "../../common/inc/flexsea_rx_cmd.h"
-#include "../../common/inc/flexsea_tx_cmd.h"
+//#include "../../common/inc/flexsea_rx_cmd.h"
+//#include "../../common/inc/flexsea_tx_cmd.h"
 #include "shuobot.h"
 
 //****************************************************************************
@@ -49,10 +50,6 @@ char fcp_args[MAX_CMD] = {0, 2, 1, 0, 0, 3, 1, 2, 1, 3, 3, 1, 1, 0, 2, 1, 0, 0, 
 extern char name[];
 extern char version[];
 extern char date[];
-
-//From payload and comm:
-extern unsigned char comm_str[];
-extern unsigned char payload_str[];
 
 //rx_cmd:
 extern unsigned char execute_1_data[SLAVE_READ_BUFFER_LEN];

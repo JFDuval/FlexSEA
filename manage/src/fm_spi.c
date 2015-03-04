@@ -16,7 +16,7 @@
 #include "../../common/inc/flexsea.h"
 
 //****************************************************************************
-// Local variable(s)
+// Variable(s)
 //****************************************************************************
 
 SPI_HandleTypeDef spi4_handle;
@@ -25,13 +25,6 @@ SPI_HandleTypeDef spi6_handle;
 
 uint8_t aTxBuffer[COMM_STR_BUF_LEN];	//SPI TX buffer
 uint8_t aRxBuffer[COMM_STR_BUF_LEN];	//SPI RX buffer
-
-//****************************************************************************
-// External variable(s)
-//****************************************************************************
-
-//flexsea_local.c:
-extern uint8_t bytes_ready_spi;
 
 //****************************************************************************
 // Function(s)

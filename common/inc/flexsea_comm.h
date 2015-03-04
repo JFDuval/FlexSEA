@@ -17,8 +17,36 @@
 #include "flexsea.h"
 
 //****************************************************************************
-// Local variable(s)
+// Shared variable(s)
 //****************************************************************************
+
+extern uint8_t comm_str[COMM_STR_BUF_LEN], comm_str_tmp[COMM_STR_BUF_LEN];
+extern uint8_t rx_command_spi[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
+extern uint8_t rx_command_485_1[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
+extern uint8_t rx_command_485_2[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
+extern struct slave_comm_s slaves_485_1, slaves_485_2;
+
+//****************************************************************************
+// Public Function Prototype(s):
+//****************************************************************************
+
+unsigned char comm_gen_str(unsigned char payload[], unsigned char bytes);
+uint8_t unpack_payload_spi(void);
+uint8_t unpack_payload_485_1(void);
+uint8_t unpack_payload_485_2(void);
+void test_flexsea_comm(void);
+
+//****************************************************************************
+// Definition(s):
+//****************************************************************************
+
+//Framing:
+#define HEADER  				0xED	//237d
+#define FOOTER  				0xEE	//238d
+#define ESCAPE  				0xE9	//233d
+
+#define SC_TRANSPARENT			0
+#define SC_AUTOSAMPLING			1
 
 //****************************************************************************
 // Structure(s):
@@ -46,28 +74,5 @@ struct slave_comm_s
 	struct sc_data_s xmit;				//For the Transparent mode
 	struct sc_data_s autosample;		//For the Autosampling mode
 };
-
-
-//****************************************************************************
-// Public Function Prototype(s):
-//****************************************************************************
-
-unsigned char comm_gen_str(unsigned char payload[], unsigned char bytes);
-uint8_t unpack_payload_spi(void);
-uint8_t unpack_payload_485_1(void);
-uint8_t unpack_payload_485_2(void);
-void test_flexsea_comm(void);
-
-//****************************************************************************
-// Definition(s):
-//****************************************************************************
-
-//Framing:
-#define HEADER  				0xED	//237d
-#define FOOTER  				0xEE	//238d
-#define ESCAPE  				0xE9	//233d
-
-#define SC_TRANSPARENT			0
-#define SC_AUTOSAMPLING			1
 
 #endif

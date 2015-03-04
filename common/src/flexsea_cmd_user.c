@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include "../inc/flexsea.h"
 #include "flexsea_local.h"
+#include "flexsea_rx_cmd.h"
 
 //Plan boards only:
 #ifdef BOARD_TYPE_FLEXSEA_PLAN
@@ -32,43 +33,11 @@
 #endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
 //****************************************************************************
-// Local variable(s)
+// Variable(s)
 //****************************************************************************
 
 //Will change this, but for now the payloads will be stored in:
 unsigned char tmp_payload_xmit[PAYLOAD_BUF_LEN];
-
-//****************************************************************************
-// External variable(s)
-//****************************************************************************
-
-extern uint8_t board_id;
-extern uint8_t xmit_flag_1, xmit_flag_2;
-
-#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
-
-//motor.c:
-extern struct ctrl_s ctrl;
-extern struct enc_s encoder;	
-extern struct imu_s imu;
-	
-extern unsigned char comm_str[COMM_STR_BUF_LEN];
-
-#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
-
-#ifdef BOARD_TYPE_FLEXSEA_MANAGE
-//...
-#endif	//BOARD_TYPE_FLEXSEA_MANAGE
-
-#ifdef BOARD_TYPE_FLEXSEA_PLAN
-//...
-#endif	//BOARD_TYPE_FLEXSEA_PLAN
-
-#if((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
-
-struct execute_s exec1, exec2;
-
-#endif	//((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
 
 //****************************************************************************
 // Function(s)

@@ -15,7 +15,7 @@
 #include "../inc/flexsea.h"
 
 //****************************************************************************
-// Local variable(s)
+// Variable(s)
 //****************************************************************************
 
 uint8_t rx_buf_spi[RX_BUF_LEN];
@@ -23,8 +23,14 @@ uint8_t rx_buf_485_1[RX_BUF_LEN];
 uint8_t rx_buf_485_2[RX_BUF_LEN];
 
 //****************************************************************************
-// External variable(s)
+// Private Function Prototype(s):
 //****************************************************************************
+
+static void update_rx_buf_byte(uint8_t *buf, uint32_t *idx, uint8_t new_byte);
+static void update_rx_buf_array(uint8_t *buf, uint32_t *idx, uint8_t *new_data, uint32_t len);
+static void update_rx_buf_spi(uint8_t byte_array, uint8_t new_byte, uint8_t *new_array, uint32_t len);
+static void update_rx_buf_485_1(uint8_t byte_array, uint8_t new_byte, uint8_t *new_array, uint32_t len);
+static void update_rx_buf_485_2(uint8_t byte_array, uint8_t new_byte, uint8_t *new_array, uint32_t len);
 
 //****************************************************************************
 // Private function(s)

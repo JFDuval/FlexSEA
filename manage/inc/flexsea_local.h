@@ -18,25 +18,6 @@
 //****************************************************************************
 
 #include "../../common/inc/flexsea.h"
-#include "fm_i2c.h"
-
-// Set to zero if not sending imu data. (test.)
-#define SEND_IMU 0
-
-//****************************************************************************
-// Prototype(s):
-//****************************************************************************
-
-void flexsea_send_serial_slave(unsigned char port, unsigned char *str, unsigned char length);
-void flexsea_send_serial_master(unsigned char port, unsigned char *str, unsigned char length);
-void flexsea_receive_from_master(void);
-void flexsea_start_receiving_from_master(void);
-void flexsea_receive_from_slave(void);
-void flexsea_clear_slave_read_buffer(void);
-void flexsea_update_slave_read_buffer(unsigned char read_offset);
-void build_slave_payload(unsigned char base_addr);
-void comm_str_to_txbuffer(void);
-void flexsea_prepare_spi_tx_buffer(uint8_t base_addr);
 
 //****************************************************************************
 // Definition(s):
@@ -59,5 +40,31 @@ void flexsea_prepare_spi_tx_buffer(uint8_t base_addr);
 //===============
 //</FlexSEA User>
 
+//****************************************************************************
+// Shared variable(s)
+//****************************************************************************
+
+extern uint8_t board_id;
+extern uint8_t board_up_id;
+extern uint8_t board_sub1_id[SLAVE_BUS_1_CNT];
+extern uint8_t board_sub2_id[SLAVE_BUS_2_CNT];
+
+extern uint8_t bytes_ready_spi;
+extern uint8_t cmd_ready_spi;
+
+//****************************************************************************
+// Prototype(s):
+//****************************************************************************
+
+void flexsea_send_serial_slave(unsigned char port, unsigned char *str, unsigned char length);
+void flexsea_send_serial_master(unsigned char port, unsigned char *str, unsigned char length);
+void flexsea_receive_from_master(void);
+void flexsea_start_receiving_from_master(void);
+void flexsea_receive_from_slave(void);
+void flexsea_clear_slave_read_buffer(void);
+void flexsea_update_slave_read_buffer(unsigned char read_offset);
+void build_slave_payload(unsigned char base_addr);
+void comm_str_to_txbuffer(void);
+void flexsea_prepare_spi_tx_buffer(uint8_t base_addr);
 
 #endif

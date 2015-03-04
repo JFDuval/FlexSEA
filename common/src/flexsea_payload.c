@@ -17,24 +17,10 @@
 #include "flexsea_local.h"
 
 //****************************************************************************
-// Local variable(s)
+// Variable(s)
 //****************************************************************************
 
-unsigned char payload_str[PAYLOAD_BUF_LEN];
-
-//****************************************************************************
-// External variable(s)
-//****************************************************************************
-
-//From flexsea_local:
-extern uint8_t board_id;
-extern uint8_t board_up_id;
-extern uint8_t board_sub1_id[];
-extern uint8_t board_sub2_id[];
-
-//From flexsea_comm.c:
-extern unsigned char comm_str[COMM_STR_BUF_LEN];
-extern struct slave_comm_s slaves_485_1, slaves_485_2;
+uint8_t payload_str[PAYLOAD_BUF_LEN];
 
 //****************************************************************************
 // Function(s)

@@ -24,29 +24,12 @@
 #include "fm_master_slave_comm.h"
 
 //****************************************************************************
-// Local variable(s)
+// Variable(s)
 //****************************************************************************
 
 uint8_t tmp_rx_command_spi[PAYLOAD_BUF_LEN];
 uint8_t tmp_rx_command_485_1[PAYLOAD_BUF_LEN];
 uint8_t tmp_rx_command_485_2[PAYLOAD_BUF_LEN];
-
-//****************************************************************************
-// External variable(s)
-//****************************************************************************
-
-//FlexSEA:
-extern unsigned char payload_str[];
-extern unsigned char comm_str[COMM_STR_BUF_LEN];
-
-//flexsea_local.c:
-extern uint8_t cmd_ready_spi;
-
-//flexsea_comm.c:
-extern uint8_t rx_command_spi[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
-extern uint8_t rx_command_485_1[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
-extern uint8_t rx_command_485_2[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
-extern struct slave_comm_s slaves_485_1, slaves_485_2;
 
 //****************************************************************************
 // Private Function Prototype(s):

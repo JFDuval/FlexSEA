@@ -24,10 +24,10 @@ char version[] = "1.0";
 char date[] = "02/11/2015";
 
 //Board ID (this board) - pick from Board list in /common/inc/flexsea.h
-unsigned char board_id = FLEXSEA_PLAN_1;
-unsigned char board_up_id = FLEXSEA_DEFAULT;
-unsigned char board_sub1_id = FLEXSEA_MANAGE_1;
-unsigned char board_sub2_id = FLEXSEA_DEFAULT;
+uint8_t board_id = FLEXSEA_PLAN_1;
+uint8_t board_up_id = FLEXSEA_DEFAULT;
+uint8_t board_sub1_id[SLAVE_BUS_1_CNT] = {FLEXSEA_MANAGE_1};
+uint8_t board_sub2_id[SLAVE_BUS_2_CNT];
 
 unsigned char comm_str_payload1[16];
 
@@ -37,8 +37,6 @@ unsigned char comm_str_payload1[16];
 
 //plan_spi:
 unsigned char spi_rx[COMM_STR_BUF_LEN];
-extern unsigned char payload_str[];
-extern unsigned char comm_str_payload[PAYLOAD_BUFFERS][PAYLOAD_BUF_LEN];
 
 //flexsea_comm.c:
 extern uint8_t rx_command_spi[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
