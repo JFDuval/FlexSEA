@@ -15,7 +15,7 @@
 #include "flexsea_local.h"
 
 //****************************************************************************
-// Local variable(s)
+// Variable(s)
 //****************************************************************************
 
 char name[] = "FlexSEA-Execute";
@@ -23,31 +23,13 @@ char version[] = "0.0";
 char date[] = "08/01/2014";
 
 //Board ID (this board) -  - pick from Board list in /common/inc/flexsea.h
-unsigned char board_id = FLEXSEA_EXECUTE_1;
-unsigned char board_up_id = FLEXSEA_MANAGE_1;
-unsigned char board_sub1_id = FLEXSEA_DEFAULT;
-unsigned char board_sub2_id = FLEXSEA_DEFAULT;
-//ToDo this should be flexible!
+uint8 board_id = FLEXSEA_EXECUTE_1;
+uint8 board_up_id = FLEXSEA_MANAGE_1;
+uint8 board_sub1_id[SLAVE_BUS_1_CNT];
+uint8 board_sub2_id[SLAVE_BUS_2_CNT];
 
 //Slave Read Buffer:
 unsigned char slave_read_buffer[SLAVE_READ_BUFFER_LEN];
-
-//****************************************************************************
-// External variable(s)
-//****************************************************************************
-
-//flexsea_payload:
-extern unsigned char payload_str[];
-
-//ADC
-extern volatile uint16 adc1_result_avg8;
-extern unsigned int adc1_res[ADC1_CHANNELS][ADC1_BUF_LEN];
-extern unsigned int adc1_res_filtered[ADC1_CHANNELS];
-
-//motor.c:
-extern struct ctrl_s ctrl;
-
-extern unsigned char read_offset;
 
 //****************************************************************************
 // Function(s)

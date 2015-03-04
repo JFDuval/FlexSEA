@@ -28,8 +28,7 @@
 /* `#START isr_t2_intc` */
 
 #include <project.h>
-volatile uint8 t2_10ms_flag = 0;
-volatile uint8 t2_50ms_flag = 0;	
+#include "misc.h"
 
 /* `#END` */
 

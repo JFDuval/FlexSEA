@@ -78,6 +78,8 @@ struct execute_s
 // Shared variable(s)
 //****************************************************************************
 
+extern uint8_t read_offset;
+
 #if defined(BOARD_TYPE_FLEXSEA_MANAGE) || defined(BOARD_TYPE_FLEXSEA_PLAN)
 
 extern struct execute_s exec1, exec2;

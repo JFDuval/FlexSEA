@@ -29,48 +29,13 @@
 #endif
 
 //****************************************************************************
-// Local variable(s)
+// Variable(s)
 //****************************************************************************
 
 //Misc. variables, used for debugging only
 uint8 last_byte = 0;
 int steps = 0, current_step = 0;
 uint8_t tmp_rx_command_485_1[PAYLOAD_BUF_LEN];
-
-//****************************************************************************
-// External variable(s)
-//****************************************************************************
-
-//FlexSEA Network
-extern unsigned char payload_str[];
-extern unsigned char comm_str_payload[PAYLOAD_BUFFERS][PAYLOAD_BUF_LEN];
-extern unsigned char comm_str[];
-
-//Timer(s)
-extern volatile uint8 t1_100us_flag;
-extern volatile uint8 t1_1ms_flag;
-extern volatile uint8 t2_10ms_flag;
-extern volatile uint8 t2_50ms_flag;
-
-//ADC
-extern volatile uint16 adc1_result;
-extern volatile uint16 adc1_result_avg8;
-extern unsigned char adc_sar1_flag;
-extern unsigned int adc_res_filtered[ADC1_CHANNELS];
-
-//RS-485:
-extern volatile unsigned char uart2_flag, data_ready_485_1;
-
-//motor.c:
-extern struct ctrl_s ctrl;
-
-//peripherals.c
-extern uint8 usb_success;
-
-//DelSig ADC:
-extern uint8 adc_delsig_flag;
-
-extern uint8_t rx_command_485_1[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
 
 //****************************************************************************
 // Function(s)
@@ -216,29 +181,8 @@ int main(void)
 		#endif	//USE_USB
 		
 		//RS-485 Byte Input
-		#ifdef USE_RS485
-			
-			/*
-			//UART2 (RS485)
-			if(uart2_flag)
-			{
-				uart2_flag = 0;
-				
-				uart_buf_size = UART_2_GetRxBufferSize();
-				if(uart_buf_size > 0)
-				{
-					for(i = 0; i < uart_buf_size; i++)
-					{
-						last_byte = UART_2_GetChar();	//It's a shame but there is no gets function
-						update_rx_buf_byte_485_1(last_byte);
-					}
-				}
-				
-				//Got new data in, try to decode
-				cmd_ready_485_1 = unpack_payload_485_1();
-			}
-			*/
-			
+		#ifdef USE_RS485			
+	
 			if(t1_100us_flag)
 			{
 				t1_100us_flag = 0;

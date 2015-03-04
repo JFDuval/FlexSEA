@@ -17,6 +17,19 @@
 #include "main.h"
 	
 //****************************************************************************
+// Shared variable(s)
+//****************************************************************************	
+	
+extern volatile uint8 t1_100us_flag;
+extern volatile uint8 t1_1ms_flag;
+extern volatile uint8 t2_10ms_flag;
+extern volatile uint8 t2_50ms_flag;	
+	
+extern uint8 adc_sar1_flag;	
+extern volatile uint8 data_ready_485_1;
+extern volatile uint8 adc_delsig_flag;
+	
+//****************************************************************************
 // Prototype(s):
 //****************************************************************************
 

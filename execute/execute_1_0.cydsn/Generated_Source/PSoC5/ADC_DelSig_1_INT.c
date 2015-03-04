@@ -27,9 +27,8 @@
 
 #include <project.h>
 #include "main.h"
-extern struct strain_s strain;
-uint8 adc_delsig_flag = 0;
-volatile uint16 adc_strain = 0;
+#include "misc.h"
+#include "strain.h"
 
 /* `#END`  */
 

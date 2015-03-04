@@ -37,6 +37,7 @@
 //****************************************************************************
 
 #include "../inc/flexsea.h"
+#include <project.h>
 
 //****************************************************************************
 // Variable(s)
@@ -297,6 +298,7 @@ static uint8_t unpack_payload(uint8_t *buf, uint8_t rx_cmd[][PACKAGED_PAYLOAD_LE
                     }
                     else
                     {
+						EXP5_Write(1);
                     	DEBUG_PRINTF("Wrong checksum\n");
                     }
                 }
@@ -312,6 +314,8 @@ static uint8_t unpack_payload(uint8_t *buf, uint8_t rx_cmd[][PACKAGED_PAYLOAD_LE
         }
     }
 
+	EXP5_Write(0);
+	
     //Returns the number of decoded strings
     return payload_strings;
 }

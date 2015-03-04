@@ -13,9 +13,10 @@
 
 #include "main.h"
 #include "motor.h"
+#include "analog.h"
 
 //****************************************************************************
-// Local variable(s)
+// Variable(s)
 //****************************************************************************
 
 //Main data structure for all the controllers:
@@ -26,13 +27,6 @@ struct enc_s encoder;
 
 //Impedance loop
 int debug_var = 0;
-
-//****************************************************************************
-// External variable(s)
-//****************************************************************************
-
-extern int steps, current_step, pos;
-extern unsigned int adc1_res_filtered[ADC1_CHANNELS];
 
 //****************************************************************************
 // Function(s)

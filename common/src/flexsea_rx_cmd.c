@@ -18,6 +18,7 @@
 #include <stdlib.h>
 #include "../inc/flexsea.h"
 #include "flexsea_local.h"
+#include "motor.h"
 
 //Manage boards only:
 #ifdef BOARD_TYPE_FLEXSEA_MANAGE
@@ -33,7 +34,7 @@
 // Variable(s)
 //****************************************************************************
 
-unsigned char read_offset = 0;
+uint8 read_offset = 0;
 
 //Slave data:
 unsigned char execute_1_data[SLAVE_READ_BUFFER_LEN];

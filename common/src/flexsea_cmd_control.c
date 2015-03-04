@@ -103,7 +103,7 @@ void rx_cmd_ctrl_i(uint8_t *buf)
 		numb = comm_gen_str(tmp_payload_xmit, numb);
 
 		//Notify the code that a buffer is ready to be transmitted:
-		xmit_flag_1 = 1;
+		//xmit_flag_1 = 1;
 
 		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -238,7 +238,7 @@ void rx_cmd_ctrl_mode(uint8_t *buf)
 		numb = comm_gen_str(tmp_payload_xmit, numb);
 
 		//Notify the code that a buffer is ready to be transmitted:
-		xmit_flag_1 = 1;
+		//xmit_flag_1 = 1;
 
 		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 

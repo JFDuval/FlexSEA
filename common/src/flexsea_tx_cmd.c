@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include "../inc/flexsea.h"
 #include "flexsea_local.h"
+#include "imu.h"
 
 //Execute boards only:
 #ifdef BOARD_TYPE_FLEXSEA_EXECUTE

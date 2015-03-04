@@ -28,10 +28,8 @@
 /* `#START isr_t1_intc` */
 
 #include <project.h>
+#include "misc.h"
 #define ERROR_HALF_T		70		//ms	
-	
-volatile uint8 t1_100us_flag = 0;
-volatile uint8 t1_1ms_flag = 0;
 	
 /* `#END` */
 

@@ -43,7 +43,7 @@ unsigned char flexsea_prepare_rs485_tx_buffer(void);
 #define BOARD_TYPE_FLEXSEA_EXECUTE
 
 //How many slaves on this bus?
-#define SLAVE_BUS_1_CNT		1
+#define SLAVE_BUS_1_CNT		0
 #define SLAVE_BUS_2_CNT		0
 //Note: only Manage can have a value different than 0 or 1
 
@@ -52,5 +52,17 @@ unsigned char flexsea_prepare_rs485_tx_buffer(void);
 
 //Slave Read Buffer Size:
 #define SLAVE_READ_BUFFER_LEN		32	//ToDo TBD
+
+//****************************************************************************
+// Shared variable(s)
+//****************************************************************************
+
+extern uint8_t board_id;
+extern uint8_t board_up_id;
+extern uint8_t board_sub1_id[SLAVE_BUS_1_CNT];
+extern uint8_t board_sub2_id[SLAVE_BUS_2_CNT];
+
+extern uint8_t bytes_ready_spi;
+extern uint8_t cmd_ready_spi;
 
 #endif

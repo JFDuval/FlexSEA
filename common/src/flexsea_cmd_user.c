@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include "../inc/flexsea.h"
 #include "flexsea_local.h"
-#include "flexsea_rx_cmd.h"
+#include "../inc/flexsea_rx_cmd.h"
 
 //Plan boards only:
 #ifdef BOARD_TYPE_FLEXSEA_PLAN

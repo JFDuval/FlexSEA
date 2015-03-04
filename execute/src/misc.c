@@ -17,14 +17,23 @@
 #include "misc.h"
 
 //****************************************************************************
-// Local variable(s)
+// Variable(s)
 //****************************************************************************
 
 volatile int8_t tx_cnt = 0;
 
-//****************************************************************************
-// External variable(s)
-//****************************************************************************
+//Timers:
+volatile uint8 t1_100us_flag = 0;
+volatile uint8 t1_1ms_flag = 0;
+volatile uint8 t2_10ms_flag = 0;
+volatile uint8 t2_50ms_flag = 0;	
+
+//ADC:
+uint8 adc_sar1_flag = 0;
+volatile uint8 adc_delsig_flag = 0;
+
+//UART:
+volatile uint8 data_ready_485_1 = 0;
 
 //****************************************************************************
 // Function(s)
@@ -80,10 +89,10 @@ void rs485_puts(uint8 *buf, uint32 len)
 	//Can we store all the bytes we want to send?
 	if((UART_2_TXBUFFERSIZE - UART_2_GetTxBufferSize()) < len)
 	{
-				EXP5_Write(1);
+		//EXP5_Write(1);
 		//Buffer is overflowing, flush it:
 		UART_2_ClearTxBuffer();
-				EXP5_Write(0);
+		//EXP5_Write(0);
 	}	
 	
 	EXP8_Write(0);
