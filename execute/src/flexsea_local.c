@@ -23,7 +23,7 @@ char version[] = "0.0";
 char date[] = "08/01/2014";
 
 //Board ID (this board) -  - pick from Board list in /common/inc/flexsea.h
-unsigned char board_id = FLEXSEA_EXECUTE_2;
+unsigned char board_id = FLEXSEA_EXECUTE_1;
 unsigned char board_up_id = FLEXSEA_MANAGE_1;
 unsigned char board_sub1_id = FLEXSEA_DEFAULT;
 unsigned char board_sub2_id = FLEXSEA_DEFAULT;
@@ -106,7 +106,7 @@ void build_slave_payload(unsigned char base_addr)
 	unsigned char i = 0;
 
     //Fresh string:
-    payload_build_basic_str(FLEXSEA_PLAN_1);	//ToDo extract from command, not hcoded
+    prepare_empty_payload(board_id, FLEXSEA_PLAN_1, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string

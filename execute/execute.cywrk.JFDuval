@@ -13,7 +13,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="execute\execute_1_0\Source Files\common\flexsea_payload.c">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="execute\execute_1_0\Source Files\src\flexsea_local.c">
 <ExpandedNodeIds>
 <v>execute</v>
 <v>execute\execute_1_0</v>
@@ -166,6 +166,37 @@
 <v>execute\IMU_I2C_Test\Generated_Source\PSoC5\project.h</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
+<v>execute\execute_1_0\Header Files</v>
+<v>execute\execute_1_0\Header Files\common</v>
+<v>execute\execute_1_0\Header Files\common\flexsea.h</v>
+<v>execute\execute_1_0\Header Files\common\flexsea_buffers.h</v>
+<v>execute\execute_1_0\Header Files\common\flexsea_cmd_comm.h</v>
+<v>execute\execute_1_0\Header Files\common\flexsea_cmd_control.h</v>
+<v>execute\execute_1_0\Header Files\common\flexsea_cmd_data.h</v>
+<v>execute\execute_1_0\Header Files\common\flexsea_cmd_external.h</v>
+<v>execute\execute_1_0\Header Files\common\flexsea_cmd_sensors.h</v>
+<v>execute\execute_1_0\Header Files\common\flexsea_cmd_system.h</v>
+<v>execute\execute_1_0\Header Files\common\flexsea_cmd_user.h</v>
+<v>execute\execute_1_0\Header Files\common\flexsea_comm.h</v>
+<v>execute\execute_1_0\Header Files\common\flexsea_payload.h</v>
+<v>execute\execute_1_0\Header Files\common\flexsea_rx_cmd.h</v>
+<v>execute\execute_1_0\Header Files\common\flexsea_tx_cmd.h</v>
+<v>execute\execute_1_0\Header Files\inc</v>
+<v>execute\execute_1_0\Header Files\inc\analog.h</v>
+<v>execute\execute_1_0\Header Files\inc\flexsea_local.h</v>
+<v>execute\execute_1_0\Header Files\inc\imu.h</v>
+<v>execute\execute_1_0\Header Files\inc\main.h</v>
+<v>execute\execute_1_0\Header Files\inc\misc.h</v>
+<v>execute\execute_1_0\Header Files\inc\motor.h</v>
+<v>execute\execute_1_0\Header Files\inc\peripherals.h</v>
+<v>execute\execute_1_0\Header Files\inc\safety.h</v>
+<v>execute\execute_1_0\Header Files\inc\strain.h</v>
+<v>execute\execute_1_0\Header Files\inc\trapez.h</v>
+<v>execute\execute_1_0\Header Files\inc\usb.h</v>
+<v>execute\execute_1_0\Source Files</v>
+<v>execute\execute_1_0\Source Files\common</v>
+<v>execute\execute_1_0\Source Files\common\flexsea.c</v>
+<v>execute\execute_1_0\Source Files\common\flexsea_buffers.c</v>
 <v>execute\execute_1_0\Source Files\common\flexsea_cmd_comm.c</v>
 <v>execute\execute_1_0\Source Files\common\flexsea_cmd_control.c</v>
 <v>execute\execute_1_0\Source Files\common\flexsea_cmd_data.c</v>
@@ -183,37 +214,6 @@
 <v>execute\execute_1_0\Source Files\src\imu.c</v>
 <v>execute\execute_1_0\Source Files\src\main.c</v>
 <v>execute\execute_1_0\Source Files\src\misc.c</v>
-<v>execute\execute_1_0\Source Files\src\motor.c</v>
-<v>execute\execute_1_0\Source Files\src\peripherals.c</v>
-<v>execute\execute_1_0\Source Files\src\safety.c</v>
-<v>execute\execute_1_0\Source Files\src\strain.c</v>
-<v>execute\execute_1_0\Source Files\src\trapez.c</v>
-<v>execute\execute_1_0\Source Files\src\usb.c</v>
-<v>execute\execute_1_0\Generated_Source</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1\ADC_DelSig_1.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1\ADC_DelSig_1.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1\ADC_DelSig_1_INT.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1\ADC_DelSig_1_PM.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1_AMux</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1_Ext_CP_Clk</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1_IRQ</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1_IRQ\ADC_DelSig_1_IRQ.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1_IRQ\ADC_DelSig_1_IRQ.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1_theACLK</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1_IRQ</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1_theACLK</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_2</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_2_IRQ</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_2_theACLK</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\AMux_1</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\AMux_2</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\AOP_IN</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\AOP_OUT</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\C8M</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\CLK_100kHz</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
@@ -590,21 +590,20 @@
 <name v=".\execute_1_0.cydsn\TopDesign\TopDesign.cysch" />
 <name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\isr_t1.c" />
 <name v=".\src\peripherals.c" />
+<name v="..\common\src\flexsea_cmd_user.c" />
+<name v="..\common\inc\flexsea_rx_cmd.h" />
+<name v="..\common\src\flexsea_rx_cmd.c" />
+<name v="..\common\src\flexsea_tx_cmd.c" />
+<name v=".\inc\motor.h" />
+<name v="..\common\inc\flexsea_cmd_user.h" />
 <name v="..\common\inc\flexsea.h" />
 <name v="..\common\src\flexsea_payload.c" />
-<name v="..\common\src\flexsea_cmd_user.c" />
-<name v=".\inc\misc.h" />
-<name v="..\common\src\flexsea_tx_cmd.c" />
-<name v="..\common\src\flexsea_rx_cmd.c" />
+<name v="..\common\inc\flexsea_comm.h" />
+<name v="..\common\src\flexsea_comm.c" />
+<name v=".\inc\flexsea_local.h" />
+<name v="..\common\inc\flexsea_payload.h" />
 <name v=".\src\flexsea_local.c" />
-<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\ADC_SAR_1_INT.c" />
-<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\ADC_SAR_2.c" />
 <name v=".\inc\imu.h" />
-<name v=".\src\imu.c" />
-<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\cyfitter_cfg.c" />
-<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\I2C_1_INT.c" />
-<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\ADC_SAR_1.c" />
-<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\WDCLK.c" />
 </OpenDocs>
 <config v="" />
 <AutoUpdate v="true" />

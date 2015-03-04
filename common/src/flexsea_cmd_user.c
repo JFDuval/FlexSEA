@@ -232,9 +232,6 @@ void rx_cmd_special_1(uint8_t *buf)
 		numb = comm_gen_str(tmp_payload_xmit, numb);
 		numb = COMM_STR_BUF_LEN;	//Fixed length for now to accomodate the DMA
 
-		//Notify the code that a buffer is ready to be transmitted:
-		xmit_flag_1 = 1;
-		
 		//(for now, send it)
 		rs485_puts(comm_str, (numb));	
 

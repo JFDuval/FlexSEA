@@ -409,7 +409,7 @@ uint32_t tx_cmd_imu_read_reply(uint8_t master, uint8_t base_addr, uint8_t bytes)
 	uint8_t tmp0 = 0, tmp1 = 0;
 
     //Fresh string:
-    payload_build_basic_str(master);
+    prepare_empty_payload(board_id, master, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string
@@ -446,7 +446,7 @@ uint32_t tx_cmd_analog_read_reply(uint8_t master, uint8_t base_addr, uint8_t byt
 	uint8_t tmp0 = 0, tmp1 = 0;
 
     //Fresh string:
-    payload_build_basic_str(master);
+    prepare_empty_payload(board_id, master, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
     payload_str[CP_CMDS] = 1;                     //1 command in string
