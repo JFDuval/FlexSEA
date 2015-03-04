@@ -49,7 +49,6 @@ char fcp_args[MAX_CMD] = {0, 2, 1, 0, 0, 3, 1, 2, 1, 3, 3, 1, 1, 0, 2, 1, 0, 0, 
 extern char name[];
 extern char version[];
 extern char date[];
-//extern char spi_xmit[];
 
 //From payload and comm:
 extern unsigned char comm_str[];
@@ -479,7 +478,6 @@ void flexsea_console_print_execute(void)
 void flexsea_console_print_manage(void)
 {
 	#ifdef USE_PRINTF
-    //printf("==> MANAGE BOARD <== \n\n");
 
 	printf("Gyro X: %i\n", exec1.imu.x);
 	printf("Gyro Y: %i\n", exec1.imu.y);
@@ -494,53 +492,22 @@ void flexsea_console_print_manage(void)
 	#endif
 }
 
+
+
 void flexsea_console_stream_slave_read(unsigned char slaveid, unsigned char offs)
 {
-    unsigned int i = 0, numb = 0;
-    unsigned char c = 0;
-    unsigned char offset = 0;
+    unsigned int numb = 0;
 
     while(!kbhit())
     {
         //Clear terminal:
         system("clear");
 
-        /*
-        //EXECUTE has too much data for 1 offset read
-        if(slaveid == FLEXSEA_MANAGE_1)
-        {
-            if(offset == 0)
-            {
-                offset = 6;
-            }
-            else if(offset == 6)
-            {
-            	offset = 12;
-            }
-            else
-            {
-                offset = 0;
-            }
-        }
-        else
-        {
-            offset = 0;
-        }
-        offs = offset;
-
-        //Copy of the console "read" code:
-
-        tx_cmd_mem_read(slaveid, 0, offs, 0);
-        numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
-        numb = COMM_STR_BUF_LEN - 1;
-        flexsea_spi_transmit(numb+1, comm_str, 0);
-        */
-
-        numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
-        									KEEP, 0, KEEP, 0, 77);
-        numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
-        numb = COMM_STR_BUF_LEN;
-        flexsea_spi_transmit(numb, comm_str, 0);
+		numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
+													KEEP, 0, KEEP, 0, 77);
+		numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+		numb = COMM_STR_BUF_LEN;
+		flexsea_spi_transmit(numb, comm_str, 0);
 
         //Can we decode what we received?
         decode_spi_rx();
@@ -554,9 +521,7 @@ void flexsea_console_stream_slave_read(unsigned char slaveid, unsigned char offs
 
 void flexsea_console_datalogger(uint8_t slaveid, uint8_t offs)
 {
-    unsigned int i = 0, numb = 0;
-    unsigned char c = 0;
-    unsigned char offset = 0;
+    unsigned int numb = 0;
     uint32_t tmp = 0, lines = 0, good = 0;
 
     //Clear terminal:
@@ -580,46 +545,11 @@ void flexsea_console_datalogger(uint8_t slaveid, uint8_t offs)
 
     while(!kbhit())
     {
-
-    	/*
-        //EXECUTE has too much data for 1 offset read
-        if(slaveid == FLEXSEA_MANAGE_1)
-        {
-            if(offset == 0)
-            {
-                offset = 6;
-            }
-            else if(offset == 6)
-            {
-            	offset = 12;
-            }
-            else
-            {
-                offset = 0;
-            }
-        }
-        else
-        {
-            offset = 0;
-        }
-        offs = offset;
-        */
-
-        //Copy of the console "read" code:
-
-        /*
-        tx_cmd_mem_read(slaveid, 0, offs, 0);
-        numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
-        numb = COMM_STR_BUF_LEN - 1;
-        flexsea_spi_transmit(numb+1, comm_str, 0);
-         	*/
-
-    	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
-    	        									KEEP, 0, KEEP, 0, 77);
+		numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
+													KEEP, 0, KEEP, 0, 77);
 		numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
 		numb = COMM_STR_BUF_LEN;
 		flexsea_spi_transmit(numb, comm_str, 0);
-
 
         //Can we decode what we received?
         tmp = decode_spi_rx();
@@ -631,8 +561,8 @@ void flexsea_console_datalogger(uint8_t slaveid, uint8_t offs)
                 		exec1.encoder, exec1.current, exec1.imu.x, exec1.imu.y, exec1.imu.z, \
         				exec1.strain, exec1.analog);
 
-        //Delay 350us
-        usleep(350);
+        //Delay 500us
+        usleep(500);
     }
 
     //Close log file:

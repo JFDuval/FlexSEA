@@ -10,26 +10,8 @@
 #ifndef INC_FLEXSEA_H_
 #define INC_FLEXSEA_H_
 
-//****************************************************************************
-// Include(s)
-//****************************************************************************
-
-#include <stdint.h>	
+#include <stdint.h>
 #include <stdarg.h>
-	
-//All the FlexSEA stack includes:
-#include "flexsea_buffers.h"
-#include "flexsea_comm.h"
-#include "flexsea_payload.h"
-#include "flexsea_rx_cmd.h"
-#include "flexsea_tx_cmd.h"
-#include "flexsea_cmd_comm.h"
-#include "flexsea_cmd_control.h"
-#include "flexsea_cmd_data.h"
-#include "flexsea_cmd_external.h"
-#include "flexsea_cmd_sensors.h"
-#include "flexsea_cmd_system.h"
-#include "flexsea_cmd_user.h"
 
 //****************************************************************************
 // Prototype(s):
@@ -241,5 +223,24 @@ void fill_uint8_buf(uint8_t *buf, uint32_t len, uint8_t filler);
 #else
 	#define DEBUG_PRINTF(...) do {} while (0)
 #endif	//USE_DEBUG_PRINTF
+
+//****************************************************************************
+// Include(s) - at the end to make sure that the included files can access
+// all the project wide #define.
+//****************************************************************************
+
+//All the FlexSEA stack includes:
+#include "flexsea_buffers.h"
+#include "flexsea_comm.h"
+#include "flexsea_payload.h"
+#include "flexsea_rx_cmd.h"
+#include "flexsea_tx_cmd.h"
+#include "flexsea_cmd_comm.h"
+#include "flexsea_cmd_control.h"
+#include "flexsea_cmd_data.h"
+#include "flexsea_cmd_external.h"
+#include "flexsea_cmd_sensors.h"
+#include "flexsea_cmd_system.h"
+#include "flexsea_cmd_user.h"
 
 #endif

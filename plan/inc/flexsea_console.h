@@ -25,6 +25,7 @@ void print_parse_result(unsigned char res);
 void flexsea_console_parser(int argc, char *argv[]);
 void flexsea_console_print_cmd_list(void);
 void flexsea_console_print_execute(void);
+void flexsea_console_print_manage(void);
 void flexsea_console_stream_slave_read(unsigned char slaveid, unsigned char offs);
 void flexsea_console_datalogger(uint8_t slaveid, uint8_t offs);
 

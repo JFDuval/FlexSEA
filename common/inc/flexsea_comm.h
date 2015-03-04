@@ -27,7 +27,7 @@
 struct sc_data_s
 {
 	uint8_t flag;						//1 when new data ready to be transmitted
-	uint8_t str[48];					//Data to be transmitted	//ToDo Should be COMM_STR_BUF_LEN!
+	uint8_t str[COMM_STR_BUF_LEN];		//Data to be transmitted
 	uint8_t length;						//Number of bytes to be sent
 	uint8_t cmd;						//What's the command? (used to know if we will get an answer)
 	uint8_t listen;						//1 when we expect an answer
