@@ -53,8 +53,7 @@ int main(void)
 	uint8 toggle_wdclk = 0;	
 	uint8 cmd_ready_485_1 = 0;
 	static uint8 new_cmd_led = 0;
-	
-	//	test_upd();
+	uint8 div2 = 0;
 	
 	//Power on delay with LEDs
 	power_on();	     
@@ -73,7 +72,6 @@ int main(void)
 	//safety_cop_comm_test_blocking();
 	//imu_test_code_blocking();
 	//motor_fixed_pwm_test_code_blocking(1000);
-
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 	//Main loop
@@ -158,65 +156,65 @@ int main(void)
 				
 		#ifdef USE_USB
 			
-			//USB Data
-			if(usb_echo_blocking())
-			{
-				//Got new data in 
-				//Try to decode
-				comm_res = comm_decode_str();
-				if(comm_res)
-					comm_success = 1;
-				
-				//Toggle LEDR with new commands
-				ledr_state ^= 1;
-				LED_R_Write(ledr_state);
-			}
+		//USB Data
+		if(usb_echo_blocking())
+		{
+			//Got new data in 
+			//Try to decode
+			comm_res = comm_decode_str();
+			if(comm_res)
+				comm_success = 1;
+			
+			//Toggle LEDR with new commands
+			ledr_state ^= 1;
+			LED_R_Write(ledr_state);
+		}
 			
 		#endif	//USE_USB
 		
 		//RS-485 Byte Input
 		#ifdef USE_RS485			
 	
-			if(t1_100us_flag)
-			{
-				t1_100us_flag = 0;
-				EXP9_Write(1);
-				get_uart_data();
-				EXP9_Write(0);
-			}
+		if(t1_100us_flag)
+		{
+			t1_100us_flag = 0;
 			
-			
-			if(data_ready_485_1)
-			{
-				EXP2_Write(1);
-				data_ready_485_1 = 0;
-				//Got new data in, try to decode
-				cmd_ready_485_1 = unpack_payload_485_1();
-				EXP2_Write(0);
-			}
+			EXP9_Write(1);
+			get_uart_data();
+			EXP9_Write(0);
+		}
+		
+		if(data_ready_485_1)
+		{
+			EXP2_Write(1);
+			data_ready_485_1 = 0;
+			//Got new data in, try to decode
+			cmd_ready_485_1 = unpack_payload_485_1();
+			EXP2_Write(0);
+		}
 			
 		#endif	//USE_RS485
 		
 		//FlexSEA Network Communication
 		#ifdef USE_COMM
 			
-			//Valid communication from RS-485 #1?
-			if(cmd_ready_485_1 != 0)
+		//Valid communication from RS-485 #1?
+		if(cmd_ready_485_1 != 0)
+		{
+			cmd_ready_485_1 = 0;
+			
+			//Cheap trick to get first line	//ToDo: support more than 1
+			for(i = 0; i < PAYLOAD_BUF_LEN; i++)
 			{
-				cmd_ready_485_1 = 0;
-				
-				//Cheap trick to get first line	//ToDo: support more than 1
-				for(i = 0; i < PAYLOAD_BUF_LEN; i++)
-				{
-					tmp_rx_command_485_1[i] = rx_command_485_1[0][i];
-				}
-				
-				//payload_parse_str() calls the functions (if valid)
-				result = payload_parse_str(tmp_rx_command_485_1);
-				
-				//LED:
-				new_cmd_led = 1;
+				tmp_rx_command_485_1[i] = rx_command_485_1[0][i];
 			}
+			
+			//payload_parse_str() calls the functions (if valid)
+			result = payload_parse_str(tmp_rx_command_485_1);
+			
+			//LED:
+			new_cmd_led = 1;
+		}
 		
 		#endif	//USE_COMM
 		
@@ -240,7 +238,7 @@ int main(void)
 	}
 }
 
-uint8 uart_tmp_buf[RX_BUF_LEN];
+volatile uint8 uart_tmp_buf[RX_BUF_LEN];
 void get_uart_data(void)
 {
 	uint32 uart_buf_size = 0, i = 0;

@@ -51,6 +51,9 @@ uint8_t rx_command_485_2[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
 
 struct slave_comm_s slaves_485_1, slaves_485_2;
 
+uint32_t cmd_valid = 0;
+uint32_t cmd_bad_checksum = 0;
+
 //****************************************************************************
 // Private Function Prototype(s):
 //****************************************************************************
@@ -287,6 +290,7 @@ static uint8_t unpack_payload(uint8_t *buf, uint8_t rx_cmd[][PACKAGED_PAYLOAD_LE
 
                         //At this point we have extracted a valid string
                         payload_strings++;
+						cmd_valid++;
 
                         //Remove the string to avoid double detection
                         for(h = i; h <= possible_footer_pos; h++)
@@ -300,6 +304,14 @@ static uint8_t unpack_payload(uint8_t *buf, uint8_t rx_cmd[][PACKAGED_PAYLOAD_LE
                     {
 						EXP5_Write(1);
                     	DEBUG_PRINTF("Wrong checksum\n");
+						
+						//Remove the string to avoid double detection
+                        for(h = i; h <= possible_footer_pos; h++)
+                        {
+                            buf[h] = 0;
+                        }
+						
+						cmd_bad_checksum++;
                     }
                 }
                 else

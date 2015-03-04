@@ -52,7 +52,7 @@ void get_uart_data(void);
 //#define USE_USB
 #define USE_COMM		//Requires USE_RS485 and/or USE_USB
 #define USE_QEI1
-#define USE_TRAPEZ
+//#define USE_TRAPEZ
 //#define USE_DIETEMP
 #define USE_I2C_INT
 //#define USE_I2C_EXT
