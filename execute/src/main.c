@@ -54,20 +54,13 @@ int main(void)
 	uint8 cmd_ready_485_1 = 0;
 	static uint8 new_cmd_led = 0;
 	
+	//	test_upd();
+	
 	//Power on delay with LEDs
 	power_on();	     
 
 	//Initialize all the peripherals
 	init_peripherals();
-	
-	//Test code, remove:
-	uint8 testdata[64];
-	uint8 index = 0;
-	for(index = 0; index < 24; index++)
-	{
-		testdata[index] = index+1;
-	}
-	
 	
 	//Start with an empty buffer
 	flexsea_clear_slave_read_buffer();	
@@ -80,6 +73,7 @@ int main(void)
 	//safety_cop_comm_test_blocking();
 	//imu_test_code_blocking();
 	//motor_fixed_pwm_test_code_blocking(1000);
+
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 	//Main loop
@@ -261,7 +255,7 @@ void get_uart_data(void)
 		}
 		
 		//...then mass update rx_buf:
-		update_rx_buf_array_485_1(uart_tmp_buf, uart_buf_size);
+		update_rx_buf_array_485_1(uart_tmp_buf, uart_buf_size+1);
 		
 		data_ready_485_1++;
 	}		

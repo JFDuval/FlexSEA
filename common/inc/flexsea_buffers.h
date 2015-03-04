@@ -35,6 +35,8 @@ void update_rx_buf_array_485_1(uint8_t *new_array, uint32_t len);
 void update_rx_buf_byte_485_2(uint8_t new_byte);
 void update_rx_buf_array_485_2(uint8_t *new_array, uint32_t len);
 
+void test_upd(void);
+
 //****************************************************************************
 // Definition(s):
 //****************************************************************************

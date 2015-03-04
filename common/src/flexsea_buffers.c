@@ -36,17 +36,32 @@ static void update_rx_buf_485_2(uint8_t byte_array, uint8_t new_byte, uint8_t *n
 // Private function(s)
 //****************************************************************************
 
+void test_upd(void)
+{
+	uint8_t byte = 1;
+	uint8_t array[RX_BUF_LEN];
+	uint32_t idx = 0;
+	
+	while(1)
+	{
+		update_rx_buf_byte(array, &idx, byte);
+		update_rx_buf_485_1(UPDATE_BYTE, byte, array, 1);
+		byte++;
+	}
+}
+
+
 //Add one byte to the FIFO buffer
 //Do not call that function directly, call update_rx_buf_byte_n() where n is your communication port.
 static void update_rx_buf_byte(uint8_t *buf, uint32_t *idx, uint8_t new_byte)
 {
 	uint32_t i = 0;
 
-	if(idx < RX_BUF_LEN)
+	if((*idx) < RX_BUF_LEN)
 	{
 		//Buffer isn't full yet, no need to discard "old" bytes
-		buf[*idx] = new_byte;
-		idx++;
+		buf[(*idx)] = new_byte;
+		(*idx)++;
 	}
 	else
 	{
@@ -68,15 +83,15 @@ static void update_rx_buf_array(uint8_t *buf, uint32_t *idx, uint8_t *new_data, 
 {
 	uint32_t i = 0, cnt = 0, remaining = 0;
 
-	if(idx < RX_BUF_LEN)
+	if((*idx) < RX_BUF_LEN)
 	{
 		//Buffer isn't full yet, no need to discard "old" bytes yet
 
-		while((idx + len) < RX_BUF_LEN)
+		while(((*idx) + len) < RX_BUF_LEN)
 		{
 			//As long as we did not over fill it we keep adding bytes and increasing the index
-			buf[*idx] = new_data[cnt];
-			idx++;
+			buf[(*idx)] = new_data[cnt];
+			(*idx)++;
 			cnt++;	//Number of bytes we could add before shifting old data
 		}
 
