@@ -2033,7 +2033,7 @@
 #define Control_Reg_2_Sync_ctrl_reg__PERIOD_REG CYREG_UDB_W8_MSK_00
 
 /* Miscellaneous */
-#define CY_VERSION "PSoC Creator  3.1 Component Pack 1"
+#define CY_VERSION "PSoC Creator  3.1 SP1"
 #define CYDEV_BCLK__HFCLK__HZ 48000000U
 #define CYDEV_BCLK__HFCLK__KHZ 48000U
 #define CYDEV_BCLK__HFCLK__MHZ 48U

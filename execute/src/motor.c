@@ -167,6 +167,7 @@ int32 motor_position_pid(int32 wanted_pos, int32 actual_pos)
 
 //PI Current controller
 //'wanted_curr' is centered at zero and is in the ±CURRENT_SPAN range
+//'measured_curr' is also centered at 0
 //The sign of 'wanted_curr' will change the rotation direction, not the polarity of the current (I have no control on this)
 int32 motor_current_pid(int32 wanted_curr, int32 measured_curr)
 {
@@ -175,6 +176,7 @@ int32 motor_current_pid(int32 wanted_curr, int32 measured_curr)
 	int sign = 0;
 	unsigned int uint_wanted_curr = 0;
 	int motor_current = 0;
+	int32 shifted_measured_curr = 0;
 	
 	//Clip out of range values
 	if(wanted_curr >= CURRENT_POS_LIMIT)
@@ -182,7 +184,6 @@ int32 motor_current_pid(int32 wanted_curr, int32 measured_curr)
 	if(wanted_curr <= CURRENT_NEG_LIMIT)
 		wanted_curr = CURRENT_NEG_LIMIT;
 		
-	ctrl.current.actual_val = measured_curr;
 	ctrl.current.setpoint_val = wanted_curr;
 	
 	//Sign extracted from wanted_curr:
@@ -201,15 +202,17 @@ int32 motor_current_pid(int32 wanted_curr, int32 measured_curr)
 	//This is our setpoint.
 	
 	//From ADC value to motor current:
-	if(measured_curr <= CURRENT_ZERO)
+	shifted_measured_curr = measured_curr + CURRENT_ZERO;
+	if(shifted_measured_curr <= CURRENT_ZERO)
 	{
 		//We are driving the motor (Q1 or Q3)
-		motor_current = CURRENT_ZERO - measured_curr;
+		motor_current = CURRENT_ZERO - shifted_measured_curr;
 	}
 	else
 	{
-		motor_current =  measured_curr - CURRENT_ZERO;
+		motor_current =  shifted_measured_curr - CURRENT_ZERO;
 	}
+	//ToDo above code seems complex for no valid reason
 	
 	//At this point 'motor_current' is always a positive value.
 	//This is our measured value.

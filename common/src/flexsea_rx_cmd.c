@@ -373,10 +373,13 @@ void rx_cmd_ctrl_i_write(uint8_t *buf)
 
 	int16 tmp_current = 0;
 
-	//Rebuild 16bit data:
-    tmp_current = BYTES_TO_UINT16(buf[CP_DATA1], buf[CP_DATA1 + 1]);
-
-	ctrl.current.setpoint_val = tmp_current;
+		//Only change the setpoint if we are in current control mode:	
+	if(ctrl.active_ctrl == CTRL_CURRENT)
+	{
+		//Rebuild 16bit data:
+    	tmp_current = BYTES_TO_UINT16(buf[CP_DATA1], buf[CP_DATA1 + 1]);
+		ctrl.current.setpoint_val = tmp_current;
+	}
 
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 

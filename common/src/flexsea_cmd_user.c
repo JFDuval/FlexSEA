@@ -118,7 +118,7 @@ uint32_t tx_cmd_ctrl_special_1(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 		buf[CP_DATA1 + 12] = tmp2;
 		buf[CP_DATA1 + 13] = tmp3;
 		
-		uint16_to_bytes((uint16_t)(ctrl.current.actual_val - CURRENT_ZERO), &tmp0, &tmp1);
+		uint16_to_bytes((uint16_t)ctrl.current.actual_val, &tmp0, &tmp1);
 		buf[CP_DATA1 + 14] = tmp0;
 		buf[CP_DATA1 + 15] = tmp1;
 
@@ -180,9 +180,12 @@ void rx_cmd_special_1(uint8_t *buf)
 			control_strategy(buf[CP_DATA1]);
 		}
 		
-		//Current:
-		tmp_wanted_current = BYTES_TO_UINT16(buf[CP_DATA1 + 2], buf[CP_DATA1 + 3]);
-		ctrl.current.setpoint_val = tmp_wanted_current;
+		//Only change the setpoint if we are in current control mode:	
+		if(ctrl.active_ctrl == CTRL_CURRENT)
+		{
+			tmp_wanted_current = BYTES_TO_UINT16(buf[CP_DATA1 + 2], buf[CP_DATA1 + 3]);
+			ctrl.current.setpoint_val = tmp_wanted_current;
+		}		
 		
 		//Encoder:
 		if(buf[CP_DATA1 + 4] == CHANGE)

@@ -34,8 +34,8 @@ uint8 UART_2_initVar = 0u;
 #if( ( UART_2_RX_ENABLED || UART_2_HD_ENABLED ) && \
      (UART_2_RXBUFFERSIZE > UART_2_FIFO_LENGTH) )
     volatile uint8 UART_2_rxBuffer[UART_2_RXBUFFERSIZE];
-    volatile uint8 UART_2_rxBufferRead = 0u;
-    volatile uint8 UART_2_rxBufferWrite = 0u;
+    volatile uint16 UART_2_rxBufferRead = 0u;
+    volatile uint16 UART_2_rxBufferWrite = 0u;
     volatile uint8 UART_2_rxBufferLoopDetect = 0u;
     volatile uint8 UART_2_rxBufferOverflow = 0u;
     #if (UART_2_RXHW_ADDRESS_ENABLED)
@@ -420,8 +420,8 @@ void  UART_2_WriteControlRegister(uint8 control)
         uint8 rxData;
 
         #if(UART_2_RXBUFFERSIZE > UART_2_FIFO_LENGTH)
-            uint8 loc_rxBufferRead;
-            uint8 loc_rxBufferWrite;
+            uint16 loc_rxBufferRead;
+            uint16 loc_rxBufferWrite;
             /* Protect variables that could change on interrupt. */
             /* Disable Rx interrupt. */
             #if(UART_2_RX_INTERRUPT_ENABLED)
@@ -559,8 +559,8 @@ void  UART_2_WriteControlRegister(uint8 control)
         uint8 rxStatus;
 
         #if(UART_2_RXBUFFERSIZE > UART_2_FIFO_LENGTH)
-            uint8 loc_rxBufferRead;
-            uint8 loc_rxBufferWrite;
+            uint16 loc_rxBufferRead;
+            uint16 loc_rxBufferWrite;
             /* Protect variables that could change on interrupt. */
             /* Disable Rx interrupt. */
             #if(UART_2_RX_INTERRUPT_ENABLED)
@@ -673,7 +673,7 @@ void  UART_2_WriteControlRegister(uint8 control)
     *  None.
     *
     * Return:
-    *  uint8: Integer count of the number of bytes left
+    *  uint16: Integer count of the number of bytes left
     *  in the RX buffer
     *
     * Global Variables:
@@ -688,10 +688,10 @@ void  UART_2_WriteControlRegister(uint8 control)
     *  Allows the user to find out how full the RX Buffer is.
     *
     *******************************************************************************/
-    uint8 UART_2_GetRxBufferSize(void)
+    uint16 UART_2_GetRxBufferSize(void)
                                                             
     {
-        uint8 size;
+        uint16 size;
 
         #if(UART_2_RXBUFFERSIZE > UART_2_FIFO_LENGTH)
 

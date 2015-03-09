@@ -27,9 +27,6 @@
 
 #include "main.h"
 
-//motor.c:
-extern volatile struct ctrl_s ctrl;
-
 /* `#END`  */
 
 
@@ -65,7 +62,8 @@ extern volatile struct ctrl_s ctrl;
 			
 			//Read last ADC value
 			last_adc = ADC_SAR_2_GetResult16();
-			ctrl.current.actual_val = last_adc;	//Used by the current controller
+			ctrl.current.actual_val = last_adc - CURRENT_ZERO;	
+			//Used by the current controller, 0 centered.
 				
 			if((ctrl.active_ctrl == CTRL_CURRENT) || (ctrl.active_ctrl == CTRL_IMPEDANCE))
 			{

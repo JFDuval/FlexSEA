@@ -56,7 +56,7 @@ void encoder_write(int32 enc);
 #define GAIN_D					0			//Idem
 	
 //Current controller
-#define CURRENT_ZERO			2065		//Roughly half supply ADC
+#define CURRENT_ZERO			2048		//Half ADC, by default
 #define CURRENT_SPAN			500			//Variation from zero (technically, that's SPAN/2)
 #define CURRENT_POS_LIMIT		CURRENT_SPAN
 #define CURRENT_NEG_LIMIT		-CURRENT_SPAN

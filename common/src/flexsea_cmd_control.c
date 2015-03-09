@@ -156,7 +156,11 @@ void rx_cmd_ctrl_i(uint8_t *buf)
 
 			#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
-			//ToDo call relevant functions ****
+			//Only change the setpoint if we are in current control mode:	
+			if(ctrl.active_ctrl == CTRL_CURRENT)
+			{
+				ctrl.current.setpoint_val = tmp_wanted_current;
+			}
 
 			#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
