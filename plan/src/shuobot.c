@@ -33,7 +33,8 @@
 //****************************************************************************
 
 static void send_cmd_slave(void);
-static void shuobot_demo(void);
+static void shuobot_demo_1(void);
+static void shuobot_demo_2(void);
 
 //****************************************************************************
 // Function(s)
@@ -43,7 +44,8 @@ static void shuobot_demo(void);
 void shuobot(void)
 {
 	//For now it calls shuobot_demo(). Replace this with your code.
-	shuobot_demo();
+	//shuobot_demo_1();
+	shuobot_demo_2();
 }
 
 //Demonstration/test code. Calling ./plan execute_1 shuobot will call this.
@@ -51,11 +53,11 @@ void shuobot(void)
 //When the encoder gets "out of limit" we reset it to 0.
 //This code will both Stream and Log. Log will be slow because of Stream. The final
 //application should log but not Stream.
-static void shuobot_demo(void)
+static void shuobot_demo_1(void)
 {
     unsigned int numb = 0;
     uint32_t cnt = 0;
-    uint16_t current = 0;
+    int16_t current = 0, open_spd = 0;
     uint8_t enc_rw = KEEP;
     int32_t enc_cnt = 0;
     uint32_t lines = 0, good = 0, tmp = 0;
@@ -110,7 +112,106 @@ static void shuobot_demo(void)
 
     	//Prepare the command:
     	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
-    															KEEP, 0, enc_rw, enc_cnt, current);
+    															KEEP, 0, enc_rw, enc_cnt, current, open_spd);
+    	enc_rw = KEEP;
+
+    	//Communicate with the slave:
+    	send_cmd_slave();
+
+        //Can we decode what we received?
+        tmp = decode_spi_rx();
+        lines++;
+        good += tmp;
+
+        //Enable these 2 lines to print ("Stream" mode):
+        system("clear");					//Clear terminal
+        flexsea_console_print_manage();
+
+        //Log to file:
+		fprintf(logfile, "[%d:%d],%i,%i,%i,%i,%i,%i,%i\n", tm.tm_min, tm.tm_sec, \
+						exec1.encoder, exec1.current, exec1.imu.x, exec1.imu.y, exec1.imu.z, \
+						exec1.strain, exec1.analog);
+
+        //========================================
+        //<<< Your state machine would be here >>>
+        //========================================
+
+        //Delay
+        usleep(10000);	//Should be much shorter in a real application
+    }
+
+    //Close log file:
+    fclose(logfile);
+
+    printf("Logfile is named: %s\n", str);
+	printf("\n%i lines (%i with valid data)\n", lines, good);
+	printf("Log file closed. Exiting.\n\n\n");
+}
+
+//Demonstration/test code. Calling ./plan execute_1 shuobot will call this.
+//Motor is placed in open speed mode. PWM duty cycle will change periodically.
+//When the encoder gets "out of limit" we reset it to 0.
+//This code will both Stream and Log. Log will be slow because of Stream. The final
+//application should log but not Stream.
+static void shuobot_demo_2(void)
+{
+    unsigned int numb = 0;
+    uint32_t cnt = 0;
+    int16_t current = 0, open_spd = 0;
+    uint8_t enc_rw = KEEP;
+    int32_t enc_cnt = 0;
+    uint32_t lines = 0, good = 0, tmp = 0;
+
+    //Log file:
+    //=========
+
+	FILE *logfile;
+	time_t t = time(NULL);
+	struct tm tm = *localtime(&t);
+
+	//File will be named with the date & time:
+	char str[100];
+	sprintf((char *)str, "log-%d-%d-%d-%d:%d:%d.txt", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+	logfile = fopen(str, "w+");
+	printf("Logfile created (%s)\n", str);
+
+    //Initial configuration:
+
+    //Controller = open
+    numb = tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_1, CTRL_OPEN);
+    send_cmd_slave();
+    usleep(1000);
+    numb = tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_1, CTRL_OPEN);
+    send_cmd_slave();
+    usleep(10000);
+
+    //That code will run as long as you don't press on a key:
+    while(!kbhit())
+    {
+    	//Timed changes:
+    	cnt++;
+    	if(cnt > PERIOD)
+    	{
+    		//Time to change some parameters:
+    		cnt = 0;
+
+    		//Change the pwm setpoint
+    		open_spd += PWM_STEP;
+    		if(open_spd > MAX_PWM)
+    			open_spd = 0;
+    	}
+
+    	//Reactive changes:
+    	if((exec1.encoder > MAX_ENC) || (exec1.encoder < -MAX_ENC))
+    	{
+    		//We are over the limit we specified => overwrite to 0
+    		enc_rw = CHANGE;
+    		enc_cnt = 0;
+    	}
+
+    	//Prepare the command:
+    	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
+    															KEEP, 0, enc_rw, enc_cnt, current, -open_spd);
     	enc_rw = KEEP;
 
     	//Communicate with the slave:

@@ -159,7 +159,7 @@ void write_test_cmd_execute2(uint8_t port, uint8_t slave, uint8_t value)
 	//encoder_cnt (New encoder count): ignored if encoder_w == KEEP
 	//current: current controller setpoint
 	bytes = tx_cmd_ctrl_special_1(slave, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
-									KEEP, 0, KEEP, 0, value);
+									KEEP, 0, KEEP, 0, value, 0);
 
 	bytes2 = comm_gen_str(payload_str, bytes + 1);	//Might not need the +1, TBD
 

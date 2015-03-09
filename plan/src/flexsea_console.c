@@ -513,7 +513,7 @@ void flexsea_console_stream_slave_read(unsigned char slaveid, unsigned char offs
         system("clear");
 
 		numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
-													KEEP, 0, KEEP, 0, 0);
+										KEEP, 0, KEEP, 0, 0, 0);
 		numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
 		numb = COMM_STR_BUF_LEN;
 		flexsea_spi_transmit(numb, comm_str, 0);
@@ -555,7 +555,7 @@ void flexsea_console_datalogger(uint8_t slaveid, uint8_t offs)
     while(!kbhit())
     {
 		numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
-													KEEP, 0, KEEP, 0, 77);
+													KEEP, 0, KEEP, 0, 77, 0);
 		numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
 		numb = COMM_STR_BUF_LEN;
 		flexsea_spi_transmit(numb, comm_str, 0);
