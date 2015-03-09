@@ -52,7 +52,7 @@ unsigned char tmp_payload_xmit[PAYLOAD_BUF_LEN];
 //current: current controller setpoint
 uint32_t tx_cmd_ctrl_special_1(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
 								uint8_t controller_w, uint8_t controller, uint8_t encoder_w, int32_t encoder, \
-								int16_t current)
+								int16_t current, int16 open_spd)
 {
 	uint8_t tmp0 = 0, tmp1 = 0, tmp2 = 0, tmp3 = 0;
 	uint32_t bytes = 0;
@@ -82,8 +82,11 @@ uint32_t tx_cmd_ctrl_special_1(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 		buf[CP_DATA1 + 6] = tmp1;
 		buf[CP_DATA1 + 7] = tmp2;
 		buf[CP_DATA1 + 8] = tmp3;
+		uint16_to_bytes((uint16_t)open_spd, &tmp0, &tmp1);
+		buf[CP_DATA1 + 9] = tmp0;
+		buf[CP_DATA1 + 10] = tmp1;
 
-		bytes = CP_DATA1 + 9;     //Bytes is always last+1
+		bytes = CP_DATA1 + 11;     //Bytes is always last+1
 	}
 	else if(cmd_type == CMD_WRITE)
 	{
@@ -144,7 +147,7 @@ uint32_t tx_cmd_ctrl_special_1(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 void rx_cmd_special_1(uint8_t *buf)
 {
 	uint32_t numb = 0;
-	int16_t tmp_wanted_current = 0;
+	int16_t tmp_wanted_current = 0, tmp_open_spd = 0;
 	int32_t tmp_enc = 0;
 
 	#if((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
@@ -180,14 +183,18 @@ void rx_cmd_special_1(uint8_t *buf)
 			control_strategy(buf[CP_DATA1]);
 		}
 		
-		/*
 		//Only change the setpoint if we are in current control mode:	
 		if(ctrl.active_ctrl == CTRL_CURRENT)
 		{
 			tmp_wanted_current = BYTES_TO_UINT16(buf[CP_DATA1 + 2], buf[CP_DATA1 + 3]);
 			ctrl.current.setpoint_val = tmp_wanted_current;
-		}		
-		*/
+		}
+		else if(ctrl.active_ctrl == CTRL_OPEN)
+		{
+			tmp_open_spd = BYTES_TO_UINT16(buf[CP_DATA1 + 14], buf[CP_DATA1 + 15]);
+			motor_open_speed_1(tmp_open_spd);
+		}
+
 		//Encoder:
 		if(buf[CP_DATA1 + 4] == CHANGE)
 		{
@@ -201,7 +208,7 @@ void rx_cmd_special_1(uint8_t *buf)
 		//===================
 		
 		numb = tx_cmd_ctrl_special_1(buf[CP_XID], CMD_WRITE, tmp_payload_xmit, \
-									PAYLOAD_BUF_LEN, KEEP, 0, KEEP, 0, 0);		
+									PAYLOAD_BUF_LEN, KEEP, 0, KEEP, 0, 0, 0);		
 		numb = comm_gen_str(tmp_payload_xmit, numb);
 		numb = COMM_STR_BUF_LEN;	//Fixed length for now to accomodate the DMA
 
