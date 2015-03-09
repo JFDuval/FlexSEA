@@ -99,7 +99,7 @@ void rx_cmd_ctrl_i(uint8_t *buf)
 
 		//Generate the reply:
 		numb = tx_cmd_ctrl_i(buf[CP_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, \
-			(ctrl.current.actual_val - CURRENT_ZERO), ctrl.current.setpoint_val);
+			ctrl.current.actual_val, ctrl.current.setpoint_val);
 		numb = comm_gen_str(tmp_payload_xmit, numb);
 
 		//Notify the code that a buffer is ready to be transmitted:

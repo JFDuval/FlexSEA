@@ -118,6 +118,12 @@ int main(void)
 				new_cmd_led = 0;
 			}
 			
+			//If no controller is used the PWM should be 0:
+			if(ctrl.active_ctrl == CTRL_NONE)
+			{
+				motor_open_speed_1(0);
+			}
+			
 			//EXP8_Write(0);	//Used to test the timing - can be removed	
 		}
 		

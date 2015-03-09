@@ -257,14 +257,17 @@ void control_strategy(unsigned char strat)
 	ctrl.position.gain.P_KP = 0;
 	ctrl.position.gain.P_KI = 0;
 	ctrl.position.gain.P_KD = 0;
+	
 	//Impedance controller
 	ctrl.impedance.gain.Z_K = 0;
 	ctrl.impedance.gain.Z_B = 0;
 	ctrl.impedance.gain.Z_I = 0;
+	
 	//Current controller
 	ctrl.current.gain.I_KP = 0;
 	ctrl.current.gain.I_KI = 0;
 	ctrl.current.gain.I_KD = 0;
+	ctrl.current.setpoint_val = 0;
 	
 	//To avoid a huge startup error on the Position-based controllers:
 	if(strat == CTRL_POSITION)
@@ -280,7 +283,7 @@ void control_strategy(unsigned char strat)
 	
 	ctrl.active_ctrl = strat;	//controller = strat;
 	
-	//The user should call CMD_SET_PID_GAINS at this point.
+	//The user should call a set gain function at this point.
 }
 
 // Impedance controller -- EJ Rouse, 8/11/14

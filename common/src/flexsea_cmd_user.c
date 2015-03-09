@@ -180,13 +180,14 @@ void rx_cmd_special_1(uint8_t *buf)
 			control_strategy(buf[CP_DATA1]);
 		}
 		
+		/*
 		//Only change the setpoint if we are in current control mode:	
 		if(ctrl.active_ctrl == CTRL_CURRENT)
 		{
 			tmp_wanted_current = BYTES_TO_UINT16(buf[CP_DATA1 + 2], buf[CP_DATA1 + 3]);
 			ctrl.current.setpoint_val = tmp_wanted_current;
 		}		
-		
+		*/
 		//Encoder:
 		if(buf[CP_DATA1 + 4] == CHANGE)
 		{
