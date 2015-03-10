@@ -177,7 +177,7 @@ void flexsea_update_slave_read_buffer(unsigned char read_offset)
 	slave_read_buffer[8] = b1;
 
 	//Analog:
-	uint16_to_bytes(exec1.analog, &b0, &b1);
+	uint16_to_bytes(exec1.analog[0], &b0, &b1);
 	slave_read_buffer[9] = b0;
 	slave_read_buffer[10] = b1;
 

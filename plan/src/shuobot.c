@@ -130,7 +130,7 @@ static void shuobot_demo_1(void)
         //Log to file:
 		fprintf(logfile, "[%d:%d],%i,%i,%i,%i,%i,%i,%i\n", tm.tm_min, tm.tm_sec, \
 						exec1.encoder, exec1.current, exec1.imu.x, exec1.imu.y, exec1.imu.z, \
-						exec1.strain, exec1.analog);
+						exec1.strain, exec1.analog[0]);
 
         //========================================
         //<<< Your state machine would be here >>>
@@ -229,7 +229,7 @@ static void shuobot_demo_2(void)
         //Log to file:
 		fprintf(logfile, "[%d:%d],%i,%i,%i,%i,%i,%i,%i\n", tm.tm_min, tm.tm_sec, \
 						exec1.encoder, exec1.current, exec1.imu.x, exec1.imu.y, exec1.imu.z, \
-						exec1.strain, exec1.analog);
+						exec1.strain, exec1.analog[0]);
 
         //========================================
         //<<< Your state machine would be here >>>

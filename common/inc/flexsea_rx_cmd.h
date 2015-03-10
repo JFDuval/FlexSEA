@@ -69,7 +69,7 @@ struct execute_s
 	struct xyz_s imu;
 
 	uint16_t strain;
-	uint16_t analog;
+	uint16_t analog[8];
 	int16_t current;
 	int32_t encoder;
 };

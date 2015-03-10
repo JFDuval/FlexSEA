@@ -229,14 +229,14 @@ void rx_cmd_mem_read_reply(uint8_t *buf, uint8_t verbal)
         else if(buf[CP_DATA1] == 6)
         {
         	exec1.strain = BYTES_TO_UINT16(buf[CP_DATA1 + 1], buf[CP_DATA1 + 2]);
-        	exec1.analog = BYTES_TO_UINT16(buf[CP_DATA1 + 3], buf[CP_DATA1 + 4]);
+        	exec1.analog[0] = BYTES_TO_UINT16(buf[CP_DATA1 + 3], buf[CP_DATA1 + 4]);
         	exec1.current = (int16_t)BYTES_TO_UINT16(buf[CP_DATA1 + 5], buf[CP_DATA1 + 6]);
 
             if(verbal)
             {
                 #ifdef USE_PRINTF
             	printf("Strain: %i\n", exec1.strain);
-            	printf("Analog: %i\n", exec1.analog);
+            	printf("Analog: %i\n", exec1.analog[0]);
             	printf("Current: %i\n", exec1.current);
 				#endif
             }
@@ -802,7 +802,7 @@ void rx_cmd_analog_read_reply(uint8_t *buf)
 
 	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
 
-	exec1.analog = tmp_analog;
+	exec1.analog[0] = tmp_analog;
 
 	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 

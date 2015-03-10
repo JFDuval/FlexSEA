@@ -118,9 +118,17 @@ void fill_uint8_buf(uint8_t *buf, uint32_t len, uint8_t filler);
 #define CMD_CTRL_I_READ_REPLY			130
 
 //Change these codes!
-#define CMD_SPECIAL_1					100
+#define CMD_SPECIAL_1					100	//ShuoBot Exo
 #define CMD_SPECIAL_1_R					CMD_R(CMD_SPECIAL_1)
 #define CMD_SPECIAL_1_W					CMD_W(CMD_SPECIAL_1)
+
+#define CMD_SPECIAL_2					101	//CSEA Knee
+#define CMD_SPECIAL_2_R					CMD_R(CMD_SPECIAL_2)
+#define CMD_SPECIAL_2_W					CMD_W(CMD_SPECIAL_2)
+
+#define CMD_SPECIAL_3					102	//Current controller tuning
+#define CMD_SPECIAL_3_R					CMD_R(CMD_SPECIAL_3)
+#define CMD_SPECIAL_3_W					CMD_W(CMD_SPECIAL_3)
 
 //Note: do not use codes that are framing or escape chars!
 

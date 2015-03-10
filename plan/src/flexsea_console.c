@@ -493,7 +493,7 @@ void flexsea_console_print_manage(void)
 	printf("Gyro Z: %i\n", exec1.imu.z);
 
 	printf("Strain: %i\n", exec1.strain);
-	printf("Analog: %i\n", exec1.analog);
+	printf("Analog: %i\n", exec1.analog[0]);
 	printf("Current: %i\n", exec1.current);
 
 	printf("Encoder: %i\n", exec1.encoder);
@@ -568,7 +568,7 @@ void flexsea_console_datalogger(uint8_t slaveid, uint8_t offs)
         //Log to file:
         fprintf(logfile, "[%d:%d],%i,%i,%i,%i,%i,%i,%i\n", tm.tm_min, tm.tm_sec, \
                 		exec1.encoder, exec1.current, exec1.imu.x, exec1.imu.y, exec1.imu.z, \
-        				exec1.strain, exec1.analog);
+        				exec1.strain, exec1.analog[0]);
 
         //Delay 500us
         usleep(500);
