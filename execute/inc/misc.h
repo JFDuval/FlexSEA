@@ -28,6 +28,8 @@ extern volatile uint8 t2_50ms_flag;
 extern uint8 adc_sar1_flag;	
 extern volatile uint8 data_ready_485_1;
 extern volatile uint8 adc_delsig_flag;
+
+extern uint8 minm_rgb_color;
 	
 //****************************************************************************
 // Prototype(s):

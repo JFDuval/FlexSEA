@@ -290,7 +290,7 @@ void rx_cmd_special_1(uint8_t *buf)
 uint32_t tx_cmd_ctrl_special_2(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
 								int16_t z_k, int16_t z_b, int16_t z_i, uint8_t rgb, uint8_t clutch)
 {
-	uint8_t tmp0 = 0, tmp1 = 0;
+	uint8_t tmp0 = 0, tmp1 = 0, tmp2 = 0, tmp3 = 0;
 	uint32_t bytes = 0;
 
 	//Fresh payload string:
@@ -413,18 +413,18 @@ void rx_cmd_special_2(uint8_t *buf)
 		if(ctrl.active_ctrl == CTRL_IMPEDANCE)
 		{
 			tmp_zk = BYTES_TO_UINT16(buf[CP_DATA1 + 0], buf[CP_DATA1 + 1]);
-			ctrl.impedance.gains.k = tmp_zk;
+			ctrl.impedance.gain.Z_K = tmp_zk;
 			tmp_zb = BYTES_TO_UINT16(buf[CP_DATA1 + 2], buf[CP_DATA1 + 3]);
-			ctrl.impedance.gains.b = tmp_zb;
+			ctrl.impedance.gain.Z_B = tmp_zb;
 			tmp_zi = BYTES_TO_UINT16(buf[CP_DATA1 + 4], buf[CP_DATA1 + 5]);
-			ctrl.impedance.gains.i = tmp_zi;
+			ctrl.impedance.gain.Z_I = tmp_zi;
 		}
 
 		//Clutch:
-		clutch_output(buf[CP_DATA7]);
+		clutch_output(buf[CP_DATA1 + 7]);
 
 		//MinM RGB:
-		minm_rgb = clutch_output(buf[CP_DATA6]); //ToDo set value that will be used in the next cycle
+		minm_rgb_color = buf[CP_DATA1 + 6]; //ToDo set value that will be used in the next cycle
 
 		//Generate the reply:
 		//===================
@@ -557,12 +557,12 @@ uint32_t tx_cmd_ctrl_special_3(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 		uint16_to_bytes((uint16_t)ctrl.current.actual_val, &tmp0, &tmp1);
 		buf[CP_DATA1 + 0] = tmp0;
 		buf[CP_DATA1 + 1] = tmp1;
-		uint16_to_bytes((uint32_t)ctrl.current.error, &tmp0, &tmp1, &tmp2, &tmp3);
+		uint32_to_bytes((uint32_t)ctrl.current.error, &tmp0, &tmp1, &tmp2, &tmp3);
 		buf[CP_DATA1 + 2] = tmp0;
 		buf[CP_DATA1 + 3] = tmp1;
 		buf[CP_DATA1 + 4] = tmp2;
 		buf[CP_DATA1 + 5] = tmp3;
-		uint16_to_bytes((uint32_t)ctrl.current.error_sum, &tmp0, &tmp1, &tmp2, &tmp3);
+		uint32_to_bytes((uint32_t)ctrl.current.error_sum, &tmp0, &tmp1, &tmp2, &tmp3);
 		buf[CP_DATA1 + 6] = tmp0;
 		buf[CP_DATA1 + 7] = tmp1;
 		buf[CP_DATA1 + 8] = tmp2;
@@ -626,11 +626,11 @@ void rx_cmd_special_3(uint8_t *buf)
 		{
 			//Gains:
 			tmp_kp = BYTES_TO_UINT16(buf[CP_DATA1 + 0], buf[CP_DATA1 + 1]);
-			ctrl.current.gains.kp = tmp_kp;
+			ctrl.current.gain.I_KP = tmp_kp;
 			tmp_ki = BYTES_TO_UINT16(buf[CP_DATA1 + 2], buf[CP_DATA1 + 3]);
-			ctrl.current.gains.ki = tmp_ki;
+			ctrl.current.gain.I_KI = tmp_ki;
 			tmp_kd = BYTES_TO_UINT16(buf[CP_DATA1 + 4], buf[CP_DATA1 + 5]);
-			ctrl.current.gains.kd = tmp_kd;
+			ctrl.current.gain.I_KD = tmp_kd;
 
 			//Setpoint:
 			tmp_current = (int16_t)BYTES_TO_UINT16(buf[CP_DATA1 + 6], buf[CP_DATA1 + 7]);

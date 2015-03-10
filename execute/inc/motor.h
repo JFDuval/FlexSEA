@@ -115,6 +115,7 @@ struct gen_ctrl_s
 struct ctrl_s
 {
     uint8 active_ctrl;
+	uint8 pwm;
     struct gen_ctrl_s generic;
     struct gen_ctrl_s current;
     struct gen_ctrl_s position;

@@ -73,7 +73,7 @@ uint8 usb_echo_blocking(void)
 			//Store all bytes in rx buf:			
 			for(i = 0; i < count; i++)
 		    {
-		        comm_update_rx_buffer(buffer[i]);
+		        comm_update_rx_buffer(buffer[i]);	//ToDo replace with USB buffer fct
 		    }			
 			
 			return 1;	//Got byte(s)
