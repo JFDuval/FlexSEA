@@ -67,11 +67,15 @@ struct xyz_s
 struct execute_s
 {
 	struct xyz_s imu;
+	struct xyz_s accel;
 
 	uint16_t strain;
 	uint16_t analog[8];
 	int16_t current;
 	int32_t encoder;
+	uint8_t clutch;
+	uint8_t active_ctrl;
+	int16_t pwm;
 };
 
 //****************************************************************************

@@ -104,18 +104,11 @@ void rx_cmd_ctrl_i(uint8_t *buf)
 
 		//Notify the code that a buffer is ready to be transmitted:
 		//xmit_flag_1 = 1;
+		
+		//(for now, send it)
+		rs485_puts(comm_str, (numb));
 
 		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
-
-		#ifdef BOARD_TYPE_FLEXSEA_MANAGE
-		//No code (yet), you shouldn't be here...
-		flexsea_error(SE_CMD_NOT_PROGRAMMED);
-		#endif	//BOARD_TYPE_FLEXSEA_MANAGE
-
-		#ifdef BOARD_TYPE_FLEXSEA_PLAN
-		//No code (yet), you shouldn't be here...
-		flexsea_error(SE_CMD_NOT_PROGRAMMED);
-		#endif	//BOARD_TYPE_FLEXSEA_PLAN
 	}
 	else if(IS_CMD_RW(buf[CP_CMD1]) == WRITE)
 	{
@@ -163,20 +156,11 @@ void rx_cmd_ctrl_i(uint8_t *buf)
 			}
 
 			#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
-
-			#ifdef BOARD_TYPE_FLEXSEA_MANAGE
-			//No code (yet), you shouldn't be here...
-			flexsea_error(SE_CMD_NOT_PROGRAMMED);
-			#endif	//BOARD_TYPE_FLEXSEA_MANAGE
-
-			#ifdef BOARD_TYPE_FLEXSEA_PLAN
-			//No code (yet), you shouldn't be here...
-			flexsea_error(SE_CMD_NOT_PROGRAMMED);
-			#endif	//BOARD_TYPE_FLEXSEA_PLAN
 		}
 	}
 }
 
+/*
 void test_cmd_ctrl_i(void)
 {
 	//First, we generate a TX Write:
@@ -189,6 +173,7 @@ void test_cmd_ctrl_i(void)
 		rx_cmd_ctrl_i(tmp_payload_xmit);
 	}
 }
+*/
 
 //Transmission of a CTRL_MODE command
 uint32_t tx_cmd_ctrl_mode(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, int16_t ctrl)
@@ -226,7 +211,7 @@ uint32_t tx_cmd_ctrl_mode(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint
 	return bytes;
 }
 
-//Reception of a CTRL_I command
+//Reception of a CTRL_MODE command
 void rx_cmd_ctrl_mode(uint8_t *buf)
 {
 	uint8_t numb = 0, controller = 0;
@@ -243,18 +228,11 @@ void rx_cmd_ctrl_mode(uint8_t *buf)
 
 		//Notify the code that a buffer is ready to be transmitted:
 		//xmit_flag_1 = 1;
+		
+		//(for now, send it)
+		rs485_puts(comm_str, (numb));
 
 		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
-
-		#ifdef BOARD_TYPE_FLEXSEA_MANAGE
-		//No code (yet), you shouldn't be here...
-		flexsea_error(SE_CMD_NOT_PROGRAMMED);
-		#endif	//BOARD_TYPE_FLEXSEA_MANAGE
-
-		#ifdef BOARD_TYPE_FLEXSEA_PLAN
-		//No code (yet), you shouldn't be here...
-		flexsea_error(SE_CMD_NOT_PROGRAMMED);
-		#endif	//BOARD_TYPE_FLEXSEA_PLAN
 	}
 	else if(IS_CMD_RW(buf[CP_CMD1]) == WRITE)
 	{
@@ -268,19 +246,114 @@ void rx_cmd_ctrl_mode(uint8_t *buf)
 		{
 			//We received a reply to our read request
 
+			#if((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
+
+			//Store value:
+			exec1.active_ctrl = controller;
+
+			#endif	//((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
+		}
+		else
+		{
+			//Master is writing a value to this board
+
 			#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
-			
-			
+
+			control_strategy(controller);
+
 			#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+		}
+	}
+}
+
+//Transmission of a CTRL_O command
+uint32_t tx_cmd_ctrl_o(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, int16_t open_spd)
+{
+	uint8_t tmp0 = 0, tmp1 = 0;
+	uint32_t bytes = 0;
+
+	//Fresh payload string:
+	prepare_empty_payload(board_id, receiver, buf, len);
+
+	//Command:
+	buf[CP_CMDS] = 1;                     //1 command in string
+
+	if(cmd_type == CMD_READ)
+	{
+		buf[CP_CMD1] = CMD_R(CMD_CTRL_O);
+
+		bytes = CP_CMD1 + 1;     //Bytes is always last+1
+	}
+	else if(cmd_type == CMD_WRITE)
+	{
+		buf[CP_CMD1] = CMD_W(CMD_CTRL_O);
+
+		//Arguments:
+		uint16_to_bytes(open_spd, &tmp0, &tmp1);
+		buf[CP_DATA1] = tmp0;
+		buf[CP_DATA1 + 1] = tmp1;
+
+		bytes = CP_DATA1 + 2;     //Bytes is always last+1
+	}
+	else
+	{
+		//Invalid
+		flexsea_error(SE_INVALID_READ_TYPE);
+		bytes = 0;
+	}
+
+	return bytes;
+}
+
+//Reception of a CTRL_O command
+void rx_cmd_ctrl_o(uint8_t *buf)
+{
+	uint32_t numb = 0;
+	int16_t tmp_open_spd = 0;
+
+	if(IS_CMD_RW(buf[CP_CMD1]) == READ)
+	{
+		//Received a Read command from our master, prepare a reply:
+
+		#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+
+		//Generate the reply:
+		numb = tx_cmd_ctrl_o(buf[CP_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, \
+			ctrl.pwm);
+		numb = comm_gen_str(tmp_payload_xmit, numb);
+
+		//Notify the code that a buffer is ready to be transmitted:
+		//xmit_flag_1 = 1;
+		
+		//(for now, send it)
+		rs485_puts(comm_str, (numb));
+
+		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+	}
+	else if(IS_CMD_RW(buf[CP_CMD1]) == WRITE)
+	{
+		//Two options: from Master of from slave (a read reply)
+
+		//Decode data:
+		tmp_open_spd = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1], buf[CP_DATA1+1]));
+		//ToDo store that value somewhere useful
+
+		if(sent_from_a_slave(buf))
+		{
+			//We received a reply to our read request
 
 			#ifdef BOARD_TYPE_FLEXSEA_MANAGE
 
 			//Store value:
-			exec1.current = controller;
+			exec1.pwm = tmp_open_spd;
 
 			#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
 			#ifdef BOARD_TYPE_FLEXSEA_PLAN
+
+			#ifdef USE_PRINTF
+			printf("Received CMD_CTRL_O. PWM DC = %i.\n", tmp_open_spd);
+			#endif	//USE_PRINTF
 
 			#endif	//BOARD_TYPE_FLEXSEA_PLAN
 		}
@@ -290,19 +363,12 @@ void rx_cmd_ctrl_mode(uint8_t *buf)
 
 			#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
-			//ToDo call relevant functions ****
+			if(ctrl.active_ctrl == CTRL_OPEN)
+			{
+				motor_open_speed_1(tmp_open_spd);
+			}
 
 			#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
-
-			#ifdef BOARD_TYPE_FLEXSEA_MANAGE
-			//No code (yet), you shouldn't be here...
-			flexsea_error(SE_CMD_NOT_PROGRAMMED);
-			#endif	//BOARD_TYPE_FLEXSEA_MANAGE
-
-			#ifdef BOARD_TYPE_FLEXSEA_PLAN
-			//No code (yet), you shouldn't be here...
-			flexsea_error(SE_CMD_NOT_PROGRAMMED);
-			#endif	//BOARD_TYPE_FLEXSEA_PLAN
 		}
 	}
 }

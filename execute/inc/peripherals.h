@@ -17,7 +17,7 @@
 #include "main.h"
 	
 //****************************************************************************
-// Prototype(s):
+// Public Function Prototype(s):
 //****************************************************************************
 
 void init_peripherals(void);
@@ -27,12 +27,11 @@ void init_i2c1(void);
 void init_i2c2(void);
 void init_clutch(void);
 void clutch_output(uint8 value);
+uint8 read_clutch(void);
 
 //****************************************************************************
 // Definition(s):
 //****************************************************************************
-
-
 	
 #endif	//INC_PERIPH_H
 	

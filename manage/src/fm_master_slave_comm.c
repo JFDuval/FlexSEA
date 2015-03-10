@@ -88,7 +88,7 @@ void slave_comm(uint8_t *autosample_trig)
 //Did we receive new commands? Can we parse them?
 void parse_master_slave_commands(uint8_t *new_cmd)
 {
-	volatile uint32_t result = 0, i = 0;
+	volatile uint32_t i = 0;
 
 	//Valid communication from SPI?
 	if(cmd_ready_spi != 0)
@@ -101,7 +101,7 @@ void parse_master_slave_commands(uint8_t *new_cmd)
 			tmp_rx_command_spi[i] = rx_command_spi[0][i];
 		}
 		// parse the command and execute it
-		result = payload_parse_str(tmp_rx_command_spi);
+		payload_parse_str(tmp_rx_command_spi);
 
 		//LED:
 		*new_cmd = 1;
@@ -118,7 +118,7 @@ void parse_master_slave_commands(uint8_t *new_cmd)
 			tmp_rx_command_485_1[i] = rx_command_485_1[0][i];
 		}
 		// parse the command and execute it
-		result = payload_parse_str(tmp_rx_command_485_1);
+		payload_parse_str(tmp_rx_command_485_1);
 	}
 
 	//Valid communication from RS-485 #2?
@@ -132,7 +132,7 @@ void parse_master_slave_commands(uint8_t *new_cmd)
 			tmp_rx_command_485_2[i] = rx_command_485_2[0][i];
 		}
 		// parse the command and execute it
-		result = payload_parse_str(tmp_rx_command_485_2);
+		payload_parse_str(tmp_rx_command_485_2);
 	}
 }
 

@@ -154,6 +154,7 @@
 #include <stdint.h>                      /* standard types definitions                      */
 #include <core_cmInstr.h>                /* Core Instruction Access                         */
 #include <core_cmFunc.h>                 /* Core Function Access                            */
+#include "stm32f4xx.h"
 
 #endif /* __CORE_CM0PLUS_H_GENERIC */
 

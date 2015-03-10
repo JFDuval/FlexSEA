@@ -46,6 +46,9 @@ void motor_open_speed_1(int16 pwm_duty)
 	else
 		pdc = pwm_duty;
 	
+	//Save value to structure:
+	ctrl.pwm = pdc;
+	
 	//Change direction according to sign
 	if(pdc < 0)
 	{

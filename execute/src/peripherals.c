@@ -21,6 +21,8 @@
 // Variable(s)
 //****************************************************************************
 
+uint8 clutch_pwm = 0;
+
 //****************************************************************************
 // Function(s)
 //****************************************************************************
@@ -155,5 +157,12 @@ void init_clutch(void)
 //PWM output for the clutch
 void clutch_output(uint8 value)
 {
-	PWM_2_WriteCompare(value);
+	clutch_pwm = value;
+	PWM_2_WriteCompare(clutch_pwm);
+}
+
+//Returns the PWM value of the clutch
+uint8 read_clutch(void)
+{
+	return clutch_pwm;
 }
