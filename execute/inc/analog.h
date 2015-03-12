@@ -24,6 +24,7 @@ void init_analog(void);
 uint16 adc_avg8(uint16 new_data);
 void filter_adc(void);
 int16 read_analog(uint8 ch);
+void adc_dma_config(void);
 
 //****************************************************************************
 // Definition(s):
@@ -38,6 +39,7 @@ int16 read_analog(uint8 ch);
 	
 extern int16 adc1_res[ADC1_CHANNELS][ADC1_BUF_LEN];
 extern int16 adc1_res_filtered[ADC1_CHANNELS];
+extern int16 adc_dma_array[ADC1_BUF_LEN];
 
 //****************************************************************************
 // Structure(s):

@@ -58,6 +58,7 @@
         *************************************************************************/
           /* `#START MAIN_ADC_ISR`  */
 		
+		/*
 			unsigned int last_adc = 0;
 			
 			//Read last ADC value
@@ -70,6 +71,7 @@
 				//Current controller
 				motor_current_pid(ctrl.current.setpoint_val, ctrl.current.actual_val);
 			}
+		*/
 	
           /* `#END`  */
 
