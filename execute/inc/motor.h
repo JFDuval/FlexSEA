@@ -45,7 +45,7 @@ void encoder_write(int32 enc);
 //****************************************************************************	
 
 //PWM limits
-#define MAX_PWM					3999
+#define MAX_PWM					760			//760 is 96% of 800			
 #define MIN_PWM					-MAX_PWM
 	
 //Position controller

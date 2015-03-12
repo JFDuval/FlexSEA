@@ -71,7 +71,7 @@ int main(void)
 	//strain_test_blocking();
 	//safety_cop_comm_test_blocking();
 	//imu_test_code_blocking();
-	motor_fixed_pwm_test_code_blocking(100);
+	motor_fixed_pwm_test_code_blocking(200);
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 	//Main loop
