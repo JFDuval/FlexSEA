@@ -110,10 +110,6 @@
 #include <VDAC8_1.h>
 #include <EXP1_aliases.h>
 #include <EXP1.h>
-#include <EXP9_aliases.h>
-#include <EXP9.h>
-#include <Timer_3.h>
-#include <isr_t3.h>
 #include <CS2_aliases.h>
 #include <CS2.h>
 #include <CS3_aliases.h>
@@ -180,12 +176,12 @@
 #include <SG_VO1_aliases.h>
 #include <SG_VO1.h>
 #include <C8M.h>
+#include <ADC_CLK.h>
 #include <ADC_DelSig_1_AMux.h>
 #include <ADC_DelSig_1_Ext_CP_Clk.h>
 #include <ADC_DelSig_1_IRQ.h>
 #include <ADC_DelSig_1_theACLK.h>
 #include <ADC_SAR_2_IRQ.h>
-#include <ADC_SAR_2_theACLK.h>
 #include <ADC_SAR_1_IRQ.h>
 #include <ADC_SAR_1_theACLK.h>
 #include <QuadDec_1_isr.h>

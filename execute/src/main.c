@@ -71,7 +71,7 @@ int main(void)
 	//strain_test_blocking();
 	//safety_cop_comm_test_blocking();
 	//imu_test_code_blocking();
-	//motor_fixed_pwm_test_code_blocking(1000);
+	motor_fixed_pwm_test_code_blocking(3500);
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 	//Main loop
@@ -185,18 +185,14 @@ int main(void)
 		{
 			t1_100us_flag = 0;
 			
-			EXP9_Write(1);
 			get_uart_data();
-			EXP9_Write(0);
 		}
 		
 		if(data_ready_485_1)
 		{
-			EXP2_Write(1);
 			data_ready_485_1 = 0;
 			//Got new data in, try to decode
 			cmd_ready_485_1 = unpack_payload_485_1();
-			EXP2_Write(0);
 		}
 			
 		#endif	//USE_RS485

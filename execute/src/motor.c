@@ -61,7 +61,8 @@ void motor_open_speed_1(int16 pwm_duty)
 	}
 	
 	//Write duty cycle to PWM module
-	PWM_1_WriteCompare(pdc);
+	PWM_1_WriteCompare1(pdc);
+	PWM_1_WriteCompare2(pdc>>1);
 }
 
 //Controls motor PWM duty cycle
@@ -94,7 +95,8 @@ void motor_open_speed_2(int16 pwm_duty, int sign)
 	}
 	
 	//Write duty cycle to PWM module
-	PWM_1_WriteCompare(pdc);
+	PWM_1_WriteCompare1(pdc);
+	PWM_1_WriteCompare2(pdc>>1);
 }
 
 //Second version of the serial interface, now with sign
@@ -348,20 +350,13 @@ void init_motor(void)
 	//Peripherals:
 	//=-=-=-=-=-=
 	
-	//Timer 3: one-shot 20us (current controller)
-	Timer_3_Init();
-	Timer_3_Start();
-	isr_t3_Start();
-	
 	//PWM1: BLDC
 	PWM_1_Start();
-	PWM_1_WriteCompare(0);	//Start at 0%
-	//isr_pwm_Start();
+	PWM_1_WriteCompare1(0);	//Start at 0%
 	
 	//ADC2: Motor current
 	ADC_SAR_2_Start();
 	ADC_SAR_2_IRQ_Enable();
-	ADC_SAR_2_StartConvert();
 	
 	//VDAC8: OpAmp VREF
 	VDAC8_1_Start();

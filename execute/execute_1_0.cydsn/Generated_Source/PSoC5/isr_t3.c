@@ -147,7 +147,7 @@ CY_ISR(isr_t3_Interrupt)
     /* `#START isr_t3_Interrupt` */
 	
 	//Start new conversion
-	ADC_SAR_2_StartConvert();
+//	ADC_SAR_2_StartConvert();
 	
 	//Test signal
 	//EXP1_Write(1);

@@ -191,7 +191,7 @@ void rx_cmd_special_1(uint8_t *buf)
 		}
 		else if(ctrl.active_ctrl == CTRL_OPEN)
 		{
-			tmp_open_spd = BYTES_TO_UINT16(buf[CP_DATA1 + 14], buf[CP_DATA1 + 15]);
+			tmp_open_spd = BYTES_TO_UINT16(buf[CP_DATA1 + 9], buf[CP_DATA1 + 10]);
 			motor_open_speed_1(tmp_open_spd);
 		}
 
