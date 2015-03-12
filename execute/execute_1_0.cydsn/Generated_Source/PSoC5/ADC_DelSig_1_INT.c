@@ -27,8 +27,6 @@
 
 #include <project.h>
 #include "main.h"
-#include "misc.h"
-#include "strain.h"
 
 /* `#END`  */
 
@@ -64,12 +62,14 @@
 		//Note: for now we only use VO2. VO1 can be added if needed (there
 		// is a Mux for that)
 		
+		/*
 		//Store last value:
 		adc_strain = (uint16)ADC_DelSig_1_GetResult16();
 		strain.vo2 = adc_strain;	//Bugs a lot... unclear why		
 			
 		//Raise flag:
 		adc_delsig_flag = 1;
+		*/
 		
         /* `#END`  */
 

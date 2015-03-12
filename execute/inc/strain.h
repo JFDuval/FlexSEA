@@ -33,6 +33,8 @@ void strain_config(uint8 offs, uint8 gain, uint8 oref);
 uint16 strain_read(void);
 uint16 strain_filter(void);
 void strain_test_blocking(void);
+void dma_2_config(void);
+uint16 strain_filter_dma(void);
 
 //****************************************************************************
 // Definition(s):

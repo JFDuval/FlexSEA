@@ -111,6 +111,8 @@
 #include <EXP1_aliases.h>
 #include <EXP1.h>
 #include <isr_dma.h>
+#include <DMA_2_dma.h>
+#include <isr_ds.h>
 #include <DMA_1_dma.h>
 #include <CS2_aliases.h>
 #include <CS2.h>

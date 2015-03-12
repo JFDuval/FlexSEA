@@ -71,7 +71,7 @@ int main(void)
 	//strain_test_blocking();
 	//safety_cop_comm_test_blocking();
 	//imu_test_code_blocking();
-	motor_fixed_pwm_test_code_blocking(200);
+	//motor_fixed_pwm_test_code_blocking(200);
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 	//Main loop
@@ -231,7 +231,8 @@ int main(void)
 		if(adc_delsig_flag)
 		{
 			adc_delsig_flag = 0;
-			strain_filter();
+			//strain_filter();
+			strain_filter_dma();
 		}
 		
 		//WatchDog Clock (Safety-CoP)

@@ -21,6 +21,7 @@
 struct strain_s strain;
 uint16 adc_strain_filtered = 0;
 volatile uint16 adc_strain = 0;
+int16 adc_delsig_dma_array[8];
 
 //****************************************************************************
 // Function(s)
@@ -45,7 +46,8 @@ void init_strain(void)
 	//16-bits ADC:
 	ADC_DelSig_1_Start();
 	ADC_DelSig_1_IRQ_Enable();
-	//ADC_DelSig_1_StartConvert();
+	dma_2_config();
+	isr_ds_Start();
 	
 	//Defaults:
 	//=-=-=-=-=-=
@@ -118,6 +120,29 @@ uint16 strain_filter(void)
 	return avg;	
 }
 
+//With DMA transfers we get a full buffer (8 bytes) per interrupt
+uint16 strain_filter_dma(void)
+{
+	uint32 sum = 0;
+	uint8 cnt = 0;
+	uint16 avg = 0;
+	
+	//Sum all the terms
+	for(cnt = 0; cnt < STRAIN_BUF_LEN; cnt++)
+	{
+		sum += adc_delsig_dma_array[cnt];
+	}
+	
+	//Average
+	avg = (uint16)(sum >> STRAIN_SHIFT);
+	
+	//Store in structure:
+	strain.filtered_strain = avg;
+	adc_strain_filtered = avg;
+	
+	return avg;	
+}
+
 //Copy of the test code used in main.c to test the hardware:
 void strain_test_blocking(void)
 {
@@ -148,4 +173,25 @@ void strain_test_blocking(void)
 		
 		CyDelayUs(100);
 	}
+}
+
+void dma_2_config(void)
+{
+	/* Variable declarations for DMA_2 */
+	/* Move these variable declarations to the top of the function */
+	uint8 DMA_2_Chan;
+	uint8 DMA_2_TD[1];
+
+	/* DMA Configuration for DMA_2 */
+	#define DMA_2_BYTES_PER_BURST 2
+	#define DMA_2_REQUEST_PER_BURST 1
+	#define DMA_2_SRC_BASE (CYDEV_PERIPH_BASE)
+	#define DMA_2_DST_BASE (CYDEV_SRAM_BASE)
+	DMA_2_Chan = DMA_2_DmaInitialize(DMA_2_BYTES_PER_BURST, DMA_2_REQUEST_PER_BURST, 
+	    HI16(DMA_2_SRC_BASE), HI16(DMA_2_DST_BASE));
+	DMA_2_TD[0] = CyDmaTdAllocate();
+	CyDmaTdSetConfiguration(DMA_2_TD[0], 16, DMA_2_TD[0], DMA_2__TD_TERMOUT_EN | TD_INC_DST_ADR);
+	CyDmaTdSetAddress(DMA_2_TD[0], LO16((uint32)ADC_DelSig_1_DEC_SAMP_PTR), LO16((uint32)adc_delsig_dma_array));
+	CyDmaChSetInitialTd(DMA_2_Chan, DMA_2_TD[0]);
+	CyDmaChEnable(DMA_2_Chan, 1);
 }
