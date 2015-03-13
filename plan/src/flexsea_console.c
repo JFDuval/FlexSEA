@@ -37,9 +37,10 @@ unsigned char slave_id[MAX_SLAVE] = {FLEXSEA_DEFAULT, FLEXSEA_MANAGE_1, FLEXSEA_
 //Console command list:
 char fcp_list[MAX_CMD][TXT_STR_LEN] = 	{"info", "cmd_imu_read", "cmd_encoder_write", "cmd_encoder_read", "cmd_strain_read", "cmd_strain_config", \
 										"cmd_clutch_write", "cmd_analog_read", "cmd_ctrl_mode_write", "cmd_ctrl_i_gains_write", "cmd_ctrl_p_gains_write", \
-										"cmd_ctrl_o_write", "cmd_ctrl_i_write", "cmd_ctrl_i_read", "cmd_mem_read", "cmd_acq_mode_write", "stream", "log", "shuobot", "set_z_gains"};
+										"cmd_ctrl_o_write", "cmd_ctrl_i_write", "cmd_ctrl_i_read", "cmd_mem_read", "cmd_acq_mode_write", "stream", "log", \
+										"shuobot", "set_z_gains", "special1"};
 //info is command 0, set_pid is 1, etc...
-char fcp_args[MAX_CMD] = {0, 2, 1, 0, 0, 3, 1, 2, 1, 3, 3, 1, 1, 0, 2, 1, 0, 0, 0, 3};
+char fcp_args[MAX_CMD] = {0, 2, 1, 0, 0, 3, 1, 2, 1, 3, 3, 1, 1, 0, 2, 1, 0, 0, 0, 3, 6};
 //fcp_args contains the number of arguments for each command
 
 //****************************************************************************
@@ -140,7 +141,7 @@ void flexsea_console_parser(int argc, char *argv[])
     unsigned char d = NO_CMD_FOUND, c = NO_SLAVE_FOUND;
     char string1[TXT_STR_LEN], string2[TXT_STR_LEN];
     int i = 0, numb = 0;
-    int tmp0 = 0, tmp1 = 0, tmp2 = 0, tmp3 = 0;
+    int tmp0 = 0, tmp1 = 0, tmp2 = 0, tmp3 = 0, tmp4 = 0, tmp5 = 0, tmp6 = 0;
 
     //Arguments passed to the function:
     if(argc <= 1)
@@ -427,6 +428,22 @@ void flexsea_console_parser(int argc, char *argv[])
 					#endif
 					//Prepare and send data:
 					numb = tx_set_z_gains(slave_id[c], tmp0, tmp1, tmp2);
+					numb = comm_gen_str(payload_str, numb);
+					break;
+
+				case 20: //'special1'
+					tmp0 = atoi(argv[3]);
+					tmp1 = atoi(argv[4]);
+					tmp2 = atoi(argv[5]);
+					tmp3 = atoi(argv[6]);
+					tmp4 = atoi(argv[7]);
+					tmp5 = atoi(argv[8]);
+					#ifdef USE_PRINTF
+					printf("[Special1]: %i, %i, %i, %i, %i, %i.\n", tmp0, tmp1, tmp2, tmp3, tmp4, tmp5);
+					#endif
+					//Prepare and send data:
+					numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
+												tmp0, tmp1, tmp2, tmp3, tmp4, tmp5);
 					numb = comm_gen_str(payload_str, numb);
 					break;
 

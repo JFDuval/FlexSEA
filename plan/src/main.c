@@ -32,7 +32,7 @@ int analog0 = 0;
 
 //Multiple commands:
 #define MAX_COMMAND_LEN 256
-#define MAX_ARGS 8
+#define MAX_ARGS 12
 char *fake_argv[MAX_ARGS];
 const char *delims = " \n";
 
@@ -78,12 +78,12 @@ int main(int argc, char *argv[])
         }
 
         //Enable for terminal debug only:
-
+        /*
         for(i = 0; i < MAX_ARGS; i++)
         {
             printf("fake_argv[%i] = %s\n", i, fake_argv[i]);
         }
-
+         */
 
         //Do we want to exit? (exit when "quit" is received)
         strcpy(string1, fake_argv[1]);

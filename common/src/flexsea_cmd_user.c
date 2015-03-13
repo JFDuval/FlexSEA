@@ -256,6 +256,12 @@ void rx_cmd_special_1(uint8_t *buf)
 			
 			exec_s_ptr->current = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+14], buf[CP_DATA1+15]));
 
+			#ifdef MULTIPLE_COMMANDS
+			//To interface with Python:
+			printf("[%i,%i,%i,%i,%i,%i,%i]\n", exec1.encoder, exec1.current, exec1.imu.x, exec1.imu.y, exec1.imu.z, \
+					exec1.strain, exec1.analog[0]);
+			#endif
+
 			#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
 			#ifdef BOARD_TYPE_FLEXSEA_PLAN
