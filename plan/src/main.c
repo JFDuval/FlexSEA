@@ -24,10 +24,6 @@
 
 int analog0 = 0;
 
-//Choose between single multiple commands console app:
-#define SINGLE_COMMAND
-//#define MULTIPLE_COMMANDS
-
 #ifdef SINGLE_COMMAND
 #ifdef MULTIPLE_COMMANDS
 #error "Pick one Command option!"
@@ -48,7 +44,7 @@ int main(int argc, char *argv[])
 {
 #ifdef MULTIPLE_COMMANDS
     char command[MAX_COMMAND_LEN];
-    char string1[20], string2[20] = "quit";
+    char string1[TXT_STR_LEN], string2[TXT_STR_LEN] = "quit";
     char default_argv[] = "";
     int i = 0;
 #endif  //MULTIPLE_COMMANDS
@@ -61,6 +57,7 @@ int main(int argc, char *argv[])
 #endif
 
 #ifdef MULTIPLE_COMMANDS
+
     while(fgets(command, sizeof(command), stdin))
     {
         int fake_argc = 1;
@@ -81,12 +78,12 @@ int main(int argc, char *argv[])
         }
 
         //Enable for terminal debug only:
-        /*
+
         for(i = 0; i < MAX_ARGS; i++)
         {
             printf("fake_argv[%i] = %s\n", i, fake_argv[i]);
         }
-        */
+
 
         //Do we want to exit? (exit when "quit" is received)
         strcpy(string1, fake_argv[1]);
