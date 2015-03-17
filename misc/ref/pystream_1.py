@@ -1,5 +1,10 @@
 #!/usr/bin/python
 
+# This code uses the "special1" command to demonstrate writing and
+# reading from an Excecute board from Linux, in Python. "special1" is
+# the special command used by the ShuoBot Exoskeleton.
+# It displays a few sensor values on the terminal.
+
 import time, math, random, subprocess, traceback
 from subprocess import Popen, PIPE
 import pty
@@ -43,10 +48,31 @@ while True:
         t1 = time.time() - t0
         stdin_handle.write("execute_1 special1 0 0 0 0 0 0\n")
         cout = stdout_handle.readline()                                 # Receiving values
-        print cout
+	cout = cout.replace("[", "")                                    # Remove brackets for parsing data
+        cout = cout.replace("]", "")
+        vals = cout.split(',') 
+	
+	#Parse values:
+	encoder = int(vals[0])
+	current = int(vals[1])
+	imu_x = int(vals[2])
+	imu_y = int(vals[3])
+	imu_z = int(vals[4])
+	strain = int(vals[5])
+	angle = int(vals[6])
+
+	#Display:
+	os.system('clear')
+        print "Encoder: %d" % encoder
+	print "Current: %d" % current
+	print "IMU Gyro x: %d" % imu_x
+	print "IMU Gyro y: %d" % imu_y
+	print "IMU Gyro z: %d" % imu_z
+	print "Strain: %d" % strain
+	print "Angle: %d" % angle
 
 	#Delay
-        time.sleep(0.1)
+        time.sleep(0.01)	#10ms
 
     except KeyboardInterrupt:
         print 'State machine stopped by user.'
