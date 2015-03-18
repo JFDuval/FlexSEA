@@ -27,7 +27,7 @@ void fill_uint8_buf(uint8_t *buf, uint32_t len, uint8_t filler);
 //****************************************************************************
 
 //Buffers and packets:
-#define RX_BUF_LEN                  	64		//Reception buffer (flexsea_comm)
+#define RX_BUF_LEN                  	256		//Reception buffer (flexsea_comm)
 #define PAYLOAD_BUF_LEN             	24		//Number of bytes in a payload string
 #define PAYLOAD_BYTES					(PAYLOAD_BUF_LEN - 4)
 #define COMM_STR_BUF_LEN            	48		//Number of bytes in a comm. string
