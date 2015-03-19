@@ -34,7 +34,7 @@ void flexsea_console_datalogger(uint8_t slaveid, uint8_t offs);
 //****************************************************************************
 
 //MAX_CMD has to equal the number of FCP_xx lines!
-#define MAX_CMD         21
+#define MAX_CMD         22
 #define NO_CMD_FOUND    127
 
 //MAX_SLAVE has to equal the number of slave_list lines!

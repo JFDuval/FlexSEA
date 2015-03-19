@@ -38,9 +38,9 @@ unsigned char slave_id[MAX_SLAVE] = {FLEXSEA_DEFAULT, FLEXSEA_MANAGE_1, FLEXSEA_
 char fcp_list[MAX_CMD][TXT_STR_LEN] = 	{"info", "cmd_imu_read", "cmd_encoder_write", "cmd_encoder_read", "cmd_strain_read", "cmd_strain_config", \
 										"cmd_clutch_write", "cmd_analog_read", "cmd_ctrl_mode_write", "cmd_ctrl_i_gains_write", "cmd_ctrl_p_gains_write", \
 										"cmd_ctrl_o_write", "cmd_ctrl_i_write", "cmd_ctrl_i_read", "cmd_mem_read", "cmd_acq_mode_write", "stream", "log", \
-										"shuobot", "set_z_gains", "special1"};
+										"shuobot", "set_z_gains", "special1", "cmd_switch"};
 //info is command 0, set_pid is 1, etc...
-char fcp_args[MAX_CMD] = {0, 2, 1, 0, 0, 3, 1, 2, 1, 3, 3, 1, 1, 0, 2, 1, 0, 0, 0, 3, 6};
+char fcp_args[MAX_CMD] = {0, 2, 1, 0, 0, 3, 1, 2, 1, 3, 3, 1, 1, 0, 2, 1, 0, 0, 0, 3, 6, 0};
 //fcp_args contains the number of arguments for each command
 
 //****************************************************************************
@@ -447,6 +447,15 @@ void flexsea_console_parser(int argc, char *argv[])
 					numb = comm_gen_str(payload_str, numb);
 					break;
 
+				case 21: //'cmd_switch'
+					#ifdef USE_PRINTF
+					printf("[Switch]");
+					#endif
+					//Prepare and send data:
+					numb = tx_cmd_switch(FLEXSEA_MANAGE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN);
+					numb = comm_gen_str(payload_str, numb);
+					break;
+
 				default:
 					#ifdef USE_PRINTF
 					printf("Invalid command.\n");
@@ -491,18 +500,8 @@ void flexsea_console_parser(int argc, char *argv[])
 
 void flexsea_console_print_execute(void)
 {
-	#ifdef USE_PRINTF
-    printf("==> EXECUTE BOARD <== \n\n");
-    printf("Status: 0x%02X\n", execute_1_data[SRB_EXECUTE_STATUS]);
-    printf("Encoder #1: %i\n", (execute_1_data[SRB_EXECUTE_ENC1_MSB]<<8) + execute_1_data[SRB_EXECUTE_ENC1_LSB]);
-    printf("Analog #0: %i\n", (execute_1_data[SRB_EXECUTE_AN0_MSB]<<8) + execute_1_data[SRB_EXECUTE_AN0_LSB]);
-    printf("Analog #1: %i\n", (execute_1_data[SRB_EXECUTE_AN1_MSB]<<8) + execute_1_data[SRB_EXECUTE_AN1_LSB]);
-    printf("Current: %i\n", (execute_1_data[SRB_EXECUTE_CURRENT_MSB]<<8) + execute_1_data[SRB_EXECUTE_CURRENT_LSB]);
-	#endif
-}
+	//ToDo support more than the Special1 command
 
-void flexsea_console_print_manage(void)
-{
 	#ifdef USE_PRINTF
 
 	printf("Gyro X: %i\n", exec1.imu.x);
@@ -518,7 +517,14 @@ void flexsea_console_print_manage(void)
 	#endif
 }
 
+void flexsea_console_print_manage(void)
+{
+	#ifdef USE_PRINTF
 
+	printf("SW1: %i\n", manag1.sw1);
+
+	#endif
+}
 
 void flexsea_console_stream_slave_read(unsigned char slaveid, unsigned char offs)
 {
@@ -529,16 +535,35 @@ void flexsea_console_stream_slave_read(unsigned char slaveid, unsigned char offs
         //Clear terminal:
         system("clear");
 
-		numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
-										KEEP, 0, KEEP, 0, 0, 0);
-		numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
-		numb = COMM_STR_BUF_LEN;
-		flexsea_spi_transmit(numb, comm_str, 0);
+        if(slaveid >= FLEXSEA_EXECUTE_BASE)
+        {
+        	//Special1 command to test the Exo: (ToDo generalize)
 
-        //Can we decode what we received?
-        decode_spi_rx();
+			numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
+											KEEP, 0, KEEP, 0, 0, 0);
+			numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+			numb = COMM_STR_BUF_LEN;
+			flexsea_spi_transmit(numb, comm_str, 0);
 
-        flexsea_console_print_manage();
+			//Can we decode what we received?
+			decode_spi_rx();
+
+			flexsea_console_print_execute();
+        }
+        else if(slaveid == FLEXSEA_MANAGE_1)
+        {
+        	//For now we only read the switch (ToDo generalize)
+
+			numb = tx_cmd_switch(FLEXSEA_MANAGE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN);
+			numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+			numb = COMM_STR_BUF_LEN;
+			flexsea_spi_transmit(numb, comm_str, 0);
+
+			//Can we decode what we received?
+			decode_spi_rx();
+
+			flexsea_console_print_manage();
+        }
 
         //Delay
         usleep(10000);

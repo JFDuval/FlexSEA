@@ -145,6 +145,10 @@ unsigned int payload_parse_str(unsigned char *cp_str)
 			case CMD_IMU_READ_REPLY:
 				rx_cmd_imu_read_reply(cp_str);
 				break;
+			case CMD_SWITCH_R:
+			case CMD_SWITCH_W:
+				rx_cmd_switch(cp_str);
+				break;
 				
 			//Expansion commands:
 			case CMD_CLUTCH_WRITE:

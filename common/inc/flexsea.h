@@ -134,6 +134,9 @@ void fill_uint8_buf(uint8_t *buf, uint32_t len, uint8_t filler);
 #define CMD_CTRL_I						104
 #define CMD_CTRL_O						105
 #define CMD_CTRL_MODE					106
+#define CMD_SWITCH						107
+#define CMD_SWITCH_R					CMD_R(CMD_SWITCH)
+#define CMD_SWITCH_W					CMD_W(CMD_SWITCH)
 
 //Note: do not use codes that are framing or escape chars!
 

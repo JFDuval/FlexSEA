@@ -78,6 +78,11 @@ struct execute_s
 	int16_t pwm;
 };
 
+struct manage_s
+{
+	uint8_t sw1;
+};
+
 //****************************************************************************
 // Shared variable(s)
 //****************************************************************************
@@ -87,6 +92,7 @@ extern uint8_t read_offset;
 #if defined(BOARD_TYPE_FLEXSEA_MANAGE) || defined(BOARD_TYPE_FLEXSEA_PLAN)
 
 extern struct execute_s exec1, exec2;
+extern struct manage_s manag1;
 
 #endif	//defined(BOARD_TYPE_FLEXSEA_MANAGE) || defined(BOARD_TYPE_FLEXSEA_PLAN)
 
