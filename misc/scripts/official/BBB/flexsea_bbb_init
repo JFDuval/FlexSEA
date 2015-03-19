@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo BB-SPI0-01 > /sys/devices/bone_capemgr.*/slots
+cd /home/debian/Desktop/
+echo "FlexSEA is ready to be used!"

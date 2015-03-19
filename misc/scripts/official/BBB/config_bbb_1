@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Configuration of a brand new Rev C BBB - Part 1
+# JFDuval 03/19/2015
+
+echo "[FlexSEA] Type new password, use 'flexsea' by default."
+passwd
+
+echo "[FlexSEA] Updating the time servers."
+ntpdate -u ntp.ubuntu.com pool.ntp.org
+
+echo "[FlexSEA] Installing the Adafruit Python libs."
+apt-get install python-pip python-setuptools python-smbus
+pip install Adafruit_BBIO
+
+echo "[FlexSEA] 1) Paste this line 'capemgr.enable_partno=BB-SPI0-01' (no quotation marks), 2) Ctrl+X, 'Yes', Enter"
+cd /mnt/
+mkdir boot
+nano uEnv.txt
+
+echo "[FlexSEA] When you are ready reboot the BBB (command: reboot)"
+
+#End of script #1
