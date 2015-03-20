@@ -284,6 +284,7 @@
 <v>execute-cop-000\execute-cop\Generated_Source\PSoC4\H3</v>
 <v>execute-cop-000\execute-cop\Generated_Source\PSoC4\I2C_1</v>
 <v>execute-cop-000\execute-cop\Generated_Source\PSoC4\I2C_1\I2C_1.c</v>
+<v>execute-cop-000\execute-cop\Generated_Source\PSoC4\I2C_1\I2C_1.h</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
@@ -430,6 +431,7 @@
 <v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\isr_t1.lst</v>
 <v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\isr_wdclk.lst</v>
 <v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\L1.lst</v>
+<v>execute-cop-000\execute-cop\CortexM0\ARM_GCC_484\Debug\Listing Files\L2.lst</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStates>

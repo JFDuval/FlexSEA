@@ -23,6 +23,7 @@
 extern struct strain_s strain;
 extern uint16_t adc_strain_filtered;	
 extern volatile uint16_t adc_strain;
+extern volatile uint16 adc_delsig_dma_array[8];
 	
 //****************************************************************************
 // Prototype(s):
@@ -64,8 +65,12 @@ uint16 strain_filter_dma(void);
 #define STRAIN_DEFAULT_GAIN		10
 
 //Strain filtering:
-#define STRAIN_BUF_LEN			8
-#define STRAIN_SHIFT			3	//Needs to match STRAIN_BUF_LEN
+#define STRAIN_BUF_LEN			6
+#define STRAIN_SHIFT			2	//Needs to match STRAIN_BUF_LEN
+
+//DMA Bytes per transfer (16bits values = 2 bytes/word)
+#define DMA2_BYTES_PER_XFER		(2*STRAIN_BUF_LEN)
+
 
 //****************************************************************************
 // Structure(s):

@@ -85,7 +85,11 @@ typedef enum {
 ///  Gyro: +/-250dps max range
 /// GYRO_CONFIG = 0x08 results in:
 ///  Gyro: +/-500dps max range
-#define D_IMU_GYRO_CONFIG		0x08		//0b00001000
+/// GYRO_CONFIG = 0x10 results in:
+///  Gyro: +/-1000dps max range
+/// GYRO_CONFIG = 0x18 results in:
+///  Gyro: +/-2000dps max range
+#define D_IMU_GYRO_CONFIG		0x10		//0b00010000
 /// ACCEL_CONFIG = 0x8 results in:
 ///  Accel: +/- 4g max range
 #define D_IMU_ACCEL_CONFIG		0x08	//0b00001000

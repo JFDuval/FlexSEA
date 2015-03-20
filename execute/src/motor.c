@@ -62,7 +62,7 @@ void motor_open_speed_1(int16 pwm_duty)
 	
 	//Write duty cycle to PWM module
 	PWM_1_WriteCompare1(pdc);
-	PWM_1_WriteCompare2(pdc>>1);
+	PWM_1_WriteCompare2((pdc >> 1) + 1);	//Can't be 0 or the ADC won't trigger
 }
 
 //Controls motor PWM duty cycle
@@ -96,7 +96,7 @@ void motor_open_speed_2(int16 pwm_duty, int sign)
 	
 	//Write duty cycle to PWM module
 	PWM_1_WriteCompare1(pdc);
-	PWM_1_WriteCompare2(pdc>>1);
+	PWM_1_WriteCompare2((pdc >> 1) + 1);	//Can't be 0 or the ADC won't trigger
 }
 
 //Second version of the serial interface, now with sign

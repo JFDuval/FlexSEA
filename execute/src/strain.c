@@ -21,7 +21,7 @@
 struct strain_s strain;
 uint16 adc_strain_filtered = 0;
 volatile uint16 adc_strain = 0;
-int16 adc_delsig_dma_array[8];
+volatile uint16 adc_delsig_dma_array[8];
 
 //****************************************************************************
 // Function(s)
@@ -120,15 +120,27 @@ uint16 strain_filter(void)
 	return avg;	
 }
 
-//With DMA transfers we get a full buffer (8 bytes) per interrupt
+//With DMA transfers we get a full buffer (6 bytes) per interrupt
+//Note: we take 6 samples and ignore the first 2. This is a workaround, as the first 2 values are often contaminated.
 uint16 strain_filter_dma(void)
 {
 	uint32 sum = 0;
 	uint8 cnt = 0;
 	uint16 avg = 0;
+	volatile uint8 bug = 0;
+	
+	//Test code todo remove:
+	if(adc_delsig_dma_array[0] < 15000)
+	{
+		bug = 1;
+	}
+	else
+	{
+		bug = 0;
+	}
 	
 	//Sum all the terms
-	for(cnt = 0; cnt < STRAIN_BUF_LEN; cnt++)
+	for(cnt = 2; cnt < STRAIN_BUF_LEN; cnt++)
 	{
 		sum += adc_delsig_dma_array[cnt];
 	}
@@ -175,6 +187,7 @@ void strain_test_blocking(void)
 	}
 }
 
+//DMA for Delta Sigma ADC
 void dma_2_config(void)
 {
 	/* Variable declarations for DMA_2 */
@@ -190,7 +203,7 @@ void dma_2_config(void)
 	DMA_2_Chan = DMA_2_DmaInitialize(DMA_2_BYTES_PER_BURST, DMA_2_REQUEST_PER_BURST, 
 	    HI16(DMA_2_SRC_BASE), HI16(DMA_2_DST_BASE));
 	DMA_2_TD[0] = CyDmaTdAllocate();
-	CyDmaTdSetConfiguration(DMA_2_TD[0], 16, DMA_2_TD[0], DMA_2__TD_TERMOUT_EN | TD_INC_DST_ADR);
+	CyDmaTdSetConfiguration(DMA_2_TD[0], DMA2_BYTES_PER_XFER, DMA_2_TD[0], DMA_2__TD_TERMOUT_EN | TD_INC_DST_ADR);
 	CyDmaTdSetAddress(DMA_2_TD[0], LO16((uint32)ADC_DelSig_1_DEC_SAMP_PTR), LO16((uint32)adc_delsig_dma_array));
 	CyDmaChSetInitialTd(DMA_2_Chan, DMA_2_TD[0]);
 	CyDmaChEnable(DMA_2_Chan, 1);

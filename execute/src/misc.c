@@ -24,7 +24,7 @@ volatile int8_t tx_cnt = 0;
 
 //Timers:
 volatile uint8 t1_100us_flag = 0;
-volatile uint8 t1_1ms_flag = 0;
+volatile uint8 t1_1ms_1_flag = 0, t1_1ms_2_flag = 0;
 volatile uint8 t2_10ms_flag = 0;
 volatile uint8 t2_50ms_flag = 0;	
 
@@ -42,8 +42,9 @@ uint8 minm_rgb_color = 0;
 // Function(s)
 //****************************************************************************
 
-//Update the sensor structures:
-void update_sensors(void)
+//Update the sensor structures
+//Call this one in the 1ms #1 routine
+void update_sensors_1(void)
 {
 	//IMU:
 	#ifdef USE_I2C_INT
@@ -57,8 +58,14 @@ void update_sensors(void)
 		#endif	//USE_IMU
 		
 	#endif	//USE_I2C_INT	
-	
+}
+
+//Update the sensor structures
+//Call this one in the 1ms #2 routine
+void update_sensors_2(void)
+{
 	//Now that the I2C isn't in use we convert the strain:
+	EXP5_Write(1);
 	ADC_DelSig_1_StartConvert();
 }
 
@@ -77,17 +84,12 @@ void rs485_puts(uint8 *buf, uint32 len)
 {
 	uint32_t i = 0, log = 0;
 	
-	EXP8_Write(1);
-	
 	NOT_RE_Write(1);				//Disable Receiver
 	CyDelayUs(1);					//Wait (ToDo optimize/eliminate)
 	//UART_2_ClearTxBuffer();			//Flush the TX buffer
 	DE_Write(1);
 	CyDelayUs(1);
 	tx_cnt = len;
-	
-	EXP8_Write(0);
-	EXP8_Write(1);
 	
 	//Can we store all the bytes we want to send?
 	if((UART_2_TXBUFFERSIZE - UART_2_GetTxBufferSize()) < len)
@@ -98,17 +100,11 @@ void rs485_puts(uint8 *buf, uint32 len)
 		//EXP5_Write(0);
 	}	
 	
-	EXP8_Write(0);
-	EXP8_Write(1);
-		
 	//Sends the bytes:
 	for(i = 0; i < len; i++)
 	{
 		UART_2_PutChar(buf[i]);
 	}	
-	
-	EXP8_Write(0);
-	EXP8_Write(1);
 	
 	//Wait till they get out
 	CyDelayUs(100);					//Wait (ToDo optimize/eliminate)
@@ -117,9 +113,6 @@ void rs485_puts(uint8 *buf, uint32 len)
 	DE_Write(0);
 	CyDelayUs(1);
 	NOT_RE_Write(0);				
-	
-	
-	EXP8_Write(0);
 }
 
 //Write to MinM RGB LED

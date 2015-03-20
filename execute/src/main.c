@@ -77,12 +77,12 @@ int main(void)
 	//Main loop
 	while(1)
 	{
-		//1ms timebase
-		if(t1_1ms_flag)
+		//1ms timebase #1
+		if(t1_1ms_1_flag)
 		{
-			t1_1ms_flag = 0;
+			t1_1ms_1_flag = 0;
 			
-			//EXP8_Write(1);	//Used to test the timing - can be removed	
+			EXP9_Write(1);	//Used to test the timing - can be removed	
 			
 			#ifdef USE_QEI1
 				
@@ -106,7 +106,7 @@ int main(void)
 			#endif	//USE_TRAPEZ
 			
 			//Refresh all the sensor data:
-			update_sensors();
+			update_sensors_1();
 			
 			//Alive LED
 			alive_led();
@@ -124,7 +124,20 @@ int main(void)
 				motor_open_speed_1(0);
 			}
 			
-			//EXP8_Write(0);	//Used to test the timing - can be removed	
+			EXP9_Write(0);	//Used to test the timing - can be removed	
+		}
+		
+		//1ms timebase #2 (delayed by 400us)
+		if(t1_1ms_2_flag)
+		{
+			EXP8_Write(1);
+			
+			t1_1ms_2_flag = 0;
+			
+			//Refresh all the sensor data:
+			update_sensors_2();
+			
+			EXP8_Write(0);
 		}
 		
 		/* Temporarily removing the 10 & 50ms timbases. Their code isn't used for now anyway

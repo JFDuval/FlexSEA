@@ -148,24 +148,33 @@ CY_ISR(isr_t1_Interrupt)
     /*  Place your Interrupt code here. */
     /* `#START isr_t1_Interrupt` */
 
-	//Timer 1: 1ms
-	//We divide by 250 to blink the "alive" LED0
+	//Timer 1: 100us
 
-	static uint8 cnt10 = 0;
+	static uint8 cnt10_1 = 0, cnt10_2 = 6;
 	
 	//Clear interrupt
 	Timer_1_ReadStatusRegister();
 	isr_t1_ClearPending();
 	
-	//1ms timebase:
-	cnt10++;
-	if(cnt10 > 9)
+	//1ms timebase #1:
+	cnt10_1++;
+	if(cnt10_1 > 9)
 	{
-		cnt10 = 0;
+		cnt10_1 = 0;
 		
 		//Flag for the main code
-		t1_1ms_flag = 1;
+		t1_1ms_1_flag = 1;
 	}
+	
+	//1ms timebase #2 (delayed):
+	cnt10_2++;
+	if(cnt10_2 > 9)
+	{
+		cnt10_2 = 0;
+		
+		//Flag for the main code
+		t1_1ms_2_flag = 1;
+	}	
 	
 	//Flag for the main code
 	t1_100us_flag = 1;

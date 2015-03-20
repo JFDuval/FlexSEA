@@ -58,9 +58,6 @@
 #include <DE.h>
 #include <NOT_RE_aliases.h>
 #include <NOT_RE.h>
-#include <isr_t2.h>
-#include <CLK_100kHz.h>
-#include <Timer_2.h>
 #include <isr_t1.h>
 #include <Timer_1.h>
 #include <MotorDirection.h>
@@ -181,6 +178,8 @@
 #include <SG_VO1.h>
 #include <C8M.h>
 #include <ADC_CLK.h>
+#include <EXP9_aliases.h>
+#include <EXP9.h>
 #include <ADC_DelSig_1_AMux.h>
 #include <ADC_DelSig_1_Ext_CP_Clk.h>
 #include <ADC_DelSig_1_IRQ.h>
