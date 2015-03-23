@@ -88,92 +88,6 @@
 <v>execute\execute_1_0\Generated_Source\PSoC5\MotorDirection\MotorDirection.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\MotorDirection\MotorDirection.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\UART_2</v>
-<v>execute\IMU_I2C_Test\TopDesign</v>
-<v>execute\IMU_I2C_Test\IMU_I2C_Test.cydwr</v>
-<v>execute\IMU_I2C_Test\Header Files</v>
-<v>execute\IMU_I2C_Test\Header Files\imu.h</v>
-<v>execute\IMU_I2C_Test\Header Files\main.h</v>
-<v>execute\IMU_I2C_Test\Header Files\peripherals.h</v>
-<v>execute\IMU_I2C_Test\Source Files</v>
-<v>execute\IMU_I2C_Test\Source Files\imu.c</v>
-<v>execute\IMU_I2C_Test\Source Files\main.c</v>
-<v>execute\IMU_I2C_Test\Source Files\peripherals.c</v>
-<v>execute\IMU_I2C_Test\Generated_Source</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\Clock_1\Clock_1.c</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\Clock_1\Clock_1.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cy_boot\cm3gcc.ld</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cy_boot\Cm3Iar.icf</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cy_boot\Cm3RealView.scat</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cy_boot\Cm3Start.c</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cy_boot\core_cm3.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cy_boot\core_cm3_psoc5.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cy_boot\core_cmFunc.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cy_boot\core_cmInstr.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cy_boot\CyBootAsmGnu.s</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cy_boot\CyBootAsmIar.s</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cy_boot\CyBootAsmRv.s</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cy_boot\CyDmac.c</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cy_boot\CyDmac.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cy_boot\CyFlash.c</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cy_boot\CyFlash.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cy_boot\CyLib.c</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cy_boot\CyLib.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cy_boot\cypins.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cy_boot\cyPm.c</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cy_boot\cyPm.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cy_boot\CySpc.c</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cy_boot\CySpc.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cy_boot\cytypes.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cy_boot\cyutils.c</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\EXP6_SDA\EXP6_SDA.c</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\EXP6_SDA\EXP6_SDA.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\EXP6_SDA\EXP6_SDA_aliases.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\EXP7_SCL\EXP7_SCL.c</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\EXP7_SCL\EXP7_SCL.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\EXP7_SCL\EXP7_SCL_aliases.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\FLAG\FLAG.c</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\FLAG\FLAG.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\FLAG\FLAG_aliases.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\I2C_1\I2C_1.c</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\I2C_1\I2C_1.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\I2C_1\I2C_1_BOOT.c</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\I2C_1\I2C_1_INT.c</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\I2C_1\I2C_1_MASTER.c</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\I2C_1\I2C_1_PM.c</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\I2C_1\I2C_1_PVT.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\I2C_1\I2C_1_SLAVE.c</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\I2C_2\I2C_2.c</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\I2C_2\I2C_2.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\I2C_2\I2C_2_BOOT.c</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\I2C_2\I2C_2_INT.c</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\I2C_2\I2C_2_MASTER.c</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\I2C_2\I2C_2_PM.c</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\I2C_2\I2C_2_PVT.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\I2C_2\I2C_2_SLAVE.c</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\SCL_1\SCL_1.c</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\SCL_1\SCL_1.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\SCL_1\SCL_1_aliases.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\SDA_1\SDA_1.c</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\SDA_1\SDA_1.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\SDA_1\SDA_1_aliases.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cydevice.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cydevice_trm.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cydevicegnu.inc</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cydevicegnu_trm.inc</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cydeviceiar.inc</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cydeviceiar_trm.inc</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cydevicerv.inc</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cydevicerv_trm.inc</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cydisabledsheets.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cyfitter.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cyfitter_cfg.c</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cyfitter_cfg.h</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cyfittergnu.inc</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cyfitteriar.inc</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cyfitterrv.inc</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\cymetadata.c</v>
-<v>execute\IMU_I2C_Test\Generated_Source\PSoC5\project.h</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
 <v>execute</v>
@@ -230,16 +144,10 @@
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
 <ExpandedNodeIds>
 <v>execute</v>
-<v>execute\IMU_I2C_Test</v>
-<v>execute\IMU_I2C_Test\TopDesign</v>
-<v>execute\IMU_I2C_Test\TopDesign\TopDesign.cysch</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
 <v>execute</v>
 <v>execute\execute_1_0</v>
-<v>execute\IMU_I2C_Test</v>
-<v>execute\IMU_I2C_Test\TopDesign</v>
-<v>execute\IMU_I2C_Test\TopDesign\TopDesign.cysch</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
@@ -432,51 +340,57 @@
 <v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\execute_1_0.elf</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\execute_1_0.hex</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\execute_1_0.map</v>
-<v>execute\IMU_I2C_Test</v>
-<v>execute\IMU_I2C_Test\CortexM3</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\Clock_1.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\Cm3Start.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\CyBootAsmGnu.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\CyDmac.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\cyfitter_cfg.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\CyFlash.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\CyLib.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\cymetadata.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\cyPm.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\CySpc.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\cyutils.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\EXP6_SDA.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\EXP7_SCL.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\FLAG.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\I2C_1.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\I2C_1_BOOT.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\I2C_1_INT.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\I2C_1_MASTER.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\I2C_1_PM.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\I2C_1_SLAVE.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\I2C_2.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\I2C_2_BOOT.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\I2C_2_INT.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\I2C_2_MASTER.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\I2C_2_PM.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\I2C_2_SLAVE.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\imu.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\main.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\peripherals.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\SCL_1.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\Listing Files\SDA_1.lst</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\IMU_I2C_Test.elf</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\IMU_I2C_Test.hex</v>
-<v>execute\IMU_I2C_Test\CortexM3\ARM_GCC_484\Debug\IMU_I2C_Test.map</v>
-<v>execute\IMU_I2C_Test\IMU_I2C_Test.rpt</v>
-<v>execute\IMU_I2C_Test\IMU_I2C_Test_timing.html</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
 <v>execute</v>
 <v>execute\execute_1_0</v>
+<v>execute\execute_1_0\CortexM3</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_CLK.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_DelSig_1.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_DelSig_1_AMux.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_DelSig_1_Ext_CP_Clk.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_DelSig_1_INT.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_DelSig_1_IRQ.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_DelSig_1_PM.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_DelSig_1_theACLK.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_SAR_1.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_SAR_1_INT.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_SAR_1_IRQ.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_SAR_1_PM.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_SAR_1_theACLK.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_SAR_2.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_SAR_2_INT.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_SAR_2_IRQ.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_SAR_2_PM.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\AMux_1.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\AMux_2.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\analog.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\AOP_IN.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\AOP_OUT.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\C8M.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\Clock_4.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\CLUTCH.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\Cm3Start.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\CS1.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\CS2.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\CS3.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\CyBootAsmGnu.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\CyDmac.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\cyfitter_cfg.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\CyFlash.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\CyHBUS_40MHZ.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\CyLib.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\cymetadata.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\cyPm.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\CySpc.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\cyutils.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\DE.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\DE2.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\DE3.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\DI.lst</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStates>
@@ -515,26 +429,10 @@
 <v>execute\execute_1_0\USBFS_v2_80</v>
 <v>execute\execute_1_0\VDAC8_v1_90</v>
 <v>execute\execute_1_0\ZeroTerminal</v>
-<v>execute\IMU_I2C_Test</v>
-<v>execute\IMU_I2C_Test\PSoC 5 Architecture TRM</v>
-<v>execute\IMU_I2C_Test\CY8C58LP Family Datasheet</v>
-<v>execute\IMU_I2C_Test\System Reference Guide v4_20</v>
-<v>execute\IMU_I2C_Test\cy_clock_v2_20</v>
-<v>execute\IMU_I2C_Test\cy_constant_v1_0</v>
-<v>execute\IMU_I2C_Test\cy_pins_v2_10</v>
-<v>execute\IMU_I2C_Test\I2C_v3_30</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
 <v>execute</v>
 <v>execute\execute_1_0</v>
-<v>execute\IMU_I2C_Test</v>
-<v>execute\IMU_I2C_Test\PSoC 5 Architecture TRM</v>
-<v>execute\IMU_I2C_Test\CY8C58LP Family Datasheet</v>
-<v>execute\IMU_I2C_Test\System Reference Guide v4_20</v>
-<v>execute\IMU_I2C_Test\cy_clock_v2_20</v>
-<v>execute\IMU_I2C_Test\cy_constant_v1_0</v>
-<v>execute\IMU_I2C_Test\cy_pins_v2_10</v>
-<v>execute\IMU_I2C_Test\I2C_v3_30</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStatesV2>
@@ -577,6 +475,10 @@
 <name v="..\common\src\flexsea_comm.c" />
 <name v="..\common\inc\flexsea.h" />
 <name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\WDCLK.c" />
+<name v=".\inc\imu.h" />
+<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\AMux_2.c" />
+<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\AMux_2.h" />
+<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\ADC_DelSig_1.c" />
 </OpenDocs>
 <config v="" />
 <AutoUpdate v="true" />
