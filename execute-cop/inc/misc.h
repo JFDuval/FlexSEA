@@ -33,6 +33,10 @@ void init_peripherals(void);
 // Definition(s):
 //****************************************************************************
 
+//LED:
+#define LED_PERIOD_NORM			1500
+#define LED_PERIOD_ERROR		200	
+#define LED_PULSE_LEN			80	
 
 	
 #endif	//INC_MISC_H

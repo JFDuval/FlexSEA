@@ -47,4 +47,7 @@ void init_peripherals(void)
 	//WDCLK:
 	Control_Reg_2_Write(250);
 	isr_wdclk_Start();
+	
+	//Safety code:
+	init_safety();
 }

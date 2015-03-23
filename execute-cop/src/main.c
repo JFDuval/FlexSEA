@@ -43,9 +43,10 @@ int main()
     {
 		//For now we always generate the -4V5:
 		SL_CLK_Write(1);
+		CyDelayUs(5);
 		SL_CLK_Write(0);
 		
-		//Update sensor data every 10ms:
+		//Update sensor data every 10ms, call safety functions:
 		if(flag_tb10ms)
 		{
 			flag_tb10ms = 0;
@@ -67,6 +68,10 @@ int main()
 			ezI2Cbuf[MEM_R_TEMPERATURE] = read_temp();
 			
 			ezI2Cbuf[MEM_R_STATUS1]  = STATUS1_GOOD;
+			
+			//Safety functions:
+			
+			safety_temp(ezI2Cbuf[MEM_R_TEMPERATURE]);
 		}
 		
 		if(flag_tb_1ms)
@@ -103,8 +108,7 @@ int main()
 			i2c_flag = 0;			
         }
 		
-		//Error flags:
-		
+		//Error flags:		
 
     }
 }
