@@ -25,10 +25,7 @@
 ******************************************************************************/
 /* `#START ADC_SYS_VAR`  */
 
-#include <project.h>
 #include "main.h"
-
-int16 adc_res[ADC_CHANNELS];
 
 /* `#END`  */
 
