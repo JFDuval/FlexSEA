@@ -21,6 +21,7 @@
 
 static void init_temp_buffer(void);
 static uint8 average_temp(uint8 temp);
+static uint16 average_vg(uint8 vb);
 
 //****************************************************************************
 // Variable(s)
@@ -28,6 +29,7 @@ static uint8 average_temp(uint8 temp);
 
 uint8 flag_wdclk = 0;
 uint8 temp_buffer[TEMP_BUF_SIZE];
+uint8 vb_buffer[VB_BUF_SIZE];
 
 //****************************************************************************
 // Public Function(s)
@@ -71,6 +73,38 @@ uint8 safety_temp(uint8 temp)
 	return result;
 }
 
+//Is this voltage in range?
+uint8 safety_volt(uint16 last_v, uint16 low, uint16 high)
+{
+	if(last_v < low)
+	{
+		return V_LOW;
+	}
+	else if(last_v > high)
+	{
+		return V_HIGH;
+	}
+
+	return V_NORMAL;
+}
+
+//Is the battery disconnected? 
+uint8 safety_disconnection(uint16 last_v)
+{
+	uint16 avg_vb = 0, threshold = 0;
+	
+	//Update average:
+	avg_vb = average_vg(last_v);
+	
+	//Threshold:
+	threshold = (DISCON_GAIN * avg_vb) >> DISCON_SHIFT;
+	if(last_v < threshold)
+		return BATT_DISCONNECTED;
+	
+	//Otherwise it's fine:
+	return BATT_CONNECTED;
+}
+
 //****************************************************************************
 // Private Function(s)
 //****************************************************************************
@@ -109,6 +143,35 @@ static uint8 average_temp(uint8 temp)
 	//Increase index:
 	pos++;
 	if(pos > TEMP_BUF_SIZE)
+	{
+		pos = 0;
+	}
+	
+	return result;
+}
+
+// Returns the average battery voltage for the last VB_BUF_SIZE samples
+static uint16 average_vg(uint8 vb)
+{
+	uint16 i = 0;
+	static uint16 pos = 0;
+	//VB_BUF_SIZE is 1024x uint16, so a maximum of 67108864. uint32 will do
+	uint32 vb_sum = 0;
+	uint16 result = 0;
+	
+	//Store last value:
+	vb_buffer[pos] = vb;
+	
+	//Average:
+	for(i = 0; i < VB_BUF_SIZE; i++)
+	{
+		vb_sum += vb_buffer[i];
+	}
+	result = (uint8)((vb_sum >> TEMP_BUF_SHIFT) & 0xFF);
+	
+	//Increase index:
+	pos++;
+	if(pos > VB_BUF_SIZE)
 	{
 		pos = 0;
 	}

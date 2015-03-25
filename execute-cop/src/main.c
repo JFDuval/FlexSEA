@@ -17,6 +17,9 @@
 // Variable(s)
 //****************************************************************************
 
+uint8 err_v_3v3 = 0, err_v_vg = 0, err_v_vb = 0;
+uint8 err_temp = 0, err_discon = 0;
+
 //****************************************************************************
 // Function(s)
 //****************************************************************************
@@ -24,7 +27,7 @@
 int main()
 {
 	uint8 i2c_flag = 0;
-	uint16 tmp_volt = 0;
+	uint16 tmp_volt_3v3 = 0, tmp_volt_vg = 0, tmp_volt_vb = 0;
 	uint16 extend_error_pulse = 0;
 	
 	//Initialize and start peripherals:
@@ -53,17 +56,17 @@ int main()
 			
 			//Update shared memory:
 			
-			tmp_volt = read_vb();
-			ezI2Cbuf[MEM_R_VB_SNS_MSB] = (uint8)((tmp_volt & 0xFF00) >> 8);
-			ezI2Cbuf[MEM_R_VB_SNS_LSB] = (uint8)(tmp_volt & 0x00FF);
+			tmp_volt_vb = read_vb();
+			ezI2Cbuf[MEM_R_VB_SNS_MSB] = (uint8)((tmp_volt_vb & 0xFF00) >> 8);
+			ezI2Cbuf[MEM_R_VB_SNS_LSB] = (uint8)(tmp_volt_vb & 0x00FF);
 			
-			tmp_volt = read_vg();
-			ezI2Cbuf[MEM_R_VG_SNS_MSB] = (uint8)((tmp_volt & 0xFF00) >> 8);
-			ezI2Cbuf[MEM_R_VG_SNS_LSB] = (uint8)(tmp_volt & 0x00FF);
+			tmp_volt_vg = read_vg();
+			ezI2Cbuf[MEM_R_VG_SNS_MSB] = (uint8)((tmp_volt_vg & 0xFF00) >> 8);
+			ezI2Cbuf[MEM_R_VG_SNS_LSB] = (uint8)(tmp_volt_vg & 0x00FF);
 			
-			tmp_volt = read_3v3();
-			ezI2Cbuf[MEM_R_3V3_SNS_MSB] = (uint8)((tmp_volt & 0xFF00) >> 8);
-			ezI2Cbuf[MEM_R_3V3_SNS_LSB] = (uint8)(tmp_volt & 0x00FF);
+			tmp_volt_3v3 = read_3v3();
+			ezI2Cbuf[MEM_R_3V3_SNS_MSB] = (uint8)((tmp_volt_3v3 & 0xFF00) >> 8);
+			ezI2Cbuf[MEM_R_3V3_SNS_LSB] = (uint8)(tmp_volt_3v3 & 0x00FF);
 			
 			ezI2Cbuf[MEM_R_TEMPERATURE] = read_temp();
 			
@@ -71,7 +74,11 @@ int main()
 			
 			//Safety functions:
 			
-			safety_temp(ezI2Cbuf[MEM_R_TEMPERATURE]);
+			err_temp = safety_temp(ezI2Cbuf[MEM_R_TEMPERATURE]);
+			err_v_3v3 = safety_volt(tmp_volt_3v3, M_3V3_LOW, M_3V3_HIGH);
+			err_v_vg = safety_volt(tmp_volt_vg, M_VG_LOW, M_VG_HIGH);
+			err_v_vb = safety_volt(tmp_volt_vb, M_VB_LOW, M_VB_HIGH);
+			err_discon = safety_disconnection(tmp_volt_vb);
 		}
 		
 		if(flag_tb_1ms)
