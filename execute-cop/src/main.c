@@ -18,7 +18,7 @@
 //****************************************************************************
 
 uint8 err_v_3v3 = 0, err_v_vg = 0, err_v_vb = 0;
-uint8 err_temp = 0, err_discon = 0;
+uint8 err_wdclk = 0, err_temp = 0, err_discon = 0;
 
 //****************************************************************************
 // Function(s)
@@ -29,6 +29,7 @@ int main()
 	uint8 i2c_flag = 0;
 	uint16 tmp_volt_3v3 = 0, tmp_volt_vg = 0, tmp_volt_vb = 0;
 	uint16 extend_error_pulse = 0;
+	uint8 togg_eled = 0;
 	
 	//Initialize and start peripherals:
     init_peripherals();
@@ -37,11 +38,11 @@ int main()
 	CyGlobalIntEnable;
 	
 	//PWM pass-through (ToDo program safety feature)
-	Control_Reg_1_Write(1);	
+	PWM_Enable_Write(1);	
 	
 	//Disable shorted leads
 	SL_EN_Write(0);
-
+	
     while(1)
     {
 		//For now we always generate the -4V5:
@@ -79,7 +80,15 @@ int main()
 			err_v_vg = safety_volt(tmp_volt_vg, M_VG_LOW, M_VG_HIGH);
 			err_v_vb = safety_volt(tmp_volt_vb, M_VB_LOW, M_VB_HIGH);
 			err_discon = safety_disconnection(tmp_volt_vb);
+			ezI2Cbuf[MEM_R_STATUS1] = CMB_FLAGS_STATUS1(err_wdclk, err_discon, err_temp, err_v_vb, err_v_vg);
+			ezI2Cbuf[MEM_R_STATUS2] = CMB_FLAGS_STATUS2(err_v_3v3);
 		}
+		
+		//Test code - Disconnected
+		if(err_discon == BATT_CONNECTED)
+			ELED_Write(0);
+		else
+			ELED_Write(1);
 		
 		if(flag_tb_1ms)
 		{
@@ -90,6 +99,7 @@ int main()
 				extend_error_pulse = 1000;
 				led_period = LED_PERIOD_ERROR;
 				flag_wdclk = 2;	//2 means "being processed"
+				err_wdclk = 1;
 			}
 			else
 			{
@@ -104,6 +114,7 @@ int main()
 			{
 				extend_error_pulse = 0;
 				flag_wdclk = 0;
+				err_wdclk = 0;
 			}
 		}
 		
@@ -114,8 +125,5 @@ int main()
 			i2c_flag = 1;
 			i2c_flag = 0;			
         }
-		
-		//Error flags:		
-
     }
 }

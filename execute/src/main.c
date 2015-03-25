@@ -36,6 +36,7 @@
 uint8 last_byte = 0;
 int steps = 0, current_step = 0;
 uint8_t tmp_rx_command_485_1[PAYLOAD_BUF_LEN];
+uint8 eL0 = 0, eL1 = 0, eL2 = 0;
 
 //****************************************************************************
 // Function(s)
@@ -54,6 +55,7 @@ int main(void)
 	uint8 cmd_ready_485_1 = 0;
 	static uint8 new_cmd_led = 0;
 	uint8 div2 = 0;
+	uint16 safety_delay = 0;
 	
 	//Power on delay with LEDs
 	power_on();	     
@@ -72,6 +74,7 @@ int main(void)
 	//safety_cop_comm_test_blocking();
 	//imu_test_code_blocking();
 	//motor_fixed_pwm_test_code_blocking(200);
+	//wdclk_test_blocking();
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 	//Main loop
@@ -112,7 +115,16 @@ int main(void)
 			alive_led();
 			
 			//UI RGB LED:
-			rgb_led_ui(0, 0, 0, new_cmd_led);	//ToDo add error codes
+			
+			if(safety_delay > SAFETY_DELAY)
+			{
+				status_error_codes(safety_cop.status1, safety_cop.status2, &eL0, &eL1, &eL2); 
+			}
+			else
+			{
+				safety_delay++;
+			}
+			rgb_led_ui(eL0, eL1, eL2, new_cmd_led);	//ToDo add error codes
 			if(new_cmd_led)
 			{
 				new_cmd_led = 0;

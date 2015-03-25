@@ -19,6 +19,7 @@
 //****************************************************************************
 
 struct scop safety_cop;
+volatile uint8 i2c_r_buf[24];
 
 //****************************************************************************
 // Function(s)
@@ -32,6 +33,7 @@ void decode_psoc4_values(uint8 *psoc4_data)
 	safety_cop.v_3v3 = (psoc4_data[MEM_R_3V3_SNS_MSB] << 8) + psoc4_data[MEM_R_3V3_SNS_LSB];
 	safety_cop.temperature = psoc4_data[MEM_R_TEMPERATURE];
 	safety_cop.status1 = psoc4_data[MEM_R_STATUS1];
+	safety_cop.status2 = psoc4_data[MEM_R_STATUS2];
 }
 
 //Copy of the test code used in main.c to test the hardware:
@@ -50,14 +52,24 @@ void safety_cop_comm_test_blocking(void)
 		
 		//Read from slave:
 		i2c_test_wbuf[0] = 0;
-		I2C_1_MasterWriteBuf(0x11, (uint8 *) i2c_test_wbuf, 1, I2C_1_MODE_COMPLETE_XFER);	//Write offset
+		I2C_1_MasterWriteBuf(SCOP_I2C_ADDR, (uint8 *) i2c_test_wbuf, 1, I2C_1_MODE_COMPLETE_XFER);	//Write offset
 		CyDelayUs(500);
-		I2C_1_MasterReadBuf(0x11, i2c_test_rbuf, 24, I2C_1_MODE_COMPLETE_XFER);
+		I2C_1_MasterReadBuf(SCOP_I2C_ADDR, i2c_test_rbuf, 24, I2C_1_MODE_COMPLETE_XFER);
 		CyDelayUs(500);
 		decode_psoc4_values(i2c_test_rbuf);
 		
 		ledg_state ^= 1;
 		LED_G_Write(ledg_state);
+		
+		//Yellow when there is an error:
+		if(safety_cop.status1)
+		{
+			LED_R_Write(ledg_state);
+		}
+		else
+		{
+			LED_R_Write(0);
+		}
 		
 		CyDelay(250);	
 	}
@@ -95,4 +107,106 @@ int16 dietemp_read(void)
 		return 0;
 			
 	#endif	//USE_DIETEMP		
+}
+
+void wdclk_test_blocking(void)
+{
+	uint8 toggle_wdclk = 0;
+	
+	while(1)
+	{
+		toggle_wdclk ^= 1;
+		WDCLK_Write(toggle_wdclk);
+		CyDelayUs(1200);
+	}
+}
+
+//Manual I2C [Write - Restart - Read n bytes] function
+//Takes around xus (400kHz) to run, then the ISR takes care of everything.
+int safety_cop_read(uint8 internal_reg_addr, uint8 *pData, uint16 length)
+{
+	uint8 status = 0, i = 0;
+	
+	//Currently having trouble detecting the flags to know when data is ready.
+	//For now I'll transfer the previous buffer.
+	for(i = 0; i < length; i++)
+	{
+		pData[i] = i2c_r_buf[i];
+	}
+	
+	//Clear status:
+	//I2C_1_MasterClearStatus();
+	
+	//Start, address, Write mode
+	status = I2C_1_MasterSendStart(SCOP_I2C_ADDR, 0);		
+	if(status != I2C_1_MSTR_NO_ERROR)
+		return 1;
+	
+	//Write to register
+	status = I2C_1_MasterWriteByteTimeOut(internal_reg_addr, 500);
+	if(status != I2C_1_MSTR_NO_ERROR)
+	{
+		//Release bus:
+		I2C_1_BUS_RELEASE;
+		
+		return 2;
+	}
+
+	//Repeat start, read then stop (all by ISR):
+	I2C_1_MasterReadBuf(SCOP_I2C_ADDR, (uint8 *)i2c_r_buf, length, (I2C_1_MODE_COMPLETE_XFER | I2C_1_MODE_REPEAT_START));
+	
+	return 0;
+}
+
+void safety_cop_get_status(void)
+{
+	uint8 tmp_buf[4] = {0,0,0,0};
+	
+	safety_cop_read(MEM_R_STATUS1, tmp_buf, 3);
+	safety_cop.status1 = tmp_buf[0];
+	safety_cop.status2 = tmp_buf[1];
+}
+
+void status_error_codes(uint8 sts1, uint8 sts2, uint8 *l0, uint8 *l1, uint8 *l2)
+{
+	uint8 tmp_l0 = 0, tmp_l1 = 0, tmp_l2 = 0;
+	
+	//L0 is Yellow, L1 is Red and L2 is (latching) flashing Red
+	//STATUS1 = [WDCLK, DISCON, TMPH, TMPL, VBH, VBL, VGH, VGL]
+	//STATUS2 = [0, 0, 0, 0, 0, 0, 3V3H, 3V3L]
+
+	//3V3 and VG => L0
+	//VB, WDCLK & Temp Warning => L1
+	//Temp high and disconnect => L2
+	
+	tmp_l0 = ((sts1 & 0b11) | (sts2 & 0b11));
+	tmp_l1 = (((sts1 & 0b1100) >> 2) | ((sts1 & 0b010000) >> 4) | ((sts1 & 0b10000000) >> 7));
+	tmp_l2 = ((sts1 & 0b01100000) >> 5);
+	
+	if(tmp_l0)
+	{
+		*l0 = 1;
+	}
+	else
+	{
+		*l0 = 0;
+	}
+	
+	if(tmp_l1)
+	{
+		*l1 = 1;
+	}
+	else
+	{
+		*l1 = 0;
+	}
+	
+	if(tmp_l2)
+	{
+		*l2 = 1;
+	}
+	else
+	{
+		*l2 = 0;
+	}
 }

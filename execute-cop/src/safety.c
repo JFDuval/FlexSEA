@@ -21,7 +21,7 @@
 
 static void init_temp_buffer(void);
 static uint8 average_temp(uint8 temp);
-static uint16 average_vg(uint8 vb);
+static uint16 average_vb(uint16 vb);
 
 //****************************************************************************
 // Variable(s)
@@ -29,7 +29,7 @@ static uint16 average_vg(uint8 vb);
 
 uint8 flag_wdclk = 0;
 uint8 temp_buffer[TEMP_BUF_SIZE];
-uint8 vb_buffer[VB_BUF_SIZE];
+uint16 vb_buffer[VB_BUF_SIZE];
 
 //****************************************************************************
 // Public Function(s)
@@ -94,7 +94,7 @@ uint8 safety_disconnection(uint16 last_v)
 	uint16 avg_vb = 0, threshold = 0;
 	
 	//Update average:
-	avg_vb = average_vg(last_v);
+	avg_vb = average_vb(last_v);
 	
 	//Threshold:
 	threshold = (DISCON_GAIN * avg_vb) >> DISCON_SHIFT;
@@ -151,7 +151,7 @@ static uint8 average_temp(uint8 temp)
 }
 
 // Returns the average battery voltage for the last VB_BUF_SIZE samples
-static uint16 average_vg(uint8 vb)
+static uint16 average_vb(uint16 vb)
 {
 	uint16 i = 0;
 	static uint16 pos = 0;
@@ -167,7 +167,7 @@ static uint16 average_vg(uint8 vb)
 	{
 		vb_sum += vb_buffer[i];
 	}
-	result = (uint8)((vb_sum >> TEMP_BUF_SHIFT) & 0xFF);
+	result = (uint16)((vb_sum >> VB_BUF_SHIFT) & 0xFFFF);
 	
 	//Increase index:
 	pos++;

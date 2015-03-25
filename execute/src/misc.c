@@ -57,6 +57,9 @@ void update_sensors_1(void)
 			
 		#endif	//USE_IMU
 		
+		//Safety-CoP status:
+		safety_cop_get_status();
+		
 	#endif	//USE_I2C_INT	
 }
 
@@ -253,7 +256,7 @@ void rgb_led_ui(uint8_t err_l0, uint8_t err_l1, uint8_t err_l2, uint8_t new_comm
 			{
 				if(comm_blue == 1)
 				{
-					//Communication timeout
+					//Communication timeout, blue
 					r = 0;
 					g = 0;
 					b = 1;

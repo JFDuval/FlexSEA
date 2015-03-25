@@ -1,13 +1,13 @@
-Loading plugins phase: Elapsed time ==> 0s.441ms
+Loading plugins phase: Elapsed time ==> 0s.131ms
 Initializing data phase: Elapsed time ==> 0s.000ms
 <CYPRESSTAG name="CyDsfit arguments...">
-cydsfit arguments: -.fdsnotice -.fdswarpdepfile=warp_dependencies.txt -.fdselabdepfile=elab_dependencies.txt -.fdsbldfile=generated_files.txt -p D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute-cop\execute-cop.cydsn\execute-cop.cyprj -d CY8C4245LQI-483 -s D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute-cop\execute-cop.cydsn\Generated_Source\PSoC4 -- -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE</CYPRESSTAG>
+cydsfit arguments: -.fdsnotice -.fdswarpdepfile=warp_dependencies.txt -.fdselabdepfile=elab_dependencies.txt -.fdsbldfile=generated_files.txt -p C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute-cop\execute-cop.cydsn\execute-cop.cyprj -d CY8C4245LQI-483 -s C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute-cop\execute-cop.cydsn\Generated_Source\PSoC4 -- -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE</CYPRESSTAG>
 <CYPRESSTAG name="Design elaboration results...">
 </CYPRESSTAG>
-Elaboration phase: Elapsed time ==> 4s.776ms
+Elaboration phase: Elapsed time ==> 2s.109ms
 <CYPRESSTAG name="HDL generation results...">
 </CYPRESSTAG>
-HDL generation phase: Elapsed time ==> 0s.148ms
+HDL generation phase: Elapsed time ==> 0s.084ms
 <CYPRESSTAG name="Synthesis results...">
 
      | | | | | | |
@@ -25,23 +25,23 @@ HDL generation phase: Elapsed time ==> 0s.148ms
 ======================================================================
 Compiling:  execute-cop.v
 Program  :   C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp\bin/warp.exe
-Options  :    -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE -ya -.fftprj=D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute-cop\execute-cop.cydsn\execute-cop.cyprj -dcpsoc3 execute-cop.v -verilog
+Options  :    -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE -ya -.fftprj=C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute-cop\execute-cop.cydsn\execute-cop.cyprj -dcpsoc3 execute-cop.v -verilog
 ======================================================================
 
 ======================================================================
 Compiling:  execute-cop.v
 Program  :   C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp\bin/warp.exe
-Options  :    -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE -ya -.fftprj=D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute-cop\execute-cop.cydsn\execute-cop.cyprj -dcpsoc3 execute-cop.v -verilog
+Options  :    -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE -ya -.fftprj=C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute-cop\execute-cop.cydsn\execute-cop.cyprj -dcpsoc3 execute-cop.v -verilog
 ======================================================================
 
 ======================================================================
 Compiling:  execute-cop.v
 Program  :   vlogfe
-Options  :    -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE -ya -.fftprj=D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute-cop\execute-cop.cydsn\execute-cop.cyprj -dcpsoc3 -verilog execute-cop.v
+Options  :    -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE -ya -.fftprj=C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute-cop\execute-cop.cydsn\execute-cop.cyprj -dcpsoc3 -verilog execute-cop.v
 ======================================================================
 
 vlogfe V6.3 IR 41:  Verilog parser
-Tue Mar 24 19:44:48 2015
+Wed Mar 25 11:39:57 2015
 
 
 ======================================================================
@@ -51,7 +51,7 @@ Options  :    -yv2 -q10 execute-cop.v
 ======================================================================
 
 vpp V6.3 IR 41:  Verilog Pre-Processor
-Tue Mar 24 19:44:48 2015
+Wed Mar 25 11:39:57 2015
 
 Flattening file 'C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp\..\psoc\content\cyprimitives\CyPrimitives.cylib\and_v1_0\and_v1_0.v'
 Flattening file 'C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp\..\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\B_Timer_v2_70\B_Timer_v2_70.v'
@@ -104,11 +104,11 @@ vlogfe:  No errors.
 ======================================================================
 Compiling:  execute-cop.v
 Program  :   tovif
-Options  :    -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE -ya -.fftprj=D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute-cop\execute-cop.cydsn\execute-cop.cyprj -dcpsoc3 -verilog execute-cop.v
+Options  :    -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE -ya -.fftprj=C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute-cop\execute-cop.cydsn\execute-cop.cyprj -dcpsoc3 -verilog execute-cop.v
 ======================================================================
 
 tovif V6.3 IR 41:  High-level synthesis
-Tue Mar 24 19:44:49 2015
+Wed Mar 25 11:39:58 2015
 
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp\lib\common\std.vhd'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp\lib\common\cypress.vhd'.
@@ -119,9 +119,9 @@ Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp\lib\c
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp\lib\common\stdlogic\mod_cnst.vif'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp\lib\common\stdlogic\mod_mthv.vif'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp\lib\common\stdlogic\mod_genv.vif'.
-Linking 'D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute-cop\execute-cop.cydsn\codegentemp\execute-cop.ctl'.
+Linking 'C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute-cop\execute-cop.cydsn\codegentemp\execute-cop.ctl'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\and_v1_0\and_v1_0.v'.
-Linking 'D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute-cop\execute-cop.cydsn\codegentemp\execute-cop.v'.
+Linking 'C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute-cop\execute-cop.cydsn\codegentemp\execute-cop.v'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\B_Timer_v2_70\B_Timer_v2_70.v'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp\lib\common\cypress.v'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp\lib\common\cy_psoc3_inc.v'.
@@ -149,11 +149,11 @@ tovif:  No errors.
 ======================================================================
 Compiling:  execute-cop.v
 Program  :   topld
-Options  :    -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE -ya -.fftprj=D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute-cop\execute-cop.cydsn\execute-cop.cyprj -dcpsoc3 -verilog execute-cop.v
+Options  :    -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE -ya -.fftprj=C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute-cop\execute-cop.cydsn\execute-cop.cyprj -dcpsoc3 -verilog execute-cop.v
 ======================================================================
 
 topld V6.3 IR 41:  Synthesis and optimization
-Tue Mar 24 19:44:50 2015
+Wed Mar 25 11:39:58 2015
 
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp\lib\common\std.vhd'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp\lib\common\cypress.vhd'.
@@ -164,9 +164,9 @@ Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp\lib\c
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp\lib\common\stdlogic\mod_cnst.vif'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp\lib\common\stdlogic\mod_mthv.vif'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp\lib\common\stdlogic\mod_genv.vif'.
-Linking 'D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute-cop\execute-cop.cydsn\codegentemp\execute-cop.ctl'.
+Linking 'C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute-cop\execute-cop.cydsn\codegentemp\execute-cop.ctl'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\and_v1_0\and_v1_0.v'.
-Linking 'D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute-cop\execute-cop.cydsn\codegentemp\execute-cop.v'.
+Linking 'C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute-cop\execute-cop.cydsn\codegentemp\execute-cop.v'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\B_Timer_v2_70\B_Timer_v2_70.v'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp\lib\common\cypress.v'.
 Linking 'C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp\lib\common\cy_psoc3_inc.v'.
@@ -432,8 +432,8 @@ Aliasing tmpOE__REF_net_0 to tmpOE__H1_net_0
 Aliasing tmpOE__CS1_net_0 to tmpOE__H1_net_0
 Aliasing tmpOE__CS2_net_0 to tmpOE__H1_net_0
 Aliasing tmpOE__CS3_net_0 to tmpOE__H1_net_0
-Aliasing \Control_Reg_1:clk\ to zero
-Aliasing \Control_Reg_1:rst\ to zero
+Aliasing \PWM_Enable:clk\ to zero
+Aliasing \PWM_Enable:rst\ to zero
 Aliasing tmpOE__M3V3_net_0 to tmpOE__H1_net_0
 Aliasing Net_271 to tmpOE__H1_net_0
 Aliasing \BasicCounter_1:MODULE_1:g2:a0:a_23\ to zero
@@ -454,8 +454,8 @@ Aliasing \BasicCounter_1:MODULE_1:g2:a0:a_9\ to zero
 Aliasing \BasicCounter_1:MODULE_1:g2:a0:a_8\ to zero
 Aliasing \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:b_0\ to tmpOE__H1_net_0
 Aliasing Net_139 to tmpOE__H1_net_0
-Aliasing \Control_Reg_2:clk\ to zero
-Aliasing \Control_Reg_2:rst\ to zero
+Aliasing \WDCLK_Pulse:clk\ to zero
+Aliasing \WDCLK_Pulse:rst\ to zero
 Aliasing MODIN2_7 to \BasicCounter_1:MODIN1_7\
 Aliasing MODIN2_6 to \BasicCounter_1:MODIN1_6\
 Aliasing MODIN2_5 to \BasicCounter_1:MODIN1_5\
@@ -469,8 +469,8 @@ Aliasing \MODULE_2:g1:a0:gx:u0:agbi_3\ to zero
 Aliasing \Timer_1:TimerUDB:capture_last\\D\ to zero
 Aliasing \Timer_1:TimerUDB:hwEnable_reg\\D\ to \Timer_1:TimerUDB:run_mode\
 Aliasing \Timer_1:TimerUDB:capture_out_reg_i\\D\ to \Timer_1:TimerUDB:capt_fifo_load_int\
-Removing Rhs of wire Net_3[1] = \Control_Reg_1:control_out_0\[587]
-Removing Rhs of wire Net_3[1] = \Control_Reg_1:control_0\[610]
+Removing Rhs of wire Net_3[1] = \PWM_Enable:control_out_0\[587]
+Removing Rhs of wire Net_3[1] = \PWM_Enable:control_0\[610]
 Removing Lhs of wire one[19] = tmpOE__H1_net_0[14]
 Removing Lhs of wire tmpOE__L1_net_0[22] = tmpOE__H1_net_0[14]
 Removing Lhs of wire tmpOE__H2_net_0[28] = tmpOE__H1_net_0[14]
@@ -544,8 +544,8 @@ Removing Lhs of wire tmpOE__REF_net_0[561] = tmpOE__H1_net_0[14]
 Removing Lhs of wire tmpOE__CS1_net_0[568] = tmpOE__H1_net_0[14]
 Removing Lhs of wire tmpOE__CS2_net_0[574] = tmpOE__H1_net_0[14]
 Removing Lhs of wire tmpOE__CS3_net_0[580] = tmpOE__H1_net_0[14]
-Removing Lhs of wire \Control_Reg_1:clk\[585] = zero[18]
-Removing Lhs of wire \Control_Reg_1:rst\[586] = zero[18]
+Removing Lhs of wire \PWM_Enable:clk\[585] = zero[18]
+Removing Lhs of wire \PWM_Enable:rst\[586] = zero[18]
 Removing Lhs of wire tmpOE__M3V3_net_0[612] = tmpOE__H1_net_0[14]
 Removing Lhs of wire Net_271[618] = tmpOE__H1_net_0[14]
 Removing Rhs of wire Net_111[619] = cmp_vv_vv_MODGEN_1[620]
@@ -594,24 +594,24 @@ Removing Lhs of wire \BasicCounter_1:MODIN1_0\[710] = Net_278_0[637]
 Removing Lhs of wire \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:c_0\[836] = tmpOE__H1_net_0[14]
 Removing Lhs of wire \BasicCounter_1:MODULE_1:g2:a0:g1:z1:s0:g1:u0:b_0\[837] = tmpOE__H1_net_0[14]
 Removing Lhs of wire Net_139[842] = tmpOE__H1_net_0[14]
-Removing Lhs of wire \Control_Reg_2:clk\[844] = zero[18]
-Removing Lhs of wire \Control_Reg_2:rst\[845] = zero[18]
-Removing Rhs of wire Net_280_7[846] = \Control_Reg_2:control_out_7\[847]
-Removing Rhs of wire Net_280_7[846] = \Control_Reg_2:control_7\[863]
-Removing Rhs of wire Net_280_6[848] = \Control_Reg_2:control_out_6\[849]
-Removing Rhs of wire Net_280_6[848] = \Control_Reg_2:control_6\[864]
-Removing Rhs of wire Net_280_5[850] = \Control_Reg_2:control_out_5\[851]
-Removing Rhs of wire Net_280_5[850] = \Control_Reg_2:control_5\[865]
-Removing Rhs of wire Net_280_4[852] = \Control_Reg_2:control_out_4\[853]
-Removing Rhs of wire Net_280_4[852] = \Control_Reg_2:control_4\[866]
-Removing Rhs of wire Net_280_3[854] = \Control_Reg_2:control_out_3\[855]
-Removing Rhs of wire Net_280_3[854] = \Control_Reg_2:control_3\[867]
-Removing Rhs of wire Net_280_2[856] = \Control_Reg_2:control_out_2\[857]
-Removing Rhs of wire Net_280_2[856] = \Control_Reg_2:control_2\[868]
-Removing Rhs of wire Net_280_1[858] = \Control_Reg_2:control_out_1\[859]
-Removing Rhs of wire Net_280_1[858] = \Control_Reg_2:control_1\[869]
-Removing Rhs of wire Net_280_0[860] = \Control_Reg_2:control_out_0\[861]
-Removing Rhs of wire Net_280_0[860] = \Control_Reg_2:control_0\[870]
+Removing Lhs of wire \WDCLK_Pulse:clk\[844] = zero[18]
+Removing Lhs of wire \WDCLK_Pulse:rst\[845] = zero[18]
+Removing Rhs of wire Net_280_7[846] = \WDCLK_Pulse:control_out_7\[847]
+Removing Rhs of wire Net_280_7[846] = \WDCLK_Pulse:control_7\[863]
+Removing Rhs of wire Net_280_6[848] = \WDCLK_Pulse:control_out_6\[849]
+Removing Rhs of wire Net_280_6[848] = \WDCLK_Pulse:control_6\[864]
+Removing Rhs of wire Net_280_5[850] = \WDCLK_Pulse:control_out_5\[851]
+Removing Rhs of wire Net_280_5[850] = \WDCLK_Pulse:control_5\[865]
+Removing Rhs of wire Net_280_4[852] = \WDCLK_Pulse:control_out_4\[853]
+Removing Rhs of wire Net_280_4[852] = \WDCLK_Pulse:control_4\[866]
+Removing Rhs of wire Net_280_3[854] = \WDCLK_Pulse:control_out_3\[855]
+Removing Rhs of wire Net_280_3[854] = \WDCLK_Pulse:control_3\[867]
+Removing Rhs of wire Net_280_2[856] = \WDCLK_Pulse:control_out_2\[857]
+Removing Rhs of wire Net_280_2[856] = \WDCLK_Pulse:control_2\[868]
+Removing Rhs of wire Net_280_1[858] = \WDCLK_Pulse:control_out_1\[859]
+Removing Rhs of wire Net_280_1[858] = \WDCLK_Pulse:control_1\[869]
+Removing Rhs of wire Net_280_0[860] = \WDCLK_Pulse:control_out_0\[861]
+Removing Rhs of wire Net_280_0[860] = \WDCLK_Pulse:control_0\[870]
 Removing Lhs of wire \MODULE_2:g1:a0:newa_7\[871] = Net_278_7[622]
 Removing Lhs of wire MODIN2_7[872] = Net_278_7[622]
 Removing Lhs of wire \MODULE_2:g1:a0:newa_6\[873] = Net_278_6[625]
@@ -975,16 +975,16 @@ topld:  No errors.
 
 CYPRESS_DIR    : C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp
 Warp Program   : C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp\bin/warp.exe
-Warp Arguments : -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE -ya -.fftprj=D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute-cop\execute-cop.cydsn\execute-cop.cyprj -dcpsoc3 execute-cop.v -verilog
+Warp Arguments : -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE -ya -.fftprj=C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute-cop\execute-cop.cydsn\execute-cop.cyprj -dcpsoc3 execute-cop.v -verilog
 </CYPRESSTAG>
-Warp synthesis phase: Elapsed time ==> 3s.011ms
+Warp synthesis phase: Elapsed time ==> 1s.615ms
 <CYPRESSTAG name="Fitter results...">
 <CYPRESSTAG name="Fitter startup details...">
-cyp3fit: V3.1.0.1722, Family: PSoC3, Started at: Tuesday, 24 March 2015 19:44:51
-Options: -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE -ya -.fftprj=D:\Biomech-EE-SVN2\Code\flexsea_1_0\execute-cop\execute-cop.cydsn\execute-cop.cyprj -d CY8C4245LQI-483 execute-cop.v -verilog
+cyp3fit: V3.1.0.1722, Family: PSoC3, Started at: Wednesday, 25 March 2015 11:39:59
+Options: -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE -ya -.fftprj=C:\Users\JFDuval\Desktop\Work_Folder\Biomech-EE-SVN2\Code\flexsea_1_0\execute-cop\execute-cop.cydsn\execute-cop.cyprj -d CY8C4245LQI-483 execute-cop.v -verilog
 </CYPRESSTAG>
 <CYPRESSTAG name="Design parsing">
-Design parsing phase: Elapsed time ==> 0s.041ms
+Design parsing phase: Elapsed time ==> 0s.026ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Tech mapping">
 <CYPRESSTAG name="Initial Mapping" icon="FILE_RPT_TECHM">
@@ -2677,36 +2677,16 @@ Design Equations
     Control register listing
     ------------------------------------------------------------
 
-    controlcell: Name =\Control_Reg_1:Sync:ctrl_reg\
+    controlcell: Name =\PWM_Enable:Sync:ctrl_reg\
         PORT MAP (
-            control_7 => \Control_Reg_1:control_7\ ,
-            control_6 => \Control_Reg_1:control_6\ ,
-            control_5 => \Control_Reg_1:control_5\ ,
-            control_4 => \Control_Reg_1:control_4\ ,
-            control_3 => \Control_Reg_1:control_3\ ,
-            control_2 => \Control_Reg_1:control_2\ ,
-            control_1 => \Control_Reg_1:control_1\ ,
+            control_7 => \PWM_Enable:control_7\ ,
+            control_6 => \PWM_Enable:control_6\ ,
+            control_5 => \PWM_Enable:control_5\ ,
+            control_4 => \PWM_Enable:control_4\ ,
+            control_3 => \PWM_Enable:control_3\ ,
+            control_2 => \PWM_Enable:control_2\ ,
+            control_1 => \PWM_Enable:control_1\ ,
             control_0 => Net_3 );
-        Properties:
-        {
-            cy_ctrl_mode_0 = "00000000"
-            cy_ctrl_mode_1 = "00000000"
-            cy_ext_reset = 0
-            cy_force_order = 1
-            cy_init_value = "00000000"
-        }
-        Clock Enable: True
-
-    controlcell: Name =\Control_Reg_2:Sync:ctrl_reg\
-        PORT MAP (
-            control_7 => Net_280_7 ,
-            control_6 => Net_280_6 ,
-            control_5 => Net_280_5 ,
-            control_4 => Net_280_4 ,
-            control_3 => Net_280_3 ,
-            control_2 => Net_280_2 ,
-            control_1 => Net_280_1 ,
-            control_0 => Net_280_0 );
         Properties:
         {
             cy_ctrl_mode_0 = "00000000"
@@ -2737,6 +2717,26 @@ Design Equations
             cy_init_value = "00000000"
         }
         Clock Polarity: Active High
+        Clock Enable: True
+
+    controlcell: Name =\WDCLK_Pulse:Sync:ctrl_reg\
+        PORT MAP (
+            control_7 => Net_280_7 ,
+            control_6 => Net_280_6 ,
+            control_5 => Net_280_5 ,
+            control_4 => Net_280_4 ,
+            control_3 => Net_280_3 ,
+            control_2 => Net_280_2 ,
+            control_1 => Net_280_1 ,
+            control_0 => Net_280_0 );
+        Properties:
+        {
+            cy_ctrl_mode_0 = "00000000"
+            cy_ctrl_mode_1 = "00000000"
+            cy_ext_reset = 0
+            cy_force_order = 1
+            cy_init_value = "00000000"
+        }
         Clock Enable: True
     </CYPRESSTAG>
     <CYPRESSTAG name="Count7 listing">
@@ -2813,20 +2813,20 @@ TCPWM Blocks                  :    0 :    4 :    4 :   0.00%
 Serial Communication Blocks   :    1 :    1 :    2 :  50.00%
 Segment LCD Blocks            :    0 :    1 :    1 :   0.00%
 </CYPRESSTAG>
-Technology Mapping: Elapsed time ==> 0s.679ms
-Tech mapping phase: Elapsed time ==> 0s.726ms
+Technology Mapping: Elapsed time ==> 0s.387ms
+Tech mapping phase: Elapsed time ==> 0s.404ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Analog Placement">
 <CYPRESSTAG name="Analog Placement">
-Elapsed time ==> 0.0172221s
+Elapsed time ==> 0.0265899s
 </CYPRESSTAG>
-Analog Placement phase: Elapsed time ==> 0s.043ms
+Analog Placement phase: Elapsed time ==> 0s.041ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Analog Routing">
 <CYPRESSTAG name="Analog Routing">
-Route success=True, Iterations=2 Elapsed=0.0806181 secs
+Route success=True, Iterations=2 Elapsed=0.0420323 secs
 </CYPRESSTAG>
-Analog Routing phase: Elapsed time ==> 0s.082ms
+Analog Routing phase: Elapsed time ==> 0s.043ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Analog Code Generation">
 ============ Analog Final Answer Routes ============
@@ -3165,11 +3165,11 @@ Mux Info {
     }
   }
 }
-Analog Code Generation phase: Elapsed time ==> 0s.148ms
+Analog Code Generation phase: Elapsed time ==> 0s.085ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Digital Placement">
 <CYPRESSTAG name="Detailed placement messages">
-I2076: Total run-time: 0.7 sec.
+I2076: Total run-time: 0.4 sec.
 
 </CYPRESSTAG>
 <CYPRESSTAG name="PLD Packing">
@@ -3193,17 +3193,17 @@ PLD Packing Summary
 <CYPRESSTAG name="Packed PLD Contents">
 Packed PLD Contents not displayed at this verbose level.</CYPRESSTAG>
 </CYPRESSTAG>
-PLD Packing: Elapsed time ==> 0s.002ms
+PLD Packing: Elapsed time ==> 0s.001ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Partitioning">
 <CYPRESSTAG name="Initial Partitioning Summary">
 Initial Partitioning Summary not displayed at this verbose level.</CYPRESSTAG>
 <CYPRESSTAG name="Final Partitioning Summary">
 Final Partitioning Summary not displayed at this verbose level.</CYPRESSTAG>
-Partitioning: Elapsed time ==> 0s.039ms
+Partitioning: Elapsed time ==> 0s.022ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Simulated Annealing">
-Annealing: Elapsed time ==> 0s.003ms
+Annealing: Elapsed time ==> 0s.001ms
 <CYPRESSTAG name="Simulated Annealing Results">
 The seed used for moves was 114161200.
 Inital cost was 220, final cost is 220 (0.00% improvement).</CYPRESSTAG>
@@ -3224,7 +3224,7 @@ Final Placement Summary
 Component Placement Details
 ------------------------------------------------------------
 UDB [UDB=(0,0)] contents:
-LAB@[UDB=(0,0)][LB=0] #macrocells=3, #inputs=8, #pterms=8
+LAB@[UDB=(0,0)][LB=0] #macrocells=2, #inputs=6, #pterms=7
 {
     [McSlotId=0]:     MacroCell: Name=\MODULE_2:g1:a0:gx:u0:gt_5\, Mode=(Combinatorial) @ [UDB=(0,0)][LB=0][MC=0]
         Total # of inputs        : 6
@@ -3245,21 +3245,8 @@ LAB@[UDB=(0,0)][LB=0] #macrocells=3, #inputs=8, #pterms=8
         {
         }
 
-    [McSlotId=1]:     MacroCell: Name=\Timer_1:TimerUDB:status_tc\, Mode=(Combinatorial) @ [UDB=(0,0)][LB=0][MC=1]
-        Total # of inputs        : 2
-        Total # of product terms : 1
-            Clock Enable: True
-        Main Equation            : 1 pterm
-        (
-              \Timer_1:TimerUDB:control_7\ * \Timer_1:TimerUDB:per_zero\
-        );
-        Output = \Timer_1:TimerUDB:status_tc\ (fanout=1)
-        Properties               : 
-        {
-        }
-
-    [McSlotId=2]: (empty)
-    [McSlotId=3]:     MacroCell: Name=Net_318, Mode=(T-Register) @ [UDB=(0,0)][LB=0][MC=3]
+    [McSlotId=1]: (empty)
+    [McSlotId=2]:     MacroCell: Name=Net_318, Mode=(T-Register) @ [UDB=(0,0)][LB=0][MC=2]
         Total # of inputs        : 0
         Total # of product terms : 0
         List of special equations: 
@@ -3273,24 +3260,13 @@ LAB@[UDB=(0,0)][LB=0] #macrocells=3, #inputs=8, #pterms=8
         Properties               : 
         {
         }
+
+    [McSlotId=3]: (empty)
 }
 
-LAB@[UDB=(0,0)][LB=1] #macrocells=4, #inputs=9, #pterms=6
+LAB@[UDB=(0,0)][LB=1] #macrocells=4, #inputs=5, #pterms=4
 {
-    [McSlotId=0]:     MacroCell: Name=Net_45, Mode=(Combinatorial) @ [UDB=(0,0)][LB=1][MC=0]
-        Total # of inputs        : 2
-        Total # of product terms : 1
-            Clock Enable: True
-        Main Equation            : 1 pterm
-        (
-              Net_3 * Net_2
-        );
-        Output = Net_45 (fanout=1)
-        Properties               : 
-        {
-        }
-
-    [McSlotId=1]:     MacroCell: Name=Net_34, Mode=(Combinatorial) @ [UDB=(0,0)][LB=1][MC=1]
+    [McSlotId=0]:     MacroCell: Name=Net_34, Mode=(Combinatorial) @ [UDB=(0,0)][LB=1][MC=0]
         Total # of inputs        : 2
         Total # of product terms : 1
             Clock Enable: True
@@ -3303,7 +3279,197 @@ LAB@[UDB=(0,0)][LB=1] #macrocells=4, #inputs=9, #pterms=6
         {
         }
 
-    [McSlotId=2]:     MacroCell: Name=Net_38, Mode=(Combinatorial) @ [UDB=(0,0)][LB=1][MC=2]
+    [McSlotId=1]:     MacroCell: Name=Net_37, Mode=(Combinatorial) @ [UDB=(0,0)][LB=1][MC=1]
+        Total # of inputs        : 2
+        Total # of product terms : 1
+            Clock Enable: True
+        Main Equation            : 1 pterm
+        (
+              Net_3 * Net_14
+        );
+        Output = Net_37 (fanout=1)
+        Properties               : 
+        {
+        }
+
+    [McSlotId=2]:     MacroCell: Name=Net_35, Mode=(Combinatorial) @ [UDB=(0,0)][LB=1][MC=2]
+        Total # of inputs        : 2
+        Total # of product terms : 1
+            Clock Enable: True
+        Main Equation            : 1 pterm
+        (
+              Net_3 * Net_8
+        );
+        Output = Net_35 (fanout=1)
+        Properties               : 
+        {
+        }
+
+    [McSlotId=3]:     MacroCell: Name=Net_45, Mode=(Combinatorial) @ [UDB=(0,0)][LB=1][MC=3]
+        Total # of inputs        : 2
+        Total # of product terms : 1
+            Clock Enable: True
+        Main Equation            : 1 pterm
+        (
+              Net_3 * Net_2
+        );
+        Output = Net_45 (fanout=1)
+        Properties               : 
+        {
+        }
+}
+
+controlcell: Name =\PWM_Enable:Sync:ctrl_reg\
+    PORT MAP (
+        control_7 => \PWM_Enable:control_7\ ,
+        control_6 => \PWM_Enable:control_6\ ,
+        control_5 => \PWM_Enable:control_5\ ,
+        control_4 => \PWM_Enable:control_4\ ,
+        control_3 => \PWM_Enable:control_3\ ,
+        control_2 => \PWM_Enable:control_2\ ,
+        control_1 => \PWM_Enable:control_1\ ,
+        control_0 => Net_3 );
+    Properties:
+    {
+        cy_ctrl_mode_0 = "00000000"
+        cy_ctrl_mode_1 = "00000000"
+        cy_ext_reset = 0
+        cy_force_order = 1
+        cy_init_value = "00000000"
+    }
+    Clock Enable: True
+
+UDB [UDB=(0,1)] contents:
+LAB@[UDB=(0,1)][LB=0] #macrocells=3, #inputs=7, #pterms=8
+{
+    [McSlotId=0]:     MacroCell: Name=\MODULE_2:g1:a0:gx:u0:lt_2\, Mode=(Combinatorial) @ [UDB=(0,1)][LB=0][MC=0]
+        Total # of inputs        : 6
+        Total # of product terms : 7
+            Clock Enable: True
+        Main Equation            : 7 pterms
+        (
+              !Net_278_2 * !Net_278_1 * !Net_278_0 * Net_280_0
+            + !Net_278_2 * !Net_278_1 * Net_280_1
+            + !Net_278_2 * !Net_278_0 * Net_280_1 * Net_280_0
+            + !Net_278_2 * Net_280_2
+            + !Net_278_1 * !Net_278_0 * Net_280_2 * Net_280_0
+            + !Net_278_1 * Net_280_2 * Net_280_1
+            + !Net_278_0 * Net_280_2 * Net_280_1 * Net_280_0
+        );
+        Output = \MODULE_2:g1:a0:gx:u0:lt_2\ (fanout=1)
+        Properties               : 
+        {
+        }
+
+    [McSlotId=1]:     MacroCell: Name=Net_278_0, Mode=(D-Register) @ [UDB=(0,1)][LB=0][MC=1]
+        Total # of inputs        : 2
+        Total # of product terms : 1
+        List of special equations: 
+            Clock  = (Net_173_digital) => Global
+            Clock Enable: PosEdge(Net_318)
+        Main Equation            : 1 pterm
+        (
+              !Net_331 * !Net_278_0
+        );
+        Output = Net_278_0 (fanout=9)
+        Properties               : 
+        {
+        }
+
+    [McSlotId=2]:     MacroCell: Name=__ONE__, Mode=(Combinatorial) @ [UDB=(0,1)][LB=0][MC=2]
+        Total # of inputs        : 0
+        Total # of product terms : 0
+            Clock Enable: True
+        Main Equation            : 0 pterms
+        !(
+            0
+        );
+        Output = __ONE__ (fanout=7)
+        Properties               : 
+        {
+        }
+
+    [McSlotId=3]: (empty)
+}
+
+LAB@[UDB=(0,1)][LB=1] #macrocells=1, #inputs=6, #pterms=7
+{
+    [McSlotId=0]:     MacroCell: Name=\MODULE_2:g1:a0:gx:u0:lt_5\, Mode=(Combinatorial) @ [UDB=(0,1)][LB=1][MC=0]
+        Total # of inputs        : 6
+        Total # of product terms : 7
+            Clock Enable: True
+        Main Equation            : 7 pterms
+        (
+              !Net_278_5 * !Net_278_4 * !Net_278_3 * Net_280_3
+            + !Net_278_5 * !Net_278_4 * Net_280_4
+            + !Net_278_5 * !Net_278_3 * Net_280_4 * Net_280_3
+            + !Net_278_5 * Net_280_5
+            + !Net_278_4 * !Net_278_3 * Net_280_5 * Net_280_3
+            + !Net_278_4 * Net_280_5 * Net_280_4
+            + !Net_278_3 * Net_280_5 * Net_280_4 * Net_280_3
+        );
+        Output = \MODULE_2:g1:a0:gx:u0:lt_5\ (fanout=1)
+        Properties               : 
+        {
+        }
+
+    [McSlotId=1]: (empty)
+    [McSlotId=2]: (empty)
+    [McSlotId=3]: (empty)
+}
+
+controlcell: Name =\WDCLK_Pulse:Sync:ctrl_reg\
+    PORT MAP (
+        control_7 => Net_280_7 ,
+        control_6 => Net_280_6 ,
+        control_5 => Net_280_5 ,
+        control_4 => Net_280_4 ,
+        control_3 => Net_280_3 ,
+        control_2 => Net_280_2 ,
+        control_1 => Net_280_1 ,
+        control_0 => Net_280_0 );
+    Properties:
+    {
+        cy_ctrl_mode_0 = "00000000"
+        cy_ctrl_mode_1 = "00000000"
+        cy_ext_reset = 0
+        cy_force_order = 1
+        cy_init_value = "00000000"
+    }
+    Clock Enable: True
+
+UDB [UDB=(1,0)] contents:
+LAB@[UDB=(1,0)][LB=0] #macrocells=4, #inputs=7, #pterms=8
+{
+    [McSlotId=0]:     MacroCell: Name=\MODULE_2:g1:a0:gx:u0:lt_7\, Mode=(Combinatorial) @ [UDB=(1,0)][LB=0][MC=0]
+        Total # of inputs        : 4
+        Total # of product terms : 3
+            Clock Enable: True
+        Main Equation            : 3 pterms
+        (
+              !Net_278_7 * !Net_278_6 * Net_280_6
+            + !Net_278_7 * Net_280_7
+            + !Net_278_6 * Net_280_7 * Net_280_6
+        );
+        Output = \MODULE_2:g1:a0:gx:u0:lt_7\ (fanout=1)
+        Properties               : 
+        {
+        }
+
+    [McSlotId=1]:     MacroCell: Name=Net_36, Mode=(Combinatorial) @ [UDB=(1,0)][LB=0][MC=1]
+        Total # of inputs        : 2
+        Total # of product terms : 1
+            Clock Enable: True
+        Main Equation            : 1 pterm
+        (
+              Net_3 * Net_11
+        );
+        Output = Net_36 (fanout=1)
+        Properties               : 
+        {
+        }
+
+    [McSlotId=2]:     MacroCell: Name=Net_38, Mode=(Combinatorial) @ [UDB=(1,0)][LB=0][MC=2]
         Total # of inputs        : 2
         Total # of product terms : 1
             Clock Enable: True
@@ -3316,7 +3482,54 @@ LAB@[UDB=(0,0)][LB=1] #macrocells=4, #inputs=9, #pterms=6
         {
         }
 
-    [McSlotId=3]:     MacroCell: Name=Net_111, Mode=(Combinatorial) @ [UDB=(0,0)][LB=1][MC=3]
+    [McSlotId=3]:     MacroCell: Name=\MODULE_2:g1:a0:gx:u0:gt_7\, Mode=(Combinatorial) @ [UDB=(1,0)][LB=0][MC=3]
+        Total # of inputs        : 4
+        Total # of product terms : 3
+            Clock Enable: True
+        Main Equation            : 3 pterms
+        (
+              Net_278_7 * Net_278_6 * !Net_280_6
+            + Net_278_7 * !Net_280_7
+            + Net_278_6 * !Net_280_7 * !Net_280_6
+        );
+        Output = \MODULE_2:g1:a0:gx:u0:gt_7\ (fanout=1)
+        Properties               : 
+        {
+        }
+}
+
+LAB@[UDB=(1,0)][LB=1] #macrocells=3, #inputs=8, #pterms=5
+{
+    [McSlotId=0]:     MacroCell: Name=\Timer_1:TimerUDB:status_tc\, Mode=(Combinatorial) @ [UDB=(1,0)][LB=1][MC=0]
+        Total # of inputs        : 2
+        Total # of product terms : 1
+            Clock Enable: True
+        Main Equation            : 1 pterm
+        (
+              \Timer_1:TimerUDB:control_7\ * \Timer_1:TimerUDB:per_zero\
+        );
+        Output = \Timer_1:TimerUDB:status_tc\ (fanout=1)
+        Properties               : 
+        {
+        }
+
+    [McSlotId=1]:     MacroCell: Name=\EdgeDetect_1:last\, Mode=(D-Register) @ [UDB=(1,0)][LB=1][MC=1]
+        Total # of inputs        : 1
+        Total # of product terms : 1
+        List of special equations: 
+            Clock  = (Net_173_digital) => Global
+            Clock Enable: PosEdge(Net_318)
+        Main Equation            : 1 pterm
+        (
+              Net_317
+        );
+        Output = \EdgeDetect_1:last\ (fanout=1)
+        Properties               : 
+        {
+        }
+
+    [McSlotId=2]: (empty)
+    [McSlotId=3]:     MacroCell: Name=Net_111, Mode=(Combinatorial) @ [UDB=(1,0)][LB=1][MC=3]
         Total # of inputs        : 5
         Total # of product terms : 3
             Clock Enable: True
@@ -3405,218 +3618,6 @@ controlcell: Name =\Timer_1:TimerUDB:sCTRLReg:SyncCtl:ctrlreg\
         cy_init_value = "00000000"
     }
     Clock Polarity: Active High
-    Clock Enable: True
-
-UDB [UDB=(0,1)] contents:
-LAB@[UDB=(0,1)][LB=0] #macrocells=2, #inputs=7, #pterms=8
-{
-    [McSlotId=0]:     MacroCell: Name=\MODULE_2:g1:a0:gx:u0:lt_2\, Mode=(Combinatorial) @ [UDB=(0,1)][LB=0][MC=0]
-        Total # of inputs        : 6
-        Total # of product terms : 7
-            Clock Enable: True
-        Main Equation            : 7 pterms
-        (
-              !Net_278_2 * !Net_278_1 * !Net_278_0 * Net_280_0
-            + !Net_278_2 * !Net_278_1 * Net_280_1
-            + !Net_278_2 * !Net_278_0 * Net_280_1 * Net_280_0
-            + !Net_278_2 * Net_280_2
-            + !Net_278_1 * !Net_278_0 * Net_280_2 * Net_280_0
-            + !Net_278_1 * Net_280_2 * Net_280_1
-            + !Net_278_0 * Net_280_2 * Net_280_1 * Net_280_0
-        );
-        Output = \MODULE_2:g1:a0:gx:u0:lt_2\ (fanout=1)
-        Properties               : 
-        {
-        }
-
-    [McSlotId=1]:     MacroCell: Name=Net_278_0, Mode=(D-Register) @ [UDB=(0,1)][LB=0][MC=1]
-        Total # of inputs        : 2
-        Total # of product terms : 1
-        List of special equations: 
-            Clock  = (Net_173_digital) => Global
-            Clock Enable: PosEdge(Net_318)
-        Main Equation            : 1 pterm
-        (
-              !Net_331 * !Net_278_0
-        );
-        Output = Net_278_0 (fanout=9)
-        Properties               : 
-        {
-        }
-
-    [McSlotId=2]: (empty)
-    [McSlotId=3]: (empty)
-}
-
-LAB@[UDB=(0,1)][LB=1] #macrocells=1, #inputs=6, #pterms=7
-{
-    [McSlotId=0]:     MacroCell: Name=\MODULE_2:g1:a0:gx:u0:lt_5\, Mode=(Combinatorial) @ [UDB=(0,1)][LB=1][MC=0]
-        Total # of inputs        : 6
-        Total # of product terms : 7
-            Clock Enable: True
-        Main Equation            : 7 pterms
-        (
-              !Net_278_5 * !Net_278_4 * !Net_278_3 * Net_280_3
-            + !Net_278_5 * !Net_278_4 * Net_280_4
-            + !Net_278_5 * !Net_278_3 * Net_280_4 * Net_280_3
-            + !Net_278_5 * Net_280_5
-            + !Net_278_4 * !Net_278_3 * Net_280_5 * Net_280_3
-            + !Net_278_4 * Net_280_5 * Net_280_4
-            + !Net_278_3 * Net_280_5 * Net_280_4 * Net_280_3
-        );
-        Output = \MODULE_2:g1:a0:gx:u0:lt_5\ (fanout=1)
-        Properties               : 
-        {
-        }
-
-    [McSlotId=1]: (empty)
-    [McSlotId=2]: (empty)
-    [McSlotId=3]: (empty)
-}
-
-controlcell: Name =\Control_Reg_2:Sync:ctrl_reg\
-    PORT MAP (
-        control_7 => Net_280_7 ,
-        control_6 => Net_280_6 ,
-        control_5 => Net_280_5 ,
-        control_4 => Net_280_4 ,
-        control_3 => Net_280_3 ,
-        control_2 => Net_280_2 ,
-        control_1 => Net_280_1 ,
-        control_0 => Net_280_0 );
-    Properties:
-    {
-        cy_ctrl_mode_0 = "00000000"
-        cy_ctrl_mode_1 = "00000000"
-        cy_ext_reset = 0
-        cy_force_order = 1
-        cy_init_value = "00000000"
-    }
-    Clock Enable: True
-
-UDB [UDB=(1,0)] contents:
-LAB@[UDB=(1,0)][LB=0] #macrocells=3, #inputs=4, #pterms=6
-{
-    [McSlotId=0]:     MacroCell: Name=\MODULE_2:g1:a0:gx:u0:gt_7\, Mode=(Combinatorial) @ [UDB=(1,0)][LB=0][MC=0]
-        Total # of inputs        : 4
-        Total # of product terms : 3
-            Clock Enable: True
-        Main Equation            : 3 pterms
-        (
-              Net_278_7 * Net_278_6 * !Net_280_6
-            + Net_278_7 * !Net_280_7
-            + Net_278_6 * !Net_280_7 * !Net_280_6
-        );
-        Output = \MODULE_2:g1:a0:gx:u0:gt_7\ (fanout=1)
-        Properties               : 
-        {
-        }
-
-    [McSlotId=1]: (empty)
-    [McSlotId=2]:     MacroCell: Name=\MODULE_2:g1:a0:gx:u0:lt_7\, Mode=(Combinatorial) @ [UDB=(1,0)][LB=0][MC=2]
-        Total # of inputs        : 4
-        Total # of product terms : 3
-            Clock Enable: True
-        Main Equation            : 3 pterms
-        (
-              !Net_278_7 * !Net_278_6 * Net_280_6
-            + !Net_278_7 * Net_280_7
-            + !Net_278_6 * Net_280_7 * Net_280_6
-        );
-        Output = \MODULE_2:g1:a0:gx:u0:lt_7\ (fanout=1)
-        Properties               : 
-        {
-        }
-
-    [McSlotId=3]:     MacroCell: Name=__ONE__, Mode=(Combinatorial) @ [UDB=(1,0)][LB=0][MC=3]
-        Total # of inputs        : 0
-        Total # of product terms : 0
-            Clock Enable: True
-        Main Equation            : 0 pterms
-        !(
-            0
-        );
-        Output = __ONE__ (fanout=7)
-        Properties               : 
-        {
-        }
-}
-
-LAB@[UDB=(1,0)][LB=1] #macrocells=4, #inputs=5, #pterms=4
-{
-    [McSlotId=0]:     MacroCell: Name=\EdgeDetect_1:last\, Mode=(D-Register) @ [UDB=(1,0)][LB=1][MC=0]
-        Total # of inputs        : 1
-        Total # of product terms : 1
-        List of special equations: 
-            Clock  = (Net_173_digital) => Global
-            Clock Enable: PosEdge(Net_318)
-        Main Equation            : 1 pterm
-        (
-              Net_317
-        );
-        Output = \EdgeDetect_1:last\ (fanout=1)
-        Properties               : 
-        {
-        }
-
-    [McSlotId=1]:     MacroCell: Name=Net_36, Mode=(Combinatorial) @ [UDB=(1,0)][LB=1][MC=1]
-        Total # of inputs        : 2
-        Total # of product terms : 1
-            Clock Enable: True
-        Main Equation            : 1 pterm
-        (
-              Net_3 * Net_11
-        );
-        Output = Net_36 (fanout=1)
-        Properties               : 
-        {
-        }
-
-    [McSlotId=2]:     MacroCell: Name=Net_37, Mode=(Combinatorial) @ [UDB=(1,0)][LB=1][MC=2]
-        Total # of inputs        : 2
-        Total # of product terms : 1
-            Clock Enable: True
-        Main Equation            : 1 pterm
-        (
-              Net_3 * Net_14
-        );
-        Output = Net_37 (fanout=1)
-        Properties               : 
-        {
-        }
-
-    [McSlotId=3]:     MacroCell: Name=Net_35, Mode=(Combinatorial) @ [UDB=(1,0)][LB=1][MC=3]
-        Total # of inputs        : 2
-        Total # of product terms : 1
-            Clock Enable: True
-        Main Equation            : 1 pterm
-        (
-              Net_3 * Net_8
-        );
-        Output = Net_35 (fanout=1)
-        Properties               : 
-        {
-        }
-}
-
-controlcell: Name =\Control_Reg_1:Sync:ctrl_reg\
-    PORT MAP (
-        control_7 => \Control_Reg_1:control_7\ ,
-        control_6 => \Control_Reg_1:control_6\ ,
-        control_5 => \Control_Reg_1:control_5\ ,
-        control_4 => \Control_Reg_1:control_4\ ,
-        control_3 => \Control_Reg_1:control_3\ ,
-        control_2 => \Control_Reg_1:control_2\ ,
-        control_1 => \Control_Reg_1:control_1\ ,
-        control_0 => Net_3 );
-    Properties:
-    {
-        cy_ctrl_mode_0 = "00000000"
-        cy_ctrl_mode_1 = "00000000"
-        cy_ext_reset = 0
-        cy_force_order = 1
-        cy_init_value = "00000000"
-    }
     Clock Enable: True
 
 UDB [UDB=(1,1)] contents:
@@ -5339,32 +5340,32 @@ Port | Pin | Fixed |      Type |       Drive Mode |           Name | Connections
 </CYPRESSTAG>
 </CYPRESSTAG>
 </CYPRESSTAG>
-Digital component placer commit/Report: Elapsed time ==> 0s.006ms
-Digital Placement phase: Elapsed time ==> 1s.032ms
+Digital component placer commit/Report: Elapsed time ==> 0s.003ms
+Digital Placement phase: Elapsed time ==> 0s.582ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Digital Routing">
 Routing successful.
-Digital Routing phase: Elapsed time ==> 0s.937ms
+Digital Routing phase: Elapsed time ==> 0s.538ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Bitstream and API generation">
-Bitstream and API generation phase: Elapsed time ==> 0s.120ms
+Bitstream and API generation phase: Elapsed time ==> 0s.070ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Bitstream verification">
-Bitstream verification phase: Elapsed time ==> 0s.040ms
+Bitstream verification phase: Elapsed time ==> 0s.020ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Static timing analysis">
 Timing report is in execute-cop_timing.html.
-Static timing analysis phase: Elapsed time ==> 0s.358ms
+Static timing analysis phase: Elapsed time ==> 0s.204ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Data reporting">
 Data reporting phase: Elapsed time ==> 0s.000ms
 </CYPRESSTAG>
 <CYPRESSTAG name="Database update...">
-Design database save phase: Elapsed time ==> 0s.269ms
+Design database save phase: Elapsed time ==> 0s.167ms
 </CYPRESSTAG>
-cydsfit: Elapsed time ==> 3s.820ms
+cydsfit: Elapsed time ==> 2s.195ms
 </CYPRESSTAG>
-Fitter phase: Elapsed time ==> 3s.879ms
-API generation phase: Elapsed time ==> 1s.728ms
-Dependency generation phase: Elapsed time ==> 0s.016ms
-Cleanup phase: Elapsed time ==> 0s.001ms
+Fitter phase: Elapsed time ==> 2s.229ms
+API generation phase: Elapsed time ==> 0s.794ms
+Dependency generation phase: Elapsed time ==> 0s.010ms
+Cleanup phase: Elapsed time ==> 0s.000ms

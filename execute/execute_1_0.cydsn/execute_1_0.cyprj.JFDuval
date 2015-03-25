@@ -12,14 +12,6 @@
 <CyGuid_f44455c5-3770-4452-b988-0a7a7ff46256 type_name="CyDesigner.Common.ProjMgmt.Model.CyConfigDependencies" version="1">
 <dependency_info name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM3" xml_contents_version="2">
 <CyGuid_1173175f-1b9b-4ad4-a065-754a48a27021 type_name="CyDesigner.Common.Base.CyFileDeps" version="1">
-<file name=".\CortexM3\ARM_GCC_484\Debug\flexsea.o">
-<dep name="..\inc\flexsea_local.h" />
-<dep name="..\..\common\inc\flexsea.h" />
-<dep name="..\..\common\src\flexsea.c" />
-</file>
-<file name="..\inc\flexsea_local.h" />
-<file name="..\..\common\inc\flexsea.h" />
-<file name="..\..\common\src\flexsea.c" />
 <file name=".\CortexM3\ARM_GCC_484\Debug\flexsea_cmd_comm.o">
 <dep name=".\Generated_Source\PSoC5\ADC_CLK.h" />
 <dep name=".\Generated_Source\PSoC5\ADC_DelSig_1.h" />
@@ -422,6 +414,7 @@
 <file name=".\Generated_Source\PSoC5\isr_t1.h" />
 <file name=".\Generated_Source\PSoC5\project.h" />
 <file name="..\inc\analog.h" />
+<file name="..\inc\flexsea_local.h" />
 <file name="..\inc\imu.h" />
 <file name="..\inc\main.h" />
 <file name="..\inc\misc.h" />
@@ -431,6 +424,7 @@
 <file name="..\inc\strain.h" />
 <file name="..\inc\trapez.h" />
 <file name="..\inc\usb.h" />
+<file name="..\..\common\inc\flexsea.h" />
 <file name="..\..\common\src\flexsea_cmd_comm.c" />
 <file name=".\CortexM3\ARM_GCC_484\Debug\flexsea_cmd_control.o">
 <dep name=".\Generated_Source\PSoC5\ADC_CLK.h" />
@@ -1692,12 +1686,6 @@
 <dep name="..\..\common\src\flexsea_cmd_user.c" />
 </file>
 <file name="..\..\common\src\flexsea_cmd_user.c" />
-<file name=".\CortexM3\ARM_GCC_484\Debug\flexsea_payload.o">
-<dep name="..\inc\flexsea_local.h" />
-<dep name="..\..\common\inc\flexsea.h" />
-<dep name="..\..\common\src\flexsea_payload.c" />
-</file>
-<file name="..\..\common\src\flexsea_payload.c" />
 <file name=".\CortexM3\ARM_GCC_484\Debug\flexsea_rx_cmd.o">
 <dep name=".\Generated_Source\PSoC5\ADC_CLK.h" />
 <dep name=".\Generated_Source\PSoC5\ADC_DelSig_1.h" />
@@ -5898,6 +5886,18 @@
 <dep name=".\Generated_Source\PSoC5\isr_t1.c" />
 </file>
 <file name=".\Generated_Source\PSoC5\isr_t1.c" />
+<file name=".\CortexM3\ARM_GCC_484\Debug\flexsea.o">
+<dep name="..\inc\flexsea_local.h" />
+<dep name="..\..\common\inc\flexsea.h" />
+<dep name="..\..\common\src\flexsea.c" />
+</file>
+<file name="..\..\common\src\flexsea.c" />
+<file name=".\CortexM3\ARM_GCC_484\Debug\flexsea_payload.o">
+<dep name="..\inc\flexsea_local.h" />
+<dep name="..\..\common\inc\flexsea.h" />
+<dep name="..\..\common\src\flexsea_payload.c" />
+</file>
+<file name="..\..\common\src\flexsea_payload.c" />
 <file name=".\CortexM3\ARM_GCC_484\Debug\ADC_CLK.o">
 <dep name=".\Generated_Source\PSoC5\ADC_CLK.h" />
 <dep name=".\Generated_Source\PSoC5\cydevice.h" />
@@ -20933,7 +20933,7 @@
 </dataGuid>
 <dataGuid v="769d31ea-68b1-4f0c-b90a-7c10a43ee563">
 <CyGuid_769d31ea-68b1-4f0c-b90a-7c10a43ee563 type_name="CyDesigner.Common.ProjMgmt.Model.CyLinkCustomData" version="1">
-<deps_time v="130713535498037483" />
+<deps_time v="130717893973930391" />
 </CyGuid_769d31ea-68b1-4f0c-b90a-7c10a43ee563>
 </dataGuid>
 <dataGuid v="718b6b01-68ba-4a17-b632-d38dc61ebb3b">
@@ -21034,9 +21034,7 @@
 <dataGuid v="bf610382-39c6-441f-80b8-b04622ea7845">
 <CyGuid_bf610382-39c6-441f-80b8-b04622ea7845 type_name="CyDesigner.Common.Debugger.CyWatchedVariableList" version="1">
 <debugger_watch_list>
-<CyGuid_ccf7a56e-c00d-460c-82dd-56c8f54feb7f type_name="CyDesigner.Common.Debugger.CyWatchedVariableList+CyWatchedItem" version="1" window="0" name="ctrl" radix="Default" />
-<CyGuid_ccf7a56e-c00d-460c-82dd-56c8f54feb7f type_name="CyDesigner.Common.Debugger.CyWatchedVariableList+CyWatchedItem" version="1" window="0" name="adc_delsig_dma_array" radix="Default" />
-<CyGuid_ccf7a56e-c00d-460c-82dd-56c8f54feb7f type_name="CyDesigner.Common.Debugger.CyWatchedVariableList+CyWatchedItem" version="1" window="0" name="strain" radix="Default" />
+<CyGuid_ccf7a56e-c00d-460c-82dd-56c8f54feb7f type_name="CyDesigner.Common.Debugger.CyWatchedVariableList+CyWatchedItem" version="1" window="0" name="safety_cop" radix="Default" />
 </debugger_watch_list>
 </CyGuid_bf610382-39c6-441f-80b8-b04622ea7845>
 </dataGuid>

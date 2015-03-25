@@ -25,20 +25,33 @@ struct scop
 {
 	uint16 v_vb, v_vg, v_3v3;
 	uint8 temperature;
-	uint8 status1;
+	uint8 status1, status2;
 };
 	
 //****************************************************************************
-// Prototype(s):
+// Public Function Prototype(s):
 //****************************************************************************
 
 void decode_psoc4_values(uint8 *psoc4_data);
 void safety_cop_comm_test_blocking(void);
 int16 dietemp_read(void);
+void wdclk_test_blocking(void);
+int safety_cop_read(uint8 internal_reg_addr, uint8 *pData, uint16 length);
+void safety_cop_get_status(void);
+void status_error_codes(uint8 sts1, uint8 sts2, uint8 *l0, uint8 *l1, uint8 *l2);
+
+//****************************************************************************
+// Shared Variable(s):
+//****************************************************************************
+
+extern struct scop safety_cop;
 
 //****************************************************************************
 // Definition(s):
 //****************************************************************************
+
+//Safety-CoP I2C:
+#define SCOP_I2C_ADDR			0x11
 
 //Limits:
 #define MAX_DIE_TEMP			75
@@ -72,6 +85,9 @@ int16 dietemp_read(void);
 //STATUS1 Values:
 #define STATUS1_GOOD			100
 #define STATUS1_ERROR			50
+
+//How many 1ms cycles do we skip before we start looking at safety flags?
+#define SAFETY_DELAY			1000
 	
 #endif	//INC_SAFE_H
 	

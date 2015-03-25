@@ -45,7 +45,7 @@ void init_peripherals(void)
 	I2C_1_Start();
 	
 	//WDCLK:
-	Control_Reg_2_Write(250);
+	WDCLK_Pulse_Write(WDCLK_PULSE);
 	isr_wdclk_Start();
 	
 	//Safety code:

@@ -229,7 +229,7 @@
       </registers>
     </peripheral>
     <peripheral>
-      <name>Control_Reg_2</name>
+      <name>WDCLK_Pulse</name>
       <description>No description available</description>
       <baseAddress>0x400F0070</baseAddress>
       <addressBlock>
@@ -239,7 +239,7 @@
       </addressBlock>
       <registers>
         <register>
-          <name>Control_Reg_2_CONTROL_REG</name>
+          <name>WDCLK_Pulse_CONTROL_REG</name>
           <description>No description available</description>
           <addressOffset>0x0</addressOffset>
           <size>8</size>
@@ -250,9 +250,9 @@
       </registers>
     </peripheral>
     <peripheral>
-      <name>Control_Reg_1</name>
+      <name>PWM_Enable</name>
       <description>No description available</description>
-      <baseAddress>0x400F0072</baseAddress>
+      <baseAddress>0x400F0073</baseAddress>
       <addressBlock>
         <offset>0</offset>
         <size>0x0</size>
@@ -260,7 +260,7 @@
       </addressBlock>
       <registers>
         <register>
-          <name>Control_Reg_1_CONTROL_REG</name>
+          <name>PWM_Enable_CONTROL_REG</name>
           <description>No description available</description>
           <addressOffset>0x0</addressOffset>
           <size>8</size>
@@ -2279,7 +2279,7 @@
         <register>
           <name>Timer_1_COUNTER</name>
           <description>UDB.A0 - Current Down Counter Value</description>
-          <addressOffset>0x400F0003</addressOffset>
+          <addressOffset>0x400F0002</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2288,7 +2288,7 @@
         <register>
           <name>Timer_1_PERIOD</name>
           <description>UDB.D0 - Assigned Period</description>
-          <addressOffset>0x400F0023</addressOffset>
+          <addressOffset>0x400F0022</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2297,7 +2297,7 @@
         <register>
           <name>Timer_1_Control_Reg</name>
           <description>UDB Control Register - Assigned Control Register Value</description>
-          <addressOffset>0x400F0073</addressOffset>
+          <addressOffset>0x400F0072</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2343,7 +2343,7 @@
         <register>
           <name>Timer_1_STATUS_MASK</name>
           <description>UDB Status bits Interrupt Mask Enable Register</description>
-          <addressOffset>0x400F0083</addressOffset>
+          <addressOffset>0x400F0082</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2382,7 +2382,7 @@
         <register>
           <name>Timer_1_STATUS_AUX_CTRL</name>
           <description>UDB Auxilliary Control Register</description>
-          <addressOffset>0x400F0093</addressOffset>
+          <addressOffset>0x400F0092</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
