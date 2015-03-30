@@ -253,6 +253,95 @@ int32 motor_current_pid(int32 wanted_curr, int32 measured_curr)
 	return ctrl.current.error;
 }
 
+//PI Current controller #2: speed optimized
+//'wanted_curr' & 'measured_curr' are centered at zero and are in the ±CURRENT_SPAN range
+//The sign of 'wanted_curr' will change the rotation direction, not the polarity of the current (I have no control on this)
+inline int32 motor_current_pid_2(int32 wanted_curr, int32 measured_curr)
+{
+	int curr_p = 0, curr_i = 0;
+	int curr_pwm = 0;
+	int sign = 0;
+	unsigned int uint_wanted_curr = 0;
+	int motor_current = 0;
+	int32 shifted_measured_curr = 0;
+	
+	//Clip out of range values
+	if(wanted_curr >= CURRENT_POS_LIMIT)
+		wanted_curr = CURRENT_POS_LIMIT;
+	if(wanted_curr <= CURRENT_NEG_LIMIT)
+		wanted_curr = CURRENT_NEG_LIMIT;		
+	ctrl.current.setpoint_val = wanted_curr;
+	
+	//Sign extracted from wanted_curr:
+	if(wanted_curr < 0)
+	{
+		sign = -1;
+		MotorDirection_Control = 0;		//MotorDirection_Write(0);
+		uint_wanted_curr = -wanted_curr;
+	}
+	else
+	{
+		sign = 1;
+		MotorDirection_Control = 1;		//MotorDirection_Write(1);
+		uint_wanted_curr = wanted_curr;
+	}
+	
+	//At this point 'uint_wanted_curr' is always a positive value.
+	//This is our setpoint.
+	
+	//From ADC value to motor current:
+	shifted_measured_curr = measured_curr + CURRENT_ZERO;
+	if(shifted_measured_curr <= CURRENT_ZERO)
+	{
+		//We are driving the motor (Q1 or Q3)
+		motor_current = CURRENT_ZERO - shifted_measured_curr;
+	}
+	else
+	{
+		motor_current =  shifted_measured_curr - CURRENT_ZERO;
+	}
+	//ToDo above code seems complex for no valid reason
+	
+	//At this point 'motor_current' is always a positive value.
+	//This is our measured value.
+	
+	//Error and integral of errors:
+	ctrl.current.error = uint_wanted_curr - motor_current;					//Actual error
+	ctrl.current.error_sum = ctrl.current.error_sum + ctrl.current.error;	//Cumulative error
+	
+	//Saturate cumulative error
+	if(ctrl.current.error_sum >= MAX_CUMULATIVE_ERROR)
+		ctrl.current.error_sum = MAX_CUMULATIVE_ERROR;
+	if(ctrl.current.error_sum <= -MAX_CUMULATIVE_ERROR)
+		ctrl.current.error_sum = -MAX_CUMULATIVE_ERROR;
+	
+	//Proportional term
+	curr_p = (int) ctrl.current.gain.I_KP * ctrl.current.error;
+	//Integral term
+	curr_i = (int)(ctrl.current.gain.I_KI * ctrl.current.error_sum)/100;
+	//Add differential term here if needed
+	
+	//Output
+	curr_pwm = curr_p + curr_i;
+	
+	//Saturates PWM
+	if(curr_pwm >= POS_PWM_LIMIT)
+		curr_pwm = POS_PWM_LIMIT;
+	if(curr_pwm <= 0)	//Should not happen
+		curr_pwm = 0;
+	
+	//Apply PWM
+	//motor_open_speed_2(curr_pwm, sign);
+	//Integrated to avoid a function call and a double saturation:
+	
+	//Write duty cycle to PWM module (avoiding fouble function calls)
+	CY_SET_REG16(PWM_1_COMPARE1_LSB_PTR, (uint16)curr_pwm);					//PWM_1_WriteCompare1((uint16)curr_pwm);
+	CY_SET_REG16(PWM_1_COMPARE2_LSB_PTR, (uint16)((curr_pwm >> 1) + 1));	//PWM_1_WriteCompare2((uint16)((curr_pwm >> 1) + 1));	
+	//Compare 2 can't be 0 or the ADC won't trigger
+	
+	return ctrl.current.error;
+}
+
 //Use this function to change the control strategy
 void control_strategy(unsigned char strat)
 {

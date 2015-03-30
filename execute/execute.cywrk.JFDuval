@@ -13,7 +13,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="execute\execute_1_0\Header Files\inc\misc.h">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="execute\execute_1_0">
 <ExpandedNodeIds>
 <v>execute</v>
 <v>execute\execute_1_0</v>
@@ -74,7 +74,6 @@
 <v>execute\execute_1_0\Generated_Source\PSoC5\EXP9\EXP9.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\EXP9\EXP9.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\EXP9\EXP9_aliases.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\I2C_1</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\i2cclk</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\i2cclk\i2cclk.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\i2cclk\i2cclk.h</v>
@@ -85,6 +84,7 @@
 <v>execute\execute_1_0\Generated_Source\PSoC5\isr_ds\isr_ds.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\isr_ds\isr_ds.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\isr_t1</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\MotorDirection</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\MotorDirection\MotorDirection.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\MotorDirection\MotorDirection.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\UART_2</v>
@@ -326,6 +326,18 @@
 <v>execute\execute-cop\Generated_Source\PSoC4\project.h</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
+<v>execute</v>
+<v>execute\execute_1_0</v>
+<v>execute\execute_1_0\TopDesign</v>
+<v>execute\execute_1_0\execute_1_0.cydwr</v>
+<v>execute\execute_1_0\Header Files</v>
+<v>execute\execute_1_0\Header Files\common</v>
+<v>execute\execute_1_0\Header Files\common\flexsea.h</v>
+<v>execute\execute_1_0\Header Files\common\flexsea_buffers.h</v>
+<v>execute\execute_1_0\Header Files\common\flexsea_cmd_comm.h</v>
+<v>execute\execute_1_0\Header Files\common\flexsea_cmd_control.h</v>
+<v>execute\execute_1_0\Header Files\common\flexsea_cmd_data.h</v>
+<v>execute\execute_1_0\Header Files\common\flexsea_cmd_external.h</v>
 <v>execute\execute_1_0\Header Files\common\flexsea_cmd_sensors.h</v>
 <v>execute\execute_1_0\Header Files\common\flexsea_cmd_system.h</v>
 <v>execute\execute_1_0\Header Files\common\flexsea_cmd_user.h</v>
@@ -362,18 +374,6 @@
 <v>execute\execute_1_0\Source Files\common\flexsea_tx_cmd.c</v>
 <v>execute\execute_1_0\Source Files\src</v>
 <v>execute\execute_1_0\Source Files\src\analog.c</v>
-<v>execute\execute_1_0\Source Files\src\flexsea_local.c</v>
-<v>execute\execute_1_0\Source Files\src\imu.c</v>
-<v>execute\execute_1_0\Source Files\src\main.c</v>
-<v>execute\execute_1_0\Source Files\src\misc.c</v>
-<v>execute\execute_1_0\Source Files\src\motor.c</v>
-<v>execute\execute_1_0\Source Files\src\peripherals.c</v>
-<v>execute\execute_1_0\Source Files\src\safety.c</v>
-<v>execute\execute_1_0\Source Files\src\strain.c</v>
-<v>execute\execute_1_0\Source Files\src\trapez.c</v>
-<v>execute\execute_1_0\Source Files\src\usb.c</v>
-<v>execute\execute_1_0\Generated_Source</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
@@ -814,8 +814,23 @@
 </CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
 <Unloaded />
 <OpenDocs>
-<name v="..\execute-cop\src\main.c" />
 <name v=".\src\main.c" />
+<name v=".\execute_1_0.cydsn\TopDesign\TopDesign.cysch" />
+<name v="..\common\src\flexsea_buffers.c" />
+<name v=".\src\imu.c" />
+<name v=".\src\misc.c" />
+<name v=".\inc\misc.h" />
+<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\EXP8.c" />
+<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\EXP8.h" />
+<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\EXP9.c" />
+<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\EXP9.h" />
+<name v=".\src\peripherals.c" />
+<name v="..\common\src\flexsea_comm.c" />
+<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\isr_dma.c" />
+<name v=".\src\motor.c" />
+<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\MotorDirection.c" />
+<name v=".\inc\motor.h" />
+<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\PWM_1.c" />
 </OpenDocs>
 <config v="" />
 <AutoUpdate v="true" />

@@ -6372,8 +6372,8 @@
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM3@C/C++@General@Struct Return Method" v="System Default" />
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM3@C/C++@General@Verbose Asm" v="False" />
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM3@C/C++@Optimization@Remove Unused Functions" v="True" />
-<name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM3@C/C++@Optimization@Inline Functions" v="False" />
-<name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM3@C/C++@Optimization@Optimization Level" v="None" />
+<name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM3@C/C++@Optimization@Inline Functions" v="True" />
+<name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM3@C/C++@Optimization@Optimization Level" v="Speed" />
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM3@C/C++@Optimization@Link Time Optimization" v="False" />
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM3@C/C++@Command Line@Command Line" v="" />
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM3@Library Generation@Command Line@Command Line" v="" />

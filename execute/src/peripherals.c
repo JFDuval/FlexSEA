@@ -103,13 +103,6 @@ void init_tb_timers(void)
 	Timer_1_Init();
 	Timer_1_Start();
 	isr_t1_Start();
-	
-	/*
-	//Timer 2: 50ms (safety)
-	Timer_2_Init();
-	Timer_2_Start();
-	isr_t2_Start();
-	*/
 }
 
 void init_rs485(void)
@@ -125,12 +118,6 @@ void init_rs485(void)
 void init_i2c1(void)
 {
 	#ifdef USE_I2C_INT	
-	/*
-	I2C_1_Init();
-	I2C_1_EnableInt();
-	I2C_1_Enable();
-	I2C_1_Start();	
-	*/
 	I2C_1_EnableInt();
 	I2C_1_Start();	
 	#endif	//USE_I2C_INT
@@ -151,7 +138,6 @@ void init_clutch(void)
 	//PWM2: Clutch
 	PWM_2_Start();
 	PWM_2_WriteCompare(0);	//Start at 0%
-	//isr_pwm_Start();	
 }
 
 //PWM output for the clutch

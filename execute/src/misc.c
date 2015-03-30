@@ -281,7 +281,7 @@ void rgb_led_ui(uint8_t err_l0, uint8_t err_l1, uint8_t err_l2, uint8_t new_comm
 void timing_test_blocking(void)
 {
 	//Disable Global Interrupts
-    //CyGlobalIntDisable; 
+    CyGlobalIntDisable; 
 	
 	while(1)
 	{
@@ -295,6 +295,43 @@ void timing_test_blocking(void)
 		
 		CyDelayUs(SDELAY);
 		
+		//Motor current PID
+		EXP8_Write(1);
+		motor_current_pid(ctrl.current.setpoint_val, ctrl.current.actual_val);
+		EXP8_Write(0);
+		
+		//Motor current PID #2
+		EXP8_Write(1);
+		motor_current_pid_2(ctrl.current.setpoint_val, ctrl.current.actual_val);
+		EXP8_Write(0);
+		
+		//Exit sequence:
+		EXP9_Write(0);
+		CyDelayUs(10*SDELAY);
+		
+		/*
+		
+		//SAR ADC filter
+		EXP8_Write(1);
+		filter_adc();
+		EXP8_Write(0);
+		
+		//DelSig ADC filter
+		EXP8_Write(1);
+		strain_filter_dma();
+		EXP8_Write(0);
+		
+		//Unpack payload (no data in the buffer)
+		EXP8_Write(1);
+		unpack_payload_485_1();
+		EXP8_Write(0);
+		
+		//Exit sequence:
+		EXP9_Write(0);
+		CyDelayUs(10*SDELAY);
+		*/
+		
+		/*
 		//Position controller
 		EXP8_Write(1);
 		motor_position_pid(ctrl.position.setpoint_val, ctrl.position.actual_val);
@@ -317,6 +354,7 @@ void timing_test_blocking(void)
 		//Exit sequence:
 		EXP9_Write(0);
 		CyDelayUs(10*SDELAY);
+		*/
 		
 		/*
 		filter_adc();
