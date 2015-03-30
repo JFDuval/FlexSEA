@@ -73,8 +73,9 @@ int main(void)
 	//strain_test_blocking();
 	//safety_cop_comm_test_blocking();
 	//imu_test_code_blocking();
-	//motor_fixed_pwm_test_code_blocking(200);
+	//motor_fixed_pwm_test_code_blocking(100);
 	//wdclk_test_blocking();
+	timing_test_blocking();
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 	//Main loop
@@ -84,8 +85,6 @@ int main(void)
 		if(t1_1ms_1_flag)
 		{
 			t1_1ms_1_flag = 0;
-			
-			EXP9_Write(1);	//Used to test the timing - can be removed	
 			
 			#ifdef USE_QEI1
 				
@@ -118,7 +117,7 @@ int main(void)
 			
 			if(safety_delay > SAFETY_DELAY)
 			{
-				status_error_codes(safety_cop.status1, safety_cop.status2, &eL0, &eL1, &eL2); 
+				//status_error_codes(safety_cop.status1, safety_cop.status2, &eL0, &eL1, &eL2); 
 			}
 			else
 			{
@@ -135,21 +134,15 @@ int main(void)
 			{
 				motor_open_speed_1(0);
 			}
-			
-			EXP9_Write(0);	//Used to test the timing - can be removed	
 		}
 		
 		//1ms timebase #2 (delayed by 400us)
 		if(t1_1ms_2_flag)
 		{
-			EXP8_Write(1);
-			
 			t1_1ms_2_flag = 0;
 			
 			//Refresh all the sensor data:
 			update_sensors_2();
-			
-			EXP8_Write(0);
 		}
 		
 		/* Temporarily removing the 10 & 50ms timbases. Their code isn't used for now anyway

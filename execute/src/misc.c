@@ -275,3 +275,76 @@ void rgb_led_ui(uint8_t err_l0, uint8_t err_l1, uint8_t err_l2, uint8_t new_comm
 	//Assign the color to the RGB LED:
 	set_led_rgb(r, g, b);
 }
+
+//How long does it take to run X function? Use this code and a scope to find out.
+#define SDELAY	5
+void timing_test_blocking(void)
+{
+	//Disable Global Interrupts
+    //CyGlobalIntDisable; 
+	
+	while(1)
+	{
+		//Synch sequence
+		EXP9_Write(1);
+		EXP8_Write(0);
+		EXP8_Write(1);
+		EXP8_Write(0);
+		EXP8_Write(1);
+		EXP8_Write(0);
+		
+		CyDelayUs(SDELAY);
+		
+		//Position controller
+		EXP8_Write(1);
+		motor_position_pid(ctrl.position.setpoint_val, ctrl.position.actual_val);
+		EXP8_Write(0);
+		
+		CyDelayUs(SDELAY);
+		
+		//Impedance controller:
+		EXP8_Write(1);
+		motor_impedance_encoder(ctrl.impedance.setpoint_val, ctrl.impedance.actual_val);
+		EXP8_Write(0);
+		
+		CyDelayUs(SDELAY);
+		
+		//RGB LED UI:
+		EXP8_Write(1);
+		rgb_led_ui(1, 1, 1, 1);
+		EXP8_Write(0);
+
+		//Exit sequence:
+		EXP9_Write(0);
+		CyDelayUs(10*SDELAY);
+		
+		/*
+		filter_adc();
+		
+		strain_filter_dma();
+		*/
+		
+		/*
+		unpack_payload_485_1();
+	
+		//Valid communication from RS-485 #1?
+		if(cmd_ready_485_1 != 0)
+		{
+			cmd_ready_485_1 = 0;
+			
+			//Cheap trick to get first line	//ToDo: support more than 1
+			for(i = 0; i < PAYLOAD_BUF_LEN; i++)
+			{
+				tmp_rx_command_485_1[i] = rx_command_485_1[0][i];
+			}
+			
+			//payload_parse_str() calls the functions (if valid)
+			result = payload_parse_str(tmp_rx_command_485_1);
+			
+			//LED:
+			new_cmd_led = 1;
+		}
+		*/
+	}
+	
+}

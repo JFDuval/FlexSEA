@@ -44,6 +44,7 @@ void alive_led(void);
 void power_on(void);
 void set_led_rgb(unsigned char r, unsigned char g, unsigned char b);
 void rgb_led_ui(uint8_t err_l0, uint8_t err_l1, uint8_t err_l2, uint8_t new_comm);
+void timing_test_blocking(void);
 
 //****************************************************************************
 // Definition(s):
