@@ -106,9 +106,11 @@ void flexsea_spi_open(void)
 //Print details on terminal
 void flexsea_spi_print_details(void)
 {
-#ifdef USE_PRINTF
-    printf("[FlexSEA-SPI]: Mode = %d, Bits = %d, Max Speed (Hz) = %d\n", mode, bits, speed);
-#endif
+	#ifdef USE_PRINTF
+
+    printf("SPI Driver: Mode = %d, Bits = %d, Max Speed (Hz) = %d\n", mode, bits, speed);
+
+	#endif
 }
 
 //Closes the SPI port

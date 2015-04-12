@@ -2,7 +2,7 @@
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
 // jfduval@mit.edu
-// 08/2014
+// 04/2015
 //****************************************************************************
 // main: FlexSEA Plan project: console app to control FlexSEA slaves
 //****************************************************************************
@@ -11,28 +11,12 @@
 // Include(s)
 //****************************************************************************
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "../inc/flexsea_console.h"
-#include "../inc/plan_spi.h"
-#include "flexsea_local.h"
+#include "main.h"
 
 //****************************************************************************
 // Local variable(s) & definitions
 //****************************************************************************
 
-int analog0 = 0;
-
-#ifdef SINGLE_COMMAND
-#ifdef MULTIPLE_COMMANDS
-#error "Pick one Command option!"
-#endif
-#endif
-
-//Multiple commands:
-#define MAX_COMMAND_LEN 256
-#define MAX_ARGS 12
 char *fake_argv[MAX_ARGS];
 const char *delims = " \n";
 
@@ -42,21 +26,27 @@ const char *delims = " \n";
 
 int main(int argc, char *argv[])
 {
-#ifdef MULTIPLE_COMMANDS
+	#ifdef MULTIPLE_COMMANDS
+
     char command[MAX_COMMAND_LEN];
     char string1[TXT_STR_LEN], string2[TXT_STR_LEN] = "quit";
     char default_argv[] = "";
     int i = 0;
-#endif  //MULTIPLE_COMMANDS
 
-#ifndef DEBUG
+	#endif  //MULTIPLE_COMMANDS
+
+	#ifndef DEBUG
+
     //Open SPI:
     flexsea_spi_open();
-#else
-    printf("\nFlexSEA-Plan - Native\n=====================\n\n");
-#endif
 
-#ifdef MULTIPLE_COMMANDS
+	#else
+
+    printf("\nFlexSEA-Plan - Debug\n=====================\n\n");
+
+	#endif
+
+	#ifdef MULTIPLE_COMMANDS
 
     while(fgets(command, sizeof(command), stdin))
     {
@@ -101,22 +91,25 @@ int main(int argc, char *argv[])
             decode_spi_rx();
         }
     }
-#endif  //MULTIPLE_COMMANDS
 
-#ifdef SINGLE_COMMAND
+	#endif  //MULTIPLE_COMMANDS
+
+	#ifdef SINGLE_COMMAND
 
     //Parser for console commands:
-    flexsea_console_parser(argc, argv);
+    parser_console(argc, argv);
 
     //Can we decode what we received?
     decode_spi_rx();
 
-#endif  //SINGLE_COMMAND
+	#endif  //SINGLE_COMMAND
 
-#ifndef DEBUG
+	#ifndef DEBUG
+
     //Close SPI:
     flexsea_spi_close();
-#endif
+
+	#endif
 
     return 0;
 }

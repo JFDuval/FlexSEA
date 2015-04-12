@@ -2,50 +2,52 @@
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
 // jfduval@mit.edu
-// 07/2014
+// 04/2015
 //****************************************************************************
-// flexsea_console: Console application used to send commands on the network
+// main: FlexSEA Plan project: console app to control FlexSEA slaves
 //****************************************************************************
 
-#ifndef INC_FLEXSEA_CONSOLE_H
-#define INC_FLEXSEA_CONSOLE_H
+#ifndef INC_MAINH_H
+#define INC_MAINH_H
 
 //****************************************************************************
 // Include(s)
 //****************************************************************************
 
-#include <stdint.h>
-
-//****************************************************************************
-// Shared variable(s)
-//****************************************************************************
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <termios.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <time.h>
+#include "flexsea.h"
+#include "flexsea_console.h"
+#include "flexsea_stream_log.h"
+#include "plan_spi.h"
+#include "flexsea_local.h"
+#include "shuobot.h"
+#include "demo_test.h"
 
 //****************************************************************************
 // Public Function Prototype(s):
 //****************************************************************************
 
-void parser_console(int argc, char *argv[]);
-int kbhit(void);
+
 
 //****************************************************************************
 // Definition(s):
 //****************************************************************************
 
-//Number of System Commands:
-#define SYS_CMD				6
+#ifdef SINGLE_COMMAND
+#ifdef MULTIPLE_COMMANDS
+#error "Pick one Command option!"
+#endif
+#endif
 
-//MAX_CMD has to equal the number of FCP_xx lines!
-#define MAX_CMD         	24
-#define NO_CMD_FOUND    	127
+//Multiple commands:
+#define MAX_COMMAND_LEN 		256
+#define MAX_ARGS 				12
 
-//MAX_SLAVE has to equal the number of slave_list lines!
-#define MAX_SLAVE       	4       //For now, 1x Manage and 2x Execute
-#define NO_SLAVE_FOUND  	127
-
-//Length of the text strings:
-#define TXT_STR_LEN			40
-
-//#define USE_PRINTF
 
 #endif

@@ -2,19 +2,18 @@
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
 // jfduval@mit.edu
-// 07/2014
+// 04/2015
 //****************************************************************************
-// flexsea_console: Console application used to send commands on the network
+// flexsea_stream_log: Stream & Data log
 //****************************************************************************
 
-#ifndef INC_FLEXSEA_CONSOLE_H
-#define INC_FLEXSEA_CONSOLE_H
+#ifndef INC_FLEXSEA_SLOG_H
+#define INC_FLEXSEA_SLOG_H
 
 //****************************************************************************
 // Include(s)
 //****************************************************************************
 
-#include <stdint.h>
 
 //****************************************************************************
 // Shared variable(s)
@@ -25,27 +24,14 @@
 // Public Function Prototype(s):
 //****************************************************************************
 
-void parser_console(int argc, char *argv[]);
-int kbhit(void);
+void flexsea_console_print_execute(void);
+void flexsea_console_print_manage(void);
+void flexsea_console_stream_slave_read(unsigned char slaveid, unsigned char offs);
+void flexsea_console_datalogger(uint8_t slaveid, uint8_t offs);
 
 //****************************************************************************
 // Definition(s):
 //****************************************************************************
 
-//Number of System Commands:
-#define SYS_CMD				6
-
-//MAX_CMD has to equal the number of FCP_xx lines!
-#define MAX_CMD         	24
-#define NO_CMD_FOUND    	127
-
-//MAX_SLAVE has to equal the number of slave_list lines!
-#define MAX_SLAVE       	4       //For now, 1x Manage and 2x Execute
-#define NO_SLAVE_FOUND  	127
-
-//Length of the text strings:
-#define TXT_STR_LEN			40
-
-//#define USE_PRINTF
 
 #endif
