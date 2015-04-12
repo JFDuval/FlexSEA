@@ -45,7 +45,7 @@ void shuobot(void)
 {
 	//For now it calls shuobot_demo(). Replace this with your code.
 	//shuobot_demo_1();
-	shuobot_demo_2();
+	shuobot_demo_1();
 }
 
 //Demonstration/test code. Calling ./plan execute_1 shuobot will call this.
@@ -125,7 +125,7 @@ static void shuobot_demo_1(void)
 
         //Enable these 2 lines to print ("Stream" mode):
         system("clear");					//Clear terminal
-        flexsea_console_print_manage();
+        flexsea_console_print_execute();
 
         //Log to file:
 		fprintf(logfile, "[%d:%d],%i,%i,%i,%i,%i,%i,%i\n", tm.tm_min, tm.tm_sec, \
@@ -137,7 +137,7 @@ static void shuobot_demo_1(void)
         //========================================
 
         //Delay
-        usleep(10000);	//Should be much shorter in a real application
+        usleep(1000);	//Should be much shorter in a real application
     }
 
     //Close log file:

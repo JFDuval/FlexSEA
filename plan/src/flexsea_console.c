@@ -26,6 +26,7 @@
 //#include "../../common/inc/flexsea_rx_cmd.h"
 //#include "../../common/inc/flexsea_tx_cmd.h"
 #include "shuobot.h"
+#include "demo_test.h"
 
 //****************************************************************************
 // Local variable(s)
@@ -38,9 +39,9 @@ unsigned char slave_id[MAX_SLAVE] = {FLEXSEA_DEFAULT, FLEXSEA_MANAGE_1, FLEXSEA_
 char fcp_list[MAX_CMD][TXT_STR_LEN] = 	{"info", "cmd_imu_read", "cmd_encoder_write", "cmd_encoder_read", "cmd_strain_read", "cmd_strain_config", \
 										"cmd_clutch_write", "cmd_analog_read", "cmd_ctrl_mode_write", "cmd_ctrl_i_gains_write", "cmd_ctrl_p_gains_write", \
 										"cmd_ctrl_o_write", "cmd_ctrl_i_write", "cmd_ctrl_i_read", "cmd_mem_read", "cmd_acq_mode_write", "stream", "log", \
-										"shuobot", "set_z_gains", "special1", "cmd_switch"};
+										"shuobot", "set_z_gains", "special1", "cmd_switch", "demo1", "test"};
 //info is command 0, set_pid is 1, etc...
-char fcp_args[MAX_CMD] = {0, 2, 1, 0, 0, 3, 1, 2, 1, 3, 3, 1, 1, 0, 2, 1, 0, 0, 0, 3, 6, 0};
+char fcp_args[MAX_CMD] = {0, 2, 1, 0, 0, 3, 1, 2, 1, 3, 3, 1, 1, 0, 2, 1, 0, 0, 0, 3, 6, 0, 1, 0};
 //fcp_args contains the number of arguments for each command
 
 //****************************************************************************
@@ -456,6 +457,23 @@ void flexsea_console_parser(int argc, char *argv[])
 					numb = comm_gen_str(payload_str, numb);
 					break;
 
+				case 22: //'demo1'
+					tmp0 = atoi(argv[3]);
+					#ifdef USE_PRINTF
+					printf("[Demo #1] PWM DC = %i", tmp0);
+					#endif
+					//Prepare and send data:
+					demo_1(tmp0);
+					break;
+
+				case 23: //'test'
+					#ifdef USE_PRINTF
+					printf("[Test Code]");
+					#endif
+					//Prepare and send data:
+					test_code();
+					break;
+
 				default:
 					#ifdef USE_PRINTF
 					printf("Invalid command.\n");
@@ -608,6 +626,8 @@ void flexsea_console_datalogger(uint8_t slaveid, uint8_t offs)
         good += tmp;
 
         //Log to file:
+        t = time(NULL);
+        tm = *localtime(&t);
         fprintf(logfile, "[%d:%d],%i,%i,%i,%i,%i,%i,%i\n", tm.tm_min, tm.tm_sec, \
                 		exec1.encoder, exec1.current, exec1.imu.x, exec1.imu.y, exec1.imu.z, \
         				exec1.strain, exec1.analog[0]);
@@ -619,6 +639,9 @@ void flexsea_console_datalogger(uint8_t slaveid, uint8_t offs)
     //Close log file:
     fclose(logfile);
 
-    printf("\n%i lines (%i with valid data)\n", lines, good);
-    printf("Log file closed. Exiting.\n\n\n");
+    //printf("\n%i lines (%i with valid data)\n", lines, good);
+    t = time(NULL);
+    tm = *localtime(&t);
+    printf("\n%i lines logged\n", lines);
+    printf("Log file closed (%d-%d-%d-%d:%d:%d) . Exiting.\n\n\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
 }

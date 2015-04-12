@@ -35,7 +35,7 @@
 static const char *device = "/dev/spidev1.0";
 static uint8_t mode;
 static uint8_t bits = 8;
-static uint32_t speed = 5000000;
+static uint32_t speed = 10000000;
 static uint16_t delay = 0;
 
 int fd;
