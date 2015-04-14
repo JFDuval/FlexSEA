@@ -18,22 +18,37 @@
 //****************************************************************************
 
 //Console slave list:
-char slave_list[MAX_SLAVE][TXT_STR_LEN] = {"default", "manage_1", "execute_1", "execute_2"};
-unsigned char slave_id[MAX_SLAVE] = {FLEXSEA_DEFAULT, FLEXSEA_MANAGE_1, FLEXSEA_EXECUTE_1, FLEXSEA_EXECUTE_2};
+char slave_list[MAX_SLAVE][TXT_STR_LEN] = 	{"default", "mn1", "ex1", "ex2", "ex3", "ex4"};
+unsigned char slave_id[MAX_SLAVE] = 	{FLEXSEA_DEFAULT, FLEXSEA_MANAGE_1, FLEXSEA_EXECUTE_1, \
+										FLEXSEA_EXECUTE_2, FLEXSEA_EXECUTE_3, FLEXSEA_EXECUTE_4};
+//Note: we use the abbreviations "mn" for Manage and "ex" for Execute
 
-//Console system command list:
+//Note: for the System and FlexSEA commands, _list contains the commands and _args
+// 		has the number of arguments required by the command. The slave name, command
+//		name and r/w do not count.As an example, "./plan info" has 0 arguments,
+//		"./plan ex1 w clutch 255" has 1 argument.
+
+//Console system command list and # of arguments:
 char sys_list[SYS_CMD][TXT_STR_LEN] = 	{"info", "stream", "log", "demo", "test", "user"};
 char sys_args[SYS_CMD] = {0, 1, 1, 1, 1, 1};
-//fcp_args contains the number of arguments for each command
 
-//Console FlexSEA command list:
-char fcp_list[MAX_CMD][TXT_STR_LEN] = 	{"cmd_imu_read", "cmd_encoder_write", "cmd_encoder_read", "cmd_strain_read", "cmd_strain_config", \
-										"cmd_clutch_write", "cmd_analog_read", "cmd_ctrl_mode_write", "cmd_ctrl_i_gains_write", "cmd_ctrl_p_gains_write", \
-										"cmd_ctrl_o_write", "cmd_ctrl_i_write", "cmd_ctrl_i_read", "cmd_mem_read", "cmd_acq_mode_write", \
-										"set_z_gains", "special1", "cmd_switch"};
-//info is command 0, set_pid is 1, etc...
-char fcp_args[MAX_CMD] = {0, 2, 1, 0, 0, 3, 1, 2, 1, 3, 3, 1, 1, 0, 2, 1, 0, 0, 0, 3, 6, 0, 1, 0};
-//fcp_args contains the number of arguments for each command
+//Console FlexSEA command list and # of arguments:
+char fcp_list[MAX_CMD][TXT_STR_LEN] = 	{"ping", "status", "reset", "ack", \
+										"memory", "acquisition", "rs485_config", "usb_config", \
+										"usb_write", "temperature", "switch", "imu", \
+										"encoder", "strain", "strain_config", "volt", \
+										"batt", "power_out", "clutch", "adv_ana_config", \
+										"analog", "digital", "digital_config", "exp_periph_config", \
+										"ctrl_mode", "ctrl_gains", "ctrl_i_gains", "ctrl_p_gains", \
+										"ctrl_z_gains", "ctrl_o", "ctrl_i", "ctrl_p", \
+										"shorted_leads", "special1", "special2"};
+char fcp_args[MAX_CMD] = 	{0, 0, 0, 0, \
+							0, 0, 0, 0, \
+							0, 0, 0, 0, \
+							0, 0, 0, 0, \
+							0, 0, 0, 0, \
+							0, 0, 0, 0};	//ToDo
+//(4 parameters per line to simplify modifications and minimize errors)
 
 //****************************************************************************
 // External variable(s)
@@ -50,27 +65,30 @@ extern struct execute_s exec1;
 //****************************************************************************
 
 static void parser_system(int index, char *argv[]);
-static void parser_flexsea(int slave, int index, char *argv[]);
+static void parser_flexsea(int slave, int index, char rw, char *argv[]);
 static void print_parse_result(unsigned char res);
-static void flexsea_console_print_cmd_list(void);
+static void flexsea_console_print_info(void);
 static int find_string(char *user_str, char list[][TXT_STR_LEN], int max_index);
-static int arg_cnt(char argc, char *array, int index);
+static int arg_cnt(char arg_cnt, char *array, int index);
 
 //****************************************************************************
 // Public Function(s):
 //****************************************************************************
 
 //Parse console commands. Will call parser_system() and parser_flexsea() if needed.
+//This is the first screening, used to determine if we have a system or a FlexSEA
+//command, a valid slave name, enough arguments, etc.
 void parser_console(int argc, char *argv[])
 {
     int index1 = 0, index2 = 0;
+    char rw = 0;
 
     //Arguments passed to the function:
     if(argc == 1)
     {
-        //No argument but the name. Display error and return
+        //No argument but the name. Display error and return.
 		#ifdef USE_PRINTF
-        printf("FlexSEA needs at least 1 argument... Exiting...\n");
+        printf("<parser_console> FlexSEA needs at least 1 argument... Exiting...\n");
 		#endif
 
         return;
@@ -87,26 +105,42 @@ void parser_console(int argc, char *argv[])
     	{
     		//Found a System Command
     		printf("Found a System Command\n");
-    		parser_system(index1, argv);
-    		return;
+
+    		//Right number of arguments?
+    		if(arg_cnt((argc - 2), sys_args, index1))
+    		{
+    			printf("Right number of arguments (argc = %i, sys_args = %i).\n", argc, sys_args[index1]);
+
+    			parser_system(index1, argv);
+    			return;
+    		}
+    		else
+    		{
+    			//Wrong number of arguments
+				#ifdef USE_PRINTF
+    			printf("<parser_console> Wrong number of arguments... Exiting...\n");
+				#endif
+
+    			return;
+    		}
     	}
     	else
     	{
     		//No valid System Command was found. Is it a slave name?
 
-    		if(argc <= 2)
+    		if(argc <= 3)
     		{
     			//No enough arguments for a valid FlexSEA Command
 				#ifdef USE_PRINTF
-    			printf("FlexSEA Commands need a least 1 argument... Exiting...\n");
+    			printf("<parser_console> Wrong number of arguments... Exiting...\n");
 				#endif
 
     			return;
     		}
     		else
     		{
-    			//We have enough arguments, it can be a valid slave + command:
-    			//============================================================
+    			//We have enough arguments, it can be a valid slave + r/w + command:
+    			//=================================================================
 
     			//First, slave check:
     			index1 = find_string(argv[1], slave_list, MAX_SLAVE);
@@ -116,21 +150,56 @@ void parser_console(int argc, char *argv[])
 					//Found a valid Slave Name
 					printf("Found a Slave Name\n");
 
-					//Is it a valid command?
-					index2 = find_string(argv[2], fcp_list, MAX_CMD);
-					if(index2 < MAX_CMD)
+					//Is argv[2] either 'r' or 'w'?
+					rw = (char) argv[2][0];
+					if((rw == 'r') || (rw == 'w'))
 					{
-						//Found a valid command name
-						printf("Found a valid Command Name\n");
-						parser_flexsea(index1, index2, argv);
+						printf("Found a r/w (%c)\n", rw);
 
-						return;
+						//Is it a valid command?
+						index2 = find_string(argv[3], fcp_list, MAX_CMD);
+						if(index2 < MAX_CMD)
+						{
+							//Found a valid command name
+							printf("Found a valid Command Name\n");
+							printf("c1 = %i, c2 = %i\n", index1, index2);
+
+							//Right number of arguments?
+							if(arg_cnt((argc - 4), fcp_args, index2))
+							{
+								printf("Right number of arguments (argc = %i, fcp_args = %i).\n", argc, fcp_args[index1]);
+
+								parser_flexsea(index1, index2, rw, argv);
+								return;
+							}
+							else
+							{
+								//No enough arguments for a valid FlexSEA Command
+								#ifdef USE_PRINTF
+								printf("<parser_console> Wrong number of arguments... Exiting...\n");
+								#endif
+
+								return;
+							}
+
+
+							return;
+						}
+						else
+						{
+							//Invalid command
+							#ifdef USE_PRINTF
+							printf("<parser_console> Invalid FlexSEA Command... Exiting...\n");
+							#endif
+
+							return;
+						}
 					}
 					else
 					{
-						//Invalid command
+						//Argument isn't r' or 'w'
 						#ifdef USE_PRINTF
-						printf("Invalid FlexSEA Command... Exiting...\n");
+						printf("<parser_console> Can't call a FlexSEA command without a r/w parameter... Exiting...\n");
 						#endif
 
 						return;
@@ -140,7 +209,7 @@ void parser_console(int argc, char *argv[])
 				{
 					//Invalid Slave
 					#ifdef USE_PRINTF
-					printf("Invalid FlexSEA Slave... Exiting...\n");
+					printf("<parser_console> Invalid FlexSEA Slave... Exiting...\n");
 					#endif
 
 					return;
@@ -205,14 +274,7 @@ static void parser_system(int index, char *argv[])
     switch(index)
     {
 		case 0: //'info'
-			#ifdef USE_PRINTF
-			printf("[FlexSEA][Compiled %s %s]\n", __DATE__, __TIME__);
-			#endif
-			flexsea_spi_print_details();
-			flexsea_console_print_cmd_list();
-			#ifdef USE_PRINTF
-			printf("\n");
-			#endif
+			flexsea_console_print_info();
 			break;
 
 		case 1: //'stream'
@@ -258,7 +320,7 @@ static void parser_system(int index, char *argv[])
     }
 }
 
-static void parser_flexsea(int slave, int cmd, char *argv[])
+static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 {
 	int numb = 0;
 	int tmp0 = 0, tmp1 = 0, tmp2 = 0, tmp3 = 0, tmp4 = 0, tmp5 = 0, tmp6 = 0;
@@ -499,9 +561,15 @@ static void print_parse_result(unsigned char res)
 }
 
 //Command "info" prints the list of possible commands and their arguments:
-static void flexsea_console_print_cmd_list(void)
+static void flexsea_console_print_info(void)
 {
     int i = 0;
+
+	#ifdef USE_PRINTF
+	printf("[FlexSEA][Compiled %s %s]\n", __DATE__, __TIME__);
+	#endif
+
+	flexsea_spi_print_details();
 
     printf("\nList of commands:\n=-=-=-=-=-=-=-=-=\n\n");
 
@@ -521,6 +589,7 @@ static void flexsea_console_print_cmd_list(void)
         printf("FlexSEA %i: '%s', arg = %i.\n", i, fcp_list[i], fcp_args[i]);
 		#endif
     }
+    printf("\n");
 }
 
 //Compares 'user_str' to 'list' and returns the position where it was found
@@ -560,14 +629,15 @@ static int find_string(char *user_str, char list[][TXT_STR_LEN], int max_index)
 }
 
 //Do we have the right number of arguments for that command?
-static int arg_cnt(char argc, char *array, int index)
+//arg_cnt isn't argc. For "./plan user 1" argc = 3, arg_cnt = 1.
+static int arg_cnt(char arg_cnt, char *array, int index)
 {
 	//Enough arguments to go with the command?
 	#ifdef USE_PRINTF
-	//printf("Args needed: %i, argc: %i\n", fcp_args[c], argc); //Debug
+	printf("Args needed: %i, arg_cnt: %i\n", array[index], arg_cnt); //Debug
 	#endif
 
-	if(argc != (array[index] + 3))
+	if(arg_cnt != (array[index]))
 	{
 		#ifdef USE_PRINTF
 		printf("Wrong number of arguments.\n");

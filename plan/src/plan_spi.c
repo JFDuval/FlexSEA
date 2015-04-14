@@ -92,15 +92,6 @@ void flexsea_spi_open(void)
     ret = ioctl(fd, SPI_IOC_RD_MAX_SPEED_HZ, &speed);
     if (ret == -1)
         pabort("Can't get max speed hz");
-
-    /*
-    #ifdef USE_PRINTF
-     printf("spi mode: %d\n", mode); #endif
-    #ifdef USE_PRINTF
-     printf("bits per word: %d\n", bits); #endif
-    #ifdef USE_PRINTF
-     printf("max speed: %d Hz (%d KHz)\n", speed, speed/1000); #endif
-    */
 }
 
 //Print details on terminal
