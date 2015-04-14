@@ -39,15 +39,15 @@ char fcp_list[MAX_CMD][TXT_STR_LEN] = 	{"ping", "status", "reset", "ack", \
 										"encoder", "strain", "strain_config", "volt", \
 										"batt", "power_out", "clutch", "adv_ana_config", \
 										"analog", "digital", "digital_config", "exp_periph_config", \
-										"ctrl_mode", "ctrl_gains", "ctrl_i_gains", "ctrl_p_gains", \
-										"ctrl_z_gains", "ctrl_o", "ctrl_i", "ctrl_p", \
-										"shorted_leads", "special1", "special2"};
+										"ctrl_mode", "ctrl_i_gains", "ctrl_p_gains", "ctrl_z_gains", \
+										"ctrl_o", "ctrl_i", "ctrl_p", "shorted_leads", \
+										"special1", "special2"};
 char fcp_args[MAX_CMD] = 	{0, 0, 0, 0, \
 							0, 0, 0, 0, \
 							0, 0, 0, 0, \
 							0, 0, 0, 0, \
 							0, 0, 0, 0, \
-							0, 0, 0, 0};	//ToDo
+							0, 0, 0};		//ToDo
 //(4 parameters per line to simplify modifications and minimize errors)
 
 //****************************************************************************
@@ -219,46 +219,33 @@ void parser_console(int argc, char *argv[])
     }
 }
 
-
-//ToDo Integrate after the parsing functions!
-/*
-            //Send data
-            numb = COMM_STR_BUF_LEN - 1;    //Fixed length for now	//Steven: without that line the success rate depends on the # of bytes
-			#ifdef USE_PRINTF
-            printf("Sending %i bytes.\n", numb+1);
-			#endif
-            if(numb > 0)
-            {
-                flexsea_spi_transmit(numb+1, comm_str, 1);
-            }
-*/
-
+//Use this to exit loops when you press on Ctrl+C or Ctrl+D
 //From cboard.cprogramming.com
 int kbhit(void)
 {
-    struct termios oldt, newt;
-    int ch;
-    int oldf;
+	struct termios oldt, newt;
+	int ch;
+	int oldf;
 
-    tcgetattr(STDIN_FILENO, &oldt);
-    newt = oldt;
-    newt.c_lflag &= ~(ICANON | ECHO);
-    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
-    oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
-    fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
+	tcgetattr(STDIN_FILENO, &oldt);
+	newt = oldt;
+	newt.c_lflag &= ~(ICANON | ECHO);
+	tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+	oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
+	fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
 
-    ch = getchar();
+	ch = getchar();
 
-    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-    fcntl(STDIN_FILENO, F_SETFL, oldf);
+	tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+	fcntl(STDIN_FILENO, F_SETFL, oldf);
 
-    if(ch != EOF)
-    {
-        ungetc(ch, stdin);
-        return 1;
-    }
+	if(ch != EOF)
+	{
+		ungetc(ch, stdin);
+		return 1;
+	}
 
-    return 0;
+	return 0;
 }
 
 //****************************************************************************
@@ -269,48 +256,54 @@ static void parser_system(int index, char *argv[])
 {
 	int tmp0 = 0, tmp1 = 0, tmp2 = 0, tmp3 = 0, tmp4 = 0, tmp5 = 0, tmp6 = 0;
 
-	//ToDo test for # of arguments first
-
     switch(index)
     {
 		case 0: //'info'
+			#ifdef USE_PRINTF
+			printf("[Info]\n");
+			#endif
+
 			flexsea_console_print_info();
 			break;
 
 		case 1: //'stream'
+			tmp0 = atoi(argv[2]);
 			#ifdef USE_PRINTF
-			printf("[Stream]\n");
+			printf("[Stream #%i]\n", tmp0);
 			#endif
-			//flexsea_console_stream_slave_read(slave_id[c], 0);
+			flexsea_console_stream(tmp0);
 			break;
 
 		case 2: //'log'
+			tmp0 = atoi(argv[2]);
 			#ifdef USE_PRINTF
-			printf("[Log]\n");
+			printf("[Log #%i]\n", tmp0);
 			#endif
-			//flexsea_console_datalogger(slave_id[c], 0);
+			flexsea_console_log(tmp0);
 			break;
 
 		case 3: //'demo'
-			tmp0 = atoi(argv[3]);
+			tmp0 = atoi(argv[2]);
 			#ifdef USE_PRINTF
-			printf("[Demo #1] PWM DC = %i", tmp0);
+			printf("[Demo #%i]\n", tmp0);
 			#endif
 			//Prepare and send data:
 			demo_1(tmp0);
 			break;
 
 		case 4: //'test'
+			tmp0 = atoi(argv[2]);
 			#ifdef USE_PRINTF
-			printf("[Test Code]");
+			printf("[Test Code #%i]\n", tmp0);
 			#endif
 			//Prepare and send data:
 			test_code();
 			break;
 
 		case 5: //'user'
+			tmp0 = atoi(argv[2]);
 			#ifdef USE_PRINTF
-			printf("[Calling User()]\n");
+			printf("[User Function #%i]\n", tmp0);
 			#endif
 			shuobot();
 			break;
@@ -525,6 +518,13 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			printf("Invalid command.\n");
 			#endif
 			break;
+    }
+
+    //If a command was generated, send it
+    if(numb)
+    {
+    	flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
+    	//ToDo support USB!
     }
 }
 

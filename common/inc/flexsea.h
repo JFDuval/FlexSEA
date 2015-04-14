@@ -62,6 +62,8 @@ void fill_uint8_buf(uint8_t *buf, uint32_t len, uint8_t filler);
 //Communication ports:
 #define PORT_RS485_1					0
 #define PORT_RS485_2					1
+#define PORT_SPI						2
+#define PORT_USB						3
 
 //ToDo update naming convention
 //Communication protocol fields:

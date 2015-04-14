@@ -49,6 +49,24 @@ extern uint8_t rx_command_spi[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
 //plateform independant (for example, we don't need need puts_rs485() for Plan)
 void flexsea_send_serial_slave(unsigned char port, unsigned char *str, unsigned char length)
 {
+    if(port == PORT_SPI)
+    {
+		length = COMM_STR_BUF_LEN - 1;    //Fixed length for now	//Steven: without that line the success rate depends on the # of bytes
+
+		#ifdef USE_PRINTF
+		printf("Sending %i bytes.\n", length+1);
+		#endif
+
+		if(length > 0)
+		{
+			flexsea_spi_transmit(length+1, str, 1);
+		}
+    }
+    else if(port == PORT_USB)
+    {
+    	//ToDo
+    }
+
     return;
 }
 

@@ -24,14 +24,18 @@
 // Public Function Prototype(s):
 //****************************************************************************
 
-void flexsea_console_print_execute(void);
-void flexsea_console_print_manage(void);
-void flexsea_console_stream_slave_read(unsigned char slaveid, unsigned char offs);
-void flexsea_console_datalogger(uint8_t slaveid, uint8_t offs);
+void flexsea_console_stream(int experiment);
+void flexsea_console_log(int experiment);
+
+void flexsea_stream_print_1(void);
+void flexsea_stream_print_2(void);
 
 //****************************************************************************
 // Definition(s):
 //****************************************************************************
 
+//Streaming and logging delays:
+#define STREAM_DELAY_US			10000
+#define LOG_DELAY_US			500
 
 #endif

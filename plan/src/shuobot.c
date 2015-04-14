@@ -20,6 +20,7 @@
 #include <time.h>
 #include "../../common/inc/flexsea.h"
 #include "../inc/flexsea_console.h"
+#include "../inc/flexsea_stream_log.h"
 #include "../inc/flexsea_local.h"
 #include "../inc/plan_spi.h"
 #include "shuobot.h"
@@ -125,7 +126,7 @@ static void shuobot_demo_1(void)
 
         //Enable these 2 lines to print ("Stream" mode):
         system("clear");					//Clear terminal
-        flexsea_console_print_execute();
+        flexsea_stream_print_1();
 
         //Log to file:
 		fprintf(logfile, "[%d:%d],%i,%i,%i,%i,%i,%i,%i\n", tm.tm_min, tm.tm_sec, \
@@ -224,7 +225,7 @@ static void shuobot_demo_2(void)
 
         //Enable these 2 lines to print ("Stream" mode):
         system("clear");					//Clear terminal
-        flexsea_console_print_manage();
+        flexsea_stream_print_2();
 
         //Log to file:
 		fprintf(logfile, "[%d:%d],%i,%i,%i,%i,%i,%i,%i\n", tm.tm_min, tm.tm_sec, \
