@@ -11,18 +11,8 @@
 // Include(s)
 //****************************************************************************
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <termios.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <string.h>
-#include <time.h>
-#include "../../common/inc/flexsea.h"
-#include "../inc/flexsea_console.h"
-#include "../inc/flexsea_local.h"
-#include "../inc/plan_spi.h"
-#include "demo_test.h"
+#include "main.h"
+#include "../inc/test.h"
 
 //****************************************************************************
 // Local variable(s)
@@ -37,12 +27,6 @@ static void send_cmd_slave(void);
 //****************************************************************************
 // Function(s)
 //****************************************************************************
-
-//Multiple commands:
-#define MAX_COMMAND_LEN 256
-#define MAX_ARGS 12
-char *fake_argv[MAX_ARGS];
-const char *delims2 = " \n";
 
 void test_code(void)
 {
@@ -156,19 +140,4 @@ static void send_cmd_slave(void)
 	numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
 	numb = COMM_STR_BUF_LEN;
 	flexsea_spi_transmit(numb, comm_str, 0);
-}
-
-void braking_sequence(int cycles, int delay)
-{
-	int i = 0;
-
-	for(i = 0; i < cycles; i++)
-	{
-		tx_cmd_ctrl_o_write(FLEXSEA_EXECUTE_1, -400);
-		send_cmd_slave();
-		usleep(delay);
-		tx_cmd_ctrl_o_write(FLEXSEA_EXECUTE_1, 0);
-		send_cmd_slave();
-		usleep(delay);
-	}
 }

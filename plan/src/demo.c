@@ -11,18 +11,8 @@
 // Include(s)
 //****************************************************************************
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <termios.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <string.h>
-#include <time.h>
-#include "../../common/inc/flexsea.h"
-#include "../inc/flexsea_console.h"
-#include "../inc/flexsea_local.h"
-#include "../inc/plan_spi.h"
-#include "demo_test.h"
+#include "main.h"
+#include "../inc/demo.h"
 
 //****************************************************************************
 // Local variable(s)
@@ -38,11 +28,7 @@ static void send_cmd_slave(void);
 // Function(s)
 //****************************************************************************
 
-//Multiple commands:
-#define MAX_COMMAND_LEN 256
-#define MAX_ARGS 12
 char *fake_argv[MAX_ARGS];
-const char *delims2 = " \n";
 
 void demo_1(int32_t wspd)
 {
@@ -78,12 +64,12 @@ void demo_1(int32_t wspd)
         }
 
         //First argument
-        fake_argv[fake_argc] = strtok(command, delims2);
+        fake_argv[fake_argc] = strtok(command, delims);
 
         //Other arguments
         while( fake_argv[fake_argc] != NULL )
         {
-            fake_argv[++fake_argc] = strtok(NULL, delims2);
+            fake_argv[++fake_argc] = strtok(NULL, delims);
         }
 
         /*

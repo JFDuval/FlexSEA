@@ -20,7 +20,7 @@
 
 #include "../../common/inc/flexsea.h"
 #include "../inc/flexsea_local.h"
-#include "../inc/usbtool_serial.h"
+#include "../inc/plan_serial.h"
 
 //****************************************************************************
 // Local variable(s)

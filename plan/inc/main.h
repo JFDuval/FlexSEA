@@ -27,8 +27,16 @@
 #include "plan_spi.h"
 #include "plan_serial.h"
 #include "flexsea_local.h"
-#include "shuobot.h"
-#include "demo_test.h"
+#include "user_shuobot.h"
+#include "demo.h"
+#include "test.h"
+
+//****************************************************************************
+// Shared variable(s)
+//****************************************************************************
+
+extern char *fake_argv[];
+extern const char *delims;
 
 //****************************************************************************
 // Public Function Prototype(s):

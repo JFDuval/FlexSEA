@@ -11,19 +11,8 @@
 // Include(s)
 //****************************************************************************
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <termios.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <string.h>
-#include <time.h>
-#include "../../common/inc/flexsea.h"
-#include "../inc/flexsea_console.h"
-#include "../inc/flexsea_stream_log.h"
-#include "../inc/flexsea_local.h"
-#include "../inc/plan_spi.h"
-#include "shuobot.h"
+#include "main.h"
+#include "user_shuobot.h"
 
 //****************************************************************************
 // Local variable(s)

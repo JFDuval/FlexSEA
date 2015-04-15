@@ -21,7 +21,6 @@
 
 void test_code(void);
 void test_code_1(void);
-void braking_sequence(int cycles, int delay);
 void test_code_plan_manage_comm(void);
 
 //****************************************************************************

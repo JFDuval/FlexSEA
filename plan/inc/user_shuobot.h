@@ -25,12 +25,10 @@ void shuobot(void);
 // Definition(s):
 //****************************************************************************
 
-//FOr shuobot_demo():
+//For shuobot_demo():
 #define PERIOD			25
 #define MAX_ENC			1000000
 #define MAX_CURRENT		90
 #define CURRENT_STEP	15
-#define MAX_PWM			2000
-#define PWM_STEP		200
 
 #endif
