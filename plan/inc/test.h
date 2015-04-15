@@ -4,11 +4,11 @@
 // jfduval@mit.edu
 // 04/2015
 //****************************************************************************
-// demo: Demonstrations code
+// test: Test code
 //****************************************************************************
 
-#ifndef INC_DEMO_H
-#define INC_DEMO_H
+#ifndef INC_TEST_H
+#define INC_TEST_H
 
 //****************************************************************************
 // Include(s)
@@ -19,10 +19,18 @@
 // Public Function Prototype(s):
 //****************************************************************************
 
-void demo_1(int32_t wspd);
+void test_code(void);
+void test_code_1(void);
+void braking_sequence(int cycles, int delay);
+void test_code_plan_manage_comm(void);
 
 //****************************************************************************
 // Definition(s):
 //****************************************************************************
+
+#define PERIOD				25
+#define MAX_PWM				800
+#define PWM_STEP			1
+#define DEMO_1_CYCLES		10
 
 #endif
