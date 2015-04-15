@@ -75,7 +75,7 @@ int main(void)
 	//imu_test_code_blocking();
 	//motor_fixed_pwm_test_code_blocking(100);
 	//wdclk_test_blocking();
-	timing_test_blocking();
+	//timing_test_blocking();
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 	//Main loop

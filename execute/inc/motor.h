@@ -32,7 +32,7 @@ void motor_open_speed_2(int16 pwm_duty, int sign);
 int8 serial_motor_speed(int8 letter);
 int32 motor_position_pid(int32 wanted_pos, int32 actual_pos);
 int32 motor_current_pid(int32 wanted_curr, int32 measured_curr);
-inline int32 motor_current_pid_2(int32 wanted_curr, int32 measured_curr);
+extern inline int32 motor_current_pid_2(int32 wanted_curr, int32 measured_curr);
 void control_strategy(unsigned char strat);
 int motor_impedance_encoder(int wanted_pos, int new_enc_count);
 void init_motor(void);
