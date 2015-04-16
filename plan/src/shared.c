@@ -29,15 +29,15 @@
 
 void braking_sequence(int cycles, int delay)
 {
-	int i = 0;
+	int i = 0, numb = 0;
 
 	for(i = 0; i < cycles; i++)
 	{
-		tx_cmd_ctrl_o_write(FLEXSEA_EXECUTE_1, -400);
-		send_cmd_slave();
+		numb = tx_cmd_ctrl_o_write(FLEXSEA_EXECUTE_1, -400);
+		flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
 		usleep(delay);
-		tx_cmd_ctrl_o_write(FLEXSEA_EXECUTE_1, 0);
-		send_cmd_slave();
+		numb = tx_cmd_ctrl_o_write(FLEXSEA_EXECUTE_1, 0);
+		flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
 		usleep(delay);
 	}
 }

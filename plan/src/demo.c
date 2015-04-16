@@ -22,7 +22,6 @@
 // Private Function Prototype(s):
 //****************************************************************************
 
-static void send_cmd_slave(void);
 
 //****************************************************************************
 // Function(s)
@@ -44,10 +43,10 @@ void demo_1(int32_t wspd)
 
     //Controller = open
     numb = tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_1, CTRL_OPEN);
-    send_cmd_slave();
+    flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
     usleep(1000);
     numb = tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_1, CTRL_OPEN);
-    send_cmd_slave();
+    flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
     usleep(10000);
 
 	printf("\nType 'u' to go Up, 'd' to go Down and 'quit' to Quit.\n");
@@ -110,33 +109,8 @@ void demo_1(int32_t wspd)
 		numb = tx_cmd_ctrl_o_write(FLEXSEA_EXECUTE_1, spd);
 
 		//Communicate with the slave:
-		send_cmd_slave();
+		flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
 
 		printf("Command sent.\n");
     }
-}
-
-//Use that command right after you generated a communication string
-static void send_cmd_slave(void)
-{
-	uint32_t numb = 0;
-
-	numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
-	numb = COMM_STR_BUF_LEN;
-	flexsea_spi_transmit(numb, comm_str, 0);
-}
-
-void braking_sequence(int cycles, int delay)
-{
-	int i = 0;
-
-	for(i = 0; i < cycles; i++)
-	{
-		tx_cmd_ctrl_o_write(FLEXSEA_EXECUTE_1, -400);
-		send_cmd_slave();
-		usleep(delay);
-		tx_cmd_ctrl_o_write(FLEXSEA_EXECUTE_1, 0);
-		send_cmd_slave();
-		usleep(delay);
-	}
 }

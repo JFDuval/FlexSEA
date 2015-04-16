@@ -46,6 +46,11 @@ int kbhit(void);
 //Length of the text strings:
 #define TXT_STR_LEN			40
 
-//#define USE_PRINTF
+//Conditional printf() statement:
+#ifdef USE_PRINTF
+	#define _USE_PRINTF(...) printf(__VA_ARGS__)
+#else
+	#define _USE_PRINTF(...) do {} while (0)
+#endif	//USE__PRINTF
 
 #endif

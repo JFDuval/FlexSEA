@@ -13,19 +13,14 @@
 // Include(s)
 //****************************************************************************
 
-#include <stdint.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
-
-#include "../../common/inc/flexsea.h"
-#include "../inc/flexsea_local.h"
+#include "main.h"
 #include "../inc/plan_serial.h"
 
 //****************************************************************************
 // Local variable(s)
 //****************************************************************************
 
+static const char *file_w_name = "../serial_port.txt";
 static const char *device = "/dev/ttyACM0";
 int fd;
 
@@ -37,6 +32,42 @@ int fd;
 //****************************************************************************
 // Function(s)
 //****************************************************************************
+
+//Test code ToDo Integrate
+#define FILE_READ_LEN	100
+int read_port_name_from_file(void)
+{
+	int cnt = 0;
+	FILE *ptr_file;
+	char buf[FILE_READ_LEN];
+	const char device[20];
+
+	//Open file
+	ptr_file = fopen(file_w_name, "r");
+
+	//Did we open the file?
+	if(!ptr_file)
+	{
+		printf("File not found ('%s').\n", file_w_name);
+		return 1;
+	}
+	else
+	{
+		printf("Opened file '%s', ", file_w_name);
+	}
+
+	//Grab first line of text
+	if(fgets(buf, FILE_READ_LEN, ptr_file) != NULL)
+	{
+		printf("read '%s'",buf);
+	}
+	//buf[cnt + 1] = '\0';
+
+	strcpy(device, buf);
+
+	fclose(ptr_file);
+	return 0;
+}
 
 //Opens the Serial port specified in device[]
 //will try "tries" times with a delay of "delay" us between each try

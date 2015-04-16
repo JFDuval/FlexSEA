@@ -19,6 +19,7 @@
 // Prototype(s):
 //****************************************************************************
 
+int read_port_name_from_file(void);
 void flexsea_serial_open(unsigned int tries, unsigned int delay);
 void flexsea_serial_close(void);
 void flexsea_serial_transmit(char bytes_to_send, unsigned char *serial_tx_data, unsigned char verbal);

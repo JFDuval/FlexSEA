@@ -26,6 +26,8 @@ const char *delims = " \n";
 
 int main(int argc, char *argv[])
 {
+	read_port_name_from_file();
+
 	#ifdef MULTIPLE_COMMANDS
 
     char command[MAX_COMMAND_LEN];

@@ -22,8 +22,6 @@
 // Private Function Prototype(s):
 //****************************************************************************
 
-static void send_cmd_slave(void);
-
 //****************************************************************************
 // Function(s)
 //****************************************************************************
@@ -36,17 +34,18 @@ void test_code(void)
 //PWM triangle wave
 void test_code_1(void)
 {
+	int numb = 0;
 	int32_t pwmdc = 0;
 	uint8_t state = 0;
 
     //Initial configuration:
 
     //Controller = open
-    tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_1, CTRL_OPEN);
-    send_cmd_slave();
+    numb = tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_1, CTRL_OPEN);
+    flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
     usleep(10000);
-    tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_1, CTRL_OPEN);
-    send_cmd_slave();
+    numb = tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_1, CTRL_OPEN);
+    flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
     usleep(10000);
 
     printf("Ramping up...\n");
@@ -97,10 +96,10 @@ void test_code_1(void)
     	}
 
     	//Prepare the command:
-    	tx_cmd_ctrl_o_write(FLEXSEA_EXECUTE_1, pwmdc);
+    	numb = tx_cmd_ctrl_o_write(FLEXSEA_EXECUTE_1, pwmdc);
 
     	//Communicate with the slave:
-    	send_cmd_slave();
+    	flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
 
     	//800 steps to go from stop to max pos, we want this to happen in 15s
     	//15/800 = 18.75ms
@@ -109,35 +108,27 @@ void test_code_1(void)
     }
 
     //Done with the experiment, drop PWM to 0:
-    tx_cmd_ctrl_o_write(FLEXSEA_EXECUTE_1, 0);
-    send_cmd_slave();
+    numb = tx_cmd_ctrl_o_write(FLEXSEA_EXECUTE_1, 0);
+    flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
 }
 
 //Plan <> Manage Communication
 void test_code_plan_manage_comm(void)
 {
+	int numb = 0;
+
     printf("Plan <> Manage Communication Speed Test Code\n");
 
     while(!kbhit())
     {
     	//Prepare the command:
-    	tx_cmd_switch(FLEXSEA_MANAGE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN);
+    	numb = tx_cmd_switch(FLEXSEA_MANAGE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN);
 
     	//Communicate with the slave:
-    	send_cmd_slave();
+    	flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
 
     	//Delay
         usleep(100);
 
     }
-}
-
-//Use that command right after you generated a communication string
-static void send_cmd_slave(void)
-{
-	uint32_t numb = 0;
-
-	numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
-	numb = COMM_STR_BUF_LEN;
-	flexsea_spi_transmit(numb, comm_str, 0);
 }
