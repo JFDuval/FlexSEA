@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: PWM_1_PM.c
-* Version 3.10
+* Version 3.20
 *
 * Description:
 *  This file provides the power management source code to API for the

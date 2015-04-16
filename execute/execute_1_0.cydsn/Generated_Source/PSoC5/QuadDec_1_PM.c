@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: QuadDec_1_PM.c
-* Version 2.40
+* Version 3.0
 *
 * Description:
 *  This file contains the setup, control and status commands to support 

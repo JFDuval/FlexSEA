@@ -52,7 +52,7 @@ int main(void)
 	unsigned char comm_str_payload1[16];
 	unsigned char ledr_state = 0, ledg_state = 0, ledb_state = 0;
 	uint8 toggle_wdclk = 0;	
-	uint8 cmd_ready_485_1 = 0;
+	uint8 cmd_ready_485_1 = 0, cmd_ready_usb = 0;
 	static uint8 new_cmd_led = 0;
 	uint8 div2 = 0;
 	uint16 safety_delay = 0;
@@ -185,10 +185,10 @@ int main(void)
 		{
 			//Got new data in 
 			//Try to decode
-			comm_res = comm_decode_str();
+			cmd_ready_485_1 = unpack_payload_usb();
 			if(comm_res)
 				comm_success = 1;
-			
+
 			//Toggle LEDR with new commands
 			ledr_state ^= 1;
 			LED_R_Write(ledr_state);
@@ -234,6 +234,12 @@ int main(void)
 			
 			//LED:
 			new_cmd_led = 1;
+		}
+		
+		//Valid communication from USB?
+		if(cmd_ready_usb != 0)
+		{
+			//ToDo
 		}
 		
 		#endif	//USE_COMM

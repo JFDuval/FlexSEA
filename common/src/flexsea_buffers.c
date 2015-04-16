@@ -21,6 +21,7 @@
 uint8_t rx_buf_spi[RX_BUF_LEN];
 uint8_t rx_buf_485_1[RX_BUF_LEN];
 uint8_t rx_buf_485_2[RX_BUF_LEN];
+uint8_t rx_buf_usb[RX_BUF_LEN];
 
 //****************************************************************************
 // Private Function Prototype(s):
@@ -31,6 +32,7 @@ static void update_rx_buf_array(uint8_t *buf, uint32_t *idx, uint8_t *new_data, 
 static void update_rx_buf_spi(uint8_t byte_array, uint8_t new_byte, uint8_t *new_array, uint32_t len);
 static void update_rx_buf_485_1(uint8_t byte_array, uint8_t new_byte, uint8_t *new_array, uint32_t len);
 static void update_rx_buf_485_2(uint8_t byte_array, uint8_t new_byte, uint8_t *new_array, uint32_t len);
+static void update_rx_buf_usb(uint8_t byte_array, uint8_t new_byte, uint8_t *new_array, uint32_t len);
 
 //****************************************************************************
 // Private function(s)
@@ -198,6 +200,29 @@ static void update_rx_buf_485_2(uint8_t byte_array, uint8_t new_byte, uint8_t *n
 	}
 }
 
+//Wraps update_rx_buf_byte()/update_rx_buf_array() for the USB peripheral. Keeps track of the index.
+//Do not use directly, call update_rx_buf_byte_usb() or update_rx_buf_array_usb()
+static void update_rx_buf_usb(uint8_t byte_array, uint8_t new_byte, uint8_t *new_array, uint32_t len)
+{
+	static uint32_t idx_usb = 0;
+
+	if(byte_array == UPDATE_BYTE)
+	{
+		//Updating buffer with one byte
+		update_rx_buf_byte(rx_buf_usb, &idx_usb, new_byte);
+	}
+	else if(byte_array == UPDATE_ARRAY)
+	{
+		//Updating buffer with an array
+		update_rx_buf_array(rx_buf_usb, &idx_usb, new_array, len);
+	}
+	else
+	{
+		//Error
+		//flexsea_error(0);	ToDo
+	}
+}
+
 //****************************************************************************
 // Public Function(s)
 //****************************************************************************
@@ -239,4 +264,17 @@ void update_rx_buf_byte_485_2(uint8_t new_byte)
 void update_rx_buf_array_485_2(uint8_t *new_array, uint32_t len)
 {
 	update_rx_buf_485_2(UPDATE_ARRAY, 0, new_array, len);
+}
+
+//Add one byte to the USB RX buffer
+void update_rx_buf_byte_usb(uint8_t new_byte)
+{
+	uint8_t empty_array[1] = {0};
+	update_rx_buf_usb(UPDATE_BYTE, new_byte, empty_array, 0);
+}
+
+//Add an array of bytes to the USB RX buffer
+void update_rx_buf_array_usb(uint8_t *new_array, uint32_t len)
+{
+	update_rx_buf_usb(UPDATE_ARRAY, 0, new_array, len);
 }

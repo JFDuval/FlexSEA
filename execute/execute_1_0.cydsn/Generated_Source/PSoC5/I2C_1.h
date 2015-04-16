@@ -1,14 +1,13 @@
 /*******************************************************************************
 * File Name: I2C_1.h
-* Version 3.30
+* Version 3.40
 *
 * Description:
 *  This file provides constants and parameter values for the I2C component.
-*
-* Note:
+
 *
 ********************************************************************************
-* Copyright 2008-2012, Cypress Semiconductor Corporation. All rights reserved.
+* Copyright 2008-2015, Cypress Semiconductor Corporation. All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -23,7 +22,7 @@
 
 /* Check if required defines such as CY_PSOC5LP are available in cy_boot */
 #if !defined (CY_PSOC5LP)
-    #error Component I2C_v3_30 requires cy_boot v3.10 or later
+    #error Component I2C_v3_40 requires cy_boot v3.10 or later
 #endif /* (CY_PSOC5LP) */
 
 
@@ -99,8 +98,7 @@
                                                         I2C_1_TIMEOUT_IMPLEMENTATION)
 
 #define I2C_1_TIMEOUT_FF_ENABLED         (I2C_1_TIMEOUT_ENABLED && \
-                                                     I2C_1_TIMEOUT_FF_IMPLEMENTED && \
-                                                     CY_PSOC5LP)
+                                                     I2C_1_TIMEOUT_FF_IMPLEMENTED)
 
 #define I2C_1_TIMEOUT_UDB_ENABLED        (I2C_1_TIMEOUT_ENABLED && \
                                                      I2C_1_TIMEOUT_UDB_IMPLEMENTED)
@@ -121,43 +119,20 @@ typedef struct
 {
     uint8 enableState;
 
-    #if(I2C_1_FF_IMPLEMENTED)
-        uint8 xcfg;
-        uint8 cfg;
+#if (I2C_1_FF_IMPLEMENTED)
+    uint8 xcfg;
+    uint8 cfg;
+    uint8 addr;
+    uint8 clkDiv1;
+    uint8 clkDiv2;
+#else
+    uint8 control;
+#endif /* (I2C_1_FF_IMPLEMENTED) */
 
-        #if(I2C_1_MODE_SLAVE_ENABLED)
-            uint8 addr;
-        #endif /* (I2C_1_MODE_SLAVE_ENABLED) */
-
-        #if(CY_PSOC5A)
-            uint8 clkDiv;
-        #else
-            uint8 clkDiv1;
-            uint8 clkDiv2;
-        #endif /* (CY_PSOC5A) */
-
-    #else
-        uint8 control;
-
-        #if(CY_UDB_V0)
-            uint8 intMask;
-
-            #if(I2C_1_MODE_SLAVE_ENABLED)
-                uint8 addr;
-            #endif /* (I2C_1_MODE_SLAVE_ENABLED) */
-        #endif     /* (CY_UDB_V0) */
-
-    #endif /* (I2C_1_FF_IMPLEMENTED) */
-
-    #if(I2C_1_TIMEOUT_ENABLED)
-        uint16 tmoutCfg;
-        uint8  tmoutIntr;
-
-        #if(I2C_1_TIMEOUT_PRESCALER_ENABLED && CY_UDB_V0)
-            uint8 tmoutPrd;
-        #endif /* (I2C_1_TIMEOUT_PRESCALER_ENABLED && CY_UDB_V0) */
-
-    #endif /* (I2C_1_TIMEOUT_ENABLED) */
+#if (I2C_1_TIMEOUT_ENABLED)
+    uint16 tmoutCfg;
+    uint8  tmoutIntr;
+#endif /* (I2C_1_TIMEOUT_ENABLED) */
 
 } I2C_1_BACKUP_STRUCT;
 
@@ -183,7 +158,7 @@ void I2C_1_RestoreConfig(void)                   ;
 void I2C_1_Wakeup(void)                          ;
 
 /* I2C Master functions prototypes */
-#if(I2C_1_MODE_MASTER_ENABLED)
+#if (I2C_1_MODE_MASTER_ENABLED)
     /* Read and Clear status functions */
     uint8 I2C_1_MasterStatus(void)                ;
     uint8 I2C_1_MasterClearStatus(void)           ;
@@ -207,13 +182,10 @@ void I2C_1_Wakeup(void)                          ;
     uint8 I2C_1_MasterWriteByte(uint8 theByte)   ;
     uint8 I2C_1_MasterReadByte(uint8 acknNak)    ;
 
-    /* This fake function use as workaround */
-    void  I2C_1_Workaround(void)                 ;
-
 #endif /* (I2C_1_MODE_MASTER_ENABLED) */
 
 /* I2C Slave functions prototypes */
-#if(I2C_1_MODE_SLAVE_ENABLED)
+#if (I2C_1_MODE_SLAVE_ENABLED)
     /* Read and Clear status functions */
     uint8 I2C_1_SlaveStatus(void)                ;
     uint8 I2C_1_SlaveClearReadStatus(void)       ;
@@ -245,7 +217,7 @@ void I2C_1_Wakeup(void)                          ;
         cystatus I2C_1_CyBtldrCommRead(uint8 pData[], uint16 size, uint16 * count, uint8 timeOut)  CYSMALL \
                                                             ;
 
-        #if(CYDEV_BOOTLOADER_IO_COMP == CyBtldr_I2C_1)
+        #if (CYDEV_BOOTLOADER_IO_COMP == CyBtldr_I2C_1)
             #define CyBtldrCommStart    I2C_1_CyBtldrCommStart
             #define CyBtldrCommStop     I2C_1_CyBtldrCommStop
             #define CyBtldrCommReset    I2C_1_CyBtldrCommReset
@@ -263,9 +235,9 @@ void I2C_1_Wakeup(void)                          ;
 
 #endif /* (I2C_1_MODE_SLAVE_ENABLED) */
 
-/* I2C interrupt handler */
+/* Component interrupt handlers */
 CY_ISR_PROTO(I2C_1_ISR);
-#if((I2C_1_FF_IMPLEMENTED) || (I2C_1_WAKEUP_ENABLED))
+#if ((I2C_1_FF_IMPLEMENTED) || (I2C_1_WAKEUP_ENABLED))
     CY_ISR_PROTO(I2C_1_WAKEUP_ISR);
 #endif /* ((I2C_1_FF_IMPLEMENTED) || (I2C_1_WAKEUP_ENABLED)) */
 
@@ -303,16 +275,16 @@ extern uint8 I2C_1_initVar;
 #define I2C_1_WRITE_XFER_MODE    (0x00u) /* Write */
 #define I2C_1_ACK_DATA           (0x01u) /* Send ACK */
 #define I2C_1_NAK_DATA           (0x00u) /* Send NAK */
-#define I2C_1_OVERFLOW_RETURN    (0xFFu) /* Senf on bus in case of overflow */
+#define I2C_1_OVERFLOW_RETURN    (0xFFu) /* Send on bus in case of overflow */
 
-#if(I2C_1_MODE_MASTER_ENABLED)
+#if (I2C_1_MODE_MASTER_ENABLED)
     /* "Mode" constants for MasterWriteBuf() or MasterReadBuf() function */
     #define I2C_1_MODE_COMPLETE_XFER     (0x00u) /* Full transfer with Start and Stop */
     #define I2C_1_MODE_REPEAT_START      (0x01u) /* Begin with a ReStart instead of a Start */
     #define I2C_1_MODE_NO_STOP           (0x02u) /* Complete the transfer without a Stop */
 
     /* Master status */
-    #define I2C_1_MSTAT_CLEAR            (0x00u) /* Clear (init) status value */
+    #define I2C_1_MSTAT_CLEAR            (0x00u) /* Clear (initialize) status value */
 
     #define I2C_1_MSTAT_RD_CMPLT         (0x01u) /* Read complete */
     #define I2C_1_MSTAT_WR_CMPLT         (0x02u) /* Write complete */
@@ -337,7 +309,7 @@ extern uint8 I2C_1_initVar;
 
 #endif /* (I2C_1_MODE_MASTER_ENABLED) */
 
-#if(I2C_1_MODE_SLAVE_ENABLED)
+#if (I2C_1_MODE_SLAVE_ENABLED)
     /* Slave Status Constants */
     #define I2C_1_SSTAT_RD_CMPLT     (0x01u) /* Read transfer complete */
     #define I2C_1_SSTAT_RD_BUSY      (0x02u) /* Read transfer in progress */
@@ -367,7 +339,7 @@ extern uint8 I2C_1_initVar;
 
 /* Slave mode states */
 #define  I2C_1_SM_SLAVE          (I2C_1_SM_IDLE) /* Any Slave state */
-#define  I2C_1_SM_SL_WR_DATA     (0x11u) /* Master writes data to slzve  */
+#define  I2C_1_SM_SL_WR_DATA     (0x11u) /* Master writes data to slave  */
 #define  I2C_1_SM_SL_RD_DATA     (0x12u) /* Master reads data from slave */
 
 /* Master mode states */
@@ -391,93 +363,85 @@ extern uint8 I2C_1_initVar;
 *              Registers
 ***************************************/
 
-#if(I2C_1_FF_IMPLEMENTED)
+#if (I2C_1_FF_IMPLEMENTED)
     /* Fixed Function registers */
-    #define I2C_1_XCFG_REG           (* (reg8 *) I2C_1_I2C_FF__XCFG)
-    #define I2C_1_XCFG_PTR           (  (reg8 *) I2C_1_I2C_FF__XCFG)
+    #define I2C_1_XCFG_REG           (*(reg8 *) I2C_1_I2C_FF__XCFG)
+    #define I2C_1_XCFG_PTR           ( (reg8 *) I2C_1_I2C_FF__XCFG)
 
-    #define I2C_1_ADDR_REG           (* (reg8 *) I2C_1_I2C_FF__ADR)
-    #define I2C_1_ADDR_PTR           (  (reg8 *) I2C_1_I2C_FF__ADR)
+    #define I2C_1_ADDR_REG           (*(reg8 *) I2C_1_I2C_FF__ADR)
+    #define I2C_1_ADDR_PTR           ( (reg8 *) I2C_1_I2C_FF__ADR)
 
-    #define I2C_1_CFG_REG            (* (reg8 *) I2C_1_I2C_FF__CFG)
-    #define I2C_1_CFG_PTR            (  (reg8 *) I2C_1_I2C_FF__CFG)
+    #define I2C_1_CFG_REG            (*(reg8 *) I2C_1_I2C_FF__CFG)
+    #define I2C_1_CFG_PTR            ( (reg8 *) I2C_1_I2C_FF__CFG)
 
-    #define I2C_1_CSR_REG            (* (reg8 *) I2C_1_I2C_FF__CSR)
-    #define I2C_1_CSR_PTR            (  (reg8 *) I2C_1_I2C_FF__CSR)
+    #define I2C_1_CSR_REG            (*(reg8 *) I2C_1_I2C_FF__CSR)
+    #define I2C_1_CSR_PTR            ( (reg8 *) I2C_1_I2C_FF__CSR)
 
-    #define I2C_1_DATA_REG           (* (reg8 *) I2C_1_I2C_FF__D)
-    #define I2C_1_DATA_PTR           (  (reg8 *) I2C_1_I2C_FF__D)
+    #define I2C_1_DATA_REG           (*(reg8 *) I2C_1_I2C_FF__D)
+    #define I2C_1_DATA_PTR           ( (reg8 *) I2C_1_I2C_FF__D)
 
-    #define I2C_1_MCSR_REG           (* (reg8 *) I2C_1_I2C_FF__MCSR)
-    #define I2C_1_MCSR_PTR           (  (reg8 *) I2C_1_I2C_FF__MCSR)
+    #define I2C_1_MCSR_REG           (*(reg8 *) I2C_1_I2C_FF__MCSR)
+    #define I2C_1_MCSR_PTR           ( (reg8 *) I2C_1_I2C_FF__MCSR)
 
-    #define I2C_1_ACT_PWRMGR_REG     (* (reg8 *) I2C_1_I2C_FF__PM_ACT_CFG)
-    #define I2C_1_ACT_PWRMGR_PTR     (  (reg8 *) I2C_1_I2C_FF__PM_ACT_CFG)
-    #define I2C_1_ACT_PWR_EN         (  (uint8)  I2C_1_I2C_FF__PM_ACT_MSK)
+    #define I2C_1_ACT_PWRMGR_REG     (*(reg8 *) I2C_1_I2C_FF__PM_ACT_CFG)
+    #define I2C_1_ACT_PWRMGR_PTR     ( (reg8 *) I2C_1_I2C_FF__PM_ACT_CFG)
+    #define I2C_1_ACT_PWR_EN         ( (uint8)  I2C_1_I2C_FF__PM_ACT_MSK)
 
-    #define I2C_1_STBY_PWRMGR_REG    (* (reg8 *) I2C_1_I2C_FF__PM_STBY_CFG)
-    #define I2C_1_STBY_PWRMGR_PTR    (  (reg8 *) I2C_1_I2C_FF__PM_STBY_CFG)
-    #define I2C_1_STBY_PWR_EN        (  (uint8)  I2C_1_I2C_FF__PM_STBY_MSK)
+    #define I2C_1_STBY_PWRMGR_REG    (*(reg8 *) I2C_1_I2C_FF__PM_STBY_CFG)
+    #define I2C_1_STBY_PWRMGR_PTR    ( (reg8 *) I2C_1_I2C_FF__PM_STBY_CFG)
+    #define I2C_1_STBY_PWR_EN        ( (uint8)  I2C_1_I2C_FF__PM_STBY_MSK)
 
-    #define I2C_1_PWRSYS_CR1_REG     (* (reg8 *) CYREG_PWRSYS_CR1)
-    #define I2C_1_PWRSYS_CR1_PTR     (  (reg8 *) CYREG_PWRSYS_CR1)
+    #define I2C_1_PWRSYS_CR1_REG     (*(reg8 *) CYREG_PWRSYS_CR1)
+    #define I2C_1_PWRSYS_CR1_PTR     ( (reg8 *) CYREG_PWRSYS_CR1)
 
-    /* Clock divider register depends on silicon */
-    #if(CY_PSOC5A)
-        #define I2C_1_CLKDIV_REG     (* (reg8 *) I2C_1_I2C_FF__CLK_DIV)
-        #define I2C_1_CLKDIV_PTR     (  (reg8 *) I2C_1_I2C_FF__CLK_DIV)
+    #define I2C_1_CLKDIV1_REG    (*(reg8 *) I2C_1_I2C_FF__CLK_DIV1)
+    #define I2C_1_CLKDIV1_PTR    ( (reg8 *) I2C_1_I2C_FF__CLK_DIV1)
 
-    #else
-        #define I2C_1_CLKDIV1_REG    (* (reg8 *) I2C_1_I2C_FF__CLK_DIV1)
-        #define I2C_1_CLKDIV1_PTR    (  (reg8 *) I2C_1_I2C_FF__CLK_DIV1)
-
-        #define I2C_1_CLKDIV2_REG    (* (reg8 *) I2C_1_I2C_FF__CLK_DIV2)
-        #define I2C_1_CLKDIV2_PTR    (  (reg8 *) I2C_1_I2C_FF__CLK_DIV2)
-
-    #endif /* (CY_PSOC5A) */
+    #define I2C_1_CLKDIV2_REG    (*(reg8 *) I2C_1_I2C_FF__CLK_DIV2)
+    #define I2C_1_CLKDIV2_PTR    ( (reg8 *) I2C_1_I2C_FF__CLK_DIV2)
 
 #else
     /* UDB implementation registers */
-    #define I2C_1_CFG_REG    (* (reg8 *) \
-                                           I2C_1_bI2C_UDB_SyncCtl_CtrlReg__CONTROL_REG)
-    #define I2C_1_CFG_PTR    (  (reg8 *) \
-                                           I2C_1_bI2C_UDB_SyncCtl_CtrlReg__CONTROL_REG)
+    #define I2C_1_CFG_REG \
+            (*(reg8 *) I2C_1_bI2C_UDB_SyncCtl_CtrlReg__CONTROL_REG)
+    #define I2C_1_CFG_PTR \
+            ( (reg8 *) I2C_1_bI2C_UDB_SyncCtl_CtrlReg__CONTROL_REG)
 
-    #define I2C_1_CSR_REG        (* (reg8 *) I2C_1_bI2C_UDB_StsReg__STATUS_REG)
-    #define I2C_1_CSR_PTR        (  (reg8 *) I2C_1_bI2C_UDB_StsReg__STATUS_REG)
+    #define I2C_1_CSR_REG        (*(reg8 *) I2C_1_bI2C_UDB_StsReg__STATUS_REG)
+    #define I2C_1_CSR_PTR        ( (reg8 *) I2C_1_bI2C_UDB_StsReg__STATUS_REG)
 
-    #define I2C_1_INT_MASK_REG   (* (reg8 *) I2C_1_bI2C_UDB_StsReg__MASK_REG)
-    #define I2C_1_INT_MASK_PTR   (  (reg8 *) I2C_1_bI2C_UDB_StsReg__MASK_REG)
+    #define I2C_1_INT_MASK_REG   (*(reg8 *) I2C_1_bI2C_UDB_StsReg__MASK_REG)
+    #define I2C_1_INT_MASK_PTR   ( (reg8 *) I2C_1_bI2C_UDB_StsReg__MASK_REG)
 
-    #define I2C_1_INT_ENABLE_REG (* (reg8 *) I2C_1_bI2C_UDB_StsReg__STATUS_AUX_CTL_REG)
-    #define I2C_1_INT_ENABLE_PTR (  (reg8 *) I2C_1_bI2C_UDB_StsReg__STATUS_AUX_CTL_REG)
+    #define I2C_1_INT_ENABLE_REG (*(reg8 *) I2C_1_bI2C_UDB_StsReg__STATUS_AUX_CTL_REG)
+    #define I2C_1_INT_ENABLE_PTR ( (reg8 *) I2C_1_bI2C_UDB_StsReg__STATUS_AUX_CTL_REG)
 
-    #define I2C_1_DATA_REG       (* (reg8 *) I2C_1_bI2C_UDB_Shifter_u0__A0_REG)
-    #define I2C_1_DATA_PTR       (  (reg8 *) I2C_1_bI2C_UDB_Shifter_u0__A0_REG)
+    #define I2C_1_DATA_REG       (*(reg8 *) I2C_1_bI2C_UDB_Shifter_u0__A0_REG)
+    #define I2C_1_DATA_PTR       ( (reg8 *) I2C_1_bI2C_UDB_Shifter_u0__A0_REG)
 
-    #define I2C_1_GO_REG         (* (reg8 *) I2C_1_bI2C_UDB_Shifter_u0__F1_REG)
-    #define I2C_1_GO_PTR         (  (reg8 *) I2C_1_bI2C_UDB_Shifter_u0__F1_REG)
+    #define I2C_1_GO_REG         (*(reg8 *) I2C_1_bI2C_UDB_Shifter_u0__F1_REG)
+    #define I2C_1_GO_PTR         ( (reg8 *) I2C_1_bI2C_UDB_Shifter_u0__F1_REG)
 
-    #define I2C_1_MCLK_PRD_REG   (* (reg8 *) I2C_1_bI2C_UDB_Master_ClkGen_u0__D0_REG)
-    #define I2C_1_MCLK_PRD_PTR   (  (reg8 *) I2C_1_bI2C_UDB_Master_ClkGen_u0__D0_REG)
+    #define I2C_1_MCLK_PRD_REG   (*(reg8 *) I2C_1_bI2C_UDB_Master_ClkGen_u0__D0_REG)
+    #define I2C_1_MCLK_PRD_PTR   ( (reg8 *) I2C_1_bI2C_UDB_Master_ClkGen_u0__D0_REG)
 
-    #define I2C_1_MCLK_CMP_REG   (* (reg8 *) I2C_1_bI2C_UDB_Master_ClkGen_u0__D1_REG)
-    #define I2C_1_MCLK_CMP_PTR   (  (reg8 *) I2C_1_bI2C_UDB_Master_ClkGen_u0__D1_REG)
+    #define I2C_1_MCLK_CMP_REG   (*(reg8 *) I2C_1_bI2C_UDB_Master_ClkGen_u0__D1_REG)
+    #define I2C_1_MCLK_CMP_PTR   ( (reg8 *) I2C_1_bI2C_UDB_Master_ClkGen_u0__D1_REG)
 
-    #if(I2C_1_MODE_SLAVE_ENABLED)
-        #define I2C_1_ADDR_REG       (* (reg8 *) I2C_1_bI2C_UDB_Shifter_u0__D0_REG)
-        #define I2C_1_ADDR_PTR       (  (reg8 *) I2C_1_bI2C_UDB_Shifter_u0__D0_REG)
+    #if (I2C_1_MODE_SLAVE_ENABLED)
+        #define I2C_1_ADDR_REG       (*(reg8 *) I2C_1_bI2C_UDB_Shifter_u0__D0_REG)
+        #define I2C_1_ADDR_PTR       ( (reg8 *) I2C_1_bI2C_UDB_Shifter_u0__D0_REG)
 
-        #define I2C_1_PERIOD_REG     (* (reg8 *) I2C_1_bI2C_UDB_Slave_BitCounter__PERIOD_REG)
-        #define I2C_1_PERIOD_PTR     (  (reg8 *) I2C_1_bI2C_UDB_Slave_BitCounter__PERIOD_REG)
+        #define I2C_1_PERIOD_REG     (*(reg8 *) I2C_1_bI2C_UDB_Slave_BitCounter__PERIOD_REG)
+        #define I2C_1_PERIOD_PTR     ( (reg8 *) I2C_1_bI2C_UDB_Slave_BitCounter__PERIOD_REG)
 
-        #define I2C_1_COUNTER_REG    (* (reg8 *) I2C_1_bI2C_UDB_Slave_BitCounter__COUNT_REG)
-        #define I2C_1_COUNTER_PTR    (  (reg8 *) I2C_1_bI2C_UDB_Slave_BitCounter__COUNT_REG)
+        #define I2C_1_COUNTER_REG    (*(reg8 *) I2C_1_bI2C_UDB_Slave_BitCounter__COUNT_REG)
+        #define I2C_1_COUNTER_PTR    ( (reg8 *) I2C_1_bI2C_UDB_Slave_BitCounter__COUNT_REG)
 
-        #define I2C_1_COUNTER_AUX_CTL_REG  (* (reg8 *) \
-                                                        I2C_1_bI2C_UDB_Slave_BitCounter__CONTROL_AUX_CTL_REG)
-        #define I2C_1_COUNTER_AUX_CTL_PTR  (  (reg8 *) \
-                                                        I2C_1_bI2C_UDB_Slave_BitCounter__CONTROL_AUX_CTL_REG)
+        #define I2C_1_COUNTER_AUX_CTL_REG \
+                                    (*(reg8 *) I2C_1_bI2C_UDB_Slave_BitCounter__CONTROL_AUX_CTL_REG)
+        #define I2C_1_COUNTER_AUX_CTL_PTR \
+                                    ( (reg8 *) I2C_1_bI2C_UDB_Slave_BitCounter__CONTROL_AUX_CTL_REG)
 
     #endif /* (I2C_1_MODE_SLAVE_ENABLED) */
 
@@ -498,14 +462,18 @@ extern uint8 I2C_1_initVar;
 #define I2C_1_DATA_MASK          (0xFFu)
 #define I2C_1_READ_FLAG          (0x01u)
 
-#define I2C_1_FF_RESET_DELAY     (0x02u)
+/* Block reset constants */
+#define I2C_1_CLEAR_REG          (0x00u)
+#define I2C_1_BLOCK_RESET_DELAY  (2u)
+#define I2C_1_FF_RESET_DELAY     (I2C_1_BLOCK_RESET_DELAY)
+#define I2C_1_RESTORE_TIMEOUT    (255u)
 
-#if(I2C_1_FF_IMPLEMENTED)
+#if (I2C_1_FF_IMPLEMENTED)
     /* XCFG I2C Extended Configuration Register */
     #define I2C_1_XCFG_CLK_EN        (0x80u) /* Enable gated clock to block */
     #define I2C_1_XCFG_I2C_ON        (0x40u) /* Enable I2C as wake up source*/
     #define I2C_1_XCFG_RDY_TO_SLEEP  (0x20u) /* I2C ready go to sleep */
-    #define I2C_1_XCFG_FORCE_NACK    (0x10u) /* Force NACK all incomming transactions */
+    #define I2C_1_XCFG_FORCE_NACK    (0x10u) /* Force NACK all incoming transactions */
     #define I2C_1_XCFG_NO_BC_INT     (0x08u) /* No interrupt on byte complete */
     #define I2C_1_XCFG_BUF_MODE      (0x02u) /* Enable buffer mode */
     #define I2C_1_XCFG_HDWR_ADDR_EN  (0x01u) /* Enable Hardware address match */
@@ -515,7 +483,7 @@ extern uint8 I2C_1_initVar;
     #define I2C_1_CFG_PSELECT        (0x40u) /* Pin Select */
     #define I2C_1_CFG_BUS_ERR_IE     (0x20u) /* Bus Error Interrupt Enable */
     #define I2C_1_CFG_STOP_IE        (0x10u) /* Enable Interrupt on STOP condition */
-    #define I2C_1_CFG_CLK_RATE_MSK   (0x0Cu) /* Clock rate select  **CHECK**  */
+    #define I2C_1_CFG_CLK_RATE_MSK   (0x0Cu) /* Clock rate select */
     #define I2C_1_CFG_CLK_RATE_100   (0x00u) /* Clock rate select 100K */
     #define I2C_1_CFG_CLK_RATE_400   (0x04u) /* Clock rate select 400K */
     #define I2C_1_CFG_CLK_RATE_050   (0x08u) /* Clock rate select 50K  */
@@ -527,7 +495,7 @@ extern uint8 I2C_1_initVar;
     #define I2C_1_CFG_CLK_RATE_GRATER_50     (0x00u) /* Clock rate select > 50kHz */
 
     /* CSR I2C Control and Status Register */
-    #define I2C_1_CSR_BUS_ERROR      (0x80u) /* Active high when bus error has occured */
+    #define I2C_1_CSR_BUS_ERROR      (0x80u) /* Active high when bus error has occurred */
     #define I2C_1_CSR_LOST_ARB       (0x40u) /* Set to 1 if lost arbitration in host mode */
     #define I2C_1_CSR_STOP_STATUS    (0x20u) /* Set if Stop has been detected */
     #define I2C_1_CSR_ACK            (0x10u) /* ACK response */
@@ -539,7 +507,7 @@ extern uint8 I2C_1_initVar;
     #define I2C_1_CSR_LRB_NAK        (0x02u) /* Last received bit was an NAK */
     #define I2C_1_CSR_BYTE_COMPLETE  (0x01u) /* Informs that last byte has been sent */
     #define I2C_1_CSR_STOP_GEN       (0x00u) /* Generate a stop condition */
-    #define I2C_1_CSR_RDY_TO_RD      (0x00u) /* Set to recieve mode */
+    #define I2C_1_CSR_RDY_TO_RD      (0x00u) /* Set to receive mode */
 
     /* MCSR I2C Master Control and Status Register */
     #define I2C_1_MCSR_STOP_GEN      (0x10u) /* Firmware sets this bit to initiate a Stop condition */
@@ -547,16 +515,6 @@ extern uint8 I2C_1_initVar;
     #define I2C_1_MCSR_MSTR_MODE     (0x04u) /* Status bit, Set at Start and cleared at Stop condition */
     #define I2C_1_MCSR_RESTART_GEN   (0x02u) /* Firmware sets this bit to initiate a ReStart condition */
     #define I2C_1_MCSR_START_GEN     (0x01u) /* Firmware sets this bit to initiate a Start condition */
-
-    /* CLK_DIV I2C Clock Divide Factor Register */
-    #define I2C_1_CLK_DIV_MSK    (0x07u) /* Status bit, Set at Start and cleared at Stop condition */
-    #define I2C_1_CLK_DIV_1      (0x00u) /* Divide input clock by  1 */
-    #define I2C_1_CLK_DIV_2      (0x01u) /* Divide input clock by  2 */
-    #define I2C_1_CLK_DIV_4      (0x02u) /* Divide input clock by  4 */
-    #define I2C_1_CLK_DIV_8      (0x03u) /* Divide input clock by  8 */
-    #define I2C_1_CLK_DIV_16     (0x04u) /* Divide input clock by 16 */
-    #define I2C_1_CLK_DIV_32     (0x05u) /* Divide input clock by 32 */
-    #define I2C_1_CLK_DIV_64     (0x06u) /* Divide input clock by 64 */
 
     /* PWRSYS_CR1 to handle Sleep */
     #define I2C_1_PWRSYS_CR1_I2C_REG_BACKUP  (0x04u) /* Enables, power to I2C regs while sleep */
@@ -597,8 +555,8 @@ extern uint8 I2C_1_initVar;
     #define I2C_1_STS_BYTE_COMPLETE_MASK     ((uint8) (0x01u << I2C_1_STS_BYTE_COMPLETE_SHIFT))
 
     /* AUX_CTL bits definition */
-    #define I2C_1_COUNTER_ENABLE_MASK        (0x20u) /* Enable 7-bit counter     */
-    #define I2C_1_INT_ENABLE_MASK            (0x10u) /* Enable intr from statusi */
+    #define I2C_1_COUNTER_ENABLE_MASK        (0x20u) /* Enable 7-bit counter */
+    #define I2C_1_INT_ENABLE_MASK            (0x10u) /* Enable interrupt from status register */
     #define I2C_1_CNT7_ENABLE                (I2C_1_COUNTER_ENABLE_MASK)
     #define I2C_1_INTR_ENABLE                (I2C_1_INT_ENABLE_MASK)
 
@@ -627,8 +585,7 @@ extern uint8 I2C_1_initVar;
 
 /* CSR conditions check */
 #define I2C_1_WAIT_BYTE_COMPLETE(csr)    (0u == ((csr) & I2C_1_CSR_BYTE_COMPLETE))
-#define I2C_1_WAIT_STOP_COMPLETE(csr)    (0u == ((csr) & (I2C_1_CSR_BYTE_COMPLETE | \
-                                                                     I2C_1_CSR_STOP_STATUS)))
+#define I2C_1_WAIT_STOP_COMPLETE(csr)    (0u == ((csr) & I2C_1_CSR_STOP_STATUS))
 #define I2C_1_CHECK_BYTE_COMPLETE(csr)   (0u != ((csr) & I2C_1_CSR_BYTE_COMPLETE))
 #define I2C_1_CHECK_STOP_STS(csr)        (0u != ((csr) & I2C_1_CSR_STOP_STATUS))
 #define I2C_1_CHECK_LOST_ARB(csr)        (0u != ((csr) & I2C_1_CSR_LOST_ARB))
@@ -642,11 +599,11 @@ extern uint8 I2C_1_initVar;
 #define I2C_1_GET_MSTAT_CMPLT ((0u != (I2C_1_state & I2C_1_SM_MSTR_RD)) ? \
                                                  (I2C_1_MSTAT_RD_CMPLT) : (I2C_1_MSTAT_WR_CMPLT))
 
-/* Returns 7-bit slave address and used for software address match */
+/* Returns 7-bit slave address */
 #define I2C_1_GET_SLAVE_ADDR(dataReg)   (((dataReg) >> I2C_1_SLAVE_ADDR_SHIFT) & \
                                                                   I2C_1_SLAVE_ADDR_MASK)
 
-#if(I2C_1_FF_IMPLEMENTED)
+#if (I2C_1_FF_IMPLEMENTED)
     /* Check enable of module */
     #define I2C_1_I2C_ENABLE_REG     (I2C_1_ACT_PWRMGR_REG)
     #define I2C_1_IS_I2C_ENABLE(reg) (0u != ((reg) & I2C_1_ACT_PWR_EN))
@@ -706,36 +663,23 @@ extern uint8 I2C_1_initVar;
                                                         I2C_1_CSR_REG = I2C_1_CSR_RDY_TO_RD; \
                                                     }while(0)
 
-    /* Master condition generation */
+    /* Master Start/ReStart/Stop conditions generation */
     #define I2C_1_GENERATE_START         do{ \
                                                         I2C_1_MCSR_REG = I2C_1_MCSR_START_GEN; \
                                                     }while(0)
 
-    #if(CY_PSOC5A)
-        #define I2C_1_GENERATE_RESTART \
-                        do{ \
-                            I2C_1_MCSR_REG = I2C_1_MCSR_RESTART_GEN; \
-                            I2C_1_CSR_REG  = I2C_1_CSR_NAK;          \
-                        }while(0)
+    #define I2C_1_GENERATE_RESTART \
+                    do{                       \
+                        I2C_1_MCSR_REG = (I2C_1_MCSR_RESTART_GEN | \
+                                                     I2C_1_MCSR_STOP_GEN);    \
+                        I2C_1_CSR_REG  = I2C_1_CSR_TRANSMIT;       \
+                    }while(0)
 
-        #define I2C_1_GENERATE_STOP      do{ \
-                                                        I2C_1_CSR_REG = I2C_1_CSR_STOP_GEN; \
-                                                    }while(0)
-
-    #else   /* PSoC3 ES3 handlees zero lenght packets */
-        #define I2C_1_GENERATE_RESTART \
-                        do{ \
-                            I2C_1_MCSR_REG = (I2C_1_MCSR_RESTART_GEN | \
-                                                         I2C_1_MCSR_STOP_GEN);    \
-                            I2C_1_CSR_REG  = I2C_1_CSR_TRANSMIT;       \
-                        }while(0)
-
-        #define I2C_1_GENERATE_STOP \
-                        do{ \
-                            I2C_1_MCSR_REG = I2C_1_MCSR_STOP_GEN; \
-                            I2C_1_CSR_REG  = I2C_1_CSR_TRANSMIT;  \
-                        }while(0)
-    #endif /* (CY_PSOC5A) */
+    #define I2C_1_GENERATE_STOP \
+                    do{                    \
+                        I2C_1_MCSR_REG = I2C_1_MCSR_STOP_GEN; \
+                        I2C_1_CSR_REG  = I2C_1_CSR_TRANSMIT;  \
+                    }while(0)
 
     /* Master manual APIs compatible defines */
     #define I2C_1_GENERATE_RESTART_MANUAL    I2C_1_GENERATE_RESTART
@@ -746,11 +690,11 @@ extern uint8 I2C_1_initVar;
 
 #else
 
-    /* Masks to enalbe interrupts from Status register */
+    /* Masks to enable interrupts from Status register */
     #define I2C_1_STOP_IE_MASK           (I2C_1_STS_STOP_MASK)
     #define I2C_1_BYTE_COMPLETE_IE_MASK  (I2C_1_STS_BYTE_COMPLETE_MASK)
 
-    /* FF compatibility: CSR gegisters definitions */
+    /* FF compatibility: CSR register bit-fields */
     #define I2C_1_CSR_LOST_ARB       (I2C_1_STS_LOST_ARB_MASK)
     #define I2C_1_CSR_STOP_STATUS    (I2C_1_STS_STOP_MASK)
     #define I2C_1_CSR_BUS_ERROR      (0x00u)
@@ -761,16 +705,16 @@ extern uint8 I2C_1_initVar;
     #define I2C_1_CSR_LRB_ACK        (0x00u)
     #define I2C_1_CSR_BYTE_COMPLETE  (I2C_1_STS_BYTE_COMPLETE_MASK)
 
-    /* FF compatibility: MCSR gegisters definitions */
-    #define I2C_1_MCSR_REG           (I2C_1_CSR_REG)   /* UDB incoporates master and slave regs */
-    #define I2C_1_MCSR_BUS_BUSY      (I2C_1_STS_BUSY_MASK)       /* Is bus is busy              */
-    #define I2C_1_MCSR_START_GEN     (I2C_1_CTRL_START_MASK)     /* Generate Sart condition     */
-    #define I2C_1_MCSR_RESTART_GEN   (I2C_1_CTRL_RESTART_MASK)   /* Generates RESTART condition */
+    /* FF compatibility: MCSR registers bit-fields */
+    #define I2C_1_MCSR_REG           (I2C_1_CSR_REG)  /* UDB incorporates master and slave regs */
+    #define I2C_1_MCSR_BUS_BUSY      (I2C_1_STS_BUSY_MASK)      /* Is bus is busy               */
+    #define I2C_1_MCSR_START_GEN     (I2C_1_CTRL_START_MASK)    /* Generate Start condition     */
+    #define I2C_1_MCSR_RESTART_GEN   (I2C_1_CTRL_RESTART_MASK)  /* Generates RESTART condition  */
     #define I2C_1_MCSR_MSTR_MODE     (I2C_1_STS_MASTER_MODE_MASK)/* Define if active Master     */
 
     /* Data to write into TX FIFO to release FSM */
     #define I2C_1_RELEASE_FSM         (0x00u)
-    
+
     /* Check enable of module */
     #define I2C_1_I2C_ENABLE_REG     (I2C_1_CFG_REG)
     #define I2C_1_IS_I2C_ENABLE(reg) ((0u != ((reg) & I2C_1_ENABLE_MASTER)) || \
@@ -859,50 +803,47 @@ extern uint8 I2C_1_initVar;
     #define I2C_1_GENERATE_RESTART_MANUAL    \
                                         do{             \
                                             I2C_1_GENERATE_RESTART;                                    \
+                                            /* Wait when byte complete is cleared */                              \
                                             while(I2C_1_CHECK_BYTE_COMPLETE(I2C_1_CSR_REG)) \
                                             {                                                                     \
-                                                ; /* Wait when byte complete is cleared */                        \
                                             }                                                                     \
                                         }while(0)
 
-    #define I2C_1_GENERATE_STOP_MANUAL   \
-                                        do{         \
-                                            I2C_1_GENERATE_STOP;                                       \
-                                            while(I2C_1_CHECK_BYTE_COMPLETE(I2C_1_CSR_REG)) \
-                                            {                                                                     \
-                                                ; /* Wait when byte complete is cleared */                        \
-                                            }                                                                     \
-                                        }while(0)
+    /* The byte complete status is cleared after a GO command is set and the 1st component clock passed.The Stop condition
+    * generation, for which the code is waiting for in I2C_1_MasterSendStop(), occurs much later.
+    * Therefore there is no reason for waiting until the byte complete status is cleared in the macro below.
+    */
+    #define I2C_1_GENERATE_STOP_MANUAL   I2C_1_GENERATE_STOP
 
     #define I2C_1_TRANSMIT_DATA_MANUAL   \
                                         do{         \
                                             I2C_1_TRANSMIT_DATA;                                       \
+                                            /* Wait when byte complete is cleared */                              \
                                             while(I2C_1_CHECK_BYTE_COMPLETE(I2C_1_CSR_REG)) \
                                             {                                                                     \
-                                                ; /* Wait when byte complete is cleared */                        \
                                             }                                                                     \
                                         }while(0)
 
     #define I2C_1_READY_TO_READ_MANUAL   \
                                         do{         \
-                                            I2C_1_READY_TO_READ;      \
+                                            I2C_1_READY_TO_READ;                                       \
+                                            /* Wait when byte complete is cleared */                              \
                                             while(I2C_1_CHECK_BYTE_COMPLETE(I2C_1_CSR_REG)) \
                                             {                                                                     \
-                                                ; /* Wait when byte complete is cleared */                        \
                                             }                                                                     \
                                         }while(0)
 
     #define I2C_1_ACK_AND_RECEIVE_MANUAL \
                                         do{         \
                                             I2C_1_ACK_AND_RECEIVE;                                     \
+                                            /* Wait when byte complete is cleared */                              \
                                             while(I2C_1_CHECK_BYTE_COMPLETE(I2C_1_CSR_REG)) \
                                             {                                                                     \
-                                                ; /* Wait when byte complete is cleared */                        \
                                             }                                                                     \
                                         }while(0)
 #endif /* (I2C_1_FF_IMPLEMENTED) */
 
-/* Comon for FF and UDB: used to release bus after lost arb */
+/* Common for FF and UDB: used to release bus after lost arbitration */
 #define I2C_1_BUS_RELEASE    I2C_1_READY_TO_READ
 
 
@@ -913,7 +854,7 @@ extern uint8 I2C_1_initVar;
 #define I2C_1_DISABLE    (0u)
 #define I2C_1_ENABLE     (1u)
 
-#if(I2C_1_FF_IMPLEMENTED)
+#if (I2C_1_FF_IMPLEMENTED)
     /* I2C_1_XCFG_REG: bits definition */
     #define I2C_1_DEFAULT_XCFG_HW_ADDR_EN ((I2C_1_HW_ADRR_DECODE) ? \
                                                         (I2C_1_XCFG_HDWR_ADDR_EN) : (0u))
@@ -940,8 +881,7 @@ extern uint8 I2C_1_initVar;
                                                  (I2C_1_CFG_CLK_RATE_LESS_EQUAL_50) : \
                                                  (I2C_1_CFG_CLK_RATE_GRATER_50))
 
-    #define I2C_1_DEFAULT_CLK_RATE   ((CY_PSOC5A) ? (I2C_1_DEFAULT_CLK_RATE0) : \
-                                                               (I2C_1_DEFAULT_CLK_RATE1))
+    #define I2C_1_DEFAULT_CLK_RATE   (I2C_1_DEFAULT_CLK_RATE1)
 
 
     #define I2C_1_ENABLE_MASTER      ((I2C_1_MODE_MASTER_ENABLED) ? \
@@ -966,7 +906,7 @@ extern uint8 I2C_1_initVar;
                                              I2C_1_ENABLE_SLAVE)
 
     /*I2C_1_DEFAULT_DIVIDE_FACTOR_REG */
-    #define I2C_1_DEFAULT_DIVIDE_FACTOR  ((CY_PSOC5A) ? ((uint8) 2u) : ((uint16) 4u))
+    #define I2C_1_DEFAULT_DIVIDE_FACTOR  ((uint16) 4u)
 
 #else
     /* I2C_1_CFG_REG: bits definition  */
@@ -992,7 +932,7 @@ extern uint8 I2C_1_initVar;
     #define I2C_1_MCLK_PERIOD_VALUE  (0x0Fu)
     #define I2C_1_MCLK_COMPARE_VALUE (0x08u)
 
-    /* Slave bit-counter: contorol period */
+    /* Slave bit-counter: control period */
     #define I2C_1_PERIOD_VALUE       (0x07u)
 
     /* I2C_1_DEFAULT_INT_MASK */
@@ -1011,13 +951,10 @@ extern uint8 I2C_1_initVar;
 
 
 /***************************************
-*       Obsolete
+* The following code is DEPRECATED and
+* should not be used in new projects.
 ***************************************/
 
-/* Following code are OBSOLETE and must not be used 
- * starting from I2C 3.20
- */
- 
 #define I2C_1_SSTAT_RD_ERR       (0x08u)
 #define I2C_1_SSTAT_WR_ERR       (0x80u)
 #define I2C_1_MSTR_SLAVE_BUSY    (I2C_1_MSTR_NOT_READY)

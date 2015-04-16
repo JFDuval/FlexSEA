@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: ADC_DelSig_1.h
-* Version 3.10
+* Version 3.20
 *
 * Description:
 *  This file contains the function prototypes and constants used in
@@ -9,7 +9,7 @@
 * Note:
 *
 ********************************************************************************
-* Copyright 2008-2013, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -28,7 +28,7 @@
 /* They are defined starting with cy_boot v3.30 */
 /* CY_FLASH_PM_ACT_EEFLASH_REG define used to check cy_boot has v3.30 or later */    
 #if !defined (CY_FLASH_PM_ACT_EEFLASH_REG)
-    #error Component ADC_DelSig_v3_10 requires cy_boot v3.30 or later
+    #error Component ADC_DelSig_v3_20 requires cy_boot v3.30 or later
 #endif /* (CY_FLASH_PM_ACT_EEFLASH_REG) */
 
 
@@ -1383,7 +1383,7 @@ extern volatile int32 ADC_DelSig_1_CountsPerVolt;
 #define ADC_DelSig_1_CFG1_DSM_REF1           (0x00u)
 #define ADC_DelSig_1_CFG1_DSM_REF2           (0x58u)
 #define ADC_DelSig_1_CFG1_DSM_REF3           (0x00u)
-#define ADC_DelSig_1_CFG1_DSM_DEM0           (0x07u)
+#define ADC_DelSig_1_CFG1_DSM_DEM0           (0x04u)
 #define ADC_DelSig_1_CFG1_DSM_DEM1           (0x00u)
 #define ADC_DelSig_1_CFG1_DSM_MISC           (0x00u)
 #define ADC_DelSig_1_CFG1_DSM_CLK            (0x18u)
@@ -1482,7 +1482,7 @@ extern volatile int32 ADC_DelSig_1_CountsPerVolt;
 #define ADC_DelSig_1_CFG2_DSM_REF0           (0x44u)
 #define ADC_DelSig_1_CFG2_DSM_REF2           (0x58u)
 #define ADC_DelSig_1_CFG2_DSM_REF3           (0x00u)
-#define ADC_DelSig_1_CFG2_DSM_DEM0           (0x07u)
+#define ADC_DelSig_1_CFG2_DSM_DEM0           (0x04u)
 #define ADC_DelSig_1_CFG2_DSM_DEM1           (0x00u)
 #define ADC_DelSig_1_CFG2_DSM_BUF0           (0x05u)
 #define ADC_DelSig_1_CFG2_DSM_BUF1           (0x02u)
@@ -1586,7 +1586,7 @@ extern volatile int32 ADC_DelSig_1_CountsPerVolt;
 #define ADC_DelSig_1_CFG3_DSM_REF0           (0x44u)
 #define ADC_DelSig_1_CFG3_DSM_REF2           (0x58u)
 #define ADC_DelSig_1_CFG3_DSM_REF3           (0x00u)
-#define ADC_DelSig_1_CFG3_DSM_DEM0           (0x07u)
+#define ADC_DelSig_1_CFG3_DSM_DEM0           (0x04u)
 #define ADC_DelSig_1_CFG3_DSM_DEM1           (0x00u)
 #define ADC_DelSig_1_CFG3_DSM_BUF0           (0x05u)
 #define ADC_DelSig_1_CFG3_DSM_BUF1           (0x02u)
@@ -1689,7 +1689,7 @@ extern volatile int32 ADC_DelSig_1_CountsPerVolt;
 #define ADC_DelSig_1_CFG4_DSM_REF0           (0x44u)
 #define ADC_DelSig_1_CFG4_DSM_REF2           (0x58u)
 #define ADC_DelSig_1_CFG4_DSM_REF3           (0x00u)
-#define ADC_DelSig_1_CFG4_DSM_DEM0           (0x07u)
+#define ADC_DelSig_1_CFG4_DSM_DEM0           (0x04u)
 #define ADC_DelSig_1_CFG4_DSM_DEM1           (0x00u)
 #define ADC_DelSig_1_CFG4_DSM_BUF0           (0x05u)
 #define ADC_DelSig_1_CFG4_DSM_BUF1           (0x02u)

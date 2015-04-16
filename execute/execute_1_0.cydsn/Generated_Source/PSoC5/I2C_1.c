@@ -1,16 +1,14 @@
 /*******************************************************************************
 * File Name: I2C_1.c
-* Version 3.30
+* Version 3.40
 *
 * Description:
 *  This file provides the source code of APIs for the I2C component.
-*  Actual protocol and operation code resides in the interrupt service routine
-*  file.
-*
-* Note:
+*  The actual protocol and operation code resides in the interrupt service
+*  routine file.
 *
 *******************************************************************************
-* Copyright 2008-2012, Cypress Semiconductor Corporation. All rights reserved.
+* Copyright 2008-2015, Cypress Semiconductor Corporation. All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -23,7 +21,7 @@
 *      System variables
 **********************************/
 
-uint8 I2C_1_initVar = 0u;    /* Defines if component was initialized */
+uint8 I2C_1_initVar = 0u; /* Defines if component was initialized */
 
 volatile uint8 I2C_1_state;  /* Current state of I2C FSM */
 
@@ -36,84 +34,82 @@ volatile uint8 I2C_1_state;  /* Current state of I2C FSM */
 *  Initializes I2C registers with initial values provided from customizer.
 *
 * Parameters:
-*  None
+*  None.
 *
 * Return:
-*  None
+*  None.
 *
 * Global variables:
-*  None
+*  None.
 *
 * Reentrant:
-*  No
+*  No.
 *
 *******************************************************************************/
 void I2C_1_Init(void) 
 {
-    #if(I2C_1_FF_IMPLEMENTED)
-        I2C_1_CFG_REG  = I2C_1_DEFAULT_CFG;
-        I2C_1_XCFG_REG = I2C_1_DEFAULT_XCFG;
+#if (I2C_1_FF_IMPLEMENTED)
+    /* Configure fixed function block */
+    I2C_1_CFG_REG  = I2C_1_DEFAULT_CFG;
+    I2C_1_XCFG_REG = I2C_1_DEFAULT_XCFG;
+    I2C_1_ADDR_REG = I2C_1_DEFAULT_ADDR;
+    I2C_1_CLKDIV1_REG = LO8(I2C_1_DEFAULT_DIVIDE_FACTOR);
+    I2C_1_CLKDIV2_REG = HI8(I2C_1_DEFAULT_DIVIDE_FACTOR);
 
-        #if(CY_PSOC5A)
-            I2C_1_CLKDIV_REG  = LO8(I2C_1_DEFAULT_DIVIDE_FACTOR);
-        #else
-            I2C_1_CLKDIV1_REG = LO8(I2C_1_DEFAULT_DIVIDE_FACTOR);
-            I2C_1_CLKDIV2_REG = HI8(I2C_1_DEFAULT_DIVIDE_FACTOR);
-        #endif /* (CY_PSOC5A) */
+#else
+    uint8 intState;
 
-    #else
-        uint8 enableInterrupts;
+    /* Configure control and interrupt sources */
+    I2C_1_CFG_REG      = I2C_1_DEFAULT_CFG;
+    I2C_1_INT_MASK_REG = I2C_1_DEFAULT_INT_MASK;
 
-        I2C_1_CFG_REG      = I2C_1_DEFAULT_CFG;      /* control  */
-        I2C_1_INT_MASK_REG = I2C_1_DEFAULT_INT_MASK; /* int_mask */
+    /* Enable interrupt generation in status */
+    intState = CyEnterCriticalSection();
+    I2C_1_INT_ENABLE_REG |= I2C_1_INTR_ENABLE;
+    CyExitCriticalSection(intState);
 
-        /* Enable interrupts from block */
-        enableInterrupts = CyEnterCriticalSection();
-        I2C_1_INT_ENABLE_REG |= I2C_1_INTR_ENABLE; /* aux_ctl */
-        CyExitCriticalSection(enableInterrupts);
+    /* Configure bit counter */
+    #if (I2C_1_MODE_SLAVE_ENABLED)
+        I2C_1_PERIOD_REG = I2C_1_DEFAULT_PERIOD;
+    #endif  /* (I2C_1_MODE_SLAVE_ENABLED) */
 
-        #if(I2C_1_MODE_MASTER_ENABLED)
-            I2C_1_MCLK_PRD_REG = I2C_1_DEFAULT_MCLK_PRD;
-            I2C_1_MCLK_CMP_REG = I2C_1_DEFAULT_MCLK_CMP;
-         #endif /* (I2C_1_MODE_MASTER_ENABLED) */
+    /* Configure clock generator */
+    #if (I2C_1_MODE_MASTER_ENABLED)
+        I2C_1_MCLK_PRD_REG = I2C_1_DEFAULT_MCLK_PRD;
+        I2C_1_MCLK_CMP_REG = I2C_1_DEFAULT_MCLK_CMP;
+    #endif /* (I2C_1_MODE_MASTER_ENABLED) */
+#endif /* (I2C_1_FF_IMPLEMENTED) */
 
-        #if(I2C_1_MODE_SLAVE_ENABLED)
-            I2C_1_PERIOD_REG = I2C_1_DEFAULT_PERIOD;
-        #endif  /* (I2C_1_MODE_SLAVE_ENABLED) */
+#if (I2C_1_TIMEOUT_ENABLED)
+    I2C_1_TimeoutInit();
+#endif /* (I2C_1_TIMEOUT_ENABLED) */
 
-    #endif /* (I2C_1_FF_IMPLEMENTED) */
-
-    #if(I2C_1_TIMEOUT_ENABLED)
-        I2C_1_TimeoutInit();
-    #endif /* (I2C_1_TIMEOUT_ENABLED) */
-
-    /* Disable Interrupt and set vector and priority */
+    /* Configure internal interrupt */
     CyIntDisable    (I2C_1_ISR_NUMBER);
     CyIntSetPriority(I2C_1_ISR_NUMBER, I2C_1_ISR_PRIORITY);
-    #if(I2C_1_INTERN_I2C_INTR_HANDLER)
+    #if (I2C_1_INTERN_I2C_INTR_HANDLER)
         (void) CyIntSetVector(I2C_1_ISR_NUMBER, &I2C_1_ISR);
     #endif /* (I2C_1_INTERN_I2C_INTR_HANDLER) */
 
-
-    /* Put state machine in idle state */
+    /* Set FSM to default state */
     I2C_1_state = I2C_1_SM_IDLE;
 
-    #if(I2C_1_MODE_SLAVE_ENABLED)
-        /* Reset status and buffers index */
-        I2C_1_SlaveClearReadBuf();
-        I2C_1_SlaveClearWriteBuf();
-        I2C_1_slStatus = 0u; /* Reset slave status */
+#if (I2C_1_MODE_SLAVE_ENABLED)
+    /* Clear status and buffers index */
+    I2C_1_slStatus = 0u;
+    I2C_1_slRdBufIndex = 0u;
+    I2C_1_slWrBufIndex = 0u;
 
-        /* Set default address */
-        I2C_1_SlaveSetAddress(I2C_1_DEFAULT_ADDR);
-    #endif /* (I2C_1_MODE_SLAVE_ENABLED) */
+    /* Configure matched address */
+    I2C_1_SlaveSetAddress(I2C_1_DEFAULT_ADDR);
+#endif /* (I2C_1_MODE_SLAVE_ENABLED) */
 
-    #if(I2C_1_MODE_MASTER_ENABLED)
-        /* Reset status and buffers index */
-        I2C_1_MasterClearReadBuf();
-        I2C_1_MasterClearWriteBuf();
-        (void) I2C_1_MasterClearStatus();
-    #endif /* (I2C_1_MODE_MASTER_ENABLED) */
+#if (I2C_1_MODE_MASTER_ENABLED)
+    /* Clear status and buffers index */
+    I2C_1_mstrStatus = 0u;
+    I2C_1_mstrRdBufIndex = 0u;
+    I2C_1_mstrWrBufIndex = 0u;
+#endif /* (I2C_1_MODE_MASTER_ENABLED) */
 }
 
 
@@ -125,46 +121,40 @@ void I2C_1_Init(void)
 *  Enables I2C operations.
 *
 * Parameters:
-*  None
+*  None.
 *
 * Return:
-*  None
+*  None.
 *
 * Global variables:
-*  None
+*  None.
 *
 *******************************************************************************/
 void I2C_1_Enable(void) 
 {
-    #if(I2C_1_FF_IMPLEMENTED)
-        uint8 enableInterrupts;
+#if (I2C_1_FF_IMPLEMENTED)
+    uint8 intState;
 
-        /* Enable power to I2C FF block */
-        enableInterrupts = CyEnterCriticalSection();
-        I2C_1_ACT_PWRMGR_REG  |= I2C_1_ACT_PWR_EN;
-        I2C_1_STBY_PWRMGR_REG |= I2C_1_STBY_PWR_EN;
-        CyExitCriticalSection(enableInterrupts);
+    /* Enable power to block */
+    intState = CyEnterCriticalSection();
+    I2C_1_ACT_PWRMGR_REG  |= I2C_1_ACT_PWR_EN;
+    I2C_1_STBY_PWRMGR_REG |= I2C_1_STBY_PWR_EN;
+    CyExitCriticalSection(intState);
+#else
+    #if (I2C_1_MODE_SLAVE_ENABLED)
+        /* Enable bit counter */
+        uint8 intState = CyEnterCriticalSection();
+        I2C_1_COUNTER_AUX_CTL_REG |= I2C_1_CNT7_ENABLE;
+        CyExitCriticalSection(intState);
+    #endif /* (I2C_1_MODE_SLAVE_ENABLED) */
 
-    #else
+    /* Enable slave or master bits */
+    I2C_1_CFG_REG |= I2C_1_ENABLE_MS;
+#endif /* (I2C_1_FF_IMPLEMENTED) */
 
-        #if(I2C_1_MODE_SLAVE_ENABLED)
-            uint8 enableInterrupts;
-        #endif /* (I2C_1_MODE_SLAVE_ENABLED) */
-
-        #if(I2C_1_MODE_SLAVE_ENABLED)
-            /* Enable slave bit counter */
-            enableInterrupts = CyEnterCriticalSection();
-            I2C_1_COUNTER_AUX_CTL_REG |= I2C_1_CNT7_ENABLE;   /* aux_ctl */
-            CyExitCriticalSection(enableInterrupts);
-        #endif /* (I2C_1_MODE_SLAVE_ENABLED) */
-
-        I2C_1_CFG_REG |= I2C_1_ENABLE_MS;
-
-    #endif /* (I2C_1_FF_IMPLEMENTED) */
-
-    #if(I2C_1_TIMEOUT_ENABLED)
-        I2C_1_TimeoutEnable();
-    #endif /* (I2C_1_TIMEOUT_ENABLED) */
+#if (I2C_1_TIMEOUT_ENABLED)
+    I2C_1_TimeoutEnable();
+#endif /* (I2C_1_TIMEOUT_ENABLED) */
 }
 
 
@@ -178,27 +168,27 @@ void I2C_1_Enable(void)
 *  operation.
 *
 * Parameters:
-*  None
+*  None.
 *
 * Return:
-*  None
+*  None.
 *
 * Side Effects:
-*  This component automatically enables it's interrupt.  If I2C is enabled
-*  without the interrupt enabled, it could lock up the I2C bus.
+*  This component automatically enables its interrupt.  If I2C is enabled !
+*  without the interrupt enabled, it can lock up the I2C bus.
 *
 * Global variables:
-*  I2C_1_initVar - used to check initial configuration, modified
-*  on first function call.
+*  I2C_1_initVar - This variable is used to check the initial
+*                             configuration, modified on the first
+*                             function call.
 *
 * Reentrant:
-*  No
+*  No.
 *
 *******************************************************************************/
 void I2C_1_Start(void) 
 {
-    /* Initialize I2C registers, reset I2C buffer index and clears status */
-    if(0u == I2C_1_initVar)
+    if (0u == I2C_1_initVar)
     {
         I2C_1_Init();
         I2C_1_initVar = 1u; /* Component initialized */
@@ -218,78 +208,82 @@ void I2C_1_Start(void)
 *  template bits or clock gating as appropriate.
 *
 * Parameters:
-*  None
+*  None.
 *
 * Return:
-*  None
+*  None.
 *
 *******************************************************************************/
 void I2C_1_Stop(void) 
 {
-    #if((I2C_1_FF_IMPLEMENTED)  || \
-        (I2C_1_UDB_IMPLEMENTED && I2C_1_MODE_SLAVE_ENABLED))
-        uint8 enableInterrupts;
-    #endif /* ((I2C_1_FF_IMPLEMENTED)  || \
-               (I2C_1_UDB_IMPLEMENTED && I2C_1_MODE_SLAVE_ENABLED)) */
-
     I2C_1_DisableInt();
 
-    I2C_1_DISABLE_INT_ON_STOP;   /* Interrupt on Stop can be enabled by write */
-    (void) I2C_1_CSR_REG;        /* Clear CSR reg */
-    
-    #if(I2C_1_TIMEOUT_ENABLED)
-        I2C_1_TimeoutStop();
-    #endif  /* End (I2C_1_TIMEOUT_ENABLED) */
+#if (I2C_1_TIMEOUT_ENABLED)
+    I2C_1_TimeoutStop();
+#endif  /* End (I2C_1_TIMEOUT_ENABLED) */
 
-    #if(I2C_1_FF_IMPLEMENTED)
-        #if(CY_PSOC3 || CY_PSOC5LP)
-            /* Store registers which are held in reset when Master and Slave bits are cleared */
-            #if(I2C_1_MODE_SLAVE_ENABLED)
-                I2C_1_backup.addr = I2C_1_ADDR_REG;
-            #endif /* (I2C_1_MODE_SLAVE_ENABLED) */
+#if (I2C_1_FF_IMPLEMENTED)
+    {
+        uint8 intState;
+        uint16 blockResetCycles;
 
-            I2C_1_backup.clkDiv1  = I2C_1_CLKDIV1_REG;
-            I2C_1_backup.clkDiv2  = I2C_1_CLKDIV2_REG;
+        /* Store registers effected by block disable */
+        I2C_1_backup.addr    = I2C_1_ADDR_REG;
+        I2C_1_backup.clkDiv1 = I2C_1_CLKDIV1_REG;
+        I2C_1_backup.clkDiv2 = I2C_1_CLKDIV2_REG;
 
+        /* Calculate number of cycles to reset block */
+        blockResetCycles = ((uint16) ((uint16) I2C_1_CLKDIV2_REG << 8u) | I2C_1_CLKDIV1_REG) + 1u;
 
-            /* Reset FF block */
-            I2C_1_CFG_REG &= ((uint8) ~I2C_1_ENABLE_MS);
-            CyDelayUs(I2C_1_FF_RESET_DELAY);
-            I2C_1_CFG_REG |= ((uint8)  I2C_1_ENABLE_MS);
+        /* Disable block */
+        I2C_1_CFG_REG &= (uint8) ~I2C_1_CFG_EN_SLAVE;
+        /* Wait for block reset before disable power */
+        CyDelayCycles((uint32) blockResetCycles);
 
+        /* Disable power to block */
+        intState = CyEnterCriticalSection();
+        I2C_1_ACT_PWRMGR_REG  &= (uint8) ~I2C_1_ACT_PWR_EN;
+        I2C_1_STBY_PWRMGR_REG &= (uint8) ~I2C_1_STBY_PWR_EN;
+        CyExitCriticalSection(intState);
 
-            /* Restore registers */
-            #if(I2C_1_MODE_SLAVE_ENABLED)
-                I2C_1_ADDR_REG = I2C_1_backup.addr;
-            #endif /* (I2C_1_MODE_SLAVE_ENABLED) */
+        /* Enable block */
+        I2C_1_CFG_REG |= (uint8) I2C_1_ENABLE_MS;
 
-            I2C_1_CLKDIV1_REG = I2C_1_backup.clkDiv1;
-            I2C_1_CLKDIV2_REG = I2C_1_backup.clkDiv2;
+        /* Restore registers effected by block disable. Ticket ID#198004 */
+        I2C_1_ADDR_REG    = I2C_1_backup.addr;
+        I2C_1_ADDR_REG    = I2C_1_backup.addr;
+        I2C_1_CLKDIV1_REG = I2C_1_backup.clkDiv1;
+        I2C_1_CLKDIV2_REG = I2C_1_backup.clkDiv2;
+    }
+#else
 
-        #endif /* (CY_PSOC3 || CY_PSOC5LP) */
+    /* Disable slave or master bits */
+    I2C_1_CFG_REG &= (uint8) ~I2C_1_ENABLE_MS;
 
-        /* Disable power to I2C block */
-        enableInterrupts = CyEnterCriticalSection();
-        I2C_1_ACT_PWRMGR_REG  &= ((uint8) ~I2C_1_ACT_PWR_EN);
-        I2C_1_STBY_PWRMGR_REG &= ((uint8) ~I2C_1_STBY_PWR_EN);
-        CyExitCriticalSection(enableInterrupts);
+#if (I2C_1_MODE_SLAVE_ENABLED)
+    {
+        /* Disable bit counter */
+        uint8 intState = CyEnterCriticalSection();
+        I2C_1_COUNTER_AUX_CTL_REG &= (uint8) ~I2C_1_CNT7_ENABLE;
+        CyExitCriticalSection(intState);
+    }
+#endif /* (I2C_1_MODE_SLAVE_ENABLED) */
 
-    #else
+    /* Clear interrupt source register */
+    (void) I2C_1_CSR_REG;
+#endif /* (I2C_1_FF_IMPLEMENTED) */
 
-        #if(I2C_1_MODE_SLAVE_ENABLED)
-            /* Disable slave bit counter */
-            enableInterrupts = CyEnterCriticalSection();
-            I2C_1_COUNTER_AUX_CTL_REG &= ((uint8) ~I2C_1_CNT7_ENABLE);
-            CyExitCriticalSection(enableInterrupts);
-        #endif /* (I2C_1_MODE_SLAVE_ENABLED) */
+    /* Disable interrupt on stop (enabled by write transaction) */
+    I2C_1_DISABLE_INT_ON_STOP;
+    I2C_1_ClearPendingInt();
 
-        I2C_1_CFG_REG &= ((uint8) ~I2C_1_ENABLE_MS);
+    /* Reset FSM to default state */
+    I2C_1_state = I2C_1_SM_IDLE;
 
-    #endif /* (I2C_1_FF_IMPLEMENTED) */
-
-    I2C_1_ClearPendingInt();  /* Clear interrupt triggers on reset */
-
-    I2C_1_state = I2C_1_SM_IDLE;  /* Reset software FSM */
+    /* Clear busy statuses */
+#if (I2C_1_MODE_SLAVE_ENABLED)
+    I2C_1_slStatus &= (uint8) ~(I2C_1_SSTAT_RD_BUSY | I2C_1_SSTAT_WR_BUSY);
+#endif /* (I2C_1_MODE_SLAVE_ENABLED) */
 }
 
 

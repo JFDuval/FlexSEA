@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: QuadDec_1_INT.c
-* Version 2.40
+* Version 3.0
 *
 * Description:
 *  This file contains the Interrupt Service Routine (ISR) for the Quadrature

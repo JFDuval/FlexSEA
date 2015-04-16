@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: ADC_SAR_2_INT.c
-* Version 2.10
+* Version 3.0
 *
 *  Description:
 *    This file contains the code that operates during the ADC_SAR interrupt
@@ -9,7 +9,7 @@
 *   Note:
 *
 ********************************************************************************
-* Copyright 2008-2013, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.

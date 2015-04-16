@@ -1,15 +1,13 @@
 /*******************************************************************************
 * File Name: I2C_1_BOOT.c
-* Version 3.30
+* Version 3.40
 *
 * Description:
-*  This file provides the source code of bootloader communication APIs for the
+*  This file provides the source code of the bootloader communication APIs for the
 *  I2C component.
 *
-* Note:
-*
 ********************************************************************************
-* Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2015, Cypress Semiconductor Corporation. All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -24,10 +22,10 @@
 *    Bootloader Internal Variables
 ***************************************/
 
-/* I2C write buffer: Host writes command here */
+/* I2C write buffer - The host writes commands here */
 static uint8 XDATA I2C_1_slReadBuf[I2C_1_BTLDR_SIZEOF_READ_BUFFER];
 
-/* I2C read buffer: Host reads responses from it */
+/* I2C read buffer - The host reads responses from it */
 static uint8 XDATA I2C_1_slWriteBuf[I2C_1_BTLDR_SIZEOF_WRITE_BUFFER];
 
 
@@ -41,31 +39,29 @@ static uint8 XDATA I2C_1_slWriteBuf[I2C_1_BTLDR_SIZEOF_WRITE_BUFFER];
 *  The write buffer is clear and ready to receive a commmand.
 *
 * Parameters:
-*  None
+*  None.
 *
 * Return:
-*  None
+*  None.
 *
 * Side Effects:
-*  This fucntion enables component interrupt. If I2C is enabled
-*  without the interrupt enabled, it could lock up the I2C bus.
+*  This function enables the component interrupt. If I2C is enabled
+*  without the interrupt enabled, it can lock up the I2C bus.
 *
 * Global variables:
-*  I2C_1_slWriteBuf - used to store received command.
-*  I2C_1_slReadBuf - used to store response.
-*  I2C_1_slRdBufIndex - used to store current index within slave
-*  read buffer.
+*  I2C_1_slWriteBuf - The global variable used to store a received
+*                                command.
+*  I2C_1_slReadBuf -  The global variable used to store a response.
+*  I2C_1_slRdBufIndex - The global variable used to store a current
+*                                  index within the slave read buffer.
 *
 *******************************************************************************/
 void I2C_1_CyBtldrCommStart(void) CYSMALL 
 {
-    /* Set Write buffer */
+    /* Read returns 0xFF when buffer is zero. Write transaction is expected. */
     I2C_1_SlaveInitWriteBuf(I2C_1_slWriteBuf, I2C_1_BTLDR_SIZEOF_WRITE_BUFFER);
+    I2C_1_SlaveInitReadBuf (I2C_1_slReadBuf, 0u);
 
-    /* Set Read buffer which has zero elements */
-    I2C_1_SlaveInitReadBuf(I2C_1_slReadBuf, 0u);
-
-    /* Enable power to I2C Module */
     I2C_1_Start();
 }
 
@@ -78,15 +74,14 @@ void I2C_1_CyBtldrCommStart(void) CYSMALL
 *  Disables the communication component and disables the interrupt.
 *
 * Parameters:
-*  None
+*  None.
 *
 * Return:
-*  None
+*  None.
 *
 *******************************************************************************/
 void I2C_1_CyBtldrCommStop(void) CYSMALL 
 {
-    /* Stop I2C component */
     I2C_1_Stop();
 }
 
@@ -98,22 +93,22 @@ void I2C_1_CyBtldrCommStop(void) CYSMALL
 * Summary:
 *  Set buffers to the initial state and reset the statuses.
 *  The read buffer initial state is full and the read always is 0xFFu.
-*  The write buffer is clear and ready to receive a commmand.
+*  The write buffer is clear and ready to receive a command.
 *
 * Parameters:
-*  None
+*  None.
 *
 * Return:
-*  None
+*  None.
 *
 * Global variables:
-*  I2C_1_slRdBufIndex - used to store current index within slave
-*  read buffer.
+*  I2C_1_slRdBufIndex - The global variable used to store a current
+*                                  index within the slave read buffer.
 *
 *******************************************************************************/
 void I2C_1_CyBtldrCommReset(void) CYSMALL 
 {
-    /* Make the Read buffer full */
+    /* Make Read buffer full */
     I2C_1_slRdBufSize = 0u;
 
     /* Reset Write buffer and Read buffer */
@@ -144,12 +139,12 @@ void I2C_1_CyBtldrCommReset(void) CYSMALL
 *  timeOut:  timeout value in tries of 10uS.
 *
 * Return:
-*  Status of transmit operation.
+*  The status of transmit operation.
 *
 * Global variables:
-*  I2C_1_slReadBuf - used to store response.
-*  I2C_1_slRdBufIndex - used to store current index within slave
-*  read buffer.
+*  I2C_1_slReadBuf - The global variable used to store a response.
+*  I2C_1_slRdBufIndex - The global variable used to store a current
+*                                  index within the slave read buffer.
 *
 *******************************************************************************/
 cystatus I2C_1_CyBtldrCommWrite(const uint8 pData[], uint16 size, uint16 * count, uint8 timeOut) CYSMALL
@@ -169,10 +164,10 @@ cystatus I2C_1_CyBtldrCommWrite(const uint8 pData[], uint16 size, uint16 * count
         (void) memcpy((void *) I2C_1_slReadBuf, (void *) pData, size);
         *count = size;  /* Buffer was copied to I2C buffer */
 
-        /* The buffer is free to be read */
+        /* Buffer is free to be read */
         I2C_1_slRdBufSize = ((uint8) size);
 
-        while(0u != timeoutMs)  /* Wait till response will be read */
+        while(0u != timeoutMs)  /* Wait till response is read */
         {
             /* Check if host complete read */
             if(I2C_1_slRdBufIndex == ((uint8) size))
@@ -211,10 +206,11 @@ cystatus I2C_1_CyBtldrCommWrite(const uint8 pData[], uint16 size, uint16 * count
 *  timeOut:  timeout value in tries of 10uS.
 *
 * Return:
-*  Status of receive operation.
+*  The status of receive operation.
 *
 * Global variables:
-*  I2C_1_slWriteBuf - used to store received command.
+*  I2C_1_slWriteBuf - The global variable used to store a
+*                                received command.
 *
 *******************************************************************************/
 cystatus I2C_1_CyBtldrCommRead(uint8 pData[], uint16 size, uint16 * count, uint8 timeOut) CYSMALL
@@ -231,12 +227,12 @@ cystatus I2C_1_CyBtldrCommRead(uint8 pData[], uint16 size, uint16 * count, uint8
         status = CYRET_TIMEOUT;
         timeoutMs = ((uint16) 10u * timeOut);  /* Convert from 10mS checks to 1mS checks */
 
-        while(0u != timeoutMs)  /* Wait for command from the host */
+        while(0u != timeoutMs)  /* Wait for command from host */
         {
-            /* Check if the host complete write */
+            /* Check if host completes write */
             if(0u != (I2C_1_slStatus & I2C_1_SSTAT_WR_CMPLT))
             {
-                /* How many bytes the host has been written */
+                /* Define how many bytes host has been written */
                 byteCount = I2C_1_slWrBufIndex;
                 *count = (uint16) byteCount;
 

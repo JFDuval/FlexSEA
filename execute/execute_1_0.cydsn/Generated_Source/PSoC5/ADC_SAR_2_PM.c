@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: ADC_SAR_2_PM.c
-* Version 2.10
+* Version 3.0
 *
 * Description:
 *  This file provides Sleep/WakeUp APIs functionality.
@@ -8,7 +8,7 @@
 * Note:
 *
 ********************************************************************************
-* Copyright 2008-2013, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -83,7 +83,8 @@ void ADC_SAR_2_RestoreConfig(void)
 *  None.
 *
 * Global Variables:
-*  ADC_SAR_2_backup - modified.
+*  ADC_SAR_2_backup - The structure field 'enableState' is modified
+*  depending on the enable state of the block before entering to sleep mode.
 *
 *******************************************************************************/
 void ADC_SAR_2_Sleep(void)
@@ -124,7 +125,8 @@ void ADC_SAR_2_Sleep(void)
 *  None.
 *
 * Global Variables:
-*  ADC_SAR_2_backup - used to check enabable state.
+*  ADC_SAR_2_backup - The structure field 'enableState' is used to
+*  restore the enable state of block after wakeup from sleep mode.
 *
 *******************************************************************************/
 void ADC_SAR_2_Wakeup(void)

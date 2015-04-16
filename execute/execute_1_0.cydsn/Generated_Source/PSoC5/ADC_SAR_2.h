@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: ADC_SAR_2.h
-* Version 2.10
+* Version 3.0
 *
 * Description:
 *  This file contains the function prototypes and constants used in
@@ -9,7 +9,7 @@
 * Note:
 *
 ********************************************************************************
-* Copyright 2008-2013, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -30,7 +30,7 @@
 /* Check to see if required defines such as CY_PSOC5LP are available */
 /* They are defined starting with cy_boot v3.0 */
 #if !defined (CY_PSOC5LP)
-    #error Component ADC_SAR_v2_10 requires cy_boot v3.0 or later
+    #error Component ADC_SAR_v3_0 requires cy_boot v3.0 or later
 #endif /* (CY_PSOC5LP) */
 
 
@@ -169,7 +169,7 @@ extern volatile int16 ADC_SAR_2_shift;
 #define ADC_SAR_2_DEFAULT_INTERNAL_CLK   (0u)             /* Default clock selection */
 #define ADC_SAR_2_DEFAULT_REFERENCE      (0u)         /* Default reference */
 #define ADC_SAR_2_DEFAULT_RANGE          (1u)       /* ADC Input Range selection */
-#define ADC_SAR_2_CLOCK_FREQUENCY        (13333338u)   /* Clock frequency */
+#define ADC_SAR_2_CLOCK_FREQUENCY        (11851856u)   /* Clock frequency */
 #define ADC_SAR_2_NOMINAL_CLOCK_FREQ     (13333333)  /* Nominal Clock Frequency */
 #define ADC_SAR_2_HIGH_POWER_PULSE       (0u)        /* Not zero when clock pulse > 50 ns */
 #define ADC_SAR_2_IRQ_REMOVE             (0u)                /* Removes internal interrupt */
@@ -198,7 +198,7 @@ extern volatile int16 ADC_SAR_2_shift;
                                                                                        ADC_SAR_2__MINPOWER))
 /* Constant for a global usage */
 /* Number of additional clocks for sampling data*/
-#define ADC_SAR_2_SAMPLE_PRECHARGE       (6u)
+#define ADC_SAR_2_SAMPLE_PRECHARGE       (4u)
 
 
 /***************************************
@@ -467,6 +467,7 @@ extern volatile int16 ADC_SAR_2_shift;
 #define ADC_SAR_2_SAR_SEL_CSEL_DFT_MASK      (0x0Fu)
 #define ADC_SAR_2_SAR_SEL_CSEL_DFT_MIN       (0x00u)
 #define ADC_SAR_2_SAR_SEL_CSEL_DFT_MAX       (0x0Fu)
+#define ADC_SAR_2_SAR_SEL_CSEL_DFT_CHAR      (0x03u)
 
 /*******************************************************/
 /* SAR.CSR6 Satatus and Control Register 6 definitions */

@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: QuadDec_1_Cnt16_PM.c  
-* Version 2.40
+* Version 3.0
 *
 *  Description:
 *    This file provides the power management source code to API for the
@@ -9,12 +9,12 @@
 *   Note:
 *     None
 *
-*******************************************************************************
+********************************************************************************
 * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions, 
 * disclaimers, and limitations in the end user license agreement accompanying 
 * the software package with which this file was provided.
-********************************************************************************/
+*******************************************************************************/
 
 #include "QuadDec_1_Cnt16.h"
 
@@ -44,12 +44,6 @@ void QuadDec_1_Cnt16_SaveConfig(void)
     #if (!QuadDec_1_Cnt16_UsingFixedFunction)
 
         QuadDec_1_Cnt16_backup.CounterUdb = QuadDec_1_Cnt16_ReadCounter();
-
-        #if (CY_UDB_V0)
-            QuadDec_1_Cnt16_backup.CounterPeriod = QuadDec_1_Cnt16_ReadPeriod();
-            QuadDec_1_Cnt16_backup.CompareValue = QuadDec_1_Cnt16_ReadCompare();
-            QuadDec_1_Cnt16_backup.InterruptMaskValue = QuadDec_1_Cnt16_STATUS_MASK;
-        #endif /* CY_UDB_V0 */
 
         #if(!QuadDec_1_Cnt16_ControlRegRemoved)
             QuadDec_1_Cnt16_backup.CounterControlRegister = QuadDec_1_Cnt16_ReadControlRegister();
@@ -81,22 +75,7 @@ void QuadDec_1_Cnt16_RestoreConfig(void)
 {      
     #if (!QuadDec_1_Cnt16_UsingFixedFunction)
 
-        #if (CY_UDB_V0)
-            uint8 QuadDec_1_Cnt16_interruptState;
-        #endif  /* (CY_UDB_V0) */
-
        QuadDec_1_Cnt16_WriteCounter(QuadDec_1_Cnt16_backup.CounterUdb);
-
-        #if (CY_UDB_V0)
-            QuadDec_1_Cnt16_WritePeriod(QuadDec_1_Cnt16_backup.CounterPeriod);
-            QuadDec_1_Cnt16_WriteCompare(QuadDec_1_Cnt16_backup.CompareValue);
-
-            QuadDec_1_Cnt16_interruptState = CyEnterCriticalSection();
-            QuadDec_1_Cnt16_STATUS_AUX_CTRL |= QuadDec_1_Cnt16_STATUS_ACTL_INT_EN_MASK;
-            CyExitCriticalSection(QuadDec_1_Cnt16_interruptState);
-
-            QuadDec_1_Cnt16_STATUS_MASK = QuadDec_1_Cnt16_backup.InterruptMaskValue;
-        #endif  /* (CY_UDB_V0) */
 
         #if(!QuadDec_1_Cnt16_ControlRegRemoved)
             QuadDec_1_Cnt16_WriteControlRegister(QuadDec_1_Cnt16_backup.CounterControlRegister);

@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: QuadDec_1_Cnt16.c  
-* Version 2.40
+* Version 3.0
 *
 *  Description:
 *     The Counter component consists of a 8, 16, 24 or 32-bit counter with
@@ -9,12 +9,12 @@
 *   Note:
 *     None
 *
-*******************************************************************************
+********************************************************************************
 * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions, 
 * disclaimers, and limitations in the end user license agreement accompanying 
 * the software package with which this file was provided.
-********************************************************************************/
+*******************************************************************************/
 
 #include "QuadDec_1_Cnt16.h"
 

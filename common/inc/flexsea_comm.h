@@ -34,6 +34,7 @@ unsigned char comm_gen_str(unsigned char payload[], unsigned char bytes);
 uint8_t unpack_payload_spi(void);
 uint8_t unpack_payload_485_1(void);
 uint8_t unpack_payload_485_2(void);
+uint8_t unpack_payload_usb(void);
 void test_flexsea_comm(void);
 
 //****************************************************************************

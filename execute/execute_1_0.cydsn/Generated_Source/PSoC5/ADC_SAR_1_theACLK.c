@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: ADC_SAR_1_theACLK.c
-* Version 2.20
+* Version 2.10
 *
 *  Description:
 *   This file provides the source code to the API for the clock component.

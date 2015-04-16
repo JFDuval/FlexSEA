@@ -47,6 +47,7 @@ uint8_t comm_str[COMM_STR_BUF_LEN], comm_str_tmp[COMM_STR_BUF_LEN];	//ToDo will 
 uint8_t rx_command_spi[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
 uint8_t rx_command_485_1[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
 uint8_t rx_command_485_2[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
+uint8_t rx_command_usb[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
 
 struct slave_comm_s slaves_485_1, slaves_485_2;
 
@@ -148,6 +149,11 @@ uint8_t unpack_payload_485_1(void)
 uint8_t unpack_payload_485_2(void)
 {
 	return unpack_payload(rx_buf_485_2, rx_command_485_2);
+}
+
+uint8_t unpack_payload_usb(void)
+{
+	return unpack_payload(rx_buf_usb, rx_command_usb);
 }
 
 /*

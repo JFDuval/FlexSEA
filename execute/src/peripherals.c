@@ -30,6 +30,8 @@ uint8 clutch_pwm = 0;
 //Initialize and enables all the peripherals
 void init_peripherals(void)
 {
+	int usb_success = 0;
+	
 	//Motor control variables & peripherals:
 	init_motor();
 	

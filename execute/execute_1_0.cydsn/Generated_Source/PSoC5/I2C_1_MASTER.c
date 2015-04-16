@@ -1,14 +1,12 @@
 /*******************************************************************************
 * File Name: I2C_1_MASTER.c
-* Version 3.30
+* Version 3.40
 *
 * Description:
-*  This file provides the source code of APIs for the I2C component Master mode.
-*
-* Note:
+*  This file provides the source code of APIs for the I2C component master mode.
 *
 *******************************************************************************
-* Copyright 2012, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2012-2015, Cypress Semiconductor Corporation. All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -54,21 +52,26 @@ volatile uint8   I2C_1_mstrWrBufIndex;   /* Master Write buffer Index      */
 *             generating a stop.
 *
 * Return:
-*  Status error - zero means no errors.
+*  Status error - Zero means no errors.
 *
 * Side Effects:
-*  The included ISR will start transfer after start or restart condition will
-*  be generated.
+*  The included ISR will start a transfer after a start or restart condition is
+*  generated.
 *
 * Global variables:
-*  I2C_1_mstrStatus  - used to store current status of I2C Master.
-*  I2C_1_state       - used to store current state of software FSM.
-*  I2C_1_mstrControl - used to control master end of transaction with
-*  or without the Stop generation.
-*  I2C_1_mstrWrBufPtr - used to store pointer to master write buffer.
-*  I2C_1_mstrWrBufIndex - used to current index within master write
-*  buffer.
-*  I2C_1_mstrWrBufSize - used to store master write buffer size.
+*  I2C_1_mstrStatus  - The global variable used to store a current
+*                                 status of the I2C Master.
+*  I2C_1_state       - The global variable used to store a current
+*                                 state of the software FSM.
+*  I2C_1_mstrControl - The global variable used to control the master
+*                                 end of a transaction with or without Stop
+*                                 generation.
+*  I2C_1_mstrWrBufPtr - The global variable used to store a pointer
+*                                  to the master write buffer.
+*  I2C_1_mstrWrBufIndex - The global variable used to store current
+*                                    index within the master write buffer.
+*  I2C_1_mstrWrBufSize - The global variable used to store a master
+*                                   write buffer size.
 *
 * Reentrant:
 *  No
@@ -83,10 +86,10 @@ uint8 I2C_1_MasterWriteBuf(uint8 slaveAddress, uint8 * wrData, uint8 cnt, uint8 
 
     if(NULL != wrData)
     {
-        /* Check I2C state before transfer: valid are IDLE or HALT */
+        /* Check I2C state to allow transfer: valid states are IDLE or HALT */
         if(I2C_1_SM_IDLE == I2C_1_state)
         {
-            /* Check if free: Master is ready to transaction */
+            /* Master is ready for transaction: check if bus is free */
             if(I2C_1_CHECK_BUS_FREE(I2C_1_MCSR_REG))
             {
                 errStatus = I2C_1_MSTR_NO_ERROR;
@@ -98,10 +101,11 @@ uint8 I2C_1_MasterWriteBuf(uint8 slaveAddress, uint8 * wrData, uint8 cnt, uint8 
         }
         else if(I2C_1_SM_MSTR_HALT == I2C_1_state)
         {
+            /* Master is ready and waiting for ReStart */
             errStatus = I2C_1_MSTR_NO_ERROR;
 
-            CyIntClearPending(I2C_1_ISR_NUMBER);
-            I2C_1_mstrStatus &= ((uint8) ~I2C_1_MSTAT_XFER_HALT);
+            I2C_1_ClearPendingInt();
+            I2C_1_mstrStatus &= (uint8) ~I2C_1_MSTAT_XFER_HALT;
         }
         else
         {
@@ -110,16 +114,23 @@ uint8 I2C_1_MasterWriteBuf(uint8 slaveAddress, uint8 * wrData, uint8 cnt, uint8 
 
         if(I2C_1_MSTR_NO_ERROR == errStatus)
         {
-            I2C_1_state    = I2C_1_SM_MSTR_WR_ADDR;
-            I2C_1_DATA_REG = ((uint8) (slaveAddress << I2C_1_SLAVE_ADDR_SHIFT));
+            /* Set state to start write transaction */
+            I2C_1_state = I2C_1_SM_MSTR_WR_ADDR;
 
+            /* Prepare write buffer */
             I2C_1_mstrWrBufIndex = 0u;
             I2C_1_mstrWrBufSize  = cnt;
             I2C_1_mstrWrBufPtr   = (volatile uint8 *) wrData;
 
-            I2C_1_mstrControl = mode;    /* Save transaction mode */
+            /* Set end of transaction flag: Stop or Halt (following ReStart) */
+            I2C_1_mstrControl = mode;
 
-            /* Generate a Start or ReStart depends on mode */
+            /* Clear write status history */
+            I2C_1_mstrStatus &= (uint8) ~I2C_1_MSTAT_WR_CMPLT;
+
+            /* Hardware actions: write address and generate Start or ReStart */
+            I2C_1_DATA_REG = (uint8) (slaveAddress << I2C_1_SLAVE_ADDR_SHIFT);
+
             if(I2C_1_CHECK_RESTART(mode))
             {
                 I2C_1_GENERATE_RESTART;
@@ -129,9 +140,8 @@ uint8 I2C_1_MasterWriteBuf(uint8 slaveAddress, uint8 * wrData, uint8 cnt, uint8 
                 I2C_1_GENERATE_START;
             }
 
-            I2C_1_mstrStatus &= ((uint8) ~I2C_1_MSTAT_WR_CMPLT);
-
-            I2C_1_EnableInt();   /* Enable intr to complete transfer */
+            /* Enable interrupt to complete transfer */
+            I2C_1_EnableInt();
         }
     }
 
@@ -157,24 +167,30 @@ uint8 I2C_1_MasterWriteBuf(uint8 slaveAddress, uint8 * wrData, uint8 cnt, uint8 
 *             generating a stop.
 *
 * Return:
-*  Status error - zero means no errors.
+*  Status error - Zero means no errors.
 *
 * Side Effects:
-*  The included ISR will start transfer after start or restart condition will
-*  be generated.
+*  The included ISR will start a transfer after start or restart condition is
+*  generated.
 *
 * Global variables:
-*  I2C_1_mstrStatus  - used to store current status of I2C Master.
-*  I2C_1_state       - used to store current state of software FSM.
-*  I2C_1_mstrControl - used to control master end of transaction with
-*  or without the Stop generation.
-*  I2C_1_mstrRdBufPtr - used to store pointer to master write buffer.
-*  I2C_1_mstrRdBufIndex - used to current index within master write
-*  buffer.
-*  I2C_1_mstrRdBufSize - used to store master write buffer size.
+*  I2C_1_mstrStatus  - The global variable used to store a current
+*                                 status of the I2C Master.
+*  I2C_1_state       - The global variable used to store a current
+*                                 state of the software FSM.
+*  I2C_1_mstrControl - The global variable used to control the master
+*                                 end of a transaction with or without
+*                                 Stop generation.
+*  I2C_1_mstrRdBufPtr - The global variable used to store a pointer
+*                                  to the master write buffer.
+*  I2C_1_mstrRdBufIndex - The global variable  used to store a
+*                                    current index within the master
+*                                    write buffer.
+*  I2C_1_mstrRdBufSize - The global variable used to store a master
+*                                   write buffer size.
 *
 * Reentrant:
-*  No
+*  No.
 *
 *******************************************************************************/
 uint8 I2C_1_MasterReadBuf(uint8 slaveAddress, uint8 * rdData, uint8 cnt, uint8 mode)
@@ -186,10 +202,10 @@ uint8 I2C_1_MasterReadBuf(uint8 slaveAddress, uint8 * rdData, uint8 cnt, uint8 m
 
     if(NULL != rdData)
     {
-        /* Check I2C state before transfer: valid are IDLE or HALT */
+        /* Check I2C state to allow transfer: valid states are IDLE or HALT */
         if(I2C_1_SM_IDLE == I2C_1_state)
         {
-            /* Check if free: Master is ready to transaction */
+            /* Master is ready to transaction: check if bus is free */
             if(I2C_1_CHECK_BUS_FREE(I2C_1_MCSR_REG))
             {
                 errStatus = I2C_1_MSTR_NO_ERROR;
@@ -201,29 +217,37 @@ uint8 I2C_1_MasterReadBuf(uint8 slaveAddress, uint8 * rdData, uint8 cnt, uint8 m
         }
         else if(I2C_1_SM_MSTR_HALT == I2C_1_state)
         {
+            /* Master is ready and waiting for ReStart */
             errStatus = I2C_1_MSTR_NO_ERROR;
 
-            CyIntClearPending(I2C_1_ISR_NUMBER);
-            I2C_1_mstrStatus &= ((uint8) ~I2C_1_MSTAT_XFER_HALT);
+            I2C_1_ClearPendingInt();
+            I2C_1_mstrStatus &= (uint8) ~I2C_1_MSTAT_XFER_HALT;
         }
         else
         {
-            /* errStatus = I2C_1_MSTR_NOT_READY was send before */
+            /* errStatus = I2C_1_MSTR_NOT_READY was set before */
         }
 
         if(I2C_1_MSTR_NO_ERROR == errStatus)
         {
-            I2C_1_state    = I2C_1_SM_MSTR_RD_ADDR;
-            I2C_1_DATA_REG = (((uint8) (slaveAddress << I2C_1_SLAVE_ADDR_SHIFT)) |
-                                                   I2C_1_READ_FLAG);
+            /* Set state to start write transaction */
+            I2C_1_state = I2C_1_SM_MSTR_RD_ADDR;
 
+            /* Prepare read buffer */
             I2C_1_mstrRdBufIndex  = 0u;
             I2C_1_mstrRdBufSize   = cnt;
             I2C_1_mstrRdBufPtr    = (volatile uint8 *) rdData;
 
-            I2C_1_mstrControl = mode;    /* Save transaction mode */
+            /* Set end of transaction flag: Stop or Halt (following ReStart) */
+            I2C_1_mstrControl = mode;
 
-            /* Generate a Start or ReStart depends on mode */
+            /* Clear read status history */
+            I2C_1_mstrStatus &= (uint8) ~I2C_1_MSTAT_RD_CMPLT;
+
+            /* Hardware actions: write address and generate Start or ReStart */
+            I2C_1_DATA_REG = ((uint8) (slaveAddress << I2C_1_SLAVE_ADDR_SHIFT) |
+                                                  I2C_1_READ_FLAG);
+
             if(I2C_1_CHECK_RESTART(mode))
             {
                 I2C_1_GENERATE_RESTART;
@@ -233,9 +257,8 @@ uint8 I2C_1_MasterReadBuf(uint8 slaveAddress, uint8 * rdData, uint8 cnt, uint8 m
                 I2C_1_GENERATE_START;
             }
 
-            I2C_1_mstrStatus &= ((uint8) ~I2C_1_MSTAT_RD_CMPLT);
-
-            I2C_1_EnableInt();   /* Enable intr to complete transfer */
+            /* Enable interrupt to complete transfer */
+            I2C_1_EnableInt();
         }
     }
 
@@ -255,17 +278,18 @@ uint8 I2C_1_MasterReadBuf(uint8 slaveAddress, uint8 * rdData, uint8 cnt, uint8 m
 *  R_nW:          Zero, send write command, non-zero send read command.
 *
 * Return:
-*  Status error - zero means no errors.
+*  Status error - Zero means no errors.
 *
 * Side Effects:
-*  This function is entered without a 'byte complete' bit set in the I2C_CSR
-*  register. It does not exit until it will be set.
+*  This function is entered without a "byte complete" bit set in the I2C_CSR
+*  register. It does not exit until it is set.
 *
 * Global variables:
-*  I2C_1_state - used to store current state of software FSM.
+*  I2C_1_state - The global variable used to store a current state of
+*                           the software FSM.
 *
 * Reentrant:
-*  No
+*  No.
 *
 *******************************************************************************/
 uint8 I2C_1_MasterSendStart(uint8 slaveAddress, uint8 R_nW)
@@ -281,10 +305,12 @@ uint8 I2C_1_MasterSendStart(uint8 slaveAddress, uint8 R_nW)
         /* If bus is free, generate Start condition */
         if(I2C_1_CHECK_BUS_FREE(I2C_1_MCSR_REG))
         {
-            I2C_1_DisableInt();  /* Disable ISR for Manual functions */
+            /* Disable interrupt for manual master operation */
+            I2C_1_DisableInt();
 
-            slaveAddress = ((uint8) (slaveAddress << I2C_1_SLAVE_ADDR_SHIFT)); /* Set Address */
-            if(0u != R_nW)                                      /* Set the Read/Write flag */
+            /* Set address and read/write flag */
+            slaveAddress = (uint8) (slaveAddress << I2C_1_SLAVE_ADDR_SHIFT);
+            if(0u != R_nW)
             {
                 slaveAddress |= I2C_1_READ_FLAG;
                 I2C_1_state = I2C_1_SM_MSTR_RD_ADDR;
@@ -293,115 +319,27 @@ uint8 I2C_1_MasterSendStart(uint8 slaveAddress, uint8 R_nW)
             {
                 I2C_1_state = I2C_1_SM_MSTR_WR_ADDR;
             }
-            I2C_1_DATA_REG = slaveAddress;   /* Write address to data reg */
 
-
+            /* Hardware actions: write address and generate Start */
+            I2C_1_DATA_REG = slaveAddress;
             I2C_1_GENERATE_START;
+
+            /* Wait until address is transferred */
             while(I2C_1_WAIT_BYTE_COMPLETE(I2C_1_CSR_REG))
             {
-                ; /* Wait for the address to be transfered */
             }
 
-            #if(I2C_1_MODE_MULTI_MASTER_SLAVE_ENABLED)
-                if(I2C_1_CHECK_START_GEN(I2C_1_MCSR_REG))
-                {
-                    I2C_1_CLEAR_START_GEN;
+        #if(I2C_1_MODE_MULTI_MASTER_SLAVE_ENABLED)
+            if(I2C_1_CHECK_START_GEN(I2C_1_MCSR_REG))
+            {
+                I2C_1_CLEAR_START_GEN;
 
-                    /* Start condition was not generated: reset FSM to IDLE */
-                    I2C_1_state = I2C_1_SM_IDLE;
-                    errStatus = I2C_1_MSTR_ERR_ABORT_START_GEN;
-                }
-                else
-            #endif /* (I2C_1_MODE_MULTI_MASTER_SLAVE_ENABLED) */
-
-            #if(I2C_1_MODE_MULTI_MASTER_ENABLED)
-
-                if(I2C_1_CHECK_LOST_ARB(I2C_1_CSR_REG))
-                {
-                    I2C_1_BUS_RELEASE;
-
-                    /* Master lost arbitrage: reset FSM to IDLE */
-                    I2C_1_state = I2C_1_SM_IDLE;
-                    errStatus = I2C_1_MSTR_ERR_ARB_LOST;
-                }
-                else
-            #endif /* (I2C_1_MODE_MULTI_MASTER_ENABLED) */
-
-                if(I2C_1_CHECK_ADDR_NAK(I2C_1_CSR_REG))
-                {
-                    /* Address has been NACKed: reset FSM to IDLE */
-                    I2C_1_state = I2C_1_SM_IDLE;
-                    errStatus = I2C_1_MSTR_ERR_LB_NAK;
-                }
-                else
-                {
-                    /* Start was sent witout errors */
-                    errStatus = I2C_1_MSTR_NO_ERROR;
-                }
-        }
-        else
-        {
-            errStatus = I2C_1_MSTR_BUS_BUSY; /* Bus is busy */
-        }
-    }
-
-    return(errStatus);
-}
-
-
-/*******************************************************************************
-* Function Name: I2C_1_MasterSendRestart
-********************************************************************************
-*
-* Summary:
-*  Generates ReStart condition and sends slave address with read/write bit.
-*
-* Parameters:
-*  slaveAddress:  7-bit slave address.
-*  R_nW:          Zero, send write command, non-zero send read command.
-*
-* Return:
-*  Status error - zero means no errors.
-*
-* Side Effects:
-*  This function is entered without a 'byte complete' bit set in the I2C_CSR
-*  register. It does not exit until it will be set.
-*
-* Global variables:
-*  I2C_1_state - used to store current state of software FSM.
-*
-* Reentrant:
-*  No
-*
-*******************************************************************************/
-uint8 I2C_1_MasterSendRestart(uint8 slaveAddress, uint8 R_nW)
-      
-{
-    uint8 errStatus;
-
-    errStatus = I2C_1_MSTR_NOT_READY;
-
-    /* Check if START condition was generated */
-    if(I2C_1_CHECK_MASTER_MODE(I2C_1_MCSR_REG))
-    {
-        slaveAddress = ((uint8) (slaveAddress << I2C_1_SLAVE_ADDR_SHIFT)); /* Set Address */
-        if(0u != R_nW)  /* Set the Read/Write flag */
-        {
-            slaveAddress |= I2C_1_READ_FLAG;
-            I2C_1_state = I2C_1_SM_MSTR_RD_ADDR;
-        }
-        else
-        {
-            I2C_1_state = I2C_1_SM_MSTR_WR_ADDR;
-        }
-        I2C_1_DATA_REG = slaveAddress;    /* Write address to data reg */
-
-
-        I2C_1_GENERATE_RESTART_MANUAL;
-        while(I2C_1_WAIT_BYTE_COMPLETE(I2C_1_CSR_REG))
-        {
-            ; /* Wait for the address to be transfered */
-        }
+                /* Start condition was not generated: reset FSM to IDLE */
+                I2C_1_state = I2C_1_SM_IDLE;
+                errStatus = I2C_1_MSTR_ERR_ABORT_START_GEN;
+            }
+            else
+        #endif /* (I2C_1_MODE_MULTI_MASTER_SLAVE_ENABLED) */
 
         #if(I2C_1_MODE_MULTI_MASTER_ENABLED)
             if(I2C_1_CHECK_LOST_ARB(I2C_1_CSR_REG))
@@ -423,9 +361,100 @@ uint8 I2C_1_MasterSendRestart(uint8 slaveAddress, uint8 R_nW)
             }
             else
             {
-                /* ReStart was sent witout errors */
+                /* Start was sent without errors */
                 errStatus = I2C_1_MSTR_NO_ERROR;
             }
+        }
+        else
+        {
+            errStatus = I2C_1_MSTR_BUS_BUSY;
+        }
+    }
+
+    return(errStatus);
+}
+
+
+/*******************************************************************************
+* Function Name: I2C_1_MasterSendRestart
+********************************************************************************
+*
+* Summary:
+*  Generates ReStart condition and sends slave address with read/write bit.
+*
+* Parameters:
+*  slaveAddress:  7-bit slave address.
+*  R_nW:          Zero, send write command, non-zero send read command.
+*
+* Return:
+*  Status error - Zero means no errors.
+*
+* Side Effects:
+*  This function is entered without a "byte complete" bit set in the I2C_CSR
+*  register. It does not exit until it is set.
+*
+* Global variables:
+*  I2C_1_state - The global variable used to store a current state of
+*                           the software FSM.
+*
+* Reentrant:
+*  No.
+*
+*******************************************************************************/
+uint8 I2C_1_MasterSendRestart(uint8 slaveAddress, uint8 R_nW)
+      
+{
+    uint8 errStatus;
+
+    errStatus = I2C_1_MSTR_NOT_READY;
+
+    /* Check if START condition was generated */
+    if(I2C_1_CHECK_MASTER_MODE(I2C_1_MCSR_REG))
+    {
+        /* Set address and read/write flag */
+        slaveAddress = (uint8) (slaveAddress << I2C_1_SLAVE_ADDR_SHIFT);
+        if(0u != R_nW)
+        {
+            slaveAddress |= I2C_1_READ_FLAG;
+            I2C_1_state = I2C_1_SM_MSTR_RD_ADDR;
+        }
+        else
+        {
+            I2C_1_state = I2C_1_SM_MSTR_WR_ADDR;
+        }
+
+        /* Hardware actions: write address and generate ReStart */
+        I2C_1_DATA_REG = slaveAddress;
+        I2C_1_GENERATE_RESTART_MANUAL;
+
+        /* Wait until address has been transferred */
+        while(I2C_1_WAIT_BYTE_COMPLETE(I2C_1_CSR_REG))
+        {
+        }
+
+    #if(I2C_1_MODE_MULTI_MASTER_ENABLED)
+        if(I2C_1_CHECK_LOST_ARB(I2C_1_CSR_REG))
+        {
+            I2C_1_BUS_RELEASE;
+
+            /* Master lost arbitrage: reset FSM to IDLE */
+            I2C_1_state = I2C_1_SM_IDLE;
+            errStatus = I2C_1_MSTR_ERR_ARB_LOST;
+        }
+        else
+    #endif /* (I2C_1_MODE_MULTI_MASTER_ENABLED) */
+
+        if(I2C_1_CHECK_ADDR_NAK(I2C_1_CSR_REG))
+        {
+            /* Address has been NACKed: reset FSM to IDLE */
+            I2C_1_state = I2C_1_SM_IDLE;
+            errStatus = I2C_1_MSTR_ERR_LB_NAK;
+        }
+        else
+        {
+            /* ReStart was sent without errors */
+            errStatus = I2C_1_MSTR_NO_ERROR;
+        }
     }
 
     return(errStatus);
@@ -441,20 +470,21 @@ uint8 I2C_1_MasterSendRestart(uint8 slaveAddress, uint8 R_nW)
 *  condition was failed before call this function.
 *
 * Parameters:
-*  None
+*  None.
 *
 * Return:
-*  Status error - zero means no errors.
+*  Status error - Zero means no errors.
 *
 * Side Effects:
-*  The Stop generation is required to complete transaction.
-*  This function does not wait whileStop condition will be generated.
+*  Stop generation is required to complete the transaction.
+*  This function does not wait until a Stop condition is generated.
 *
 * Global variables:
-*  I2C_1_state - used to store current state of software FSM.
+*  I2C_1_state - The global variable used to store a current state of
+*                           the software FSM.
 *
 * Reentrant:
-*  No
+*  No.
 *
 *******************************************************************************/
 uint8 I2C_1_MasterSendStop(void) 
@@ -463,27 +493,28 @@ uint8 I2C_1_MasterSendStop(void)
 
     errStatus = I2C_1_MSTR_NOT_READY;
 
-    /* Check if START condition was generated */
+    /* Check if master is active on bus */
     if(I2C_1_CHECK_MASTER_MODE(I2C_1_MCSR_REG))
     {
-        I2C_1_GENERATE_STOP_MANUAL;              /* Generate STOP */
-        I2C_1_state = I2C_1_SM_IDLE;  /* Reset state to IDLE */
+        I2C_1_GENERATE_STOP_MANUAL;
+        I2C_1_state = I2C_1_SM_IDLE;
 
-        while(I2C_1_WAIT_STOP_COMPLETE(I2C_1_CSR_REG))
+        /* Wait until stop has been generated */
+        while (I2C_1_WAIT_STOP_COMPLETE(I2C_1_CSR_REG))
         {
-            ; /* Wait for Stop to be generated */
         }
 
         errStatus = I2C_1_MSTR_NO_ERROR;
-        #if(I2C_1_MODE_MULTI_MASTER_ENABLED)
-            if(I2C_1_CHECK_LOST_ARB(I2C_1_CSR_REG))
-            {
-                I2C_1_BUS_RELEASE;
 
-                /* NACK was generated by enother instead Stop */
-                errStatus = I2C_1_MSTR_ERR_ARB_LOST;
-            }
-        #endif /* (I2C_1_MODE_MULTI_MASTER_ENABLED) */
+    #if(I2C_1_MODE_MULTI_MASTER_ENABLED)
+        if(I2C_1_CHECK_LOST_ARB(I2C_1_CSR_REG))
+        {
+            I2C_1_BUS_RELEASE;
+
+            /* NACK was generated by instead Stop */
+            errStatus = I2C_1_MSTR_ERR_ARB_LOST;
+        }
+    #endif /* (I2C_1_MODE_MULTI_MASTER_ENABLED) */
     }
 
     return(errStatus);
@@ -503,14 +534,15 @@ uint8 I2C_1_MasterSendStop(void)
 *  data:  The data byte to send to the slave.
 *
 * Return:
-*  Status error - zero means no errors.
+*  Status error - Zero means no errors.
 *
 * Side Effects:
-*  This function is entered without a 'byte complete' bit set in the I2C_CSR
-*  register. It does not exit until it will be set.
+*  This function is entered without a "byte complete" bit set in the I2C_CSR
+*  register. It does not exit until it is set.
 *
 * Global variables:
-*  I2C_1_state - used to store current state of software FSM.
+*  I2C_1_state - The global variable used to store a current state of
+*                           the software FSM.
 *
 *******************************************************************************/
 uint8 I2C_1_MasterWriteByte(uint8 theByte) 
@@ -522,39 +554,38 @@ uint8 I2C_1_MasterWriteByte(uint8 theByte)
     /* Check if START condition was generated */
     if(I2C_1_CHECK_MASTER_MODE(I2C_1_MCSR_REG))
     {
-        I2C_1_DATA_REG = theByte;                        /* Write DATA register */
-        I2C_1_TRANSMIT_DATA_MANUAL;                      /* Set transmit mode */
-        I2C_1_state = I2C_1_SM_MSTR_WR_DATA;  /* Set state WR_DATA */
+        I2C_1_DATA_REG = theByte;   /* Write DATA register */
+        I2C_1_TRANSMIT_DATA_MANUAL; /* Set transmit mode   */
+        I2C_1_state = I2C_1_SM_MSTR_WR_DATA;
 
-        /* Make sure the last byte has been transfered first */
+        /* Wait until data byte has been transmitted */
         while(I2C_1_WAIT_BYTE_COMPLETE(I2C_1_CSR_REG))
         {
-            ; /* Wait for byte to be written */
         }
 
-        #if(I2C_1_MODE_MULTI_MASTER_ENABLED)
-            if(I2C_1_CHECK_LOST_ARB(I2C_1_CSR_REG))
-            {
-                I2C_1_BUS_RELEASE;
+    #if(I2C_1_MODE_MULTI_MASTER_ENABLED)
+        if(I2C_1_CHECK_LOST_ARB(I2C_1_CSR_REG))
+        {
+            I2C_1_BUS_RELEASE;
 
-                /* Master lost arbitrage: reset FSM to IDLE */
-                I2C_1_state = I2C_1_SM_IDLE;
-                errStatus = I2C_1_MSTR_ERR_ARB_LOST;
-            }
-            /* Check LRB bit */
-            else
-        #endif /* (I2C_1_MODE_MULTI_MASTER_ENABLED) */
+            /* Master lost arbitrage: reset FSM to IDLE */
+            I2C_1_state = I2C_1_SM_IDLE;
+            errStatus = I2C_1_MSTR_ERR_ARB_LOST;
+        }
+        /* Check LRB bit */
+        else
+    #endif /* (I2C_1_MODE_MULTI_MASTER_ENABLED) */
 
-            if(I2C_1_CHECK_DATA_ACK(I2C_1_CSR_REG))
-            {
-                I2C_1_state = I2C_1_SM_MSTR_HALT;     /* Set state to HALT */
-                errStatus = I2C_1_MSTR_NO_ERROR;                 /* The LRB was ACKed */
-            }
-            else
-            {
-                I2C_1_state = I2C_1_SM_MSTR_HALT;     /* Set state to HALT */
-                errStatus = I2C_1_MSTR_ERR_LB_NAK;               /* The LRB was NACKed */
-            }
+        if(I2C_1_CHECK_DATA_ACK(I2C_1_CSR_REG))
+        {
+            I2C_1_state = I2C_1_SM_MSTR_HALT;
+            errStatus = I2C_1_MSTR_NO_ERROR;
+        }
+        else
+        {
+            I2C_1_state = I2C_1_SM_MSTR_HALT;
+            errStatus = I2C_1_MSTR_ERR_LB_NAK;
+        }
     }
 
     return(errStatus);
@@ -578,14 +609,15 @@ uint8 I2C_1_MasterWriteByte(uint8 theByte)
 *  Byte read from slave.
 *
 * Side Effects:
-*  This function is entered without a 'byte complete' bit set in the I2C_CSR
-*  register. It does not exit until it will be set.
+*  This function is entered without a "byte complete" bit set in the I2C_CSR
+*  register. It does not exit until it is set.
 *
 * Global variables:
-*  I2C_1_state - used to store current state of software FSM.
+*  I2C_1_state - The global variable used to store a current
+*                           state of the software FSM.
 *
 * Reentrant:
-*  No
+*  No.
 *
 *******************************************************************************/
 uint8 I2C_1_MasterReadByte(uint8 acknNak) 
@@ -597,31 +629,32 @@ uint8 I2C_1_MasterReadByte(uint8 acknNak)
     /* Check if START condition was generated */
     if(I2C_1_CHECK_MASTER_MODE(I2C_1_MCSR_REG))
     {
-        /* When address phase need release the bus and receive the byte, then decide ACK or NACK */
+        /* When address phase needs to release bus and receive byte,
+        * then decide ACK or NACK
+        */
         if(I2C_1_SM_MSTR_RD_ADDR == I2C_1_state)
         {
-            I2C_1_state = I2C_1_SM_MSTR_RD_DATA;
             I2C_1_READY_TO_READ_MANUAL;
+            I2C_1_state = I2C_1_SM_MSTR_RD_DATA;
         }
 
+        /* Wait until data byte has been received */
         while(I2C_1_WAIT_BYTE_COMPLETE(I2C_1_CSR_REG))
         {
-            ; /* Wait for byte to be read */
         }
 
         theByte = I2C_1_DATA_REG;
 
-        /* Now if the ACK flag was set, ACK the data which will release the bus and
-           start the next byte in otherwise do NOTHING to the CSR reg.
-           This will allow the calling routine to generate a repeat start or
-           stop depending on it's preference. */
-        if(acknNak != 0u)   /* Do ACK */
+        /* Command ACK to receive next byte and continue transfer.
+        *  Do nothing for NACK. The NACK will be generated by
+        *  Stop or ReStart routine.
+        */
+        if(acknNak != 0u) /* Generate ACK */
         {
             I2C_1_ACK_AND_RECEIVE_MANUAL;
         }
-        else                /* Do NACK */
+        else              /* Do nothing for the follwong NACK */
         {
-            /* Do nothing to be able work with ReStart */
             I2C_1_state = I2C_1_SM_MSTR_HALT;
         }
     }
@@ -638,33 +671,34 @@ uint8 I2C_1_MasterReadByte(uint8 acknNak)
 *  Returns the master's communication status.
 *
 * Parameters:
-*  None
+*  None.
 *
 * Return:
 *  Current status of I2C master.
 *
 * Global variables:
-*  I2C_1_mstrStatus - used to store current status of I2C Master.
+*  I2C_1_mstrStatus - The global variable used to store a current
+*                                status of the I2C Master.
 *
 *******************************************************************************/
 uint8 I2C_1_MasterStatus(void) 
 {
     uint8 status;
 
+    I2C_1_DisableInt(); /* Lock from interrupt */
+
+    /* Read master status */
     status = I2C_1_mstrStatus;
 
-    /* When in Master state only transaction is in progress */
-    if(I2C_1_CHECK_SM_MASTER)
+    if (I2C_1_CHECK_SM_MASTER)
     {
-        /* Add transaction in progress activity to master status */
+        /* Set transfer in progress flag in status */
         status |= I2C_1_MSTAT_XFER_INP;
     }
-    else
-    {
-        /* Current master status is valid */
-    }
 
-    return(status);
+    I2C_1_EnableInt(); /* Release lock */
+
+    return (status);
 }
 
 
@@ -676,28 +710,32 @@ uint8 I2C_1_MasterStatus(void)
 *  Clears all status flags and returns the master status.
 *
 * Parameters:
-*  None
+*  None.
 *
 * Return:
 *  Current status of I2C master.
 *
 * Global variables:
-*  I2C_1_mstrStatus - used to store current status of I2C Master.
+*  I2C_1_mstrStatus - The global variable used to store a current
+*                                status of the I2C Master.
 *
 * Reentrant:
-*  No
+*  No.
 *
 *******************************************************************************/
 uint8 I2C_1_MasterClearStatus(void) 
 {
-    /* Current master status */
     uint8 status;
+
+    I2C_1_DisableInt(); /* Lock from interrupt */
 
     /* Read and clear master status */
     status = I2C_1_mstrStatus;
     I2C_1_mstrStatus = I2C_1_MSTAT_CLEAR;
 
-    return(status);
+    I2C_1_EnableInt(); /* Release lock */
+
+    return (status);
 }
 
 
@@ -710,20 +748,20 @@ uint8 I2C_1_MasterClearStatus(void)
 *  I2C_MasterReadBuf command.
 *
 * Parameters:
-*  None
+*  None.
 *
 * Return:
 *  Byte count of transfer. If the transfer is not yet complete, it will return
 *  the byte count transferred so far.
 *
 * Global variables:
-*  I2C_1_mstrRdBufIndex - used to current index within master read
-*  buffer.
+*  I2C_1_mstrRdBufIndex - The global variable stores current index
+*                                    within the master read buffer.
 *
 *******************************************************************************/
 uint8 I2C_1_MasterGetReadBufSize(void) 
 {
-    return(I2C_1_mstrRdBufIndex);
+    return (I2C_1_mstrRdBufIndex);
 }
 
 
@@ -736,20 +774,20 @@ uint8 I2C_1_MasterGetReadBufSize(void)
 *  I2C_MasterWriteBuf command.
 *
 * Parameters:
-*  None
+*  None.
 *
 * Return:
 *  Byte count of transfer. If the transfer is not yet complete, it will return
 *  the byte count transferred so far.
 *
 * Global variables:
-*  I2C_1_mstrWrBufIndex - used to current index within master write
-*  buffer.
+*  I2C_1_mstrWrBufIndex -  The global variable used to stores current
+*                                     index within master write buffer.
 *
 *******************************************************************************/
 uint8 I2C_1_MasterGetWriteBufSize(void) 
 {
-    return(I2C_1_mstrWrBufIndex);
+    return (I2C_1_mstrWrBufIndex);
 }
 
 
@@ -761,24 +799,29 @@ uint8 I2C_1_MasterGetWriteBufSize(void)
 *  Resets the read buffer pointer back to the first byte in the buffer.
 *
 * Parameters:
-*  None
+*  None.
 *
 * Return:
-*  None
+*  None.
 *
 * Global variables:
-*  I2C_1_mstrRdBufIndex - used to current index within master read
-*   buffer.
-*  I2C_1_mstrStatus - used to store current status of I2C Master.
+*  I2C_1_mstrRdBufIndex - The global variable used to stores current
+*                                    index within master read buffer.
+*  I2C_1_mstrStatus - The global variable used to store a current
+*                                status of the I2C Master.
 *
 * Reentrant:
-*  No
+*  No.
 *
 *******************************************************************************/
 void I2C_1_MasterClearReadBuf(void) 
 {
+    I2C_1_DisableInt(); /* Lock from interrupt */
+
     I2C_1_mstrRdBufIndex = 0u;
-    I2C_1_mstrStatus    &= ((uint8) ~I2C_1_MSTAT_RD_CMPLT);
+    I2C_1_mstrStatus    &= (uint8) ~I2C_1_MSTAT_RD_CMPLT;
+
+    I2C_1_EnableInt(); /* Release lock */
 }
 
 
@@ -790,47 +833,29 @@ void I2C_1_MasterClearReadBuf(void)
 *  Resets the write buffer pointer back to the first byte in the buffer.
 *
 * Parameters:
-*  None
+*  None.
 *
 * Return:
-*  None
+*  None.
 *
 * Global variables:
-*  I2C_1_mstrRdBufIndex - used to current index within master read
-*   buffer.
-*  I2C_1_mstrStatus - used to store current status of I2C Master.
+*  I2C_1_mstrRdBufIndex - The global variable used to stote current
+*                                    index within master read buffer.
+*  I2C_1_mstrStatus - The global variable used to store a current
+*                                status of the I2C Master.
 *
 * Reentrant:
-*  No
+*  No.
 *
 *******************************************************************************/
 void I2C_1_MasterClearWriteBuf(void) 
 {
+    I2C_1_DisableInt(); /* Lock from interrupt */
+
     I2C_1_mstrWrBufIndex = 0u;
-    I2C_1_mstrStatus    &= ((uint8) ~I2C_1_MSTAT_WR_CMPLT);
-}
+    I2C_1_mstrStatus    &= (uint8) ~I2C_1_MSTAT_WR_CMPLT;
 
-
-/*******************************************************************************
-* Function Name: I2C_1_Workaround
-********************************************************************************
-*
-* Summary:
-*  Do nothing. This fake fuction use as workaround for CDT 78083.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
-*
-* Reentrant:
-*  No
-*
-*******************************************************************************/
-void I2C_1_Workaround(void) 
-{
-    /* Does nothing */
+    I2C_1_EnableInt(); /* Release lock */
 }
 
 #endif /* (I2C_1_MODE_MASTER_ENABLED) */

@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: QuadDec_1_Cnt16.h  
-* Version 2.40
+* Version 3.0
 *
 *  Description:
 *   Contains the function prototypes and constants available to the counter
@@ -10,11 +10,11 @@
 *    None
 *
 ********************************************************************************
-* Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions, 
 * disclaimers, and limitations in the end user license agreement accompanying 
 * the software package with which this file was provided.
-********************************************************************************/
+*******************************************************************************/
     
 #if !defined(CY_COUNTER_QuadDec_1_Cnt16_H)
 #define CY_COUNTER_QuadDec_1_Cnt16_H
@@ -28,8 +28,16 @@ extern uint8 QuadDec_1_Cnt16_initVar;
 /* Check to see if required defines such as CY_PSOC5LP are available */
 /* They are defined starting with cy_boot v3.0 */
 #if !defined (CY_PSOC5LP)
-    #error Component Counter_v2_40 requires cy_boot v3.0 or later
+    #error Component Counter_v3_0 requires cy_boot v3.0 or later
 #endif /* (CY_ PSOC5LP) */
+
+/* Error message for removed QuadDec_1_Cnt16_CounterUDB_sCTRLReg_ctrlreg through optimization */
+#ifdef QuadDec_1_Cnt16_CounterUDB_sCTRLReg_ctrlreg__REMOVED
+    #error Counter_v3_0 detected with a constant 0 for the enable, a \
+                                constant 0 for the count or constant 1 for \
+                                the reset. This will prevent the component from\
+                                operating.
+#endif /* QuadDec_1_Cnt16_CounterUDB_sCTRLReg_ctrlreg__REMOVED */
 
 
 /**************************************
@@ -57,12 +65,6 @@ typedef struct
 {
     uint8 CounterEnableState; 
     uint16 CounterUdb;         /* Current Counter Value */
-
-    #if (CY_UDB_V0)
-        uint16 CounterPeriod;  /* Counter Period Value */
-        uint16 CompareValue;   /* Counter Compare Value */           
-        uint8 InterruptMaskValue;                   /* Counter Interrupt Mask Value */
-    #endif /* (CY_UDB_V0) */
 
     #if (!QuadDec_1_Cnt16_ControlRegRemoved)
         uint8 CounterControlRegister;               /* Counter Control Register */
@@ -410,14 +412,14 @@ void QuadDec_1_Cnt16_Wakeup(void)        ;
     #define QuadDec_1_Cnt16_SYNCDSI_EN           ((uint8)((uint8)0x0Fu << QuadDec_1_Cnt16_SYNCDSI_SHIFT)) /* Sync all DSI inputs */
     
 #else /* !QuadDec_1_Cnt16_UsingFixedFunction */
-    #define QuadDec_1_Cnt16_STATUS               (* (reg8 *) QuadDec_1_Cnt16_CounterUDB_sSTSReg_rstSts_stsreg__STATUS_REG )
-    #define QuadDec_1_Cnt16_STATUS_PTR           (  (reg8 *) QuadDec_1_Cnt16_CounterUDB_sSTSReg_rstSts_stsreg__STATUS_REG )
-    #define QuadDec_1_Cnt16_STATUS_MASK          (* (reg8 *) QuadDec_1_Cnt16_CounterUDB_sSTSReg_rstSts_stsreg__MASK_REG )
-    #define QuadDec_1_Cnt16_STATUS_MASK_PTR      (  (reg8 *) QuadDec_1_Cnt16_CounterUDB_sSTSReg_rstSts_stsreg__MASK_REG )
-    #define QuadDec_1_Cnt16_STATUS_AUX_CTRL      (*(reg8 *) QuadDec_1_Cnt16_CounterUDB_sSTSReg_rstSts_stsreg__STATUS_AUX_CTL_REG)
-    #define QuadDec_1_Cnt16_STATUS_AUX_CTRL_PTR  ( (reg8 *) QuadDec_1_Cnt16_CounterUDB_sSTSReg_rstSts_stsreg__STATUS_AUX_CTL_REG)
-    #define QuadDec_1_Cnt16_CONTROL              (* (reg8 *) QuadDec_1_Cnt16_CounterUDB_sCTRLReg_SyncCtl_ctrlreg__CONTROL_REG )
-    #define QuadDec_1_Cnt16_CONTROL_PTR          (  (reg8 *) QuadDec_1_Cnt16_CounterUDB_sCTRLReg_SyncCtl_ctrlreg__CONTROL_REG )
+    #define QuadDec_1_Cnt16_STATUS               (* (reg8 *) QuadDec_1_Cnt16_CounterUDB_sSTSReg_stsreg__STATUS_REG )
+    #define QuadDec_1_Cnt16_STATUS_PTR           (  (reg8 *) QuadDec_1_Cnt16_CounterUDB_sSTSReg_stsreg__STATUS_REG )
+    #define QuadDec_1_Cnt16_STATUS_MASK          (* (reg8 *) QuadDec_1_Cnt16_CounterUDB_sSTSReg_stsreg__MASK_REG )
+    #define QuadDec_1_Cnt16_STATUS_MASK_PTR      (  (reg8 *) QuadDec_1_Cnt16_CounterUDB_sSTSReg_stsreg__MASK_REG )
+    #define QuadDec_1_Cnt16_STATUS_AUX_CTRL      (*(reg8 *) QuadDec_1_Cnt16_CounterUDB_sSTSReg_stsreg__STATUS_AUX_CTL_REG)
+    #define QuadDec_1_Cnt16_STATUS_AUX_CTRL_PTR  ( (reg8 *) QuadDec_1_Cnt16_CounterUDB_sSTSReg_stsreg__STATUS_AUX_CTL_REG)
+    #define QuadDec_1_Cnt16_CONTROL              (* (reg8 *) QuadDec_1_Cnt16_CounterUDB_sCTRLReg_ctrlreg__CONTROL_REG )
+    #define QuadDec_1_Cnt16_CONTROL_PTR          (  (reg8 *) QuadDec_1_Cnt16_CounterUDB_sCTRLReg_ctrlreg__CONTROL_REG )
 
 
     /********************************

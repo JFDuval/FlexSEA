@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: QuadDec_1_PVT.h  
-* Version 2.40
+* Version 3.0
 *
 * Description:
 *  This private header file contains internal definitions for the Quadrature

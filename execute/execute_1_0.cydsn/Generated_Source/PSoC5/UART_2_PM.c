@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: UART_2_PM.c
-* Version 2.30
+* Version 2.40
 *
 * Description:
 *  This file provides Sleep/WakeUp APIs functionality.
@@ -8,7 +8,7 @@
 * Note:
 *
 ********************************************************************************
-* Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -34,7 +34,10 @@ static UART_2_BACKUP_STRUCT  UART_2_backup =
 ********************************************************************************
 *
 * Summary:
-*  Saves the current user configuration.
+*  This function saves the component configuration and nonretention registers.
+*  It also saves the current component parameter values, as defined in the
+*  Configure dialog or as modified by appropriate APIs. This function is called
+*  by the UART_2_Sleep() function.
 *
 * Parameters:
 *  None.
@@ -48,42 +51,15 @@ static UART_2_BACKUP_STRUCT  UART_2_backup =
 * Reentrant:
 *  No.
 *
+* Side Effects:
+*  All nonretention registers except FIFO are saved to RAM
+*
 *******************************************************************************/
 void UART_2_SaveConfig(void)
 {
-    #if (CY_UDB_V0)
-
-        #if(UART_2_CONTROL_REG_REMOVED == 0u)
-            UART_2_backup.cr = UART_2_CONTROL_REG;
-        #endif /* End UART_2_CONTROL_REG_REMOVED */
-
-        #if( (UART_2_RX_ENABLED) || (UART_2_HD_ENABLED) )
-            UART_2_backup.rx_period = UART_2_RXBITCTR_PERIOD_REG;
-            UART_2_backup.rx_mask = UART_2_RXSTATUS_MASK_REG;
-            #if (UART_2_RXHW_ADDRESS_ENABLED)
-                UART_2_backup.rx_addr1 = UART_2_RXADDRESS1_REG;
-                UART_2_backup.rx_addr2 = UART_2_RXADDRESS2_REG;
-            #endif /* End UART_2_RXHW_ADDRESS_ENABLED */
-        #endif /* End UART_2_RX_ENABLED | UART_2_HD_ENABLED*/
-
-        #if(UART_2_TX_ENABLED)
-            #if(UART_2_TXCLKGEN_DP)
-                UART_2_backup.tx_clk_ctr = UART_2_TXBITCLKGEN_CTR_REG;
-                UART_2_backup.tx_clk_compl = UART_2_TXBITCLKTX_COMPLETE_REG;
-            #else
-                UART_2_backup.tx_period = UART_2_TXBITCTR_PERIOD_REG;
-            #endif /*End UART_2_TXCLKGEN_DP */
-            UART_2_backup.tx_mask = UART_2_TXSTATUS_MASK_REG;
-        #endif /*End UART_2_TX_ENABLED */
-
-
-    #else /* CY_UDB_V1 */
-
-        #if(UART_2_CONTROL_REG_REMOVED == 0u)
-            UART_2_backup.cr = UART_2_CONTROL_REG;
-        #endif /* End UART_2_CONTROL_REG_REMOVED */
-
-    #endif  /* End CY_UDB_V0 */
+    #if(UART_2_CONTROL_REG_REMOVED == 0u)
+        UART_2_backup.cr = UART_2_CONTROL_REG;
+    #endif /* End UART_2_CONTROL_REG_REMOVED */
 }
 
 
@@ -92,7 +68,7 @@ void UART_2_SaveConfig(void)
 ********************************************************************************
 *
 * Summary:
-*  Restores the current user configuration.
+*  Restores the user configuration of nonretention registers.
 *
 * Parameters:
 *  None.
@@ -106,42 +82,17 @@ void UART_2_SaveConfig(void)
 * Reentrant:
 *  No.
 *
+* Side Effects:
+*  All nonretention registers except FIFO loaded from RAM. This function should
+*  be called only after UART_2_SaveConfig() is called, otherwise
+*  incorrect data will be loaded into the registers.
+*
 *******************************************************************************/
 void UART_2_RestoreConfig(void)
 {
-
-    #if (CY_UDB_V0)
-
-        #if(UART_2_CONTROL_REG_REMOVED == 0u)
-            UART_2_CONTROL_REG = UART_2_backup.cr;
-        #endif /* End UART_2_CONTROL_REG_REMOVED */
-
-        #if( (UART_2_RX_ENABLED) || (UART_2_HD_ENABLED) )
-            UART_2_RXBITCTR_PERIOD_REG = UART_2_backup.rx_period;
-            UART_2_RXSTATUS_MASK_REG = UART_2_backup.rx_mask;
-            #if (UART_2_RXHW_ADDRESS_ENABLED)
-                UART_2_RXADDRESS1_REG = UART_2_backup.rx_addr1;
-                UART_2_RXADDRESS2_REG = UART_2_backup.rx_addr2;
-            #endif /* End UART_2_RXHW_ADDRESS_ENABLED */
-        #endif  /* End (UART_2_RX_ENABLED) || (UART_2_HD_ENABLED) */
-
-        #if(UART_2_TX_ENABLED)
-            #if(UART_2_TXCLKGEN_DP)
-                UART_2_TXBITCLKGEN_CTR_REG = UART_2_backup.tx_clk_ctr;
-                UART_2_TXBITCLKTX_COMPLETE_REG = UART_2_backup.tx_clk_compl;
-            #else
-                UART_2_TXBITCTR_PERIOD_REG = UART_2_backup.tx_period;
-            #endif /*End UART_2_TXCLKGEN_DP */
-            UART_2_TXSTATUS_MASK_REG = UART_2_backup.tx_mask;
-        #endif /*End UART_2_TX_ENABLED */
-
-    #else /* CY_UDB_V1 */
-
-        #if(UART_2_CONTROL_REG_REMOVED == 0u)
-            UART_2_CONTROL_REG = UART_2_backup.cr;
-        #endif /* End UART_2_CONTROL_REG_REMOVED */
-
-    #endif  /* End CY_UDB_V0 */
+    #if(UART_2_CONTROL_REG_REMOVED == 0u)
+        UART_2_CONTROL_REG = UART_2_backup.cr;
+    #endif /* End UART_2_CONTROL_REG_REMOVED */
 }
 
 
@@ -150,9 +101,12 @@ void UART_2_RestoreConfig(void)
 ********************************************************************************
 *
 * Summary:
-*  Stops and saves the user configuration. Should be called
-*  just prior to entering sleep.
-*
+*  This is the preferred API to prepare the component for sleep. 
+*  The UART_2_Sleep() API saves the current component state. Then it
+*  calls the UART_2_Stop() function and calls 
+*  UART_2_SaveConfig() to save the hardware configuration.
+*  Call the UART_2_Sleep() function before calling the CyPmSleep() 
+*  or the CyPmHibernate() function. 
 *
 * Parameters:
 *  None.
@@ -169,7 +123,6 @@ void UART_2_RestoreConfig(void)
 *******************************************************************************/
 void UART_2_Sleep(void)
 {
-
     #if(UART_2_RX_ENABLED || UART_2_HD_ENABLED)
         if((UART_2_RXSTATUS_ACTL_REG  & UART_2_INT_ENABLE) != 0u)
         {
@@ -200,8 +153,12 @@ void UART_2_Sleep(void)
 ********************************************************************************
 *
 * Summary:
-*  Restores and enables the user configuration. Should be called
-*  just after awaking from sleep.
+*  This is the preferred API to restore the component to the state when 
+*  UART_2_Sleep() was called. The UART_2_Wakeup() function
+*  calls the UART_2_RestoreConfig() function to restore the 
+*  configuration. If the component was enabled before the 
+*  UART_2_Sleep() function was called, the UART_2_Wakeup()
+*  function will also re-enable the component.
 *
 * Parameters:
 *  None.

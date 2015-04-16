@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: ADC_SAR_1.c
-* Version 2.10
+* Version 3.0
 *
 * Description:
 *  This file provides the source code to the API for the Successive
@@ -9,7 +9,7 @@
 * Note:
 *
 ********************************************************************************
-* Copyright 2008-2013, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -190,14 +190,17 @@ void ADC_SAR_1_Enable(void)
         ADC_SAR_1_SAR_CSR5_REG &= (uint8)~ADC_SAR_1_SAR_DLY_INC;
     #else /* Set High non-overlap delay for sampling clock signals (for <500KSPS)*/
         ADC_SAR_1_SAR_CSR5_REG |= ADC_SAR_1_SAR_DLY_INC;
-    #endif /* ADC_SAR_1_CLOCK_FREQUENCY > (ADC_SAR_1_MAX_FREQUENCY / 2) */
+    #endif /* ADC_SAR_1_HIGH_POWER_PULSE == 0u */
 
-     /* Delay control for comparator latch enable, low delay, (Default for 1MSPS) */
-    #if(ADC_SAR_1_HIGH_POWER_PULSE == 0u) /* MinPulseWidth <= 50 ns */
-        ADC_SAR_1_SAR_CSR5_REG |= ADC_SAR_1_SAR_DCEN;
-    #else /* Delay control for comparator latch enable, high delay (for <500ksps)*/
-        ADC_SAR_1_SAR_CSR5_REG &= (uint8)~ADC_SAR_1_SAR_DCEN;
-    #endif /* ADC_SAR_1_CLOCK_FREQUENCY > (ADC_SAR_1_MAX_FREQUENCY / 2) */
+    /* Increase comparator latch enable delay by 20%, 
+    *  Increase comparator bias current by 30% without impacting delaysDelay 
+    *  Default for 1MSPS) 
+    */
+    #if(ADC_SAR_1_HIGH_POWER_PULSE == 0u)    /* MinPulseWidth <= 50 ns */
+        ADC_SAR_1_SAR_CSR5_REG |= ADC_SAR_1_SAR_SEL_CSEL_DFT_CHAR;
+    #else /* for <500ksps */
+        ADC_SAR_1_SAR_CSR5_REG &= (uint8)~ADC_SAR_1_SAR_SEL_CSEL_DFT_CHAR;
+    #endif /* ADC_SAR_1_HIGH_POWER_PULSE == 0u */
 
     /* Set default power and other configurations for control register 0 in multiple lines */
     ADC_SAR_1_SAR_CSR0_REG = (uint8)((uint8)ADC_SAR_1_DEFAULT_POWER << ADC_SAR_1_SAR_POWER_SHIFT)
@@ -676,7 +679,7 @@ static void ADC_SAR_1_CalcGain( uint8 resolution )
 *  input or if the ADC is using an external reference.
 *
 * Parameters:
-*  int16  adcGain  counts per volt
+*  int16 adcGain counts per volt
 *
 * Return:
 *  None.
@@ -693,7 +696,7 @@ void ADC_SAR_1_SetGain(int16 adcGain)
 
 
 /*******************************************************************************
-* Function Name: ADC_SAR_1_SetGainPer10Volt
+* Function Name: ADC_SAR_1_SetScaledGain
 ********************************************************************************
 *
 * Summary:
@@ -703,7 +706,7 @@ void ADC_SAR_1_SetGain(int16 adcGain)
 *  input or if the ADC is using an external reference.
 *
 * Parameters:
-*  int16  adcGain  counts per 10 volt
+*  int32 adcGain  counts per 10 volt
 *
 * Return:
 *  None.

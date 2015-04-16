@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: PWM_1.c
-* Version 3.10
+* Version 3.20
 *
 * Description:
 *  The PWM User Module consist of an 8 or 16-bit counter with two 8 or 16-bit
@@ -25,7 +25,7 @@
 
 /* Error message for removed <resource> through optimization */
 #ifdef PWM_1_PWMUDB_genblk1_ctrlreg__REMOVED
-    #error PWM_v3_10 detected with a constant 0 for the enable or \
+    #error PWM_v3_20 detected with a constant 0 for the enable or \
          constant 1 for reset. This will prevent the component from operating.
 #endif /* PWM_1_PWMUDB_genblk1_ctrlreg__REMOVED */
 

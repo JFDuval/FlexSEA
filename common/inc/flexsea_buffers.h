@@ -23,6 +23,7 @@
 extern uint8_t rx_buf_spi[RX_BUF_LEN];
 extern uint8_t rx_buf_485_1[RX_BUF_LEN];
 extern uint8_t rx_buf_485_2[RX_BUF_LEN];
+extern uint8_t rx_buf_usb[RX_BUF_LEN];
 
 //****************************************************************************
 // Public Function Prototype(s):
@@ -34,6 +35,8 @@ void update_rx_buf_byte_485_1(uint8_t new_byte);
 void update_rx_buf_array_485_1(uint8_t *new_array, uint32_t len);
 void update_rx_buf_byte_485_2(uint8_t new_byte);
 void update_rx_buf_array_485_2(uint8_t *new_array, uint32_t len);
+void update_rx_buf_byte_usb(uint8_t new_byte);
+void update_rx_buf_array_usb(uint8_t *new_array, uint32_t len);
 
 void test_upd(void);
 

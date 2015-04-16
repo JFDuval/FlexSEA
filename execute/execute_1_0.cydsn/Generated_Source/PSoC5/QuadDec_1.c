@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: QuadDec_1.c  
-* Version 2.40
+* Version 3.0
 *
 * Description:
 *  This file provides the source code to the API for the Quadrature Decoder
