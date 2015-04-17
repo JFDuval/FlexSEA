@@ -28,7 +28,8 @@
 
 void test_code(void)
 {
-	test_code_plan_manage_comm();
+	//test_code_plan_manage_comm();
+	test_code_2();
 }
 
 //PWM triangle wave
@@ -42,9 +43,11 @@ void test_code_1(void)
 
     //Controller = open
     numb = tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_1, CTRL_OPEN);
+    numb = comm_gen_str(payload_str, numb);
     flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
     usleep(10000);
     numb = tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_1, CTRL_OPEN);
+    numb = comm_gen_str(payload_str, numb);
     flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
     usleep(10000);
 
@@ -55,11 +58,11 @@ void test_code_1(void)
     	{
     		case 0:
     			//Ramp up
-    			pwmdc += PWM_STEP;
-    			if(pwmdc >= MAX_PWM)
+    			pwmdc += TC_PWM_STEP;
+    			if(pwmdc >= TC_MAX_PWM)
     			{
     				printf("Reached the positive maximum\n");
-    				pwmdc = MAX_PWM;
+    				pwmdc = TC_MAX_PWM;
     				state = 1;
     			}
     			else
@@ -68,8 +71,23 @@ void test_code_1(void)
     			}
     			break;
     		case 1:
+				//Ramp up
+				pwmdc -= TC_PWM_STEP;
+				if(pwmdc <= -TC_MAX_PWM)
+				{
+					printf("Reached the negative maximum\n");
+					pwmdc = -TC_MAX_PWM;
+					state = 0;
+				}
+				else
+				{
+					state = 1;
+				}
+				break;
+    		/*
+    		case 1:
     			//Ramp down
-    			pwmdc -= (4*PWM_STEP);
+    			pwmdc -= (4*TC_PWM_STEP);
     			if(pwmdc <= 0)
     			{
     				printf("Reached the minimum\n");
@@ -93,17 +111,91 @@ void test_code_1(void)
     			printf("Ramping up...\n");
     			state = 0;
     			break;
+    		*/
     	}
 
     	//Prepare the command:
     	numb = tx_cmd_ctrl_o_write(FLEXSEA_EXECUTE_1, pwmdc);
+    	numb = comm_gen_str(payload_str, numb);
 
     	//Communicate with the slave:
     	flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
 
-    	//800 steps to go from stop to max pos, we want this to happen in 15s
-    	//15/800 = 18.75ms
-        usleep(18750);
+        usleep(6000);
+
+    }
+
+    //Done with the experiment, drop PWM to 0:
+    numb = tx_cmd_ctrl_o_write(FLEXSEA_EXECUTE_1, 0);
+    flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
+}
+
+//Motor driver stress test: fast ramp-up, slow ramp-down
+//(Kepco power supply isn't too happy with regen current)
+void test_code_2(void)
+{
+	int numb = 0;
+	int32_t pwmdc = 0;
+	uint8_t state = 0;
+
+    //Initial configuration:
+
+    //Controller = open
+    numb = tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_1, CTRL_OPEN);
+    numb = comm_gen_str(payload_str, numb);
+    flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
+    usleep(10000);
+    numb = tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_1, CTRL_OPEN);
+    numb = comm_gen_str(payload_str, numb);
+    flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
+    usleep(10000);
+
+    printf("Motor Stress Test\n");
+    while(!kbhit())
+    {
+    	switch(state)
+    	{
+    		case 0:
+    			//Ramp up
+    			pwmdc += TC_PWM_STEP;
+    			if(pwmdc >= TC_MAX_PWM)
+    			{
+    				printf("Reached the positive maximum\n");
+    				pwmdc = TC_MAX_PWM;
+    				state = 1;
+    			}
+    			else
+    			{
+    				state = 0;
+    			}
+    			break;
+    		case 1:
+				//Ramp up
+				pwmdc -= TC_PWM_STEP;
+				if(pwmdc <= 0)
+				{
+					printf("Reached the minimum\n");
+					pwmdc = 0;
+					state = 0;
+				}
+				else
+				{
+					state = 1;
+				}
+				break;
+    	}
+
+    	//Prepare the command:
+    	numb = tx_cmd_ctrl_o_write(FLEXSEA_EXECUTE_1, pwmdc);
+    	numb = comm_gen_str(payload_str, numb);
+
+    	//Communicate with the slave:
+    	flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
+
+    	if(state == 0)
+    		usleep(1750);
+    	else
+    		usleep(18000);
 
     }
 

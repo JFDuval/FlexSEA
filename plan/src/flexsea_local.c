@@ -53,12 +53,12 @@ void flexsea_send_serial_slave(unsigned char port, unsigned char *str, unsigned 
 		length = COMM_STR_BUF_LEN - 1;    //Fixed length for now	//Steven: without that line the success rate depends on the # of bytes
 
 		#ifdef USE_PRINTF
-		printf("Sending %i bytes.\n", length+1);
+		//printf("Sending %i bytes.\n", length+1);
 		#endif
 
 		if(length > 0)
 		{
-			flexsea_spi_transmit(length+1, str, 1);
+			flexsea_spi_transmit(length+1, str, 0);
 		}
     }
     else if(port == PORT_USB)

@@ -30,5 +30,7 @@ void shuobot(void);
 #define MAX_ENC			1000000
 #define MAX_CURRENT		90
 #define CURRENT_STEP	15
+#define SB_MAX_PWM		760
+#define SB_PWM_STEP		1
 
 #endif

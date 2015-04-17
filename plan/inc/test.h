@@ -21,15 +21,16 @@
 
 void test_code(void);
 void test_code_1(void);
+void test_code_2(void);
 void test_code_plan_manage_comm(void);
 
 //****************************************************************************
 // Definition(s):
 //****************************************************************************
 
-#define PERIOD				25
-#define MAX_PWM				800
-#define PWM_STEP			1
-#define DEMO_1_CYCLES		10
+#define TC_PERIOD				25
+#define TC_MAX_PWM				750
+#define TC_PWM_STEP				1
+#define DEMO_1_CYCLES			10
 
 #endif

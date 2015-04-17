@@ -186,8 +186,8 @@ static void shuobot_demo_2(void)
     		cnt = 0;
 
     		//Change the pwm setpoint
-    		open_spd += PWM_STEP;
-    		if(open_spd > MAX_PWM)
+    		open_spd += SB_PWM_STEP;
+    		if(open_spd > SB_MAX_PWM)
     			open_spd = 0;
     	}
 

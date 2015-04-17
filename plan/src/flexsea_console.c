@@ -44,7 +44,7 @@ char fcp_list[MAX_CMD][TXT_STR_LEN] = 	{"ping", "status", "reset", "ack", \
 										"ctrl_o", "ctrl_i", "ctrl_p", "shorted_leads", \
 										"spc1", "spc2"};
 char fcp_desc[MAX_CMD][TXT_STR_LEN] = 	{"Ping? Ping!", "Board Status", "Reset", "Acknowledge", \
-										"Memoty", "Acquisition strategy", "RS485 Configuration", "USB Configuration", \
+										"Memory", "Acquisition strategy", "RS485 Configuration", "USB Configuration", \
 										"USB Write", "Temperature", "Switch", "IMU", \
 										"Encoder", "Strain gauge/load cell", "Strain Gauge amplifier gain & offset", "Voltage measurements", \
 										"Battery status and values", "Power Output", "Clutch", "Advanced Analog Periph. Configuration", \
@@ -53,8 +53,9 @@ char fcp_desc[MAX_CMD][TXT_STR_LEN] = 	{"Ping? Ping!", "Board Status", "Reset", 
 										"Open (O) Loop Controller (PWM)", "Current (I) Controller", "Position (P) Controller", "Shorted Leads", \
 										"Special Command 1", "Special Command 2"};
 char fcp_args[MAX_CMD] = 	{0, 0, 0, 0, \
-							0, 0, 0, 0, \
-							0, 0, 0, 0, \
+							2, 1, 0, 0, \
+							0, 0, 0, 2, \
+							1, 0, 0, 0, \
 							0, 1, 1, 0, \
 							0, 0, 0, 0, \
 							1, 3, 3, 3, \
@@ -305,13 +306,6 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 
     switch(cmd)
     {
-		case 3: //'strain'
-			_USE_PRINTF("[Strain]\n");
-			//Prepare and send data:
-			numb = tx_cmd_strain_read(slave_id[slave]);
-			numb = comm_gen_str(payload_str, numb);
-			break;
-
 		case 4: //'mem'
 			tmp0 = atoi(argv[4]);
 			tmp1 = atoi(argv[5]);
@@ -351,6 +345,13 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			//Prepare and send data:
 			numb = tx_cmd_encoder_write(slave_id[slave], tmp0);
 			//numb = tx_cmd_encoder_read(slave_id[slave]);
+			numb = comm_gen_str(payload_str, numb);
+			break;
+
+		case 13: //'strain'
+			_USE_PRINTF("[Strain]\n");
+			//Prepare and send data:
+			numb = tx_cmd_strain_read(slave_id[slave]);
 			numb = comm_gen_str(payload_str, numb);
 			break;
 
@@ -419,7 +420,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			numb = comm_gen_str(payload_str, numb);
 			break;
 
-		case 30: //'ctrl_o'
+		case 28: //'ctrl_o'
 			tmp0 = atoi(argv[4]);
 			_USE_PRINTF("[Open Loop Controller]: PWMDC = %i.\n", tmp0);
 			//Prepare and send data:
@@ -427,7 +428,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			numb = comm_gen_str(payload_str, numb);
 			break;
 
-		case 31: //'ctrl_i'
+		case 29: //'ctrl_i'
 			tmp0 = atoi(argv[4]);
 			_USE_PRINTF("[Current Controller]: %i.\n", tmp0);
 			//Prepare and send data:
@@ -436,7 +437,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			numb = comm_gen_str(payload_str, numb);
 			break;
 
-		case 34: //'spc1'
+		case 32: //'spc1'
 			tmp0 = atoi(argv[4]);
 			tmp1 = atoi(argv[5]);
 			tmp2 = atoi(argv[6]);
