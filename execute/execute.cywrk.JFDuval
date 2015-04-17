@@ -836,6 +836,10 @@
 <name v="..\common\inc\flexsea.h" />
 <name v=".\inc\main.h" />
 <name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\ADC_SAR_2_INT.c" />
+<name v="..\execute-cop\execute-cop.cydsn\TopDesign\TopDesign.cysch" />
+<name v=".\src\usb.c" />
+<name v="..\common\inc\flexsea_buffers.h" />
+<name v="..\common\inc\flexsea_comm.h" />
 </OpenDocs>
 <config v="" />
 <AutoUpdate v="true" />
