@@ -33,8 +33,8 @@
 //#define BOARD_TYPE_FLEXSEA_EXECUTE
 
 //How many slaves on this bus?
-#define SLAVE_BUS_1_CNT		1
-#define SLAVE_BUS_2_CNT		1
+#define SLAVE_BUS_1_CNT		2
+#define SLAVE_BUS_2_CNT		2
 //Note: only Manage can have a value different than 0 or 1
 
 //===============

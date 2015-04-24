@@ -365,7 +365,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			numb = comm_gen_str(payload_str, numb);
 			break;
 
-		case 19: //'clutch'
+		case 18: //'clutch'
 			tmp0 = atoi(argv[4]);
 			_USE_PRINTF("[Clutch]: %i.\n", tmp0);
 			//Prepare and send data:

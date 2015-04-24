@@ -34,11 +34,11 @@ uint8_t board_up_id = FLEXSEA_PLAN_1;		//This board's master
 
 //Slave bus #1 (RS-485 #1):
 //=========================
-uint8_t board_sub1_id[SLAVE_BUS_1_CNT] = {FLEXSEA_EXECUTE_1};
+uint8_t board_sub1_id[SLAVE_BUS_1_CNT] = {FLEXSEA_EXECUTE_1, FLEXSEA_EXECUTE_3};
 
 //Slave bus #2 (RS-485 #2):
 //=========================
-uint8_t board_sub2_id[SLAVE_BUS_2_CNT] = {FLEXSEA_EXECUTE_2};
+uint8_t board_sub2_id[SLAVE_BUS_2_CNT] = {FLEXSEA_EXECUTE_2, FLEXSEA_EXECUTE_4};
 
 //(make sure to update SLAVE_BUS_x_CNT in flexsea_local.h!)
 
