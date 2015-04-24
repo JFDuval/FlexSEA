@@ -96,6 +96,8 @@ unsigned int payload_parse_str(unsigned char *cp_str)
     id = get_rid(cp_str);
     if(id == ID_MATCH)
     {
+		output = PARSE_SUCCESSFUL;
+		
         //It's addressed to me. What should I do with it?
         switch(cmd)
         {

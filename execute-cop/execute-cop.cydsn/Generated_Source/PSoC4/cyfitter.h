@@ -2042,7 +2042,7 @@
 #define ADC_SAR_Seq_1_IRQ__INTC_SET_PD_REG CYREG_CM0_ISPR
 
 /* Miscellaneous */
-#define CY_VERSION "PSoC Creator  3.1 SP1"
+#define CY_VERSION "PSoC Creator  3.1 SP2"
 #define CYDEV_BCLK__HFCLK__HZ 48000000U
 #define CYDEV_BCLK__HFCLK__KHZ 48000U
 #define CYDEV_BCLK__HFCLK__MHZ 48U

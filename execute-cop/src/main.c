@@ -84,11 +84,13 @@ int main()
 			ezI2Cbuf[MEM_R_STATUS2] = CMB_FLAGS_STATUS2(err_v_3v3);
 		}
 		
+		/*
 		//Test code - Disconnected
 		if(err_discon == BATT_CONNECTED)
 			ELED_Write(0);
 		else
 			ELED_Write(1);
+		*/
 		
 		if(flag_tb_1ms)
 		{

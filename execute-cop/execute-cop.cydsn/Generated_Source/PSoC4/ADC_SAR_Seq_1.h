@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: ADC_SAR_Seq_1.h
-* Version 2.0
+* Version 2.10
 *
 * Description:
 *  This file contains the function prototypes and constants used in
@@ -9,7 +9,7 @@
 * Note:
 *
 ********************************************************************************
-* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -184,9 +184,10 @@ CY_ISR_PROTO( ADC_SAR_Seq_1_ISR );
 *           API Constants
 **************************************/
 /* Constants for Sleep mode states */
-#define ADC_SAR_Seq_1_STARTED                    (0x02u)
-#define ADC_SAR_Seq_1_ENABLED                    (0x01u)
 #define ADC_SAR_Seq_1_DISABLED                   (0x00u)
+#define ADC_SAR_Seq_1_ENABLED                    (0x01u)
+#define ADC_SAR_Seq_1_STARTED                    (0x02u)
+#define ADC_SAR_Seq_1_BOOSTPUMP_ENABLED          (0x04u)
 
 /*   Constants for IsEndConversion() "retMode" parameter  */
 #define ADC_SAR_Seq_1_RETURN_STATUS              (0x01u)
@@ -384,10 +385,13 @@ extern volatile int32 ADC_SAR_Seq_1_countsPer10Volt[ADC_SAR_Seq_1_TOTAL_CHANNELS
 
 #define ADC_SAR_Seq_1_SAR_HW_CTRL_NEGVREF        (0x00002000Lu)
 
+#define ADC_SAR_Seq_1_BOOSTPUMP_EN               (0x00100000Lu)
+
 #define ADC_SAR_Seq_1_NORMAL_PWR                 (0x00000000Lu)
 #define ADC_SAR_Seq_1_HALF_PWR                   (0x01000000Lu)
 #define ADC_SAR_Seq_1_MORE_PWR                   (0x02000000Lu)
 #define ADC_SAR_Seq_1_QUARTER_PWR                (0x03000000Lu)
+#define ADC_SAR_Seq_1_DEEPSLEEP_ON               (0x08000000Lu)
 
 #define ADC_SAR_Seq_1_DSI_SYNC_CONFIG            (0x10000000Lu)
 #define ADC_SAR_Seq_1_DSI_MODE                   (0x20000000Lu)

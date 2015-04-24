@@ -233,7 +233,11 @@ int main(void)
 			result = payload_parse_str(tmp_rx_command_485_1);
 			
 			//LED:
-			new_cmd_led = 1;
+			if(result == PARSE_SUCCESSFUL)
+			{
+				//Green LED only if the ID matched and the command was known
+				new_cmd_led = 1;
+			}
 		}
 		
 		//Valid communication from USB?
