@@ -46,7 +46,6 @@ uint32_t tx_cmd_imu_read_reply(uint8_t master, uint8_t base_addr, uint8_t bytes)
 
 //Expansion commands:			
 
-uint32_t tx_cmd_clutch_write(uint8_t slave, uint8_t clutch_pwm);
 uint32_t tx_cmd_analog_read(uint8_t slave, uint8_t base_addr, uint8_t bytes);
 uint32_t tx_cmd_analog_read_reply(uint8_t master, uint8_t base_addr, uint8_t bytes);
 

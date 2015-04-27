@@ -24,7 +24,6 @@
 
 void rx_cmd_ctrl_p_gains_write(uint8_t *buf);
 void rx_move_trap_absolute(unsigned char *buf);
-void rx_cmd_clutch_write(uint8_t *buf);
 void rx_cmd_ctrl_o_write(uint8_t *buf);
 void rx_cmd_mem_read_reply(uint8_t *buf, uint8_t verbal);
 void rx_cmd_mem_read(uint8_t *buf);

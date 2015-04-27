@@ -70,7 +70,7 @@ Flashing red: major error
 */
 
 //Timings in ms:
-#define UI_COMM_TIMEOUT			3000
+#define UI_COMM_TIMEOUT			2000
 #define UI_L0_TIMEOUT			1000
 #define UI_L1_TIMEOUT			1000
 #define UI_RED_FLASH_ON			100

@@ -140,25 +140,6 @@ void rx_move_trap_absolute(unsigned char *buf)
 	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
 
-void rx_cmd_clutch_write(uint8_t *buf)
-{
-	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
-
-	clutch_output(buf[CP_DATA1]);
-
-	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
-
-	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
-	//No code (yet), you shouldn't be here...
-	flexsea_error(0);
-	#endif	//BOARD_TYPE_FLEXSEA_MANAGE
-
-	#ifdef BOARD_TYPE_FLEXSEA_PLAN
-	//No code (yet), you shouldn't be here...
-	flexsea_error(0);
-	#endif	//BOARD_TYPE_FLEXSEA_PLAN
-}
-
 void rx_cmd_ctrl_o_write(uint8_t *buf)
 {
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE

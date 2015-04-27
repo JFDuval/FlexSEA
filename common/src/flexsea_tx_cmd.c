@@ -56,23 +56,6 @@ uint32_t tx_cmd_ctrl_p_gains_write(uint8_t slave, int16_t kp, int16_t ki, int16_
     return 10;
 }
 
-//Set clutch state
-uint32_t tx_cmd_clutch_write(uint8_t slave, uint8_t clutch_pwm)
-{
-    //Fresh string:
-	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
-
-    //Command:
-    payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_CLUTCH_WRITE;
-
-    //Parameters:
-    payload_str[CP_DATA1] = clutch_pwm;
-
-    //At this point the string is ready to be packaged in comm_str
-    return 6;
-}
-
 //Send open loop speed command (PWM DC)
 uint32_t tx_cmd_ctrl_o_write(uint8_t slave, int32_t pwmdc)
 {

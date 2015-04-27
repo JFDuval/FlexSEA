@@ -115,8 +115,8 @@ void rx_cmd_exp_clutch(uint8_t *buf)
 		//Generate the reply:
 		//===================
 
-		numb = tx_cmd_clutch(buf[CP_XID], CMD_WRITE, tmp_payload_xmit, \
-									PAYLOAD_BUF_LEN, 0, read_clutch());
+		numb = tx_cmd_exp_clutch(buf[CP_XID], CMD_WRITE, tmp_payload_xmit, \
+									PAYLOAD_BUF_LEN, read_clutch());
 		numb = comm_gen_str(tmp_payload_xmit, numb);
 		numb = COMM_STR_BUF_LEN;	//Fixed length for now to accomodate the DMA
 

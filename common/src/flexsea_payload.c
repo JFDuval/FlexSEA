@@ -153,9 +153,6 @@ unsigned int payload_parse_str(unsigned char *cp_str)
 				break;
 				
 			//Expansion commands:
-			case CMD_CLUTCH_WRITE:
-                rx_cmd_clutch_write(cp_str);
-                break;  
 			case CMD_CLUTCH_W:
 				rx_cmd_exp_clutch(cp_str);
 				break;

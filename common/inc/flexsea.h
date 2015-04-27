@@ -106,7 +106,6 @@ void fill_uint8_buf(uint8_t *buf, uint32_t len, uint8_t filler);
 #define CMD_STRAIN_CONFIG				69
 
 //Expansion commands:
-#define CMD_CLUTCH_WRITE				91	// CMD_SET_CLUTCH	4
 #define CMD_ANALOG_READ					95
 #define CMD_ANALOG_READ_REPLY			96
 
