@@ -306,6 +306,10 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 
     switch(cmd)
     {
+    	case 2:	//'reset'
+    		_USE_PRINTF("Reset: ");
+    		console_reset(slave_id[slave]);
+    		break;
 		case 4: //'mem'
 			tmp0 = atoi(argv[4]);
 			tmp1 = atoi(argv[5]);

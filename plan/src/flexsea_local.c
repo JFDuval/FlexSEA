@@ -121,3 +121,26 @@ uint8_t decode_spi_rx(void)
 
     return valid;
 }
+
+//Received a "Reset" command from the console
+void console_reset(unsigned char slaveid)
+{
+	//Only supporting Manage for now
+	if(slaveid == FLEXSEA_MANAGE_1)
+	{
+		//Plan can reset Manage:
+		_USE_PRINTF("Manage.\n");
+		reset_manage();
+	}
+	else
+	{
+		_USE_PRINTF("Nothing - slave not supported.\n");
+	}
+}
+
+void reset_manage(void)
+{
+	pin_high(RESET_PORT, RESET_PIN);
+	usleep(10000);
+	pin_low(RESET_PORT, RESET_PIN);
+}

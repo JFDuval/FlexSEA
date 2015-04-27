@@ -26,6 +26,8 @@
 void flexsea_send_serial_slave(unsigned char port, unsigned char *str, unsigned char length);
 void flexsea_send_serial_master(unsigned char port, unsigned char *str, unsigned char length);
 uint8_t decode_spi_rx(void);
+void console_reset(unsigned char slaveid);
+void reset_manage(void);
 
 //****************************************************************************
 // Definition(s):

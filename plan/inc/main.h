@@ -21,6 +21,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <time.h>
+#include "iolib.h"
 #include "flexsea.h"
 #include "flexsea_console.h"
 #include "flexsea_stream_log.h"
@@ -59,5 +60,8 @@ extern const char *delims;
 #define MAX_COMMAND_LEN 		256
 #define MAX_ARGS 				12
 
+//IO functions, Reset:
+#define RESET_PORT				9
+#define RESET_PIN				12
 
 #endif

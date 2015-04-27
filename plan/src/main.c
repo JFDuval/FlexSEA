@@ -40,6 +40,11 @@ int main(int argc, char *argv[])
     //Open SPI:
     flexsea_spi_open();
 
+    //Initialize IO library:
+    iolib_init();
+    iolib_setdir(RESET_PORT, RESET_PIN, DIR_OUT);
+    pin_low(RESET_PORT, RESET_PIN);
+
 	#else
 
     printf("\nFlexSEA-Plan - Debug\n=====================\n\n");
@@ -108,6 +113,8 @@ int main(int argc, char *argv[])
 
     //Close SPI:
     flexsea_spi_close();
+
+    iolib_free();
 
 	#endif
 
