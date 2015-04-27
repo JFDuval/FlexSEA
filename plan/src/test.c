@@ -29,7 +29,8 @@
 void test_code(void)
 {
 	//test_code_plan_manage_comm();
-	test_code_2();
+	//test_code_2();
+	test_code_plan_2x_exec_comm();
 }
 
 //PWM triangle wave
@@ -220,7 +221,42 @@ void test_code_plan_manage_comm(void)
     	flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
 
     	//Delay
-        usleep(100);
+        usleep(100000);
 
+    }
+}
+
+//Plan <> Dual Execute Communication
+void test_code_plan_2x_exec_comm(void)
+{
+	int numb = 0;
+
+    printf("Plan <> Dual Execute Communication Speed Test Code\n");
+
+    while(!kbhit())
+    {
+    	//Execute #1:
+
+    	//Prepare the command:
+    	numb = tx_cmd_exp_clutch(FLEXSEA_EXECUTE_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, 0xAA);
+    	numb = comm_gen_str(payload_str, numb);
+
+    	//Communicate with the slave:
+    	flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
+
+    	//Delay
+        usleep(500);
+
+        //Execute #2:
+
+    	//Prepare the command:
+        numb = tx_cmd_exp_clutch(FLEXSEA_EXECUTE_2, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, 0xCC);
+    	numb = comm_gen_str(payload_str, numb);
+
+    	//Communicate with the slave:
+    	flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
+
+    	//Delay
+        usleep(500);
     }
 }

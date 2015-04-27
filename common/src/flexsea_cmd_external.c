@@ -85,7 +85,7 @@ uint32_t tx_cmd_exp_clutch(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uin
 }
 
 //Reception of a CLUTCH command
-void rx_cmd_clutch(uint8_t *buf)
+void rx_cmd_exp_clutch(uint8_t *buf)
 {
 	uint32_t numb = 0;
 

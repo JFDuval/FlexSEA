@@ -22,7 +22,7 @@
 
 uint32_t tx_cmd_exp_clutch(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
 								uint8_t clutch);
-void rx_cmd_clutch(uint8_t *buf);
+void rx_cmd_exp_clutch(uint8_t *buf);
 
 //****************************************************************************
 // Definition(s):

@@ -133,6 +133,7 @@ void fill_uint8_buf(uint8_t *buf, uint32_t len, uint8_t filler);
 #define CMD_SPECIAL_3_W					CMD_W(CMD_SPECIAL_3)
 
 #define CMD_CLUTCH						103
+#define CMD_CLUTCH_W					CMD_W(CMD_CLUTCH)
 #define CMD_CTRL_I						104
 #define CMD_CTRL_O						105
 #define CMD_CTRL_MODE					106

@@ -42,7 +42,7 @@ unsigned char manage_1_data[SLAVE_READ_BUFFER_LEN];
 
 #if defined(BOARD_TYPE_FLEXSEA_MANAGE) || defined(BOARD_TYPE_FLEXSEA_PLAN)
 
-struct execute_s exec1, exec2;
+struct execute_s exec1, exec2, exec3, exec4;
 struct manage_s manag1;
 
 #endif	//BOARD_TYPE_FLEXSEA_MANAGE

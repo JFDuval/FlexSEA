@@ -61,7 +61,7 @@ char fcp_args[MAX_CMD] = 	{0, 0, 0, 0, \
 							1, 3, 3, 3, \
 							1, 1, 4, 1, \
 							0, 0};
-//(4 parameters per line to simplify modifications and minimize errors)
+//(4 parameters per line to simplify modifications and minimize human errors)
 
 //****************************************************************************
 // External variable(s)
@@ -306,11 +306,24 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 
     switch(cmd)
     {
-    	case 2:	//'reset'
+    	case 0:		//'ping'
+    		_USE_PRINTF("Command isn't programmed yet.\n");
+    		break;
+
+    	case 1:		//'status'
+    		_USE_PRINTF("Command isn't programmed yet.\n");
+    	    break;
+
+    	case 2:		//'reset'
     		_USE_PRINTF("Reset: ");
     		console_reset(slave_id[slave]);
     		break;
-		case 4: //'mem'
+
+    	case 3:		//'ack'
+    		_USE_PRINTF("Command isn't programmed yet.\n");
+    	    break;
+
+		case 4: 	//'mem'
 			tmp0 = atoi(argv[4]);
 			tmp1 = atoi(argv[5]);
 			_USE_PRINTF("[Memory]: Base addr. = %i, bytes = %i.\n", tmp0, tmp1);
@@ -319,7 +332,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			numb = comm_gen_str(payload_str, numb);
 			break;
 
-		case 5: //'acqui'
+		case 5: 	//'acqui'
 			tmp0 = atoi(argv[4]);
 			_USE_PRINTF("[Acquisition mode]: %i.\n", tmp0);
 			//Prepare and send data:
@@ -327,14 +340,30 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			numb = comm_gen_str(payload_str, numb);
 			break;
 
-		case 10: //'switch'
+		case 6:		//'rs485_config'
+			_USE_PRINTF("Command isn't programmed yet.\n");
+		    break;
+
+		case 7:		//'usb_config'
+			_USE_PRINTF("Command isn't programmed yet.\n");
+		    break;
+
+		case 8:		//'usb_write'
+			_USE_PRINTF("Command isn't programmed yet.\n");
+		    break;
+
+		case 9:		//'temp'
+			_USE_PRINTF("Command isn't programmed yet.\n");
+		    break;
+
+		case 10: 	//'switch'
 			_USE_PRINTF("[Switch]");
 			//Prepare and send data:
 			numb = tx_cmd_switch(FLEXSEA_MANAGE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN);
 			numb = comm_gen_str(payload_str, numb);
 			break;
 
-		case 11: //'imu'
+		case 11: 	//'imu'
 			tmp0 = atoi(argv[4]);
 			tmp1 = atoi(argv[5]);
 			_USE_PRINTF("[IMU]: %i & %i.\n", tmp0, tmp1);
@@ -343,7 +372,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			numb = comm_gen_str(payload_str, numb);
 			break;
 
-		case 12: //'encoder'
+		case 12: 	//'encoder'
 			tmp0 = atoi(argv[4]);
 			_USE_PRINTF("[Encoder]: %i.\n", tmp0);
 			//Prepare and send data:
@@ -352,14 +381,14 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			numb = comm_gen_str(payload_str, numb);
 			break;
 
-		case 13: //'strain'
+		case 13: 	//'strain'
 			_USE_PRINTF("[Strain]\n");
 			//Prepare and send data:
 			numb = tx_cmd_strain_read(slave_id[slave]);
 			numb = comm_gen_str(payload_str, numb);
 			break;
 
-		case 14: //'cmd_strain_config'
+		case 14: 	//'cmd_strain_config'
 			tmp0 = atoi(argv[4]);
 			tmp1 = atoi(argv[5]);
 			tmp2 = atoi(argv[6]);
@@ -369,7 +398,19 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			numb = comm_gen_str(payload_str, numb);
 			break;
 
-		case 18: //'clutch'
+		case 15:	//'volt'
+			_USE_PRINTF("Command isn't programmed yet.\n");
+		    break;
+
+		case 16:	//'batt'
+			_USE_PRINTF("Command isn't programmed yet.\n");
+		    break;
+
+		case 17:	//'power_out'
+			_USE_PRINTF("Command isn't programmed yet.\n");
+		    break;
+
+		case 18: 	//'clutch'
 			tmp0 = atoi(argv[4]);
 			_USE_PRINTF("[Clutch]: %i.\n", tmp0);
 			//Prepare and send data:
@@ -377,7 +418,11 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			numb = comm_gen_str(payload_str, numb);
 			break;
 
-		case 20: //'analog'
+		case 19:	//'adv_ana_config'
+			_USE_PRINTF("Command isn't programmed yet.\n");
+			break;
+
+		case 20: 	//'analog'
 			tmp0 = atoi(argv[4]);
 			tmp1 = atoi(argv[5]);
 			_USE_PRINTF("[Analog]: Base addr. = %i, Values = %i.\n", tmp0, tmp1);
@@ -386,7 +431,19 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			numb = comm_gen_str(payload_str, numb);
 			break;
 
-		case 24: //'ctrl_mode'
+		case 21:	//'digital'
+			_USE_PRINTF("Command isn't programmed yet.\n");
+			break;
+
+		case 22:	//'digital_config'
+			_USE_PRINTF("Command isn't programmed yet.\n");
+			break;
+
+		case 23:	//'exp_periph_config'
+			_USE_PRINTF("Command isn't programmed yet.\n");
+			break;
+
+		case 24: 	//'ctrl_mode'
 			tmp0 = atoi(argv[4]);
 			_USE_PRINTF("[Control Mode]: %i.\n", tmp0);
 			//Prepare and send data:
@@ -394,7 +451,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			numb = comm_gen_str(payload_str, numb);
 			break;
 
-		case 25: //'ctrl_i_g'
+		case 25: 	//'ctrl_i_g'
 			tmp0 = atoi(argv[4]);
 			tmp1 = atoi(argv[5]);
 			tmp2 = atoi(argv[6]);
@@ -404,7 +461,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			numb = comm_gen_str(payload_str, numb);
 			break;
 
-		case 26: //'ctrl_p_g'
+		case 26: 	//'ctrl_p_g'
 			tmp0 = atoi(argv[5]);
 			tmp1 = atoi(argv[6]);
 			tmp2 = atoi(argv[7]);
@@ -414,7 +471,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			numb = comm_gen_str(payload_str, numb);
 			break;
 
-		case 27: //'ctrl_z_g'
+		case 27: 	//'ctrl_z_g'
 			tmp0 = atoi(argv[4]);
 			tmp1 = atoi(argv[5]);
 			tmp2 = atoi(argv[6]);
@@ -424,7 +481,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			numb = comm_gen_str(payload_str, numb);
 			break;
 
-		case 28: //'ctrl_o'
+		case 28: 	//'ctrl_o'
 			tmp0 = atoi(argv[4]);
 			_USE_PRINTF("[Open Loop Controller]: PWMDC = %i.\n", tmp0);
 			//Prepare and send data:
@@ -432,7 +489,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			numb = comm_gen_str(payload_str, numb);
 			break;
 
-		case 29: //'ctrl_i'
+		case 29: 	//'ctrl_i'
 			tmp0 = atoi(argv[4]);
 			_USE_PRINTF("[Current Controller]: %i.\n", tmp0);
 			//Prepare and send data:
@@ -441,7 +498,15 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			numb = comm_gen_str(payload_str, numb);
 			break;
 
-		case 32: //'spc1'
+		case 30:	//'ctrl_p'
+			_USE_PRINTF("Command isn't programmed yet.\n");
+			break;
+
+		case 31:	//'shorted_leads'
+			_USE_PRINTF("Command isn't programmed yet.\n");
+			break;
+
+		case 32: 	//'spc1'
 			tmp0 = atoi(argv[4]);
 			tmp1 = atoi(argv[5]);
 			tmp2 = atoi(argv[6]);
@@ -453,6 +518,10 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
 										tmp0, tmp1, tmp2, tmp3, tmp4, tmp5);
 			numb = comm_gen_str(payload_str, numb);
+			break;
+
+		case 33:	//'spc2'
+			_USE_PRINTF("Command isn't programmed yet.\n");
 			break;
 
 		default:

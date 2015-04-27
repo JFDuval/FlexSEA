@@ -156,6 +156,9 @@ unsigned int payload_parse_str(unsigned char *cp_str)
 			case CMD_CLUTCH_WRITE:
                 rx_cmd_clutch_write(cp_str);
                 break;  
+			case CMD_CLUTCH_W:
+				rx_cmd_exp_clutch(cp_str);
+				break;
 			case CMD_ANALOG_READ:
                 rx_cmd_analog_read(cp_str);
                 break;  
