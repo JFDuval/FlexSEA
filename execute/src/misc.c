@@ -24,9 +24,7 @@ volatile int8_t tx_cnt = 0;
 
 //Timers:
 volatile uint8 t1_100us_flag = 0;
-volatile uint8 t1_1ms_1_flag = 0, t1_1ms_2_flag = 0;
-volatile uint8 t2_10ms_flag = 0;
-volatile uint8 t2_50ms_flag = 0;	
+volatile uint8 t1_time_share = 0, t1_new_value = 0;
 
 //ADC:
 uint8 adc_sar1_flag = 0;
@@ -44,36 +42,6 @@ uint8 minm_rgb_color = 0;
 //****************************************************************************
 // Function(s)
 //****************************************************************************
-
-//Update the sensor structures
-//Call this one in the 1ms #1 routine
-void update_sensors_1(void)
-{
-	//IMU:
-	#ifdef USE_I2C_INT
-		
-		#ifdef USE_IMU
-			
-			//get_accel_xyz();
-			get_gyro_xyz();
-			//We could also get temperature
-			
-		#endif	//USE_IMU
-		
-		//Safety-CoP status:
-		safety_cop_get_status();
-		
-	#endif	//USE_I2C_INT	
-}
-
-//Update the sensor structures
-//Call this one in the 1ms #2 routine
-void update_sensors_2(void)
-{
-	//Now that the I2C isn't in use we convert the strain:
-	EXP5_Write(1);
-	ADC_DelSig_1_StartConvert();
-}
 
 //ToDo should probably be in a different file
 //Sends a single character to the UART
@@ -156,7 +124,6 @@ void alive_led(void)
 	{
 		count0 = 0;
 		toggle0^=1;
-		//LED0_Write(toggle0);
 		LED_HB_Write(toggle0);
 	}
 }

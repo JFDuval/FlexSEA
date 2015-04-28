@@ -20,11 +20,18 @@
 
 uint8 i2c_tmp_buf[IMU_MAX_BUF_SIZE];
 volatile uint8 i2c_r_buf[16];
+uint8 imu_last_request = IMU_RQ_GYRO;
 
 struct imu_s imu;
 
 //****************************************************************************
-// Function(s)
+// Private Function Prototype(s)
+//****************************************************************************
+
+static void store_imu_data(uint8 newdata[7]);
+
+//****************************************************************************
+// Public Function(s)
 //****************************************************************************
 
 //// HIGH LEVEL FUNCTIONS ////
@@ -71,23 +78,10 @@ int16 get_accel_z(void)
 //Puts all the accelerometer values in the structure:
 void get_accel_xyz(void)
 {
-	uint8 tmp_data[6] = {0,0,0,0,0,0};
-	uint16 tmp = 0;
+	uint8 tmp_data[7] = {0,0,0,0,0,0};	
 	
 	//According to the documentation it's X_H, X_L, Y_H, ...
-	imu_read(IMU_ACCEL_XOUT_H, tmp_data, 6);
-	
-	//Accel X:
-	tmp = ((uint16)tmp_data[0] << 8) | ((uint16) tmp_data[1]);
-	imu.accel.x = (int16)tmp;
-	
-	//Accel Y:
-	tmp = ((uint16)tmp_data[2] << 8) | ((uint16) tmp_data[3]);
-	imu.accel.y = (int16)tmp;
-	
-	//Accel Z:
-	tmp = ((uint16)tmp_data[4] << 8) | ((uint16) tmp_data[5]);
-	imu.accel.z = (int16)tmp;
+	imu_read(IMU_ACCEL_XOUT_H, tmp_data, 7);	
 }
 
 // Get gyro X
@@ -118,23 +112,10 @@ int16 get_gyro_z(void)
 void get_gyro_xyz(void)
 {
 	uint8 tmp_data[7] = {0,0,0,0,0,0, 0};
-	uint16 tmp = 0;
 	
 	//According to the documentation it's X_H, X_L, Y_H, ...
 	imu_read(IMU_GYRO_XOUT_H, tmp_data, 7);
-	//Note: reading 6 bytes causes a bad reading on Z ([6] always 0).
-	
-	//Gyro X:
-	tmp = ((uint16)tmp_data[0] << 8) | ((uint16) tmp_data[1]);
-	imu.gyro.x = (int16)tmp;
-	
-	//Gyro Y:
-	tmp = ((uint16)tmp_data[2] << 8) | ((uint16) tmp_data[3]);
-	imu.gyro.y = (int16)tmp;
-	
-	//Gyro Z:
-	tmp = ((uint16)tmp_data[4] << 8) | ((uint16) tmp_data[5]);
-	imu.gyro.z = (int16)tmp;
+	//Note: reading 6 bytes causes a bad reading on Z ([6] always 0).	
 }
 
 // Reset the IMU to default settings
@@ -180,43 +161,6 @@ int imu_write(uint8 internal_reg_addr, uint8* pData, uint16 length)
 	return 0;
 }
 
-/*
-//Manual I2C [Write - Restart - Read n bytes] function
-int imu_read(uint8 internal_reg_addr, uint8 *pData, uint16 length)
-{
-	uint8 status = 0, i = 0;
-	
-	//Start, address, Write mode
-	status = I2C_1_MasterSendStart(IMU_ADDR, 0);		
-	if(status != I2C_1_MSTR_NO_ERROR)
-		return 1;
-	
-	//Write to register
-	status = I2C_1_MasterWriteByte(internal_reg_addr);
-	if(status != I2C_1_MSTR_NO_ERROR)
-		return 2;
-	
-	//Restart, address, Read mode
-	status = I2C_1_MasterSendRestart(IMU_ADDR, 1);		
-	if(status != I2C_1_MSTR_NO_ERROR)
-		return 3;
-	
-	//Read 'length' bytes:
-	for(i = 0; i < (length-1); i++)
-	{
-		pData[i] = I2C_1_MasterReadByte(1);	//Ack byte(s)
-	}
-	pData[i+1] = I2C_1_MasterReadByte(0);	//Nack the last byte
-	
-	//I2C_1_MasterSendStop() is blocking, and it blocked me every few seconds. This seems to work better:
-	I2C_1_GENERATE_STOP_MANUAL;		//Generate STOP
-	I2C_1_state = I2C_1_SM_IDLE;	//Reset state to IDLE
-	//Scopped the bus, all clean.
-	
-	return 0;
-}
-*/
-
 //Manual I2C [Write - Restart - Read n bytes] function
 //Takes around 90us (400kHz) to run, then the ISR takes care of everything.
 int imu_read(uint8 internal_reg_addr, uint8 *pData, uint16 length)
@@ -229,6 +173,9 @@ int imu_read(uint8 internal_reg_addr, uint8 *pData, uint16 length)
 	{
 		pData[i] = i2c_r_buf[i];
 	}
+	
+	//Store data:
+	store_imu_data(i2c_r_buf);
 	
 	//Clear status:
 	//I2C_1_MasterClearStatus();
@@ -352,4 +299,43 @@ uint8 I2C_1_MasterWriteByteTimeOut(uint8 theByte, uint32 timeout)
     }
 
     return(errStatus);
+}
+
+//****************************************************************************
+// Private Function(s)
+//****************************************************************************
+
+//Associate data with the right structure
+static void store_imu_data(uint8 newdata[7])
+{
+	uint16 tmp = 0;
+	
+	if(imu_last_request == IMU_RQ_GYRO)
+	{
+		//Gyro X:
+		tmp = ((uint16)newdata[0] << 8) | ((uint16) newdata[1]);
+		imu.gyro.x = (int16)tmp;
+		
+		//Gyro Y:
+		tmp = ((uint16)newdata[2] << 8) | ((uint16) newdata[3]);
+		imu.gyro.y = (int16)tmp;
+		
+		//Gyro Z:
+		tmp = ((uint16)newdata[4] << 8) | ((uint16) newdata[5]);
+		imu.gyro.z = (int16)tmp;		
+	}
+	else if(imu_last_request == IMU_RQ_ACCEL)
+	{
+		//Accel X:
+		tmp = ((uint16)newdata[0] << 8) | ((uint16) newdata[1]);
+		imu.accel.x = (int16)tmp;
+		
+		//Accel Y:
+		tmp = ((uint16)newdata[2] << 8) | ((uint16) newdata[3]);
+		imu.accel.y = (int16)tmp;
+		
+		//Accel Z:
+		tmp = ((uint16)newdata[4] << 8) | ((uint16) newdata[5]);
+		imu.accel.z = (int16)tmp;		
+	}
 }

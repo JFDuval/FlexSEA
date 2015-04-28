@@ -22,7 +22,7 @@
 
 void init_analog(void);
 uint16 adc_avg8(uint16 new_data);
-void filter_adc(void);
+void filter_sar_adc(void);
 int16 read_analog(uint8 ch);
 void adc_dma_config(void);
 

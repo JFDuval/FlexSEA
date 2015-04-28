@@ -68,7 +68,7 @@ uint16 adc_avg8(uint16 new_data)
 
 //Filters the ADC buffer
 //ToDo: generalize & optimize
-void filter_adc(void)
+void filter_sar_adc(void)
 {
 	uint16 i = 0;
 	uint16 tmp_ch0 = 0, tmp_ch1 = 0;

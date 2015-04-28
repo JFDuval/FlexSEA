@@ -29,7 +29,6 @@
 
 #include <project.h>
 #include "misc.h"
-#define ERROR_HALF_T		70		//ms	
 	
 /* `#END` */
 
@@ -166,32 +165,19 @@ CY_ISR(isr_t1_Interrupt)
     /* `#START isr_t1_Interrupt` */
 
 	//Timer 1: 100us
-
-	static uint8 cnt10_1 = 0, cnt10_2 = 6;
 	
 	//Clear interrupt
 	Timer_1_ReadStatusRegister();
 	isr_t1_ClearPending();
 	
-	//1ms timebase #1:
-	cnt10_1++;
-	if(cnt10_1 > 9)
-	{
-		cnt10_1 = 0;
-		
-		//Flag for the main code
-		t1_1ms_1_flag = 1;
-	}
+	//All the timings are based on 100us slots
+	//10 slots form the original 1ms timebase
+	//'t1_time_share' is from 0 to 9, it controls the main FSM
 	
-	//1ms timebase #2 (delayed):
-	cnt10_2++;
-	if(cnt10_2 > 9)
-	{
-		cnt10_2 = 0;
-		
-		//Flag for the main code
-		t1_1ms_2_flag = 1;
-	}	
+	//Increment value, limits to 0-9
+	t1_time_share++;
+	t1_time_share %= 10;
+	t1_new_value = 1;
 	
 	//Flag for the main code
 	t1_100us_flag = 1;

@@ -21,9 +21,7 @@
 //****************************************************************************	
 	
 extern volatile uint8 t1_100us_flag;
-extern volatile uint8 t1_1ms_1_flag, t1_1ms_2_flag;
-extern volatile uint8 t2_10ms_flag;
-extern volatile uint8 t2_50ms_flag;	
+extern volatile uint8 t1_time_share, t1_new_value;
 	
 extern uint8 adc_sar1_flag;	
 extern volatile uint8 data_ready_485_1;
@@ -39,8 +37,6 @@ extern uint8 minm_rgb_color;
 void rs485_putc(uint8 byte);
 void rs485_puts(uint8 *buf, uint32 len);
 void i2c_write_minm_rgb(uint8 cmd, uint8 r, uint8 g, uint8 b);
-void update_sensors_1(void);
-void update_sensors_2(void);
 void alive_led(void);
 void power_on(void);
 void set_led_rgb(unsigned char r, unsigned char g, unsigned char b);
