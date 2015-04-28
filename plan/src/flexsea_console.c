@@ -414,7 +414,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			tmp0 = atoi(argv[4]);
 			_USE_PRINTF("[Clutch]: %i.\n", tmp0);
 			//Prepare and send data:
-			numb = tx_cmd_clutch_write(slave_id[slave], tmp0);
+			numb = tx_cmd_exp_clutch(slave_id[slave], CMD_READ, payload_str, PAYLOAD_BUF_LEN, tmp0);
 			numb = comm_gen_str(payload_str, numb);
 			break;
 

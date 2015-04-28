@@ -19,7 +19,7 @@ extern volatile uint8_t systick_1000ms_flag;
 
 // ----------------------------------------------------------------------------
 
-#define TIMER_FREQUENCY_HZ (1000u)
+#define TIMER_FREQUENCY_HZ (10000u)
 
 typedef uint32_t timer_ticks_t;
 
