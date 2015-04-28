@@ -153,7 +153,7 @@ void rx_cmd_special_1(uint8_t *buf)
 	#if((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
 
 	//Structure pointer. Points to exec1 by default.
-	struct execute_s *exec_s_ptr = &exec1;
+	struct execute_s *exec_s_ptr;
 
 	//Point to the appropriate structure:
 	if(buf[CP_XID] == FLEXSEA_EXECUTE_1)
@@ -163,6 +163,14 @@ void rx_cmd_special_1(uint8_t *buf)
 	else if(buf[CP_XID] == FLEXSEA_EXECUTE_2)
 	{
 		exec_s_ptr = &exec2;
+	}
+	else if(buf[CP_XID] == FLEXSEA_EXECUTE_3)
+	{
+		exec_s_ptr = &exec3;
+	}
+	else if(buf[CP_XID] == FLEXSEA_EXECUTE_4)
+	{
+		exec_s_ptr = &exec4;
 	}
 
 	#endif	//((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))

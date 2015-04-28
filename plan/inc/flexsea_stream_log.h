@@ -29,6 +29,7 @@ void flexsea_console_log(int experiment);
 
 void flexsea_stream_print_1(void);
 void flexsea_stream_print_2(void);
+void flexsea_stream_print_3(void);
 
 //****************************************************************************
 // Definition(s):

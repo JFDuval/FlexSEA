@@ -191,7 +191,7 @@ void flexsea_stream_print_2(void)
 
 void flexsea_stream_print_3(void)
 {
-	//Prints data from Execute 1 & 3
+	//Prints data from Execute 1 & 2
 	//Designed to be used with the dual ShuoBot
 
 	#ifdef USE_PRINTF
@@ -208,19 +208,19 @@ void flexsea_stream_print_3(void)
 
 	printf("Encoder: %i\n", exec1.encoder);
 
-	//Execute #3:
+	//Execute #2:
 
 	printf("\n===\n\n");
 
-	printf("Gyro X: %i\n", exec3.imu.x);
-	printf("Gyro Y: %i\n", exec3.imu.y);
-	printf("Gyro Z: %i\n", exec3.imu.z);
+	printf("Gyro X: %i\n", exec2.imu.x);
+	printf("Gyro Y: %i\n", exec2.imu.y);
+	printf("Gyro Z: %i\n", exec2.imu.z);
 
-	printf("Strain: %i\n", exec3.strain);
-	printf("Analog: %i\n", exec3.analog[0]);
-	printf("Current: %i\n", exec3.current);
+	printf("Strain: %i\n", exec2.strain);
+	printf("Analog: %i\n", exec2.analog[0]);
+	printf("Current: %i\n", exec2.current);
 
-	printf("Encoder: %i\n", exec3.encoder);
+	printf("Encoder: %i\n", exec2.encoder);
 
 	#endif
 }
