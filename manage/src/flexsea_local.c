@@ -223,7 +223,7 @@ void comm_str_to_txbuffer(void)
 
 	for(i = 0; i < COMM_STR_BUF_LEN; i++)
 	{
-		aTxBuffer[i] = comm_str[i];
+		aTxBuffer[i] = comm_str_spi[i];
 	}
 }
 
@@ -234,6 +234,6 @@ void flexsea_prepare_spi_tx_buffer(uint8_t base_addr)
 {
 	flexsea_update_slave_read_buffer(base_addr);
 	build_slave_payload(base_addr);
-	comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+	comm_gen_str(payload_str, comm_str_spi, PAYLOAD_BUF_LEN);
 	comm_str_to_txbuffer();
 }

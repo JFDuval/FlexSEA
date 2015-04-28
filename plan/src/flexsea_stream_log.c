@@ -24,6 +24,8 @@
 static void flexsea_stream_exp_null(void);
 static void flexsea_stream_exp_1(void);
 static void flexsea_stream_exp_2(void);
+static void flexsea_stream_exp_3(void);
+static void flexsea_stream_exp_4(void);
 
 static void flexsea_log_exp_null(FILE *logfile, char min, char sec, uint32_t *tmp, uint32_t *lines, uint32_t *good);
 static void flexsea_log_exp_1(FILE *logfile, char min, char sec, uint32_t *tmp, uint32_t *lines, uint32_t *good);
@@ -42,7 +44,7 @@ void flexsea_console_stream(int experiment)
     unsigned int numb = 0;
     static void (*exp_fctPtr)(void);	//Pointer for flexsea_stream_exp_x()
 
-    printf("I'm in STream\n");
+    printf("I'm in Stream\n");
 
     //Map function call to experiment:
     switch(experiment)
@@ -57,6 +59,14 @@ void flexsea_console_stream(int experiment)
 
     	case 2:
     		exp_fctPtr = &flexsea_stream_exp_2;
+    		break;
+
+    	case 3:
+    		exp_fctPtr = &flexsea_stream_exp_3;
+    		break;
+
+    	case 4:
+    		exp_fctPtr = &flexsea_stream_exp_4;
     		break;
 
     	default:
@@ -179,6 +189,26 @@ void flexsea_stream_print_1(void)
 
 void flexsea_stream_print_2(void)
 {
+	//Prints data from Execute 2
+	//Designed to be used with ShuoBot
+
+	#ifdef USE_PRINTF
+
+	printf("Gyro X: %i\n", exec2.imu.x);
+	printf("Gyro Y: %i\n", exec2.imu.y);
+	printf("Gyro Z: %i\n", exec2.imu.z);
+
+	printf("Strain: %i\n", exec2.strain);
+	printf("Analog: %i\n", exec2.analog[0]);
+	printf("Current: %i\n", exec2.current);
+
+	printf("Encoder: %i\n", exec2.encoder);
+
+	#endif
+}
+
+void flexsea_stream_print_3(void)
+{
 	//Prints data from Manage 1
 	//User switch only
 
@@ -189,7 +219,7 @@ void flexsea_stream_print_2(void)
 	#endif
 }
 
-void flexsea_stream_print_3(void)
+void flexsea_stream_print_4(void)
 {
 	//Prints data from Execute 1 & 2
 	//Designed to be used with the dual ShuoBot
@@ -249,9 +279,9 @@ static void flexsea_stream_exp_1(void)
 
 	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
 									KEEP, 0, KEEP, 0, 0, 0);
-	numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+	numb = comm_gen_str(payload_str, comm_str_spi, PAYLOAD_BUF_LEN);
 	numb = COMM_STR_BUF_LEN;
-	flexsea_spi_transmit(numb, comm_str, 0);
+	flexsea_spi_transmit(numb, comm_str_spi, 0);
 
 	//Can we decode what we received?
 	decode_spi_rx();
@@ -263,17 +293,64 @@ static void flexsea_stream_exp_2(void)
 {
 	int numb = 0;
 
-	//For now we only read the switch
+	//Special1 command to test the ShuoBot Exo
 
-	numb = tx_cmd_switch(FLEXSEA_MANAGE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN);
-	numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_2, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
+									KEEP, 0, KEEP, 0, 0, 0);
+	numb = comm_gen_str(payload_str, comm_str_spi, PAYLOAD_BUF_LEN);
 	numb = COMM_STR_BUF_LEN;
-	flexsea_spi_transmit(numb, comm_str, 0);
+	flexsea_spi_transmit(numb, comm_str_spi, 0);
 
 	//Can we decode what we received?
 	decode_spi_rx();
 
 	flexsea_stream_print_2();
+}
+
+static void flexsea_stream_exp_3(void)
+{
+	int numb = 0;
+
+	//For now we only read the switch
+
+	numb = tx_cmd_switch(FLEXSEA_MANAGE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN);
+	numb = comm_gen_str(payload_str, comm_str_spi, PAYLOAD_BUF_LEN);
+	numb = COMM_STR_BUF_LEN;
+	flexsea_spi_transmit(numb, comm_str_spi, 0);
+
+	//Can we decode what we received?
+	decode_spi_rx();
+
+	flexsea_stream_print_3();
+}
+
+static void flexsea_stream_exp_4(void)
+{
+	int numb = 0;
+
+	//Special1 command to test the Dual ShuoBot Exo
+
+	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
+									KEEP, 0, KEEP, 0, 0, 0);
+	numb = comm_gen_str(payload_str, comm_str_spi, PAYLOAD_BUF_LEN);
+	numb = COMM_STR_BUF_LEN;
+	flexsea_spi_transmit(numb, comm_str_spi, 0);
+
+	//Can we decode what we received?
+	decode_spi_rx();
+
+	usleep(STREAM_DELAY_US);
+
+	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_2, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
+									KEEP, 0, KEEP, 0, 0, 0);
+	numb = comm_gen_str(payload_str, comm_str_spi, PAYLOAD_BUF_LEN);
+	numb = COMM_STR_BUF_LEN;
+	flexsea_spi_transmit(numb, comm_str_spi, 0);
+
+	//Can we decode what we received?
+	decode_spi_rx();
+
+	flexsea_stream_print_4();
 }
 
 //All the Log Experiment functions need to have this prototype:
@@ -296,9 +373,9 @@ static void flexsea_log_exp_1(FILE *logfile, char min, char sec, uint32_t *tmp, 
 
 	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
 												KEEP, 0, KEEP, 0, 77, 0);
-	numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+	numb = comm_gen_str(payload_str, comm_str_spi, PAYLOAD_BUF_LEN);
 	numb = COMM_STR_BUF_LEN;
-	flexsea_spi_transmit(numb, comm_str, 0);
+	flexsea_spi_transmit(numb, comm_str_spi, 0);
 
     //Can we decode what we received?
     *tmp = decode_spi_rx();

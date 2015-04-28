@@ -20,7 +20,10 @@
 // Shared variable(s)
 //****************************************************************************
 
-extern uint8_t comm_str[COMM_STR_BUF_LEN], comm_str_tmp[COMM_STR_BUF_LEN];
+extern uint8_t comm_str_tmp[COMM_STR_BUF_LEN];
+extern uint8_t comm_str_spi[COMM_STR_BUF_LEN];
+extern uint8_t comm_str_485_1[COMM_STR_BUF_LEN];
+extern uint8_t comm_str_485_2[COMM_STR_BUF_LEN];
 extern uint8_t rx_command_spi[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
 extern uint8_t rx_command_485_1[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
 extern uint8_t rx_command_485_2[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
@@ -30,7 +33,7 @@ extern struct slave_comm_s slaves_485_1, slaves_485_2;
 // Public Function Prototype(s):
 //****************************************************************************
 
-unsigned char comm_gen_str(unsigned char payload[], unsigned char bytes);
+uint8_t comm_gen_str(uint8_t payload[], uint8_t *cstr, uint8_t bytes);
 uint8_t unpack_payload_spi(void);
 uint8_t unpack_payload_485_1(void);
 uint8_t unpack_payload_485_2(void);
@@ -48,6 +51,16 @@ void test_flexsea_comm(void);
 
 #define SC_TRANSPARENT			0
 #define SC_AUTOSAMPLING			1
+
+//Enable this to debug with the terminal:
+//#define DEBUG_COMM_PRINTF_
+
+//Conditional printf() statement:
+#ifdef DEBUG_COMM_PRINTF_
+	#define DEBUG_COMM_PRINTF(...) printf(__VA_ARGS__)
+#else
+	#define DEBUG_COMM_PRINTF(...) do {} while (0)
+#endif	//DEBUG_COMM_PRINTF_
 
 //****************************************************************************
 // Structure(s):

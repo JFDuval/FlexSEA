@@ -44,12 +44,12 @@ void test_code_1(void)
 
     //Controller = open
     numb = tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_1, CTRL_OPEN);
-    numb = comm_gen_str(payload_str, numb);
-    flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
+    numb = comm_gen_str(payload_str, comm_str_spi, numb);
+    flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
     usleep(10000);
     numb = tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_1, CTRL_OPEN);
-    numb = comm_gen_str(payload_str, numb);
-    flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
+    numb = comm_gen_str(payload_str, comm_str_spi, numb);
+    flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
     usleep(10000);
 
     printf("Ramping up...\n");
@@ -117,10 +117,10 @@ void test_code_1(void)
 
     	//Prepare the command:
     	numb = tx_cmd_ctrl_o_write(FLEXSEA_EXECUTE_1, pwmdc);
-    	numb = comm_gen_str(payload_str, numb);
+    	numb = comm_gen_str(payload_str, comm_str_spi, numb);
 
     	//Communicate with the slave:
-    	flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
+    	flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
 
         usleep(6000);
 
@@ -128,7 +128,7 @@ void test_code_1(void)
 
     //Done with the experiment, drop PWM to 0:
     numb = tx_cmd_ctrl_o_write(FLEXSEA_EXECUTE_1, 0);
-    flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
+    flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
 }
 
 //Motor driver stress test: fast ramp-up, slow ramp-down
@@ -143,12 +143,12 @@ void test_code_2(void)
 
     //Controller = open
     numb = tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_1, CTRL_OPEN);
-    numb = comm_gen_str(payload_str, numb);
-    flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
+    numb = comm_gen_str(payload_str, comm_str_spi, numb);
+    flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
     usleep(10000);
     numb = tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_1, CTRL_OPEN);
-    numb = comm_gen_str(payload_str, numb);
-    flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
+    numb = comm_gen_str(payload_str, comm_str_spi, numb);
+    flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
     usleep(10000);
 
     printf("Motor Stress Test\n");
@@ -188,10 +188,10 @@ void test_code_2(void)
 
     	//Prepare the command:
     	numb = tx_cmd_ctrl_o_write(FLEXSEA_EXECUTE_1, pwmdc);
-    	numb = comm_gen_str(payload_str, numb);
+    	numb = comm_gen_str(payload_str, comm_str_spi, numb);
 
     	//Communicate with the slave:
-    	flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
+    	flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
 
     	if(state == 0)
     		usleep(1750);
@@ -202,7 +202,7 @@ void test_code_2(void)
 
     //Done with the experiment, drop PWM to 0:
     numb = tx_cmd_ctrl_o_write(FLEXSEA_EXECUTE_1, 0);
-    flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
+    flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
 }
 
 //Plan <> Manage Communication
@@ -218,7 +218,7 @@ void test_code_plan_manage_comm(void)
     	numb = tx_cmd_switch(FLEXSEA_MANAGE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN);
 
     	//Communicate with the slave:
-    	flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
+    	flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
 
     	//Delay
         usleep(100000);
@@ -239,10 +239,10 @@ void test_code_plan_2x_exec_comm(void)
 
     	//Prepare the command:
     	numb = tx_cmd_exp_clutch(FLEXSEA_EXECUTE_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, 0xAA);
-    	numb = comm_gen_str(payload_str, numb);
+    	numb = comm_gen_str(payload_str, comm_str_spi, numb);
 
     	//Communicate with the slave:
-    	flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
+    	flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
 
     	//Delay
         usleep(500);
@@ -251,10 +251,10 @@ void test_code_plan_2x_exec_comm(void)
 
     	//Prepare the command:
         numb = tx_cmd_exp_clutch(FLEXSEA_EXECUTE_2, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, 0xCC);
-    	numb = comm_gen_str(payload_str, numb);
+    	numb = comm_gen_str(payload_str, comm_str_spi, numb);
 
     	//Communicate with the slave:
-    	flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
+    	flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
 
     	//Delay
         usleep(500);

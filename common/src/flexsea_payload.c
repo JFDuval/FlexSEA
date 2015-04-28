@@ -223,9 +223,10 @@ unsigned int payload_parse_str(unsigned char *cp_str)
     	//Manage is the only board that can receive a package destined to his master
 			
         //Repackages the payload. ToDo: would be more efficient to just resend the comm_str
-        numb = comm_gen_str(cp_str, PAYLOAD_BUF_LEN);
+        numb = comm_gen_str(cp_str, comm_str_spi, PAYLOAD_BUF_LEN);
         numb = COMM_STR_BUF_LEN;    //Fixed length for now
-        flexsea_send_serial_master(0, comm_str, numb);	//Was +1
+        //flexsea_send_serial_master(0, comm_str, numb);
+        //(the SPI driver will grab comm_str_spi directly)
 		
 		#endif	//BOARD_TYPE_FLEXSEA_MANAGE
     }
@@ -249,7 +250,7 @@ static void route_to_slave(uint8_t port, uint8_t *buf, uint32_t len)
 	uint8_t *comm_str_ptr = slaves_485_1.xmit.str;
 
     //Repackages the payload. ToDo: would be more efficient to just resend the comm_str
-    numb = comm_gen_str(buf, len);
+    numb = comm_gen_str(buf, comm_str_tmp, len);
     //numb = COMM_STR_BUF_LEN;    //Fixed length for now
 
     //Port specific flags and buffer:
@@ -269,7 +270,7 @@ static void route_to_slave(uint8_t port, uint8_t *buf, uint32_t len)
     //Copy string:
     for(i = 0; i < numb+1; i++)
     {
-    	comm_str_ptr[i] = comm_str[i];
+    	comm_str_ptr[i] = comm_str_tmp[i];
     }
 }
 

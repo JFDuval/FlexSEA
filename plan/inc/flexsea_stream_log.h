@@ -30,13 +30,14 @@ void flexsea_console_log(int experiment);
 void flexsea_stream_print_1(void);
 void flexsea_stream_print_2(void);
 void flexsea_stream_print_3(void);
+void flexsea_stream_print_4(void);
 
 //****************************************************************************
 // Definition(s):
 //****************************************************************************
 
 //Streaming and logging delays:
-#define STREAM_DELAY_US			10000
+#define STREAM_DELAY_US			7500
 #define LOG_DELAY_US			500
 
 #endif

@@ -43,10 +43,10 @@ void demo_1(int32_t wspd)
 
     //Controller = open
     numb = tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_1, CTRL_OPEN);
-    flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
+    flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
     usleep(1000);
     numb = tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_1, CTRL_OPEN);
-    flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
+    flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
     usleep(10000);
 
 	printf("\nType 'u' to go Up, 'd' to go Down and 'quit' to Quit.\n");
@@ -109,7 +109,7 @@ void demo_1(int32_t wspd)
 		numb = tx_cmd_ctrl_o_write(FLEXSEA_EXECUTE_1, spd);
 
 		//Communicate with the slave:
-		flexsea_send_serial_slave(PORT_SPI, comm_str, numb);
+		flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
 
 		printf("Command sent.\n");
     }

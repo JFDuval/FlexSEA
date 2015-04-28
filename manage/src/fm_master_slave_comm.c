@@ -143,9 +143,9 @@ void write_test_cmd_execute(uint8_t port, uint8_t slave, uint8_t value)
 
 	//bytes = tx_cmd_clutch_write(FLEXSEA_EXECUTE_1, value);
 	bytes = tx_cmd_encoder_read(slave);
-	bytes2 = comm_gen_str(payload_str, bytes + 1);	//Might not need the +1, TBD
+	bytes2 = comm_gen_str(payload_str, comm_str_485_1, bytes + 1);	//Might not need the +1, TBD
 
-	flexsea_send_serial_slave(port, comm_str, bytes2 + 1);
+	flexsea_send_serial_slave(port, comm_str_485_1, bytes2 + 1);
 }
 
 //Simple test code, modified for the new Special Command:
@@ -161,9 +161,9 @@ void write_test_cmd_execute2(uint8_t port, uint8_t slave, uint8_t value)
 	bytes = tx_cmd_ctrl_special_1(slave, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
 									KEEP, 0, KEEP, 0, value, 0);
 
-	bytes2 = comm_gen_str(payload_str, bytes + 1);	//Might not need the +1, TBD
+	bytes2 = comm_gen_str(payload_str, comm_str_485_1, bytes + 1);	//Might not need the +1, TBD
 
-	flexsea_send_serial_slave(port, comm_str, bytes2 + 1);
+	flexsea_send_serial_slave(port, comm_str_485_1, bytes2 + 1);
 }
 
 //****************************************************************************

@@ -107,9 +107,10 @@ void rx_cmd_switch(uint8_t *buf)
 		//===================
 
 		numb = tx_cmd_switch(buf[CP_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN);
-		numb = comm_gen_str(tmp_payload_xmit, numb);
+		numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
 		numb = COMM_STR_BUF_LEN;    //Fixed length for now
-		flexsea_send_serial_master(0, comm_str, numb);
+		//(the SPI driver will grab comm_str_spi directly)
+		//flexsea_send_serial_master(0, comm_str, numb);
 
 		#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 

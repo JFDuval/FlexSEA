@@ -361,7 +361,7 @@ void DMA2_Str1_CompleteTransfer_Callback(DMA_HandleTypeDef *hdma)
 	if(hdma->Instance == DMA2_Stream1)
 	{
 		//Clear the UART receiver. Might not be needed, but harmless
-		empty_dr = USART6->DR;
+		//empty_dr = USART6->DR;
 	}
 
 	//Deal with FlexSEA buffers here:

@@ -390,7 +390,7 @@ static void send_cmd_slave(void)
 {
 	uint32_t numb = 0;
 
-	numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+	numb = comm_gen_str(payload_str, comm_str_spi, PAYLOAD_BUF_LEN);
 	numb = COMM_STR_BUF_LEN;
-	flexsea_spi_transmit(numb, comm_str, 0);
+	flexsea_spi_transmit(numb, comm_str_spi, 0);
 }

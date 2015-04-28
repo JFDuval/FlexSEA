@@ -42,7 +42,11 @@
 // Variable(s)
 //****************************************************************************
 
-uint8_t comm_str[COMM_STR_BUF_LEN], comm_str_tmp[COMM_STR_BUF_LEN];	//ToDo will be replaced
+//uint8_t comm_str[COMM_STR_BUF_LEN]; 	//ToDo will be replaced
+uint8_t comm_str_tmp[COMM_STR_BUF_LEN];
+uint8_t comm_str_spi[COMM_STR_BUF_LEN];
+uint8_t comm_str_485_1[COMM_STR_BUF_LEN];
+uint8_t comm_str_485_2[COMM_STR_BUF_LEN];
 
 uint8_t rx_command_spi[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
 uint8_t rx_command_485_1[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
@@ -67,7 +71,7 @@ static void clear_rx_command(uint8_t x, uint8_t y, uint8_t rx_cmd[][PACKAGED_PAY
 
 //Takes payload, adds ESCAPES, checksum, header, ...
 //ToDo update naming convention, think about multiple buffers
-unsigned char comm_gen_str(unsigned char payload[], unsigned char bytes)
+uint8_t comm_gen_str(uint8_t payload[], uint8_t *cstr, uint8_t bytes)
 {
     unsigned int i = 0, escapes = 0, idx = 0, total_bytes = 0;
     unsigned char checksum = 0;
@@ -75,11 +79,9 @@ unsigned char comm_gen_str(unsigned char payload[], unsigned char bytes)
     //Fill comm_str with zeros
     for(i = 0; i < COMM_STR_BUF_LEN; i++)
     {
-        comm_str[i] = 0xAA; //'0';
+    	cstr[i] = 0xAA; //'0';
     }
-#ifdef DEBUG_COMM_USING_PRINTF
-    printf("comm_str: %s\n", comm_str);
-#endif
+    DEBUG_COMM_PRINTF("comm_str: %s\n", comm_str);
 
     //Fill comm_str with payload and add ESCAPE characters
     escapes = 0;
@@ -89,44 +91,39 @@ unsigned char comm_gen_str(unsigned char payload[], unsigned char bytes)
         if ((payload[i] == HEADER) || (payload[i] == FOOTER) || (payload[i] == ESCAPE))
         {
             escapes = escapes + 1;
-            comm_str[idx] = ESCAPE;
-            comm_str[idx+1] = payload[i];
+            cstr[idx] = ESCAPE;
+            cstr[idx+1] = payload[i];
             idx = idx + 1;
         }
         else
         {
-            comm_str[idx] = payload[i];
+        	cstr[idx] = payload[i];
         }
         idx++;
     }
-#ifdef DEBUG_COMM_USING_PRINTF
-    printf("comm_str: %s\n", comm_str);
-#endif
+    DEBUG_COMM_PRINTF("comm_str: %s\n", comm_str);
 
     total_bytes = bytes + escapes;
 
-#ifdef DEBUG_COMM_USING_PRINTF
-    printf("total_bytes: %i\n", total_bytes);
-#endif
+    DEBUG_COMM_PRINTF("total_bytes: %i\n", total_bytes);
 
     //Checksum:
     checksum = 0;
     for (i = 0; i < total_bytes; i++)
     {
-#ifdef DEBUG_COMM_USING_PRINTF
-        printf("cs b[%i] = %c\n", i, comm_str[2+i]);
-#endif
-        checksum = checksum + comm_str[2+i];
+    	DEBUG_COMM_PRINTF("cs b[%i] = %c\n", i, comm_str[2+i]);
+
+        checksum = checksum + cstr[2+i];
     }
-#ifdef DEBUG_COMM_USING_PRINTF
-    printf("checksum: %i\n", checksum);
-#endif
+
+    DEBUG_COMM_PRINTF("checksum: %i\n", checksum);
+
 
     //Build comm_str:
-    comm_str[0] = HEADER;
-    comm_str[1] = total_bytes;
-    comm_str[2 + total_bytes] = checksum;
-    comm_str[3 + total_bytes] = FOOTER;
+    cstr[0] = HEADER;
+    cstr[1] = total_bytes;
+    cstr[2 + total_bytes] = checksum;
+    cstr[3 + total_bytes] = FOOTER;
 
     //Return the length of the valid data
     return (3 + total_bytes);
@@ -183,7 +180,7 @@ void test_flexsea_comm(void)
     //printf("rx_command_spi[0][]: >> %s <<\n", (char*)rx_command_spi[0]);
 
     //Build comm_str
-    res = comm_gen_str(payload_str, bytes);
+    res = comm_gen_str(payload_str, comm_str_spi, bytes);
 
     DEBUG_PRINTF("comm_str[]: >> %s <<\n", (char*)comm_str);
     DEBUG_PRINTF("res = %i\n", res);
@@ -193,7 +190,7 @@ void test_flexsea_comm(void)
     //Feed it to the input buffer
     for(i = 0; i < PACKAGED_PAYLOAD_LEN; i++)
     {
-        update_rx_buf_byte_spi(comm_str[i]);
+        update_rx_buf_byte_spi(comm_str_spi[i]);
     }
 
     DEBUG_PRINTF("rx_buf_spi[]: >> %s <<\n", (char*)rx_buf_spi);
