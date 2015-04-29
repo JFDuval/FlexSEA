@@ -204,12 +204,19 @@ static void slave_comm_single(struct slave_comm_s *slave, uint8_t *trig)
 		{
 			//No bypassing
 
-			if(trig == 1)
+			if((*trig) == 1)
 			{
 				//Time to send a new packet:
-				slaves_485_1_autosample();			//******wrong ToDo use fct ptr
+				slaves_485_1_autosample();
 
-				trig = 0;
+				(*trig) = 0;
+			}
+			else if((*trig) == 2)
+			{
+				//Time to send a new packet:
+				slaves_485_2_autosample();
+
+				(*trig) = 0;
 			}
 		}
 	}
@@ -246,45 +253,33 @@ static void write_to_slave_autosample(struct slave_comm_s *slave)
 //State-machine for the autosampling on bus #1
 static void slaves_485_1_autosample(void)
 {
-	/*
-	static uint16_t cnt = 0;
-	uint8_t bytes = 0, bytes2 = 0;
+	uint8_t numb = 0;
 
-	//We start by generating 1 read request:
-	switch(cnt)
-	{
-		case 0:
-			bytes = tx_cmd_strain_read(slave);
-			cnt++;
-			break;
-		case 1:
-			bytes = tx_cmd_encoder_read(slave);
-			cnt++;
-			break;
-		case 2:
-			bytes = tx_cmd_imu_read(slave, 0, 3);
-			cnt++;
-			break;
-		case 3:
-			bytes = tx_cmd_analog_read(slave, 0, 1);
-			cnt++;
-			break;
-		case 4:
-			bytes = tx_cmd_ctrl_i_read(slave);
-			cnt = 0;	//Last command resets the counter
-			break;
-	}
+	//Experiment #1: Send Special1
 
-	//Then we package and send it out:
-	bytes2 = comm_gen_str(payload_str, bytes + 1);	//Might not need the +1, TBD
-	flexsea_send_serial_slave(port, comm_str, bytes2 + 1);
-	start_listening_flag = 1;
-	*/
+	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
+										KEEP, 0, KEEP, 0, 0, 0);
+	numb = comm_gen_str(payload_str, comm_str_485_1, PAYLOAD_BUF_LEN);
+	numb = COMM_STR_BUF_LEN;
+
+	flexsea_send_serial_slave(PORT_RS485_1, comm_str_485_1, numb);
+	slaves_485_1.autosample.listen = 1;
 }
 
-//State-machine for the autosampling on bus #1
+//State-machine for the autosampling on bus #2
 static void slaves_485_2_autosample(void)
 {
+	uint8_t numb = 0;
+
+	//Experiment #1: Send Special1
+
+	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_2, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
+										KEEP, 0, KEEP, 0, 0, 0);
+	numb = comm_gen_str(payload_str, comm_str_485_2, PAYLOAD_BUF_LEN);
+	numb = COMM_STR_BUF_LEN;
+
+	flexsea_send_serial_slave(PORT_RS485_2, comm_str_485_2, numb);
+	slaves_485_2.autosample.listen = 1;
 }
 
 /*

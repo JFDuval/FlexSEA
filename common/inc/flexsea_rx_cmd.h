@@ -65,7 +65,7 @@ struct xyz_s
 
 struct execute_s
 {
-	struct xyz_s imu;
+	struct xyz_s imu;	//ToDo Rename Gyro now that we support gyro + accel
 	struct xyz_s accel;
 
 	uint16_t strain;

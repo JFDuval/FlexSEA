@@ -12,6 +12,8 @@
 // Shared Variable(s)
 //****************************************************************************
 
+extern volatile uint8_t systick_100us_flag;
+extern volatile uint8_t systick_100us_timeshare;
 extern volatile uint8_t systick_1ms_flag;
 extern volatile uint8_t systick_10ms_flag;
 extern volatile uint8_t systick_100ms_flag;

@@ -26,6 +26,7 @@ static void flexsea_stream_exp_1(void);
 static void flexsea_stream_exp_2(void);
 static void flexsea_stream_exp_3(void);
 static void flexsea_stream_exp_4(void);
+static void flexsea_stream_exp_5(void);
 
 static void flexsea_log_exp_null(FILE *logfile, char min, char sec, uint32_t *tmp, uint32_t *lines, uint32_t *good);
 static void flexsea_log_exp_1(FILE *logfile, char min, char sec, uint32_t *tmp, uint32_t *lines, uint32_t *good);
@@ -41,10 +42,10 @@ static void flexsea_log_exp_1(FILE *logfile, char min, char sec, uint32_t *tmp, 
 //as log if you want to save data faster than a few tens of Hertz.
 void flexsea_console_stream(int experiment)
 {
-    unsigned int numb = 0;
+    unsigned int numb = 0, cnt = 0;
     static void (*exp_fctPtr)(void);	//Pointer for flexsea_stream_exp_x()
-
-    printf("I'm in Stream\n");
+    void (*print_fct_ptr)(void) = &flexsea_stream_print_null;
+    //Pointer to an optional flexsea_stream_print_x() function
 
     //Map function call to experiment:
     switch(experiment)
@@ -67,6 +68,12 @@ void flexsea_console_stream(int experiment)
 
     	case 4:
     		exp_fctPtr = &flexsea_stream_exp_4;
+    		print_fct_ptr = flexsea_stream_print_4;
+    		break;
+
+    	case 5:
+    		exp_fctPtr = &flexsea_stream_exp_5;
+    		print_fct_ptr = flexsea_stream_print_4;
     		break;
 
     	default:
@@ -81,14 +88,28 @@ void flexsea_console_stream(int experiment)
     //Loop "forever" - breaks on a keyboard interrupt
     while(!kbhit())
     {
-        //Clear terminal:
-        system("clear");
+		#ifdef SLOW_TERMINAL_DISPLAY
+
+    	cnt++;
+    	cnt %= SLOW_N_CYCLES;
+    	if(!cnt)
+    	{
+			//Clear terminal:
+			system("clear");
+			print_fct_ptr();
+    	}
 
         //Call the experiment:
         exp_fctPtr();
 
-        //Delay (us)
-        usleep(STREAM_DELAY_US);
+		#else
+
+    	//Clear terminal:
+    	system("clear");
+    	exp_fctPtr();
+    	usleep(STREAM_DELAY_US);
+
+		#endif 	//SLOW_TERMINAL_DISPLAY
     }
 }
 
@@ -167,6 +188,11 @@ void flexsea_console_log(int experiment)
 //You can program as many functions as you want, simply increment the
 //number.
 
+void flexsea_stream_print_null(void)
+{
+	//Empty function
+}
+
 void flexsea_stream_print_1(void)
 {
 	//Prints data from Execute 1
@@ -228,29 +254,23 @@ void flexsea_stream_print_4(void)
 
 	//Execute #1:
 
-	printf("Gyro X: %i\n", exec1.imu.x);
-	printf("Gyro Y: %i\n", exec1.imu.y);
-	printf("Gyro Z: %i\n", exec1.imu.z);
+	printf("Gyro: %-6i %-6i %-6i\n", exec1.imu.x, exec1.imu.y, exec1.imu.z);
 
-	printf("Strain: %i\n", exec1.strain);
-	printf("Analog: %i\n", exec1.analog[0]);
-	printf("Current: %i\n", exec1.current);
+	printf("SG: %i\n", exec1.strain);
+	printf("AN: %i\n", exec1.analog[0]);
+	printf("I: %i\n", exec1.current);
 
-	printf("Encoder: %i\n", exec1.encoder);
+	printf("Enc: %i\n\n", exec1.encoder);
 
 	//Execute #2:
 
-	printf("\n===\n\n");
+	printf("Gyro: %-6i %-6i %-6i\n", exec2.imu.x, exec2.imu.y, exec2.imu.z);
 
-	printf("Gyro X: %i\n", exec2.imu.x);
-	printf("Gyro Y: %i\n", exec2.imu.y);
-	printf("Gyro Z: %i\n", exec2.imu.z);
+	printf("SG: %i\n", exec2.strain);
+	printf("AN: %i\n", exec2.analog[0]);
+	printf("I: %i\n", exec2.current);
 
-	printf("Strain: %i\n", exec2.strain);
-	printf("Analog: %i\n", exec2.analog[0]);
-	printf("Current: %i\n", exec2.current);
-
-	printf("Encoder: %i\n", exec2.encoder);
+	printf("Enc: %i\n", exec2.encoder);
 
 	#endif
 }
@@ -330,7 +350,7 @@ static void flexsea_stream_exp_4(void)
 
 	//Special1 command to test the Dual ShuoBot Exo
 
-	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
+	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_2, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
 									KEEP, 0, KEEP, 0, 0, 0);
 	numb = comm_gen_str(payload_str, comm_str_spi, PAYLOAD_BUF_LEN);
 	numb = COMM_STR_BUF_LEN;
@@ -341,7 +361,7 @@ static void flexsea_stream_exp_4(void)
 
 	usleep(STREAM_DELAY_US);
 
-	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_2, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
+	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
 									KEEP, 0, KEEP, 0, 0, 0);
 	numb = comm_gen_str(payload_str, comm_str_spi, PAYLOAD_BUF_LEN);
 	numb = COMM_STR_BUF_LEN;
@@ -350,7 +370,26 @@ static void flexsea_stream_exp_4(void)
 	//Can we decode what we received?
 	decode_spi_rx();
 
-	flexsea_stream_print_4();
+	usleep(STREAM_DELAY_US);
+}
+
+static void flexsea_stream_exp_5(void)
+{
+	int numb = 0;
+
+	//Special4 command to test the Dual ShuoBot Exo.
+	//Manage needs to be autosampling Special1 for this to work.
+
+	numb = tx_cmd_ctrl_special_4(FLEXSEA_MANAGE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
+									KEEP, 0, KEEP, 0, 0, 0);
+	numb = comm_gen_str(payload_str, comm_str_spi, PAYLOAD_BUF_LEN);
+	numb = COMM_STR_BUF_LEN;
+	flexsea_spi_transmit(numb, comm_str_spi, 0);
+
+	//Can we decode what we received?
+	decode_spi_rx();
+
+	usleep(STREAM_DELAY_US);
 }
 
 //All the Log Experiment functions need to have this prototype:

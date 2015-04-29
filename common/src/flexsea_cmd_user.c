@@ -38,6 +38,7 @@
 
 //Will change this, but for now the payloads will be stored in:
 unsigned char tmp_payload_xmit[PAYLOAD_BUF_LEN];
+struct spc4_s spc4_ex1, spc4_ex2;
 
 //****************************************************************************
 // Function(s)
@@ -700,6 +701,264 @@ void rx_cmd_special_3(uint8_t *buf)
 			#ifdef BOARD_TYPE_FLEXSEA_PLAN
 
 			#endif	//BOARD_TYPE_FLEXSEA_PLAN
+		}
+		else
+		{
+			//Master is writing a value to this board
+
+			#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+
+			//ToDo call relevant functions ****
+
+			#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+			#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+			//No code (yet), you shouldn't be here...
+			flexsea_error(SE_CMD_NOT_PROGRAMMED);
+			#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+			#ifdef BOARD_TYPE_FLEXSEA_PLAN
+			//No code (yet), you shouldn't be here...
+			flexsea_error(SE_CMD_NOT_PROGRAMMED);
+			#endif	//BOARD_TYPE_FLEXSEA_PLAN
+		}
+	}
+}
+
+//=============
+
+//Transmission of a CTRL_SPECIAL_4 command: Plan <> Manage, Dual ShuoBot Exo
+//Special4 works in pair with Special1
+//Arguments are only for data that the user will change at runtime.
+//controller_w (Write New Controller): KEEP/CHANGE
+//controller (New controller): ignored if ctrl_w == KEEP
+//encoder_w (Write New Encoder value): KEEP/CHANGE
+//encoder_cnt (New encoder count): ignored if encoder_w == KEEP
+//current: current controller setpoint
+uint32_t tx_cmd_ctrl_special_4(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
+								uint8_t controller_w, uint8_t controller, uint8_t encoder_w, int32_t encoder, \
+								int16_t current, int16_t open_spd)
+{
+	uint8_t tmp0 = 0, tmp1 = 0, tmp2 = 0, tmp3 = 0;
+	uint32_t bytes = 0;
+
+	#if(defined BOARD_TYPE_FLEXSEA_MANAGE)
+
+	//Structure pointer. Points to exec1 by default.
+	struct execute_s *exec_s_ptr = &exec1;
+
+	//Point to the appropriate structure:
+	/*
+	if(buf[CP_XID] == FLEXSEA_EXECUTE_1)
+	{
+		exec_s_ptr = &exec1;
+	}
+	else if(buf[CP_XID] == FLEXSEA_EXECUTE_2)
+	{
+		exec_s_ptr = &exec2;
+	}
+	*/
+	exec_s_ptr = &exec1;	//Fixed for now
+
+	#endif	//(defined BOARD_TYPE_FLEXSEA_MANAGE)
+
+	//Fresh payload string:
+	prepare_empty_payload(board_id, receiver, buf, len);
+
+	//Command:
+	buf[CP_CMDS] = 1;                     //1 command in string
+
+	if(cmd_type == CMD_READ)
+	{
+		//In that case Read also includes a bunch of writing. We keep the Read keyword as
+		//it will get us a reply.
+
+		buf[CP_CMD1] = CMD_R(CMD_SPECIAL_4);
+
+		//Arguments:
+		buf[CP_DATA1] = controller_w;
+		buf[CP_DATA1 + 1] = controller;
+		uint16_to_bytes((uint16_t)current, &tmp0, &tmp1);
+		buf[CP_DATA1 + 2] = tmp0;
+		buf[CP_DATA1 + 3] = tmp1;
+		buf[CP_DATA1 + 4] = encoder_w;
+		uint32_to_bytes((uint32_t)encoder, &tmp0, &tmp1, &tmp2, &tmp3);
+		buf[CP_DATA1 + 5] = tmp0;
+		buf[CP_DATA1 + 6] = tmp1;
+		buf[CP_DATA1 + 7] = tmp2;
+		buf[CP_DATA1 + 8] = tmp3;
+		uint16_to_bytes((uint16_t)open_spd, &tmp0, &tmp1);
+		buf[CP_DATA1 + 9] = tmp0;
+		buf[CP_DATA1 + 10] = tmp1;
+
+		bytes = CP_DATA1 + 11;     //Bytes is always last+1
+	}
+	else if(cmd_type == CMD_WRITE)
+	{
+		//In that case Write is only used for the Reply
+
+		buf[CP_CMD1] = CMD_W(CMD_SPECIAL_4);
+
+		#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+
+		//Arguments:
+		uint16_to_bytes((uint16_t)exec_s_ptr->imu.x, &tmp0, &tmp1);
+		buf[CP_DATA1] = tmp0;
+		buf[CP_DATA1 + 1] = tmp1;
+		uint16_to_bytes((uint16_t)exec_s_ptr->imu.y, &tmp0, &tmp1);
+		buf[CP_DATA1 + 2] = tmp0;
+		buf[CP_DATA1 + 3] = tmp1;
+		uint16_to_bytes((uint16_t)exec_s_ptr->imu.z, &tmp0, &tmp1);
+		buf[CP_DATA1 + 4] = tmp0;
+		buf[CP_DATA1 + 5] = tmp1;
+
+		uint16_to_bytes(exec_s_ptr->strain, &tmp0, &tmp1);
+		buf[CP_DATA1 + 6] = tmp0;
+		buf[CP_DATA1 + 7] = tmp1;
+
+		uint16_to_bytes(exec_s_ptr->analog, &tmp0, &tmp1);
+		buf[CP_DATA1 + 8] = tmp0;
+		buf[CP_DATA1 + 9] = tmp1;
+
+		uint32_to_bytes((uint32_t)exec_s_ptr->encoder, &tmp0, &tmp1, &tmp2, &tmp3);
+		buf[CP_DATA1 + 10] = tmp0;
+		buf[CP_DATA1 + 11] = tmp1;
+		buf[CP_DATA1 + 12] = tmp2;
+		buf[CP_DATA1 + 13] = tmp3;
+
+		uint16_to_bytes((uint16_t)exec_s_ptr->current, &tmp0, &tmp1);
+		buf[CP_DATA1 + 14] = tmp0;
+		buf[CP_DATA1 + 15] = tmp1;
+
+		bytes = CP_DATA1 + 16;     //Bytes is always last+1
+
+		#else
+
+		bytes = 0;
+
+		#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+	}
+	else
+	{
+		//Invalid
+		flexsea_error(SE_INVALID_READ_TYPE);
+		bytes = 0;
+	}
+
+	return bytes;
+}
+
+//Reception of a CMD_SPECIAL_4 command
+void rx_cmd_special_4(uint8_t *buf)
+{
+	uint32_t numb = 0;
+	int16_t tmp_wanted_current = 0, tmp_open_spd = 0;
+	int32_t tmp_enc = 0;
+
+	#if((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
+
+	//Structure pointer. Points to exec1 by default.
+	struct execute_s *exec_s_ptr;
+	struct spc4_s *spc4_s_ptr;
+
+	/*
+	//Point to the appropriate structure:
+	if(buf[CP_XID] == FLEXSEA_EXECUTE_1)
+	{
+		exec_s_ptr = &exec1;
+	}
+	else if(buf[CP_XID] == FLEXSEA_EXECUTE_2)
+	{
+		exec_s_ptr = &exec2;
+	}
+	else if(buf[CP_XID] == FLEXSEA_EXECUTE_3)
+	{
+		exec_s_ptr = &exec3;
+	}
+	else if(buf[CP_XID] == FLEXSEA_EXECUTE_4)
+	{
+		exec_s_ptr = &exec4;
+	}
+	*/
+	exec_s_ptr = &exec1; 	//Fixed for now
+	spc4_s_ptr = &spc4_ex1;
+
+	#endif	//((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
+
+	if(IS_CMD_RW(buf[CP_CMD1]) == READ)
+	{
+		//Received a Read command from our master.
+
+		#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+		//No code (yet), you shouldn't be here...
+		flexsea_error(SE_CMD_NOT_PROGRAMMED);
+		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+		#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+
+		//Decode its data:
+		//===============
+
+		spc4_s_ptr->ctrl_w = buf[CP_DATA1];
+		spc4_s_ptr->ctrl = buf[CP_DATA1 + 1];
+		spc4_s_ptr->current = BYTES_TO_UINT16(buf[CP_DATA1 + 2], buf[CP_DATA1 + 3]);
+		spc4_s_ptr->encoder_w = buf[CP_DATA1 + 4];
+		spc4_s_ptr->encoder = (int32_t)BYTES_TO_UINT32(buf[CP_DATA1 + 5], buf[CP_DATA1 + 6], \
+				buf[CP_DATA1 + 7], buf[CP_DATA1 + 8]);
+		spc4_s_ptr->open_spd = BYTES_TO_UINT16(buf[CP_DATA1 + 9], buf[CP_DATA1 + 10]);
+
+		//Generate the reply:
+		//===================
+
+		numb = tx_cmd_ctrl_special_4(buf[CP_XID], CMD_WRITE, tmp_payload_xmit, \
+									PAYLOAD_BUF_LEN, KEEP, 0, KEEP, 0, 0, 0);
+		numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
+		numb = COMM_STR_BUF_LEN;	//Fixed length for now to accomodate the DMA
+		//(for now, send it)
+
+		#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+		#ifdef BOARD_TYPE_FLEXSEA_PLAN
+		//No code (yet), you shouldn't be here...
+		flexsea_error(SE_CMD_NOT_PROGRAMMED);
+		#endif	//BOARD_TYPE_FLEXSEA_PLAN
+	}
+	else if(IS_CMD_RW(buf[CP_CMD1]) == WRITE)
+	{
+		//Two options: from Master of from slave (a read reply)
+
+		if(sent_from_a_slave(buf))
+		{
+			//We received a reply to our read request
+
+			#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+			//No code (yet), you shouldn't be here...
+			flexsea_error(SE_CMD_NOT_PROGRAMMED);
+			#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+			#if(defined BOARD_TYPE_FLEXSEA_PLAN)
+
+			//Store values:
+
+			exec_s_ptr->imu.x = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+0], buf[CP_DATA1+1]));
+			exec_s_ptr->imu.y = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+2], buf[CP_DATA1+3]));
+			exec_s_ptr->imu.z = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+4], buf[CP_DATA1+5]));
+
+			exec_s_ptr->strain = (BYTES_TO_UINT16(buf[CP_DATA1+6], buf[CP_DATA1+7]));
+			exec_s_ptr->analog[0] = (BYTES_TO_UINT16(buf[CP_DATA1+8], buf[CP_DATA1+9]));
+
+			exec_s_ptr->encoder = (int32_t) (BYTES_TO_UINT32(buf[CP_DATA1+10], buf[CP_DATA1+11], \
+										buf[CP_DATA1+12], buf[CP_DATA1+13]));
+
+			exec_s_ptr->current = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+14], buf[CP_DATA1+15]));
+
+			#ifdef MULTIPLE_COMMANDS
+			//To interface with Python:
+			printf("[%i,%i,%i,%i,%i,%i,%i]\n", exec1.encoder, exec1.current, exec1.imu.x, exec1.imu.y, exec1.imu.z, \
+					exec1.strain, exec1.analog[0]);
+			#endif
+
+			#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 		}
 		else
 		{

@@ -28,7 +28,7 @@ void fill_uint8_buf(uint8_t *buf, uint32_t len, uint8_t filler);
 
 //Buffers and packets:
 #define RX_BUF_LEN                  	256		//Reception buffer (flexsea_comm)
-#define PAYLOAD_BUF_LEN             	24		//Number of bytes in a payload string
+#define PAYLOAD_BUF_LEN             	36		//Number of bytes in a payload string
 #define PAYLOAD_BYTES					(PAYLOAD_BUF_LEN - 4)
 #define COMM_STR_BUF_LEN            	48		//Number of bytes in a comm. string
 #define PACKAGED_PAYLOAD_LEN			48		//Temporary
@@ -130,6 +130,10 @@ void fill_uint8_buf(uint8_t *buf, uint32_t len, uint8_t filler);
 #define CMD_SPECIAL_3					102	//Current controller tuning
 #define CMD_SPECIAL_3_R					CMD_R(CMD_SPECIAL_3)
 #define CMD_SPECIAL_3_W					CMD_W(CMD_SPECIAL_3)
+
+#define CMD_SPECIAL_4					120	//Dual ShuoBot
+#define CMD_SPECIAL_4_R					CMD_R(CMD_SPECIAL_4)
+#define CMD_SPECIAL_4_W					CMD_W(CMD_SPECIAL_4)
 
 #define CMD_CLUTCH						103
 #define CMD_CLUTCH_W					CMD_W(CMD_CLUTCH)

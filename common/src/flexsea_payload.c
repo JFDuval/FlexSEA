@@ -191,6 +191,11 @@ unsigned int payload_parse_str(unsigned char *cp_str)
 			case CMD_SPECIAL_1_R:    	
                 rx_cmd_special_1(cp_str);
                 break;	
+
+			case CMD_SPECIAL_4_W:
+			case CMD_SPECIAL_4_R:
+				rx_cmd_special_4(cp_str);
+				break;
 			
 			//Unknown command:	
             default:

@@ -41,6 +41,10 @@ int main(void)
 	// start receiving from master via interrupts
 	flexsea_start_receiving_from_master();
 
+	///Test code:
+	slaves_485_1.mode = SC_AUTOSAMPLING;	//ToDo Remove this
+	slaves_485_2.mode = SC_AUTOSAMPLING;	//ToDo Remove this
+
 	//Infinite loop
 	while (1)
     {
@@ -56,27 +60,88 @@ int main(void)
 		//Did we receive new commands? Can we parse them?
 		parse_master_slave_commands(&new_cmd_led);
 
-		//Master-Slave communications
-		slave_comm(&slave_comm_trig);
-
-		//1, 10, 100 & 1000ms time bases:
+		//Time bases: (rework in progress)
 		//===============================
+
+		if(systick_100us_flag == 1)
+		{
+			systick_100us_flag = 0;
+
+			switch(systick_100us_timeshare)
+			{
+				//Case 0:
+				case 0:
+					slave_comm_trig = 1;
+
+					break;
+
+				//Case 1:
+				case 1:
+					break;
+
+				//Case 2:
+				case 2:
+					break;
+
+				//Case 3:
+				case 3:
+
+					break;
+
+				//Case 4:
+				case 4:
+					break;
+
+				//Case 5:
+				case 5:
+					slave_comm_trig = 2;
+					break;
+
+				//Case 6:
+				case 6:
+
+					break;
+
+				//Case 7:
+				case 7:
+					break;
+
+				//Case 8:
+				case 8:
+					break;
+
+				//Case 9: User Interface
+				case 9:
+
+					//UI RGB LED
+					rgb_led_ui(0, 0, 0, new_cmd_led);	//ToDo add error codes
+					if(new_cmd_led)
+					{
+						new_cmd_led = 0;
+					}
+
+					break;
+
+				default:
+					break;
+			}
+
+			//The code below is executed every 100us, after the previous slot.
+			//Keep it short!
+
+			//BEGIN - 10kHz Refresh
+
+			//Master-Slave communications
+			slave_comm(&slave_comm_trig);
+
+			//END - 10kHz Refresh
+		}
 
 		//1ms
 		if(systick_1ms_flag)
 		{
 			systick_1ms_flag = 0;
 
-			//UI RGB LED
-			rgb_led_ui(0, 0, 0, new_cmd_led);	//ToDo add error codes
-			if(new_cmd_led)
-			{
-				new_cmd_led = 0;
-			}
-
-			//Slave comm clocking:
-			slave_comm_trig = 1;
-			//ToDo should be faster
 		}
 
 		//10ms
@@ -95,15 +160,6 @@ int main(void)
 			//Constant LED0 flashing while the code runs
 			toggle_led0 ^= 1;
 			LED0(toggle_led0);
-
-			//rs485_1_xmit_dma_rx_test();
-
-			/*
-			if(toggle_led0)
-				rs485_1_xmit_dma_rx_test();
-			else
-				rs485_2_xmit_dma_rx_test();
-			*/
 		}
 
 		//1000ms
@@ -111,10 +167,6 @@ int main(void)
 		{
 			systick_1000ms_flag = 0;
 
-			//...
-
-			//write_test_cmd_execute(PORT_RS485_2, FLEXSEA_EXECUTE_2, 66);
-			//rs485_2_xmit_dma_rx_test();
 		}
     }
 }

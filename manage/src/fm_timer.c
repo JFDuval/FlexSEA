@@ -17,6 +17,7 @@ void timer_tick (void);
 
 volatile timer_ticks_t timer_delayCount;
 volatile uint8_t systick_100us_flag = 0;
+volatile uint8_t systick_100us_timeshare = 0;
 volatile uint8_t systick_1ms_flag = 0;
 volatile uint8_t systick_10ms_flag = 0;
 volatile uint8_t systick_100ms_flag = 0;
@@ -45,8 +46,10 @@ void timer_tick (void)
 	static unsigned int cnt_1ms = 0, cnt_10ms = 0;
 	static unsigned int cnt_100ms = 0, cnt_1000ms = 0;
 	
-	//100uss flag:
+	//100us flag:
 	systick_100us_flag = 1;
+	systick_100us_timeshare++;
+	systick_100us_timeshare %= 10;
 
 	//1ms flag:
 	cnt_1ms++;
