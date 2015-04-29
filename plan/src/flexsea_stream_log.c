@@ -381,6 +381,7 @@ static void flexsea_stream_exp_5(void)
 	//Manage needs to be autosampling Special1 for this to work.
 
 	numb = tx_cmd_ctrl_special_4(FLEXSEA_MANAGE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
+									KEEP, 0, KEEP, 0, 0, 0,
 									KEEP, 0, KEEP, 0, 0, 0);
 	numb = comm_gen_str(payload_str, comm_str_spi, PAYLOAD_BUF_LEN);
 	numb = COMM_STR_BUF_LEN;

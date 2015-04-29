@@ -736,8 +736,10 @@ void rx_cmd_special_3(uint8_t *buf)
 //encoder_cnt (New encoder count): ignored if encoder_w == KEEP
 //current: current controller setpoint
 uint32_t tx_cmd_ctrl_special_4(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
-								uint8_t controller_w, uint8_t controller, uint8_t encoder_w, int32_t encoder, \
-								int16_t current, int16_t open_spd)
+								uint8_t controller_w1, uint8_t controller1, uint8_t encoder_w1, int32_t encoder1, \
+								int16_t current1, int16_t open_spd1, \
+								uint8_t controller_w2, uint8_t controller2, uint8_t encoder_w2, int32_t encoder2, \
+								int16_t current2, int16_t open_spd2)
 {
 	uint8_t tmp0 = 0, tmp1 = 0, tmp2 = 0, tmp3 = 0;
 	uint32_t bytes = 0;
@@ -746,19 +748,6 @@ uint32_t tx_cmd_ctrl_special_4(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 
 	//Structure pointer. Points to exec1 by default.
 	struct execute_s *exec_s_ptr = &exec1;
-
-	//Point to the appropriate structure:
-	/*
-	if(buf[CP_XID] == FLEXSEA_EXECUTE_1)
-	{
-		exec_s_ptr = &exec1;
-	}
-	else if(buf[CP_XID] == FLEXSEA_EXECUTE_2)
-	{
-		exec_s_ptr = &exec2;
-	}
-	*/
-	exec_s_ptr = &exec1;	//Fixed for now
 
 	#endif	//(defined BOARD_TYPE_FLEXSEA_MANAGE)
 
@@ -776,22 +765,37 @@ uint32_t tx_cmd_ctrl_special_4(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 		buf[CP_CMD1] = CMD_R(CMD_SPECIAL_4);
 
 		//Arguments:
-		buf[CP_DATA1] = controller_w;
-		buf[CP_DATA1 + 1] = controller;
-		uint16_to_bytes((uint16_t)current, &tmp0, &tmp1);
+		buf[CP_DATA1 + 0] = controller_w1;
+		buf[CP_DATA1 + 1] = controller1;
+		uint16_to_bytes((uint16_t)current1, &tmp0, &tmp1);
 		buf[CP_DATA1 + 2] = tmp0;
 		buf[CP_DATA1 + 3] = tmp1;
-		buf[CP_DATA1 + 4] = encoder_w;
-		uint32_to_bytes((uint32_t)encoder, &tmp0, &tmp1, &tmp2, &tmp3);
+		buf[CP_DATA1 + 4] = encoder_w1;
+		uint32_to_bytes((uint32_t)encoder1, &tmp0, &tmp1, &tmp2, &tmp3);
 		buf[CP_DATA1 + 5] = tmp0;
 		buf[CP_DATA1 + 6] = tmp1;
 		buf[CP_DATA1 + 7] = tmp2;
 		buf[CP_DATA1 + 8] = tmp3;
-		uint16_to_bytes((uint16_t)open_spd, &tmp0, &tmp1);
+		uint16_to_bytes((uint16_t)open_spd1, &tmp0, &tmp1);
 		buf[CP_DATA1 + 9] = tmp0;
 		buf[CP_DATA1 + 10] = tmp1;
 
-		bytes = CP_DATA1 + 11;     //Bytes is always last+1
+		buf[CP_DATA1 + 11] = controller_w2;
+		buf[CP_DATA1 + 12] = controller2;
+		uint16_to_bytes((uint16_t)current2, &tmp0, &tmp1);
+		buf[CP_DATA1 + 13] = tmp0;
+		buf[CP_DATA1 + 14] = tmp1;
+		buf[CP_DATA1 + 15] = encoder_w2;
+		uint32_to_bytes((uint32_t)encoder2, &tmp0, &tmp1, &tmp2, &tmp3);
+		buf[CP_DATA1 + 16] = tmp0;
+		buf[CP_DATA1 + 17] = tmp1;
+		buf[CP_DATA1 + 18] = tmp2;
+		buf[CP_DATA1 + 19] = tmp3;
+		uint16_to_bytes((uint16_t)open_spd2, &tmp0, &tmp1);
+		buf[CP_DATA1 + 20] = tmp0;
+		buf[CP_DATA1 + 21] = tmp1;
+
+		bytes = CP_DATA1 + 22;     //Bytes is always last+1
 	}
 	else if(cmd_type == CMD_WRITE)
 	{
@@ -801,7 +805,9 @@ uint32_t tx_cmd_ctrl_special_4(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 
 		#ifdef BOARD_TYPE_FLEXSEA_MANAGE
 
-		//Arguments:
+		//Arguments - Execute #1:
+		exec_s_ptr = &exec1;
+
 		uint16_to_bytes((uint16_t)exec_s_ptr->imu.x, &tmp0, &tmp1);
 		buf[CP_DATA1] = tmp0;
 		buf[CP_DATA1 + 1] = tmp1;
@@ -830,7 +836,38 @@ uint32_t tx_cmd_ctrl_special_4(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 		buf[CP_DATA1 + 14] = tmp0;
 		buf[CP_DATA1 + 15] = tmp1;
 
-		bytes = CP_DATA1 + 16;     //Bytes is always last+1
+		//Arguments - Execute #2:
+		exec_s_ptr = &exec2;
+
+		uint16_to_bytes((uint16_t)exec_s_ptr->imu.x, &tmp0, &tmp1);
+		buf[CP_DATA1 + 16] = tmp0;
+		buf[CP_DATA1 + 17] = tmp1;
+		uint16_to_bytes((uint16_t)exec_s_ptr->imu.y, &tmp0, &tmp1);
+		buf[CP_DATA1 + 18] = tmp0;
+		buf[CP_DATA1 + 19] = tmp1;
+		uint16_to_bytes((uint16_t)exec_s_ptr->imu.z, &tmp0, &tmp1);
+		buf[CP_DATA1 + 20] = tmp0;
+		buf[CP_DATA1 + 21] = tmp1;
+
+		uint16_to_bytes(exec_s_ptr->strain, &tmp0, &tmp1);
+		buf[CP_DATA1 + 22] = tmp0;
+		buf[CP_DATA1 + 23] = tmp1;
+
+		uint16_to_bytes(exec_s_ptr->analog, &tmp0, &tmp1);
+		buf[CP_DATA1 + 24] = tmp0;
+		buf[CP_DATA1 + 25] = tmp1;
+
+		uint32_to_bytes((uint32_t)exec_s_ptr->encoder, &tmp0, &tmp1, &tmp2, &tmp3);
+		buf[CP_DATA1 + 26] = tmp0;
+		buf[CP_DATA1 + 27] = tmp1;
+		buf[CP_DATA1 + 28] = tmp2;
+		buf[CP_DATA1 + 29] = tmp3;
+
+		uint16_to_bytes((uint16_t)exec_s_ptr->current, &tmp0, &tmp1);
+		buf[CP_DATA1 + 30] = tmp0;
+		buf[CP_DATA1 + 31] = tmp1;
+
+		bytes = CP_DATA1 + 32;     //Bytes is always last+1
 
 		#else
 
@@ -852,36 +889,12 @@ uint32_t tx_cmd_ctrl_special_4(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 void rx_cmd_special_4(uint8_t *buf)
 {
 	uint32_t numb = 0;
-	int16_t tmp_wanted_current = 0, tmp_open_spd = 0;
-	int32_t tmp_enc = 0;
 
 	#if((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
 
-	//Structure pointer. Points to exec1 by default.
+	//Structure pointer.
 	struct execute_s *exec_s_ptr;
 	struct spc4_s *spc4_s_ptr;
-
-	/*
-	//Point to the appropriate structure:
-	if(buf[CP_XID] == FLEXSEA_EXECUTE_1)
-	{
-		exec_s_ptr = &exec1;
-	}
-	else if(buf[CP_XID] == FLEXSEA_EXECUTE_2)
-	{
-		exec_s_ptr = &exec2;
-	}
-	else if(buf[CP_XID] == FLEXSEA_EXECUTE_3)
-	{
-		exec_s_ptr = &exec3;
-	}
-	else if(buf[CP_XID] == FLEXSEA_EXECUTE_4)
-	{
-		exec_s_ptr = &exec4;
-	}
-	*/
-	exec_s_ptr = &exec1; 	//Fixed for now
-	spc4_s_ptr = &spc4_ex1;
 
 	#endif	//((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
 
@@ -899,7 +912,8 @@ void rx_cmd_special_4(uint8_t *buf)
 		//Decode its data:
 		//===============
 
-		spc4_s_ptr->ctrl_w = buf[CP_DATA1];
+		spc4_s_ptr = &spc4_ex1;
+		spc4_s_ptr->ctrl_w = buf[CP_DATA1 + 0];
 		spc4_s_ptr->ctrl = buf[CP_DATA1 + 1];
 		spc4_s_ptr->current = BYTES_TO_UINT16(buf[CP_DATA1 + 2], buf[CP_DATA1 + 3]);
 		spc4_s_ptr->encoder_w = buf[CP_DATA1 + 4];
@@ -907,11 +921,21 @@ void rx_cmd_special_4(uint8_t *buf)
 				buf[CP_DATA1 + 7], buf[CP_DATA1 + 8]);
 		spc4_s_ptr->open_spd = BYTES_TO_UINT16(buf[CP_DATA1 + 9], buf[CP_DATA1 + 10]);
 
+		spc4_s_ptr = &spc4_ex2;
+		spc4_s_ptr->ctrl_w = buf[CP_DATA1 + 11];
+		spc4_s_ptr->ctrl = buf[CP_DATA1 + 12];
+		spc4_s_ptr->current = BYTES_TO_UINT16(buf[CP_DATA1 + 13], buf[CP_DATA1 + 14]);
+		spc4_s_ptr->encoder_w = buf[CP_DATA1 + 15];
+		spc4_s_ptr->encoder = (int32_t)BYTES_TO_UINT32(buf[CP_DATA1 + 16], buf[CP_DATA1 + 17], \
+				buf[CP_DATA1 + 18], buf[CP_DATA1 + 19]);
+		spc4_s_ptr->open_spd = BYTES_TO_UINT16(buf[CP_DATA1 + 20], buf[CP_DATA1 + 21]);
+
 		//Generate the reply:
 		//===================
 
-		numb = tx_cmd_ctrl_special_4(buf[CP_XID], CMD_WRITE, tmp_payload_xmit, \
-									PAYLOAD_BUF_LEN, KEEP, 0, KEEP, 0, 0, 0);
+		numb = tx_cmd_ctrl_special_4(buf[CP_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, \
+									KEEP, 0, KEEP, 0, 0, 0, \
+									KEEP, 0, KEEP, 0, 0, 0);
 		numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
 		numb = COMM_STR_BUF_LEN;	//Fixed length for now to accomodate the DMA
 		//(for now, send it)
@@ -940,6 +964,7 @@ void rx_cmd_special_4(uint8_t *buf)
 
 			//Store values:
 
+			exec_s_ptr = &exec1;
 			exec_s_ptr->imu.x = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+0], buf[CP_DATA1+1]));
 			exec_s_ptr->imu.y = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+2], buf[CP_DATA1+3]));
 			exec_s_ptr->imu.z = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+4], buf[CP_DATA1+5]));
@@ -952,10 +977,22 @@ void rx_cmd_special_4(uint8_t *buf)
 
 			exec_s_ptr->current = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+14], buf[CP_DATA1+15]));
 
+			exec_s_ptr = &exec2;
+			exec_s_ptr->imu.x = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+16], buf[CP_DATA1+17]));
+			exec_s_ptr->imu.y = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+18], buf[CP_DATA1+19]));
+			exec_s_ptr->imu.z = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+20], buf[CP_DATA1+21]));
+
+			exec_s_ptr->strain = (BYTES_TO_UINT16(buf[CP_DATA1+22], buf[CP_DATA1+23]));
+			exec_s_ptr->analog[0] = (BYTES_TO_UINT16(buf[CP_DATA1+24], buf[CP_DATA1+25]));
+
+			exec_s_ptr->encoder = (int32_t) (BYTES_TO_UINT32(buf[CP_DATA1+26], buf[CP_DATA1+27], \
+										buf[CP_DATA1+28], buf[CP_DATA1+29]));
+
+			exec_s_ptr->current = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+30], buf[CP_DATA1+31]));
+
 			#ifdef MULTIPLE_COMMANDS
-			//To interface with Python:
-			printf("[%i,%i,%i,%i,%i,%i,%i]\n", exec1.encoder, exec1.current, exec1.imu.x, exec1.imu.y, exec1.imu.z, \
-					exec1.strain, exec1.analog[0]);
+			//ToDo interface with Python
+
 			#endif
 
 			#endif	//BOARD_TYPE_FLEXSEA_MANAGE
