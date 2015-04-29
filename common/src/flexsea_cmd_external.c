@@ -117,14 +117,14 @@ void rx_cmd_exp_clutch(uint8_t *buf)
 
 		numb = tx_cmd_exp_clutch(buf[CP_XID], CMD_WRITE, tmp_payload_xmit, \
 									PAYLOAD_BUF_LEN, read_clutch());
-		numb = comm_gen_str(tmp_payload_xmit, numb);
+		numb = comm_gen_str(tmp_payload_xmit, comm_str_485_1, numb);
 		numb = COMM_STR_BUF_LEN;	//Fixed length for now to accomodate the DMA
 
 		//Notify the code that a buffer is ready to be transmitted:
 		//xmit_flag_1 = 1;
 		
 		//(for now, send it)
-		rs485_puts(comm_str, (numb));
+		rs485_puts(comm_str_485_1, (numb));
 
 		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 

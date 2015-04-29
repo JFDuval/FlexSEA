@@ -18,10 +18,6 @@
 // Variable(s)
 //****************************************************************************
 
-char name[] = "FlexSEA-Execute";
-char version[] = "0.0";
-char date[] = "08/01/2014";
-
 //Board ID (this board) -  - pick from Board list in /common/inc/flexsea.h
 uint8 board_id = FLEXSEA_EXECUTE_1;
 uint8 board_up_id = FLEXSEA_MANAGE_1;
@@ -112,7 +108,7 @@ unsigned char flexsea_prepare_rs485_tx_buffer(void)
 	
 	flexsea_update_slave_read_buffer(read_offset);
 	build_slave_payload(read_offset);
-	numb = comm_gen_str(payload_str, PAYLOAD_BUF_LEN);
+	numb = comm_gen_str(payload_str, comm_str_485_1, PAYLOAD_BUF_LEN);
 	
 	return (numb + 1);
 }

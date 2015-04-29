@@ -218,11 +218,11 @@ void rx_cmd_special_1(uint8_t *buf)
 		
 		numb = tx_cmd_ctrl_special_1(buf[CP_XID], CMD_WRITE, tmp_payload_xmit, \
 									PAYLOAD_BUF_LEN, KEEP, 0, KEEP, 0, 0, 0);		
-		numb = comm_gen_str(tmp_payload_xmit, numb);
+		numb = comm_gen_str(tmp_payload_xmit, comm_str_485_1, numb);
 		numb = COMM_STR_BUF_LEN;	//Fixed length for now to accomodate the DMA
 
 		//(for now, send it)
-		rs485_puts(comm_str, (numb));	
+		rs485_puts(comm_str_485_1, (numb));	
 
 		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -446,11 +446,11 @@ void rx_cmd_special_2(uint8_t *buf)
 
 		numb = tx_cmd_ctrl_special_2(buf[CP_XID], CMD_WRITE, tmp_payload_xmit, \
 									PAYLOAD_BUF_LEN, 0, 0, 0, 0, 0);
-		numb = comm_gen_str(tmp_payload_xmit, numb);
+		numb = comm_gen_str(tmp_payload_xmit, comm_str_485_1, numb);
 		numb = COMM_STR_BUF_LEN;	//Fixed length for now to accomodate the DMA
 
 		//(for now, send it)
-		rs485_puts(comm_str, (numb));
+		rs485_puts(comm_str_485_1, (numb));
 
 		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -657,11 +657,11 @@ void rx_cmd_special_3(uint8_t *buf)
 
 		numb = tx_cmd_ctrl_special_3(buf[CP_XID], CMD_WRITE, tmp_payload_xmit, \
 									PAYLOAD_BUF_LEN, 0, 0, 0, 0);
-		numb = comm_gen_str(tmp_payload_xmit, numb);
+		numb = comm_gen_str(tmp_payload_xmit, comm_str_485_1, numb);
 		numb = COMM_STR_BUF_LEN;	//Fixed length for now to accomodate the DMA
 
 		//(for now, send it)
-		rs485_puts(comm_str, (numb));
+		rs485_puts(comm_str_485_1, numb);
 
 		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 

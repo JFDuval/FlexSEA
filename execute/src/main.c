@@ -132,6 +132,7 @@ int main(void)
 						
 						//Case 0.3: Free
 						case 3:
+							//(can be the I2C RGB LED)
 							break;
 						
 						default:
