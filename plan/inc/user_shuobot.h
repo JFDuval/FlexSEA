@@ -19,7 +19,7 @@
 // Public Function Prototype(s):
 //****************************************************************************
 
-void shuobot(void);
+void shuobot(uint8_t experiment);
 
 //****************************************************************************
 // Definition(s):
@@ -27,10 +27,10 @@ void shuobot(void);
 
 //For shuobot_demo():
 #define PERIOD			25
-#define MAX_ENC			1000000
+#define MAX_ENC			30000
 #define MAX_CURRENT		90
 #define CURRENT_STEP	15
 #define SB_MAX_PWM		760
-#define SB_PWM_STEP		1
+#define SB_PWM_STEP		7
 
 #endif

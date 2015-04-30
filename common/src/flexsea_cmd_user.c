@@ -822,7 +822,7 @@ uint32_t tx_cmd_ctrl_special_4(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 		buf[CP_DATA1 + 6] = tmp0;
 		buf[CP_DATA1 + 7] = tmp1;
 
-		uint16_to_bytes(exec_s_ptr->analog, &tmp0, &tmp1);
+		uint16_to_bytes(exec_s_ptr->analog[0], &tmp0, &tmp1);
 		buf[CP_DATA1 + 8] = tmp0;
 		buf[CP_DATA1 + 9] = tmp1;
 
@@ -853,7 +853,7 @@ uint32_t tx_cmd_ctrl_special_4(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 		buf[CP_DATA1 + 22] = tmp0;
 		buf[CP_DATA1 + 23] = tmp1;
 
-		uint16_to_bytes(exec_s_ptr->analog, &tmp0, &tmp1);
+		uint16_to_bytes(exec_s_ptr->analog[0], &tmp0, &tmp1);
 		buf[CP_DATA1 + 24] = tmp0;
 		buf[CP_DATA1 + 25] = tmp1;
 

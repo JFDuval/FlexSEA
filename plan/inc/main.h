@@ -28,6 +28,7 @@
 #include "plan_spi.h"
 #include "plan_serial.h"
 #include "flexsea_local.h"
+#include "user.h"
 #include "user_shuobot.h"
 #include "shared.h"
 #include "demo.h"

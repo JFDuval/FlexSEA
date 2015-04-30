@@ -258,7 +258,8 @@ static void slaves_485_1_autosample(void)
 	//Experiment #1: Send Special1
 
 	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
-										KEEP, 0, KEEP, 0, 0, 0);
+				spc4_ex1.ctrl_w, spc4_ex1.ctrl, spc4_ex1.encoder_w, spc4_ex1.encoder, \
+				spc4_ex1.current, spc4_ex1.open_spd);
 	numb = comm_gen_str(payload_str, comm_str_485_1, PAYLOAD_BUF_LEN);
 	numb = COMM_STR_BUF_LEN;
 
@@ -274,7 +275,8 @@ static void slaves_485_2_autosample(void)
 	//Experiment #1: Send Special1
 
 	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_2, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
-										KEEP, 0, KEEP, 0, 0, 0);
+				spc4_ex2.ctrl_w, spc4_ex2.ctrl, spc4_ex2.encoder_w, spc4_ex2.encoder, \
+				spc4_ex2.current, spc4_ex2.open_spd);
 	numb = comm_gen_str(payload_str, comm_str_485_2, PAYLOAD_BUF_LEN);
 	numb = COMM_STR_BUF_LEN;
 

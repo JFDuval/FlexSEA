@@ -23,6 +23,7 @@
 //****************************************************************************
 
 static void send_cmd_slave(void);
+static void shuobot_demo_null(void);
 static void shuobot_demo_1(void);
 static void shuobot_demo_2(void);
 static void shuobot_demo_3(void);
@@ -32,11 +33,49 @@ static void shuobot_demo_3(void);
 //****************************************************************************
 
 //Shuo, place your code here:
-void shuobot(void)
+void shuobot(uint8_t experiment)
 {
-	//For now it calls shuobot_demo(). Replace this with your code.
-	//shuobot_demo_1();
-	shuobot_demo_3();
+    void (*shuobot_fct_ptr)(void) = &shuobot_demo_null;
+
+    //Map function call to experiment:
+    switch(experiment)
+    {
+		//Case 0: Default/Info
+		case 0:
+			printf("\nExp 1: ShuoBot Demo 1 (current control mode).\n");
+			printf("Exp 2: ShuoBot Demo 2 (open pwm control mode).\n");
+			printf("Exp 3: ShuoBot Demo 3 (Dual ShuoBot).\n");
+			shuobot_fct_ptr = &shuobot_demo_null;
+			break;
+
+    	case 1:
+    		shuobot_fct_ptr = &shuobot_demo_1;
+    		break;
+
+    	case 2:
+    		shuobot_fct_ptr = &shuobot_demo_2;
+    		break;
+
+    	case 3:
+    		shuobot_fct_ptr = &shuobot_demo_3;
+    		break;
+
+    	default:
+			#ifdef USE_PRINTF
+    		printf("<flexsea_console_stream> Invalid experiment.\n");
+    		usleep(750000);	//750ms
+			#endif
+    		shuobot_fct_ptr = & shuobot_demo_null;
+    		break;
+    }
+
+    //Call function:
+    shuobot_fct_ptr();
+}
+
+static void shuobot_demo_null(void)
+{
+	//Empty function
 }
 
 //Demonstration/test code. Calling ./plan execute_1 shuobot will call this.
@@ -238,19 +277,21 @@ static void shuobot_demo_2(void)
 	printf("Log file closed. Exiting.\n\n\n");
 }
 
-//Demonstration/test code. Calling ./plan execute_1 shuobot will call this.		******
+//Demonstration/test code. Calling "./plan user 1 3" will call this.
+//Manage is autosampling both Execute, using Special1.
+//Plan talks to Manage via Special4.
 //Motor is placed in open speed mode. PWM duty cycle will change periodically.
 //When the encoder gets "out of limit" we reset it to 0.
 //This code will both Stream and Log. Log will be slow because of Stream. The final
-//application should log but not Stream.
+//application should Log but not Stream.
 static void shuobot_demo_3(void)
 {
     unsigned int numb = 0;
     uint32_t cnt = 0;
-    int16_t current = 0, open_spd = 0;
-    uint8_t enc_rw = KEEP;
-    int32_t enc_cnt = 0;
-    uint32_t lines = 0, good = 0, tmp = 0;
+    int16_t current1 = 0, open_spd1 = 0, current2 = 0, open_spd2 = 0;
+    uint8_t enc_rw1 = KEEP, enc_rw2 = KEEP;
+    int32_t enc_cnt1 = 0, enc_cnt2 = 0;
+    uint8_t tmp = 0;
 
     //Log file:
     //=========
@@ -289,6 +330,9 @@ static void shuobot_demo_3(void)
     //That code will run as long as you don't press on a key:
     while(!kbhit())
     {
+    	//Execute 1:
+    	//==========
+
     	//Timed changes:
     	cnt++;
     	if(cnt > PERIOD)
@@ -297,69 +341,55 @@ static void shuobot_demo_3(void)
     		cnt = 0;
 
     		//Change the pwm setpoint
-    		open_spd += SB_PWM_STEP;
-    		if(open_spd > SB_MAX_PWM)
-    			open_spd = 0;
+    		open_spd1 += SB_PWM_STEP;
+    		if(open_spd1 > SB_MAX_PWM)
+    			open_spd1 = 0;
     	}
-
-    	//Execute 1:
-    	//==========
 
     	//Reactive changes:
     	if((exec1.encoder > MAX_ENC) || (exec1.encoder < -MAX_ENC))
     	{
     		//We are over the limit we specified => overwrite to 0
-    		enc_rw = CHANGE;
-    		enc_cnt = 0;
+    		enc_rw1 = CHANGE;
+    		enc_cnt1 = 0;
     	}
-
-    	//Prepare the command:
-    	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
-    															KEEP, 0, enc_rw, enc_cnt, current, -open_spd);
-    	enc_rw = KEEP;
-
-    	//Communicate with the slave:
-    	send_cmd_slave();
-
-        //Can we decode what we received?
-        tmp = decode_spi_rx();
-        //lines++;
-        //good += tmp;
-
-        usleep(10000);
 
     	//Execute 2:
     	//==========
+
+    	//For now we use the same speed on both sides:
+    	open_spd2 = open_spd1;
 
     	//Reactive changes:
     	if((exec2.encoder > MAX_ENC) || (exec2.encoder < -MAX_ENC))
     	{
     		//We are over the limit we specified => overwrite to 0
-    		enc_rw = CHANGE;
-    		enc_cnt = 0;
+    		enc_rw2 = CHANGE;
+    		enc_cnt2 = 0;
     	}
 
+    	//Send Special4 command (control both Executes):
+    	//==============================================
+
     	//Prepare the command:
-    	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_2, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
-    															KEEP, 0, enc_rw, enc_cnt, current, -open_spd);
-    	enc_rw = KEEP;
+    	numb = tx_cmd_ctrl_special_4(FLEXSEA_MANAGE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
+    									KEEP, 0, enc_rw1, enc_cnt1, current1, open_spd1, \
+										KEEP, 0, enc_rw2, enc_cnt2, current2, open_spd2);
+    	enc_rw1 = KEEP;
+    	enc_rw2 = KEEP;
 
     	//Communicate with the slave:
     	send_cmd_slave();
 
         //Can we decode what we received?
         tmp = decode_spi_rx();
-        //lines++;
-        //good += tmp;
 
-        usleep(10000);
-
-        //Global:
-        //=======
+        //Stream & Log:
+        //=============
 
         //Enable these 2 lines to print ("Stream" mode):
         system("clear");					//Clear terminal
-        flexsea_stream_print_3();
+        flexsea_stream_print_4();
 
         //Log to file:
 		fprintf(logfile1, "[%d:%d],%i,%i,%i,%i,%i,%i,%i\n", tm.tm_min, tm.tm_sec, \
@@ -370,10 +400,10 @@ static void shuobot_demo_3(void)
 						exec2.encoder, exec2.current, exec2.imu.x, exec2.imu.y, exec2.imu.z, \
 						exec2.strain, exec2.analog[0]);
 
-        //========================================
-        //<<< Your state machine would be here >>>
-        //========================================
-
+		//Delay
+        usleep(10000);
+        //Shuo: Start with a long delay and gradually decrease it. If you go too low you'll crash the system
+        //and/or get inconsistent data and timing.
     }
 
     //Close log file:

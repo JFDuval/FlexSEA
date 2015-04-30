@@ -31,7 +31,7 @@ unsigned char slave_id[MAX_SLAVE] = 	{FLEXSEA_DEFAULT, FLEXSEA_MANAGE_1, FLEXSEA
 //Console system command list and # of arguments:
 char sys_list[SYS_CMD][TXT_STR_LEN] = 	{"info", "stream", "log", "demo", "test", "user"};
 char sys_desc[SYS_CMD][TXT_STR_LEN] = 	{"Information", "Stream Data", "Log Data", "Demonstration code", "Test code", "User code"};
-char sys_args[SYS_CMD] = {0, 1, 1, 1, 1, 1};
+char sys_args[SYS_CMD] = {0, 1, 1, 1, 1, 2};
 
 //Console FlexSEA command list and # of arguments:
 char fcp_list[MAX_CMD][TXT_STR_LEN] = 	{"ping", "status", "reset", "ack", \
@@ -253,7 +253,7 @@ int kbhit(void)
 
 static void parser_system(int index, char *argv[])
 {
-	int tmp0 = 0;;
+	int tmp0 = 0, tmp1 = 0;
 
     switch(index)
     {
@@ -290,8 +290,9 @@ static void parser_system(int index, char *argv[])
 
 		case 5: //'user'
 			tmp0 = atoi(argv[2]);
-			_USE_PRINTF("[User Function #%i]\n", tmp0);
-			shuobot();
+			tmp1 = atoi(argv[3]);
+			_USE_PRINTF("[User File %i, function %i]\n", tmp0, tmp1);
+			user(tmp0, tmp1);
 			break;
 
 		default:
