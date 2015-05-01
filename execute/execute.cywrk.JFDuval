@@ -825,6 +825,14 @@
 <name v=".\src\main.c" />
 <name v="..\common\src\flexsea_payload.c" />
 <name v=".\src\flexsea_local.c" />
+<name v=".\execute_1_0.cydsn\TopDesign\TopDesign.cysch" />
+<name v=".\src\misc.c" />
+<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\EXP5.c" />
+<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\EXP5.h" />
+<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\isr_ds.c" />
+<name v=".\execute_1_0.cydsn\execute_1_0.cydwr" />
+<name v=".\src\peripherals.c" />
+<name v=".\src\motor.c" />
 </OpenDocs>
 <config v="" />
 <AutoUpdate v="true" />
