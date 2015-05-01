@@ -384,7 +384,7 @@
         <register>
           <name>VDAC8_TR</name>
           <description>VDAC8_TR</description>
-          <addressOffset>0x40004609</addressOffset>
+          <addressOffset>0x40004608</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -402,7 +402,7 @@
         <register>
           <name>VDAC8_CR0</name>
           <description>DAC Block Control Register 0</description>
-          <addressOffset>0x40005824</addressOffset>
+          <addressOffset>0x40005820</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -480,7 +480,7 @@
         <register>
           <name>VDAC8_CR1</name>
           <description>DAC Block Control Register 1</description>
-          <addressOffset>0x40005825</addressOffset>
+          <addressOffset>0x40005821</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -567,7 +567,7 @@
         <register>
           <name>VDAC8_SW0</name>
           <description>DAC Analog Routing Register 0</description>
-          <addressOffset>0x40005A88</addressOffset>
+          <addressOffset>0x40005A80</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -616,7 +616,7 @@
         <register>
           <name>VDAC8_SW2</name>
           <description>DAC Analog Routing Register 2</description>
-          <addressOffset>0x40005A8A</addressOffset>
+          <addressOffset>0x40005A82</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -665,7 +665,7 @@
         <register>
           <name>VDAC8_SW3</name>
           <description>DAC Analog Routing Register 3</description>
-          <addressOffset>0x40005A8B</addressOffset>
+          <addressOffset>0x40005A83</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -733,7 +733,7 @@
         <register>
           <name>VDAC8_SW4</name>
           <description>DAC Analog Routing Register 4</description>
-          <addressOffset>0x40005A8C</addressOffset>
+          <addressOffset>0x40005A84</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -782,7 +782,7 @@
         <register>
           <name>VDAC8_STROBE</name>
           <description>DAC Strobe Register</description>
-          <addressOffset>0x40005A8F</addressOffset>
+          <addressOffset>0x40005A87</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -861,7 +861,7 @@
         <register>
           <name>VDAC8_DATA</name>
           <description>DAC Data Register</description>
-          <addressOffset>0x40005B81</addressOffset>
+          <addressOffset>0x40005B80</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2472,75 +2472,9 @@
           <resetMask>0</resetMask>
         </register>
         <register>
-          <name>TX_UART_2_TX_STATUS</name>
-          <description>TX status register</description>
-          <addressOffset>0x40006468</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-          <fields>
-            <field>
-              <name>UART_2_TX_STS_COMPLETE</name>
-              <description>No description available</description>
-              <lsb>0</lsb>
-              <msb>0</msb>
-              <access>read-only</access>
-            </field>
-            <field>
-              <name>UART_2_TX_STS_FIFO_EMPTY</name>
-              <description>No description available</description>
-              <lsb>1</lsb>
-              <msb>1</msb>
-              <access>read-only</access>
-            </field>
-            <field>
-              <name>UART_2_TX_STS_FIFO_FULL</name>
-              <description>No description available</description>
-              <lsb>2</lsb>
-              <msb>2</msb>
-              <access>read-only</access>
-            </field>
-            <field>
-              <name>UART_2_TX_STS_FIFO_NOT_FULL</name>
-              <description>No description available</description>
-              <lsb>3</lsb>
-              <msb>3</msb>
-              <access>read-only</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RX_UART_2_RX_ADDRESS1</name>
-          <description>RX Address1 Register</description>
-          <addressOffset>0x40006529</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>RX_UART_2_RX_ADDRESS2</name>
-          <description>RX Address2 Register</description>
-          <addressOffset>0x40006539</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>RX_UART_2_RX_DATA</name>
-          <description>RX Data Register</description>
-          <addressOffset>0x40006549</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
           <name>RX_UART_2_RX_STATUS</name>
           <description>RX status register</description>
-          <addressOffset>0x4000656A</addressOffset>
+          <addressOffset>0x40006469</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2593,6 +2527,72 @@
               <description>No description available</description>
               <lsb>6</lsb>
               <msb>6</msb>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>RX_UART_2_RX_ADDRESS1</name>
+          <description>RX Address1 Register</description>
+          <addressOffset>0x4000652A</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>RX_UART_2_RX_ADDRESS2</name>
+          <description>RX Address2 Register</description>
+          <addressOffset>0x4000653A</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>RX_UART_2_RX_DATA</name>
+          <description>RX Data Register</description>
+          <addressOffset>0x4000654A</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>TX_UART_2_TX_STATUS</name>
+          <description>TX status register</description>
+          <addressOffset>0x4000656B</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>UART_2_TX_STS_COMPLETE</name>
+              <description>No description available</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>UART_2_TX_STS_FIFO_EMPTY</name>
+              <description>No description available</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>UART_2_TX_STS_FIFO_FULL</name>
+              <description>No description available</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>UART_2_TX_STS_FIFO_NOT_FULL</name>
+              <description>No description available</description>
+              <lsb>3</lsb>
+              <msb>3</msb>
               <access>read-only</access>
             </field>
           </fields>
@@ -7554,7 +7554,7 @@
         <register>
           <name>I2C_1_DATA</name>
           <description>I2C Data Register</description>
-          <addressOffset>0x40006407</addressOffset>
+          <addressOffset>0x40006409</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -7572,7 +7572,7 @@
         <register>
           <name>I2C_1_CSR</name>
           <description>I2C Status Register</description>
-          <addressOffset>0x4000656B</addressOffset>
+          <addressOffset>0x4000646A</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -7632,7 +7632,7 @@
         <register>
           <name>I2C_1_CFG</name>
           <description>I2C Configuration Register</description>
-          <addressOffset>0x4000657B</addressOffset>
+          <addressOffset>0x4000647B</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -7685,7 +7685,7 @@
         <register>
           <name>I2C_1_INT_MASK</name>
           <description>I2C Interrupt Enable Mask</description>
-          <addressOffset>0x4000658B</addressOffset>
+          <addressOffset>0x4000648A</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -7766,7 +7766,7 @@
         <register>
           <name>QuadDec_1_STATUS_REG</name>
           <description>Quadrature Decoder Status Register</description>
-          <addressOffset>0x40006466</addressOffset>
+          <addressOffset>0x40006462</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -7844,7 +7844,7 @@
         <register>
           <name>QuadDec_1_Cnt16_Control_Reg</name>
           <description>UDB Control Register - Assigned Control Register Value</description>
-          <addressOffset>0x40006477</addressOffset>
+          <addressOffset>0x40006475</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -7876,7 +7876,7 @@
         <register>
           <name>QuadDec_1_Cnt16_STATUS_MASK</name>
           <description>UDB Status bits Interrupt Mask Enable Register</description>
-          <addressOffset>0x40006482</addressOffset>
+          <addressOffset>0x40006486</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -7936,7 +7936,7 @@
         <register>
           <name>QuadDec_1_Cnt16_STATUS_AUX_CTRL</name>
           <description>UDB Auxilliary Control Register</description>
-          <addressOffset>0x40006492</addressOffset>
+          <addressOffset>0x40006496</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -8547,7 +8547,7 @@
     <peripheral>
       <name>MotorDirection</name>
       <description>No description available</description>
-      <baseAddress>0x40006476</baseAddress>
+      <baseAddress>0x40006477</baseAddress>
       <addressBlock>
         <offset>0</offset>
         <size>0x0</size>
@@ -8578,7 +8578,7 @@
         <register>
           <name>PWM_1_DeadBand_Counter</name>
           <description>UDB DeadBand - DeadBand Counter Value</description>
-          <addressOffset>0x40006401</addressOffset>
+          <addressOffset>0x40006400</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -8587,7 +8587,7 @@
         <register>
           <name>PWM_1_DeadBand_Count</name>
           <description>UDB DeadBand - Assigned DeadBand Count Value</description>
-          <addressOffset>0x40006421</addressOffset>
+          <addressOffset>0x40006420</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -8614,7 +8614,7 @@
         <register>
           <name>PWM_1_Control_Reg</name>
           <description>UDB Control Register - Assigned Control Register Value</description>
-          <addressOffset>0x40006471</addressOffset>
+          <addressOffset>0x40006470</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -8646,7 +8646,7 @@
         <register>
           <name>PWM_1_STATUS_MASK</name>
           <description>UDB Status bits Interrupt Mask Enable Register</description>
-          <addressOffset>0x40006480</addressOffset>
+          <addressOffset>0x40006483</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>

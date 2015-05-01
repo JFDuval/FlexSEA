@@ -67,14 +67,14 @@ int main(void)
 	//Start with an empty buffer
 	flexsea_clear_slave_read_buffer();	
 	
-	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- =
 	//Test code - enable one and only one for special debugging
 	//Normal code WILL NOT EXECUTE when this is enabled!
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 	//strain_test_blocking();
 	//safety_cop_comm_test_blocking();
 	//imu_test_code_blocking();
-	//motor_fixed_pwm_test_code_blocking(85);
+	//motor_fixed_pwm_test_code_blocking(100);
 	//wdclk_test_blocking();
 	//timing_test_blocking();
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
