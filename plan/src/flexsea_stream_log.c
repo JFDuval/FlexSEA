@@ -17,6 +17,8 @@
 // Local variable(s)
 //****************************************************************************
 
+uint8_t slow_terminal_display = 0;
+
 //****************************************************************************
 // Private Function Prototype(s)
 //****************************************************************************
@@ -56,24 +58,29 @@ void flexsea_console_stream(int experiment)
 
     	case 1:
     		exp_fctPtr = &flexsea_stream_exp_1;
+    		slow_terminal_display = 0;
     		break;
 
     	case 2:
     		exp_fctPtr = &flexsea_stream_exp_2;
+    		slow_terminal_display = 0;
     		break;
 
     	case 3:
     		exp_fctPtr = &flexsea_stream_exp_3;
+    		slow_terminal_display = 0;
     		break;
 
     	case 4:
     		exp_fctPtr = &flexsea_stream_exp_4;
     		print_fct_ptr = flexsea_stream_print_4;
+    		slow_terminal_display = 1;
     		break;
 
     	case 5:
     		exp_fctPtr = &flexsea_stream_exp_5;
     		print_fct_ptr = flexsea_stream_print_4;
+    		slow_terminal_display = 1;
     		break;
 
     	default:
@@ -82,34 +89,34 @@ void flexsea_console_stream(int experiment)
     		usleep(750000);	//750ms
 			#endif
     		exp_fctPtr = & flexsea_stream_exp_null;
+    		slow_terminal_display = 0;
     		break;
     }
 
     //Loop "forever" - breaks on a keyboard interrupt
     while(!kbhit())
     {
-		#ifdef SLOW_TERMINAL_DISPLAY
+		if(slow_terminal_display == 1)
+		{
+			cnt++;
+			cnt %= SLOW_N_CYCLES;
+			if(!cnt)
+			{
+				//Clear terminal:
+				system("clear");
+				print_fct_ptr();
+			}
 
-    	cnt++;
-    	cnt %= SLOW_N_CYCLES;
-    	if(!cnt)
-    	{
+			//Call the experiment:
+			exp_fctPtr();
+		}
+		else
+		{
 			//Clear terminal:
 			system("clear");
-			print_fct_ptr();
-    	}
-
-        //Call the experiment:
-        exp_fctPtr();
-
-		#else
-
-    	//Clear terminal:
-    	system("clear");
-    	exp_fctPtr();
-    	usleep(STREAM_DELAY_US);
-
-		#endif 	//SLOW_TERMINAL_DISPLAY
+			exp_fctPtr();
+			usleep(STREAM_DELAY_US);
+		}
     }
 }
 
@@ -381,7 +388,7 @@ static void flexsea_stream_exp_5(void)
 	//Manage needs to be autosampling Special1 for this to work.
 
 	numb = tx_cmd_ctrl_special_4(FLEXSEA_MANAGE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
-									KEEP, 0, KEEP, 0, 0, 0,
+									KEEP, 0, KEEP, 0, 0, 0, \
 									KEEP, 0, KEEP, 0, 0, 0);
 	numb = comm_gen_str(payload_str, comm_str_spi, PAYLOAD_BUF_LEN);
 	numb = COMM_STR_BUF_LEN;
