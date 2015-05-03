@@ -26,9 +26,9 @@ DMA_HandleTypeDef hdma2_str2_ch4;	//DMA for RS-485 #1
 DMA_HandleTypeDef hdma2_str1_ch5;	//DMA for RS-485 #2
 
 //DMA buffers and config:
-__attribute__ ((aligned (4))) uint8_t uart1_dma_buf[RX_BUF_LEN];
+__attribute__ ((aligned (4))) uint8_t uart1_dma_rx_buf[RX_BUF_LEN];
 uint32_t rs485_1_dma_xfer_len = COMM_STR_BUF_LEN;
-__attribute__ ((aligned (4))) uint8_t uart6_dma_buf[RX_BUF_LEN];
+__attribute__ ((aligned (4))) uint8_t uart6_dma_rx_buf[RX_BUF_LEN];
 uint32_t rs485_2_dma_xfer_len = COMM_STR_BUF_LEN;
 //Note: Not sure if they have to be aligned, but can't hurt too much.
 
@@ -283,7 +283,7 @@ uint8_t reception_rs485_1_blocking(void)
 {
 	//Pointer to our storage buffer:
 	uint32_t *uart1_dma_buf_ptr;
-	uart1_dma_buf_ptr = (uint32_t*)&uart1_dma_buf;
+	uart1_dma_buf_ptr = (uint32_t*)&uart1_dma_rx_buf;
 
 	unsigned int delay = 0;
 	unsigned int tmp = 0;
@@ -322,6 +322,10 @@ void puts_rs485_2(uint8_t *str, uint16_t length)
 //Prepares the board for a Reply (reception). Blocking.
 uint8_t reception_rs485_2_blocking(void)
 {
+	//Pointer to our storage buffer:
+	uint32_t *uart6_dma_buf_ptr;
+	uart6_dma_buf_ptr = (uint32_t*)&uart6_dma_rx_buf;
+
 	unsigned int delay = 0;
 	unsigned int tmp = 0;
 
@@ -333,6 +337,9 @@ uint8_t reception_rs485_2_blocking(void)
 	rs485_set_mode(PORT_RS485_2, RS485_RX);
 	//for(delay = 0; delay < 5000; delay++);		//Short delay
 	tmp = USART6->DR;	//Read buffer to clear
+
+	//Start the DMA peripheral
+	HAL_DMA_Start_IT(&hdma2_str1_ch5, (uint32_t)&USART6->DR, (uint32_t)uart6_dma_buf_ptr, rs485_2_dma_xfer_len);
 
 	return 0;
 }
@@ -349,7 +356,7 @@ void DMA2_Str2_CompleteTransfer_Callback(DMA_HandleTypeDef *hdma)
 	}
 
 	//Deal with FlexSEA buffers here:
-	update_rx_buf_array_485_1(uart1_dma_buf, rs485_1_dma_xfer_len);
+	update_rx_buf_array_485_1(uart1_dma_rx_buf, rs485_1_dma_xfer_len);
 	slaves_485_1.bytes_ready++;
 }
 
@@ -365,7 +372,7 @@ void DMA2_Str1_CompleteTransfer_Callback(DMA_HandleTypeDef *hdma)
 	}
 
 	//Deal with FlexSEA buffers here:
-	update_rx_buf_array_485_2(uart6_dma_buf, rs485_2_dma_xfer_len);
+	update_rx_buf_array_485_2(uart6_dma_rx_buf, rs485_2_dma_xfer_len);
 	slaves_485_2.bytes_ready++;
 }
 
@@ -477,7 +484,7 @@ static void init_dma2_stream2_ch4(void)
 {
 	//Pointer to our storage buffer:
 	uint32_t *uart1_dma_buf_ptr;
-	uart1_dma_buf_ptr = (uint32_t*)&uart1_dma_buf;
+	uart1_dma_buf_ptr = (uint32_t*)&uart1_dma_rx_buf;
 
 	//Enable clock
 	__DMA2_CLK_ENABLE();
@@ -518,7 +525,7 @@ static void init_dma2_stream1_ch5(void)
 {
 	//Pointer to our storage buffer:
 	uint32_t *uart6_dma_buf_ptr;
-	uart6_dma_buf_ptr = (uint32_t*)&uart6_dma_buf;
+	uart6_dma_buf_ptr = (uint32_t*)&uart6_dma_rx_buf;
 
 	//Enable clock
 	__DMA2_CLK_ENABLE();
@@ -551,4 +558,44 @@ static void init_dma2_stream1_ch5(void)
 
 	//Start the DMA peripheral
 	HAL_DMA_Start_IT(&hdma2_str1_ch5, (uint32_t)&USART6->DR, (uint32_t)uart6_dma_buf_ptr, rs485_2_dma_xfer_len);
+}
+
+//Using DMA2 Ch 4 Stream 7 for USART1 TX
+static void init_dma2_stream7_ch4(void)
+{
+	//Pointer to our storage buffer:
+	uint32_t *uart1_dma_buf_ptr;
+	uart1_dma_buf_ptr = (uint32_t*)&uart1_dma_rx_buf;
+
+	//Enable clock
+	__DMA2_CLK_ENABLE();
+
+	//Instance:
+	hdma2_str2_ch4.Instance = DMA2_Stream2;
+
+	//Initialization:
+	hdma2_str2_ch4.Init.Channel = DMA_CHANNEL_4;
+	hdma2_str2_ch4.Init.Direction = DMA_PERIPH_TO_MEMORY; 			//Receive, so Periph to Mem
+	hdma2_str2_ch4.Init.PeriphInc = DMA_PINC_DISABLE;				//No Periph increment
+	hdma2_str2_ch4.Init.MemInc = DMA_MINC_ENABLE;					//Memory increment
+	hdma2_str2_ch4.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;	//Align: bytes
+	hdma2_str2_ch4.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;		//Align: bytes
+	hdma2_str2_ch4.Init.Mode = DMA_CIRCULAR;
+	hdma2_str2_ch4.Init.Priority = DMA_PRIORITY_MEDIUM;
+	hdma2_str2_ch4.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
+	hdma2_str2_ch4.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
+	hdma2_str2_ch4.Init.MemBurst = DMA_MBURST_SINGLE;
+	hdma2_str2_ch4.Init.PeriphBurst = DMA_PBURST_SINGLE;
+
+	hdma2_str2_ch4.XferCpltCallback = DMA2_Str2_CompleteTransfer_Callback;
+
+	HAL_DMA_Init(&hdma2_str2_ch4);
+
+	//Interrupts:
+	HAL_NVIC_SetPriority(DMA2_Stream2_IRQn, 7, 7);
+	HAL_NVIC_EnableIRQ(DMA2_Stream2_IRQn);
+	__HAL_DMA_ENABLE_IT(&hdma2_str2_ch4, DMA_IT_TC);
+
+	//Start the DMA peripheral
+	HAL_DMA_Start_IT(&hdma2_str2_ch4, (uint32_t)&USART1->DR, (uint32_t)uart1_dma_buf_ptr, rs485_1_dma_xfer_len);
 }
