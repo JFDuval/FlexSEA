@@ -220,7 +220,7 @@ void USART6_IRQHandler(void)
 	HAL_USART_IRQHandler(&husart6);
 }
 
-//DMA2 Stream2 - USART1
+//DMA2 Stream2 - USART1 RX
 void DMA2_Stream2_IRQHandler(void)
 {
 	HAL_NVIC_ClearPendingIRQ(DMA2_Stream2_IRQn);
@@ -228,13 +228,30 @@ void DMA2_Stream2_IRQHandler(void)
 	HAL_DMA_IRQHandler(&hdma2_str2_ch4);
 }
 
-//DMA2 Stream1 - USART6
+//DMA2 Stream7 - USART1 TX
+void DMA2_Stream7_IRQHandler(void)
+{
+	HAL_NVIC_ClearPendingIRQ(DMA2_Stream7_IRQn);
+
+	HAL_DMA_IRQHandler(&hdma2_str7_ch4);
+}
+
+//DMA2 Stream1 - USART6 RX
 void DMA2_Stream1_IRQHandler(void)
 {
 
 	HAL_NVIC_ClearPendingIRQ(DMA2_Stream1_IRQn);
 
 	HAL_DMA_IRQHandler(&hdma2_str1_ch5);
+}
+
+//DMA2 Stream6 - USART6 TX
+void DMA2_Stream6_IRQHandler(void)
+{
+
+	HAL_NVIC_ClearPendingIRQ(DMA2_Stream6_IRQn);
+
+	HAL_DMA_IRQHandler(&hdma2_str6_ch5);
 }
 
 /**

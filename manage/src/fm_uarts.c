@@ -22,13 +22,17 @@ USART_HandleTypeDef husart1;		//RS-485 #1
 USART_HandleTypeDef husart6;		//RS-485 #2
 USART_HandleTypeDef husart3;		//Expansion port
 GPIO_InitTypeDef GPIO_InitStruct;
-DMA_HandleTypeDef hdma2_str2_ch4;	//DMA for RS-485 #1
-DMA_HandleTypeDef hdma2_str1_ch5;	//DMA for RS-485 #2
+DMA_HandleTypeDef hdma2_str2_ch4;	//DMA for RS-485 #1 RX
+DMA_HandleTypeDef hdma2_str7_ch4;	//DMA for RS-485 #1 TX
+DMA_HandleTypeDef hdma2_str1_ch5;	//DMA for RS-485 #2 RX
+DMA_HandleTypeDef hdma2_str6_ch5;	//DMA for RS-485 #2 TX
 
 //DMA buffers and config:
 __attribute__ ((aligned (4))) uint8_t uart1_dma_rx_buf[RX_BUF_LEN];
+__attribute__ ((aligned (4))) uint8_t uart1_dma_tx_buf[RX_BUF_LEN];
 uint32_t rs485_1_dma_xfer_len = COMM_STR_BUF_LEN;
 __attribute__ ((aligned (4))) uint8_t uart6_dma_rx_buf[RX_BUF_LEN];
+__attribute__ ((aligned (4))) uint8_t uart6_dma_tx_buf[RX_BUF_LEN];
 uint32_t rs485_2_dma_xfer_len = COMM_STR_BUF_LEN;
 //Note: Not sure if they have to be aligned, but can't hurt too much.
 
@@ -39,6 +43,8 @@ uint32_t rs485_2_dma_xfer_len = COMM_STR_BUF_LEN;
 void HAL_UART_MspInit(UART_HandleTypeDef* huart);
 static void init_dma2_stream2_ch4(void);
 static void init_dma2_stream1_ch5(void);
+static void init_dma2_stream7_ch4(void);
+static void init_dma2_stream6_ch5(void);
 
 //****************************************************************************
 // Public Function(s)
@@ -72,14 +78,16 @@ void init_usart1(uint32_t baudrate)
 	USART1->CR1 |= USART_CR1_RE;		//Enable receiver
 	USART1->CR2 &= ~USART_CR2_CLKEN;	//Disable synchronous clock
 	USART1->CR3 |= USART_CR3_ONEBIT;	//1 sample per bit
-	USART1->CR3 |= USART_CR3_DMAR;		//Enable DMA
+	USART1->CR3 |= USART_CR3_DMAR;		//Enable DMA Reception
+	USART1->CR3 |= USART_CR3_DMAT;		//Enable DMA Transmission
 
 	//The baudrate calculated by the HAL function is wrong by 5% because
 	//I manually change the OVER8 bit. Manually setting it:
 	USART1->BRR = USART1_6_2MBAUD;
 
 	//Enable DMA:
-	init_dma2_stream2_ch4();
+	init_dma2_stream2_ch4();	//RX
+	init_dma2_stream7_ch4();	//TX
 }
 
 //USART6 init function: RS-485 #2
@@ -110,14 +118,16 @@ void init_usart6(uint32_t baudrate)
 	USART6->CR1 |= USART_CR1_RE;		//Enable receiver
 	USART6->CR2 &= ~USART_CR2_CLKEN;	//Disable synchronous clock
 	USART6->CR3 |= USART_CR3_ONEBIT;	//1 sample per bit
-	USART6->CR3 |= USART_CR3_DMAR;		//Enable DMA
+	USART6->CR3 |= USART_CR3_DMAR;		//Enable DMA Reception
+	USART6->CR3 |= USART_CR3_DMAT;		//Enable DMA Transmission
 
 	//The baudrate calculated by the HAL function is wrong by 5% because
 	//I manually change the OVER8 bit. Manually setting it:
 	USART6->BRR = USART1_6_2MBAUD;
 
 	//Enable DMA:
-	init_dma2_stream1_ch5();
+	init_dma2_stream1_ch5();	//RX
+	init_dma2_stream6_ch5();	//TX
 }
 
 //USART3 init function: Expansion port
@@ -162,7 +172,7 @@ void putc_usart6(char c)
 {
 	putc_data[1] = c;
 	//huart1.State = HAL_USART_STATE_READY;
-	HAL_USART_Transmit(&husart6,(uint8_t*)putc_data, 3, UART_TIMEOUT);
+	HAL_USART_Transmit(&husart6,(uint8_t*)putc_data, 3, UART_TIMEOUT);	//ToDo why 3?
 }
 
 //Initialize GPIOs for RS-485: RE, DE
@@ -266,16 +276,24 @@ void rs485_set_mode(uint32_t port, uint8_t rx_tx)
 void puts_rs485_1(uint8_t *str, uint16_t length)
 {
 	unsigned int i = 0;
+	uint8_t *uart1_dma_buf_ptr;
+	uart1_dma_buf_ptr = (uint8_t*)&uart1_dma_tx_buf;
+
+	//Copy str to tx buffer:
+	for(i = 0; i < length; i++)
+	{
+		uart1_dma_tx_buf[i] = str[i];
+	}
 
 	//Transmit enable
 	rs485_set_mode(PORT_RS485_1, RS485_TX);
 
 	//ToDo replace by valid delay function!
 	for(i = 0; i < 1000; i++);
-	//ToDo Delay
 
 	//Send data
-	HAL_USART_Transmit(&husart1, str, length, UART_TIMEOUT);
+	//HAL_USART_Transmit(&husart1, str, length, UART_TIMEOUT);	//No DMA, legacy
+	HAL_USART_Transmit_IT(&husart1, uart1_dma_buf_ptr, length);
 }
 
 //Prepares the board for a Reply (reception). Blocking.
@@ -307,16 +325,24 @@ uint8_t reception_rs485_1_blocking(void)
 void puts_rs485_2(uint8_t *str, uint16_t length)
 {
 	unsigned int i = 0;
+	uint8_t *uart6_dma_buf_ptr;
+	uart6_dma_buf_ptr = (uint8_t*)&uart6_dma_tx_buf;
+
+	//Copy str to tx buffer:
+	for(i = 0; i < length; i++)
+	{
+		uart6_dma_tx_buf[i] = str[i];
+	}
 
 	//Transmit enable
 	rs485_set_mode(PORT_RS485_2, RS485_TX);
 
 	//ToDo replace by valid delay function!
 	for(i = 0; i < 1000; i++);
-	//ToDo Delay
 
 	//Send data
-	HAL_USART_Transmit(&husart6, str, length, UART_TIMEOUT);
+	//HAL_USART_Transmit(&husart6, str, length, UART_TIMEOUT);	//No DMA, legacy
+	HAL_USART_Transmit_IT(&husart6, uart6_dma_buf_ptr, length);
 }
 
 //Prepares the board for a Reply (reception). Blocking.
@@ -344,7 +370,7 @@ uint8_t reception_rs485_2_blocking(void)
 	return 0;
 }
 
-//Function called after a completed DMA transfer.
+//Function called after a completed DMA transfer, UART1 RX
 void DMA2_Str2_CompleteTransfer_Callback(DMA_HandleTypeDef *hdma)
 {
 	volatile uint32_t empty_dr = 0;
@@ -360,7 +386,13 @@ void DMA2_Str2_CompleteTransfer_Callback(DMA_HandleTypeDef *hdma)
 	slaves_485_1.bytes_ready++;
 }
 
-//Function called after a completed DMA transfer.
+//Function called after a completed DMA transfer, UART1 TX
+void DMA2_Str7_CompleteTransfer_Callback(DMA_HandleTypeDef *hdma)
+{
+	//If something has to happen after a transfer, place code here.
+}
+
+//Function called after a completed DMA transfer, UART6 RX
 void DMA2_Str1_CompleteTransfer_Callback(DMA_HandleTypeDef *hdma)
 {
 	volatile uint32_t empty_dr = 0;
@@ -374,6 +406,12 @@ void DMA2_Str1_CompleteTransfer_Callback(DMA_HandleTypeDef *hdma)
 	//Deal with FlexSEA buffers here:
 	update_rx_buf_array_485_2(uart6_dma_rx_buf, rs485_2_dma_xfer_len);
 	slaves_485_2.bytes_ready++;
+}
+
+//Function called after a completed DMA transfer, UART6 TX
+void DMA2_Str6_CompleteTransfer_Callback(DMA_HandleTypeDef *hdma)
+{
+	//If something has to happen after a transfer, place code here.
 }
 
 void rs485_1_xmit_dma_rx_test(void)
@@ -565,37 +603,77 @@ static void init_dma2_stream7_ch4(void)
 {
 	//Pointer to our storage buffer:
 	uint32_t *uart1_dma_buf_ptr;
-	uart1_dma_buf_ptr = (uint32_t*)&uart1_dma_rx_buf;
+	uart1_dma_buf_ptr = (uint32_t*)&uart1_dma_tx_buf;
 
 	//Enable clock
 	__DMA2_CLK_ENABLE();
 
 	//Instance:
-	hdma2_str2_ch4.Instance = DMA2_Stream2;
+	hdma2_str7_ch4.Instance = DMA2_Stream7;
 
 	//Initialization:
-	hdma2_str2_ch4.Init.Channel = DMA_CHANNEL_4;
-	hdma2_str2_ch4.Init.Direction = DMA_PERIPH_TO_MEMORY; 			//Receive, so Periph to Mem
-	hdma2_str2_ch4.Init.PeriphInc = DMA_PINC_DISABLE;				//No Periph increment
-	hdma2_str2_ch4.Init.MemInc = DMA_MINC_ENABLE;					//Memory increment
-	hdma2_str2_ch4.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;	//Align: bytes
-	hdma2_str2_ch4.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;		//Align: bytes
-	hdma2_str2_ch4.Init.Mode = DMA_CIRCULAR;
-	hdma2_str2_ch4.Init.Priority = DMA_PRIORITY_MEDIUM;
-	hdma2_str2_ch4.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
-	hdma2_str2_ch4.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
-	hdma2_str2_ch4.Init.MemBurst = DMA_MBURST_SINGLE;
-	hdma2_str2_ch4.Init.PeriphBurst = DMA_PBURST_SINGLE;
+	hdma2_str7_ch4.Init.Channel = DMA_CHANNEL_4;
+	hdma2_str7_ch4.Init.Direction = DMA_MEMORY_TO_PERIPH; 			//Transmit, so Mem to Periph
+	hdma2_str7_ch4.Init.PeriphInc = DMA_PINC_DISABLE;				//No Periph increment
+	hdma2_str7_ch4.Init.MemInc = DMA_MINC_ENABLE;					//Memory increment
+	hdma2_str7_ch4.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;	//Align: bytes
+	hdma2_str7_ch4.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;		//Align: bytes
+	hdma2_str7_ch4.Init.Mode = DMA_CIRCULAR;
+	hdma2_str7_ch4.Init.Priority = DMA_PRIORITY_MEDIUM;
+	hdma2_str7_ch4.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
+	hdma2_str7_ch4.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
+	hdma2_str7_ch4.Init.MemBurst = DMA_MBURST_SINGLE;
+	hdma2_str7_ch4.Init.PeriphBurst = DMA_PBURST_SINGLE;
 
-	hdma2_str2_ch4.XferCpltCallback = DMA2_Str2_CompleteTransfer_Callback;
+	hdma2_str7_ch4.XferCpltCallback = DMA2_Str7_CompleteTransfer_Callback;
 
-	HAL_DMA_Init(&hdma2_str2_ch4);
+	HAL_DMA_Init(&hdma2_str7_ch4);
 
 	//Interrupts:
-	HAL_NVIC_SetPriority(DMA2_Stream2_IRQn, 7, 7);
-	HAL_NVIC_EnableIRQ(DMA2_Stream2_IRQn);
-	__HAL_DMA_ENABLE_IT(&hdma2_str2_ch4, DMA_IT_TC);
+	HAL_NVIC_SetPriority(DMA2_Stream7_IRQn, 7, 7);
+	HAL_NVIC_EnableIRQ(DMA2_Stream7_IRQn);
+	__HAL_DMA_ENABLE_IT(&hdma2_str7_ch4, DMA_IT_TC);
 
 	//Start the DMA peripheral
-	HAL_DMA_Start_IT(&hdma2_str2_ch4, (uint32_t)&USART1->DR, (uint32_t)uart1_dma_buf_ptr, rs485_1_dma_xfer_len);
+	//HAL_DMA_Start_IT(&hdma2_str7_ch4, (uint32_t)&USART1->DR, (uint32_t)uart1_dma_buf_ptr, rs485_1_dma_xfer_len);
+}
+
+//Using DMA2 Ch 5 Stream 6 for USART6 TX
+static void init_dma2_stream6_ch5(void)
+{
+	//Pointer to our storage buffer:
+	uint32_t *uart6_dma_buf_ptr;
+	uart6_dma_buf_ptr = (uint32_t*)&uart6_dma_tx_buf;
+
+	//Enable clock
+	__DMA2_CLK_ENABLE();
+
+	//Instance:
+	hdma2_str6_ch5.Instance = DMA2_Stream7;
+
+	//Initialization:
+	hdma2_str6_ch5.Init.Channel = DMA_CHANNEL_5;
+	hdma2_str6_ch5.Init.Direction = DMA_MEMORY_TO_PERIPH; 			//Transmit, so Mem to Periph
+	hdma2_str6_ch5.Init.PeriphInc = DMA_PINC_DISABLE;				//No Periph increment
+	hdma2_str6_ch5.Init.MemInc = DMA_MINC_ENABLE;					//Memory increment
+	hdma2_str6_ch5.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;	//Align: bytes
+	hdma2_str6_ch5.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;		//Align: bytes
+	hdma2_str6_ch5.Init.Mode = DMA_CIRCULAR;
+	hdma2_str6_ch5.Init.Priority = DMA_PRIORITY_MEDIUM;
+	hdma2_str6_ch5.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
+	hdma2_str6_ch5.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
+	hdma2_str6_ch5.Init.MemBurst = DMA_MBURST_SINGLE;
+	hdma2_str6_ch5.Init.PeriphBurst = DMA_PBURST_SINGLE;
+
+	hdma2_str6_ch5.XferCpltCallback = DMA2_Str6_CompleteTransfer_Callback;
+
+	HAL_DMA_Init(&hdma2_str6_ch5);
+
+	//Interrupts:
+	HAL_NVIC_SetPriority(DMA2_Stream6_IRQn, 7, 7);
+	HAL_NVIC_EnableIRQ(DMA2_Stream6_IRQn);
+	__HAL_DMA_ENABLE_IT(&hdma2_str6_ch5, DMA_IT_TC);
+
+	//Start the DMA peripheral
+	//HAL_DMA_Start_IT(&hdma2_str7_ch4, (uint32_t)&USART1->DR, (uint32_t)uart1_dma_buf_ptr, rs485_1_dma_xfer_len);
 }

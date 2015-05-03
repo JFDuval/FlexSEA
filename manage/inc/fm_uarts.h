@@ -24,8 +24,10 @@
 extern USART_HandleTypeDef husart1;			//RS-485 #1
 extern USART_HandleTypeDef husart6;			//RS-485 #2
 extern USART_HandleTypeDef husart3;			//Expansion port
-extern DMA_HandleTypeDef hdma2_str2_ch4;	//DMA for RS-485 #1
-extern DMA_HandleTypeDef hdma2_str1_ch5;	//DMA for RS-485 #2
+extern DMA_HandleTypeDef hdma2_str2_ch4;	//DMA for RS-485 #1 RX
+extern DMA_HandleTypeDef hdma2_str7_ch4;	//DMA for RS-485 #1 TX
+extern DMA_HandleTypeDef hdma2_str1_ch5;	//DMA for RS-485 #2 RX
+extern DMA_HandleTypeDef hdma2_str6_ch5;	//DMA for RS-485 #2 TX
 
 //****************************************************************************
 // Public Function Prototype(s):
@@ -41,6 +43,7 @@ void putc_usart1(char c);
 void puts_rs485_1(uint8_t *str, uint16_t length);
 uint8_t reception_rs485_1_blocking(void);
 void DMA2_Str2_CompleteTransfer_Callback(DMA_HandleTypeDef *hdma);
+void DMA2_Str7_CompleteTransfer_Callback(DMA_HandleTypeDef *hdma);
 void rs485_1_xmit_dma_rx_test(void);
 
 //RS-485 #2:
@@ -49,6 +52,7 @@ void putc_usart6(char c);
 void puts_rs485_2(uint8_t *str, uint16_t length);
 uint8_t reception_rs485_2_blocking(void);
 void DMA2_Str1_CompleteTransfer_Callback(DMA_HandleTypeDef *hdma);
+void DMA2_Str6_CompleteTransfer_Callback(DMA_HandleTypeDef *hdma);
 void rs485_2_xmit_dma_rx_test(void);
 
 //Other USART:
