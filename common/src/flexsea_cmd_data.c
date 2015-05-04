@@ -35,6 +35,9 @@
 // Variable(s)
 //****************************************************************************
 
+//Will change this, but for now the payloads will be stored in:
+unsigned char tmp_payload_xmit[PAYLOAD_BUF_LEN];
+
 //****************************************************************************
 // Function(s)
 //****************************************************************************
@@ -87,7 +90,7 @@ void rx_cmd_data_acqui(uint8_t *buf)
 		#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
 		//Generate the reply:
-		numb = tx_cmd_ctrl_mode(buf[CP_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, ctrl.active_ctrl);
+		numb = tx_cmd_ctrl_mode(buf[P_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, ctrl.active_ctrl);
 		numb = comm_gen_str(tmp_payload_xmit, comm_str_485_1, numb);
 
 		//Notify the code that a buffer is ready to be transmitted:

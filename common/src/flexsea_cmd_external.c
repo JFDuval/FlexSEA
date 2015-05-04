@@ -115,7 +115,7 @@ void rx_cmd_exp_clutch(uint8_t *buf)
 		//Generate the reply:
 		//===================
 
-		numb = tx_cmd_exp_clutch(buf[CP_XID], CMD_WRITE, tmp_payload_xmit, \
+		numb = tx_cmd_exp_clutch(buf[P_XID], CMD_WRITE, tmp_payload_xmit, \
 									PAYLOAD_BUF_LEN, read_clutch());
 		numb = comm_gen_str(tmp_payload_xmit, comm_str_485_1, numb);
 		numb = COMM_STR_BUF_LEN;	//Fixed length for now to accomodate the DMA
@@ -169,7 +169,7 @@ void rx_cmd_exp_clutch(uint8_t *buf)
 
 			#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
-			clutch_output(buf[CP_DATA1+0]);
+			clutch_output(buf[P_DATA1+0]);
 
 			#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 

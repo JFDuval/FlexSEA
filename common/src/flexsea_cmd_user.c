@@ -99,34 +99,34 @@ uint32_t tx_cmd_ctrl_special_1(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 
 		//Arguments:
 		uint16_to_bytes((uint16_t)imu.gyro.x, &tmp0, &tmp1);
-		buf[CP_DATA1] = tmp0;
-		buf[CP_DATA1 + 1] = tmp1;
+		buf[P_DATA1] = tmp0;
+		buf[P_DATA1 + 1] = tmp1;
 		uint16_to_bytes((uint16_t)imu.gyro.y, &tmp0, &tmp1);
-		buf[CP_DATA1 + 2] = tmp0;
-		buf[CP_DATA1 + 3] = tmp1;
+		buf[P_DATA1 + 2] = tmp0;
+		buf[P_DATA1 + 3] = tmp1;
 		uint16_to_bytes((uint16_t)imu.gyro.z, &tmp0, &tmp1);
-		buf[CP_DATA1 + 4] = tmp0;
-		buf[CP_DATA1 + 5] = tmp1;
+		buf[P_DATA1 + 4] = tmp0;
+		buf[P_DATA1 + 5] = tmp1;
 		
 		uint16_to_bytes(strain_read(), &tmp0, &tmp1);
-		buf[CP_DATA1 + 6] = tmp0;
-		buf[CP_DATA1 + 7] = tmp1;
+		buf[P_DATA1 + 6] = tmp0;
+		buf[P_DATA1 + 7] = tmp1;
 		
 		uint16_to_bytes(read_analog(0), &tmp0, &tmp1);
-		buf[CP_DATA1 + 8] = tmp0;
-		buf[CP_DATA1 + 9] = tmp1;
+		buf[P_DATA1 + 8] = tmp0;
+		buf[P_DATA1 + 9] = tmp1;
 		
 		uint32_to_bytes((uint32_t)encoder_read(), &tmp0, &tmp1, &tmp2, &tmp3);
-		buf[CP_DATA1 + 10] = tmp0;
-		buf[CP_DATA1 + 11] = tmp1;
-		buf[CP_DATA1 + 12] = tmp2;
-		buf[CP_DATA1 + 13] = tmp3;
+		buf[P_DATA1 + 10] = tmp0;
+		buf[P_DATA1 + 11] = tmp1;
+		buf[P_DATA1 + 12] = tmp2;
+		buf[P_DATA1 + 13] = tmp3;
 		
 		uint16_to_bytes((uint16_t)ctrl.current.actual_val, &tmp0, &tmp1);
-		buf[CP_DATA1 + 14] = tmp0;
-		buf[CP_DATA1 + 15] = tmp1;
+		buf[P_DATA1 + 14] = tmp0;
+		buf[P_DATA1 + 15] = tmp1;
 
-		bytes = CP_DATA1 + 16;     //Bytes is always last+1
+		bytes = P_DATA1 + 16;     //Bytes is always last+1
 		
 		#else
 		
@@ -186,37 +186,37 @@ void rx_cmd_special_1(uint8_t *buf)
 		//===============
 		
 		//Controller:	
-		if(buf[CP_DATA1] == CHANGE)
+		if(buf[P_DATA1] == CHANGE)
 		{
 			//User wants to change the type of controller:
-			control_strategy(buf[CP_DATA1]);
+			control_strategy(buf[P_DATA1]);
 		}
 		
 		//Only change the setpoint if we are in current control mode:	
 		if(ctrl.active_ctrl == CTRL_CURRENT)
 		{
-			tmp_wanted_current = BYTES_TO_UINT16(buf[CP_DATA1 + 2], buf[CP_DATA1 + 3]);
+			tmp_wanted_current = BYTES_TO_UINT16(buf[P_DATA1 + 2], buf[P_DATA1 + 3]);
 			ctrl.current.setpoint_val = tmp_wanted_current;
 		}
 		else if(ctrl.active_ctrl == CTRL_OPEN)
 		{
-			tmp_open_spd = BYTES_TO_UINT16(buf[CP_DATA1 + 9], buf[CP_DATA1 + 10]);
+			tmp_open_spd = BYTES_TO_UINT16(buf[P_DATA1 + 9], buf[P_DATA1 + 10]);
 			motor_open_speed_1(tmp_open_spd);
 		}
 
 		//Encoder:
-		if(buf[CP_DATA1 + 4] == CHANGE)
+		if(buf[P_DATA1 + 4] == CHANGE)
 		{
 			//User wants to overwrite the encoder:
-			int32 tmp_enc = (int32)BYTES_TO_UINT32(buf[CP_DATA1 + 5], buf[CP_DATA1 + 6], \
-													buf[CP_DATA1 + 7], buf[CP_DATA1 + 8]);	
+			int32 tmp_enc = (int32)BYTES_TO_UINT32(buf[P_DATA1 + 5], buf[P_DATA1 + 6], \
+													buf[P_DATA1 + 7], buf[P_DATA1 + 8]);	
 			encoder_write(tmp_enc);	
 		}
 
 		//Generate the reply:
 		//===================
 		
-		numb = tx_cmd_ctrl_special_1(buf[CP_XID], CMD_WRITE, tmp_payload_xmit, \
+		numb = tx_cmd_ctrl_special_1(buf[P_XID], CMD_WRITE, tmp_payload_xmit, \
 									PAYLOAD_BUF_LEN, KEEP, 0, KEEP, 0, 0, 0);		
 		numb = comm_gen_str(tmp_payload_xmit, comm_str_485_1, numb);
 		numb = COMM_STR_BUF_LEN;	//Fixed length for now to accomodate the DMA
@@ -347,34 +347,34 @@ uint32_t tx_cmd_ctrl_special_2(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 
 		//Arguments:
 		uint16_to_bytes((uint16_t)imu.gyro.x, &tmp0, &tmp1);
-		buf[CP_DATA1] = tmp0;
-		buf[CP_DATA1 + 1] = tmp1;
+		buf[P_DATA1] = tmp0;
+		buf[P_DATA1 + 1] = tmp1;
 		uint16_to_bytes((uint16_t)imu.gyro.y, &tmp0, &tmp1);
-		buf[CP_DATA1 + 2] = tmp0;
-		buf[CP_DATA1 + 3] = tmp1;
+		buf[P_DATA1 + 2] = tmp0;
+		buf[P_DATA1 + 3] = tmp1;
 		uint16_to_bytes((uint16_t)imu.gyro.z, &tmp0, &tmp1);
-		buf[CP_DATA1 + 4] = tmp0;
-		buf[CP_DATA1 + 5] = tmp1;
+		buf[P_DATA1 + 4] = tmp0;
+		buf[P_DATA1 + 5] = tmp1;
 
 		uint16_to_bytes(read_analog(0), &tmp0, &tmp1);
-		buf[CP_DATA1 + 6] = tmp0;
-		buf[CP_DATA1 + 7] = tmp1;
+		buf[P_DATA1 + 6] = tmp0;
+		buf[P_DATA1 + 7] = tmp1;
 
 		uint16_to_bytes(read_analog(1), &tmp0, &tmp1);	//ToDo
-		buf[CP_DATA1 + 8] = tmp0;
-		buf[CP_DATA1 + 9] = tmp1;
+		buf[P_DATA1 + 8] = tmp0;
+		buf[P_DATA1 + 9] = tmp1;
 
 		uint32_to_bytes((uint32_t)encoder_read(), &tmp0, &tmp1, &tmp2, &tmp3);
-		buf[CP_DATA1 + 10] = tmp0;
-		buf[CP_DATA1 + 11] = tmp1;
-		buf[CP_DATA1 + 12] = tmp2;
-		buf[CP_DATA1 + 13] = tmp3;
+		buf[P_DATA1 + 10] = tmp0;
+		buf[P_DATA1 + 11] = tmp1;
+		buf[P_DATA1 + 12] = tmp2;
+		buf[P_DATA1 + 13] = tmp3;
 
 		uint16_to_bytes((uint16_t)ctrl.current.actual_val, &tmp0, &tmp1);
-		buf[CP_DATA1 + 14] = tmp0;
-		buf[CP_DATA1 + 15] = tmp1;
+		buf[P_DATA1 + 14] = tmp0;
+		buf[P_DATA1 + 15] = tmp1;
 
-		bytes = CP_DATA1 + 16;     //Bytes is always last+1
+		bytes = P_DATA1 + 16;     //Bytes is always last+1
 
 		#else
 
@@ -427,24 +427,24 @@ void rx_cmd_special_2(uint8_t *buf)
 		//Impedance gains:
 		if(ctrl.active_ctrl == CTRL_IMPEDANCE)
 		{
-			tmp_zk = BYTES_TO_UINT16(buf[CP_DATA1 + 0], buf[CP_DATA1 + 1]);
+			tmp_zk = BYTES_TO_UINT16(buf[P_DATA1 + 0], buf[P_DATA1 + 1]);
 			ctrl.impedance.gain.Z_K = tmp_zk;
-			tmp_zb = BYTES_TO_UINT16(buf[CP_DATA1 + 2], buf[CP_DATA1 + 3]);
+			tmp_zb = BYTES_TO_UINT16(buf[P_DATA1 + 2], buf[P_DATA1 + 3]);
 			ctrl.impedance.gain.Z_B = tmp_zb;
-			tmp_zi = BYTES_TO_UINT16(buf[CP_DATA1 + 4], buf[CP_DATA1 + 5]);
+			tmp_zi = BYTES_TO_UINT16(buf[P_DATA1 + 4], buf[P_DATA1 + 5]);
 			ctrl.impedance.gain.Z_I = tmp_zi;
 		}
 
 		//Clutch:
-		clutch_output(buf[CP_DATA1 + 7]);
+		clutch_output(buf[P_DATA1 + 7]);
 
 		//MinM RGB:
-		minm_rgb_color = buf[CP_DATA1 + 6]; //ToDo set value that will be used in the next cycle
+		minm_rgb_color = buf[P_DATA1 + 6]; //ToDo set value that will be used in the next cycle
 
 		//Generate the reply:
 		//===================
 
-		numb = tx_cmd_ctrl_special_2(buf[CP_XID], CMD_WRITE, tmp_payload_xmit, \
+		numb = tx_cmd_ctrl_special_2(buf[P_XID], CMD_WRITE, tmp_payload_xmit, \
 									PAYLOAD_BUF_LEN, 0, 0, 0, 0, 0);
 		numb = comm_gen_str(tmp_payload_xmit, comm_str_485_1, numb);
 		numb = COMM_STR_BUF_LEN;	//Fixed length for now to accomodate the DMA
@@ -570,23 +570,23 @@ uint32_t tx_cmd_ctrl_special_3(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 
 		//Arguments:
 		uint16_to_bytes((uint16_t)ctrl.current.actual_val, &tmp0, &tmp1);
-		buf[CP_DATA1 + 0] = tmp0;
-		buf[CP_DATA1 + 1] = tmp1;
+		buf[P_DATA1 + 0] = tmp0;
+		buf[P_DATA1 + 1] = tmp1;
 		uint32_to_bytes((uint32_t)ctrl.current.error, &tmp0, &tmp1, &tmp2, &tmp3);
-		buf[CP_DATA1 + 2] = tmp0;
-		buf[CP_DATA1 + 3] = tmp1;
-		buf[CP_DATA1 + 4] = tmp2;
-		buf[CP_DATA1 + 5] = tmp3;
+		buf[P_DATA1 + 2] = tmp0;
+		buf[P_DATA1 + 3] = tmp1;
+		buf[P_DATA1 + 4] = tmp2;
+		buf[P_DATA1 + 5] = tmp3;
 		uint32_to_bytes((uint32_t)ctrl.current.error_sum, &tmp0, &tmp1, &tmp2, &tmp3);
-		buf[CP_DATA1 + 6] = tmp0;
-		buf[CP_DATA1 + 7] = tmp1;
-		buf[CP_DATA1 + 8] = tmp2;
-		buf[CP_DATA1 + 9] = tmp3;
+		buf[P_DATA1 + 6] = tmp0;
+		buf[P_DATA1 + 7] = tmp1;
+		buf[P_DATA1 + 8] = tmp2;
+		buf[P_DATA1 + 9] = tmp3;
 		uint16_to_bytes((uint16_t)ctrl.pwm, &tmp0, &tmp1);	//ToDo add to structure
-		buf[CP_DATA1 + 10] = tmp0;
-		buf[CP_DATA1 + 11] = tmp1;
+		buf[P_DATA1 + 10] = tmp0;
+		buf[P_DATA1 + 11] = tmp1;
 
-		bytes = CP_DATA1 + 12;     //Bytes is always last+1
+		bytes = P_DATA1 + 12;     //Bytes is always last+1
 
 		#else
 
@@ -640,22 +640,22 @@ void rx_cmd_special_3(uint8_t *buf)
 		if(ctrl.active_ctrl == CTRL_CURRENT)
 		{
 			//Gains:
-			tmp_kp = BYTES_TO_UINT16(buf[CP_DATA1 + 0], buf[CP_DATA1 + 1]);
+			tmp_kp = BYTES_TO_UINT16(buf[P_DATA1 + 0], buf[P_DATA1 + 1]);
 			ctrl.current.gain.I_KP = tmp_kp;
-			tmp_ki = BYTES_TO_UINT16(buf[CP_DATA1 + 2], buf[CP_DATA1 + 3]);
+			tmp_ki = BYTES_TO_UINT16(buf[P_DATA1 + 2], buf[P_DATA1 + 3]);
 			ctrl.current.gain.I_KI = tmp_ki;
-			tmp_kd = BYTES_TO_UINT16(buf[CP_DATA1 + 4], buf[CP_DATA1 + 5]);
+			tmp_kd = BYTES_TO_UINT16(buf[P_DATA1 + 4], buf[P_DATA1 + 5]);
 			ctrl.current.gain.I_KD = tmp_kd;
 
 			//Setpoint:
-			tmp_current = (int16_t)BYTES_TO_UINT16(buf[CP_DATA1 + 6], buf[CP_DATA1 + 7]);
+			tmp_current = (int16_t)BYTES_TO_UINT16(buf[P_DATA1 + 6], buf[P_DATA1 + 7]);
 			ctrl.current.setpoint_val = tmp_current;
 		}
 
 		//Generate the reply:
 		//===================
 
-		numb = tx_cmd_ctrl_special_3(buf[CP_XID], CMD_WRITE, tmp_payload_xmit, \
+		numb = tx_cmd_ctrl_special_3(buf[P_XID], CMD_WRITE, tmp_payload_xmit, \
 									PAYLOAD_BUF_LEN, 0, 0, 0, 0);
 		numb = comm_gen_str(tmp_payload_xmit, comm_str_485_1, numb);
 		numb = COMM_STR_BUF_LEN;	//Fixed length for now to accomodate the DMA

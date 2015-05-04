@@ -381,7 +381,7 @@ void rx_cmd_ctrl_mode_write(uint8_t *buf)
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
 	//Apply the new strategy
-	control_strategy(buf[CP_DATA1]);
+	control_strategy(buf[P_DATA1]);
 
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 

@@ -98,7 +98,7 @@ void rx_cmd_ctrl_i(uint8_t *buf)
 		#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
 		//Generate the reply:
-		numb = tx_cmd_ctrl_i(buf[CP_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, \
+		numb = tx_cmd_ctrl_i(buf[P_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, \
 			ctrl.current.actual_val, ctrl.current.setpoint_val);
 		numb = comm_gen_str(tmp_payload_xmit, comm_str_485_1, numb);
 
@@ -223,7 +223,7 @@ void rx_cmd_ctrl_mode(uint8_t *buf)
 		#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
 		//Generate the reply:
-		numb = tx_cmd_ctrl_mode(buf[CP_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, ctrl.active_ctrl);
+		numb = tx_cmd_ctrl_mode(buf[P_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, ctrl.active_ctrl);
 		numb = comm_gen_str(tmp_payload_xmit, comm_str_485_1, numb);
 
 		//Notify the code that a buffer is ready to be transmitted:
@@ -318,7 +318,7 @@ void rx_cmd_ctrl_o(uint8_t *buf)
 		#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
 		//Generate the reply:
-		numb = tx_cmd_ctrl_o(buf[CP_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, \
+		numb = tx_cmd_ctrl_o(buf[P_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, \
 			ctrl.pwm);
 		numb = comm_gen_str(tmp_payload_xmit, comm_str_485_1, numb);
 
