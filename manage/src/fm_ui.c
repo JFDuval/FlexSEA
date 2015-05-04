@@ -68,16 +68,7 @@ void init_sw1()
 
 int read_sw1(void)
 {
-	int tmp = 0;
-
-	tmp = HAL_GPIO_ReadPin(GPIOE, 1<<3);
-
-	if(tmp!= 0)
-	{
-		tmp = 1;
-	}
-
-	return tmp;
+	return HAL_GPIO_ReadPin(GPIOE, 1<<3);
 }
 
 void init_switches(void)
