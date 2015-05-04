@@ -12,7 +12,7 @@
 
 //Note: this code isn't really portable as it depends heavily on the Manage
 // board schematic and the associated peripherals. It will stay like this for
-// the forseable future. -JFD
+// the forseeable future. -JFD
 
 //****************************************************************************
 // Include(s)

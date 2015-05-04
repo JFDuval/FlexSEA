@@ -125,6 +125,7 @@ void rx_cmd_switch(uint8_t *buf)
 
 			#ifdef BOARD_TYPE_FLEXSEA_PLAN
 
+			printf("Received data\n");//ToDo remove
 			manag1.sw1 = buf[P_DATA1];
 
 			#endif	//BOARD_TYPE_FLEXSEA_PLAN
