@@ -61,8 +61,6 @@ uint32_t append_to_payload(uint8_t *payload, uint32_t idx, uint8_t *new_data, ui
 	return i;
 }
 
-
-
 //Returns one if it was sent from a slave, 0 otherwise
 uint8_t sent_from_a_slave(uint8_t *buf)
 {
