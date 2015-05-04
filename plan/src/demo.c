@@ -18,10 +18,11 @@
 // Local variable(s)
 //****************************************************************************
 
+unsigned char tmp_payload_xmit[PAYLOAD_BUF_LEN];
+
 //****************************************************************************
 // Private Function Prototype(s):
 //****************************************************************************
-
 
 //****************************************************************************
 // Function(s)
@@ -42,10 +43,10 @@ void demo_1(int32_t wspd)
     //Initial configuration:
 
     //Controller = open
-    numb = tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_1, CTRL_OPEN);
+    numb = tx_cmd_ctrl_mode(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, CTRL_OPEN);
     flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
     usleep(1000);
-    numb = tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_1, CTRL_OPEN);
+    numb = tx_cmd_ctrl_mode(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, CTRL_OPEN);
     flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
     usleep(10000);
 
@@ -106,7 +107,7 @@ void demo_1(int32_t wspd)
         }
 
 		//Prepare the command:
-		numb = tx_cmd_ctrl_o_write(FLEXSEA_EXECUTE_1, spd);
+        numb = tx_cmd_ctrl_o(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, spd);
 
 		//Communicate with the slave:
 		flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);

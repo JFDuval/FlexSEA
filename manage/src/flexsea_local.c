@@ -202,7 +202,7 @@ void build_slave_payload(unsigned char base_addr)
 
     //Command:
     payload_str[P_CMDS] = 1;                     //1 command in string
-    payload_str[P_CMD1] = CMD_MEM_READ_REPLY;
+    payload_str[P_CMD1] = 0; //CMD_MEM_READ_REPLY;
 
     //Copy a portion of slave_read_buffer[] in payload_str[]
     payload_str[P_DATA1] = slave_read_buffer[SRB_MANAGE_OFFSET];	//Always the offset

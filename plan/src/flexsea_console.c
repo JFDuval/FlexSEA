@@ -63,6 +63,8 @@ char fcp_args[MAX_CMD] = 	{0, 0, 0, 0, \
 							0, 0};
 //(4 parameters per line to simplify modifications and minimize human errors)
 
+unsigned char tmp_payload_xmit[PAYLOAD_BUF_LEN];
+
 //****************************************************************************
 // External variable(s)
 //****************************************************************************
@@ -305,7 +307,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 	int numb = 0;
 	int tmp0 = 0, tmp1 = 0, tmp2 = 0, tmp3 = 0, tmp4 = 0, tmp5 = 0;
 
-    switch(cmd)
+    switch(cmd)	//ToDo support r/w
     {
     	case 0:		//'ping'
     		_USE_PRINTF("Command isn't programmed yet.\n");
@@ -329,7 +331,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			tmp1 = atoi(argv[5]);
 			_USE_PRINTF("[Memory]: Base addr. = %i, bytes = %i.\n", tmp0, tmp1);
 			//Prepare and send data:
-			numb = tx_cmd_mem_read(slave_id[slave], 0, tmp0, tmp1);
+			//numb = tx_cmd_mem_read(slave_id[slave], 0, tmp0, tmp1);	//ToDo
 			numb = comm_gen_str(payload_str, comm_str_spi, numb);
 			break;
 
@@ -337,8 +339,8 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			tmp0 = atoi(argv[4]);
 			_USE_PRINTF("[Acquisition mode]: %i.\n", tmp0);
 			//Prepare and send data:
-			numb = tx_cmd_acq_mode_write(slave_id[slave], tmp0);
-			numb = comm_gen_str(payload_str, comm_str_spi, numb);
+			numb = tx_cmd_data_acqui(slave_id[slave], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, tmp0);
+			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
 			break;
 
 		case 6:		//'rs485_config'
@@ -360,8 +362,8 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 		case 10: 	//'switch'
 			_USE_PRINTF("[Switch]");
 			//Prepare and send data:
-			numb = tx_cmd_switch(FLEXSEA_MANAGE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN);
-			numb = comm_gen_str(payload_str, comm_str_spi, numb);
+			numb = tx_cmd_switch(slave_id[slave], CMD_READ, tmp_payload_xmit, PAYLOAD_BUF_LEN);
+			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
 			break;
 
 		case 11: 	//'imu'
@@ -369,24 +371,24 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			tmp1 = atoi(argv[5]);
 			_USE_PRINTF("[IMU]: %i & %i.\n", tmp0, tmp1);
 			//Prepare and send data:
-			numb = tx_cmd_imu_read(slave_id[slave], tmp0, tmp1);
-			numb = comm_gen_str(payload_str, comm_str_spi, numb);
+			//numb = tx_cmd_imu_read(slave_id[slave], tmp0, tmp1);	//ToDo
+			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
 			break;
 
 		case 12: 	//'encoder'
 			tmp0 = atoi(argv[4]);
 			_USE_PRINTF("[Encoder]: %i.\n", tmp0);
 			//Prepare and send data:
-			numb = tx_cmd_encoder_write(slave_id[slave], tmp0);
+			//numb = tx_cmd_encoder_write(slave_id[slave], tmp0);	//ToDo
 			//numb = tx_cmd_encoder_read(slave_id[slave]);
-			numb = comm_gen_str(payload_str, comm_str_spi, numb);
+			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
 			break;
 
 		case 13: 	//'strain'
 			_USE_PRINTF("[Strain]\n");
 			//Prepare and send data:
-			numb = tx_cmd_strain_read(slave_id[slave]);
-			numb = comm_gen_str(payload_str, comm_str_spi, numb);
+			//numb = tx_cmd_strain_read(slave_id[slave]);			//ToDo
+			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
 			break;
 
 		case 14: 	//'cmd_strain_config'
@@ -395,8 +397,8 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			tmp2 = atoi(argv[6]);
 			_USE_PRINTF("[Config Strain]: Offset = %i, Gain = %i, Output ref. = %i.\n", tmp0, tmp1, tmp2);
 			//Prepare and send data:
-			numb = tx_cmd_strain_config(slave_id[slave], tmp0, tmp1, tmp2);
-			numb = comm_gen_str(payload_str, comm_str_spi, numb);
+			//numb = tx_cmd_strain_config(slave_id[slave], tmp0, tmp1, tmp2);	//ToDo
+			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
 			break;
 
 		case 15:	//'volt'
@@ -416,7 +418,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			_USE_PRINTF("[Clutch]: %i.\n", tmp0);
 			//Prepare and send data:
 			numb = tx_cmd_exp_clutch(slave_id[slave], CMD_READ, payload_str, PAYLOAD_BUF_LEN, tmp0);
-			numb = comm_gen_str(payload_str, comm_str_spi, numb);
+			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
 			break;
 
 		case 19:	//'adv_ana_config'
@@ -428,8 +430,8 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			tmp1 = atoi(argv[5]);
 			_USE_PRINTF("[Analog]: Base addr. = %i, Values = %i.\n", tmp0, tmp1);
 			//Prepare and send data:
-			numb = tx_cmd_analog_read(slave_id[slave], tmp0, tmp1);
-			numb = comm_gen_str(payload_str, comm_str_spi, numb);
+			//numb = tx_cmd_analog_read(slave_id[slave], tmp0, tmp1);	//ToDo
+			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
 			break;
 
 		case 21:	//'digital'
@@ -448,8 +450,8 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			tmp0 = atoi(argv[4]);
 			_USE_PRINTF("[Control Mode]: %i.\n", tmp0);
 			//Prepare and send data:
-			numb = tx_cmd_ctrl_mode_write(slave_id[slave], tmp0);
-			numb = comm_gen_str(payload_str, comm_str_spi, numb);
+			numb = tx_cmd_ctrl_mode(slave_id[slave], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, tmp0);
+			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
 			break;
 
 		case 25: 	//'ctrl_i_g'
@@ -458,8 +460,8 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			tmp2 = atoi(argv[6]);
 			_USE_PRINTF("[Current Controller Gains]: kp = %i, ki = %i, kd = %i.\n", tmp0, tmp1, tmp2);
 			//Prepare and send data:
-			numb = tx_cmd_ctrl_i_gains_write(slave_id[slave], tmp0, tmp1, tmp2);
-			numb = comm_gen_str(payload_str, comm_str_spi, numb);
+			numb = tx_cmd_ctrl_i_g(slave_id[slave], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, tmp0, tmp1, tmp2);
+			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
 			break;
 
 		case 26: 	//'ctrl_p_g'
@@ -468,8 +470,8 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			tmp2 = atoi(argv[7]);
 			_USE_PRINTF("[Position Controller Gains]: kp = %i, ki = %i, kd = %i.\n", tmp0, tmp1, tmp2);
 			//Prepare and send data:
-			numb = tx_cmd_ctrl_p_gains_write(slave_id[slave], tmp0, tmp1, tmp2);
-			numb = comm_gen_str(payload_str, comm_str_spi, numb);
+			numb = tx_cmd_ctrl_p_g(slave_id[slave], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, tmp0, tmp1, tmp2);
+			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
 			break;
 
 		case 27: 	//'ctrl_z_g'
@@ -478,25 +480,24 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			tmp2 = atoi(argv[6]);
 			_USE_PRINTF("[Impedance Controller Gains]: kp = %i, ki = %i, kd = %i.\n", tmp0, tmp1, tmp2);
 			//Prepare and send data:
-			numb = tx_set_z_gains(slave_id[slave], tmp0, tmp1, tmp2);
-			numb = comm_gen_str(payload_str, comm_str_spi, numb);
+			numb = tx_cmd_ctrl_z_g(slave_id[slave], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, tmp0, tmp1, tmp2);
+			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
 			break;
 
 		case 28: 	//'ctrl_o'
 			tmp0 = atoi(argv[4]);
 			_USE_PRINTF("[Open Loop Controller]: PWMDC = %i.\n", tmp0);
 			//Prepare and send data:
-			numb = tx_cmd_ctrl_o_write(slave_id[slave], tmp0);
-			numb = comm_gen_str(payload_str, comm_str_spi, numb);
+			numb = tx_cmd_ctrl_o(slave_id[slave], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, tmp0);
+			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
 			break;
 
 		case 29: 	//'ctrl_i'
 			tmp0 = atoi(argv[4]);
 			_USE_PRINTF("[Current Controller]: %i.\n", tmp0);
 			//Prepare and send data:
-			numb = tx_cmd_ctrl_i_write(slave_id[slave], tmp0);
-			//numb = tx_cmd_ctrl_i_read(slave_id[slave]);
-			numb = comm_gen_str(payload_str, comm_str_spi, numb);
+			numb = tx_cmd_ctrl_i(slave_id[slave], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, tmp0, 0);
+			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
 			break;
 
 		case 30:	//'ctrl_p'
@@ -516,9 +517,9 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			tmp5 = atoi(argv[9]);
 			_USE_PRINTF("[Special1]: %i, %i, %i, %i, %i, %i.\n", tmp0, tmp1, tmp2, tmp3, tmp4, tmp5);
 			//Prepare and send data:
-			numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
+			numb = tx_cmd_ctrl_special_1(slave_id[slave], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, \
 										tmp0, tmp1, tmp2, tmp3, tmp4, tmp5);
-			numb = comm_gen_str(payload_str, comm_str_spi, numb);
+			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
 			break;
 
 		case 33:	//'spc2'

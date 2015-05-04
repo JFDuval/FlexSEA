@@ -42,7 +42,7 @@ unsigned char tmp_payload_xmit[PAYLOAD_BUF_LEN];
 // Function(s)
 //****************************************************************************
 
-//Transmission of a ACQUI command
+//Transmission of an ACQUI command
 uint32_t tx_cmd_data_acqui(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, int16_t acqui)
 {
 	uint32_t bytes = 0;
@@ -78,10 +78,10 @@ uint32_t tx_cmd_data_acqui(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uin
 	return bytes;
 }
 
-//Reception of a CTRL_MODE command
+//Reception of an ACQUI command
 void rx_cmd_data_acqui(uint8_t *buf)
 {
-	uint8_t numb = 0, controller = 0;
+	uint8_t numb = 0, sampling = 0;
 
 	if(IS_CMD_RW(buf[P_CMD1]) == READ)
 	{
@@ -90,7 +90,7 @@ void rx_cmd_data_acqui(uint8_t *buf)
 		#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
 		//Generate the reply:
-		numb = tx_cmd_ctrl_mode(buf[P_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, ctrl.active_ctrl);
+		numb = tx_cmd_data_acqui(buf[P_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 0);	//Returns 0 for now
 		numb = comm_gen_str(tmp_payload_xmit, comm_str_485_1, numb);
 
 		//Notify the code that a buffer is ready to be transmitted:
@@ -100,23 +100,33 @@ void rx_cmd_data_acqui(uint8_t *buf)
 		rs485_puts(comm_str_485_1, numb);
 
 		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+		#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+
+		//Generate the reply:
+		numb = tx_cmd_data_acqui(buf[P_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 0);	//Returns 0 for now
+		numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
+		numb = COMM_STR_BUF_LEN;	//Fixed length for now to accomodate the DMA
+		//(for now, send it)
+
+		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 	}
 	else if(IS_CMD_RW(buf[P_CMD1]) == WRITE)
 	{
 		//Two options: from Master of from slave (a read reply)
 
 		//Decode data:
-		controller = buf[P_DATA1];
+		sampling = buf[P_DATA1];
 		//ToDo store that value somewhere useful
 
 		if(sent_from_a_slave(buf))
 		{
 			//We received a reply to our read request
 
-			#if((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
+			#if(defined BOARD_TYPE_FLEXSEA_PLAN)
 
 			//Store value:
-			exec1.active_ctrl = controller;
+			manag1.sampling = sampling;
 
 			#endif	//((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
 		}
@@ -126,10 +136,17 @@ void rx_cmd_data_acqui(uint8_t *buf)
 
 			#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
-			control_strategy(controller);
+			//Nothing to do for now
+
+			#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+			#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+
+			//ToDo this isn't really clean:
+			slaves_485_1.mode = sampling;
+			slaves_485_2.mode = sampling;
 
 			#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 		}
 	}
 }
-

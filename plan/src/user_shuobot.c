@@ -18,6 +18,8 @@
 // Local variable(s)
 //****************************************************************************
 
+unsigned char tmp_payload_xmit[PAYLOAD_BUF_LEN];
+
 //****************************************************************************
 // Private Function Prototype(s):
 //****************************************************************************
@@ -108,11 +110,11 @@ static void shuobot_demo_1(void)
     //Initial configuration:
 
     //Controller = current
-    numb = tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_1, CTRL_CURRENT);
+    numb = tx_cmd_ctrl_mode(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, CTRL_CURRENT);
     send_cmd_slave();
     usleep(10000);
     //Gains (kp, ki, kd):
-    numb = tx_cmd_ctrl_i_gains_write(FLEXSEA_EXECUTE_1, 10,10,0);
+    numb = tx_cmd_ctrl_i_g(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 10, 10, 0);
     send_cmd_slave();
     usleep(10000);
 
@@ -141,8 +143,8 @@ static void shuobot_demo_1(void)
     	}
 
     	//Prepare the command:
-    	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
-    															KEEP, 0, enc_rw, enc_cnt, current, open_spd);
+    	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, tmp_payload_xmit, PAYLOAD_BUF_LEN, \
+    									KEEP, 0, enc_rw, enc_cnt, current, open_spd);
     	enc_rw = KEEP;
 
     	//Communicate with the slave:
@@ -208,10 +210,10 @@ static void shuobot_demo_2(void)
     //Initial configuration:
 
     //Controller = open
-    numb = tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_1, CTRL_OPEN);
+    numb = tx_cmd_ctrl_mode(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, CTRL_OPEN);
     send_cmd_slave();
     usleep(1000);
-    numb = tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_1, CTRL_OPEN);
+    numb = tx_cmd_ctrl_mode(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, CTRL_OPEN);
     send_cmd_slave();
     usleep(10000);
 
@@ -240,8 +242,8 @@ static void shuobot_demo_2(void)
     	}
 
     	//Prepare the command:
-    	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
-    															KEEP, 0, enc_rw, enc_cnt, current, -open_spd);
+    	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, tmp_payload_xmit, PAYLOAD_BUF_LEN, \
+    									KEEP, 0, enc_rw, enc_cnt, current, -open_spd);
     	enc_rw = KEEP;
 
     	//Communicate with the slave:
@@ -312,18 +314,18 @@ static void shuobot_demo_3(void)
     //Initial configuration:
 
     //Controller = open
-    numb = tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_1, CTRL_OPEN);
+    numb = tx_cmd_ctrl_mode(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, CTRL_OPEN);
     send_cmd_slave();
     usleep(1000);
-    numb = tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_1, CTRL_OPEN);
+    numb = tx_cmd_ctrl_mode(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, CTRL_OPEN);
     send_cmd_slave();
     usleep(10000);
 
     //Controller = open
-	numb = tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_2, CTRL_OPEN);
+	numb = tx_cmd_ctrl_mode(FLEXSEA_EXECUTE_2, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, CTRL_OPEN);
 	send_cmd_slave();
 	usleep(1000);
-	numb = tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_2, CTRL_OPEN);
+	numb = tx_cmd_ctrl_mode(FLEXSEA_EXECUTE_2, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, CTRL_OPEN);
 	send_cmd_slave();
 	usleep(10000);
 
@@ -372,7 +374,7 @@ static void shuobot_demo_3(void)
     	//==============================================
 
     	//Prepare the command:
-    	numb = tx_cmd_ctrl_special_4(FLEXSEA_MANAGE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
+    	numb = tx_cmd_ctrl_special_4(FLEXSEA_MANAGE_1, CMD_READ, tmp_payload_xmit, PAYLOAD_BUF_LEN, \
     									KEEP, 0, enc_rw1, enc_cnt1, current1, open_spd1, \
 										KEEP, 0, enc_rw2, enc_cnt2, current2, open_spd2);
     	enc_rw1 = KEEP;
@@ -420,7 +422,7 @@ static void send_cmd_slave(void)
 {
 	uint32_t numb = 0;
 
-	numb = comm_gen_str(payload_str, comm_str_spi, PAYLOAD_BUF_LEN);
+	numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, PAYLOAD_BUF_LEN);
 	numb = COMM_STR_BUF_LEN;
 	flexsea_spi_transmit(numb, comm_str_spi, 0);
 }

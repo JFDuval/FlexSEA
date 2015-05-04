@@ -39,8 +39,6 @@ void rx_cmd_imu_read(uint8_t *buf);
 void rx_cmd_analog_read(uint8_t *buf);
 void rx_cmd_ctrl_i_read(uint8_t *buf);
 
-void rx_cmd_acq_mode_write(uint8_t *buf);
-
 void rx_cmd_encoder_read_reply(uint8_t *buf);
 void rx_cmd_imu_read_reply(uint8_t *buf);
 void rx_cmd_strain_read_reply(uint8_t *buf);
@@ -50,6 +48,17 @@ void rx_cmd_ctrl_i_read_reply(uint8_t *buf);
 //****************************************************************************
 // Definition(s):
 //****************************************************************************
+
+//Nickname for the controller gains:
+#define I_KP					g0
+#define I_KI					g1
+#define I_KD					g2
+#define P_KP					g0
+#define P_KI					g1
+#define P_KD					g2
+#define Z_K						g0
+#define Z_B						g1
+#define Z_I						g2
 
 //****************************************************************************
 // Structure(s):
@@ -61,6 +70,60 @@ struct xyz_s
      int16_t x;
      int16_t y;
      int16_t z;
+};
+
+//Gains
+struct gains_s
+{
+     uint8_t g0, g1, g2, g3, g4, g5;
+};
+
+//Generic controller
+struct gen_ctrl_s
+{
+	//Gains:
+    struct gains_s gain;
+
+	//Value wanted and setpoint value:
+	int32_t actual_val;
+    int32_t setpoint_val;
+
+	//Errors:
+    int32_t error;						//Current error
+	int32_t error_prev;					//Past error
+    int32_t error_sum;					//Integral
+    int32_t error_dif;					//Differential
+};
+
+//Position controller
+struct pos_ctrl_s
+{
+	//Gains:
+    struct gains_s gain;
+
+	//Value wanted and setpoint value:
+	int32_t pos;
+    int32_t posi;
+	int32_t posf;
+	int32_t spdm;
+	int32_t acc;
+
+	//Errors:
+    int32_t error;						//Current error
+	int32_t error_prev;					//Past error
+    int32_t error_sum;					//Integral
+    int32_t error_dif;					//Differential
+};
+
+//Main data structure for all the controllers:
+struct ctrl_s
+{
+    uint8_t active_ctrl;
+	uint8_t pwm;
+    struct gen_ctrl_s generic;
+    struct gen_ctrl_s current;
+    struct pos_ctrl_s position;
+    struct gen_ctrl_s impedance;
 };
 
 struct execute_s
@@ -75,11 +138,14 @@ struct execute_s
 	uint8_t clutch;
 	uint8_t active_ctrl;
 	int16_t pwm;
+
+	struct ctrl_s ctrl;	//ToDo update previous fields (ex: PWM should be under ctrl)
 };
 
 struct manage_s
 {
 	uint8_t sw1;
+	uint8_t sampling;
 };
 
 //****************************************************************************

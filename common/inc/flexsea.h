@@ -79,72 +79,60 @@ void fill_uint8_buf(uint8_t *buf, uint32_t len, uint8_t filler);
 #define PARSE_UNKNOWN_CMD           	3
 
 //ToDo/doing: Partially updated command list
-
-//Old / to change:
-#define CMD_NO_COMMAND              	0
-#define CMD_MOVE_TRAP_ABSOLUTE      	2
-#define CMD_MOVE_TRAP_RELATIVE      	3
-#define CMD_SET_DIGITAL             	5
-#define CMD_SET_Z_GAINS                 11
+//Important: command codes have to be from 0 to 127 (7bits, unsigned)
 
 //System commands:
-#define CMD_ACQ_MODE_WRITE				15
-#define CMD_ACQUI						15
+
+#define CMD_NULL              			0
+#define CMD_PING						10
+#define CMD_STATUS						11
+#define CMD_RESET						12
+#define CMD_ACK							13
 
 //Data commands:
-#define CMD_MEM_READ					21
-#define CMD_MEM_READ_REPLY				22
+
+#define CMD_MEM							20
+#define CMD_ACQUI						21
 
 //Sensor commands:
-#define CMD_IMU_READ					57
-#define CMD_IMU_READ_REPLY				58
-#define CMD_ENCODER_WRITE				59
-#define CMD_ENCODER_READ				60
-#define CMD_ENCODER_READ_REPLY			61
-#define CMD_STRAIN_READ					67
-#define CMD_STRAIN_READ_REPLY			68
-#define CMD_STRAIN_CONFIG				69
 
-//Expansion commands:
-#define CMD_ANALOG_READ					95
-#define CMD_ANALOG_READ_REPLY			96
+#define CMD_TEMP						40
+#define CMD_SWITCH						41
+#define CMD_IMU							42
+#define CMD_ENCODER						43
+#define CMD_STRAIN						44
+#define CMD_STRAIN_CONFIG				45
+#define CMD_VOLT						46
+#define CMD_BATT						47
 
-//Motor commands:
-#define CMD_CTRL_MODE_WRITE				110	// CMD_SET_CONTROL	9
-#define CMD_CTRL_I_GAINS_WRITE			116	// CMD_SET_CURRENT_GAINS 10
-#define CMD_CTRL_P_GAINS_WRITE			119	// CMD_SET_PID_GAINS 1
-#define CMD_CTRL_O_WRITE				125	// CMD_SET_OPEN_SPEED 6
-#define CMD_CTRL_I_WRITE				128	// CMD_SET_CURRENT 8
-#define CMD_CTRL_I_READ					129
-#define CMD_CTRL_I_READ_REPLY			130
+//Expansion/external commands:
 
-//Change these codes!
-#define CMD_SPECIAL_1					100	//ShuoBot Exo
-#define CMD_SPECIAL_1_R					CMD_R(CMD_SPECIAL_1)
-#define CMD_SPECIAL_1_W					CMD_W(CMD_SPECIAL_1)
+#define CMD_POWER_OUT					60
+#define CMD_CLUTCH						61
+#define CMD_ADV_ANA_CONFIG				62
+#define CMD_ANALOG						63
+#define CMD_DIGITAL						64
+#define CMD_DIGITAL_CONFIG				65
+#define CMD_EXP_PERIPH_CONFIG			66
 
-#define CMD_SPECIAL_2					101	//CSEA Knee
-#define CMD_SPECIAL_2_R					CMD_R(CMD_SPECIAL_2)
-#define CMD_SPECIAL_2_W					CMD_W(CMD_SPECIAL_2)
+//Motor & Control commands:
 
-#define CMD_SPECIAL_3					102	//Current controller tuning
-#define CMD_SPECIAL_3_R					CMD_R(CMD_SPECIAL_3)
-#define CMD_SPECIAL_3_W					CMD_W(CMD_SPECIAL_3)
+#define CMD_CTRL_MODE					80
+#define CMD_CTRL_X_G					81
+#define CMD_CTRL_I_G					82
+#define CMD_CTRL_P_G					83
+#define CMD_CTRL_Z_G					84
+#define CMD_CTRL_O						85
+#define CMD_CTRL_I						86
+#define CMD_CTRL_P						87
+#define ShORTED_LEADS					88
 
-#define CMD_SPECIAL_4					120	//Dual ShuoBot
-#define CMD_SPECIAL_4_R					CMD_R(CMD_SPECIAL_4)
-#define CMD_SPECIAL_4_W					CMD_W(CMD_SPECIAL_4)
+//Special commands:
 
-#define CMD_CLUTCH						103
-#define CMD_CLUTCH_W					CMD_W(CMD_CLUTCH)
-#define CMD_CTRL_I						104
-#define CMD_CTRL_O						105
-#define CMD_CTRL_MODE					106
-#define CMD_SWITCH						107
-#define CMD_SWITCH_R					CMD_R(CMD_SWITCH)
-#define CMD_SWITCH_W					CMD_W(CMD_SWITCH)
-
-//Note: do not use codes that are framing or escape chars!
+#define CMD_SPC1						100		//ShuoBot Exo
+#define CMD_SPC2						101		//CSEA Knee
+#define CMD_SPC3						102		//Current controller tuning
+#define CMD_SPC4						120		//Dual ShuoBot
 
 //List of controllers:
 #define CTRL_NONE						0		//No PID gains, no PWM (no motor)

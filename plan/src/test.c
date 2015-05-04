@@ -18,6 +18,8 @@
 // Local variable(s)
 //****************************************************************************
 
+unsigned char tmp_payload_xmit[PAYLOAD_BUF_LEN];
+
 //****************************************************************************
 // Private Function Prototype(s):
 //****************************************************************************
@@ -43,12 +45,12 @@ void test_code_1(void)
     //Initial configuration:
 
     //Controller = open
-    numb = tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_1, CTRL_OPEN);
-    numb = comm_gen_str(payload_str, comm_str_spi, numb);
+    numb = tx_cmd_ctrl_mode(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, CTRL_OPEN);
+    numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
     flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
     usleep(10000);
-    numb = tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_1, CTRL_OPEN);
-    numb = comm_gen_str(payload_str, comm_str_spi, numb);
+    numb = tx_cmd_ctrl_mode(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, CTRL_OPEN);
+    numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
     flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
     usleep(10000);
 
@@ -116,8 +118,8 @@ void test_code_1(void)
     	}
 
     	//Prepare the command:
-    	numb = tx_cmd_ctrl_o_write(FLEXSEA_EXECUTE_1, pwmdc);
-    	numb = comm_gen_str(payload_str, comm_str_spi, numb);
+    	numb = tx_cmd_ctrl_o(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, pwmdc);
+    	numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
 
     	//Communicate with the slave:
     	flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
@@ -127,7 +129,7 @@ void test_code_1(void)
     }
 
     //Done with the experiment, drop PWM to 0:
-    numb = tx_cmd_ctrl_o_write(FLEXSEA_EXECUTE_1, 0);
+    numb = tx_cmd_ctrl_o(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 0);
     flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
 }
 
@@ -142,12 +144,12 @@ void test_code_2(void)
     //Initial configuration:
 
     //Controller = open
-    numb = tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_1, CTRL_OPEN);
-    numb = comm_gen_str(payload_str, comm_str_spi, numb);
+    numb = tx_cmd_ctrl_mode(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, CTRL_OPEN);
+    numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
     flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
     usleep(10000);
-    numb = tx_cmd_ctrl_mode_write(FLEXSEA_EXECUTE_1, CTRL_OPEN);
-    numb = comm_gen_str(payload_str, comm_str_spi, numb);
+    numb = tx_cmd_ctrl_mode(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, CTRL_OPEN);
+    numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
     flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
     usleep(10000);
 
@@ -187,8 +189,8 @@ void test_code_2(void)
     	}
 
     	//Prepare the command:
-    	numb = tx_cmd_ctrl_o_write(FLEXSEA_EXECUTE_1, pwmdc);
-    	numb = comm_gen_str(payload_str, comm_str_spi, numb);
+    	numb = tx_cmd_ctrl_o(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, pwmdc);
+    	numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
 
     	//Communicate with the slave:
     	flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
@@ -201,7 +203,8 @@ void test_code_2(void)
     }
 
     //Done with the experiment, drop PWM to 0:
-    numb = tx_cmd_ctrl_o_write(FLEXSEA_EXECUTE_1, 0);
+    numb = tx_cmd_ctrl_o(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 0);
+    numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
     flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
 }
 
@@ -215,7 +218,8 @@ void test_code_plan_manage_comm(void)
     while(!kbhit())
     {
     	//Prepare the command:
-    	numb = tx_cmd_switch(FLEXSEA_MANAGE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN);
+    	numb = tx_cmd_switch(FLEXSEA_MANAGE_1, CMD_READ, tmp_payload_xmit, PAYLOAD_BUF_LEN);
+    	numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
 
     	//Communicate with the slave:
     	flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
@@ -238,8 +242,8 @@ void test_code_plan_2x_exec_comm(void)
     	//Execute #1:
 
     	//Prepare the command:
-    	numb = tx_cmd_exp_clutch(FLEXSEA_EXECUTE_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, 0xAA);
-    	numb = comm_gen_str(payload_str, comm_str_spi, numb);
+    	numb = tx_cmd_exp_clutch(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 0xAA);
+    	numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
 
     	//Communicate with the slave:
     	flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
@@ -250,8 +254,8 @@ void test_code_plan_2x_exec_comm(void)
         //Execute #2:
 
     	//Prepare the command:
-        numb = tx_cmd_exp_clutch(FLEXSEA_EXECUTE_2, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, 0xCC);
-    	numb = comm_gen_str(payload_str, comm_str_spi, numb);
+        numb = tx_cmd_exp_clutch(FLEXSEA_EXECUTE_2, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 0xCC);
+    	numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
 
     	//Communicate with the slave:
     	flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);

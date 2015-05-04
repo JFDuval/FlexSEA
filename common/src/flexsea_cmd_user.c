@@ -69,7 +69,7 @@ uint32_t tx_cmd_ctrl_special_1(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 		//In that case Read also includes a bunch of writing. We keep the Read keyword as 
 		//it will get us a reply.
 		
-		buf[P_CMD1] = CMD_R(CMD_SPECIAL_1);
+		buf[P_CMD1] = CMD_R(CMD_SPC1);
 		
 		//Arguments:
 		buf[P_DATA1] = controller_w;
@@ -93,7 +93,7 @@ uint32_t tx_cmd_ctrl_special_1(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 	{
 		//In that case Write is only used for the Reply
 		
-		buf[P_CMD1] = CMD_W(CMD_SPECIAL_1);
+		buf[P_CMD1] = CMD_W(CMD_SPC1);
 		
 		#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -319,7 +319,7 @@ uint32_t tx_cmd_ctrl_special_2(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 		//In that case Read also includes a bunch of writing. We keep the Read keyword as
 		//it will get us a reply.
 
-		buf[P_CMD1] = CMD_R(CMD_SPECIAL_2);
+		buf[P_CMD1] = CMD_R(CMD_SPC2);
 
 		//Arguments:
 		uint16_to_bytes((uint16_t)z_k, &tmp0, &tmp1);
@@ -341,7 +341,7 @@ uint32_t tx_cmd_ctrl_special_2(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 	{
 		//In that case Write is only used for the Reply
 
-		buf[P_CMD1] = CMD_W(CMD_SPECIAL_2);
+		buf[P_CMD1] = CMD_W(CMD_SPC2);
 
 		#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -541,7 +541,7 @@ uint32_t tx_cmd_ctrl_special_3(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 		//In that case Read also includes a bunch of writing. We keep the Read keyword as
 		//it will get us a reply.
 
-		buf[P_CMD1] = CMD_R(CMD_SPECIAL_3);
+		buf[P_CMD1] = CMD_R(CMD_SPC3);
 
 		//Arguments:
 		uint16_to_bytes((uint16_t)i_kp, &tmp0, &tmp1);
@@ -564,7 +564,7 @@ uint32_t tx_cmd_ctrl_special_3(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 	{
 		//In that case Write is only used for the Reply
 
-		buf[P_CMD1] = CMD_W(CMD_SPECIAL_3);
+		buf[P_CMD1] = CMD_W(CMD_SPC3);
 
 		#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -762,7 +762,7 @@ uint32_t tx_cmd_ctrl_special_4(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 		//In that case Read also includes a bunch of writing. We keep the Read keyword as
 		//it will get us a reply.
 
-		buf[P_CMD1] = CMD_R(CMD_SPECIAL_4);
+		buf[P_CMD1] = CMD_R(CMD_SPC4);
 
 		//Arguments:
 		buf[P_DATA1 + 0] = controller_w1;
@@ -801,7 +801,7 @@ uint32_t tx_cmd_ctrl_special_4(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 	{
 		//In that case Write is only used for the Reply
 
-		buf[P_CMD1] = CMD_W(CMD_SPECIAL_4);
+		buf[P_CMD1] = CMD_W(CMD_SPC4);
 
 		#ifdef BOARD_TYPE_FLEXSEA_MANAGE
 

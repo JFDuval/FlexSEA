@@ -86,11 +86,12 @@ uint8_t sent_from_a_slave(uint8_t *buf)
 //ToDo fix: for now, supports only one command per string
 unsigned int payload_parse_str(unsigned char *cp_str)
 {
-    unsigned char cmd = 0, output = PARSE_SUCCESSFUL, numb = 0;
+    unsigned char cmd = 0, cmd_7bits = 0, output = PARSE_SUCCESSFUL, numb = 0;
     unsigned int id = 0;
 
     //Command
-    cmd = cp_str[P_CMD1];
+    cmd = cp_str[P_CMD1];		//CMD w/ R/W bit
+    cmd_7bits = CMD_7BITS(cmd);	//CMD code, no R/W information
 
     //First, get RID code
     id = get_rid(cp_str);
@@ -99,101 +100,80 @@ unsigned int payload_parse_str(unsigned char *cp_str)
 		output = PARSE_SUCCESSFUL;
 		
         //It's addressed to me. What should I do with it?
-        switch(cmd)
+        switch(cmd_7bits)
         {
-			//Old / to change:            
-            case CMD_MOVE_TRAP_ABSOLUTE:
-                rx_move_trap_absolute(cp_str);
-                break;                      
-            case CMD_SET_Z_GAINS:
-                rx_set_z_gains(cp_str);
-                break;
-			
 			//System commands:
-            case CMD_ACQ_MODE_WRITE:
-            	rx_cmd_acq_mode_write(cp_str);
-            	break;
+
+        	//...
 
             //Data commands:
-            case CMD_MEM_READ:
-                rx_cmd_mem_read(cp_str);
+
+            case CMD_MEM:
+                //rx_cmd_mem_read(cp_str);	//ToDo
                 break;
-            case CMD_MEM_READ_REPLY:
-            	rx_cmd_mem_read_reply(cp_str, 0);
-                break;
+            case CMD_ACQUI:
+            	rx_cmd_data_acqui(cp_str);
+            	break;
 				
 			//Sensor commands:
-			case CMD_ENCODER_WRITE:
-				rx_cmd_encoder_write(cp_str);
-				break;
-			case CMD_ENCODER_READ:
-				rx_cmd_encoder_read(cp_str);
-				break;
-			case CMD_ENCODER_READ_REPLY:
-				rx_cmd_encoder_read_reply(cp_str);
+			case CMD_ENCODER:
+				//rx_cmd_encoder(cp_str);		//ToDo
 				break;
 			case CMD_STRAIN_CONFIG:
-				rx_cmd_strain_config(cp_str);
+				//rx_cmd_strain_config(cp_str);	//ToDo
 				break;
-			case CMD_STRAIN_READ:
-				rx_cmd_strain_read(cp_str);
+			case CMD_STRAIN:
+				//rx_cmd_strain(cp_str);		//ToDo
 				break;
-			case CMD_STRAIN_READ_REPLY:
-				rx_cmd_strain_read_reply(cp_str);
+			case CMD_IMU:
+				//rx_cmd_imu(cp_str);			//ToDo
 				break;
-			case CMD_IMU_READ:
-				rx_cmd_imu_read(cp_str);
-				break;
-			case CMD_IMU_READ_REPLY:
-				rx_cmd_imu_read_reply(cp_str);
-				break;
-			case CMD_SWITCH_R:
-			case CMD_SWITCH_W:
+			case CMD_SWITCH:
 				rx_cmd_switch(cp_str);
 				break;
 				
 			//Expansion commands:
-			case CMD_CLUTCH_W:
+
+			case CMD_CLUTCH:
 				rx_cmd_exp_clutch(cp_str);
 				break;
-			case CMD_ANALOG_READ:
-                rx_cmd_analog_read(cp_str);
+			case CMD_ANALOG:
+                //rx_cmd_analog(cp_str);	//ToDo
                 break;  
-			case CMD_ANALOG_READ_REPLY:
-                rx_cmd_analog_read_reply(cp_str);
-                break; 
 				
 			//Motor commands:
-			case CMD_CTRL_MODE_WRITE:
-                rx_cmd_ctrl_mode_write(cp_str);
+
+			case CMD_CTRL_MODE:
+                rx_cmd_ctrl_mode(cp_str);
                 break;
-			case CMD_CTRL_I_GAINS_WRITE:
-                rx_cmd_ctrl_i_gains(cp_str);
+			case CMD_CTRL_I_G:
+                rx_cmd_ctrl_i_g(cp_str);
                 break;	
-			case CMD_CTRL_O_WRITE:
-                rx_cmd_ctrl_o_write(cp_str);
+			case CMD_CTRL_P_G:
+				rx_cmd_ctrl_p_g(cp_str);
+				break;
+			case CMD_CTRL_Z_G:
+				rx_cmd_ctrl_z_g(cp_str);
+				break;
+			case CMD_CTRL_O:
+                rx_cmd_ctrl_o(cp_str);
                 break;
-            case CMD_CTRL_I_WRITE:
-                rx_cmd_ctrl_i_write(cp_str);
+            case CMD_CTRL_I:
+                rx_cmd_ctrl_i(cp_str);
                 break;
-			case CMD_CTRL_I_READ:
-                rx_cmd_ctrl_i_read(cp_str);
-                break;
-			case CMD_CTRL_I_READ_REPLY:
-                rx_cmd_ctrl_i_read_reply(cp_str);
-                break;
-			case CMD_CTRL_P_GAINS_WRITE:                
-                rx_cmd_ctrl_p_gains_write(cp_str);
+            case CMD_CTRL_P:
+                rx_cmd_ctrl_p(cp_str);
                 break;
 			
-			//ToDo: temporary integration of the new commands:	
-			case CMD_SPECIAL_1_W:     
-			case CMD_SPECIAL_1_R:    	
+			//User/Special commands:
+
+			case CMD_SPC1:
                 rx_cmd_special_1(cp_str);
                 break;	
-
-			case CMD_SPECIAL_4_W:
-			case CMD_SPECIAL_4_R:
+			case CMD_SPC2:
+				rx_cmd_special_1(cp_str);
+				break;
+			case CMD_SPC4:
 				rx_cmd_special_4(cp_str);
 				break;
 			

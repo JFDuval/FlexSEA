@@ -58,6 +58,8 @@ struct slave_comm_s slaves_485_1, slaves_485_2;
 uint32_t cmd_valid = 0;
 uint32_t cmd_bad_checksum = 0;
 
+unsigned char tmp_payload_xmit[PAYLOAD_BUF_LEN];
+
 //****************************************************************************
 // Private Function Prototype(s):
 //****************************************************************************
@@ -169,7 +171,7 @@ void test_flexsea_comm(void)
     //printf("test_data: >> %s <<\n", (char*) test_data);
 
     //We are using a command that Plan can receive to test the parser too:
-    bytes = tx_cmd_ctrl_i_read_reply(FLEXSEA_PLAN_1, 100, 200);
+    bytes = tx_cmd_ctrl_i(FLEXSEA_PLAN_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 100, 200);
     //(this fills payload_str[])
 
     DEBUG_PRINTF("bytes = %i\n", bytes);

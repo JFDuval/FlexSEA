@@ -41,10 +41,6 @@ int main(void)
 	// start receiving from master via interrupts
 	flexsea_start_receiving_from_master();
 
-	///Test code:
-	slaves_485_1.mode = SC_AUTOSAMPLING;	//ToDo Remove this
-	slaves_485_2.mode = SC_AUTOSAMPLING;	//ToDo Remove this
-
 	//Infinite loop
 	while (1)
     {

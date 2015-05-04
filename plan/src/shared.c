@@ -18,6 +18,8 @@
 // Local variable(s)
 //****************************************************************************
 
+unsigned char tmp_payload_xmit[PAYLOAD_BUF_LEN];
+
 //****************************************************************************
 // Private Function Prototype(s):
 //****************************************************************************
@@ -33,10 +35,12 @@ void braking_sequence(int cycles, int delay)
 
 	for(i = 0; i < cycles; i++)
 	{
-		numb = tx_cmd_ctrl_o_write(FLEXSEA_EXECUTE_1, -400);
+		numb = tx_cmd_ctrl_o(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, -400);
+		numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
 		flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
 		usleep(delay);
-		numb = tx_cmd_ctrl_o_write(FLEXSEA_EXECUTE_1, 0);
+		numb = tx_cmd_ctrl_o(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 0);
+		numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
 		flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
 		usleep(delay);
 	}
