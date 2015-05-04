@@ -59,7 +59,7 @@ void init_usart1(uint32_t baudrate)
 	HAL_USART_MspInit(&husart1);
 
 	//Interrupts:
-	HAL_NVIC_SetPriority(USART1_IRQn, 0, 1);
+	HAL_NVIC_SetPriority(USART1_IRQn, UART1_IRQ_CHANNEL, UART1_IRQ_SUBCHANNEL);
 	HAL_NVIC_EnableIRQ(USART1_IRQn);
 
 	//UART1 module:
@@ -99,7 +99,7 @@ void init_usart6(uint32_t baudrate)
 	HAL_USART_MspInit(&husart6);
 
 	//Interrupts:
-	HAL_NVIC_SetPriority(USART6_IRQn, 0, 1);
+	HAL_NVIC_SetPriority(USART6_IRQn, UART6_IRQ_CHANNEL, UART6_IRQ_SUBCHANNEL);
 	HAL_NVIC_EnableIRQ(USART6_IRQn);
 
 	//UART1 module:
@@ -139,7 +139,7 @@ void init_usart3(uint32_t baudrate)
 	HAL_USART_MspInit(&husart3);
 
 	//Interrupts:
-	HAL_NVIC_SetPriority(USART3_IRQn, 0, 1);
+	HAL_NVIC_SetPriority(USART3_IRQn, UART3_IRQ_CHANNEL, UART3_IRQ_SUBCHANNEL);
 	HAL_NVIC_EnableIRQ(USART3_IRQn);
 
 	//UART3 module:
@@ -302,9 +302,7 @@ uint8_t reception_rs485_1_blocking(void)
 	//Pointer to our storage buffer:
 	uint32_t *uart1_dma_buf_ptr;
 	uart1_dma_buf_ptr = (uint32_t*)&uart1_dma_rx_buf;
-
-	unsigned int delay = 0;
-	unsigned int tmp = 0;
+	uint32_t tmp = 0;
 
 	//Do not enable if still transmitting:
 	while(husart1.State == HAL_USART_STATE_BUSY_TX);
@@ -351,9 +349,7 @@ uint8_t reception_rs485_2_blocking(void)
 	//Pointer to our storage buffer:
 	uint32_t *uart6_dma_buf_ptr;
 	uart6_dma_buf_ptr = (uint32_t*)&uart6_dma_rx_buf;
-
-	unsigned int delay = 0;
-	unsigned int tmp = 0;
+	uint32_t tmp = 0;
 
 	//Do not enable if still transmitting:
 	while(husart6.State == HAL_USART_STATE_BUSY_TX);
@@ -549,7 +545,7 @@ static void init_dma2_stream2_ch4(void)
 	HAL_DMA_Init(&hdma2_str2_ch4);
 
 	//Interrupts:
-	HAL_NVIC_SetPriority(DMA2_Stream2_IRQn, 7, 7);
+	HAL_NVIC_SetPriority(DMA2_Stream2_IRQn, DMA_STR2_IRQ_CHANNEL, DMA_STR2_IRQ_SUBCHANNEL);
 	HAL_NVIC_EnableIRQ(DMA2_Stream2_IRQn);
 	__HAL_DMA_ENABLE_IT(&hdma2_str2_ch4, DMA_IT_TC);
 
@@ -590,7 +586,7 @@ static void init_dma2_stream1_ch5(void)
 	HAL_DMA_Init(&hdma2_str1_ch5);
 
 	//Interrupts:
-	HAL_NVIC_SetPriority(DMA2_Stream1_IRQn, 7, 7);
+	HAL_NVIC_SetPriority(DMA2_Stream1_IRQn, DMA_STR1_IRQ_CHANNEL, DMA_STR1_IRQ_SUBCHANNEL);
 	HAL_NVIC_EnableIRQ(DMA2_Stream1_IRQn);
 	__HAL_DMA_ENABLE_IT(&hdma2_str1_ch5, DMA_IT_TC);
 
@@ -630,7 +626,7 @@ static void init_dma2_stream7_ch4(void)
 	HAL_DMA_Init(&hdma2_str7_ch4);
 
 	//Interrupts:
-	HAL_NVIC_SetPriority(DMA2_Stream7_IRQn, 7, 7);
+	HAL_NVIC_SetPriority(DMA2_Stream7_IRQn, DMA_STR7_IRQ_CHANNEL, DMA_STR7_IRQ_SUBCHANNEL);
 	HAL_NVIC_EnableIRQ(DMA2_Stream7_IRQn);
 	__HAL_DMA_ENABLE_IT(&hdma2_str7_ch4, DMA_IT_TC);
 
@@ -670,7 +666,7 @@ static void init_dma2_stream6_ch5(void)
 	HAL_DMA_Init(&hdma2_str6_ch5);
 
 	//Interrupts:
-	HAL_NVIC_SetPriority(DMA2_Stream6_IRQn, 7, 7);
+	HAL_NVIC_SetPriority(DMA2_Stream6_IRQn, DMA_STR6_IRQ_CHANNEL, DMA_STR6_IRQ_SUBCHANNEL);
 	HAL_NVIC_EnableIRQ(DMA2_Stream6_IRQn);
 	__HAL_DMA_ENABLE_IT(&hdma2_str6_ch5, DMA_IT_TC);
 

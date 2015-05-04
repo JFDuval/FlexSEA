@@ -51,29 +51,29 @@ uint32_t tx_cmd_switch(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_
 	prepare_empty_payload(board_id, receiver, buf, len);
 
 	//Command:
-	buf[CP_CMDS] = 1;                     //1 command in string
+	buf[P_CMDS] = 1;                     //1 command in string
 
 	if(cmd_type == CMD_READ)
 	{
-		buf[CP_CMD1] = CMD_R(CMD_SWITCH);
+		buf[P_CMD1] = CMD_R(CMD_SWITCH);
 
 		//Arguments:
 		//(none)
 
-		bytes = CP_CMD1 + 1;     //Bytes is always last+1
+		bytes = P_CMD1 + 1;     //Bytes is always last+1
 	}
 	else if(cmd_type == CMD_WRITE)
 	{
 		//In that case Write is only used for the Reply
 
-		buf[CP_CMD1] = CMD_W(CMD_SWITCH);
+		buf[P_CMD1] = CMD_W(CMD_SWITCH);
 
 		#ifdef BOARD_TYPE_FLEXSEA_MANAGE
 
 		//Arguments:
-		buf[CP_DATA1 + 0] = read_sw1();
+		buf[P_DATA1 + 0] = read_sw1();
 
-		bytes = CP_DATA1 + 1;     //Bytes is always last+1
+		bytes = P_DATA1 + 1;     //Bytes is always last+1
 
 		#else
 
@@ -97,7 +97,7 @@ void rx_cmd_switch(uint8_t *buf)
 	uint32_t numb = 0;
 	uint8_t tmp_sw = 0;
 
-	if(IS_CMD_RW(buf[CP_CMD1]) == READ)
+	if(IS_CMD_RW(buf[P_CMD1]) == READ)
 	{
 		//Received a Read command from our master.
 
@@ -106,7 +106,7 @@ void rx_cmd_switch(uint8_t *buf)
 		//Generate the reply:
 		//===================
 
-		numb = tx_cmd_switch(buf[CP_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN);
+		numb = tx_cmd_switch(buf[P_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN);
 		numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
 		numb = COMM_STR_BUF_LEN;    //Fixed length for now
 		//(the SPI driver will grab comm_str_spi directly)
@@ -115,7 +115,7 @@ void rx_cmd_switch(uint8_t *buf)
 		#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
 	}
-	else if(IS_CMD_RW(buf[CP_CMD1]) == WRITE)
+	else if(IS_CMD_RW(buf[P_CMD1]) == WRITE)
 	{
 		//Two options: from Master of from slave (a read reply)
 
@@ -125,7 +125,7 @@ void rx_cmd_switch(uint8_t *buf)
 
 			#ifdef BOARD_TYPE_FLEXSEA_PLAN
 
-			manag1.sw1 = buf[CP_DATA1];
+			manag1.sw1 = buf[P_DATA1];
 
 			#endif	//BOARD_TYPE_FLEXSEA_PLAN
 		}

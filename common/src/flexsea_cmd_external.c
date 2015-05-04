@@ -52,7 +52,7 @@ uint32_t tx_cmd_exp_clutch(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uin
 	prepare_empty_payload(board_id, receiver, buf, len);
 
 	//Command:
-	buf[CP_CMDS] = 1;                     //1 command in string
+	buf[P_CMDS] = 1;                     //1 command in string
 
 	if(cmd_type == CMD_READ)
 	{
@@ -61,18 +61,18 @@ uint32_t tx_cmd_exp_clutch(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uin
 		//Arguments:
 		//...
 
-		bytes = CP_DATA1 + 0;     //Bytes is always last+1
+		bytes = P_DATA1 + 0;     //Bytes is always last+1
 	}
 	else if(cmd_type == CMD_WRITE)
 	{
 		//In that case Write is only used for the Reply
 
-		buf[CP_CMD1] = CMD_W(CMD_CLUTCH);
+		buf[P_CMD1] = CMD_W(CMD_CLUTCH);
 
 		//Arguments:
-		buf[CP_DATA1 + 0] = clutch;
+		buf[P_DATA1 + 0] = clutch;
 
-		bytes = CP_DATA1 + 1;     //Bytes is always last+1
+		bytes = P_DATA1 + 1;     //Bytes is always last+1
 	}
 	else
 	{
@@ -95,18 +95,18 @@ void rx_cmd_exp_clutch(uint8_t *buf)
 	struct execute_s *exec_s_ptr = &exec1;
 
 	//Point to the appropriate structure:
-	if(buf[CP_XID] == FLEXSEA_EXECUTE_1)
+	if(buf[P_XID] == FLEXSEA_EXECUTE_1)
 	{
 		exec_s_ptr = &exec1;
 	}
-	else if(buf[CP_XID] == FLEXSEA_EXECUTE_2)
+	else if(buf[P_XID] == FLEXSEA_EXECUTE_2)
 	{
 		exec_s_ptr = &exec2;
 	}
 
 	#endif	//((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
 
-	if(IS_CMD_RW(buf[CP_CMD1]) == READ)
+	if(IS_CMD_RW(buf[P_CMD1]) == READ)
 	{
 		//Received a Read command from our master.
 
@@ -138,7 +138,7 @@ void rx_cmd_exp_clutch(uint8_t *buf)
 		flexsea_error(SE_CMD_NOT_PROGRAMMED);
 		#endif	//BOARD_TYPE_FLEXSEA_PLAN
 	}
-	else if(IS_CMD_RW(buf[CP_CMD1]) == WRITE)
+	else if(IS_CMD_RW(buf[P_CMD1]) == WRITE)
 	{
 		//Two options: from Master of from slave (a read reply)
 
@@ -155,7 +155,7 @@ void rx_cmd_exp_clutch(uint8_t *buf)
 
 			//Store values:
 
-			exec_s_ptr->clutch = buf[CP_DATA1+0];
+			exec_s_ptr->clutch = buf[P_DATA1+0];
 
 			#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 

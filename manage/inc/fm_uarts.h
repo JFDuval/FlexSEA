@@ -88,4 +88,26 @@ void init_usart3(uint32_t baudrate);
 #define RS485_TX			0x02
 #define RS485_RX_TX			0x03
 
+//Interrupt priorities (lower number = higher priority)
+#define UART1_IRQ_CHANNEL			6
+#define UART1_IRQ_SUBCHANNEL		0
+
+#define UART6_IRQ_CHANNEL			UART1_IRQ_CHANNEL
+#define UART6_IRQ_SUBCHANNEL		1
+
+#define UART3_IRQ_CHANNEL			8
+#define UART3_IRQ_SUBCHANNEL		0
+
+#define DMA_STR2_IRQ_CHANNEL		5	//UART1 RX
+#define DMA_STR2_IRQ_SUBCHANNEL		0
+
+#define DMA_STR1_IRQ_CHANNEL		5	//UART6 RX
+#define DMA_STR1_IRQ_SUBCHANNEL		1
+
+#define DMA_STR7_IRQ_CHANNEL		7	//UART1 TX
+#define DMA_STR7_IRQ_SUBCHANNEL		0
+
+#define DMA_STR6_IRQ_CHANNEL		7	//UART6 TX
+#define DMA_STR6_IRQ_SUBCHANNEL		1
+
 #endif // UARTS_H_

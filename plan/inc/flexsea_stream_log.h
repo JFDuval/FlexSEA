@@ -38,7 +38,7 @@ void flexsea_stream_print_4(void);
 //****************************************************************************
 
 //Streaming and logging delays:
-#define STREAM_DELAY_US			200
+#define STREAM_DELAY_US			350
 #define LOG_DELAY_US			500
 
 //#define SLOW_TERMINAL_DISPLAY

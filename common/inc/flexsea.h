@@ -65,13 +65,12 @@ void fill_uint8_buf(uint8_t *buf, uint32_t len, uint8_t filler);
 #define PORT_SPI						2
 #define PORT_USB						3
 
-//ToDo update naming convention
-//Communication protocol fields:
-#define CP_XID                      	0		//Emitter ID
-#define CP_RID                      	1		//Receiver ID
-#define CP_CMDS                     	2		//Number of Commands sent
-#define CP_CMD1                     	3		//First command
-#define CP_DATA1                    	4		//First data
+//Communication protocol payload fields:
+#define P_XID                      		0		//Emitter ID
+#define P_RID                      		1		//Receiver ID
+#define P_CMDS                     		2		//Number of Commands sent
+#define P_CMD1                     		3		//First command
+#define P_DATA1                    		4		//First data
 
 //Parser definitions:
 #define PARSE_DEFAULT               	0
@@ -90,6 +89,7 @@ void fill_uint8_buf(uint8_t *buf, uint32_t len, uint8_t filler);
 
 //System commands:
 #define CMD_ACQ_MODE_WRITE				15
+#define CMD_ACQUI						15
 
 //Data commands:
 #define CMD_MEM_READ					21

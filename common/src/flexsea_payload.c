@@ -40,8 +40,8 @@ void prepare_empty_payload(uint8_t from, uint8_t to, uint8_t *buf, uint32_t len)
 	fill_uint8_buf(buf, len, 0);
 
     //Addresses:
-    buf[CP_XID] = from;
-    buf[CP_RID] = to;
+    buf[P_XID] = from;
+    buf[P_RID] = to;
 }
 
 //Add a buffer at the end of a partially filled payload buffer
@@ -67,7 +67,7 @@ uint32_t append_to_payload(uint8_t *payload, uint32_t idx, uint8_t *new_data, ui
 uint8_t sent_from_a_slave(uint8_t *buf)
 {
 	//Slaves have higher addresses than their master.
-	if(buf[CP_XID] > buf[CP_RID])
+	if(buf[P_XID] > buf[P_RID])
 	{
 		//Slave
 		return 1;
@@ -90,7 +90,7 @@ unsigned int payload_parse_str(unsigned char *cp_str)
     unsigned int id = 0;
 
     //Command
-    cmd = cp_str[CP_CMD1];
+    cmd = cp_str[P_CMD1];
 
     //First, get RID code
     id = get_rid(cp_str);
@@ -262,13 +262,13 @@ static void route_to_slave(uint8_t port, uint8_t *buf, uint32_t len)
     if(port == PORT_RS485_1)
     {
     	comm_str_ptr = slaves_485_1.xmit.str;
-    	slaves_485_1.xmit.cmd = buf[CP_CMD1];
+    	slaves_485_1.xmit.cmd = buf[P_CMD1];
     	slaves_485_1.xmit.flag = 1;
     }
     else if(port == PORT_RS485_2)
     {
     	comm_str_ptr = slaves_485_2.xmit.str;
-    	slaves_485_2.xmit.cmd = buf[CP_CMD1];
+    	slaves_485_2.xmit.cmd = buf[P_CMD1];
     	slaves_485_2.xmit.flag = 1;
     }
 
@@ -282,7 +282,7 @@ static void route_to_slave(uint8_t port, uint8_t *buf, uint32_t len)
 //Is it addressed to me? To a board "below" me? Or to my Master?
 static uint8_t get_rid(uint8_t *pldata)
 {
-	uint8_t cp_rid = pldata[CP_RID];
+	uint8_t cp_rid = pldata[P_RID];
 	uint8_t i = 0;
 
 	if(cp_rid == board_id)				//This board?

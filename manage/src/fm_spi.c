@@ -205,7 +205,7 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi)
 		HAL_NVIC_SetPriority(SPI4_IRQn, 0, 1);
 		HAL_NVIC_EnableIRQ(SPI4_IRQn);
 		//And for the the CS pin
-		HAL_NVIC_SetPriority(EXTI4_IRQn, 2, 0);
+		HAL_NVIC_SetPriority(EXTI4_IRQn, EXT4_IRQ_CHANNEL, EXT4_IRQ_SUBCHANNEL);
 		HAL_NVIC_EnableIRQ(EXTI4_IRQn);
 	}
 	else if(hspi->Instance == SPI5)	//FLASH, SPI Master

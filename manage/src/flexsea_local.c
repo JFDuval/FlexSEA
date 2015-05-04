@@ -201,14 +201,14 @@ void build_slave_payload(unsigned char base_addr)
     prepare_empty_payload(board_id, FLEXSEA_PLAN_1, payload_str, PAYLOAD_BUF_LEN); //ToDo extract from command, not hcoded
 
     //Command:
-    payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_MEM_READ_REPLY;
+    payload_str[P_CMDS] = 1;                     //1 command in string
+    payload_str[P_CMD1] = CMD_MEM_READ_REPLY;
 
     //Copy a portion of slave_read_buffer[] in payload_str[]
-    payload_str[CP_DATA1] = slave_read_buffer[SRB_MANAGE_OFFSET];	//Always the offset
+    payload_str[P_DATA1] = slave_read_buffer[SRB_MANAGE_OFFSET];	//Always the offset
     for(i = 1; i < PAYLOAD_BYTES; i++)
     {
-    	payload_str[CP_DATA1 + i] = slave_read_buffer[base_addr + i];
+    	payload_str[P_DATA1 + i] = slave_read_buffer[base_addr + i];
     }
 
     return;

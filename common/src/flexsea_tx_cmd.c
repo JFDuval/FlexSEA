@@ -42,16 +42,16 @@ uint32_t tx_cmd_ctrl_p_gains_write(uint8_t slave, int16_t kp, int16_t ki, int16_
 	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
-    payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_CTRL_P_GAINS_WRITE;
+    payload_str[P_CMDS] = 1;                     //1 command in string
+    payload_str[P_CMD1] = CMD_CTRL_P_GAINS_WRITE;
 
     //Parameters:
-    payload_str[CP_DATA1] = (unsigned char)((kp >> 8) & 0xFF);
-    payload_str[CP_DATA1 + 1] = (unsigned char)(kp & 0xFF);
-    payload_str[CP_DATA1 + 2] = (unsigned char)((ki >> 8) & 0xFF);
-    payload_str[CP_DATA1 + 3] = (unsigned char)(ki & 0xFF);
-    payload_str[CP_DATA1 + 4] = (unsigned char)((kd >> 8) & 0xFF);
-    payload_str[CP_DATA1 + 5] = (unsigned char)(kd & 0xFF);
+    payload_str[P_DATA1] = (unsigned char)((kp >> 8) & 0xFF);
+    payload_str[P_DATA1 + 1] = (unsigned char)(kp & 0xFF);
+    payload_str[P_DATA1 + 2] = (unsigned char)((ki >> 8) & 0xFF);
+    payload_str[P_DATA1 + 3] = (unsigned char)(ki & 0xFF);
+    payload_str[P_DATA1 + 4] = (unsigned char)((kd >> 8) & 0xFF);
+    payload_str[P_DATA1 + 5] = (unsigned char)(kd & 0xFF);
 
     return 10;
 }
@@ -65,15 +65,15 @@ uint32_t tx_cmd_ctrl_o_write(uint8_t slave, int32_t pwmdc)
 	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
-    payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_CTRL_O_WRITE;
+    payload_str[P_CMDS] = 1;                     //1 command in string
+    payload_str[P_CMD1] = CMD_CTRL_O_WRITE;
 
     //Arguments:
 	uint32_to_bytes(pwmdc, &tmp0, &tmp1, &tmp2, &tmp3);
-    payload_str[CP_DATA1] = tmp0;
-    payload_str[CP_DATA1 + 1] = tmp1;
-    payload_str[CP_DATA1 + 2] = tmp2;
-    payload_str[CP_DATA1 + 3] = tmp3;
+    payload_str[P_DATA1] = tmp0;
+    payload_str[P_DATA1 + 1] = tmp1;
+    payload_str[P_DATA1 + 2] = tmp2;
+    payload_str[P_DATA1 + 3] = tmp3;
 
     return 8;
 }
@@ -86,18 +86,18 @@ unsigned int tx_set_trapeze(unsigned char slave, int posi, int posf, int spdm, i
 	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
-    payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_MOVE_TRAP_ABSOLUTE;
+    payload_str[P_CMDS] = 1;                     //1 command in string
+    payload_str[P_CMD1] = CMD_MOVE_TRAP_ABSOLUTE;
 
     //Parameters:
-    payload_str[CP_DATA1] = (unsigned char)((posi >> 8) & 0xFF);
-    payload_str[CP_DATA1 + 1] = (unsigned char)(posi & 0xFF);
-    payload_str[CP_DATA1 + 2] = (unsigned char)((posf >> 8) & 0xFF);
-    payload_str[CP_DATA1 + 3] = (unsigned char)(posf & 0xFF);
-    payload_str[CP_DATA1 + 4] = (unsigned char)((spdm >> 8) & 0xFF);
-    payload_str[CP_DATA1 + 5] = (unsigned char)(spdm & 0xFF);
-    payload_str[CP_DATA1 + 6] = (unsigned char)((acc >> 8) & 0xFF);
-    payload_str[CP_DATA1 + 7] = (unsigned char)(acc & 0xFF);
+    payload_str[P_DATA1] = (unsigned char)((posi >> 8) & 0xFF);
+    payload_str[P_DATA1 + 1] = (unsigned char)(posi & 0xFF);
+    payload_str[P_DATA1 + 2] = (unsigned char)((posf >> 8) & 0xFF);
+    payload_str[P_DATA1 + 3] = (unsigned char)(posf & 0xFF);
+    payload_str[P_DATA1 + 4] = (unsigned char)((spdm >> 8) & 0xFF);
+    payload_str[P_DATA1 + 5] = (unsigned char)(spdm & 0xFF);
+    payload_str[P_DATA1 + 6] = (unsigned char)((acc >> 8) & 0xFF);
+    payload_str[P_DATA1 + 7] = (unsigned char)(acc & 0xFF);
 
     return 12;
 }
@@ -110,11 +110,11 @@ uint32_t tx_cmd_mem_read(uint8_t slave, uint8_t mem, uint8_t base_addr, uint8_t 
 	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
-    payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_MEM_READ;
+    payload_str[P_CMDS] = 1;                     //1 command in string
+    payload_str[P_CMD1] = CMD_MEM_READ;
 
     //Parameters:
-    payload_str[CP_DATA1] = base_addr;
+    payload_str[P_DATA1] = base_addr;
 
     //At this point the string is ready to be packaged in comm_str
     return 5;
@@ -129,13 +129,13 @@ uint32_t tx_cmd_ctrl_i_write(uint8_t slave, int16_t curr)
 	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
-    payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_CTRL_I_WRITE;
+    payload_str[P_CMDS] = 1;                     //1 command in string
+    payload_str[P_CMD1] = CMD_CTRL_I_WRITE;
 
     //Arguments:
 	uint16_to_bytes(curr, &tmp0, &tmp1);
-    payload_str[CP_DATA1] = tmp0;
-    payload_str[CP_DATA1 + 1] = tmp1;
+    payload_str[P_DATA1] = tmp0;
+    payload_str[P_DATA1 + 1] = tmp1;
 
     return 6;
 }
@@ -147,11 +147,11 @@ uint32_t tx_cmd_ctrl_mode_write(uint8_t slave, uint8_t ctrl)
 	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
-    payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_CTRL_MODE_WRITE;
+    payload_str[P_CMDS] = 1;                     //1 command in string
+    payload_str[P_CMD1] = CMD_CTRL_MODE_WRITE;
 
     //Parameters:
-    payload_str[CP_DATA1] = ctrl;
+    payload_str[P_DATA1] = ctrl;
 
     return 5;
 }
@@ -165,19 +165,19 @@ uint32_t tx_cmd_ctrl_i_gains_write(uint8_t slave, int16_t kp, int16_t ki, int16_
 	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
-    payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_CTRL_I_GAINS_WRITE;
+    payload_str[P_CMDS] = 1;                     //1 command in string
+    payload_str[P_CMD1] = CMD_CTRL_I_GAINS_WRITE;
 
     //Arguments:
 	uint16_to_bytes((uint16_t)kp, &tmp0, &tmp1);
-    payload_str[CP_DATA1] = tmp0;
-    payload_str[CP_DATA1 + 1] = tmp1;
+    payload_str[P_DATA1] = tmp0;
+    payload_str[P_DATA1 + 1] = tmp1;
 	uint16_to_bytes((uint16_t)ki, &tmp0, &tmp1);
-    payload_str[CP_DATA1 + 2] = tmp0;
-    payload_str[CP_DATA1 + 3] = tmp1;
+    payload_str[P_DATA1 + 2] = tmp0;
+    payload_str[P_DATA1 + 3] = tmp1;
 	uint16_to_bytes((uint16_t)kd, &tmp0, &tmp1);
-    payload_str[CP_DATA1 + 4] = tmp0;
-    payload_str[CP_DATA1 + 5] = tmp1;
+    payload_str[P_DATA1 + 4] = tmp0;
+    payload_str[P_DATA1 + 5] = tmp1;
 
     return 10;
 }
@@ -190,16 +190,16 @@ unsigned int tx_set_z_gains(unsigned char slave, int z_k, int z_b, int z_i)
 	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
-    payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_SET_Z_GAINS;
+    payload_str[P_CMDS] = 1;                     //1 command in string
+    payload_str[P_CMD1] = CMD_SET_Z_GAINS;
 
     //Parameters:
-    payload_str[CP_DATA1] = (unsigned char)((z_k >> 8) & 0xFF);
-    payload_str[CP_DATA1 + 1] = (unsigned char)(z_k & 0xFF);
-    payload_str[CP_DATA1 + 2] = (unsigned char)((z_b >> 8) & 0xFF);
-    payload_str[CP_DATA1 + 3] = (unsigned char)(z_b & 0xFF);
-    payload_str[CP_DATA1 + 4] = (unsigned char)((z_i >> 8) & 0xFF);
-    payload_str[CP_DATA1 + 5] = (unsigned char)(z_i & 0xFF);
+    payload_str[P_DATA1] = (unsigned char)((z_k >> 8) & 0xFF);
+    payload_str[P_DATA1 + 1] = (unsigned char)(z_k & 0xFF);
+    payload_str[P_DATA1 + 2] = (unsigned char)((z_b >> 8) & 0xFF);
+    payload_str[P_DATA1 + 3] = (unsigned char)(z_b & 0xFF);
+    payload_str[P_DATA1 + 4] = (unsigned char)((z_i >> 8) & 0xFF);
+    payload_str[P_DATA1 + 5] = (unsigned char)(z_i & 0xFF);
 
     return 10;
 }
@@ -211,13 +211,13 @@ uint32_t tx_cmd_strain_config(uint8_t slave, uint8_t offs, uint8_t gain, uint8_t
 	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
-    payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_STRAIN_CONFIG;
+    payload_str[P_CMDS] = 1;                     //1 command in string
+    payload_str[P_CMD1] = CMD_STRAIN_CONFIG;
 
     //Parameters:
-    payload_str[CP_DATA1] = offs;
-    payload_str[CP_DATA1 + 1] = gain;
-    payload_str[CP_DATA1 + 2] = oref;
+    payload_str[P_DATA1] = offs;
+    payload_str[P_DATA1 + 1] = gain;
+    payload_str[P_DATA1 + 2] = oref;
 
     return 7;
 }
@@ -231,15 +231,15 @@ uint32_t tx_cmd_encoder_write(uint8_t slave, int32_t enc)
 	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
-    payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_ENCODER_WRITE;
+    payload_str[P_CMDS] = 1;                     //1 command in string
+    payload_str[P_CMD1] = CMD_ENCODER_WRITE;
  
     //Arguments:
 	uint32_to_bytes(enc, &tmp0, &tmp1, &tmp2, &tmp3);
-    payload_str[CP_DATA1] = tmp0;
-    payload_str[CP_DATA1 + 1] = tmp1;
-    payload_str[CP_DATA1 + 2] = tmp2;
-    payload_str[CP_DATA1 + 3] = tmp3;
+    payload_str[P_DATA1] = tmp0;
+    payload_str[P_DATA1 + 1] = tmp1;
+    payload_str[P_DATA1 + 2] = tmp2;
+    payload_str[P_DATA1 + 3] = tmp3;
 
     return 8;
 }
@@ -251,12 +251,12 @@ uint32_t tx_cmd_imu_read(uint8_t slave, uint8_t base_addr, uint8_t bytes)
 	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
-    payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_IMU_READ;
+    payload_str[P_CMDS] = 1;                     //1 command in string
+    payload_str[P_CMD1] = CMD_IMU_READ;
 
     //Arguments:
-    payload_str[CP_DATA1] = base_addr;
-    payload_str[CP_DATA1 + 1] = bytes;
+    payload_str[P_DATA1] = base_addr;
+    payload_str[P_DATA1 + 1] = bytes;
 
     return 6;
 }
@@ -268,8 +268,8 @@ uint32_t tx_cmd_encoder_read(uint8_t slave)
 	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
-    payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_ENCODER_READ;
+    payload_str[P_CMDS] = 1;                     //1 command in string
+    payload_str[P_CMD1] = CMD_ENCODER_READ;
 
     //Arguments:
 	//(No parameters for this one)
@@ -284,8 +284,8 @@ uint32_t tx_cmd_strain_read(uint8_t slave)
 	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
-    payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_STRAIN_READ;
+    payload_str[P_CMDS] = 1;                     //1 command in string
+    payload_str[P_CMD1] = CMD_STRAIN_READ;
 
     //Arguments:
 	//(No parameters for this one)
@@ -300,12 +300,12 @@ uint32_t tx_cmd_analog_read(uint8_t slave, uint8_t base_addr, uint8_t bytes)
 	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
-    payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_ANALOG_READ;
+    payload_str[P_CMDS] = 1;                     //1 command in string
+    payload_str[P_CMD1] = CMD_ANALOG_READ;
 
     //Arguments:
-    payload_str[CP_DATA1] = base_addr;
-    payload_str[CP_DATA1 + 1] = bytes;
+    payload_str[P_DATA1] = base_addr;
+    payload_str[P_DATA1 + 1] = bytes;
 
     return 6;
 }
@@ -317,8 +317,8 @@ uint32_t tx_cmd_ctrl_i_read(uint8_t slave)
 	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
-    payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_CTRL_I_READ;
+    payload_str[P_CMDS] = 1;                     //1 command in string
+    payload_str[P_CMD1] = CMD_CTRL_I_READ;
 
     //Arguments:
 	//(No parameters for this one)
@@ -335,15 +335,15 @@ uint32_t tx_cmd_encoder_read_reply(uint8_t master, int32_t enc)
 	prepare_empty_payload(board_id, master, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
-    payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_ENCODER_READ_REPLY;
+    payload_str[P_CMDS] = 1;                     //1 command in string
+    payload_str[P_CMD1] = CMD_ENCODER_READ_REPLY;
  
     //Arguments:
 	uint32_to_bytes((uint32_t)enc, &tmp0, &tmp1, &tmp2, &tmp3);
-    payload_str[CP_DATA1] = tmp0;
-    payload_str[CP_DATA1 + 1] = tmp1;
-    payload_str[CP_DATA1 + 2] = tmp2;
-    payload_str[CP_DATA1 + 3] = tmp3;
+    payload_str[P_DATA1] = tmp0;
+    payload_str[P_DATA1 + 1] = tmp1;
+    payload_str[P_DATA1 + 2] = tmp2;
+    payload_str[P_DATA1 + 3] = tmp3;
 
     return 8;
 }
@@ -357,13 +357,13 @@ uint32_t tx_cmd_strain_read_reply(uint8_t master, uint16_t strain)
 	prepare_empty_payload(board_id, master, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
-    payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_STRAIN_READ_REPLY;
+    payload_str[P_CMDS] = 1;                     //1 command in string
+    payload_str[P_CMD1] = CMD_STRAIN_READ_REPLY;
  
     //Arguments:
 	uint16_to_bytes(strain, &tmp0, &tmp1);
-    payload_str[CP_DATA1] = tmp0;
-    payload_str[CP_DATA1 + 1] = tmp1;
+    payload_str[P_DATA1] = tmp0;
+    payload_str[P_DATA1 + 1] = tmp1;
 
     return 6;
 }
@@ -379,21 +379,21 @@ uint32_t tx_cmd_imu_read_reply(uint8_t master, uint8_t base_addr, uint8_t bytes)
     prepare_empty_payload(board_id, master, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
-    payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_IMU_READ_REPLY;
+    payload_str[P_CMDS] = 1;                     //1 command in string
+    payload_str[P_CMD1] = CMD_IMU_READ_REPLY;
  
     //Arguments:
 	//ToDo ***for now we ignore the base addr and we always send the gyro values ***
-	payload_str[CP_DATA1] = base_addr;
+	payload_str[P_DATA1] = base_addr;
 	uint16_to_bytes(imu.gyro.x, &tmp0, &tmp1);
-    payload_str[CP_DATA1 + 1] = tmp0;
-    payload_str[CP_DATA1 + 2] = tmp1;
+    payload_str[P_DATA1 + 1] = tmp0;
+    payload_str[P_DATA1 + 2] = tmp1;
 	uint16_to_bytes(imu.gyro.y, &tmp0, &tmp1);
-    payload_str[CP_DATA1 + 3] = tmp0;
-    payload_str[CP_DATA1 + 4] = tmp1;
+    payload_str[P_DATA1 + 3] = tmp0;
+    payload_str[P_DATA1 + 4] = tmp1;
 	uint16_to_bytes(imu.gyro.z, &tmp0, &tmp1);
-    payload_str[CP_DATA1 + 5] = tmp0;
-    payload_str[CP_DATA1 + 6] = tmp1;
+    payload_str[P_DATA1 + 5] = tmp0;
+    payload_str[P_DATA1 + 6] = tmp1;
 
     //At this point the string is ready to be packaged in comm_str
 	#ifdef ENABLE_TERMINAL_DEBUG
@@ -416,15 +416,15 @@ uint32_t tx_cmd_analog_read_reply(uint8_t master, uint8_t base_addr, uint8_t byt
     prepare_empty_payload(board_id, master, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
-    payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_ANALOG_READ_REPLY;
+    payload_str[P_CMDS] = 1;                     //1 command in string
+    payload_str[P_CMD1] = CMD_ANALOG_READ_REPLY;
  
     //Arguments:
 	//ToDo ***for now we ignore the 'bytes' and we send 1 value ***
-	payload_str[CP_DATA1] = base_addr;
+	payload_str[P_DATA1] = base_addr;
 	uint16_to_bytes(read_analog(base_addr), &tmp0, &tmp1);
-    payload_str[CP_DATA1 + 1] = tmp0;
-    payload_str[CP_DATA1 + 2] = tmp1;
+    payload_str[P_DATA1 + 1] = tmp0;
+    payload_str[P_DATA1 + 2] = tmp1;
 
     //At this point the string is ready to be packaged in comm_str
 	#ifdef ENABLE_TERMINAL_DEBUG
@@ -441,14 +441,14 @@ uint32_t tx_cmd_analog_read_reply(uint8_t master, uint8_t base_addr, uint8_t byt
 	prepare_empty_payload(board_id, master, payload_str, PAYLOAD_BUF_LEN);
 
 	//Command:
-	payload_str[CP_CMDS] = 1;                     //1 command in string
-	payload_str[CP_CMD1] = CMD_ANALOG_READ_REPLY;
+	payload_str[P_CMDS] = 1;                     //1 command in string
+	payload_str[P_CMD1] = CMD_ANALOG_READ_REPLY;
 
 	//Arguments:
 	//ToDo ***for now we ignore the 'bytes' and we send 1 value ***
-	payload_str[CP_DATA1] = 0xAB;
-	payload_str[CP_DATA1 + 1] = 0xCD;
-	payload_str[CP_DATA1 + 2] = 0xEF;
+	payload_str[P_DATA1] = 0xAB;
+	payload_str[P_DATA1 + 1] = 0xCD;
+	payload_str[P_DATA1 + 2] = 0xEF;
 
 	//At this point the string is ready to be packaged in comm_str
 	#ifdef ENABLE_TERMINAL_DEBUG
@@ -469,16 +469,16 @@ uint32_t tx_cmd_ctrl_i_read_reply(uint8_t master, int16_t measured, int16_t want
 	prepare_empty_payload(board_id, master, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
-    payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_CTRL_I_READ_REPLY;
+    payload_str[P_CMDS] = 1;                     //1 command in string
+    payload_str[P_CMD1] = CMD_CTRL_I_READ_REPLY;
  
     //Arguments:
 	uint16_to_bytes(measured, &tmp0, &tmp1);
-    payload_str[CP_DATA1] = tmp0;
-    payload_str[CP_DATA1 + 1] = tmp1;
+    payload_str[P_DATA1] = tmp0;
+    payload_str[P_DATA1 + 1] = tmp1;
 	uint16_to_bytes(wanted, &tmp0, &tmp1);
-    payload_str[CP_DATA1 + 2] = tmp0;
-    payload_str[CP_DATA1 + 3] = tmp1;
+    payload_str[P_DATA1 + 2] = tmp0;
+    payload_str[P_DATA1 + 3] = tmp1;
 
     return 8;
 }
@@ -490,11 +490,11 @@ uint32_t tx_cmd_acq_mode_write(uint8_t slave, uint8_t mode)
 	prepare_empty_payload(board_id, slave, payload_str, PAYLOAD_BUF_LEN);
 
     //Command:
-    payload_str[CP_CMDS] = 1;                     //1 command in string
-    payload_str[CP_CMD1] = CMD_ACQ_MODE_WRITE;
+    payload_str[P_CMDS] = 1;                     //1 command in string
+    payload_str[P_CMD1] = CMD_ACQ_MODE_WRITE;
 
     //Parameters:
-    payload_str[CP_DATA1] = mode;
+    payload_str[P_DATA1] = mode;
 
     //At this point the string is ready to be packaged in comm_str
     return 6;	//5

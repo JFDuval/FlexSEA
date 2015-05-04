@@ -58,10 +58,10 @@ void rx_cmd_ctrl_p_gains_write(uint8_t *buf)
 	uint16_t tmp1 = 0, tmp2 = 0, tmp3 = 0, tmp4 = 0;
 		
 	//Rebuild 16bit data:
-	tmp1 = (int16_t)(BYTES_TO_UINT16(buf[CP_DATA1], buf[CP_DATA1+1]));
-	tmp2 = (int16_t)(BYTES_TO_UINT16(buf[CP_DATA1+2], buf[CP_DATA1+3]));
-	tmp3 = (int16_t)(BYTES_TO_UINT16(buf[CP_DATA1+4], buf[CP_DATA1+5]));
-	tmp4 = (int16_t)(BYTES_TO_UINT16(buf[CP_DATA1+6], buf[CP_DATA1+7]));
+	tmp1 = (int16_t)(BYTES_TO_UINT16(buf[P_DATA1], buf[P_DATA1+1]));
+	tmp2 = (int16_t)(BYTES_TO_UINT16(buf[P_DATA1+2], buf[P_DATA1+3]));
+	tmp3 = (int16_t)(BYTES_TO_UINT16(buf[P_DATA1+4], buf[P_DATA1+5]));
+	tmp4 = (int16_t)(BYTES_TO_UINT16(buf[P_DATA1+6], buf[P_DATA1+7]));
 		
 	//ToDo Add more safety checks!
 	if(tmp1 > 0)
@@ -97,10 +97,10 @@ void rx_move_trap_absolute(unsigned char *buf)
 
 	//Rebuild 16bit data:
 	//We can only send 16 bits but the posi & posf variables are 32 bits so we << 2
-    tmp_posi = ((buf[CP_DATA1] << 8) + buf[CP_DATA1 + 1]) << 2;
-    tmp_posf = ((buf[CP_DATA1 + 2] << 8) + buf[CP_DATA1 + 3]) << 2;
-    tmp_spdm = (buf[CP_DATA1 + 4] << 8) + buf[CP_DATA1 + 5];
-    tmp_acc = (buf[CP_DATA1 + 6] << 8) + buf[CP_DATA1 + 7];
+    tmp_posi = ((buf[P_DATA1] << 8) + buf[P_DATA1 + 1]) << 2;
+    tmp_posf = ((buf[P_DATA1 + 2] << 8) + buf[P_DATA1 + 3]) << 2;
+    tmp_spdm = (buf[P_DATA1 + 4] << 8) + buf[P_DATA1 + 5];
+    tmp_acc = (buf[P_DATA1 + 6] << 8) + buf[P_DATA1 + 7];
 
 	if(ctrl.active_ctrl == CTRL_POSITION)
 	{
@@ -147,8 +147,8 @@ void rx_cmd_ctrl_o_write(uint8_t *buf)
 	int32 tmp_mot_spd = 0;
 
 	//Rebuild 32bit data and limit it to 16bits
-    tmp_mot_spd = BYTES_TO_UINT32(	buf[CP_DATA1], buf[CP_DATA1 + 1], \
-									buf[CP_DATA1 + 2], buf[CP_DATA1 + 3]);
+    tmp_mot_spd = BYTES_TO_UINT32(	buf[P_DATA1], buf[P_DATA1 + 1], \
+									buf[P_DATA1 + 2], buf[P_DATA1 + 3]);
 	tmp_mot_spd &= 0xFFFF;
 
 	if(ctrl.active_ctrl == CTRL_OPEN)
@@ -189,14 +189,14 @@ void rx_cmd_mem_read_reply(uint8_t *buf, uint8_t verbal)
 
     //ToDo: quick test. Should be a full structure.
     //ToDo: my way of dealing with the offsets is terrible!
-    if(buf[CP_XID] == FLEXSEA_MANAGE_1)
+    if(buf[P_XID] == FLEXSEA_MANAGE_1)
     {
-        if(buf[CP_DATA1] == 0)
+        if(buf[P_DATA1] == 0)
         {
             //Store into structure
-        	exec1.imu.x = (int16_t)BYTES_TO_UINT16(buf[CP_DATA1 + 1], buf[CP_DATA1 + 2]);
-        	exec1.imu.y = (int16_t)BYTES_TO_UINT16(buf[CP_DATA1 + 3], buf[CP_DATA1 + 4]);
-        	exec1.imu.z = (int16_t)BYTES_TO_UINT16(buf[CP_DATA1 + 5], buf[CP_DATA1 + 6]);
+        	exec1.imu.x = (int16_t)BYTES_TO_UINT16(buf[P_DATA1 + 1], buf[P_DATA1 + 2]);
+        	exec1.imu.y = (int16_t)BYTES_TO_UINT16(buf[P_DATA1 + 3], buf[P_DATA1 + 4]);
+        	exec1.imu.z = (int16_t)BYTES_TO_UINT16(buf[P_DATA1 + 5], buf[P_DATA1 + 6]);
 
             if(verbal)
             {
@@ -208,11 +208,11 @@ void rx_cmd_mem_read_reply(uint8_t *buf, uint8_t verbal)
 				#endif
             }
         }
-        else if(buf[CP_DATA1] == 6)
+        else if(buf[P_DATA1] == 6)
         {
-        	exec1.strain = BYTES_TO_UINT16(buf[CP_DATA1 + 1], buf[CP_DATA1 + 2]);
-        	exec1.analog[0] = BYTES_TO_UINT16(buf[CP_DATA1 + 3], buf[CP_DATA1 + 4]);
-        	exec1.current = (int16_t)BYTES_TO_UINT16(buf[CP_DATA1 + 5], buf[CP_DATA1 + 6]);
+        	exec1.strain = BYTES_TO_UINT16(buf[P_DATA1 + 1], buf[P_DATA1 + 2]);
+        	exec1.analog[0] = BYTES_TO_UINT16(buf[P_DATA1 + 3], buf[P_DATA1 + 4]);
+        	exec1.current = (int16_t)BYTES_TO_UINT16(buf[P_DATA1 + 5], buf[P_DATA1 + 6]);
 
             if(verbal)
             {
@@ -224,9 +224,9 @@ void rx_cmd_mem_read_reply(uint8_t *buf, uint8_t verbal)
             }
 
         }
-        else if(buf[CP_DATA1] == 12)
+        else if(buf[P_DATA1] == 12)
         {
-        	exec1.encoder = (int32_t)BYTES_TO_UINT32(buf[CP_DATA1 + 1], buf[CP_DATA1 + 2], buf[CP_DATA1 + 3], buf[CP_DATA1 + 4]);
+        	exec1.encoder = (int32_t)BYTES_TO_UINT32(buf[P_DATA1 + 1], buf[P_DATA1 + 2], buf[P_DATA1 + 3], buf[P_DATA1 + 4]);
 
             if(verbal)
             {
@@ -239,27 +239,27 @@ void rx_cmd_mem_read_reply(uint8_t *buf, uint8_t verbal)
         else
         {
             #ifdef USE_PRINTF
-            printf("Offset != 0 (%i), code too dumb to deal with that shit.\n", buf[CP_DATA1]);
+            printf("Offset != 0 (%i), code too dumb to deal with that shit.\n", buf[P_DATA1]);
             #endif
         }
     }
-    else if((buf[CP_XID] == FLEXSEA_EXECUTE_1) || (buf[CP_XID] == FLEXSEA_EXECUTE_2))
+    else if((buf[P_XID] == FLEXSEA_EXECUTE_1) || (buf[P_XID] == FLEXSEA_EXECUTE_2))
     {
-        if(buf[CP_DATA1] == 0)
+        if(buf[P_DATA1] == 0)
         {
             //Store into array:
-            execute_1_data[SRB_EXECUTE_OFFSET] = buf[CP_DATA1];
-            execute_1_data[SRB_EXECUTE_STATUS] = buf[CP_DATA1 + 1];
-            execute_1_data[SRB_EXECUTE_ENC1_MSB] = buf[CP_DATA1 + 2];
-            execute_1_data[SRB_EXECUTE_ENC1_LSB] = buf[CP_DATA1 + 3];
-            execute_1_data[SRB_EXECUTE_AN0_MSB] = buf[CP_DATA1 + 4];
-            execute_1_data[SRB_EXECUTE_AN0_LSB] = buf[CP_DATA1 + 5];
-            execute_1_data[SRB_EXECUTE_AN1_MSB] = buf[CP_DATA1 + 6];
-            execute_1_data[SRB_EXECUTE_AN1_LSB] = buf[CP_DATA1 + 7];
+            execute_1_data[SRB_EXECUTE_OFFSET] = buf[P_DATA1];
+            execute_1_data[SRB_EXECUTE_STATUS] = buf[P_DATA1 + 1];
+            execute_1_data[SRB_EXECUTE_ENC1_MSB] = buf[P_DATA1 + 2];
+            execute_1_data[SRB_EXECUTE_ENC1_LSB] = buf[P_DATA1 + 3];
+            execute_1_data[SRB_EXECUTE_AN0_MSB] = buf[P_DATA1 + 4];
+            execute_1_data[SRB_EXECUTE_AN0_LSB] = buf[P_DATA1 + 5];
+            execute_1_data[SRB_EXECUTE_AN1_MSB] = buf[P_DATA1 + 6];
+            execute_1_data[SRB_EXECUTE_AN1_LSB] = buf[P_DATA1 + 7];
 
             if(verbal)
             {
-                execute_num = buf[CP_XID] - 39;   //Trick based on the fact that the code for FLEXSEA_EXECUTE_1 is 40
+                execute_num = buf[P_XID] - 39;   //Trick based on the fact that the code for FLEXSEA_EXECUTE_1 is 40
 
                 #ifdef USE_PRINTF
                 printf("\nReading from FLEXSEA_EXECUTE_%i:\n", execute_num);
@@ -281,16 +281,16 @@ void rx_cmd_mem_read_reply(uint8_t *buf, uint8_t verbal)
             printf("%u,%u,%u", tmp0,tmp1,tmp2);
             #endif
         }
-        else if(buf[CP_DATA1] == 7)
+        else if(buf[P_DATA1] == 7)
         {
             //Store into array:
 
-            execute_1_data[SRB_EXECUTE_CURRENT_MSB] = buf[CP_DATA1 + 1];
-            execute_1_data[SRB_EXECUTE_CURRENT_LSB] = buf[CP_DATA1 + 2];
+            execute_1_data[SRB_EXECUTE_CURRENT_MSB] = buf[P_DATA1 + 1];
+            execute_1_data[SRB_EXECUTE_CURRENT_LSB] = buf[P_DATA1 + 2];
 
             if(verbal)
             {
-                execute_num = buf[CP_XID] - 39;   //Trick based on the fact that the code for FLEXSEA_EXECUTE_1 is 40
+                execute_num = buf[P_XID] - 39;   //Trick based on the fact that the code for FLEXSEA_EXECUTE_1 is 40
 
                 #ifdef USE_PRINTF
                 printf("\nReading from FLEXSEA_EXECUTE_%i:\n", execute_num);
@@ -302,7 +302,7 @@ void rx_cmd_mem_read_reply(uint8_t *buf, uint8_t verbal)
         else
         {
             #ifdef USE_PRINTF
-            printf("Offset != 0 (%i), code too dumb to deal with that shit.\n", buf[CP_DATA1]);
+            printf("Offset != 0 (%i), code too dumb to deal with that shit.\n", buf[P_DATA1]);
             #endif
         }
     }
@@ -319,7 +319,7 @@ void rx_cmd_mem_read_reply(uint8_t *buf, uint8_t verbal)
 //ToDo: currently using a simplified implementation, only using base_addr and a fixed # of bytes
 void rx_cmd_mem_read(unsigned char *buf)
 {
-	uint8_t base_addr = buf[CP_DATA1];
+	uint8_t base_addr = buf[P_DATA1];
 
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -359,7 +359,7 @@ void rx_cmd_ctrl_i_write(uint8_t *buf)
 	if(ctrl.active_ctrl == CTRL_CURRENT)
 	{
 		//Rebuild 16bit data:
-    	tmp_current = BYTES_TO_UINT16(buf[CP_DATA1], buf[CP_DATA1 + 1]);
+    	tmp_current = BYTES_TO_UINT16(buf[P_DATA1], buf[P_DATA1 + 1]);
 		ctrl.current.setpoint_val = tmp_current;
 	}
 
@@ -403,9 +403,9 @@ void rx_cmd_ctrl_i_gains(uint8_t *buf)
 	uint32_t tmp_current_gain_p = 0, tmp_current_gain_i = 0, tmp_current_gain_d = 0;
 
 	//Rebuild 16bit data:
-    tmp_current_gain_p = BYTES_TO_UINT16(buf[CP_DATA1], buf[CP_DATA1+1]);
-    tmp_current_gain_i = BYTES_TO_UINT16(buf[CP_DATA1+2], buf[CP_DATA1+3]);
-    tmp_current_gain_d = BYTES_TO_UINT16(buf[CP_DATA1+4], buf[CP_DATA1+5]);
+    tmp_current_gain_p = BYTES_TO_UINT16(buf[P_DATA1], buf[P_DATA1+1]);
+    tmp_current_gain_i = BYTES_TO_UINT16(buf[P_DATA1+2], buf[P_DATA1+3]);
+    tmp_current_gain_d = BYTES_TO_UINT16(buf[P_DATA1+4], buf[P_DATA1+5]);
 
     //Update variables:
     ctrl.current.gain.I_KP = tmp_current_gain_p;
@@ -433,9 +433,9 @@ void rx_set_z_gains(unsigned char *buf)
 	unsigned char tmp_z_gain_k = 0, tmp_z_gain_b = 0, tmp_z_gain_i = 0;
 
 	//Rebuild 16bit data:
-    tmp_z_gain_k = (buf[CP_DATA1] << 8) + buf[CP_DATA1 + 1];
-    tmp_z_gain_b = (buf[CP_DATA1 + 2] << 8) + buf[CP_DATA1 + 3];
-    tmp_z_gain_i = (buf[CP_DATA1 + 4] << 8) + buf[CP_DATA1 + 5];
+    tmp_z_gain_k = (buf[P_DATA1] << 8) + buf[P_DATA1 + 1];
+    tmp_z_gain_b = (buf[P_DATA1 + 2] << 8) + buf[P_DATA1 + 3];
+    tmp_z_gain_i = (buf[P_DATA1 + 4] << 8) + buf[P_DATA1 + 5];
 
     //Update variables:
     ctrl.impedance.gain.Z_K = tmp_z_gain_k;
@@ -481,8 +481,8 @@ void rx_cmd_encoder_write(uint8_t *buf)
 {
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
-	int32 tmp = (int32)BYTES_TO_UINT32(buf[CP_DATA1], buf[CP_DATA1+1], \
-				buf[CP_DATA1+2], buf[CP_DATA1+3]);
+	int32 tmp = (int32)BYTES_TO_UINT32(buf[P_DATA1], buf[P_DATA1+1], \
+				buf[P_DATA1+2], buf[P_DATA1+3]);
 	
 	encoder_write(tmp);	
 		
@@ -504,7 +504,7 @@ void rx_cmd_strain_config(uint8_t *buf)
 {
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
-	strain_config(buf[CP_DATA1], buf[CP_DATA1+1], buf[CP_DATA1]+2);
+	strain_config(buf[P_DATA1], buf[P_DATA1+1], buf[P_DATA1]+2);
 		
 	#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -527,7 +527,7 @@ void rx_cmd_encoder_read(uint8_t *buf)
 	uint8_t numb = 0;
 
 	//Generate the reply:
-	tx_cmd_encoder_read_reply(buf[CP_XID], encoder_read());
+	tx_cmd_encoder_read_reply(buf[P_XID], encoder_read());
 	numb = comm_gen_str(payload_str, comm_str_485_1, PAYLOAD_BUF_LEN);
 	numb = COMM_STR_BUF_LEN;	//Fixed length for now
 	
@@ -555,7 +555,7 @@ void rx_cmd_strain_read(uint8_t *buf)
 	uint8_t numb = 0;
 
 	//Generate the reply:
-	tx_cmd_strain_read_reply(buf[CP_XID], strain_read());
+	tx_cmd_strain_read_reply(buf[P_XID], strain_read());
 	numb = comm_gen_str(payload_str, comm_str_485_1, PAYLOAD_BUF_LEN);
 	numb = COMM_STR_BUF_LEN;	//Fixed length for now
 	
@@ -583,7 +583,7 @@ void rx_cmd_imu_read(uint8_t *buf)
 	uint8_t numb = 0;
 
 	//Generate the reply:
-	tx_cmd_imu_read_reply(buf[CP_XID], buf[CP_DATA1], buf[CP_DATA1+1]);
+	tx_cmd_imu_read_reply(buf[P_XID], buf[P_DATA1], buf[P_DATA1+1]);
 	numb = comm_gen_str(payload_str, comm_str_485_1, PAYLOAD_BUF_LEN);
 	numb = COMM_STR_BUF_LEN;	//Fixed length for now
 	
@@ -611,7 +611,7 @@ void rx_cmd_analog_read(uint8_t *buf)
 	uint8_t numb = 0;
 
 	//Generate the reply:
-	tx_cmd_analog_read_reply(buf[CP_XID], buf[CP_DATA1], buf[CP_DATA1+1]);
+	tx_cmd_analog_read_reply(buf[P_XID], buf[P_DATA1], buf[P_DATA1+1]);
 	numb = comm_gen_str(payload_str, comm_str_485_1, PAYLOAD_BUF_LEN);
 	numb = COMM_STR_BUF_LEN;	//Fixed length for now
 	
@@ -625,7 +625,7 @@ void rx_cmd_analog_read(uint8_t *buf)
 	uint8_t numb = 0;
 
 	//Generate the reply:
-	tx_cmd_analog_read_reply(buf[CP_XID], buf[CP_DATA1], buf[CP_DATA1+1]);
+	tx_cmd_analog_read_reply(buf[P_XID], buf[P_DATA1], buf[P_DATA1+1]);
 	numb = comm_gen_str(payload_str, comm_str_spi, PAYLOAD_BUF_LEN);
 
 	//Send it out: //ToDo *******
@@ -649,7 +649,7 @@ void rx_cmd_ctrl_i_read(uint8_t *buf)
 	uint8_t numb = 0;
 
 	//Generate the reply:
-	tx_cmd_ctrl_i_read_reply(buf[CP_XID], ctrl.current.actual_val, ctrl.current.setpoint_val);
+	tx_cmd_ctrl_i_read_reply(buf[P_XID], ctrl.current.actual_val, ctrl.current.setpoint_val);
 	numb = comm_gen_str(payload_str, comm_str_485_1, PAYLOAD_BUF_LEN);
 	numb = COMM_STR_BUF_LEN;	//Fixed length for now
 	
@@ -680,7 +680,7 @@ void rx_cmd_encoder_read_reply(uint8_t *buf)
 	int32_t tmp_enc = 0;
 
 	//Decode the reply we received:
-	tmp_enc = (int32_t) (BYTES_TO_UINT32(buf[CP_DATA1], buf[CP_DATA1+1], buf[CP_DATA1+2], buf[CP_DATA1+3]));
+	tmp_enc = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1], buf[P_DATA1+1], buf[P_DATA1+2], buf[P_DATA1+3]));
 	//ToDo store that value somewhere useful
 
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
@@ -712,9 +712,9 @@ void rx_cmd_imu_read_reply(uint8_t *buf)
 	int16_t tmp_gyro_x = 0, tmp_gyro_y = 0, tmp_gyro_z = 0;
 
 	//Decode the reply we received:
-	tmp_gyro_x = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+1], buf[CP_DATA1+2]));
-	tmp_gyro_y = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+3], buf[CP_DATA1+4]));
-	tmp_gyro_z = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+5], buf[CP_DATA1+6]));
+	tmp_gyro_x = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+1], buf[P_DATA1+2]));
+	tmp_gyro_y = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+3], buf[P_DATA1+4]));
+	tmp_gyro_z = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+5], buf[P_DATA1+6]));
 	//ToDo store that value somewhere useful
 	//ToDo: we need to check the base address and assign the bytes to the right variables
 
@@ -746,7 +746,7 @@ void rx_cmd_strain_read_reply(uint8_t *buf)
 	uint16_t tmp_strain = 0;
 
 	//Decode the reply we received:
-	tmp_strain = (BYTES_TO_UINT16(buf[CP_DATA1], buf[CP_DATA1+1]));
+	tmp_strain = (BYTES_TO_UINT16(buf[P_DATA1], buf[P_DATA1+1]));
 	//ToDo store that value somewhere useful
 
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
@@ -774,7 +774,7 @@ void rx_cmd_analog_read_reply(uint8_t *buf)
 	uint16_t tmp_analog = 0;
 
 	//Decode the reply we received:
-	tmp_analog = (BYTES_TO_UINT16(buf[CP_DATA1+1], buf[CP_DATA1+2]));
+	tmp_analog = (BYTES_TO_UINT16(buf[P_DATA1+1], buf[P_DATA1+2]));
 	//ToDo store that value somewhere useful
 	//ToDo: we need to check the base address and assign the bytes to the right variables
 
@@ -804,8 +804,8 @@ void rx_cmd_ctrl_i_read_reply(uint8_t *buf)
 	int16_t tmp_wanted_current = 0, tmp_measured_current = 0;
 
 	//Decode the reply we received:
-	tmp_measured_current = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1], buf[CP_DATA1+1]));
-	tmp_wanted_current = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+2], buf[CP_DATA1+3]));
+	tmp_measured_current = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1], buf[P_DATA1+1]));
+	tmp_wanted_current = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+2], buf[P_DATA1+3]));
 	//ToDo store that value somewhere useful
 
 	#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
@@ -839,12 +839,12 @@ void rx_cmd_acq_mode_write(uint8_t *buf)
 	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
 
 	uint8_t tmp0 = 0, tmp1 = 0, tmp2 = 0, tmp3 = 0, tmp4 = 0, tmp5 = 0;;
-	tmp0 = buf[CP_XID];
-	tmp1 = buf[CP_RID];
-	tmp2 = buf[CP_CMDS];
-	tmp3 = buf[CP_CMD1];
-	tmp4 = buf[CP_DATA1];
-	tmp5 = buf[CP_DATA1+1];
+	tmp0 = buf[P_XID];
+	tmp1 = buf[P_RID];
+	tmp2 = buf[P_CMDS];
+	tmp3 = buf[P_CMD1];
+	tmp4 = buf[P_DATA1];
+	tmp5 = buf[P_DATA1+1];
 
 	//autosampling = buf[CP_DATA1];	//Broken
 	tmp0 = tmp1;

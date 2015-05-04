@@ -62,38 +62,38 @@ uint32_t tx_cmd_ctrl_special_1(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 	prepare_empty_payload(board_id, receiver, buf, len);
 
 	//Command:
-	buf[CP_CMDS] = 1;                     //1 command in string
+	buf[P_CMDS] = 1;                     //1 command in string
 
 	if(cmd_type == CMD_READ)	
 	{
 		//In that case Read also includes a bunch of writing. We keep the Read keyword as 
 		//it will get us a reply.
 		
-		buf[CP_CMD1] = CMD_R(CMD_SPECIAL_1);
+		buf[P_CMD1] = CMD_R(CMD_SPECIAL_1);
 		
 		//Arguments:
-		buf[CP_DATA1] = controller_w;
-		buf[CP_DATA1 + 1] = controller;
+		buf[P_DATA1] = controller_w;
+		buf[P_DATA1 + 1] = controller;
 		uint16_to_bytes((uint16_t)current, &tmp0, &tmp1);
-		buf[CP_DATA1 + 2] = tmp0;
-		buf[CP_DATA1 + 3] = tmp1;
-		buf[CP_DATA1 + 4] = encoder_w;
+		buf[P_DATA1 + 2] = tmp0;
+		buf[P_DATA1 + 3] = tmp1;
+		buf[P_DATA1 + 4] = encoder_w;
 		uint32_to_bytes((uint32_t)encoder, &tmp0, &tmp1, &tmp2, &tmp3);
-		buf[CP_DATA1 + 5] = tmp0;
-		buf[CP_DATA1 + 6] = tmp1;
-		buf[CP_DATA1 + 7] = tmp2;
-		buf[CP_DATA1 + 8] = tmp3;
+		buf[P_DATA1 + 5] = tmp0;
+		buf[P_DATA1 + 6] = tmp1;
+		buf[P_DATA1 + 7] = tmp2;
+		buf[P_DATA1 + 8] = tmp3;
 		uint16_to_bytes((uint16_t)open_spd, &tmp0, &tmp1);
-		buf[CP_DATA1 + 9] = tmp0;
-		buf[CP_DATA1 + 10] = tmp1;
+		buf[P_DATA1 + 9] = tmp0;
+		buf[P_DATA1 + 10] = tmp1;
 
-		bytes = CP_DATA1 + 11;     //Bytes is always last+1
+		bytes = P_DATA1 + 11;     //Bytes is always last+1
 	}
 	else if(cmd_type == CMD_WRITE)
 	{
 		//In that case Write is only used for the Reply
 		
-		buf[CP_CMD1] = CMD_W(CMD_SPECIAL_1);
+		buf[P_CMD1] = CMD_W(CMD_SPECIAL_1);
 		
 		#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -157,26 +157,26 @@ void rx_cmd_special_1(uint8_t *buf)
 	struct execute_s *exec_s_ptr;
 
 	//Point to the appropriate structure:
-	if(buf[CP_XID] == FLEXSEA_EXECUTE_1)
+	if(buf[P_XID] == FLEXSEA_EXECUTE_1)
 	{
 		exec_s_ptr = &exec1;
 	}
-	else if(buf[CP_XID] == FLEXSEA_EXECUTE_2)
+	else if(buf[P_XID] == FLEXSEA_EXECUTE_2)
 	{
 		exec_s_ptr = &exec2;
 	}
-	else if(buf[CP_XID] == FLEXSEA_EXECUTE_3)
+	else if(buf[P_XID] == FLEXSEA_EXECUTE_3)
 	{
 		exec_s_ptr = &exec3;
 	}
-	else if(buf[CP_XID] == FLEXSEA_EXECUTE_4)
+	else if(buf[P_XID] == FLEXSEA_EXECUTE_4)
 	{
 		exec_s_ptr = &exec4;
 	}
 
 	#endif	//((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
 
-	if(IS_CMD_RW(buf[CP_CMD1]) == READ)
+	if(IS_CMD_RW(buf[P_CMD1]) == READ)
 	{
 		//Received a Read command from our master.
 
@@ -236,7 +236,7 @@ void rx_cmd_special_1(uint8_t *buf)
 		flexsea_error(SE_CMD_NOT_PROGRAMMED);
 		#endif	//BOARD_TYPE_FLEXSEA_PLAN
 	}
-	else if(IS_CMD_RW(buf[CP_CMD1]) == WRITE)
+	else if(IS_CMD_RW(buf[P_CMD1]) == WRITE)
 	{
 		//Two options: from Master of from slave (a read reply)
 
@@ -253,17 +253,17 @@ void rx_cmd_special_1(uint8_t *buf)
 
 			//Store values:
 				
-			exec_s_ptr->imu.x = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+0], buf[CP_DATA1+1]));
-			exec_s_ptr->imu.y = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+2], buf[CP_DATA1+3]));
-			exec_s_ptr->imu.z = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+4], buf[CP_DATA1+5]));
+			exec_s_ptr->imu.x = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+0], buf[P_DATA1+1]));
+			exec_s_ptr->imu.y = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+2], buf[P_DATA1+3]));
+			exec_s_ptr->imu.z = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+4], buf[P_DATA1+5]));
 			
-			exec_s_ptr->strain = (BYTES_TO_UINT16(buf[CP_DATA1+6], buf[CP_DATA1+7]));
-			exec_s_ptr->analog[0] = (BYTES_TO_UINT16(buf[CP_DATA1+8], buf[CP_DATA1+9]));
+			exec_s_ptr->strain = (BYTES_TO_UINT16(buf[P_DATA1+6], buf[P_DATA1+7]));
+			exec_s_ptr->analog[0] = (BYTES_TO_UINT16(buf[P_DATA1+8], buf[P_DATA1+9]));
 	
-			exec_s_ptr->encoder = (int32_t) (BYTES_TO_UINT32(buf[CP_DATA1+10], buf[CP_DATA1+11], \
-										buf[CP_DATA1+12], buf[CP_DATA1+13]));
+			exec_s_ptr->encoder = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1+10], buf[P_DATA1+11], \
+										buf[P_DATA1+12], buf[P_DATA1+13]));
 			
-			exec_s_ptr->current = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+14], buf[CP_DATA1+15]));
+			exec_s_ptr->current = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+14], buf[P_DATA1+15]));
 
 			#ifdef MULTIPLE_COMMANDS
 			//To interface with Python:
@@ -312,36 +312,36 @@ uint32_t tx_cmd_ctrl_special_2(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 	prepare_empty_payload(board_id, receiver, buf, len);
 
 	//Command:
-	buf[CP_CMDS] = 1;                     //1 command in string
+	buf[P_CMDS] = 1;                     //1 command in string
 
 	if(cmd_type == CMD_READ)
 	{
 		//In that case Read also includes a bunch of writing. We keep the Read keyword as
 		//it will get us a reply.
 
-		buf[CP_CMD1] = CMD_R(CMD_SPECIAL_2);
+		buf[P_CMD1] = CMD_R(CMD_SPECIAL_2);
 
 		//Arguments:
 		uint16_to_bytes((uint16_t)z_k, &tmp0, &tmp1);
-		buf[CP_DATA1 + 0] = tmp0;
-		buf[CP_DATA1 + 1] = tmp1;
+		buf[P_DATA1 + 0] = tmp0;
+		buf[P_DATA1 + 1] = tmp1;
 		uint16_to_bytes((uint16_t)z_b, &tmp0, &tmp1);
-		buf[CP_DATA1 + 2] = tmp0;
-		buf[CP_DATA1 + 3] = tmp1;
+		buf[P_DATA1 + 2] = tmp0;
+		buf[P_DATA1 + 3] = tmp1;
 		uint16_to_bytes((uint16_t)z_i, &tmp0, &tmp1);
-		buf[CP_DATA1 + 4] = tmp0;
-		buf[CP_DATA1 + 5] = tmp1;
-		buf[CP_DATA1 + 6] = rgb;
-		buf[CP_DATA1 + 7] = clutch;
+		buf[P_DATA1 + 4] = tmp0;
+		buf[P_DATA1 + 5] = tmp1;
+		buf[P_DATA1 + 6] = rgb;
+		buf[P_DATA1 + 7] = clutch;
 
 
-		bytes = CP_DATA1 + 8;     //Bytes is always last+1
+		bytes = P_DATA1 + 8;     //Bytes is always last+1
 	}
 	else if(cmd_type == CMD_WRITE)
 	{
 		//In that case Write is only used for the Reply
 
-		buf[CP_CMD1] = CMD_W(CMD_SPECIAL_2);
+		buf[P_CMD1] = CMD_W(CMD_SPECIAL_2);
 
 		#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -404,18 +404,18 @@ void rx_cmd_special_2(uint8_t *buf)
 	struct execute_s *exec_s_ptr = &exec1;
 
 	//Point to the appropriate structure:
-	if(buf[CP_XID] == FLEXSEA_EXECUTE_1)
+	if(buf[P_XID] == FLEXSEA_EXECUTE_1)
 	{
 		exec_s_ptr = &exec1;
 	}
-	else if(buf[CP_XID] == FLEXSEA_EXECUTE_2)
+	else if(buf[P_XID] == FLEXSEA_EXECUTE_2)
 	{
 		exec_s_ptr = &exec2;
 	}
 
 	#endif	//((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
 
-	if(IS_CMD_RW(buf[CP_CMD1]) == READ)
+	if(IS_CMD_RW(buf[P_CMD1]) == READ)
 	{
 		//Received a Read command from our master.
 
@@ -464,7 +464,7 @@ void rx_cmd_special_2(uint8_t *buf)
 		flexsea_error(SE_CMD_NOT_PROGRAMMED);
 		#endif	//BOARD_TYPE_FLEXSEA_PLAN
 	}
-	else if(IS_CMD_RW(buf[CP_CMD1]) == WRITE)
+	else if(IS_CMD_RW(buf[P_CMD1]) == WRITE)
 	{
 		//Two options: from Master of from slave (a read reply)
 
@@ -481,17 +481,17 @@ void rx_cmd_special_2(uint8_t *buf)
 
 			//Store values:
 
-			exec_s_ptr->imu.x = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+0], buf[CP_DATA1+1]));
-			exec_s_ptr->imu.y = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+2], buf[CP_DATA1+3]));
-			exec_s_ptr->imu.z = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+4], buf[CP_DATA1+5]));
+			exec_s_ptr->imu.x = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+0], buf[P_DATA1+1]));
+			exec_s_ptr->imu.y = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+2], buf[P_DATA1+3]));
+			exec_s_ptr->imu.z = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+4], buf[P_DATA1+5]));
 
-			exec_s_ptr->analog[0] = (BYTES_TO_UINT16(buf[CP_DATA1+6], buf[CP_DATA1+7]));
-			exec_s_ptr->analog[1] = (BYTES_TO_UINT16(buf[CP_DATA1+8], buf[CP_DATA1+9]));
+			exec_s_ptr->analog[0] = (BYTES_TO_UINT16(buf[P_DATA1+6], buf[P_DATA1+7]));
+			exec_s_ptr->analog[1] = (BYTES_TO_UINT16(buf[P_DATA1+8], buf[P_DATA1+9]));
 
-			exec_s_ptr->encoder = (int32_t) (BYTES_TO_UINT32(buf[CP_DATA1+10], buf[CP_DATA1+11], \
-										buf[CP_DATA1+12], buf[CP_DATA1+13]));
+			exec_s_ptr->encoder = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1+10], buf[P_DATA1+11], \
+										buf[P_DATA1+12], buf[P_DATA1+13]));
 
-			exec_s_ptr->current = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+14], buf[CP_DATA1+15]));
+			exec_s_ptr->current = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+14], buf[P_DATA1+15]));
 
 			#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
@@ -534,37 +534,37 @@ uint32_t tx_cmd_ctrl_special_3(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 	prepare_empty_payload(board_id, receiver, buf, len);
 
 	//Command:
-	buf[CP_CMDS] = 1;                     //1 command in string
+	buf[P_CMDS] = 1;                     //1 command in string
 
 	if(cmd_type == CMD_READ)
 	{
 		//In that case Read also includes a bunch of writing. We keep the Read keyword as
 		//it will get us a reply.
 
-		buf[CP_CMD1] = CMD_R(CMD_SPECIAL_3);
+		buf[P_CMD1] = CMD_R(CMD_SPECIAL_3);
 
 		//Arguments:
 		uint16_to_bytes((uint16_t)i_kp, &tmp0, &tmp1);
-		buf[CP_DATA1 + 0] = tmp0;
-		buf[CP_DATA1 + 1] = tmp1;
+		buf[P_DATA1 + 0] = tmp0;
+		buf[P_DATA1 + 1] = tmp1;
 		uint16_to_bytes((uint16_t)i_ki, &tmp0, &tmp1);
-		buf[CP_DATA1 + 2] = tmp0;
-		buf[CP_DATA1 + 3] = tmp1;
+		buf[P_DATA1 + 2] = tmp0;
+		buf[P_DATA1 + 3] = tmp1;
 		uint16_to_bytes((uint16_t)i_kd, &tmp0, &tmp1);
-		buf[CP_DATA1 + 4] = tmp0;
-		buf[CP_DATA1 + 5] = tmp1;
+		buf[P_DATA1 + 4] = tmp0;
+		buf[P_DATA1 + 5] = tmp1;
 		uint16_to_bytes((uint16_t)w_curr, &tmp0, &tmp1);
-		buf[CP_DATA1 + 6] = tmp0;
-		buf[CP_DATA1 + 7] = tmp1;
+		buf[P_DATA1 + 6] = tmp0;
+		buf[P_DATA1 + 7] = tmp1;
 
 
-		bytes = CP_DATA1 + 8;     //Bytes is always last+1
+		bytes = P_DATA1 + 8;     //Bytes is always last+1
 	}
 	else if(cmd_type == CMD_WRITE)
 	{
 		//In that case Write is only used for the Reply
 
-		buf[CP_CMD1] = CMD_W(CMD_SPECIAL_3);
+		buf[P_CMD1] = CMD_W(CMD_SPECIAL_3);
 
 		#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -616,18 +616,18 @@ void rx_cmd_special_3(uint8_t *buf)
 	struct execute_s *exec_s_ptr = &exec1;
 
 	//Point to the appropriate structure:
-	if(buf[CP_XID] == FLEXSEA_EXECUTE_1)
+	if(buf[P_XID] == FLEXSEA_EXECUTE_1)
 	{
 		exec_s_ptr = &exec1;
 	}
-	else if(buf[CP_XID] == FLEXSEA_EXECUTE_2)
+	else if(buf[P_XID] == FLEXSEA_EXECUTE_2)
 	{
 		exec_s_ptr = &exec2;
 	}
 
 	#endif	//((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
 
-	if(IS_CMD_RW(buf[CP_CMD1]) == READ)
+	if(IS_CMD_RW(buf[P_CMD1]) == READ)
 	{
 		//Received a Read command from our master.
 
@@ -675,7 +675,7 @@ void rx_cmd_special_3(uint8_t *buf)
 		flexsea_error(SE_CMD_NOT_PROGRAMMED);
 		#endif	//BOARD_TYPE_FLEXSEA_PLAN
 	}
-	else if(IS_CMD_RW(buf[CP_CMD1]) == WRITE)
+	else if(IS_CMD_RW(buf[P_CMD1]) == WRITE)
 	{
 		//Two options: from Master of from slave (a read reply)
 
@@ -692,7 +692,7 @@ void rx_cmd_special_3(uint8_t *buf)
 
 			//Store values:
 
-			exec_s_ptr->current = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+0], buf[CP_DATA1+1]));
+			exec_s_ptr->current = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+0], buf[P_DATA1+1]));
 
 			//ToDo decode and store errors
 
@@ -755,53 +755,53 @@ uint32_t tx_cmd_ctrl_special_4(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 	prepare_empty_payload(board_id, receiver, buf, len);
 
 	//Command:
-	buf[CP_CMDS] = 1;                     //1 command in string
+	buf[P_CMDS] = 1;                     //1 command in string
 
 	if(cmd_type == CMD_READ)
 	{
 		//In that case Read also includes a bunch of writing. We keep the Read keyword as
 		//it will get us a reply.
 
-		buf[CP_CMD1] = CMD_R(CMD_SPECIAL_4);
+		buf[P_CMD1] = CMD_R(CMD_SPECIAL_4);
 
 		//Arguments:
-		buf[CP_DATA1 + 0] = controller_w1;
-		buf[CP_DATA1 + 1] = controller1;
+		buf[P_DATA1 + 0] = controller_w1;
+		buf[P_DATA1 + 1] = controller1;
 		uint16_to_bytes((uint16_t)current1, &tmp0, &tmp1);
-		buf[CP_DATA1 + 2] = tmp0;
-		buf[CP_DATA1 + 3] = tmp1;
-		buf[CP_DATA1 + 4] = encoder_w1;
+		buf[P_DATA1 + 2] = tmp0;
+		buf[P_DATA1 + 3] = tmp1;
+		buf[P_DATA1 + 4] = encoder_w1;
 		uint32_to_bytes((uint32_t)encoder1, &tmp0, &tmp1, &tmp2, &tmp3);
-		buf[CP_DATA1 + 5] = tmp0;
-		buf[CP_DATA1 + 6] = tmp1;
-		buf[CP_DATA1 + 7] = tmp2;
-		buf[CP_DATA1 + 8] = tmp3;
+		buf[P_DATA1 + 5] = tmp0;
+		buf[P_DATA1 + 6] = tmp1;
+		buf[P_DATA1 + 7] = tmp2;
+		buf[P_DATA1 + 8] = tmp3;
 		uint16_to_bytes((uint16_t)open_spd1, &tmp0, &tmp1);
-		buf[CP_DATA1 + 9] = tmp0;
-		buf[CP_DATA1 + 10] = tmp1;
+		buf[P_DATA1 + 9] = tmp0;
+		buf[P_DATA1 + 10] = tmp1;
 
-		buf[CP_DATA1 + 11] = controller_w2;
-		buf[CP_DATA1 + 12] = controller2;
+		buf[P_DATA1 + 11] = controller_w2;
+		buf[P_DATA1 + 12] = controller2;
 		uint16_to_bytes((uint16_t)current2, &tmp0, &tmp1);
-		buf[CP_DATA1 + 13] = tmp0;
-		buf[CP_DATA1 + 14] = tmp1;
-		buf[CP_DATA1 + 15] = encoder_w2;
+		buf[P_DATA1 + 13] = tmp0;
+		buf[P_DATA1 + 14] = tmp1;
+		buf[P_DATA1 + 15] = encoder_w2;
 		uint32_to_bytes((uint32_t)encoder2, &tmp0, &tmp1, &tmp2, &tmp3);
-		buf[CP_DATA1 + 16] = tmp0;
-		buf[CP_DATA1 + 17] = tmp1;
-		buf[CP_DATA1 + 18] = tmp2;
-		buf[CP_DATA1 + 19] = tmp3;
+		buf[P_DATA1 + 16] = tmp0;
+		buf[P_DATA1 + 17] = tmp1;
+		buf[P_DATA1 + 18] = tmp2;
+		buf[P_DATA1 + 19] = tmp3;
 		uint16_to_bytes((uint16_t)open_spd2, &tmp0, &tmp1);
-		buf[CP_DATA1 + 20] = tmp0;
-		buf[CP_DATA1 + 21] = tmp1;
+		buf[P_DATA1 + 20] = tmp0;
+		buf[P_DATA1 + 21] = tmp1;
 
-		bytes = CP_DATA1 + 22;     //Bytes is always last+1
+		bytes = P_DATA1 + 22;     //Bytes is always last+1
 	}
 	else if(cmd_type == CMD_WRITE)
 	{
 		//In that case Write is only used for the Reply
 
-		buf[CP_CMD1] = CMD_W(CMD_SPECIAL_4);
+		buf[P_CMD1] = CMD_W(CMD_SPECIAL_4);
 
 		#ifdef BOARD_TYPE_FLEXSEA_MANAGE
 
@@ -809,65 +809,65 @@ uint32_t tx_cmd_ctrl_special_4(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 		exec_s_ptr = &exec1;
 
 		uint16_to_bytes((uint16_t)exec_s_ptr->imu.x, &tmp0, &tmp1);
-		buf[CP_DATA1] = tmp0;
-		buf[CP_DATA1 + 1] = tmp1;
+		buf[P_DATA1] = tmp0;
+		buf[P_DATA1 + 1] = tmp1;
 		uint16_to_bytes((uint16_t)exec_s_ptr->imu.y, &tmp0, &tmp1);
-		buf[CP_DATA1 + 2] = tmp0;
-		buf[CP_DATA1 + 3] = tmp1;
+		buf[P_DATA1 + 2] = tmp0;
+		buf[P_DATA1 + 3] = tmp1;
 		uint16_to_bytes((uint16_t)exec_s_ptr->imu.z, &tmp0, &tmp1);
-		buf[CP_DATA1 + 4] = tmp0;
-		buf[CP_DATA1 + 5] = tmp1;
+		buf[P_DATA1 + 4] = tmp0;
+		buf[P_DATA1 + 5] = tmp1;
 
 		uint16_to_bytes(exec_s_ptr->strain, &tmp0, &tmp1);
-		buf[CP_DATA1 + 6] = tmp0;
-		buf[CP_DATA1 + 7] = tmp1;
+		buf[P_DATA1 + 6] = tmp0;
+		buf[P_DATA1 + 7] = tmp1;
 
 		uint16_to_bytes(exec_s_ptr->analog[0], &tmp0, &tmp1);
-		buf[CP_DATA1 + 8] = tmp0;
-		buf[CP_DATA1 + 9] = tmp1;
+		buf[P_DATA1 + 8] = tmp0;
+		buf[P_DATA1 + 9] = tmp1;
 
 		uint32_to_bytes((uint32_t)exec_s_ptr->encoder, &tmp0, &tmp1, &tmp2, &tmp3);
-		buf[CP_DATA1 + 10] = tmp0;
-		buf[CP_DATA1 + 11] = tmp1;
-		buf[CP_DATA1 + 12] = tmp2;
-		buf[CP_DATA1 + 13] = tmp3;
+		buf[P_DATA1 + 10] = tmp0;
+		buf[P_DATA1 + 11] = tmp1;
+		buf[P_DATA1 + 12] = tmp2;
+		buf[P_DATA1 + 13] = tmp3;
 
 		uint16_to_bytes((uint16_t)exec_s_ptr->current, &tmp0, &tmp1);
-		buf[CP_DATA1 + 14] = tmp0;
-		buf[CP_DATA1 + 15] = tmp1;
+		buf[P_DATA1 + 14] = tmp0;
+		buf[P_DATA1 + 15] = tmp1;
 
 		//Arguments - Execute #2:
 		exec_s_ptr = &exec2;
 
 		uint16_to_bytes((uint16_t)exec_s_ptr->imu.x, &tmp0, &tmp1);
-		buf[CP_DATA1 + 16] = tmp0;
-		buf[CP_DATA1 + 17] = tmp1;
+		buf[P_DATA1 + 16] = tmp0;
+		buf[P_DATA1 + 17] = tmp1;
 		uint16_to_bytes((uint16_t)exec_s_ptr->imu.y, &tmp0, &tmp1);
-		buf[CP_DATA1 + 18] = tmp0;
-		buf[CP_DATA1 + 19] = tmp1;
+		buf[P_DATA1 + 18] = tmp0;
+		buf[P_DATA1 + 19] = tmp1;
 		uint16_to_bytes((uint16_t)exec_s_ptr->imu.z, &tmp0, &tmp1);
-		buf[CP_DATA1 + 20] = tmp0;
-		buf[CP_DATA1 + 21] = tmp1;
+		buf[P_DATA1 + 20] = tmp0;
+		buf[P_DATA1 + 21] = tmp1;
 
 		uint16_to_bytes(exec_s_ptr->strain, &tmp0, &tmp1);
-		buf[CP_DATA1 + 22] = tmp0;
-		buf[CP_DATA1 + 23] = tmp1;
+		buf[P_DATA1 + 22] = tmp0;
+		buf[P_DATA1 + 23] = tmp1;
 
 		uint16_to_bytes(exec_s_ptr->analog[0], &tmp0, &tmp1);
-		buf[CP_DATA1 + 24] = tmp0;
-		buf[CP_DATA1 + 25] = tmp1;
+		buf[P_DATA1 + 24] = tmp0;
+		buf[P_DATA1 + 25] = tmp1;
 
 		uint32_to_bytes((uint32_t)exec_s_ptr->encoder, &tmp0, &tmp1, &tmp2, &tmp3);
-		buf[CP_DATA1 + 26] = tmp0;
-		buf[CP_DATA1 + 27] = tmp1;
-		buf[CP_DATA1 + 28] = tmp2;
-		buf[CP_DATA1 + 29] = tmp3;
+		buf[P_DATA1 + 26] = tmp0;
+		buf[P_DATA1 + 27] = tmp1;
+		buf[P_DATA1 + 28] = tmp2;
+		buf[P_DATA1 + 29] = tmp3;
 
 		uint16_to_bytes((uint16_t)exec_s_ptr->current, &tmp0, &tmp1);
-		buf[CP_DATA1 + 30] = tmp0;
-		buf[CP_DATA1 + 31] = tmp1;
+		buf[P_DATA1 + 30] = tmp0;
+		buf[P_DATA1 + 31] = tmp1;
 
-		bytes = CP_DATA1 + 32;     //Bytes is always last+1
+		bytes = P_DATA1 + 32;     //Bytes is always last+1
 
 		#else
 
@@ -898,7 +898,7 @@ void rx_cmd_special_4(uint8_t *buf)
 
 	#endif	//((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
 
-	if(IS_CMD_RW(buf[CP_CMD1]) == READ)
+	if(IS_CMD_RW(buf[P_CMD1]) == READ)
 	{
 		//Received a Read command from our master.
 
@@ -913,27 +913,27 @@ void rx_cmd_special_4(uint8_t *buf)
 		//===============
 
 		spc4_s_ptr = &spc4_ex1;
-		spc4_s_ptr->ctrl_w = buf[CP_DATA1 + 0];
-		spc4_s_ptr->ctrl = buf[CP_DATA1 + 1];
-		spc4_s_ptr->current = BYTES_TO_UINT16(buf[CP_DATA1 + 2], buf[CP_DATA1 + 3]);
-		spc4_s_ptr->encoder_w = buf[CP_DATA1 + 4];
-		spc4_s_ptr->encoder = (int32_t)BYTES_TO_UINT32(buf[CP_DATA1 + 5], buf[CP_DATA1 + 6], \
-				buf[CP_DATA1 + 7], buf[CP_DATA1 + 8]);
-		spc4_s_ptr->open_spd = BYTES_TO_UINT16(buf[CP_DATA1 + 9], buf[CP_DATA1 + 10]);
+		spc4_s_ptr->ctrl_w = buf[P_DATA1 + 0];
+		spc4_s_ptr->ctrl = buf[P_DATA1 + 1];
+		spc4_s_ptr->current = BYTES_TO_UINT16(buf[P_DATA1 + 2], buf[P_DATA1 + 3]);
+		spc4_s_ptr->encoder_w = buf[P_DATA1 + 4];
+		spc4_s_ptr->encoder = (int32_t)BYTES_TO_UINT32(buf[P_DATA1 + 5], buf[P_DATA1 + 6], \
+				buf[P_DATA1 + 7], buf[P_DATA1 + 8]);
+		spc4_s_ptr->open_spd = BYTES_TO_UINT16(buf[P_DATA1 + 9], buf[P_DATA1 + 10]);
 
 		spc4_s_ptr = &spc4_ex2;
-		spc4_s_ptr->ctrl_w = buf[CP_DATA1 + 11];
-		spc4_s_ptr->ctrl = buf[CP_DATA1 + 12];
-		spc4_s_ptr->current = BYTES_TO_UINT16(buf[CP_DATA1 + 13], buf[CP_DATA1 + 14]);
-		spc4_s_ptr->encoder_w = buf[CP_DATA1 + 15];
-		spc4_s_ptr->encoder = (int32_t)BYTES_TO_UINT32(buf[CP_DATA1 + 16], buf[CP_DATA1 + 17], \
-				buf[CP_DATA1 + 18], buf[CP_DATA1 + 19]);
-		spc4_s_ptr->open_spd = BYTES_TO_UINT16(buf[CP_DATA1 + 20], buf[CP_DATA1 + 21]);
+		spc4_s_ptr->ctrl_w = buf[P_DATA1 + 11];
+		spc4_s_ptr->ctrl = buf[P_DATA1 + 12];
+		spc4_s_ptr->current = BYTES_TO_UINT16(buf[P_DATA1 + 13], buf[P_DATA1 + 14]);
+		spc4_s_ptr->encoder_w = buf[P_DATA1 + 15];
+		spc4_s_ptr->encoder = (int32_t)BYTES_TO_UINT32(buf[P_DATA1 + 16], buf[P_DATA1 + 17], \
+				buf[P_DATA1 + 18], buf[P_DATA1 + 19]);
+		spc4_s_ptr->open_spd = BYTES_TO_UINT16(buf[P_DATA1 + 20], buf[P_DATA1 + 21]);
 
 		//Generate the reply:
 		//===================
 
-		numb = tx_cmd_ctrl_special_4(buf[CP_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, \
+		numb = tx_cmd_ctrl_special_4(buf[P_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, \
 									KEEP, 0, KEEP, 0, 0, 0, \
 									KEEP, 0, KEEP, 0, 0, 0);
 		numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
@@ -947,7 +947,7 @@ void rx_cmd_special_4(uint8_t *buf)
 		flexsea_error(SE_CMD_NOT_PROGRAMMED);
 		#endif	//BOARD_TYPE_FLEXSEA_PLAN
 	}
-	else if(IS_CMD_RW(buf[CP_CMD1]) == WRITE)
+	else if(IS_CMD_RW(buf[P_CMD1]) == WRITE)
 	{
 		//Two options: from Master of from slave (a read reply)
 
@@ -965,30 +965,30 @@ void rx_cmd_special_4(uint8_t *buf)
 			//Store values:
 
 			exec_s_ptr = &exec1;
-			exec_s_ptr->imu.x = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+0], buf[CP_DATA1+1]));
-			exec_s_ptr->imu.y = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+2], buf[CP_DATA1+3]));
-			exec_s_ptr->imu.z = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+4], buf[CP_DATA1+5]));
+			exec_s_ptr->imu.x = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+0], buf[P_DATA1+1]));
+			exec_s_ptr->imu.y = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+2], buf[P_DATA1+3]));
+			exec_s_ptr->imu.z = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+4], buf[P_DATA1+5]));
 
-			exec_s_ptr->strain = (BYTES_TO_UINT16(buf[CP_DATA1+6], buf[CP_DATA1+7]));
-			exec_s_ptr->analog[0] = (BYTES_TO_UINT16(buf[CP_DATA1+8], buf[CP_DATA1+9]));
+			exec_s_ptr->strain = (BYTES_TO_UINT16(buf[P_DATA1+6], buf[P_DATA1+7]));
+			exec_s_ptr->analog[0] = (BYTES_TO_UINT16(buf[P_DATA1+8], buf[P_DATA1+9]));
 
-			exec_s_ptr->encoder = (int32_t) (BYTES_TO_UINT32(buf[CP_DATA1+10], buf[CP_DATA1+11], \
-										buf[CP_DATA1+12], buf[CP_DATA1+13]));
+			exec_s_ptr->encoder = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1+10], buf[P_DATA1+11], \
+										buf[P_DATA1+12], buf[P_DATA1+13]));
 
-			exec_s_ptr->current = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+14], buf[CP_DATA1+15]));
+			exec_s_ptr->current = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+14], buf[P_DATA1+15]));
 
 			exec_s_ptr = &exec2;
-			exec_s_ptr->imu.x = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+16], buf[CP_DATA1+17]));
-			exec_s_ptr->imu.y = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+18], buf[CP_DATA1+19]));
-			exec_s_ptr->imu.z = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+20], buf[CP_DATA1+21]));
+			exec_s_ptr->imu.x = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+16], buf[P_DATA1+17]));
+			exec_s_ptr->imu.y = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+18], buf[P_DATA1+19]));
+			exec_s_ptr->imu.z = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+20], buf[P_DATA1+21]));
 
-			exec_s_ptr->strain = (BYTES_TO_UINT16(buf[CP_DATA1+22], buf[CP_DATA1+23]));
-			exec_s_ptr->analog[0] = (BYTES_TO_UINT16(buf[CP_DATA1+24], buf[CP_DATA1+25]));
+			exec_s_ptr->strain = (BYTES_TO_UINT16(buf[P_DATA1+22], buf[P_DATA1+23]));
+			exec_s_ptr->analog[0] = (BYTES_TO_UINT16(buf[P_DATA1+24], buf[P_DATA1+25]));
 
-			exec_s_ptr->encoder = (int32_t) (BYTES_TO_UINT32(buf[CP_DATA1+26], buf[CP_DATA1+27], \
-										buf[CP_DATA1+28], buf[CP_DATA1+29]));
+			exec_s_ptr->encoder = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1+26], buf[P_DATA1+27], \
+										buf[P_DATA1+28], buf[P_DATA1+29]));
 
-			exec_s_ptr->current = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+30], buf[CP_DATA1+31]));
+			exec_s_ptr->current = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+30], buf[P_DATA1+31]));
 
 			#ifdef MULTIPLE_COMMANDS
 			//ToDo interface with Python

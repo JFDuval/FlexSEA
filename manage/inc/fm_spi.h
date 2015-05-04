@@ -41,6 +41,10 @@ void SPI_new_data_Callback(void);
 // Definition(s):
 //****************************************************************************
 
+//Interrupt priorities (lower number = higher priority)
+#define EXT4_IRQ_CHANNEL			7
+#define EXT4_IRQ_SUBCHANNEL			0
+
 //Manage 0.1 SPI Hardware pins:
 //=============================
 //NSS4: 	PE4

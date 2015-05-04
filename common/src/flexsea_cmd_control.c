@@ -53,27 +53,27 @@ uint32_t tx_cmd_ctrl_i(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_
 	prepare_empty_payload(board_id, receiver, buf, len);
 
 	//Command:
-	buf[CP_CMDS] = 1;                     //1 command in string
+	buf[P_CMDS] = 1;                     //1 command in string
 
 	if(cmd_type == CMD_READ)
 	{
-		buf[CP_CMD1] = CMD_R(CMD_CTRL_I);
+		buf[P_CMD1] = CMD_R(CMD_CTRL_I);
 
-		bytes = CP_CMD1 + 1;     //Bytes is always last+1
+		bytes = P_CMD1 + 1;     //Bytes is always last+1
 	}
 	else if(cmd_type == CMD_WRITE)
 	{
-		buf[CP_CMD1] = CMD_W(CMD_CTRL_I);
+		buf[P_CMD1] = CMD_W(CMD_CTRL_I);
 
 		//Arguments:
 		uint16_to_bytes(measured, &tmp0, &tmp1);
-		buf[CP_DATA1] = tmp0;
-		buf[CP_DATA1 + 1] = tmp1;
+		buf[P_DATA1] = tmp0;
+		buf[P_DATA1 + 1] = tmp1;
 		uint16_to_bytes(wanted, &tmp0, &tmp1);
-		buf[CP_DATA1 + 2] = tmp0;
-		buf[CP_DATA1 + 3] = tmp1;
+		buf[P_DATA1 + 2] = tmp0;
+		buf[P_DATA1 + 3] = tmp1;
 
-		bytes = CP_DATA1 + 4;     //Bytes is always last+1
+		bytes = P_DATA1 + 4;     //Bytes is always last+1
 	}
 	else
 	{
@@ -91,7 +91,7 @@ void rx_cmd_ctrl_i(uint8_t *buf)
 	uint32_t numb = 0;
 	int16_t tmp_wanted_current = 0, tmp_measured_current = 0;
 
-	if(IS_CMD_RW(buf[CP_CMD1]) == READ)
+	if(IS_CMD_RW(buf[P_CMD1]) == READ)
 	{
 		//Received a Read command from our master, prepare a reply:
 
@@ -110,13 +110,13 @@ void rx_cmd_ctrl_i(uint8_t *buf)
 
 		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 	}
-	else if(IS_CMD_RW(buf[CP_CMD1]) == WRITE)
+	else if(IS_CMD_RW(buf[P_CMD1]) == WRITE)
 	{
 		//Two options: from Master of from slave (a read reply)
 
 		//Decode data:
-		tmp_measured_current = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1], buf[CP_DATA1+1]));
-		tmp_wanted_current = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1+2], buf[CP_DATA1+3]));
+		tmp_measured_current = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1], buf[P_DATA1+1]));
+		tmp_wanted_current = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+2], buf[P_DATA1+3]));
 		//ToDo store that value somewhere useful
 
 		if(sent_from_a_slave(buf))
@@ -184,22 +184,22 @@ uint32_t tx_cmd_ctrl_mode(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint
 	prepare_empty_payload(board_id, receiver, buf, len);
 
 	//Command:
-	buf[CP_CMDS] = 1;                     //1 command in string
+	buf[P_CMDS] = 1;                     //1 command in string
 
 	if(cmd_type == CMD_READ)
 	{
-		buf[CP_CMD1] = CMD_R(CMD_CTRL_MODE);
+		buf[P_CMD1] = CMD_R(CMD_CTRL_MODE);
 
-		bytes = CP_CMD1 + 1;     //Bytes is always last+1
+		bytes = P_CMD1 + 1;     //Bytes is always last+1
 	}
 	else if(cmd_type == CMD_WRITE)
 	{
-		buf[CP_CMD1] = CMD_W(CMD_CTRL_MODE);
+		buf[P_CMD1] = CMD_W(CMD_CTRL_MODE);
 
 		//Arguments:
-		buf[CP_DATA1] = ctrl;
+		buf[P_DATA1] = ctrl;
 
-		bytes = CP_DATA1 + 1;     //Bytes is always last+1
+		bytes = P_DATA1 + 1;     //Bytes is always last+1
 	}
 	else
 	{
@@ -216,7 +216,7 @@ void rx_cmd_ctrl_mode(uint8_t *buf)
 {
 	uint8_t numb = 0, controller = 0;
 
-	if(IS_CMD_RW(buf[CP_CMD1]) == READ)
+	if(IS_CMD_RW(buf[P_CMD1]) == READ)
 	{
 		//Received a Read command from our master, prepare a reply:
 
@@ -234,12 +234,12 @@ void rx_cmd_ctrl_mode(uint8_t *buf)
 
 		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 	}
-	else if(IS_CMD_RW(buf[CP_CMD1]) == WRITE)
+	else if(IS_CMD_RW(buf[P_CMD1]) == WRITE)
 	{
 		//Two options: from Master of from slave (a read reply)
 
 		//Decode data:
-		controller = buf[CP_DATA1];
+		controller = buf[P_DATA1];
 		//ToDo store that value somewhere useful
 
 		if(sent_from_a_slave(buf))
@@ -276,24 +276,24 @@ uint32_t tx_cmd_ctrl_o(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_
 	prepare_empty_payload(board_id, receiver, buf, len);
 
 	//Command:
-	buf[CP_CMDS] = 1;                     //1 command in string
+	buf[P_CMDS] = 1;                     //1 command in string
 
 	if(cmd_type == CMD_READ)
 	{
-		buf[CP_CMD1] = CMD_R(CMD_CTRL_O);
+		buf[P_CMD1] = CMD_R(CMD_CTRL_O);
 
-		bytes = CP_CMD1 + 1;     //Bytes is always last+1
+		bytes = P_CMD1 + 1;     //Bytes is always last+1
 	}
 	else if(cmd_type == CMD_WRITE)
 	{
-		buf[CP_CMD1] = CMD_W(CMD_CTRL_O);
+		buf[P_CMD1] = CMD_W(CMD_CTRL_O);
 
 		//Arguments:
 		uint16_to_bytes(open_spd, &tmp0, &tmp1);
-		buf[CP_DATA1] = tmp0;
-		buf[CP_DATA1 + 1] = tmp1;
+		buf[P_DATA1] = tmp0;
+		buf[P_DATA1 + 1] = tmp1;
 
-		bytes = CP_DATA1 + 2;     //Bytes is always last+1
+		bytes = P_DATA1 + 2;     //Bytes is always last+1
 	}
 	else
 	{
@@ -311,7 +311,7 @@ void rx_cmd_ctrl_o(uint8_t *buf)
 	uint32_t numb = 0;
 	int16_t tmp_open_spd = 0;
 
-	if(IS_CMD_RW(buf[CP_CMD1]) == READ)
+	if(IS_CMD_RW(buf[P_CMD1]) == READ)
 	{
 		//Received a Read command from our master, prepare a reply:
 
@@ -330,12 +330,12 @@ void rx_cmd_ctrl_o(uint8_t *buf)
 
 		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 	}
-	else if(IS_CMD_RW(buf[CP_CMD1]) == WRITE)
+	else if(IS_CMD_RW(buf[P_CMD1]) == WRITE)
 	{
 		//Two options: from Master of from slave (a read reply)
 
 		//Decode data:
-		tmp_open_spd = (int16_t) (BYTES_TO_UINT16(buf[CP_DATA1], buf[CP_DATA1+1]));
+		tmp_open_spd = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1], buf[P_DATA1+1]));
 		//ToDo store that value somewhere useful
 
 		if(sent_from_a_slave(buf))
