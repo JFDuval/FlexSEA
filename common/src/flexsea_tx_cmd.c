@@ -213,7 +213,7 @@ uint32_t tx_cmd_imu_read_reply(uint8_t master, uint8_t base_addr, uint8_t bytes)
 
     //Command:
     payload_str[P_CMDS] = 1;                     //1 command in string
-    payload_str[P_CMD1] = CMD_IMU_READ_REPLY;
+    payload_str[P_CMD1] = 0;//CMD_IMU_READ_REPLY;
  
     //Arguments:
 	//ToDo ***for now we ignore the base addr and we always send the gyro values ***
@@ -250,7 +250,7 @@ uint32_t tx_cmd_analog_read_reply(uint8_t master, uint8_t base_addr, uint8_t byt
 
     //Command:
     payload_str[P_CMDS] = 1;                     //1 command in string
-    payload_str[P_CMD1] = CMD_ANALOG_READ_REPLY;
+    payload_str[P_CMD1] = 0;//CMD_ANALOG_READ_REPLY;
  
     //Arguments:
 	//ToDo ***for now we ignore the 'bytes' and we send 1 value ***

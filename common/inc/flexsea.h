@@ -256,6 +256,7 @@ struct pos_ctrl_s
 
 	//Value wanted and setpoint value:
 	int32_t pos;
+	int32_t setp;
     int32_t posi;
 	int32_t posf;
 	int32_t spdm;

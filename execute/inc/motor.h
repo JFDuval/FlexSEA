@@ -89,48 +89,6 @@ void encoder_write(int32 enc);
 // Structure(s)
 //****************************************************************************	
 
-//Gains
-struct gains_s
-{
-     uint8_t g0, g1, g2, g3, g4, g5;
-};
-
-//Generic controller
-struct gen_ctrl_s
-{
-	//Gains:
-    struct gains_s gain;
-	
-	//Value wanted and setpoint value:
-	int32 actual_val;					
-    int32 setpoint_val;
-	
-	//Errors:
-    int32 error;						//Current error
-	int32 error_prev;					//Past error
-    int32 error_sum;					//Integral
-    int32 error_dif;					//Differential
-};
-
-//Main data structure for all the controllers:
-struct ctrl_s
-{
-    uint8 active_ctrl;
-	uint8 pwm;
-    struct gen_ctrl_s generic;
-    struct gen_ctrl_s current;
-    struct gen_ctrl_s position;
-    struct gen_ctrl_s impedance;
-};
-
-//Encoder:
-struct enc_s
-{
-	int32 count;
-	int32 count_last;
-	int32 count_dif;
-	uint32 config;
-};
 	
 #endif	//INC_MOTOR_H
 	

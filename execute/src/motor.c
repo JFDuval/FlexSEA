@@ -137,11 +137,11 @@ int32 motor_position_pid(int32 wanted_pos, int32 actual_pos)
 	int32 pwm = 0;
 
 	//Position values:
-	ctrl.position.actual_val = actual_pos;
-	ctrl.position.setpoint_val = wanted_pos;
+	ctrl.position.pos = actual_pos;
+	ctrl.position.setp = wanted_pos;
 	
 	//Errors:
-	ctrl.position.error = ctrl.position.actual_val - ctrl.position.setpoint_val;
+	ctrl.position.error = ctrl.position.pos - ctrl.position.setp;
 	ctrl.position.error_sum = ctrl.position.error_sum + ctrl.position.error;
 	//ctrl.position.error_dif ToDo
 	
@@ -366,8 +366,8 @@ void control_strategy(unsigned char strat)
 	//To avoid a huge startup error on the Position-based controllers:
 	if(strat == CTRL_POSITION)
 	{
-		ctrl.position.setpoint_val = adc1_res_filtered[0];
-		steps = trapez_gen_motion_1(ctrl.position.setpoint_val, ctrl.position.setpoint_val, 1, 1);
+		ctrl.position.setp = adc1_res_filtered[0];
+		steps = trapez_gen_motion_1(ctrl.position.setp, ctrl.position.setp, 1, 1);
 	}
 	else if(strat == CTRL_IMPEDANCE)
 	{
@@ -489,8 +489,8 @@ void init_motor_data_structure(void)
 	ctrl.position.gain.g3 = 0;
 	ctrl.position.gain.g4 = 0;
 	ctrl.position.gain.g5 = 0;
-	ctrl.position.actual_val = 0;
-	ctrl.position.setpoint_val = 0;
+	ctrl.position.pos = 0;
+	ctrl.position.setp = 0;
 	ctrl.position.error = 0;
 	ctrl.position.error_sum = 0;
 	ctrl.position.error_dif = 0;
@@ -544,7 +544,7 @@ int32 encoder_read(void)
 	encoder.count_dif = encoder.count - encoder.count_last;
 	
 	//For the position & impedance controllers we use the last count
-	ctrl.position.actual_val = encoder.count;
+	ctrl.position.pos = encoder.count;
 	ctrl.impedance.actual_val = encoder.count;
 	
 	return encoder.count;

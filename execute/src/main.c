@@ -208,7 +208,7 @@ int main(void)
 					
 					if(ctrl.active_ctrl == CTRL_POSITION)
 					{
-						motor_position_pid(ctrl.position.setpoint_val, ctrl.position.actual_val);
+						motor_position_pid(ctrl.position.setp, ctrl.position.pos);
 					}
 					else if(ctrl.active_ctrl == CTRL_IMPEDANCE)
 					{
