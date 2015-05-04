@@ -417,7 +417,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			tmp0 = atoi(argv[4]);
 			_USE_PRINTF("[Clutch]: %i.\n", tmp0);
 			//Prepare and send data:
-			numb = tx_cmd_exp_clutch(slave_id[slave], CMD_READ, payload_str, PAYLOAD_BUF_LEN, tmp0);
+			numb = tx_cmd_exp_clutch(slave_id[slave], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, tmp0);
 			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
 			break;
 
@@ -465,9 +465,9 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			break;
 
 		case 26: 	//'ctrl_p_g'
-			tmp0 = atoi(argv[5]);
-			tmp1 = atoi(argv[6]);
-			tmp2 = atoi(argv[7]);
+			tmp0 = atoi(argv[4]);
+			tmp1 = atoi(argv[5]);
+			tmp2 = atoi(argv[6]);
 			_USE_PRINTF("[Position Controller Gains]: kp = %i, ki = %i, kd = %i.\n", tmp0, tmp1, tmp2);
 			//Prepare and send data:
 			numb = tx_cmd_ctrl_p_g(slave_id[slave], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, tmp0, tmp1, tmp2);
@@ -501,7 +501,14 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			break;
 
 		case 30:	//'ctrl_p'
-			_USE_PRINTF("Command isn't programmed yet.\n");
+			tmp0 = atoi(argv[4]);
+			tmp1 = atoi(argv[5]);
+			tmp2 = atoi(argv[6]);
+			tmp3 = atoi(argv[7]);
+			_USE_PRINTF("[Position Controller]: %i, %i, %i, %i.\n", tmp0, tmp1, tmp2, tmp3);
+			//Prepare and send data:
+			numb = tx_cmd_ctrl_p(slave_id[slave], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 0, tmp0, tmp1, tmp2, tmp3);
+			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
 			break;
 
 		case 31:	//'shorted_leads'
