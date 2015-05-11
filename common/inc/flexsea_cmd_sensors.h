@@ -22,6 +22,8 @@
 
 uint32_t tx_cmd_switch(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len);
 void rx_cmd_switch(uint8_t *buf);
+uint32_t tx_cmd_encoder(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, int32_t enc);
+void rx_cmd_encoder(uint8_t *buf);
 
 //****************************************************************************
 // Definition(s):

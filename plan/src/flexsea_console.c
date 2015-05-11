@@ -49,7 +49,7 @@ char fcp_desc[MAX_CMD][TXT_STR_LEN] = 	{"Ping? Ping!", "Board Status", "Reset", 
 										"Encoder", "Strain gauge/load cell", "Strain Gauge amplifier gain & offset", "Voltage measurements", \
 										"Battery status and values", "Power Output", "Clutch", "Advanced Analog Periph. Configuration", \
 										"Analog Inputs", "Digital I/Os", "Digital I/Os Configuration", "Expansion Periph. Configuration", \
-										"Control Mode", "Current (I) Controller Gains", "Position (P) Controller Gains", "Impedance (Z) Controller Gains", \
+										"Control Mode (0 = None, 1 = Open, 2 = Pos., 3 = Current, 4 = Z)", "Current (I) Controller Gains", "Position (P) Controller Gains", "Impedance (Z) Controller Gains", \
 										"Open (O) Loop Controller (PWM)", "Current (I) Controller", "Position (P) Controller", "Shorted Leads", \
 										"Special Command 1", "Special Command 2"};
 char fcp_args[MAX_CMD] = 	{0, 0, 0, 0, \
@@ -379,8 +379,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			tmp0 = atoi(argv[4]);
 			_USE_PRINTF("[Encoder]: %i.\n", tmp0);
 			//Prepare and send data:
-			//numb = tx_cmd_encoder_write(slave_id[slave], tmp0);	//ToDo
-			//numb = tx_cmd_encoder_read(slave_id[slave]);
+			numb = tx_cmd_encoder(slave_id[slave], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, tmp0);
 			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
 			break;
 

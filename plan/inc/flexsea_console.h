@@ -44,13 +44,6 @@ int kbhit(void);
 #define NO_SLAVE_FOUND  	127
 
 //Length of the text strings:
-#define TXT_STR_LEN			40
-
-//Conditional printf() statement:
-#ifdef USE_PRINTF
-	#define _USE_PRINTF(...) printf(__VA_ARGS__)
-#else
-	#define _USE_PRINTF(...) do {} while (0)
-#endif	//USE__PRINTF
+#define TXT_STR_LEN			80
 
 #endif

@@ -336,12 +336,19 @@ struct manage_s
 //Enable this to debug with the terminal:
 //#define USE_DEBUG_PRINTF
 
-//Conditional printf() statement:
+//Conditional printf() statement - debugging only
 #ifdef USE_DEBUG_PRINTF
 	#define DEBUG_PRINTF(...) printf(__VA_ARGS__)
 #else
 	#define DEBUG_PRINTF(...) do {} while (0)
 #endif	//USE_DEBUG_PRINTF
+
+//Conditional printf() statement - use this one for Plan Console
+#ifdef USE_PRINTF
+	#define _USE_PRINTF(...) printf(__VA_ARGS__)
+#else
+	#define _USE_PRINTF(...) do {} while (0)
+#endif	//USE__PRINTF
 
 //****************************************************************************
 // Include(s) - at the end to make sure that the included files can access
