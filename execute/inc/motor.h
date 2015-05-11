@@ -49,6 +49,7 @@ void encoder_write(int32 enc);
 #define MAX_PWM					760					//760 is 96% of 800			
 #define MIN_PWM					-MAX_PWM
 #define DEADTIME				55					//Make sure that it matched the hardware setting!
+#define PWM1DC(pwm1)			MAX(pwm1, DEADTIME)
 #define PWM2DC(pwm1)			MAX(((pwm1 - DEADTIME)>>1), 10)
 	
 //Position controller
