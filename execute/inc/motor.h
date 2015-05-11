@@ -46,28 +46,30 @@ void encoder_write(int32 enc);
 //****************************************************************************	
 
 //PWM limits
-#define MAX_PWM					760			//760 is 96% of 800			
+#define MAX_PWM					760					//760 is 96% of 800			
 #define MIN_PWM					-MAX_PWM
+#define DEADTIME				55					//Make sure that it matched the hardware setting!
+#define PWM2DC(pwm1)			MAX(((pwm1 - DEADTIME)>>1), 10)
 	
 //Position controller
-#define POS_PWM_LIMIT			3900		//x%
+#define POS_PWM_LIMIT			760				//96%
 #define MAX_CUMULATIVE_ERROR	1000
-#define GAIN_P					0			//Default value - will change at runtime
-#define GAIN_I					0			//Idem
-#define GAIN_D					0			//Idem
+#define GAIN_P					0					//Default value - will change at runtime
+#define GAIN_I					0					//Idem
+#define GAIN_D					0					//Idem
 	
 //Current controller
-#define CURRENT_ZERO			2148		//Should be calibrated board by board
-#define CURRENT_SPAN			500			//Variation from zero (technically, that's SPAN/2)
+#define CURRENT_ZERO			((int32)2090)		//Should be calibrated board by board
+#define CURRENT_SPAN			((int32)1850)		//Variation from zero (technically, that's SPAN/2)
 #define CURRENT_POS_LIMIT		CURRENT_SPAN
-#define CURRENT_NEG_LIMIT		-CURRENT_SPAN
+#define CURRENT_NEG_LIMIT		(-CURRENT_SPAN)
 
 //Impedance controller
-#define B1 						2898195LL 	// 3rd order Butterworth filter numerator constants
+#define B1 						2898195LL 			// 3rd order Butterworth filter numerator constants
 #define B2 						8694584LL
 #define B3 						8694584LL
 #define B4 						2898195LL
-#define A1 						1000000000LL 	// 3rd order Butterworth filter denominator constants
+#define A1 						1000000000LL 		// 3rd order Butterworth filter denominator constants
 #define A2 						-2374094744LL
 #define A3  					1929355669LL
 #define A4 						-532075368LL

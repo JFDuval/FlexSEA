@@ -228,7 +228,7 @@ struct xyz_s
 //Gains
 struct gains_s
 {
-     uint8_t g0, g1, g2, g3, g4, g5;
+     uint16_t g0, g1, g2, g3, g4, g5;
 };
 
 //Generic controller
@@ -314,6 +314,10 @@ struct manage_s
 //****************************************************************************
 // Macro(s):
 //****************************************************************************
+
+//Min and Max
+#define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
+#define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
 
 //Reassembles a uint32 from 4 bytes. b0 is the MSB.
 #define BYTES_TO_UINT32(b0,b1,b2,b3)	(((uint32_t)b0 << 24) + \

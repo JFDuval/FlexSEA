@@ -115,7 +115,7 @@ unsigned int payload_parse_str(unsigned char *cp_str)
 				
 			//Sensor commands:
 			case CMD_ENCODER:
-				//rx_cmd_encoder(cp_str);		//ToDo
+				rx_cmd_encoder(cp_str);
 				break;
 			case CMD_STRAIN_CONFIG:
 				//rx_cmd_strain_config(cp_str);	//ToDo

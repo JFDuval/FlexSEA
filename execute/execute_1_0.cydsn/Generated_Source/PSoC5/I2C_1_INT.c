@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: I2C_1_INT.c
-* Version 3.40
+* Version 3.50
 *
 * Description:
 *  This file provides the source code of Interrupt Service Routine (ISR)

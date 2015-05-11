@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: UART_2_BOOT.c
-* Version 2.40
+* Version 2.50
 *
 * Description:
 *  This file provides the source code of bootloader communication APIs for the
@@ -182,7 +182,7 @@ cystatus UART_2_CyBtldrCommRead(uint8 pData[], uint16 size, uint16 * count, uint
     *  If at least one byte is received within the time out interval, wait for more data */
     for (iCntr = 0u; iCntr < ((uint16)10u * timeOut); iCntr++)
     {
-        /* If atleast one byte is received within the timeout interval
+        /* If at least one byte is received within the timeout interval
         *  enter the next loop waiting for more data reception
         */
         if(0u != UART_2_GetRxBufferSize())
@@ -203,10 +203,12 @@ cystatus UART_2_CyBtldrCommRead(uint8 pData[], uint16 size, uint16 * count, uint
             status = CYRET_SUCCESS;
             break;
         }
-        /* If not data is received , give a delay of 1ms and check again until the time out specified in .cydwr. */
+        /* If the data is not received, give a delay of 
+        *  UART_2_BL_CHK_DELAY_MS and check again until the timeOut specified.
+        */
         else
         {
-            CyDelay(UART_2_WAIT_1_MS);
+            CyDelay(UART_2_BL_CHK_DELAY_MS);
         }
     }
 
@@ -231,7 +233,7 @@ cystatus UART_2_CyBtldrCommRead(uint8 pData[], uint16 size, uint16 * count, uint
             }
 
             /* Check if the last received byte is end of packet defined by bootloader
-            *  If not wait for additional time UART_2_WAIT_EOP_DELAY.
+            *  If not wait for additional UART_2_WAIT_EOP_DELAY ms.
             */
             if(pData[dataIndexCntr - 1u] != UART_2_PACKET_EOP)
             {

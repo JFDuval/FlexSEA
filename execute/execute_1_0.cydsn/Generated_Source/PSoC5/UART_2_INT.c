@@ -1,11 +1,9 @@
 /*******************************************************************************
 * File Name: UART_2INT.c
-* Version 2.40
+* Version 2.50
 *
 * Description:
 *  This file provides all Interrupt Service functionality of the UART component
-*
-* Note:
 *
 ********************************************************************************
 * Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
@@ -63,6 +61,7 @@
     CY_ISR(UART_2_RXISR)
     {
         uint8 readData;
+        uint8 readStatus;
         uint8 increment_pointer = 0u;
 
     #if(CY_PSOC3)
@@ -80,88 +79,95 @@
         CyGlobalIntEnable;
     #endif /* (CY_PSOC3) */
 
-        readData = UART_2_RXSTATUS_REG;
-
-        if((readData & (UART_2_RX_STS_BREAK | UART_2_RX_STS_PAR_ERROR |
-                        UART_2_RX_STS_STOP_ERROR | UART_2_RX_STS_OVERRUN)) != 0u)
+        do
         {
-            /* ERROR handling. */
-            UART_2_errorStatus = readData & ( UART_2_RX_STS_BREAK | 
-                                                        UART_2_RX_STS_PAR_ERROR | 
-                                                        UART_2_RX_STS_STOP_ERROR | 
-                                                        UART_2_RX_STS_OVERRUN);
-            /* `#START UART_2_RXISR_ERROR` */
+            /* Read receiver status register */
+            readStatus = UART_2_RXSTATUS_REG;
+            /* Copy the same status to readData variable for backward compatibility support 
+            *  of the user code in UART_2_RXISR_ERROR` section. 
+            */
+            readData = readStatus;
 
-            /* `#END` */
-        }
-
-        while((readData & UART_2_RX_STS_FIFO_NOTEMPTY) != 0u)
-        {
-        #if (UART_2_RXHW_ADDRESS_ENABLED)
-            if(UART_2_rxAddressMode == (uint8)UART_2__B_UART__AM_SW_DETECT_TO_BUFFER)
+            if((readStatus & (UART_2_RX_STS_BREAK | 
+                            UART_2_RX_STS_PAR_ERROR |
+                            UART_2_RX_STS_STOP_ERROR | 
+                            UART_2_RX_STS_OVERRUN)) != 0u)
             {
-                if((readData & UART_2_RX_STS_MRKSPC) != 0u)
+                /* ERROR handling. */
+                UART_2_errorStatus |= readStatus & ( UART_2_RX_STS_BREAK | 
+                                                            UART_2_RX_STS_PAR_ERROR | 
+                                                            UART_2_RX_STS_STOP_ERROR | 
+                                                            UART_2_RX_STS_OVERRUN);
+                /* `#START UART_2_RXISR_ERROR` */
+
+                /* `#END` */
+            }
+            
+            if((readStatus & UART_2_RX_STS_FIFO_NOTEMPTY) != 0u)
+            {
+                /* Read data from the RX data register */
+                readData = UART_2_RXDATA_REG;
+            #if (UART_2_RXHW_ADDRESS_ENABLED)
+                if(UART_2_rxAddressMode == (uint8)UART_2__B_UART__AM_SW_DETECT_TO_BUFFER)
                 {
-                    if ((readData & UART_2_RX_STS_ADDR_MATCH) != 0u)
+                    if((readStatus & UART_2_RX_STS_MRKSPC) != 0u)
                     {
-                        UART_2_rxAddressDetected = 1u;
+                        if ((readStatus & UART_2_RX_STS_ADDR_MATCH) != 0u)
+                        {
+                            UART_2_rxAddressDetected = 1u;
+                        }
+                        else
+                        {
+                            UART_2_rxAddressDetected = 0u;
+                        }
                     }
-                    else
-                    {
-                        UART_2_rxAddressDetected = 0u;
+                    if(UART_2_rxAddressDetected != 0u)
+                    {   /* Store only addressed data */
+                        UART_2_rxBuffer[UART_2_rxBufferWrite] = readData;
+                        increment_pointer = 1u;
                     }
                 }
-
-                readData = UART_2_RXDATA_REG;
-                if(UART_2_rxAddressDetected != 0u)
-                {   /* Store only addressed data */
+                else /* Without software addressing */
+                {
                     UART_2_rxBuffer[UART_2_rxBufferWrite] = readData;
                     increment_pointer = 1u;
                 }
-            }
-            else /* Without software addressing */
-            {
-                UART_2_rxBuffer[UART_2_rxBufferWrite] = UART_2_RXDATA_REG;
+            #else  /* Without addressing */
+                UART_2_rxBuffer[UART_2_rxBufferWrite] = readData;
                 increment_pointer = 1u;
-            }
-        #else  /* Without addressing */
-            UART_2_rxBuffer[UART_2_rxBufferWrite] = UART_2_RXDATA_REG;
-            increment_pointer = 1u;
-        #endif /* (UART_2_RXHW_ADDRESS_ENABLED) */
+            #endif /* (UART_2_RXHW_ADDRESS_ENABLED) */
 
-            /* Do not increment buffer pointer when skip not addressed data */
-            if(increment_pointer != 0u)
-            {
-                if(UART_2_rxBufferLoopDetect != 0u)
-                {   /* Set Software Buffer status Overflow */
-                    UART_2_rxBufferOverflow = 1u;
-                }
-                /* Set next pointer. */
-                UART_2_rxBufferWrite++;
-
-                /* Check pointer for a loop condition */
-                if(UART_2_rxBufferWrite >= UART_2_RX_BUFFER_SIZE)
+                /* Do not increment buffer pointer when skip not addressed data */
+                if(increment_pointer != 0u)
                 {
-                    UART_2_rxBufferWrite = 0u;
-                }
+                    if(UART_2_rxBufferLoopDetect != 0u)
+                    {   /* Set Software Buffer status Overflow */
+                        UART_2_rxBufferOverflow = 1u;
+                    }
+                    /* Set next pointer. */
+                    UART_2_rxBufferWrite++;
 
-                /* Detect pre-overload condition and set flag */
-                if(UART_2_rxBufferWrite == UART_2_rxBufferRead)
-                {
-                    UART_2_rxBufferLoopDetect = 1u;
-                    /* When Hardware Flow Control selected */
-                    #if (UART_2_FLOW_CONTROL != 0u)
-                        /* Disable RX interrupt mask, it is enabled when user read data from the buffer using APIs */
-                        UART_2_RXSTATUS_MASK_REG  &= (uint8)~UART_2_RX_STS_FIFO_NOTEMPTY;
-                        CyIntClearPending(UART_2_RX_VECT_NUM);
-                        break; /* Break the reading of the FIFO loop, leave the data there for generating RTS signal */
-                    #endif /* (UART_2_FLOW_CONTROL != 0u) */
+                    /* Check pointer for a loop condition */
+                    if(UART_2_rxBufferWrite >= UART_2_RX_BUFFER_SIZE)
+                    {
+                        UART_2_rxBufferWrite = 0u;
+                    }
+
+                    /* Detect pre-overload condition and set flag */
+                    if(UART_2_rxBufferWrite == UART_2_rxBufferRead)
+                    {
+                        UART_2_rxBufferLoopDetect = 1u;
+                        /* When Hardware Flow Control selected */
+                        #if (UART_2_FLOW_CONTROL != 0u)
+                            /* Disable RX interrupt mask, it is enabled when user read data from the buffer using APIs */
+                            UART_2_RXSTATUS_MASK_REG  &= (uint8)~UART_2_RX_STS_FIFO_NOTEMPTY;
+                            CyIntClearPending(UART_2_RX_VECT_NUM);
+                            break; /* Break the reading of the FIFO loop, leave the data there for generating RTS signal */
+                        #endif /* (UART_2_FLOW_CONTROL != 0u) */
+                    }
                 }
             }
-
-            /* Read status to decide whether read more bytes */
-            readData = UART_2_RXSTATUS_REG;
-        }
+        }while((readStatus & UART_2_RX_STS_FIFO_NOTEMPTY) != 0u);
 
         /* User code required at end of ISR (Optional) */
         /* `#START UART_2_RXISR_END` */

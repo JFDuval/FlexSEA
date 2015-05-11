@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: UART_2.c
-* Version 2.40
+* Version 2.50
 *
 * Description:
 *  This file provides all API functionality of the UART component
@@ -1054,7 +1054,7 @@ void  UART_2_WriteControlRegister(uint8 control)
         #if ((UART_2_TX_BUFFER_SIZE > UART_2_MAX_BYTE_VALUE) && (CY_PSOC3))
             /* Disable TX interrupt to protect variables from modification */
             UART_2_DisableTxInt();
-        #endif /* (UART_2_TX_BUFFER_SIZE > 255) */
+        #endif /* (UART_2_TX_BUFFER_SIZE > UART_2_MAX_BYTE_VALUE) && (CY_PSOC3) */
 
             locTxBufferWrite = UART_2_txBufferWrite;
             locTxBufferRead  = UART_2_txBufferRead;
@@ -1062,7 +1062,7 @@ void  UART_2_WriteControlRegister(uint8 control)
         #if ((UART_2_TX_BUFFER_SIZE > UART_2_MAX_BYTE_VALUE) && (CY_PSOC3))
             /* Enable interrupt to continue transmission */
             UART_2_EnableTxInt();
-        #endif /* (UART_2_TX_BUFFER_SIZE > 255) */
+        #endif /* (UART_2_TX_BUFFER_SIZE > UART_2_MAX_BYTE_VALUE) && (CY_PSOC3) */
         }
         while( (locTxBufferWrite < locTxBufferRead) ? (locTxBufferWrite == (locTxBufferRead - 1u)) :
                                 ((locTxBufferWrite - locTxBufferRead) ==
@@ -1087,13 +1087,13 @@ void  UART_2_WriteControlRegister(uint8 control)
             /* Finally, update the real output pointer */
         #if ((UART_2_TX_BUFFER_SIZE > UART_2_MAX_BYTE_VALUE) && (CY_PSOC3))
             UART_2_DisableTxInt();
-        #endif /* (UART_2_TX_BUFFER_SIZE > 255) */
+        #endif /* (UART_2_TX_BUFFER_SIZE > UART_2_MAX_BYTE_VALUE) && (CY_PSOC3) */
 
             UART_2_txBufferWrite = locTxBufferWrite;
 
         #if ((UART_2_TX_BUFFER_SIZE > UART_2_MAX_BYTE_VALUE) && (CY_PSOC3))
             UART_2_EnableTxInt();
-        #endif /* (UART_2_TX_BUFFER_SIZE > 255) */
+        #endif /* (UART_2_TX_BUFFER_SIZE > UART_2_MAX_BYTE_VALUE) && (CY_PSOC3) */
 
             if(0u != (UART_2_TXSTATUS_REG & UART_2_TX_STS_FIFO_EMPTY))
             {
@@ -1112,7 +1112,7 @@ void  UART_2_WriteControlRegister(uint8 control)
         /* Add directly to the FIFO */
         UART_2_TXDATA_REG = txDataByte;
 
-    #endif /* End (UART_2_TX_INTERRUPT_ENABLED) */
+    #endif /* UART_2_TX_INTERRUPT_ENABLED */
     }
 
 
@@ -1250,7 +1250,7 @@ void  UART_2_WriteControlRegister(uint8 control)
     *    returns 0 for empty TX FIFO, 1 for not full TX FIFO or 4 for full TX FIFO.
     *  * TX software buffer is enabled: returns the number of bytes in the TX 
     *    software buffer which are waiting to be transmitted. Bytes available in the
-    *    TX FIFO do not take to account.
+    *    TX FIFO do not count.
     *
     * Parameters:
     *  None.

@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: I2C_2.h
-* Version 3.40
+* Version 3.50
 *
 * Description:
 *  This file provides constants and parameter values for the I2C component.
@@ -22,7 +22,7 @@
 
 /* Check if required defines such as CY_PSOC5LP are available in cy_boot */
 #if !defined (CY_PSOC5LP)
-    #error Component I2C_v3_40 requires cy_boot v3.10 or later
+    #error Component I2C_v3_50 requires cy_boot v3.10 or later
 #endif /* (CY_PSOC5LP) */
 
 
@@ -422,6 +422,9 @@ extern uint8 I2C_2_initVar;
     #define I2C_2_GO_REG         (*(reg8 *) I2C_2_bI2C_UDB_Shifter_u0__F1_REG)
     #define I2C_2_GO_PTR         ( (reg8 *) I2C_2_bI2C_UDB_Shifter_u0__F1_REG)
 
+    #define I2C_2_GO_DONE_REG    (*(reg8 *) I2C_2_bI2C_UDB_Shifter_u0__A1_REG)
+    #define I2C_2_GO_DONE_PTR    ( (reg8 *) I2C_2_bI2C_UDB_Shifter_u0__A1_REG)
+
     #define I2C_2_MCLK_PRD_REG   (*(reg8 *) I2C_2_bI2C_UDB_Master_ClkGen_u0__D0_REG)
     #define I2C_2_MCLK_PRD_PTR   ( (reg8 *) I2C_2_bI2C_UDB_Master_ClkGen_u0__D0_REG)
 
@@ -585,7 +588,8 @@ extern uint8 I2C_2_initVar;
 
 /* CSR conditions check */
 #define I2C_2_WAIT_BYTE_COMPLETE(csr)    (0u == ((csr) & I2C_2_CSR_BYTE_COMPLETE))
-#define I2C_2_WAIT_STOP_COMPLETE(csr)    (0u == ((csr) & I2C_2_CSR_STOP_STATUS))
+#define I2C_2_WAIT_STOP_COMPLETE(csr)    (0u == ((csr) & (I2C_2_CSR_BYTE_COMPLETE | \
+                                                                     I2C_2_CSR_STOP_STATUS)))
 #define I2C_2_CHECK_BYTE_COMPLETE(csr)   (0u != ((csr) & I2C_2_CSR_BYTE_COMPLETE))
 #define I2C_2_CHECK_STOP_STS(csr)        (0u != ((csr) & I2C_2_CSR_STOP_STATUS))
 #define I2C_2_CHECK_LOST_ARB(csr)        (0u != ((csr) & I2C_2_CSR_LOST_ARB))
@@ -663,6 +667,9 @@ extern uint8 I2C_2_initVar;
                                                         I2C_2_CSR_REG = I2C_2_CSR_RDY_TO_RD; \
                                                     }while(0)
 
+    /* Release bus after lost arbitration */
+    #define I2C_2_BUS_RELEASE    I2C_2_READY_TO_READ
+
     /* Master Start/ReStart/Stop conditions generation */
     #define I2C_2_GENERATE_START         do{ \
                                                         I2C_2_MCSR_REG = I2C_2_MCSR_START_GEN; \
@@ -682,11 +689,13 @@ extern uint8 I2C_2_initVar;
                     }while(0)
 
     /* Master manual APIs compatible defines */
+    #define I2C_2_GENERATE_START_MANUAL      I2C_2_GENERATE_START
     #define I2C_2_GENERATE_RESTART_MANUAL    I2C_2_GENERATE_RESTART
     #define I2C_2_GENERATE_STOP_MANUAL       I2C_2_GENERATE_STOP
     #define I2C_2_TRANSMIT_DATA_MANUAL       I2C_2_TRANSMIT_DATA
     #define I2C_2_READY_TO_READ_MANUAL       I2C_2_READY_TO_READ
     #define I2C_2_ACK_AND_RECEIVE_MANUAL     I2C_2_ACK_AND_RECEIVE
+    #define I2C_2_BUS_RELEASE_MANUAL         I2C_2_BUS_RELEASE
 
 #else
 
@@ -713,7 +722,11 @@ extern uint8 I2C_2_initVar;
     #define I2C_2_MCSR_MSTR_MODE     (I2C_2_STS_MASTER_MODE_MASK)/* Define if active Master     */
 
     /* Data to write into TX FIFO to release FSM */
-    #define I2C_2_RELEASE_FSM         (0x00u)
+    #define I2C_2_PREPARE_TO_RELEASE (0xFFu)
+    #define I2C_2_RELEASE_FSM        (0x00u)
+
+    /* Define release command done: history of byte complete status is cleared */
+    #define I2C_2_WAIT_RELEASE_CMD_DONE  (I2C_2_RELEASE_FSM != I2C_2_GO_DONE_REG)
 
     /* Check enable of module */
     #define I2C_2_I2C_ENABLE_REG     (I2C_2_CFG_REG)
@@ -733,7 +746,6 @@ extern uint8 I2C_2_initVar;
                                                         ((uint8) ~I2C_2_MCSR_START_GEN); \
                                                     }while(0)
 
-
     /* Stop interrupt */
     #define I2C_2_ENABLE_INT_ON_STOP     do{ \
                                                        I2C_2_INT_MASK_REG |= I2C_2_STOP_IE_MASK; \
@@ -744,107 +756,133 @@ extern uint8 I2C_2_initVar;
                                                                              ((uint8) ~I2C_2_STOP_IE_MASK); \
                                                     }while(0)
 
-
     /* Transmit data */
-    #define I2C_2_TRANSMIT_DATA      do{ \
-                                                    I2C_2_CFG_REG = (I2C_2_CTRL_TRANSMIT_MASK | \
-                                                                                I2C_2_CTRL_DEFAULT);       \
-                                                    I2C_2_GO_REG  = I2C_2_RELEASE_FSM;          \
-                                                }while(0)
+    #define I2C_2_TRANSMIT_DATA \
+                                    do{    \
+                                        I2C_2_CFG_REG     = (I2C_2_CTRL_TRANSMIT_MASK | \
+                                                                       I2C_2_CTRL_DEFAULT);        \
+                                        I2C_2_GO_DONE_REG = I2C_2_PREPARE_TO_RELEASE;   \
+                                        I2C_2_GO_REG      = I2C_2_RELEASE_FSM;          \
+                                    }while(0)
 
     #define I2C_2_ACK_AND_TRANSMIT   I2C_2_TRANSMIT_DATA
 
-
-    #define I2C_2_NAK_AND_TRANSMIT   do{ \
-                                                    I2C_2_CFG_REG = (I2C_2_CTRL_NACK_MASK     | \
-                                                                                I2C_2_CTRL_TRANSMIT_MASK | \
-                                                                                I2C_2_CTRL_DEFAULT);       \
-                                                    I2C_2_GO_REG  =  I2C_2_RELEASE_FSM;         \
-                                                }while(0)
+    #define I2C_2_NAK_AND_TRANSMIT \
+                                        do{   \
+                                            I2C_2_CFG_REG     = (I2C_2_CTRL_NACK_MASK     | \
+                                                                            I2C_2_CTRL_TRANSMIT_MASK | \
+                                                                            I2C_2_CTRL_DEFAULT);       \
+                                            I2C_2_GO_DONE_REG = I2C_2_PREPARE_TO_RELEASE;   \
+                                            I2C_2_GO_REG      = I2C_2_RELEASE_FSM;          \
+                                        }while(0)
 
     /* Receive data */
-    #define I2C_2_READY_TO_READ      do{ \
-                                                    I2C_2_CFG_REG = I2C_2_CTRL_DEFAULT; \
-                                                    I2C_2_GO_REG  =  I2C_2_RELEASE_FSM; \
-                                                }while(0)
+    #define I2C_2_READY_TO_READ  \
+                                        do{ \
+                                            I2C_2_CFG_REG     = I2C_2_CTRL_DEFAULT;       \
+                                            I2C_2_GO_DONE_REG = I2C_2_PREPARE_TO_RELEASE; \
+                                            I2C_2_GO_REG      = I2C_2_RELEASE_FSM;       \
+                                        }while(0)
 
     #define I2C_2_ACK_AND_RECEIVE    I2C_2_READY_TO_READ
 
-    #define I2C_2_NAK_AND_RECEIVE    do{ \
-                                                    I2C_2_CFG_REG = (I2C_2_CTRL_NACK_MASK | \
-                                                                                I2C_2_CTRL_DEFAULT);   \
-                                                    I2C_2_GO_REG  =  I2C_2_RELEASE_FSM;     \
-                                                }while(0)
+    /* Release bus after arbitration is lost */
+    #define I2C_2_BUS_RELEASE    I2C_2_READY_TO_READ
+
+    #define I2C_2_NAK_AND_RECEIVE \
+                                        do{  \
+                                            I2C_2_CFG_REG     = (I2C_2_CTRL_NACK_MASK |   \
+                                                                            I2C_2_CTRL_DEFAULT);     \
+                                            I2C_2_GO_DONE_REG = I2C_2_PREPARE_TO_RELEASE; \
+                                            I2C_2_GO_REG      = I2C_2_RELEASE_FSM;       \
+                                        }while(0)
 
     /* Master condition generation */
-    #define I2C_2_GENERATE_START     do{ \
-                                                    I2C_2_CFG_REG = (I2C_2_CTRL_START_MASK | \
-                                                                                 I2C_2_CTRL_DEFAULT);   \
-                                                    I2C_2_GO_REG  =  I2C_2_RELEASE_FSM;      \
-                                                }while(0)
-
-    #define I2C_2_GENERATE_RESTART   do{ \
-                                                    I2C_2_CFG_REG = (I2C_2_CTRL_RESTART_MASK | \
-                                                                                I2C_2_CTRL_NACK_MASK    | \
-                                                                                I2C_2_CTRL_DEFAULT);      \
-                                                    I2C_2_GO_REG  =  I2C_2_RELEASE_FSM;        \
-                                                }while(0)
-
-
-    #define I2C_2_GENERATE_STOP      do{ \
-                                                    I2C_2_CFG_REG = (I2C_2_CTRL_NACK_MASK | \
-                                                                                I2C_2_CTRL_STOP_MASK | \
-                                                                                I2C_2_CTRL_DEFAULT);   \
-                                                    I2C_2_GO_REG  =  I2C_2_RELEASE_FSM;     \
-                                                }while(0)
-
-    /* Master manual APIs compatible defines */
-    /* These defines wait while byte complete is cleared after command issued */
-    #define I2C_2_GENERATE_RESTART_MANUAL    \
-                                        do{             \
-                                            I2C_2_GENERATE_RESTART;                                    \
-                                            /* Wait when byte complete is cleared */                              \
-                                            while(I2C_2_CHECK_BYTE_COMPLETE(I2C_2_CSR_REG)) \
-                                            {                                                                     \
-                                            }                                                                     \
+    #define I2C_2_GENERATE_START \
+                                        do{ \
+                                            I2C_2_CFG_REG     = (I2C_2_CTRL_START_MASK |  \
+                                                                            I2C_2_CTRL_DEFAULT);     \
+                                            I2C_2_GO_DONE_REG = I2C_2_PREPARE_TO_RELEASE; \
+                                            I2C_2_GO_REG      = I2C_2_RELEASE_FSM;       \
                                         }while(0)
 
-    /* The byte complete status is cleared after a GO command is set and the 1st component clock passed.The Stop condition
-    * generation, for which the code is waiting for in I2C_2_MasterSendStop(), occurs much later.
-    * Therefore there is no reason for waiting until the byte complete status is cleared in the macro below.
-    */
-    #define I2C_2_GENERATE_STOP_MANUAL   I2C_2_GENERATE_STOP
-
-    #define I2C_2_TRANSMIT_DATA_MANUAL   \
-                                        do{         \
-                                            I2C_2_TRANSMIT_DATA;                                       \
-                                            /* Wait when byte complete is cleared */                              \
-                                            while(I2C_2_CHECK_BYTE_COMPLETE(I2C_2_CSR_REG)) \
-                                            {                                                                     \
-                                            }                                                                     \
+    #define I2C_2_GENERATE_RESTART \
+                                        do{   \
+                                            I2C_2_CFG_REG     = (I2C_2_CTRL_RESTART_MASK | \
+                                                                            I2C_2_CTRL_NACK_MASK    | \
+                                                                            I2C_2_CTRL_DEFAULT);      \
+                                            I2C_2_GO_DONE_REG = I2C_2_PREPARE_TO_RELEASE;  \
+                                            I2C_2_GO_REG  =     I2C_2_RELEASE_FSM;         \
                                         }while(0)
 
-    #define I2C_2_READY_TO_READ_MANUAL   \
-                                        do{         \
-                                            I2C_2_READY_TO_READ;                                       \
-                                            /* Wait when byte complete is cleared */                              \
-                                            while(I2C_2_CHECK_BYTE_COMPLETE(I2C_2_CSR_REG)) \
-                                            {                                                                     \
-                                            }                                                                     \
+    #define I2C_2_GENERATE_STOP  \
+                                        do{ \
+                                            I2C_2_CFG_REG    = (I2C_2_CTRL_NACK_MASK |    \
+                                                                           I2C_2_CTRL_STOP_MASK |    \
+                                                                           I2C_2_CTRL_DEFAULT);      \
+                                            I2C_2_GO_DONE_REG = I2C_2_PREPARE_TO_RELEASE; \
+                                            I2C_2_GO_REG      = I2C_2_RELEASE_FSM;        \
+                                        }while(0)
+
+    /* Master manual APIs compatible macros */
+    /* These macros wait until byte complete history is cleared after command issued */
+    #define I2C_2_GENERATE_START_MANUAL \
+                                        do{ \
+                                            I2C_2_GENERATE_START;                  \
+                                            /* Wait until byte complete history is cleared */ \
+                                            while(I2C_2_WAIT_RELEASE_CMD_DONE)     \
+                                            {                                                 \
+                                            }                                                 \
+                                        }while(0)
+                                        
+    #define I2C_2_GENERATE_RESTART_MANUAL \
+                                        do{          \
+                                            I2C_2_GENERATE_RESTART;                \
+                                            /* Wait until byte complete history is cleared */ \
+                                            while(I2C_2_WAIT_RELEASE_CMD_DONE)     \
+                                            {                                                 \
+                                            }                                                 \
+                                        }while(0)
+
+    #define I2C_2_GENERATE_STOP_MANUAL \
+                                        do{       \
+                                            I2C_2_GENERATE_STOP;                   \
+                                            /* Wait until byte complete history is cleared */ \
+                                            while(I2C_2_WAIT_RELEASE_CMD_DONE)     \
+                                            {                                                 \
+                                            }                                                 \
+                                        }while(0)
+
+    #define I2C_2_TRANSMIT_DATA_MANUAL \
+                                        do{       \
+                                            I2C_2_TRANSMIT_DATA;                   \
+                                            /* Wait until byte complete history is cleared */ \
+                                            while(I2C_2_WAIT_RELEASE_CMD_DONE)     \
+                                            {                                                 \
+                                            }                                                 \
+                                        }while(0)
+
+    #define I2C_2_READY_TO_READ_MANUAL \
+                                        do{       \
+                                            I2C_2_READY_TO_READ;                   \
+                                            /* Wait until byte complete history is cleared */ \
+                                            while(I2C_2_WAIT_RELEASE_CMD_DONE)     \
+                                            {                                                 \
+                                            }                                                 \
                                         }while(0)
 
     #define I2C_2_ACK_AND_RECEIVE_MANUAL \
                                         do{         \
-                                            I2C_2_ACK_AND_RECEIVE;                                     \
-                                            /* Wait when byte complete is cleared */                              \
-                                            while(I2C_2_CHECK_BYTE_COMPLETE(I2C_2_CSR_REG)) \
-                                            {                                                                     \
-                                            }                                                                     \
+                                            I2C_2_ACK_AND_RECEIVE;                 \
+                                            /* Wait until byte complete history is cleared */ \
+                                            while(I2C_2_WAIT_RELEASE_CMD_DONE)     \
+                                            {                                                 \
+                                            }                                                 \
                                         }while(0)
-#endif /* (I2C_2_FF_IMPLEMENTED) */
 
-/* Common for FF and UDB: used to release bus after lost arbitration */
-#define I2C_2_BUS_RELEASE    I2C_2_READY_TO_READ
+    #define I2C_2_BUS_RELEASE_MANUAL I2C_2_READY_TO_READ_MANUAL
+
+#endif /* (I2C_2_FF_IMPLEMENTED) */
 
 
 /***************************************

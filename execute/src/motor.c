@@ -62,7 +62,7 @@ void motor_open_speed_1(int16 pwm_duty)
 	
 	//Write duty cycle to PWM module
 	PWM_1_WriteCompare1(pdc);
-	PWM_1_WriteCompare2((pdc >> 1) + 1);	//Can't be 0 or the ADC won't trigger
+	PWM_1_WriteCompare2(PWM2DC(pdc));	//Can't be 0 or the ADC won't trigger
 }
 
 //Controls motor PWM duty cycle
@@ -96,7 +96,7 @@ void motor_open_speed_2(int16 pwm_duty, int sign)
 	
 	//Write duty cycle to PWM module
 	PWM_1_WriteCompare1(pdc);
-	PWM_1_WriteCompare2((pdc >> 1) + 1);	//Can't be 0 or the ADC won't trigger
+	PWM_1_WriteCompare2(PWM2DC(pdc));	//Can't be 0 or the ADC won't trigger
 }
 
 //Second version of the serial interface, now with sign
@@ -152,12 +152,12 @@ int32 motor_position_pid(int32 wanted_pos, int32 actual_pos)
 		ctrl.position.error_sum = -MAX_CUMULATIVE_ERROR;
 	
 	//Proportional term
-	p = ctrl.position.gain.P_KP * ctrl.position.error;
+	p = (ctrl.position.gain.P_KP * ctrl.position.error) / 100;
 	//Integral term
-	i = (ctrl.position.gain.P_KI * ctrl.position.error_sum)/100;
+	i = (ctrl.position.gain.P_KI * ctrl.position.error_sum) / 100;
 	
 	//Output
-	pwm = -(p + i);		//
+	pwm = (p + i);		//
 	
 	//Saturates PWM to low values
 	if(pwm >= POS_PWM_LIMIT)
@@ -258,11 +258,11 @@ int32 motor_current_pid(int32 wanted_curr, int32 measured_curr)
 //The sign of 'wanted_curr' will change the rotation direction, not the polarity of the current (I have no control on this)
 inline int32 motor_current_pid_2(int32 wanted_curr, int32 measured_curr)
 {
-	int curr_p = 0, curr_i = 0;
-	int curr_pwm = 0;
-	int sign = 0;
-	unsigned int uint_wanted_curr = 0;
-	int motor_current = 0;
+	volatile int32 curr_p = 0, curr_i = 0;
+	volatile int32 curr_pwm = 0;
+	int32 sign = 0;
+	int32 uint_wanted_curr = 0;
+	int32 motor_current = 0;
 	int32 shifted_measured_curr = 0;
 	
 	//Clip out of range values
@@ -316,10 +316,11 @@ inline int32 motor_current_pid_2(int32 wanted_curr, int32 measured_curr)
 		ctrl.current.error_sum = -MAX_CUMULATIVE_ERROR;
 	
 	//Proportional term
-	curr_p = (int) ctrl.current.gain.I_KP * ctrl.current.error;
+	curr_p = (int) (ctrl.current.gain.I_KP * ctrl.current.error) / 100;
 	//Integral term
-	curr_i = (int)(ctrl.current.gain.I_KI * ctrl.current.error_sum)/100;
+	curr_i = (int)(ctrl.current.gain.I_KI * ctrl.current.error_sum) / 100;
 	//Add differential term here if needed
+	//In both cases we divide by 100 to get a finer gain adjustement w/ integer values.
 	
 	//Output
 	curr_pwm = curr_p + curr_i;
@@ -334,10 +335,10 @@ inline int32 motor_current_pid_2(int32 wanted_curr, int32 measured_curr)
 	//motor_open_speed_2(curr_pwm, sign);
 	//Integrated to avoid a function call and a double saturation:
 	
-	//Write duty cycle to PWM module (avoiding fouble function calls)
+	//Write duty cycle to PWM module (avoiding double function calls)
 	CY_SET_REG16(PWM_1_COMPARE1_LSB_PTR, (uint16)curr_pwm);					//PWM_1_WriteCompare1((uint16)curr_pwm);
-	CY_SET_REG16(PWM_1_COMPARE2_LSB_PTR, (uint16)((curr_pwm >> 1) + 1));	//PWM_1_WriteCompare2((uint16)((curr_pwm >> 1) + 1));	
-	//Compare 2 can't be 0 or the ADC won't trigger
+	CY_SET_REG16(PWM_1_COMPARE2_LSB_PTR, (uint16)(PWM2DC(curr_pwm)));	//PWM_1_WriteCompare2((uint16)((curr_pwm >> 1) + 1));	
+	//Compare 2 can't be 0 or the ADC won't trigger => that's why I'm adding 1
 	
 	return ctrl.current.error;
 }
@@ -347,7 +348,7 @@ void control_strategy(unsigned char strat)
 {
 	//By default we place the gains to 0 before we change the strategy:
 					
-	//"Old" PID (used for pos trapeze)
+	//Position controller
 	ctrl.position.gain.P_KP = 0;
 	ctrl.position.gain.P_KI = 0;
 	ctrl.position.gain.P_KD = 0;
@@ -366,7 +367,7 @@ void control_strategy(unsigned char strat)
 	//To avoid a huge startup error on the Position-based controllers:
 	if(strat == CTRL_POSITION)
 	{
-		ctrl.position.setp = adc1_res_filtered[0];
+		ctrl.position.setp = QuadDec_1_GetCounter(); //adc1_res_filtered[0];	//ToDo make this flexible
 		steps = trapez_gen_motion_1(ctrl.position.setp, ctrl.position.setp, 1, 1);
 	}
 	else if(strat == CTRL_IMPEDANCE)
@@ -442,6 +443,7 @@ void init_motor(void)
 	//PWM1: BLDC
 	PWM_1_Start();
 	PWM_1_WriteCompare1(0);	//Start at 0%
+	PWM_1_WriteCompare2(PWM2DC(0));	
 	
 	//ADC2: Motor current
 	ADC_SAR_2_Start();

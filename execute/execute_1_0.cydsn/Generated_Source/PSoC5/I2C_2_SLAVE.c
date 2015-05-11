@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: I2C_2_SLAVE.c
-* Version 3.40
+* Version 3.50
 *
 * Description:
 *  This file provides the source code of APIs for the I2C component Slave mode.

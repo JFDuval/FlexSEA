@@ -158,9 +158,7 @@ int main(void)
 					ADC_DelSig_1_StartConvert();
 					
 					//Filter the previous results
-					strain_filter_dma();
-					
-					
+					strain_filter_dma();					
 					
 					break;
 				
@@ -189,7 +187,7 @@ int main(void)
 					
 					break;
 				
-				//Case 5: Quadrature encoder
+				//Case 5: Quadrature encoder & Position setpoint
 				case 5:
 					
 					#ifdef USE_QEI1
@@ -198,6 +196,16 @@ int main(void)
 					encoder_read();
 						
 					#endif	//USE_QEI1		
+					
+					#ifdef USE_TRAPEZ	
+				
+					if((ctrl.active_ctrl == CTRL_POSITION) || (ctrl.active_ctrl == CTRL_IMPEDANCE))
+					{	
+						//Trapezoidal trajectories (can be used for both Position & Impedance)				
+						ctrl.position.setp = trapez_get_pos(steps);	//New setpoint
+					}
+					
+					#endif	//USE_TRAPEZ	
 			
 					break;
 				
@@ -305,63 +313,6 @@ int main(void)
 			toggle_wdclk ^= 1;
 			WDCLK_Write(toggle_wdclk);
 		}
-	}
-	
-	//Main loop - Legacy - ToDo remove eventually
-	while(1)
-	{
-		
-		/* Temporarily removing the 10 & 50ms timbases. Their code isn't used for now anyway
-		//10ms timebase
-		if(t2_10ms_flag)
-		{
-			t2_10ms_flag = 0;
-			
-			#ifdef USE_TRAPEZ	
-				
-			if((ctrl.active_ctrl == CTRL_POSITION) || (ctrl.active_ctrl == CTRL_IMPEDANCE))
-			{	
-				//Trapezoidal trajectories (can be used for both Position & Impedance)				
-				ctrl.position.setpoint_val = trapez_get_pos(steps);	//New setpoint
-				//ToDo Move it to 1ms in the future (trapez.c will need to be updated first)
-			}
-			
-			#endif	//USE_TRAPEZ	
-			
-			//If no controller is used the PWM should be 0:
-			if(ctrl.active_ctrl == CTRL_NONE)
-			{
-				motor_open_speed_1(0);
-			}
-		}
-		
-		//50ms timebase for safety checks, etc
-		if(t2_50ms_flag)
-		{
-			t2_50ms_flag = 0;
-			
-			dietemp_read();	//ToDo store in variable			
-		}
-		*/
-				
-		#ifdef USE_USB
-			
-		//USB Data
-		if(usb_echo_blocking())
-		{
-			//Got new data in 
-			//Try to decode
-			cmd_ready_485_1 = unpack_payload_usb();
-			if(comm_res)
-				comm_success = 1;
-
-			//Toggle LEDR with new commands
-			ledr_state ^= 1;
-			LED_R_Write(ledr_state);
-		}
-			
-		#endif	//USE_USB
-
 	}
 }
 

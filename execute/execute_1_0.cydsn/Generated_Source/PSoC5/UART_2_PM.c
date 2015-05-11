@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: UART_2_PM.c
-* Version 2.40
+* Version 2.50
 *
 * Description:
 *  This file provides Sleep/WakeUp APIs functionality.
@@ -34,10 +34,9 @@ static UART_2_BACKUP_STRUCT  UART_2_backup =
 ********************************************************************************
 *
 * Summary:
-*  This function saves the component configuration and nonretention registers.
-*  It also saves the current component parameter values, as defined in the
-*  Configure dialog or as modified by appropriate APIs. This function is called
-*  by the UART_2_Sleep() function.
+*  This function saves the component nonretention control register.
+*  Does not save the FIFO which is a set of nonretention registers.
+*  This function is called by the UART_2_Sleep() function.
 *
 * Parameters:
 *  None.
@@ -50,9 +49,6 @@ static UART_2_BACKUP_STRUCT  UART_2_backup =
 *
 * Reentrant:
 *  No.
-*
-* Side Effects:
-*  All nonretention registers except FIFO are saved to RAM
 *
 *******************************************************************************/
 void UART_2_SaveConfig(void)
@@ -68,7 +64,8 @@ void UART_2_SaveConfig(void)
 ********************************************************************************
 *
 * Summary:
-*  Restores the user configuration of nonretention registers.
+*  Restores the nonretention control register except FIFO.
+*  Does not restore the FIFO which is a set of nonretention registers.
 *
 * Parameters:
 *  None.
@@ -82,10 +79,9 @@ void UART_2_SaveConfig(void)
 * Reentrant:
 *  No.
 *
-* Side Effects:
-*  All nonretention registers except FIFO loaded from RAM. This function should
-*  be called only after UART_2_SaveConfig() is called, otherwise
-*  incorrect data will be loaded into the registers.
+* Notes:
+*  If this function is called without calling UART_2_SaveConfig() 
+*  first, the data loaded may be incorrect.
 *
 *******************************************************************************/
 void UART_2_RestoreConfig(void)

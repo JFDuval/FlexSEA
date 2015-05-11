@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: I2C_1_BOOT.c
-* Version 3.40
+* Version 3.50
 *
 * Description:
 *  This file provides the source code of the bootloader communication APIs for the

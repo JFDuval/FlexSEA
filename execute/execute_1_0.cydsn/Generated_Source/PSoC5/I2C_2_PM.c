@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: I2C_2_PM.c
-* Version 3.40
+* Version 3.50
 *
 * Description:
 *  This file provides low power mode APIs for the I2C component.
