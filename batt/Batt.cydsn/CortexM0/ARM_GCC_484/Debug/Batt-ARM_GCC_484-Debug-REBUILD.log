@@ -1,0 +1,86 @@
+--------------- Rebuild Started: 05/13/2015 05:57:23 Project: Batt, Configuration: ARM GCC 4.8.4 Debug ---------------
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\main.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\sensors.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\cyfitter_cfg.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\cymetadata.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\LED_R.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\LED_G.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\LED_B.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\FR_STBY.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\H.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\NOT_BTN.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\TP_P1_7.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\TP_P2_7.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\I_MEAS.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\V_MEAS.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\H_CS.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\BLE_1.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\BLE_1_gatt.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\BLE_1_ias.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\BLE_1_eventHandler.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\BLE_1_HAL_INT.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\BLE_1_HAL_PVT.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\BLE_1_bless_isr.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\Cm0Start.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\CyBootAsmGnu.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\CyFlash.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\CyLib.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\cyPm.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\cyutils.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\TP_P0_2.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\TP_P0_3.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\ADC_SAR_Seq_1.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\ADC_SAR_Seq_1_PM.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\ADC_SAR_Seq_1_INT.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\P3_3.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\ADC_SAR_Seq_1_IRQ.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\ADC_SAR_Seq_1_intClock.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\SPI_1.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\SPI_1_SPI_UART.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\SPI_1_PM.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\SPI_1_SPI.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\SPI_1_BOOT.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\SPI_1_SPI_BOOT.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\SPI_1_SCBCLK.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\SPI_1_sclk_m.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\SPI_1_miso_m.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\SPI_1_mosi_m.o"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\SPI_1_ss0_m.o"
+Deleting file ".\Batt.cycdx"
+Deleting file ".\Batt.svd"
+Deleting file ".\Batt.rpt"
+Deleting file ".\Batt_timing.html"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\.deps\C_FILE.P"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\.deps\ARM_C_FILE.P"
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\.deps\GNU_ARM_ASM_FILE.P"
+cydsfit.exe -.appdatapath "C:\Users\Steven\AppData\Local\Cypress Semiconductor\PSoC Creator\3.1" -.fdsnotice -.fdswarpdepfile=warp_dependencies.txt -.fdselabdepfile=elab_dependencies.txt -.fdsbldfile=generated_files.txt -p "E:\Documents\UROPs\Biomech UROP\Code\Batt\Batt.cydsn\Batt.cyprj" -d CY8C4247LQI-BL483 -s "E:\Documents\UROPs\Biomech UROP\Code\Batt\Batt.cydsn\Generated_Source\PSoC4" -- -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE
+Elaborating Design...
+HDL Generation ...
+Synthesis ...
+Place and Route ...
+Tech mapping ...
+Analog Placement ...
+Analog Routing ...
+Analog Code Generation ...
+Digital Placement ...
+Digital Routing ...
+Bitstream Generation ...
+Static timing analysis ...
+API Generation ...
+Dependency Generation ...
+Clean Temporary Files ...
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -I.\Generated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_484\Debug/main.lst -g -D DEBUG -Wall -ffunction-sections -O0 -c ..\src\main.c -o .\CortexM0\ARM_GCC_484\Debug\main.o
+..\src\main.c: In function 'main':
+..\src\main.c:32:9: warning: implicit declaration of function 'read_battery_voltage' [-Wimplicit-function-declaration]
+         voltage = read_battery_voltage();
+         ^
+..\src\main.c:16:12: warning: variable 'voltage' set but not used [-Wunused-but-set-variable]
+     uint16 voltage = 0; //mV
+            ^
+arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -Wno-main -I. -I.\Generated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_484\Debug/sensors.lst -g -D DEBUG -Wall -ffunction-sections -O0 -c ..\src\sensors.c -o .\CortexM0\ARM_GCC_484\Debug\sensors.o
+..\src\sensors.c:2:18: fatal error: main.h: No such file or directory
+ #include "main.h"
+                  ^
+compilation terminated.
+The command 'arm-none-eabi-gcc.exe' failed with exit code '1'.
+--------------- Rebuild Failed: 05/13/2015 05:57:42 ---------------

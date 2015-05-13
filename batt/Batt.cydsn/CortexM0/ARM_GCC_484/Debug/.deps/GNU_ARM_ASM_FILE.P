@@ -1,0 +1,8 @@
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/CyBootAsmGnu.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevicegnu_trm.inc E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfittergnu.inc E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyBootAsmGnu.s 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevicegnu_trm.inc : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfittergnu.inc : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyBootAsmGnu.s : 
+

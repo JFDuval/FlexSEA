@@ -1,0 +1,2308 @@
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"BLE_1_HAL_PVT.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.CyBLE_Nvram_Write,"ax",%progbits
+  18              		.align	2
+  19              		.global	CyBLE_Nvram_Write
+  20              		.code	16
+  21              		.thumb_func
+  22              		.type	CyBLE_Nvram_Write, %function
+  23              	CyBLE_Nvram_Write:
+  24              	.LFB2:
+  25              		.file 1 ".\\Generated_Source\\PSoC4\\BLE_1_HAL_PVT.c"
+   1:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * File Name: CYBLE_HAL_PVT.c
+   3:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Version 1.10
+   4:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+   5:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Description:
+   6:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  This file contains the source code for the HAL section of the BLE component
+   7:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+   8:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** ********************************************************************************
+   9:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Copyright 2014, Cypress Semiconductor Corporation.  All rights reserved.
+  10:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * You may use this file only in accordance with the license, terms, conditions,
+  11:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  12:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * the software package with which this file was provided.
+  13:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *******************************************************************************/
+  14:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+  15:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** #include "BLE_1_HAL_PVT.h"
+  16:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+  17:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+  18:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** #if(CYBLE_MODE == CYBLE_HCI)
+  19:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+  20:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+  21:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** /*******************************************************************************
+  22:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Function Name: CyBLE_Uart_Start
+  23:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** ********************************************************************************
+  24:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+  25:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Summary:
+  26:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  Enables the platform UART Tx and RX interrupts and then enables the UART
+  27:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  component.
+  28:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+  29:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Parameters:
+  30:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  None
+  31:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+  32:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Return:
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 2
+
+
+  33:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  None
+  34:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+  35:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *******************************************************************************/
+  36:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** void CyBLE_Uart_Start (void)
+  37:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** {
+  38:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     /* Setup ISR */
+  39:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     BLE_1_uart_isr_StartEx(&CyBLE_Uart_Interrupt);
+  40:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+  41:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     BLE_1_HAL_Uart_Start();
+  42:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** }
+  43:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+  44:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+  45:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** /*******************************************************************************
+  46:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Function Name: CyBLE_Uart_Stop
+  47:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** ********************************************************************************
+  48:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+  49:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Summary:
+  50:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  Disables the UART, clears all pending interrupts and disables the UART Tx
+  51:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  and RX interrupts. This will also empty out the FIFOs.
+  52:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+  53:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Parameters:
+  54:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  None
+  55:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+  56:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Return:
+  57:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  None
+  58:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+  59:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *******************************************************************************/
+  60:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** void CyBLE_Uart_Stop (void)
+  61:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** {
+  62:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     /* Stop interrupt and UART */
+  63:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     BLE_1_uart_isr_Stop();
+  64:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+  65:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     BLE_1_HAL_Uart_Stop();
+  66:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** }
+  67:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+  68:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+  69:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** /*******************************************************************************
+  70:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Function Name: CyBLE_Uart_Transmit
+  71:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** ********************************************************************************
+  72:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+  73:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Summary:
+  74:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  Sends the data to Uart Tx FIFO. The API handles data length up to the 
+  75:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  supported Tx FIFO length of the uart hardware module.
+  76:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+  77:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Parameters:
+  78:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  uint8 *data: Pointer to the data to send through the UART
+  79:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  uint8 length: the length of data to transmit in bytes
+  80:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+  81:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Return:
+  82:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  None
+  83:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+  84:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *******************************************************************************/
+  85:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** void CyBLE_Uart_Transmit (const uint8 *dataBuf, uint8 length)
+  86:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** {
+  87:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     BLE_1_HAL_Uart_SpiUartPutArray(dataBuf, (uint32)length);
+  88:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** }
+  89:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 3
+
+
+  90:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** #endif /* (CYBLE_MODE == CYBLE_HCI) */
+  91:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+  92:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+  93:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** /*******************************************************************************
+  94:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Function Name: CyBLE_Nvram_Write
+  95:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** ********************************************************************************
+  96:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+  97:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Summary:
+  98:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  This API writes the data to the NVRAM store. It will check the appropriate
+  99:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  alignment of a start address and also perform an address range check based
+ 100:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  on the length before performing the write operation.
+ 101:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  This function performs memory compare and writes only row where there are new
+ 102:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  data to write.
+ 103:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+ 104:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Parameters:
+ 105:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  const uint8 *buffer: Pointer to the buffer containing the data to be stored.
+ 106:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  const uint8 *varFlash: Pointer to the array or variable in the flash.
+ 107:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  uint16 length: the length of the data in bytes.
+ 108:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+ 109:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Return:
+ 110:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  CYRET_SUCCESS    a successful write
+ 111:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  CYRET_BAD_PARAM  A request to write outside the flash boundary.
+ 112:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  CYRET_UNKNOWN    Other errors in writing the flash
+ 113:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+ 114:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Side Effects:
+ 115:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  This API will automatically modify the clock settings for the device.
+ 116:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  Writing to flash requires changes to be done to the IMO (set to 48 MHz)
+ 117:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  and HFCLK (source set to IMO) settings. The configuration is restored before
+ 118:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  returning. This will impact the operation of most of the hardware in the
+ 119:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  device.
+ 120:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+ 121:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *******************************************************************************/
+ 122:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** cystatus CyBLE_Nvram_Write (const uint8 buffer[], const uint8 varFlash[], uint16 length)
+ 123:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** {
+  26              		.loc 1 123 0
+  27              		.cfi_startproc
+  28 0000 80B5     		push	{r7, lr}
+  29              		.cfi_def_cfa_offset 8
+  30              		.cfi_offset 7, -8
+  31              		.cfi_offset 14, -4
+  32 0002 ACB0     		sub	sp, sp, #176
+  33              		.cfi_def_cfa_offset 184
+  34 0004 00AF     		add	r7, sp, #0
+  35              		.cfi_def_cfa_register 7
+  36 0006 F860     		str	r0, [r7, #12]
+  37 0008 B960     		str	r1, [r7, #8]
+  38 000a BB1D     		add	r3, r7, #6
+  39 000c 1A80     		strh	r2, [r3]
+ 124:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     uint8 writeBuffer[CY_FLASH_SIZEOF_ROW];
+ 125:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     uint32 rowId;
+ 126:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     uint32 dstIndex;
+ 127:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     uint32 srcIndex = 0u;
+  40              		.loc 1 127 0
+  41 000e 0023     		mov	r3, #0
+  42 0010 A420     		mov	r0, #164
+  43 0012 C019     		add	r0, r0, r7
+  44 0014 0360     		str	r3, [r0]
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 4
+
+
+ 128:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     cystatus rc = CYRET_SUCCESS;
+  45              		.loc 1 128 0
+  46 0016 0023     		mov	r3, #0
+  47 0018 A021     		mov	r1, #160
+  48 001a C919     		add	r1, r1, r7
+  49 001c 0B60     		str	r3, [r1]
+ 129:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     uint32 eeOffset;
+ 130:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     uint32 byteOffset;
+ 131:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     uint32 rowsNotEqual;
+ 132:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+ 133:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     eeOffset = (uint32)varFlash;
+  50              		.loc 1 133 0
+  51 001e BB68     		ldr	r3, [r7, #8]
+  52 0020 9422     		mov	r2, #148
+  53 0022 D219     		add	r2, r2, r7
+  54 0024 1360     		str	r3, [r2]
+ 134:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+ 135:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     /* Make sure, that varFlash[] points to ROM */
+ 136:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     if ((eeOffset + length) < CYBLE_HAL_FLASH_END_ADDR)
+  55              		.loc 1 136 0
+  56 0026 BB1D     		add	r3, r7, #6
+  57 0028 1A88     		ldrh	r2, [r3]
+  58 002a 9420     		mov	r0, #148
+  59 002c C019     		add	r0, r0, r7
+  60 002e 0368     		ldr	r3, [r0]
+  61 0030 D218     		add	r2, r2, r3
+  62 0032 594B     		ldr	r3, .L14
+  63 0034 9A42     		cmp	r2, r3
+  64 0036 00D9     		bls	.LCB36
+  65 0038 94E0     		b	.L2	@long jump
+  66              	.LCB36:
+ 137:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     {
+ 138:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****         rowId = eeOffset / CY_FLASH_SIZEOF_ROW;
+  67              		.loc 1 138 0
+  68 003a 9421     		mov	r1, #148
+  69 003c C919     		add	r1, r1, r7
+  70 003e 0B68     		ldr	r3, [r1]
+  71 0040 DB09     		lsr	r3, r3, #7
+  72 0042 AC22     		mov	r2, #172
+  73 0044 D219     		add	r2, r2, r7
+  74 0046 1360     		str	r3, [r2]
+ 139:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****         byteOffset = CY_FLASH_SIZEOF_ROW * rowId;
+  75              		.loc 1 139 0
+  76 0048 AC20     		mov	r0, #172
+  77 004a C019     		add	r0, r0, r7
+  78 004c 0368     		ldr	r3, [r0]
+  79 004e DB01     		lsl	r3, r3, #7
+  80 0050 9C21     		mov	r1, #156
+  81 0052 C919     		add	r1, r1, r7
+  82 0054 0B60     		str	r3, [r1]
+ 140:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+ 141:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****         while ((srcIndex < length) && (CYRET_SUCCESS == rc))
+  83              		.loc 1 141 0
+  84 0056 77E0     		b	.L3
+  85              	.L11:
+ 142:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****         {
+ 143:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****             rowsNotEqual = 0u;
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 5
+
+
+  86              		.loc 1 143 0
+  87 0058 0023     		mov	r3, #0
+  88 005a 9822     		mov	r2, #152
+  89 005c D219     		add	r2, r2, r7
+  90 005e 1360     		str	r3, [r2]
+ 144:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****             /* Copy data to the write buffer either from the source buffer or from the flash */
+ 145:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****             for (dstIndex = 0u; dstIndex < CY_FLASH_SIZEOF_ROW; dstIndex++)
+  91              		.loc 1 145 0
+  92 0060 0023     		mov	r3, #0
+  93 0062 A820     		mov	r0, #168
+  94 0064 C019     		add	r0, r0, r7
+  95 0066 0360     		str	r3, [r0]
+  96 0068 50E0     		b	.L4
+  97              	.L8:
+ 146:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****             {
+ 147:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****                 if ((byteOffset >= eeOffset) && (srcIndex < length))
+  98              		.loc 1 147 0
+  99 006a 9C21     		mov	r1, #156
+ 100 006c C919     		add	r1, r1, r7
+ 101 006e 0A68     		ldr	r2, [r1]
+ 102 0070 9420     		mov	r0, #148
+ 103 0072 C019     		add	r0, r0, r7
+ 104 0074 0368     		ldr	r3, [r0]
+ 105 0076 9A42     		cmp	r2, r3
+ 106 0078 2ED3     		bcc	.L5
+ 107              		.loc 1 147 0 is_stmt 0 discriminator 1
+ 108 007a BB1D     		add	r3, r7, #6
+ 109 007c 1A88     		ldrh	r2, [r3]
+ 110 007e A421     		mov	r1, #164
+ 111 0080 C919     		add	r1, r1, r7
+ 112 0082 0B68     		ldr	r3, [r1]
+ 113 0084 9A42     		cmp	r2, r3
+ 114 0086 27D9     		bls	.L5
+ 148:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****                 {
+ 149:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****                     /* Detect that row programming is required */
+ 150:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****                     if(writeBuffer[dstIndex] != buffer[srcIndex])
+ 115              		.loc 1 150 0 is_stmt 1
+ 116 0088 3A1C     		mov	r2, r7
+ 117 008a 1432     		add	r2, r2, #20
+ 118 008c A820     		mov	r0, #168
+ 119 008e C019     		add	r0, r0, r7
+ 120 0090 0368     		ldr	r3, [r0]
+ 121 0092 D318     		add	r3, r2, r3
+ 122 0094 1A78     		ldrb	r2, [r3]
+ 123 0096 F968     		ldr	r1, [r7, #12]
+ 124 0098 A420     		mov	r0, #164
+ 125 009a C019     		add	r0, r0, r7
+ 126 009c 0368     		ldr	r3, [r0]
+ 127 009e CB18     		add	r3, r1, r3
+ 128 00a0 1B78     		ldrb	r3, [r3]
+ 129 00a2 9A42     		cmp	r2, r3
+ 130 00a4 10D0     		beq	.L6
+ 151:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****                     {
+ 152:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****                         writeBuffer[dstIndex] = buffer[srcIndex];
+ 131              		.loc 1 152 0
+ 132 00a6 FA68     		ldr	r2, [r7, #12]
+ 133 00a8 A421     		mov	r1, #164
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 6
+
+
+ 134 00aa C919     		add	r1, r1, r7
+ 135 00ac 0B68     		ldr	r3, [r1]
+ 136 00ae D318     		add	r3, r2, r3
+ 137 00b0 1A78     		ldrb	r2, [r3]
+ 138 00b2 391C     		mov	r1, r7
+ 139 00b4 1431     		add	r1, r1, #20
+ 140 00b6 A820     		mov	r0, #168
+ 141 00b8 C019     		add	r0, r0, r7
+ 142 00ba 0368     		ldr	r3, [r0]
+ 143 00bc CB18     		add	r3, r1, r3
+ 144 00be 1A70     		strb	r2, [r3]
+ 153:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****                         rowsNotEqual = 1u;  
+ 145              		.loc 1 153 0
+ 146 00c0 0123     		mov	r3, #1
+ 147 00c2 9821     		mov	r1, #152
+ 148 00c4 C919     		add	r1, r1, r7
+ 149 00c6 0B60     		str	r3, [r1]
+ 150              	.L6:
+ 154:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****                     }
+ 155:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****                     srcIndex++;
+ 151              		.loc 1 155 0
+ 152 00c8 A422     		mov	r2, #164
+ 153 00ca D219     		add	r2, r2, r7
+ 154 00cc 1368     		ldr	r3, [r2]
+ 155 00ce 0133     		add	r3, r3, #1
+ 156 00d0 A420     		mov	r0, #164
+ 157 00d2 C019     		add	r0, r0, r7
+ 158 00d4 0360     		str	r3, [r0]
+ 159 00d6 0BE0     		b	.L7
+ 160              	.L5:
+ 156:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****                 }
+ 157:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****                 else
+ 158:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****                 {
+ 159:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****                     writeBuffer[dstIndex] = CY_GET_XTND_REG8(CYDEV_FLASH_BASE + byteOffset);
+ 161              		.loc 1 159 0
+ 162 00d8 9C21     		mov	r1, #156
+ 163 00da C919     		add	r1, r1, r7
+ 164 00dc 0B68     		ldr	r3, [r1]
+ 165 00de 1B78     		ldrb	r3, [r3]
+ 166 00e0 DAB2     		uxtb	r2, r3
+ 167 00e2 391C     		mov	r1, r7
+ 168 00e4 1431     		add	r1, r1, #20
+ 169 00e6 A820     		mov	r0, #168
+ 170 00e8 C019     		add	r0, r0, r7
+ 171 00ea 0368     		ldr	r3, [r0]
+ 172 00ec CB18     		add	r3, r1, r3
+ 173 00ee 1A70     		strb	r2, [r3]
+ 174              	.L7:
+ 160:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****                 }
+ 161:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****                 byteOffset++;
+ 175              		.loc 1 161 0
+ 176 00f0 9C21     		mov	r1, #156
+ 177 00f2 C919     		add	r1, r1, r7
+ 178 00f4 0B68     		ldr	r3, [r1]
+ 179 00f6 0133     		add	r3, r3, #1
+ 180 00f8 9C22     		mov	r2, #156
+ 181 00fa D219     		add	r2, r2, r7
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 7
+
+
+ 182 00fc 1360     		str	r3, [r2]
+ 145:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****             for (dstIndex = 0u; dstIndex < CY_FLASH_SIZEOF_ROW; dstIndex++)
+ 183              		.loc 1 145 0
+ 184 00fe A820     		mov	r0, #168
+ 185 0100 C019     		add	r0, r0, r7
+ 186 0102 0368     		ldr	r3, [r0]
+ 187 0104 0133     		add	r3, r3, #1
+ 188 0106 A821     		mov	r1, #168
+ 189 0108 C919     		add	r1, r1, r7
+ 190 010a 0B60     		str	r3, [r1]
+ 191              	.L4:
+ 145:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****             for (dstIndex = 0u; dstIndex < CY_FLASH_SIZEOF_ROW; dstIndex++)
+ 192              		.loc 1 145 0 is_stmt 0 discriminator 1
+ 193 010c A822     		mov	r2, #168
+ 194 010e D219     		add	r2, r2, r7
+ 195 0110 1368     		ldr	r3, [r2]
+ 196 0112 7F2B     		cmp	r3, #127
+ 197 0114 A9D9     		bls	.L8
+ 162:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****             }
+ 163:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+ 164:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****             if(rowsNotEqual != 0u)
+ 198              		.loc 1 164 0 is_stmt 1
+ 199 0116 9820     		mov	r0, #152
+ 200 0118 C019     		add	r0, r0, r7
+ 201 011a 0368     		ldr	r3, [r0]
+ 202 011c 002B     		cmp	r3, #0
+ 203 011e 0CD0     		beq	.L9
+ 165:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****             {
+ 166:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****                 /* Write flash row */
+ 167:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****                 rc = CySysFlashWriteRow(rowId, writeBuffer);
+ 204              		.loc 1 167 0
+ 205 0120 AC21     		mov	r1, #172
+ 206 0122 C919     		add	r1, r1, r7
+ 207 0124 0A68     		ldr	r2, [r1]
+ 208 0126 3B1C     		mov	r3, r7
+ 209 0128 1433     		add	r3, r3, #20
+ 210 012a 101C     		mov	r0, r2
+ 211 012c 191C     		mov	r1, r3
+ 212 012e FFF7FEFF 		bl	CySysFlashWriteRow
+ 213 0132 031C     		mov	r3, r0
+ 214 0134 A022     		mov	r2, #160
+ 215 0136 D219     		add	r2, r2, r7
+ 216 0138 1360     		str	r3, [r2]
+ 217              	.L9:
+ 168:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****             }
+ 169:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+ 170:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****             /* Go to the next row */
+ 171:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****             rowId++;
+ 218              		.loc 1 171 0
+ 219 013a AC20     		mov	r0, #172
+ 220 013c C019     		add	r0, r0, r7
+ 221 013e 0368     		ldr	r3, [r0]
+ 222 0140 0133     		add	r3, r3, #1
+ 223 0142 AC21     		mov	r1, #172
+ 224 0144 C919     		add	r1, r1, r7
+ 225 0146 0B60     		str	r3, [r1]
+ 226              	.L3:
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 8
+
+
+ 141:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****         while ((srcIndex < length) && (CYRET_SUCCESS == rc))
+ 227              		.loc 1 141 0 discriminator 1
+ 228 0148 BB1D     		add	r3, r7, #6
+ 229 014a 1A88     		ldrh	r2, [r3]
+ 230 014c A420     		mov	r0, #164
+ 231 014e C019     		add	r0, r0, r7
+ 232 0150 0368     		ldr	r3, [r0]
+ 233 0152 9A42     		cmp	r2, r3
+ 234 0154 0AD9     		bls	.L10
+ 141:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****         while ((srcIndex < length) && (CYRET_SUCCESS == rc))
+ 235              		.loc 1 141 0 is_stmt 0 discriminator 2
+ 236 0156 A021     		mov	r1, #160
+ 237 0158 C919     		add	r1, r1, r7
+ 238 015a 0B68     		ldr	r3, [r1]
+ 239 015c 002B     		cmp	r3, #0
+ 240 015e 00D1     		bne	.LCB201
+ 241 0160 7AE7     		b	.L11	@long jump
+ 242              	.LCB201:
+ 243 0162 03E0     		b	.L10
+ 244              	.L2:
+ 172:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****         }
+ 173:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     }
+ 174:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     else
+ 175:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     {
+ 176:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****         rc = CYRET_BAD_PARAM;
+ 245              		.loc 1 176 0 is_stmt 1
+ 246 0164 0123     		mov	r3, #1
+ 247 0166 A022     		mov	r2, #160
+ 248 0168 D219     		add	r2, r2, r7
+ 249 016a 1360     		str	r3, [r2]
+ 250              	.L10:
+ 177:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     }
+ 178:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+ 179:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     /* Mask return codes from flash, if they are not supported */
+ 180:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     if ((CYRET_SUCCESS != rc) && (CYRET_BAD_PARAM != rc))
+ 251              		.loc 1 180 0
+ 252 016c A020     		mov	r0, #160
+ 253 016e C019     		add	r0, r0, r7
+ 254 0170 0368     		ldr	r3, [r0]
+ 255 0172 002B     		cmp	r3, #0
+ 256 0174 09D0     		beq	.L12
+ 257              		.loc 1 180 0 is_stmt 0 discriminator 1
+ 258 0176 A021     		mov	r1, #160
+ 259 0178 C919     		add	r1, r1, r7
+ 260 017a 0B68     		ldr	r3, [r1]
+ 261 017c 012B     		cmp	r3, #1
+ 262 017e 04D0     		beq	.L12
+ 181:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     {
+ 182:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****         rc = CYRET_UNKNOWN;
+ 263              		.loc 1 182 0 is_stmt 1
+ 264 0180 0123     		mov	r3, #1
+ 265 0182 5B42     		neg	r3, r3
+ 266 0184 A022     		mov	r2, #160
+ 267 0186 D219     		add	r2, r2, r7
+ 268 0188 1360     		str	r3, [r2]
+ 269              	.L12:
+ 183:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     }
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 9
+
+
+ 184:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     
+ 185:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     return (rc);
+ 270              		.loc 1 185 0
+ 271 018a A020     		mov	r0, #160
+ 272 018c C019     		add	r0, r0, r7
+ 273 018e 0368     		ldr	r3, [r0]
+ 186:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** }
+ 274              		.loc 1 186 0
+ 275 0190 181C     		mov	r0, r3
+ 276 0192 BD46     		mov	sp, r7
+ 277 0194 2CB0     		add	sp, sp, #176
+ 278              		@ sp needed
+ 279 0196 80BD     		pop	{r7, pc}
+ 280              	.L15:
+ 281              		.align	2
+ 282              	.L14:
+ 283 0198 FFFF0100 		.word	131071
+ 284              		.cfi_endproc
+ 285              	.LFE2:
+ 286              		.size	CyBLE_Nvram_Write, .-CyBLE_Nvram_Write
+ 287              		.section	.text.CyBLE_Nvram_Erase,"ax",%progbits
+ 288              		.align	2
+ 289              		.global	CyBLE_Nvram_Erase
+ 290              		.code	16
+ 291              		.thumb_func
+ 292              		.type	CyBLE_Nvram_Erase, %function
+ 293              	CyBLE_Nvram_Erase:
+ 294              	.LFB3:
+ 187:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+ 188:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** /*******************************************************************************
+ 189:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Function Name: CyBLE_Nvram_Erase
+ 190:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** ********************************************************************************
+ 191:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+ 192:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Summary:
+ 193:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  This API erases the data from the NVRAM store. This API will perform an 
+ 194:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  address range check based on the length before performing erase operation.
+ 195:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+ 196:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Parameters:
+ 197:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  const uint8 *varFlash: the pointer to the array or variable in the flash.
+ 198:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  uint16 length: the length of the data in bytes.
+ 199:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+ 200:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Return:
+ 201:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  CYRET_SUCCESS    a successful write
+ 202:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  CYRET_BAD_PARAM  A request to write outside the flash boundary.
+ 203:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  CYRET_UNKNOWN    Other errors in writing the flash
+ 204:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+ 205:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *******************************************************************************/
+ 206:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** cystatus CyBLE_Nvram_Erase (const uint8 *varFlash, uint16 length)
+ 207:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** {
+ 295              		.loc 1 207 0
+ 296              		.cfi_startproc
+ 297 0000 80B5     		push	{r7, lr}
+ 298              		.cfi_def_cfa_offset 8
+ 299              		.cfi_offset 7, -8
+ 300              		.cfi_offset 14, -4
+ 301 0002 A6B0     		sub	sp, sp, #152
+ 302              		.cfi_def_cfa_offset 160
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 10
+
+
+ 303 0004 00AF     		add	r7, sp, #0
+ 304              		.cfi_def_cfa_register 7
+ 305 0006 7860     		str	r0, [r7, #4]
+ 306 0008 0A1C     		mov	r2, r1
+ 307 000a BB1C     		add	r3, r7, #2
+ 308 000c 1A80     		strh	r2, [r3]
+ 208:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     const uint8 *tempFlash;
+ 209:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     uint8 flashBuffer[CY_FLASH_SIZEOF_ROW] = {0u};
+ 309              		.loc 1 209 0
+ 310 000e 3B1C     		mov	r3, r7
+ 311 0010 0C33     		add	r3, r3, #12
+ 312 0012 1A1C     		mov	r2, r3
+ 313 0014 8023     		mov	r3, #128
+ 314 0016 101C     		mov	r0, r2
+ 315 0018 0021     		mov	r1, #0
+ 316 001a 1A1C     		mov	r2, r3
+ 317 001c FFF7FEFF 		bl	memset
+ 210:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     uint16 lengthFlash;
+ 211:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     uint16 lengthRemaining;
+ 212:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     cystatus rc = CYRET_UNKNOWN;
+ 318              		.loc 1 212 0
+ 319 0020 0123     		mov	r3, #1
+ 320 0022 5B42     		neg	r3, r3
+ 321 0024 8C22     		mov	r2, #140
+ 322 0026 D219     		add	r2, r2, r7
+ 323 0028 1360     		str	r3, [r2]
+ 213:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+ 214:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     tempFlash = varFlash;
+ 324              		.loc 1 214 0
+ 325 002a 7B68     		ldr	r3, [r7, #4]
+ 326 002c 9422     		mov	r2, #148
+ 327 002e D219     		add	r2, r2, r7
+ 328 0030 1360     		str	r3, [r2]
+ 215:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     lengthRemaining = length;
+ 329              		.loc 1 215 0
+ 330 0032 3B1C     		mov	r3, r7
+ 331 0034 9033     		add	r3, r3, #144
+ 332 0036 BA1C     		add	r2, r7, #2
+ 333 0038 1288     		ldrh	r2, [r2]
+ 334 003a 1A80     		strh	r2, [r3]
+ 216:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+ 217:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     while(lengthRemaining > 0u)
+ 335              		.loc 1 217 0
+ 336 003c 37E0     		b	.L17
+ 337              	.L22:
+ 218:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     {
+ 219:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****         if(lengthRemaining < CY_FLASH_SIZEOF_ROW)
+ 338              		.loc 1 219 0
+ 339 003e 3B1C     		mov	r3, r7
+ 340 0040 9033     		add	r3, r3, #144
+ 341 0042 1B88     		ldrh	r3, [r3]
+ 342 0044 7F2B     		cmp	r3, #127
+ 343 0046 06D8     		bhi	.L18
+ 220:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****         {
+ 221:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****             lengthFlash = lengthRemaining;
+ 344              		.loc 1 221 0
+ 345 0048 3B1C     		mov	r3, r7
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 11
+
+
+ 346 004a 9233     		add	r3, r3, #146
+ 347 004c 3A1C     		mov	r2, r7
+ 348 004e 9032     		add	r2, r2, #144
+ 349 0050 1288     		ldrh	r2, [r2]
+ 350 0052 1A80     		strh	r2, [r3]
+ 351 0054 03E0     		b	.L19
+ 352              	.L18:
+ 222:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****         }
+ 223:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****         else
+ 224:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****         {
+ 225:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****             lengthFlash = CY_FLASH_SIZEOF_ROW;
+ 353              		.loc 1 225 0
+ 354 0056 3B1C     		mov	r3, r7
+ 355 0058 9233     		add	r3, r3, #146
+ 356 005a 8022     		mov	r2, #128
+ 357 005c 1A80     		strh	r2, [r3]
+ 358              	.L19:
+ 226:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****         }
+ 227:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****         rc = CyBLE_Nvram_Write(flashBuffer, tempFlash, lengthFlash);
+ 359              		.loc 1 227 0
+ 360 005e 391C     		mov	r1, r7
+ 361 0060 0C31     		add	r1, r1, #12
+ 362 0062 9423     		mov	r3, #148
+ 363 0064 DB19     		add	r3, r3, r7
+ 364 0066 1A68     		ldr	r2, [r3]
+ 365 0068 3B1C     		mov	r3, r7
+ 366 006a 9233     		add	r3, r3, #146
+ 367 006c 1B88     		ldrh	r3, [r3]
+ 368 006e 081C     		mov	r0, r1
+ 369 0070 111C     		mov	r1, r2
+ 370 0072 1A1C     		mov	r2, r3
+ 371 0074 FFF7FEFF 		bl	CyBLE_Nvram_Write
+ 372 0078 031C     		mov	r3, r0
+ 373 007a 8C22     		mov	r2, #140
+ 374 007c D219     		add	r2, r2, r7
+ 375 007e 1360     		str	r3, [r2]
+ 228:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****         if(rc != CYRET_SUCCESS)
+ 376              		.loc 1 228 0
+ 377 0080 8C22     		mov	r2, #140
+ 378 0082 D219     		add	r2, r2, r7
+ 379 0084 1368     		ldr	r3, [r2]
+ 380 0086 002B     		cmp	r3, #0
+ 381 0088 00D0     		beq	.L20
+ 229:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****         {
+ 230:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****             break;
+ 382              		.loc 1 230 0
+ 383 008a 15E0     		b	.L21
+ 384              	.L20:
+ 231:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****         }
+ 232:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****         tempFlash += CY_FLASH_SIZEOF_ROW;
+ 385              		.loc 1 232 0
+ 386 008c 9422     		mov	r2, #148
+ 387 008e D219     		add	r2, r2, r7
+ 388 0090 1368     		ldr	r3, [r2]
+ 389 0092 8033     		add	r3, r3, #128
+ 390 0094 9422     		mov	r2, #148
+ 391 0096 D219     		add	r2, r2, r7
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 12
+
+
+ 392 0098 1360     		str	r3, [r2]
+ 233:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****         lengthRemaining -= lengthFlash;
+ 393              		.loc 1 233 0
+ 394 009a 3B1C     		mov	r3, r7
+ 395 009c 9033     		add	r3, r3, #144
+ 396 009e 391C     		mov	r1, r7
+ 397 00a0 9031     		add	r1, r1, #144
+ 398 00a2 3A1C     		mov	r2, r7
+ 399 00a4 9232     		add	r2, r2, #146
+ 400 00a6 0988     		ldrh	r1, [r1]
+ 401 00a8 1288     		ldrh	r2, [r2]
+ 402 00aa 8A1A     		sub	r2, r1, r2
+ 403 00ac 1A80     		strh	r2, [r3]
+ 404              	.L17:
+ 217:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     while(lengthRemaining > 0u)
+ 405              		.loc 1 217 0 discriminator 1
+ 406 00ae 3B1C     		mov	r3, r7
+ 407 00b0 9033     		add	r3, r3, #144
+ 408 00b2 1B88     		ldrh	r3, [r3]
+ 409 00b4 002B     		cmp	r3, #0
+ 410 00b6 C2D1     		bne	.L22
+ 411              	.L21:
+ 234:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     }
+ 235:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+ 236:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     return rc;
+ 412              		.loc 1 236 0
+ 413 00b8 8C22     		mov	r2, #140
+ 414 00ba D219     		add	r2, r2, r7
+ 415 00bc 1368     		ldr	r3, [r2]
+ 237:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** }
+ 416              		.loc 1 237 0
+ 417 00be 181C     		mov	r0, r3
+ 418 00c0 BD46     		mov	sp, r7
+ 419 00c2 26B0     		add	sp, sp, #152
+ 420              		@ sp needed
+ 421 00c4 80BD     		pop	{r7, pc}
+ 422              		.cfi_endproc
+ 423              	.LFE3:
+ 424              		.size	CyBLE_Nvram_Erase, .-CyBLE_Nvram_Erase
+ 425 00c6 C046     		.section	.text.CyBLE_Bless_LlRegRead,"ax",%progbits
+ 426              		.align	2
+ 427              		.global	CyBLE_Bless_LlRegRead
+ 428              		.code	16
+ 429              		.thumb_func
+ 430              		.type	CyBLE_Bless_LlRegRead, %function
+ 431              	CyBLE_Bless_LlRegRead:
+ 432              	.LFB4:
+ 238:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+ 239:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+ 240:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** /*******************************************************************************
+ 241:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Function Name: CyBLE_Bless_LlRegRead
+ 242:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** ********************************************************************************
+ 243:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+ 244:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Summary:
+ 245:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  This API reads the content of the BLESS Link Layer register from the stack.
+ 246:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+ 247:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Parameters:
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 13
+
+
+ 248:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  uint32 *blessAddr: the pointer to the BLESS link layer address.
+ 249:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  uint16 *regValue: the pointer to the buffer space to copy the read value.
+ 250:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+ 251:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Return:
+ 252:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  None
+ 253:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+ 254:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *******************************************************************************/
+ 255:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** void CyBLE_Bless_LlRegRead (const reg32 *blessAddr, uint16 *regValue)
+ 256:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** {
+ 433              		.loc 1 256 0
+ 434              		.cfi_startproc
+ 435 0000 80B5     		push	{r7, lr}
+ 436              		.cfi_def_cfa_offset 8
+ 437              		.cfi_offset 7, -8
+ 438              		.cfi_offset 14, -4
+ 439 0002 82B0     		sub	sp, sp, #8
+ 440              		.cfi_def_cfa_offset 16
+ 441 0004 00AF     		add	r7, sp, #0
+ 442              		.cfi_def_cfa_register 7
+ 443 0006 7860     		str	r0, [r7, #4]
+ 444 0008 3960     		str	r1, [r7]
+ 257:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     *regValue = (uint16)CY_GET_REG32(blessAddr);
+ 445              		.loc 1 257 0
+ 446 000a 7B68     		ldr	r3, [r7, #4]
+ 447 000c 1B68     		ldr	r3, [r3]
+ 448 000e 9AB2     		uxth	r2, r3
+ 449 0010 3B68     		ldr	r3, [r7]
+ 450 0012 1A80     		strh	r2, [r3]
+ 258:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** }
+ 451              		.loc 1 258 0
+ 452 0014 BD46     		mov	sp, r7
+ 453 0016 02B0     		add	sp, sp, #8
+ 454              		@ sp needed
+ 455 0018 80BD     		pop	{r7, pc}
+ 456              		.cfi_endproc
+ 457              	.LFE4:
+ 458              		.size	CyBLE_Bless_LlRegRead, .-CyBLE_Bless_LlRegRead
+ 459 001a C046     		.section	.text.CyBLE_Bless_LlRegWrite,"ax",%progbits
+ 460              		.align	2
+ 461              		.global	CyBLE_Bless_LlRegWrite
+ 462              		.code	16
+ 463              		.thumb_func
+ 464              		.type	CyBLE_Bless_LlRegWrite, %function
+ 465              	CyBLE_Bless_LlRegWrite:
+ 466              	.LFB5:
+ 259:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+ 260:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+ 261:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** /*******************************************************************************
+ 262:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Function Name: CyBLE_Bless_LlRegWrite
+ 263:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** ********************************************************************************
+ 264:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+ 265:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Summary:
+ 266:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  This API writes to the BLESS Link Layer register from the stack.
+ 267:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+ 268:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Parameters:
+ 269:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  uint32 *blessAddr: the pointer to the BLESS link layer address.
+ 270:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  uint16 regValue: the pointer to the value to be written to the BLESS LL reg.
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 14
+
+
+ 271:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+ 272:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Return:
+ 273:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  None
+ 274:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+ 275:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *******************************************************************************/
+ 276:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** void CyBLE_Bless_LlRegWrite (reg32 *blessAddr, const uint16 regValue)
+ 277:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** {
+ 467              		.loc 1 277 0
+ 468              		.cfi_startproc
+ 469 0000 80B5     		push	{r7, lr}
+ 470              		.cfi_def_cfa_offset 8
+ 471              		.cfi_offset 7, -8
+ 472              		.cfi_offset 14, -4
+ 473 0002 82B0     		sub	sp, sp, #8
+ 474              		.cfi_def_cfa_offset 16
+ 475 0004 00AF     		add	r7, sp, #0
+ 476              		.cfi_def_cfa_register 7
+ 477 0006 7860     		str	r0, [r7, #4]
+ 478 0008 0A1C     		mov	r2, r1
+ 479 000a BB1C     		add	r3, r7, #2
+ 480 000c 1A80     		strh	r2, [r3]
+ 278:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     CY_SET_REG32(blessAddr, regValue);
+ 481              		.loc 1 278 0
+ 482 000e BB1C     		add	r3, r7, #2
+ 483 0010 1A88     		ldrh	r2, [r3]
+ 484 0012 7B68     		ldr	r3, [r7, #4]
+ 485 0014 1A60     		str	r2, [r3]
+ 279:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** }
+ 486              		.loc 1 279 0
+ 487 0016 BD46     		mov	sp, r7
+ 488 0018 02B0     		add	sp, sp, #8
+ 489              		@ sp needed
+ 490 001a 80BD     		pop	{r7, pc}
+ 491              		.cfi_endproc
+ 492              	.LFE5:
+ 493              		.size	CyBLE_Bless_LlRegWrite, .-CyBLE_Bless_LlRegWrite
+ 494              		.section	.text.CyBLE_Bless_RfRegRead,"ax",%progbits
+ 495              		.align	2
+ 496              		.global	CyBLE_Bless_RfRegRead
+ 497              		.code	16
+ 498              		.thumb_func
+ 499              		.type	CyBLE_Bless_RfRegRead, %function
+ 500              	CyBLE_Bless_RfRegRead:
+ 501              	.LFB6:
+ 280:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+ 281:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+ 282:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** /*******************************************************************************
+ 283:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Function Name: CyBLE_Bless_RfRegRead
+ 284:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** ********************************************************************************
+ 285:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+ 286:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Summary:
+ 287:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  This API reads the content of the BLESS RF register from the stack.
+ 288:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+ 289:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Parameters:
+ 290:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  uint32 *blessAddr: the pointer to BLESS RF register address.
+ 291:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  uint16 *regValue: the pointer to the buffer space to copy the read value.
+ 292:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 15
+
+
+ 293:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Return:
+ 294:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  None
+ 295:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+ 296:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *******************************************************************************/
+ 297:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** void CyBLE_Bless_RfRegRead (const reg32 *blessAddr, uint16 *regValue)
+ 298:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** {
+ 502              		.loc 1 298 0
+ 503              		.cfi_startproc
+ 504 0000 80B5     		push	{r7, lr}
+ 505              		.cfi_def_cfa_offset 8
+ 506              		.cfi_offset 7, -8
+ 507              		.cfi_offset 14, -4
+ 508 0002 82B0     		sub	sp, sp, #8
+ 509              		.cfi_def_cfa_offset 16
+ 510 0004 00AF     		add	r7, sp, #0
+ 511              		.cfi_def_cfa_register 7
+ 512 0006 7860     		str	r0, [r7, #4]
+ 513 0008 3960     		str	r1, [r7]
+ 299:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     *regValue = (uint16)CY_GET_REG32(blessAddr);
+ 514              		.loc 1 299 0
+ 515 000a 7B68     		ldr	r3, [r7, #4]
+ 516 000c 1B68     		ldr	r3, [r3]
+ 517 000e 9AB2     		uxth	r2, r3
+ 518 0010 3B68     		ldr	r3, [r7]
+ 519 0012 1A80     		strh	r2, [r3]
+ 300:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** }
+ 520              		.loc 1 300 0
+ 521 0014 BD46     		mov	sp, r7
+ 522 0016 02B0     		add	sp, sp, #8
+ 523              		@ sp needed
+ 524 0018 80BD     		pop	{r7, pc}
+ 525              		.cfi_endproc
+ 526              	.LFE6:
+ 527              		.size	CyBLE_Bless_RfRegRead, .-CyBLE_Bless_RfRegRead
+ 528 001a C046     		.section	.text.CyBLE_Bless_RfRegWrite,"ax",%progbits
+ 529              		.align	2
+ 530              		.global	CyBLE_Bless_RfRegWrite
+ 531              		.code	16
+ 532              		.thumb_func
+ 533              		.type	CyBLE_Bless_RfRegWrite, %function
+ 534              	CyBLE_Bless_RfRegWrite:
+ 535              	.LFB7:
+ 301:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+ 302:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+ 303:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** /*******************************************************************************
+ 304:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Function Name: CyBLE_Bless_RfRegWrite
+ 305:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** ********************************************************************************
+ 306:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+ 307:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Summary:
+ 308:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  This API writes to the BLESS RF register from the stack.
+ 309:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+ 310:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Parameters:
+ 311:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  uint32 *blessAddr: the pointer to the BLESS RF address.
+ 312:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  uint16 regValue: the pointer to the value to be written to the BLESS RF reg.
+ 313:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+ 314:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** * Return:
+ 315:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *  None
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 16
+
+
+ 316:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *
+ 317:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** *******************************************************************************/
+ 318:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** void CyBLE_Bless_RfRegWrite (reg32 *blessAddr, const uint16 regValue)
+ 319:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** {
+ 536              		.loc 1 319 0
+ 537              		.cfi_startproc
+ 538 0000 80B5     		push	{r7, lr}
+ 539              		.cfi_def_cfa_offset 8
+ 540              		.cfi_offset 7, -8
+ 541              		.cfi_offset 14, -4
+ 542 0002 82B0     		sub	sp, sp, #8
+ 543              		.cfi_def_cfa_offset 16
+ 544 0004 00AF     		add	r7, sp, #0
+ 545              		.cfi_def_cfa_register 7
+ 546 0006 7860     		str	r0, [r7, #4]
+ 547 0008 0A1C     		mov	r2, r1
+ 548 000a BB1C     		add	r3, r7, #2
+ 549 000c 1A80     		strh	r2, [r3]
+ 320:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****      CY_SET_REG32(blessAddr, regValue);
+ 550              		.loc 1 320 0
+ 551 000e BB1C     		add	r3, r7, #2
+ 552 0010 1A88     		ldrh	r2, [r3]
+ 553 0012 7B68     		ldr	r3, [r7, #4]
+ 554 0014 1A60     		str	r2, [r3]
+ 321:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** }
+ 555              		.loc 1 321 0
+ 556 0016 BD46     		mov	sp, r7
+ 557 0018 02B0     		add	sp, sp, #8
+ 558              		@ sp needed
+ 559 001a 80BD     		pop	{r7, pc}
+ 560              		.cfi_endproc
+ 561              	.LFE7:
+ 562              		.size	CyBLE_Bless_RfRegWrite, .-CyBLE_Bless_RfRegWrite
+ 563              		.section	.text.CyBleHal_DelayUs,"ax",%progbits
+ 564              		.align	2
+ 565              		.global	CyBleHal_DelayUs
+ 566              		.code	16
+ 567              		.thumb_func
+ 568              		.type	CyBleHal_DelayUs, %function
+ 569              	CyBleHal_DelayUs:
+ 570              	.LFB8:
+ 322:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+ 323:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+ 324:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** void CyBleHal_DelayUs(uint16 delayVal)
+ 325:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** {
+ 571              		.loc 1 325 0
+ 572              		.cfi_startproc
+ 573 0000 80B5     		push	{r7, lr}
+ 574              		.cfi_def_cfa_offset 8
+ 575              		.cfi_offset 7, -8
+ 576              		.cfi_offset 14, -4
+ 577 0002 82B0     		sub	sp, sp, #8
+ 578              		.cfi_def_cfa_offset 16
+ 579 0004 00AF     		add	r7, sp, #0
+ 580              		.cfi_def_cfa_register 7
+ 581 0006 021C     		mov	r2, r0
+ 582 0008 BB1D     		add	r3, r7, #6
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 17
+
+
+ 583 000a 1A80     		strh	r2, [r3]
+ 326:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     CyDelayUs(delayVal);
+ 584              		.loc 1 326 0
+ 585 000c BB1D     		add	r3, r7, #6
+ 586 000e 1B88     		ldrh	r3, [r3]
+ 587 0010 181C     		mov	r0, r3
+ 588 0012 FFF7FEFF 		bl	CyDelayUs
+ 327:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** }
+ 589              		.loc 1 327 0
+ 590 0016 BD46     		mov	sp, r7
+ 591 0018 02B0     		add	sp, sp, #8
+ 592              		@ sp needed
+ 593 001a 80BD     		pop	{r7, pc}
+ 594              		.cfi_endproc
+ 595              	.LFE8:
+ 596              		.size	CyBleHal_DelayUs, .-CyBleHal_DelayUs
+ 597              		.section	.text.CyBleHal_DelayMs,"ax",%progbits
+ 598              		.align	2
+ 599              		.global	CyBleHal_DelayMs
+ 600              		.code	16
+ 601              		.thumb_func
+ 602              		.type	CyBleHal_DelayMs, %function
+ 603              	CyBleHal_DelayMs:
+ 604              	.LFB9:
+ 328:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+ 329:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** void CyBleHal_DelayMs(uint32 delayVal)
+ 330:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** {
+ 605              		.loc 1 330 0
+ 606              		.cfi_startproc
+ 607 0000 80B5     		push	{r7, lr}
+ 608              		.cfi_def_cfa_offset 8
+ 609              		.cfi_offset 7, -8
+ 610              		.cfi_offset 14, -4
+ 611 0002 82B0     		sub	sp, sp, #8
+ 612              		.cfi_def_cfa_offset 16
+ 613 0004 00AF     		add	r7, sp, #0
+ 614              		.cfi_def_cfa_register 7
+ 615 0006 7860     		str	r0, [r7, #4]
+ 331:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     CyDelay(delayVal);
+ 616              		.loc 1 331 0
+ 617 0008 7B68     		ldr	r3, [r7, #4]
+ 618 000a 181C     		mov	r0, r3
+ 619 000c FFF7FEFF 		bl	CyDelay
+ 332:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** }
+ 620              		.loc 1 332 0
+ 621 0010 BD46     		mov	sp, r7
+ 622 0012 02B0     		add	sp, sp, #8
+ 623              		@ sp needed
+ 624 0014 80BD     		pop	{r7, pc}
+ 625              		.cfi_endproc
+ 626              	.LFE9:
+ 627              		.size	CyBleHal_DelayMs, .-CyBleHal_DelayMs
+ 628 0016 C046     		.section	.text.CyBleHal_EnableGlobalInterrupts,"ax",%progbits
+ 629              		.align	2
+ 630              		.global	CyBleHal_EnableGlobalInterrupts
+ 631              		.code	16
+ 632              		.thumb_func
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 18
+
+
+ 633              		.type	CyBleHal_EnableGlobalInterrupts, %function
+ 634              	CyBleHal_EnableGlobalInterrupts:
+ 635              	.LFB10:
+ 333:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+ 334:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** void CyBleHal_EnableGlobalInterrupts(void)
+ 335:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** {
+ 636              		.loc 1 335 0
+ 637              		.cfi_startproc
+ 638 0000 80B5     		push	{r7, lr}
+ 639              		.cfi_def_cfa_offset 8
+ 640              		.cfi_offset 7, -8
+ 641              		.cfi_offset 14, -4
+ 642 0002 00AF     		add	r7, sp, #0
+ 643              		.cfi_def_cfa_register 7
+ 336:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     BLE_1_bless_isr_Enable();
+ 644              		.loc 1 336 0
+ 645 0004 FFF7FEFF 		bl	BLE_1_bless_isr_Enable
+ 337:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** }
+ 646              		.loc 1 337 0
+ 647 0008 BD46     		mov	sp, r7
+ 648              		@ sp needed
+ 649 000a 80BD     		pop	{r7, pc}
+ 650              		.cfi_endproc
+ 651              	.LFE10:
+ 652              		.size	CyBleHal_EnableGlobalInterrupts, .-CyBleHal_EnableGlobalInterrupts
+ 653              		.section	.text.CyBleHal_DisableGlobalInterrupts,"ax",%progbits
+ 654              		.align	2
+ 655              		.global	CyBleHal_DisableGlobalInterrupts
+ 656              		.code	16
+ 657              		.thumb_func
+ 658              		.type	CyBleHal_DisableGlobalInterrupts, %function
+ 659              	CyBleHal_DisableGlobalInterrupts:
+ 660              	.LFB11:
+ 338:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+ 339:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** void CyBleHal_DisableGlobalInterrupts(void)
+ 340:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** {
+ 661              		.loc 1 340 0
+ 662              		.cfi_startproc
+ 663 0000 80B5     		push	{r7, lr}
+ 664              		.cfi_def_cfa_offset 8
+ 665              		.cfi_offset 7, -8
+ 666              		.cfi_offset 14, -4
+ 667 0002 00AF     		add	r7, sp, #0
+ 668              		.cfi_def_cfa_register 7
+ 341:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     BLE_1_bless_isr_Disable();
+ 669              		.loc 1 341 0
+ 670 0004 FFF7FEFF 		bl	BLE_1_bless_isr_Disable
+ 342:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** }
+ 671              		.loc 1 342 0
+ 672 0008 BD46     		mov	sp, r7
+ 673              		@ sp needed
+ 674 000a 80BD     		pop	{r7, pc}
+ 675              		.cfi_endproc
+ 676              	.LFE11:
+ 677              		.size	CyBleHal_DisableGlobalInterrupts, .-CyBleHal_DisableGlobalInterrupts
+ 678              		.section	.text.CyBle_HalInit,"ax",%progbits
+ 679              		.align	2
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 19
+
+
+ 680              		.global	CyBle_HalInit
+ 681              		.code	16
+ 682              		.thumb_func
+ 683              		.type	CyBle_HalInit, %function
+ 684              	CyBle_HalInit:
+ 685              	.LFB12:
+ 343:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+ 344:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** void CyBle_HalInit(void)
+ 345:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** {
+ 686              		.loc 1 345 0
+ 687              		.cfi_startproc
+ 688 0000 80B5     		push	{r7, lr}
+ 689              		.cfi_def_cfa_offset 8
+ 690              		.cfi_offset 7, -8
+ 691              		.cfi_offset 14, -4
+ 692 0002 00AF     		add	r7, sp, #0
+ 693              		.cfi_def_cfa_register 7
+ 346:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     /* For all we know the interrupt is active. */
+ 347:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     BLE_1_bless_isr_Disable();
+ 694              		.loc 1 347 0
+ 695 0004 FFF7FEFF 		bl	BLE_1_bless_isr_Disable
+ 348:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+ 349:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     /* Set the ISR to point to the BLE_bless_isr Interrupt. */
+ 350:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     BLE_1_bless_isr_SetVector(&CyBLE_Bless_Interrupt);
+ 696              		.loc 1 350 0
+ 697 0008 044B     		ldr	r3, .L33
+ 698 000a 181C     		mov	r0, r3
+ 699 000c FFF7FEFF 		bl	BLE_1_bless_isr_SetVector
+ 351:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+ 352:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     /* Set the priority. */
+ 353:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     BLE_1_bless_isr_SetPriority((uint8)BLE_1_bless_isr_INTC_PRIOR_NUMBER);
+ 700              		.loc 1 353 0
+ 701 0010 0320     		mov	r0, #3
+ 702 0012 FFF7FEFF 		bl	BLE_1_bless_isr_SetPriority
+ 354:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** }
+ 703              		.loc 1 354 0
+ 704 0016 BD46     		mov	sp, r7
+ 705              		@ sp needed
+ 706 0018 80BD     		pop	{r7, pc}
+ 707              	.L34:
+ 708 001a C046     		.align	2
+ 709              	.L33:
+ 710 001c 00000000 		.word	CyBLE_Bless_Interrupt
+ 711              		.cfi_endproc
+ 712              	.LFE12:
+ 713              		.size	CyBle_HalInit, .-CyBle_HalInit
+ 714              		.section	.text.CYBLE_BlessStart,"ax",%progbits
+ 715              		.align	2
+ 716              		.global	CYBLE_BlessStart
+ 717              		.code	16
+ 718              		.thumb_func
+ 719              		.type	CYBLE_BlessStart, %function
+ 720              	CYBLE_BlessStart:
+ 721              	.LFB13:
+ 355:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** 
+ 356:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** /* Start Interrupt Controller API. */
+ 357:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** void CYBLE_BlessStart(void)
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 20
+
+
+ 358:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** {
+ 722              		.loc 1 358 0
+ 723              		.cfi_startproc
+ 724 0000 80B5     		push	{r7, lr}
+ 725              		.cfi_def_cfa_offset 8
+ 726              		.cfi_offset 7, -8
+ 727              		.cfi_offset 14, -4
+ 728 0002 00AF     		add	r7, sp, #0
+ 729              		.cfi_def_cfa_register 7
+ 359:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c ****     BLE_1_bless_isr_StartEx(&CyBLE_Bless_Interrupt);
+ 730              		.loc 1 359 0
+ 731 0004 024B     		ldr	r3, .L36
+ 732 0006 181C     		mov	r0, r3
+ 733 0008 FFF7FEFF 		bl	BLE_1_bless_isr_StartEx
+ 360:.\Generated_Source\PSoC4/BLE_1_HAL_PVT.c **** }
+ 734              		.loc 1 360 0
+ 735 000c BD46     		mov	sp, r7
+ 736              		@ sp needed
+ 737 000e 80BD     		pop	{r7, pc}
+ 738              	.L37:
+ 739              		.align	2
+ 740              	.L36:
+ 741 0010 00000000 		.word	CyBLE_Bless_Interrupt
+ 742              		.cfi_endproc
+ 743              	.LFE13:
+ 744              		.size	CYBLE_BlessStart, .-CYBLE_BlessStart
+ 745              		.text
+ 746              	.Letext0:
+ 747              		.file 2 ".\\Generated_Source\\PSoC4\\cytypes.h"
+ 748              		.section	.debug_info,"",%progbits
+ 749              	.Ldebug_info0:
+ 750 0000 A4030000 		.4byte	0x3a4
+ 751 0004 0400     		.2byte	0x4
+ 752 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 753 000a 04       		.byte	0x4
+ 754 000b 01       		.uleb128 0x1
+ 755 000c A7000000 		.4byte	.LASF48
+ 756 0010 01       		.byte	0x1
+ 757 0011 9A010000 		.4byte	.LASF49
+ 758 0015 92020000 		.4byte	.LASF50
+ 759 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 760 001d 00000000 		.4byte	0
+ 761 0021 00000000 		.4byte	.Ldebug_line0
+ 762 0025 02       		.uleb128 0x2
+ 763 0026 01       		.byte	0x1
+ 764 0027 06       		.byte	0x6
+ 765 0028 F0020000 		.4byte	.LASF0
+ 766 002c 02       		.uleb128 0x2
+ 767 002d 01       		.byte	0x1
+ 768 002e 08       		.byte	0x8
+ 769 002f 3A010000 		.4byte	.LASF1
+ 770 0033 02       		.uleb128 0x2
+ 771 0034 02       		.byte	0x2
+ 772 0035 05       		.byte	0x5
+ 773 0036 C3010000 		.4byte	.LASF2
+ 774 003a 02       		.uleb128 0x2
+ 775 003b 02       		.byte	0x2
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 21
+
+
+ 776 003c 07       		.byte	0x7
+ 777 003d 4C000000 		.4byte	.LASF3
+ 778 0041 02       		.uleb128 0x2
+ 779 0042 04       		.byte	0x4
+ 780 0043 05       		.byte	0x5
+ 781 0044 DE020000 		.4byte	.LASF4
+ 782 0048 02       		.uleb128 0x2
+ 783 0049 04       		.byte	0x4
+ 784 004a 07       		.byte	0x7
+ 785 004b 65010000 		.4byte	.LASF5
+ 786 004f 02       		.uleb128 0x2
+ 787 0050 08       		.byte	0x8
+ 788 0051 05       		.byte	0x5
+ 789 0052 59020000 		.4byte	.LASF6
+ 790 0056 02       		.uleb128 0x2
+ 791 0057 08       		.byte	0x8
+ 792 0058 07       		.byte	0x7
+ 793 0059 23010000 		.4byte	.LASF7
+ 794 005d 03       		.uleb128 0x3
+ 795 005e 04       		.byte	0x4
+ 796 005f 05       		.byte	0x5
+ 797 0060 696E7400 		.ascii	"int\000"
+ 798 0064 02       		.uleb128 0x2
+ 799 0065 04       		.byte	0x4
+ 800 0066 07       		.byte	0x7
+ 801 0067 80000000 		.4byte	.LASF8
+ 802 006b 04       		.uleb128 0x4
+ 803 006c 77010000 		.4byte	.LASF9
+ 804 0070 02       		.byte	0x2
+ 805 0071 A1       		.byte	0xa1
+ 806 0072 2C000000 		.4byte	0x2c
+ 807 0076 04       		.uleb128 0x4
+ 808 0077 93010000 		.4byte	.LASF10
+ 809 007b 02       		.byte	0x2
+ 810 007c A2       		.byte	0xa2
+ 811 007d 3A000000 		.4byte	0x3a
+ 812 0081 04       		.uleb128 0x4
+ 813 0082 EC010000 		.4byte	.LASF11
+ 814 0086 02       		.byte	0x2
+ 815 0087 A3       		.byte	0xa3
+ 816 0088 48000000 		.4byte	0x48
+ 817 008c 02       		.uleb128 0x2
+ 818 008d 04       		.byte	0x4
+ 819 008e 04       		.byte	0x4
+ 820 008f A1000000 		.4byte	.LASF12
+ 821 0093 02       		.uleb128 0x2
+ 822 0094 08       		.byte	0x8
+ 823 0095 04       		.byte	0x4
+ 824 0096 8C010000 		.4byte	.LASF13
+ 825 009a 02       		.uleb128 0x2
+ 826 009b 01       		.byte	0x1
+ 827 009c 08       		.byte	0x8
+ 828 009d 1E020000 		.4byte	.LASF14
+ 829 00a1 05       		.uleb128 0x5
+ 830 00a2 E3010000 		.4byte	.LASF15
+ 831 00a6 02       		.byte	0x2
+ 832 00a7 4301     		.2byte	0x143
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 22
+
+
+ 833 00a9 48000000 		.4byte	0x48
+ 834 00ad 05       		.uleb128 0x5
+ 835 00ae 31020000 		.4byte	.LASF16
+ 836 00b2 02       		.byte	0x2
+ 837 00b3 4B01     		.2byte	0x14b
+ 838 00b5 B9000000 		.4byte	0xb9
+ 839 00b9 06       		.uleb128 0x6
+ 840 00ba 6B000000 		.4byte	0x6b
+ 841 00be 05       		.uleb128 0x5
+ 842 00bf 00000000 		.4byte	.LASF17
+ 843 00c3 02       		.byte	0x2
+ 844 00c4 4D01     		.2byte	0x14d
+ 845 00c6 CA000000 		.4byte	0xca
+ 846 00ca 06       		.uleb128 0x6
+ 847 00cb 81000000 		.4byte	0x81
+ 848 00cf 02       		.uleb128 0x2
+ 849 00d0 04       		.byte	0x4
+ 850 00d1 07       		.byte	0x7
+ 851 00d2 36020000 		.4byte	.LASF18
+ 852 00d6 07       		.uleb128 0x7
+ 853 00d7 04       		.byte	0x4
+ 854 00d8 76000000 		.4byte	0x76
+ 855 00dc 08       		.uleb128 0x8
+ 856 00dd F3010000 		.4byte	.LASF29
+ 857 00e1 01       		.byte	0x1
+ 858 00e2 7A       		.byte	0x7a
+ 859 00e3 A1000000 		.4byte	0xa1
+ 860 00e7 00000000 		.4byte	.LFB2
+ 861 00eb 9C010000 		.4byte	.LFE2-.LFB2
+ 862 00ef 01       		.uleb128 0x1
+ 863 00f0 9C       		.byte	0x9c
+ 864 00f1 93010000 		.4byte	0x193
+ 865 00f5 09       		.uleb128 0x9
+ 866 00f6 8B020000 		.4byte	.LASF19
+ 867 00fa 01       		.byte	0x1
+ 868 00fb 7A       		.byte	0x7a
+ 869 00fc 93010000 		.4byte	0x193
+ 870 0100 03       		.uleb128 0x3
+ 871 0101 91       		.byte	0x91
+ 872 0102 D47E     		.sleb128 -172
+ 873 0104 09       		.uleb128 0x9
+ 874 0105 42030000 		.4byte	.LASF20
+ 875 0109 01       		.byte	0x1
+ 876 010a 7A       		.byte	0x7a
+ 877 010b 93010000 		.4byte	0x193
+ 878 010f 03       		.uleb128 0x3
+ 879 0110 91       		.byte	0x91
+ 880 0111 D07E     		.sleb128 -176
+ 881 0113 09       		.uleb128 0x9
+ 882 0114 25030000 		.4byte	.LASF21
+ 883 0118 01       		.byte	0x1
+ 884 0119 7A       		.byte	0x7a
+ 885 011a 76000000 		.4byte	0x76
+ 886 011e 03       		.uleb128 0x3
+ 887 011f 91       		.byte	0x91
+ 888 0120 CE7E     		.sleb128 -178
+ 889 0122 0A       		.uleb128 0xa
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 23
+
+
+ 890 0123 40000000 		.4byte	.LASF22
+ 891 0127 01       		.byte	0x1
+ 892 0128 7C       		.byte	0x7c
+ 893 0129 9E010000 		.4byte	0x19e
+ 894 012d 03       		.uleb128 0x3
+ 895 012e 91       		.byte	0x91
+ 896 012f DC7E     		.sleb128 -164
+ 897 0131 0A       		.uleb128 0xa
+ 898 0132 7D010000 		.4byte	.LASF23
+ 899 0136 01       		.byte	0x1
+ 900 0137 7D       		.byte	0x7d
+ 901 0138 81000000 		.4byte	0x81
+ 902 013c 02       		.uleb128 0x2
+ 903 013d 91       		.byte	0x91
+ 904 013e 74       		.sleb128 -12
+ 905 013f 0A       		.uleb128 0xa
+ 906 0140 83010000 		.4byte	.LASF24
+ 907 0144 01       		.byte	0x1
+ 908 0145 7E       		.byte	0x7e
+ 909 0146 81000000 		.4byte	0x81
+ 910 014a 02       		.uleb128 0x2
+ 911 014b 91       		.byte	0x91
+ 912 014c 70       		.sleb128 -16
+ 913 014d 0A       		.uleb128 0xa
+ 914 014e 8D000000 		.4byte	.LASF25
+ 915 0152 01       		.byte	0x1
+ 916 0153 7F       		.byte	0x7f
+ 917 0154 81000000 		.4byte	0x81
+ 918 0158 02       		.uleb128 0x2
+ 919 0159 91       		.byte	0x91
+ 920 015a 6C       		.sleb128 -20
+ 921 015b 0B       		.uleb128 0xb
+ 922 015c 726300   		.ascii	"rc\000"
+ 923 015f 01       		.byte	0x1
+ 924 0160 80       		.byte	0x80
+ 925 0161 A1000000 		.4byte	0xa1
+ 926 0165 02       		.uleb128 0x2
+ 927 0166 91       		.byte	0x91
+ 928 0167 68       		.sleb128 -24
+ 929 0168 0A       		.uleb128 0xa
+ 930 0169 E7020000 		.4byte	.LASF26
+ 931 016d 01       		.byte	0x1
+ 932 016e 81       		.byte	0x81
+ 933 016f 81000000 		.4byte	0x81
+ 934 0173 02       		.uleb128 0x2
+ 935 0174 91       		.byte	0x91
+ 936 0175 5C       		.sleb128 -36
+ 937 0176 0A       		.uleb128 0xa
+ 938 0177 96000000 		.4byte	.LASF27
+ 939 017b 01       		.byte	0x1
+ 940 017c 82       		.byte	0x82
+ 941 017d 81000000 		.4byte	0x81
+ 942 0181 02       		.uleb128 0x2
+ 943 0182 91       		.byte	0x91
+ 944 0183 64       		.sleb128 -28
+ 945 0184 0A       		.uleb128 0xa
+ 946 0185 05020000 		.4byte	.LASF28
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 24
+
+
+ 947 0189 01       		.byte	0x1
+ 948 018a 83       		.byte	0x83
+ 949 018b 81000000 		.4byte	0x81
+ 950 018f 02       		.uleb128 0x2
+ 951 0190 91       		.byte	0x91
+ 952 0191 60       		.sleb128 -32
+ 953 0192 00       		.byte	0
+ 954 0193 07       		.uleb128 0x7
+ 955 0194 04       		.byte	0x4
+ 956 0195 99010000 		.4byte	0x199
+ 957 0199 0C       		.uleb128 0xc
+ 958 019a 6B000000 		.4byte	0x6b
+ 959 019e 0D       		.uleb128 0xd
+ 960 019f 6B000000 		.4byte	0x6b
+ 961 01a3 AE010000 		.4byte	0x1ae
+ 962 01a7 0E       		.uleb128 0xe
+ 963 01a8 CF000000 		.4byte	0xcf
+ 964 01ac 7F       		.byte	0x7f
+ 965 01ad 00       		.byte	0
+ 966 01ae 08       		.uleb128 0x8
+ 967 01af 06000000 		.4byte	.LASF30
+ 968 01b3 01       		.byte	0x1
+ 969 01b4 CE       		.byte	0xce
+ 970 01b5 A1000000 		.4byte	0xa1
+ 971 01b9 00000000 		.4byte	.LFB3
+ 972 01bd C6000000 		.4byte	.LFE3-.LFB3
+ 973 01c1 01       		.uleb128 0x1
+ 974 01c2 9C       		.byte	0x9c
+ 975 01c3 2C020000 		.4byte	0x22c
+ 976 01c7 09       		.uleb128 0x9
+ 977 01c8 42030000 		.4byte	.LASF20
+ 978 01cc 01       		.byte	0x1
+ 979 01cd CE       		.byte	0xce
+ 980 01ce 93010000 		.4byte	0x193
+ 981 01d2 03       		.uleb128 0x3
+ 982 01d3 91       		.byte	0x91
+ 983 01d4 E47E     		.sleb128 -156
+ 984 01d6 09       		.uleb128 0x9
+ 985 01d7 25030000 		.4byte	.LASF21
+ 986 01db 01       		.byte	0x1
+ 987 01dc CE       		.byte	0xce
+ 988 01dd 76000000 		.4byte	0x76
+ 989 01e1 03       		.uleb128 0x3
+ 990 01e2 91       		.byte	0x91
+ 991 01e3 E27E     		.sleb128 -158
+ 992 01e5 0A       		.uleb128 0xa
+ 993 01e6 67020000 		.4byte	.LASF31
+ 994 01ea 01       		.byte	0x1
+ 995 01eb D0       		.byte	0xd0
+ 996 01ec 93010000 		.4byte	0x193
+ 997 01f0 02       		.uleb128 0x2
+ 998 01f1 91       		.byte	0x91
+ 999 01f2 74       		.sleb128 -12
+ 1000 01f3 0A       		.uleb128 0xa
+ 1001 01f4 12020000 		.4byte	.LASF32
+ 1002 01f8 01       		.byte	0x1
+ 1003 01f9 D1       		.byte	0xd1
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 25
+
+
+ 1004 01fa 9E010000 		.4byte	0x19e
+ 1005 01fe 03       		.uleb128 0x3
+ 1006 01ff 91       		.byte	0x91
+ 1007 0200 EC7E     		.sleb128 -148
+ 1008 0202 0A       		.uleb128 0xa
+ 1009 0203 48010000 		.4byte	.LASF33
+ 1010 0207 01       		.byte	0x1
+ 1011 0208 D2       		.byte	0xd2
+ 1012 0209 76000000 		.4byte	0x76
+ 1013 020d 02       		.uleb128 0x2
+ 1014 020e 91       		.byte	0x91
+ 1015 020f 72       		.sleb128 -14
+ 1016 0210 0A       		.uleb128 0xa
+ 1017 0211 3F020000 		.4byte	.LASF34
+ 1018 0215 01       		.byte	0x1
+ 1019 0216 D3       		.byte	0xd3
+ 1020 0217 76000000 		.4byte	0x76
+ 1021 021b 02       		.uleb128 0x2
+ 1022 021c 91       		.byte	0x91
+ 1023 021d 70       		.sleb128 -16
+ 1024 021e 0B       		.uleb128 0xb
+ 1025 021f 726300   		.ascii	"rc\000"
+ 1026 0222 01       		.byte	0x1
+ 1027 0223 D4       		.byte	0xd4
+ 1028 0224 A1000000 		.4byte	0xa1
+ 1029 0228 02       		.uleb128 0x2
+ 1030 0229 91       		.byte	0x91
+ 1031 022a 6C       		.sleb128 -20
+ 1032 022b 00       		.byte	0
+ 1033 022c 0F       		.uleb128 0xf
+ 1034 022d CD010000 		.4byte	.LASF37
+ 1035 0231 01       		.byte	0x1
+ 1036 0232 FF       		.byte	0xff
+ 1037 0233 00000000 		.4byte	.LFB4
+ 1038 0237 1A000000 		.4byte	.LFE4-.LFB4
+ 1039 023b 01       		.uleb128 0x1
+ 1040 023c 9C       		.byte	0x9c
+ 1041 023d 5E020000 		.4byte	0x25e
+ 1042 0241 09       		.uleb128 0x9
+ 1043 0242 4F020000 		.4byte	.LASF35
+ 1044 0246 01       		.byte	0x1
+ 1045 0247 FF       		.byte	0xff
+ 1046 0248 5E020000 		.4byte	0x25e
+ 1047 024c 02       		.uleb128 0x2
+ 1048 024d 91       		.byte	0x91
+ 1049 024e 74       		.sleb128 -12
+ 1050 024f 09       		.uleb128 0x9
+ 1051 0250 1C030000 		.4byte	.LASF36
+ 1052 0254 01       		.byte	0x1
+ 1053 0255 FF       		.byte	0xff
+ 1054 0256 D6000000 		.4byte	0xd6
+ 1055 025a 02       		.uleb128 0x2
+ 1056 025b 91       		.byte	0x91
+ 1057 025c 70       		.sleb128 -16
+ 1058 025d 00       		.byte	0
+ 1059 025e 07       		.uleb128 0x7
+ 1060 025f 04       		.byte	0x4
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 26
+
+
+ 1061 0260 64020000 		.4byte	0x264
+ 1062 0264 0C       		.uleb128 0xc
+ 1063 0265 BE000000 		.4byte	0xbe
+ 1064 0269 10       		.uleb128 0x10
+ 1065 026a 18000000 		.4byte	.LASF38
+ 1066 026e 01       		.byte	0x1
+ 1067 026f 1401     		.2byte	0x114
+ 1068 0271 00000000 		.4byte	.LFB5
+ 1069 0275 1C000000 		.4byte	.LFE5-.LFB5
+ 1070 0279 01       		.uleb128 0x1
+ 1071 027a 9C       		.byte	0x9c
+ 1072 027b 9E020000 		.4byte	0x29e
+ 1073 027f 11       		.uleb128 0x11
+ 1074 0280 4F020000 		.4byte	.LASF35
+ 1075 0284 01       		.byte	0x1
+ 1076 0285 1401     		.2byte	0x114
+ 1077 0287 9E020000 		.4byte	0x29e
+ 1078 028b 02       		.uleb128 0x2
+ 1079 028c 91       		.byte	0x91
+ 1080 028d 74       		.sleb128 -12
+ 1081 028e 11       		.uleb128 0x11
+ 1082 028f 1C030000 		.4byte	.LASF36
+ 1083 0293 01       		.byte	0x1
+ 1084 0294 1401     		.2byte	0x114
+ 1085 0296 A4020000 		.4byte	0x2a4
+ 1086 029a 02       		.uleb128 0x2
+ 1087 029b 91       		.byte	0x91
+ 1088 029c 72       		.sleb128 -14
+ 1089 029d 00       		.byte	0
+ 1090 029e 07       		.uleb128 0x7
+ 1091 029f 04       		.byte	0x4
+ 1092 02a0 BE000000 		.4byte	0xbe
+ 1093 02a4 0C       		.uleb128 0xc
+ 1094 02a5 76000000 		.4byte	0x76
+ 1095 02a9 10       		.uleb128 0x10
+ 1096 02aa 2C030000 		.4byte	.LASF39
+ 1097 02ae 01       		.byte	0x1
+ 1098 02af 2901     		.2byte	0x129
+ 1099 02b1 00000000 		.4byte	.LFB6
+ 1100 02b5 1A000000 		.4byte	.LFE6-.LFB6
+ 1101 02b9 01       		.uleb128 0x1
+ 1102 02ba 9C       		.byte	0x9c
+ 1103 02bb DE020000 		.4byte	0x2de
+ 1104 02bf 11       		.uleb128 0x11
+ 1105 02c0 4F020000 		.4byte	.LASF35
+ 1106 02c4 01       		.byte	0x1
+ 1107 02c5 2901     		.2byte	0x129
+ 1108 02c7 5E020000 		.4byte	0x25e
+ 1109 02cb 02       		.uleb128 0x2
+ 1110 02cc 91       		.byte	0x91
+ 1111 02cd 74       		.sleb128 -12
+ 1112 02ce 11       		.uleb128 0x11
+ 1113 02cf 1C030000 		.4byte	.LASF36
+ 1114 02d3 01       		.byte	0x1
+ 1115 02d4 2901     		.2byte	0x129
+ 1116 02d6 D6000000 		.4byte	0xd6
+ 1117 02da 02       		.uleb128 0x2
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 27
+
+
+ 1118 02db 91       		.byte	0x91
+ 1119 02dc 70       		.sleb128 -16
+ 1120 02dd 00       		.byte	0
+ 1121 02de 10       		.uleb128 0x10
+ 1122 02df C7020000 		.4byte	.LASF40
+ 1123 02e3 01       		.byte	0x1
+ 1124 02e4 3E01     		.2byte	0x13e
+ 1125 02e6 00000000 		.4byte	.LFB7
+ 1126 02ea 1C000000 		.4byte	.LFE7-.LFB7
+ 1127 02ee 01       		.uleb128 0x1
+ 1128 02ef 9C       		.byte	0x9c
+ 1129 02f0 13030000 		.4byte	0x313
+ 1130 02f4 11       		.uleb128 0x11
+ 1131 02f5 4F020000 		.4byte	.LASF35
+ 1132 02f9 01       		.byte	0x1
+ 1133 02fa 3E01     		.2byte	0x13e
+ 1134 02fc 9E020000 		.4byte	0x29e
+ 1135 0300 02       		.uleb128 0x2
+ 1136 0301 91       		.byte	0x91
+ 1137 0302 74       		.sleb128 -12
+ 1138 0303 11       		.uleb128 0x11
+ 1139 0304 1C030000 		.4byte	.LASF36
+ 1140 0308 01       		.byte	0x1
+ 1141 0309 3E01     		.2byte	0x13e
+ 1142 030b A4020000 		.4byte	0x2a4
+ 1143 030f 02       		.uleb128 0x2
+ 1144 0310 91       		.byte	0x91
+ 1145 0311 72       		.sleb128 -14
+ 1146 0312 00       		.byte	0
+ 1147 0313 12       		.uleb128 0x12
+ 1148 0314 54010000 		.4byte	.LASF41
+ 1149 0318 01       		.byte	0x1
+ 1150 0319 4401     		.2byte	0x144
+ 1151 031b 00000000 		.4byte	.LFB8
+ 1152 031f 1C000000 		.4byte	.LFE8-.LFB8
+ 1153 0323 01       		.uleb128 0x1
+ 1154 0324 9C       		.byte	0x9c
+ 1155 0325 39030000 		.4byte	0x339
+ 1156 0329 11       		.uleb128 0x11
+ 1157 032a 82020000 		.4byte	.LASF42
+ 1158 032e 01       		.byte	0x1
+ 1159 032f 4401     		.2byte	0x144
+ 1160 0331 76000000 		.4byte	0x76
+ 1161 0335 02       		.uleb128 0x2
+ 1162 0336 91       		.byte	0x91
+ 1163 0337 76       		.sleb128 -10
+ 1164 0338 00       		.byte	0
+ 1165 0339 12       		.uleb128 0x12
+ 1166 033a 2F000000 		.4byte	.LASF43
+ 1167 033e 01       		.byte	0x1
+ 1168 033f 4901     		.2byte	0x149
+ 1169 0341 00000000 		.4byte	.LFB9
+ 1170 0345 16000000 		.4byte	.LFE9-.LFB9
+ 1171 0349 01       		.uleb128 0x1
+ 1172 034a 9C       		.byte	0x9c
+ 1173 034b 5F030000 		.4byte	0x35f
+ 1174 034f 11       		.uleb128 0x11
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 28
+
+
+ 1175 0350 82020000 		.4byte	.LASF42
+ 1176 0354 01       		.byte	0x1
+ 1177 0355 4901     		.2byte	0x149
+ 1178 0357 81000000 		.4byte	0x81
+ 1179 035b 02       		.uleb128 0x2
+ 1180 035c 91       		.byte	0x91
+ 1181 035d 74       		.sleb128 -12
+ 1182 035e 00       		.byte	0
+ 1183 035f 13       		.uleb128 0x13
+ 1184 0360 FC020000 		.4byte	.LASF44
+ 1185 0364 01       		.byte	0x1
+ 1186 0365 4E01     		.2byte	0x14e
+ 1187 0367 00000000 		.4byte	.LFB10
+ 1188 036b 0C000000 		.4byte	.LFE10-.LFB10
+ 1189 036f 01       		.uleb128 0x1
+ 1190 0370 9C       		.byte	0x9c
+ 1191 0371 13       		.uleb128 0x13
+ 1192 0372 5F000000 		.4byte	.LASF45
+ 1193 0376 01       		.byte	0x1
+ 1194 0377 5301     		.2byte	0x153
+ 1195 0379 00000000 		.4byte	.LFB11
+ 1196 037d 0C000000 		.4byte	.LFE11-.LFB11
+ 1197 0381 01       		.uleb128 0x1
+ 1198 0382 9C       		.byte	0x9c
+ 1199 0383 13       		.uleb128 0x13
+ 1200 0384 23020000 		.4byte	.LASF46
+ 1201 0388 01       		.byte	0x1
+ 1202 0389 5801     		.2byte	0x158
+ 1203 038b 00000000 		.4byte	.LFB12
+ 1204 038f 20000000 		.4byte	.LFE12-.LFB12
+ 1205 0393 01       		.uleb128 0x1
+ 1206 0394 9C       		.byte	0x9c
+ 1207 0395 13       		.uleb128 0x13
+ 1208 0396 71020000 		.4byte	.LASF47
+ 1209 039a 01       		.byte	0x1
+ 1210 039b 6501     		.2byte	0x165
+ 1211 039d 00000000 		.4byte	.LFB13
+ 1212 03a1 14000000 		.4byte	.LFE13-.LFB13
+ 1213 03a5 01       		.uleb128 0x1
+ 1214 03a6 9C       		.byte	0x9c
+ 1215 03a7 00       		.byte	0
+ 1216              		.section	.debug_abbrev,"",%progbits
+ 1217              	.Ldebug_abbrev0:
+ 1218 0000 01       		.uleb128 0x1
+ 1219 0001 11       		.uleb128 0x11
+ 1220 0002 01       		.byte	0x1
+ 1221 0003 25       		.uleb128 0x25
+ 1222 0004 0E       		.uleb128 0xe
+ 1223 0005 13       		.uleb128 0x13
+ 1224 0006 0B       		.uleb128 0xb
+ 1225 0007 03       		.uleb128 0x3
+ 1226 0008 0E       		.uleb128 0xe
+ 1227 0009 1B       		.uleb128 0x1b
+ 1228 000a 0E       		.uleb128 0xe
+ 1229 000b 55       		.uleb128 0x55
+ 1230 000c 17       		.uleb128 0x17
+ 1231 000d 11       		.uleb128 0x11
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 29
+
+
+ 1232 000e 01       		.uleb128 0x1
+ 1233 000f 10       		.uleb128 0x10
+ 1234 0010 17       		.uleb128 0x17
+ 1235 0011 00       		.byte	0
+ 1236 0012 00       		.byte	0
+ 1237 0013 02       		.uleb128 0x2
+ 1238 0014 24       		.uleb128 0x24
+ 1239 0015 00       		.byte	0
+ 1240 0016 0B       		.uleb128 0xb
+ 1241 0017 0B       		.uleb128 0xb
+ 1242 0018 3E       		.uleb128 0x3e
+ 1243 0019 0B       		.uleb128 0xb
+ 1244 001a 03       		.uleb128 0x3
+ 1245 001b 0E       		.uleb128 0xe
+ 1246 001c 00       		.byte	0
+ 1247 001d 00       		.byte	0
+ 1248 001e 03       		.uleb128 0x3
+ 1249 001f 24       		.uleb128 0x24
+ 1250 0020 00       		.byte	0
+ 1251 0021 0B       		.uleb128 0xb
+ 1252 0022 0B       		.uleb128 0xb
+ 1253 0023 3E       		.uleb128 0x3e
+ 1254 0024 0B       		.uleb128 0xb
+ 1255 0025 03       		.uleb128 0x3
+ 1256 0026 08       		.uleb128 0x8
+ 1257 0027 00       		.byte	0
+ 1258 0028 00       		.byte	0
+ 1259 0029 04       		.uleb128 0x4
+ 1260 002a 16       		.uleb128 0x16
+ 1261 002b 00       		.byte	0
+ 1262 002c 03       		.uleb128 0x3
+ 1263 002d 0E       		.uleb128 0xe
+ 1264 002e 3A       		.uleb128 0x3a
+ 1265 002f 0B       		.uleb128 0xb
+ 1266 0030 3B       		.uleb128 0x3b
+ 1267 0031 0B       		.uleb128 0xb
+ 1268 0032 49       		.uleb128 0x49
+ 1269 0033 13       		.uleb128 0x13
+ 1270 0034 00       		.byte	0
+ 1271 0035 00       		.byte	0
+ 1272 0036 05       		.uleb128 0x5
+ 1273 0037 16       		.uleb128 0x16
+ 1274 0038 00       		.byte	0
+ 1275 0039 03       		.uleb128 0x3
+ 1276 003a 0E       		.uleb128 0xe
+ 1277 003b 3A       		.uleb128 0x3a
+ 1278 003c 0B       		.uleb128 0xb
+ 1279 003d 3B       		.uleb128 0x3b
+ 1280 003e 05       		.uleb128 0x5
+ 1281 003f 49       		.uleb128 0x49
+ 1282 0040 13       		.uleb128 0x13
+ 1283 0041 00       		.byte	0
+ 1284 0042 00       		.byte	0
+ 1285 0043 06       		.uleb128 0x6
+ 1286 0044 35       		.uleb128 0x35
+ 1287 0045 00       		.byte	0
+ 1288 0046 49       		.uleb128 0x49
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 30
+
+
+ 1289 0047 13       		.uleb128 0x13
+ 1290 0048 00       		.byte	0
+ 1291 0049 00       		.byte	0
+ 1292 004a 07       		.uleb128 0x7
+ 1293 004b 0F       		.uleb128 0xf
+ 1294 004c 00       		.byte	0
+ 1295 004d 0B       		.uleb128 0xb
+ 1296 004e 0B       		.uleb128 0xb
+ 1297 004f 49       		.uleb128 0x49
+ 1298 0050 13       		.uleb128 0x13
+ 1299 0051 00       		.byte	0
+ 1300 0052 00       		.byte	0
+ 1301 0053 08       		.uleb128 0x8
+ 1302 0054 2E       		.uleb128 0x2e
+ 1303 0055 01       		.byte	0x1
+ 1304 0056 3F       		.uleb128 0x3f
+ 1305 0057 19       		.uleb128 0x19
+ 1306 0058 03       		.uleb128 0x3
+ 1307 0059 0E       		.uleb128 0xe
+ 1308 005a 3A       		.uleb128 0x3a
+ 1309 005b 0B       		.uleb128 0xb
+ 1310 005c 3B       		.uleb128 0x3b
+ 1311 005d 0B       		.uleb128 0xb
+ 1312 005e 27       		.uleb128 0x27
+ 1313 005f 19       		.uleb128 0x19
+ 1314 0060 49       		.uleb128 0x49
+ 1315 0061 13       		.uleb128 0x13
+ 1316 0062 11       		.uleb128 0x11
+ 1317 0063 01       		.uleb128 0x1
+ 1318 0064 12       		.uleb128 0x12
+ 1319 0065 06       		.uleb128 0x6
+ 1320 0066 40       		.uleb128 0x40
+ 1321 0067 18       		.uleb128 0x18
+ 1322 0068 9642     		.uleb128 0x2116
+ 1323 006a 19       		.uleb128 0x19
+ 1324 006b 01       		.uleb128 0x1
+ 1325 006c 13       		.uleb128 0x13
+ 1326 006d 00       		.byte	0
+ 1327 006e 00       		.byte	0
+ 1328 006f 09       		.uleb128 0x9
+ 1329 0070 05       		.uleb128 0x5
+ 1330 0071 00       		.byte	0
+ 1331 0072 03       		.uleb128 0x3
+ 1332 0073 0E       		.uleb128 0xe
+ 1333 0074 3A       		.uleb128 0x3a
+ 1334 0075 0B       		.uleb128 0xb
+ 1335 0076 3B       		.uleb128 0x3b
+ 1336 0077 0B       		.uleb128 0xb
+ 1337 0078 49       		.uleb128 0x49
+ 1338 0079 13       		.uleb128 0x13
+ 1339 007a 02       		.uleb128 0x2
+ 1340 007b 18       		.uleb128 0x18
+ 1341 007c 00       		.byte	0
+ 1342 007d 00       		.byte	0
+ 1343 007e 0A       		.uleb128 0xa
+ 1344 007f 34       		.uleb128 0x34
+ 1345 0080 00       		.byte	0
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 31
+
+
+ 1346 0081 03       		.uleb128 0x3
+ 1347 0082 0E       		.uleb128 0xe
+ 1348 0083 3A       		.uleb128 0x3a
+ 1349 0084 0B       		.uleb128 0xb
+ 1350 0085 3B       		.uleb128 0x3b
+ 1351 0086 0B       		.uleb128 0xb
+ 1352 0087 49       		.uleb128 0x49
+ 1353 0088 13       		.uleb128 0x13
+ 1354 0089 02       		.uleb128 0x2
+ 1355 008a 18       		.uleb128 0x18
+ 1356 008b 00       		.byte	0
+ 1357 008c 00       		.byte	0
+ 1358 008d 0B       		.uleb128 0xb
+ 1359 008e 34       		.uleb128 0x34
+ 1360 008f 00       		.byte	0
+ 1361 0090 03       		.uleb128 0x3
+ 1362 0091 08       		.uleb128 0x8
+ 1363 0092 3A       		.uleb128 0x3a
+ 1364 0093 0B       		.uleb128 0xb
+ 1365 0094 3B       		.uleb128 0x3b
+ 1366 0095 0B       		.uleb128 0xb
+ 1367 0096 49       		.uleb128 0x49
+ 1368 0097 13       		.uleb128 0x13
+ 1369 0098 02       		.uleb128 0x2
+ 1370 0099 18       		.uleb128 0x18
+ 1371 009a 00       		.byte	0
+ 1372 009b 00       		.byte	0
+ 1373 009c 0C       		.uleb128 0xc
+ 1374 009d 26       		.uleb128 0x26
+ 1375 009e 00       		.byte	0
+ 1376 009f 49       		.uleb128 0x49
+ 1377 00a0 13       		.uleb128 0x13
+ 1378 00a1 00       		.byte	0
+ 1379 00a2 00       		.byte	0
+ 1380 00a3 0D       		.uleb128 0xd
+ 1381 00a4 01       		.uleb128 0x1
+ 1382 00a5 01       		.byte	0x1
+ 1383 00a6 49       		.uleb128 0x49
+ 1384 00a7 13       		.uleb128 0x13
+ 1385 00a8 01       		.uleb128 0x1
+ 1386 00a9 13       		.uleb128 0x13
+ 1387 00aa 00       		.byte	0
+ 1388 00ab 00       		.byte	0
+ 1389 00ac 0E       		.uleb128 0xe
+ 1390 00ad 21       		.uleb128 0x21
+ 1391 00ae 00       		.byte	0
+ 1392 00af 49       		.uleb128 0x49
+ 1393 00b0 13       		.uleb128 0x13
+ 1394 00b1 2F       		.uleb128 0x2f
+ 1395 00b2 0B       		.uleb128 0xb
+ 1396 00b3 00       		.byte	0
+ 1397 00b4 00       		.byte	0
+ 1398 00b5 0F       		.uleb128 0xf
+ 1399 00b6 2E       		.uleb128 0x2e
+ 1400 00b7 01       		.byte	0x1
+ 1401 00b8 3F       		.uleb128 0x3f
+ 1402 00b9 19       		.uleb128 0x19
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 32
+
+
+ 1403 00ba 03       		.uleb128 0x3
+ 1404 00bb 0E       		.uleb128 0xe
+ 1405 00bc 3A       		.uleb128 0x3a
+ 1406 00bd 0B       		.uleb128 0xb
+ 1407 00be 3B       		.uleb128 0x3b
+ 1408 00bf 0B       		.uleb128 0xb
+ 1409 00c0 27       		.uleb128 0x27
+ 1410 00c1 19       		.uleb128 0x19
+ 1411 00c2 11       		.uleb128 0x11
+ 1412 00c3 01       		.uleb128 0x1
+ 1413 00c4 12       		.uleb128 0x12
+ 1414 00c5 06       		.uleb128 0x6
+ 1415 00c6 40       		.uleb128 0x40
+ 1416 00c7 18       		.uleb128 0x18
+ 1417 00c8 9742     		.uleb128 0x2117
+ 1418 00ca 19       		.uleb128 0x19
+ 1419 00cb 01       		.uleb128 0x1
+ 1420 00cc 13       		.uleb128 0x13
+ 1421 00cd 00       		.byte	0
+ 1422 00ce 00       		.byte	0
+ 1423 00cf 10       		.uleb128 0x10
+ 1424 00d0 2E       		.uleb128 0x2e
+ 1425 00d1 01       		.byte	0x1
+ 1426 00d2 3F       		.uleb128 0x3f
+ 1427 00d3 19       		.uleb128 0x19
+ 1428 00d4 03       		.uleb128 0x3
+ 1429 00d5 0E       		.uleb128 0xe
+ 1430 00d6 3A       		.uleb128 0x3a
+ 1431 00d7 0B       		.uleb128 0xb
+ 1432 00d8 3B       		.uleb128 0x3b
+ 1433 00d9 05       		.uleb128 0x5
+ 1434 00da 27       		.uleb128 0x27
+ 1435 00db 19       		.uleb128 0x19
+ 1436 00dc 11       		.uleb128 0x11
+ 1437 00dd 01       		.uleb128 0x1
+ 1438 00de 12       		.uleb128 0x12
+ 1439 00df 06       		.uleb128 0x6
+ 1440 00e0 40       		.uleb128 0x40
+ 1441 00e1 18       		.uleb128 0x18
+ 1442 00e2 9742     		.uleb128 0x2117
+ 1443 00e4 19       		.uleb128 0x19
+ 1444 00e5 01       		.uleb128 0x1
+ 1445 00e6 13       		.uleb128 0x13
+ 1446 00e7 00       		.byte	0
+ 1447 00e8 00       		.byte	0
+ 1448 00e9 11       		.uleb128 0x11
+ 1449 00ea 05       		.uleb128 0x5
+ 1450 00eb 00       		.byte	0
+ 1451 00ec 03       		.uleb128 0x3
+ 1452 00ed 0E       		.uleb128 0xe
+ 1453 00ee 3A       		.uleb128 0x3a
+ 1454 00ef 0B       		.uleb128 0xb
+ 1455 00f0 3B       		.uleb128 0x3b
+ 1456 00f1 05       		.uleb128 0x5
+ 1457 00f2 49       		.uleb128 0x49
+ 1458 00f3 13       		.uleb128 0x13
+ 1459 00f4 02       		.uleb128 0x2
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 33
+
+
+ 1460 00f5 18       		.uleb128 0x18
+ 1461 00f6 00       		.byte	0
+ 1462 00f7 00       		.byte	0
+ 1463 00f8 12       		.uleb128 0x12
+ 1464 00f9 2E       		.uleb128 0x2e
+ 1465 00fa 01       		.byte	0x1
+ 1466 00fb 3F       		.uleb128 0x3f
+ 1467 00fc 19       		.uleb128 0x19
+ 1468 00fd 03       		.uleb128 0x3
+ 1469 00fe 0E       		.uleb128 0xe
+ 1470 00ff 3A       		.uleb128 0x3a
+ 1471 0100 0B       		.uleb128 0xb
+ 1472 0101 3B       		.uleb128 0x3b
+ 1473 0102 05       		.uleb128 0x5
+ 1474 0103 27       		.uleb128 0x27
+ 1475 0104 19       		.uleb128 0x19
+ 1476 0105 11       		.uleb128 0x11
+ 1477 0106 01       		.uleb128 0x1
+ 1478 0107 12       		.uleb128 0x12
+ 1479 0108 06       		.uleb128 0x6
+ 1480 0109 40       		.uleb128 0x40
+ 1481 010a 18       		.uleb128 0x18
+ 1482 010b 9642     		.uleb128 0x2116
+ 1483 010d 19       		.uleb128 0x19
+ 1484 010e 01       		.uleb128 0x1
+ 1485 010f 13       		.uleb128 0x13
+ 1486 0110 00       		.byte	0
+ 1487 0111 00       		.byte	0
+ 1488 0112 13       		.uleb128 0x13
+ 1489 0113 2E       		.uleb128 0x2e
+ 1490 0114 00       		.byte	0
+ 1491 0115 3F       		.uleb128 0x3f
+ 1492 0116 19       		.uleb128 0x19
+ 1493 0117 03       		.uleb128 0x3
+ 1494 0118 0E       		.uleb128 0xe
+ 1495 0119 3A       		.uleb128 0x3a
+ 1496 011a 0B       		.uleb128 0xb
+ 1497 011b 3B       		.uleb128 0x3b
+ 1498 011c 05       		.uleb128 0x5
+ 1499 011d 27       		.uleb128 0x27
+ 1500 011e 19       		.uleb128 0x19
+ 1501 011f 11       		.uleb128 0x11
+ 1502 0120 01       		.uleb128 0x1
+ 1503 0121 12       		.uleb128 0x12
+ 1504 0122 06       		.uleb128 0x6
+ 1505 0123 40       		.uleb128 0x40
+ 1506 0124 18       		.uleb128 0x18
+ 1507 0125 9642     		.uleb128 0x2116
+ 1508 0127 19       		.uleb128 0x19
+ 1509 0128 00       		.byte	0
+ 1510 0129 00       		.byte	0
+ 1511 012a 00       		.byte	0
+ 1512              		.section	.debug_aranges,"",%progbits
+ 1513 0000 74000000 		.4byte	0x74
+ 1514 0004 0200     		.2byte	0x2
+ 1515 0006 00000000 		.4byte	.Ldebug_info0
+ 1516 000a 04       		.byte	0x4
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 34
+
+
+ 1517 000b 00       		.byte	0
+ 1518 000c 0000     		.2byte	0
+ 1519 000e 0000     		.2byte	0
+ 1520 0010 00000000 		.4byte	.LFB2
+ 1521 0014 9C010000 		.4byte	.LFE2-.LFB2
+ 1522 0018 00000000 		.4byte	.LFB3
+ 1523 001c C6000000 		.4byte	.LFE3-.LFB3
+ 1524 0020 00000000 		.4byte	.LFB4
+ 1525 0024 1A000000 		.4byte	.LFE4-.LFB4
+ 1526 0028 00000000 		.4byte	.LFB5
+ 1527 002c 1C000000 		.4byte	.LFE5-.LFB5
+ 1528 0030 00000000 		.4byte	.LFB6
+ 1529 0034 1A000000 		.4byte	.LFE6-.LFB6
+ 1530 0038 00000000 		.4byte	.LFB7
+ 1531 003c 1C000000 		.4byte	.LFE7-.LFB7
+ 1532 0040 00000000 		.4byte	.LFB8
+ 1533 0044 1C000000 		.4byte	.LFE8-.LFB8
+ 1534 0048 00000000 		.4byte	.LFB9
+ 1535 004c 16000000 		.4byte	.LFE9-.LFB9
+ 1536 0050 00000000 		.4byte	.LFB10
+ 1537 0054 0C000000 		.4byte	.LFE10-.LFB10
+ 1538 0058 00000000 		.4byte	.LFB11
+ 1539 005c 0C000000 		.4byte	.LFE11-.LFB11
+ 1540 0060 00000000 		.4byte	.LFB12
+ 1541 0064 20000000 		.4byte	.LFE12-.LFB12
+ 1542 0068 00000000 		.4byte	.LFB13
+ 1543 006c 14000000 		.4byte	.LFE13-.LFB13
+ 1544 0070 00000000 		.4byte	0
+ 1545 0074 00000000 		.4byte	0
+ 1546              		.section	.debug_ranges,"",%progbits
+ 1547              	.Ldebug_ranges0:
+ 1548 0000 00000000 		.4byte	.LFB2
+ 1549 0004 9C010000 		.4byte	.LFE2
+ 1550 0008 00000000 		.4byte	.LFB3
+ 1551 000c C6000000 		.4byte	.LFE3
+ 1552 0010 00000000 		.4byte	.LFB4
+ 1553 0014 1A000000 		.4byte	.LFE4
+ 1554 0018 00000000 		.4byte	.LFB5
+ 1555 001c 1C000000 		.4byte	.LFE5
+ 1556 0020 00000000 		.4byte	.LFB6
+ 1557 0024 1A000000 		.4byte	.LFE6
+ 1558 0028 00000000 		.4byte	.LFB7
+ 1559 002c 1C000000 		.4byte	.LFE7
+ 1560 0030 00000000 		.4byte	.LFB8
+ 1561 0034 1C000000 		.4byte	.LFE8
+ 1562 0038 00000000 		.4byte	.LFB9
+ 1563 003c 16000000 		.4byte	.LFE9
+ 1564 0040 00000000 		.4byte	.LFB10
+ 1565 0044 0C000000 		.4byte	.LFE10
+ 1566 0048 00000000 		.4byte	.LFB11
+ 1567 004c 0C000000 		.4byte	.LFE11
+ 1568 0050 00000000 		.4byte	.LFB12
+ 1569 0054 20000000 		.4byte	.LFE12
+ 1570 0058 00000000 		.4byte	.LFB13
+ 1571 005c 14000000 		.4byte	.LFE13
+ 1572 0060 00000000 		.4byte	0
+ 1573 0064 00000000 		.4byte	0
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 35
+
+
+ 1574              		.section	.debug_line,"",%progbits
+ 1575              	.Ldebug_line0:
+ 1576 0000 83010000 		.section	.debug_str,"MS",%progbits,1
+ 1576      02004C00 
+ 1576      00000201 
+ 1576      FB0E0D00 
+ 1576      01010101 
+ 1577              	.LASF17:
+ 1578 0000 72656733 		.ascii	"reg32\000"
+ 1578      3200
+ 1579              	.LASF30:
+ 1580 0006 4379424C 		.ascii	"CyBLE_Nvram_Erase\000"
+ 1580      455F4E76 
+ 1580      72616D5F 
+ 1580      45726173 
+ 1580      6500
+ 1581              	.LASF38:
+ 1582 0018 4379424C 		.ascii	"CyBLE_Bless_LlRegWrite\000"
+ 1582      455F426C 
+ 1582      6573735F 
+ 1582      4C6C5265 
+ 1582      67577269 
+ 1583              	.LASF43:
+ 1584 002f 4379426C 		.ascii	"CyBleHal_DelayMs\000"
+ 1584      6548616C 
+ 1584      5F44656C 
+ 1584      61794D73 
+ 1584      00
+ 1585              	.LASF22:
+ 1586 0040 77726974 		.ascii	"writeBuffer\000"
+ 1586      65427566 
+ 1586      66657200 
+ 1587              	.LASF3:
+ 1588 004c 73686F72 		.ascii	"short unsigned int\000"
+ 1588      7420756E 
+ 1588      7369676E 
+ 1588      65642069 
+ 1588      6E7400
+ 1589              	.LASF45:
+ 1590 005f 4379426C 		.ascii	"CyBleHal_DisableGlobalInterrupts\000"
+ 1590      6548616C 
+ 1590      5F446973 
+ 1590      61626C65 
+ 1590      476C6F62 
+ 1591              	.LASF8:
+ 1592 0080 756E7369 		.ascii	"unsigned int\000"
+ 1592      676E6564 
+ 1592      20696E74 
+ 1592      00
+ 1593              	.LASF25:
+ 1594 008d 73726349 		.ascii	"srcIndex\000"
+ 1594      6E646578 
+ 1594      00
+ 1595              	.LASF27:
+ 1596 0096 62797465 		.ascii	"byteOffset\000"
+ 1596      4F666673 
+ 1596      657400
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 36
+
+
+ 1597              	.LASF12:
+ 1598 00a1 666C6F61 		.ascii	"float\000"
+ 1598      7400
+ 1599              	.LASF48:
+ 1600 00a7 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 1600      4320342E 
+ 1600      382E3420 
+ 1600      32303134 
+ 1600      30353236 
+ 1601 00da 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 1601      20726576 
+ 1601      6973696F 
+ 1601      6E203231 
+ 1601      31333538 
+ 1602 010d 30202D66 		.ascii	"0 -ffunction-sections\000"
+ 1602      66756E63 
+ 1602      74696F6E 
+ 1602      2D736563 
+ 1602      74696F6E 
+ 1603              	.LASF7:
+ 1604 0123 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1604      206C6F6E 
+ 1604      6720756E 
+ 1604      7369676E 
+ 1604      65642069 
+ 1605              	.LASF1:
+ 1606 013a 756E7369 		.ascii	"unsigned char\000"
+ 1606      676E6564 
+ 1606      20636861 
+ 1606      7200
+ 1607              	.LASF33:
+ 1608 0148 6C656E67 		.ascii	"lengthFlash\000"
+ 1608      7468466C 
+ 1608      61736800 
+ 1609              	.LASF41:
+ 1610 0154 4379426C 		.ascii	"CyBleHal_DelayUs\000"
+ 1610      6548616C 
+ 1610      5F44656C 
+ 1610      61795573 
+ 1610      00
+ 1611              	.LASF5:
+ 1612 0165 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1612      20756E73 
+ 1612      69676E65 
+ 1612      6420696E 
+ 1612      7400
+ 1613              	.LASF9:
+ 1614 0177 75696E74 		.ascii	"uint8\000"
+ 1614      3800
+ 1615              	.LASF23:
+ 1616 017d 726F7749 		.ascii	"rowId\000"
+ 1616      6400
+ 1617              	.LASF24:
+ 1618 0183 64737449 		.ascii	"dstIndex\000"
+ 1618      6E646578 
+ 1618      00
+ 1619              	.LASF13:
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 37
+
+
+ 1620 018c 646F7562 		.ascii	"double\000"
+ 1620      6C6500
+ 1621              	.LASF10:
+ 1622 0193 75696E74 		.ascii	"uint16\000"
+ 1622      313600
+ 1623              	.LASF49:
+ 1624 019a 2E5C4765 		.ascii	".\\Generated_Source\\PSoC4\\BLE_1_HAL_PVT.c\000"
+ 1624      6E657261 
+ 1624      7465645F 
+ 1624      536F7572 
+ 1624      63655C50 
+ 1625              	.LASF2:
+ 1626 01c3 73686F72 		.ascii	"short int\000"
+ 1626      7420696E 
+ 1626      7400
+ 1627              	.LASF37:
+ 1628 01cd 4379424C 		.ascii	"CyBLE_Bless_LlRegRead\000"
+ 1628      455F426C 
+ 1628      6573735F 
+ 1628      4C6C5265 
+ 1628      67526561 
+ 1629              	.LASF15:
+ 1630 01e3 63797374 		.ascii	"cystatus\000"
+ 1630      61747573 
+ 1630      00
+ 1631              	.LASF11:
+ 1632 01ec 75696E74 		.ascii	"uint32\000"
+ 1632      333200
+ 1633              	.LASF29:
+ 1634 01f3 4379424C 		.ascii	"CyBLE_Nvram_Write\000"
+ 1634      455F4E76 
+ 1634      72616D5F 
+ 1634      57726974 
+ 1634      6500
+ 1635              	.LASF28:
+ 1636 0205 726F7773 		.ascii	"rowsNotEqual\000"
+ 1636      4E6F7445 
+ 1636      7175616C 
+ 1636      00
+ 1637              	.LASF32:
+ 1638 0212 666C6173 		.ascii	"flashBuffer\000"
+ 1638      68427566 
+ 1638      66657200 
+ 1639              	.LASF14:
+ 1640 021e 63686172 		.ascii	"char\000"
+ 1640      00
+ 1641              	.LASF46:
+ 1642 0223 4379426C 		.ascii	"CyBle_HalInit\000"
+ 1642      655F4861 
+ 1642      6C496E69 
+ 1642      7400
+ 1643              	.LASF16:
+ 1644 0231 72656738 		.ascii	"reg8\000"
+ 1644      00
+ 1645              	.LASF18:
+ 1646 0236 73697A65 		.ascii	"sizetype\000"
+ 1646      74797065 
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 38
+
+
+ 1646      00
+ 1647              	.LASF34:
+ 1648 023f 6C656E67 		.ascii	"lengthRemaining\000"
+ 1648      74685265 
+ 1648      6D61696E 
+ 1648      696E6700 
+ 1649              	.LASF35:
+ 1650 024f 626C6573 		.ascii	"blessAddr\000"
+ 1650      73416464 
+ 1650      7200
+ 1651              	.LASF6:
+ 1652 0259 6C6F6E67 		.ascii	"long long int\000"
+ 1652      206C6F6E 
+ 1652      6720696E 
+ 1652      7400
+ 1653              	.LASF31:
+ 1654 0267 74656D70 		.ascii	"tempFlash\000"
+ 1654      466C6173 
+ 1654      6800
+ 1655              	.LASF47:
+ 1656 0271 4359424C 		.ascii	"CYBLE_BlessStart\000"
+ 1656      455F426C 
+ 1656      65737353 
+ 1656      74617274 
+ 1656      00
+ 1657              	.LASF42:
+ 1658 0282 64656C61 		.ascii	"delayVal\000"
+ 1658      7956616C 
+ 1658      00
+ 1659              	.LASF19:
+ 1660 028b 62756666 		.ascii	"buffer\000"
+ 1660      657200
+ 1661              	.LASF50:
+ 1662 0292 453A5C44 		.ascii	"E:\\Documents\\UROPs\\Biomech UROP\\Code\\Batt\\Bat"
+ 1662      6F63756D 
+ 1662      656E7473 
+ 1662      5C55524F 
+ 1662      50735C42 
+ 1663 02bf 742E6379 		.ascii	"t.cydsn\000"
+ 1663      64736E00 
+ 1664              	.LASF40:
+ 1665 02c7 4379424C 		.ascii	"CyBLE_Bless_RfRegWrite\000"
+ 1665      455F426C 
+ 1665      6573735F 
+ 1665      52665265 
+ 1665      67577269 
+ 1666              	.LASF4:
+ 1667 02de 6C6F6E67 		.ascii	"long int\000"
+ 1667      20696E74 
+ 1667      00
+ 1668              	.LASF26:
+ 1669 02e7 65654F66 		.ascii	"eeOffset\000"
+ 1669      66736574 
+ 1669      00
+ 1670              	.LASF0:
+ 1671 02f0 7369676E 		.ascii	"signed char\000"
+ 1671      65642063 
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc55owwa.s 			page 39
+
+
+ 1671      68617200 
+ 1672              	.LASF44:
+ 1673 02fc 4379426C 		.ascii	"CyBleHal_EnableGlobalInterrupts\000"
+ 1673      6548616C 
+ 1673      5F456E61 
+ 1673      626C6547 
+ 1673      6C6F6261 
+ 1674              	.LASF36:
+ 1675 031c 72656756 		.ascii	"regValue\000"
+ 1675      616C7565 
+ 1675      00
+ 1676              	.LASF21:
+ 1677 0325 6C656E67 		.ascii	"length\000"
+ 1677      746800
+ 1678              	.LASF39:
+ 1679 032c 4379424C 		.ascii	"CyBLE_Bless_RfRegRead\000"
+ 1679      455F426C 
+ 1679      6573735F 
+ 1679      52665265 
+ 1679      67526561 
+ 1680              	.LASF20:
+ 1681 0342 76617246 		.ascii	"varFlash\000"
+ 1681      6C617368 
+ 1681      00
+ 1682              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br

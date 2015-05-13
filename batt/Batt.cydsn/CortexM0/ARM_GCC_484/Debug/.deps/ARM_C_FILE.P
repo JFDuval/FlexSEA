@@ -1,0 +1,314 @@
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/ADC_SAR_Seq_1.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/ADC_SAR_Seq_1.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyLib.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/ADC_SAR_Seq_1.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/ADC_SAR_Seq_1.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyLib.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/ADC_SAR_Seq_1.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/ADC_SAR_Seq_1_INT.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/ADC_SAR_Seq_1.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyLib.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/ADC_SAR_Seq_1_INT.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/ADC_SAR_Seq_1_INT.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/ADC_SAR_Seq_1_IRQ.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/ADC_SAR_Seq_1_IRQ.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyLib.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/ADC_SAR_Seq_1_IRQ.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/ADC_SAR_Seq_1_IRQ.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/ADC_SAR_Seq_1_IRQ.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/ADC_SAR_Seq_1_PM.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/ADC_SAR_Seq_1.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyLib.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/ADC_SAR_Seq_1_PM.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/ADC_SAR_Seq_1_PM.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/ADC_SAR_Seq_1_intClock.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/ADC_SAR_Seq_1_intClock.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/ADC_SAR_Seq_1_intClock.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/ADC_SAR_Seq_1_intClock.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/ADC_SAR_Seq_1_intClock.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/BLE_1.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_HAL_PVT.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_STACK_PVT.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_Stack.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGap.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGatt.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGattClient.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGattDb.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGattServer.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackHostMain.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackL2cap.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_bless_isr.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_eventHandler.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_gatt.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_ias.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyFlash.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyLib.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_HAL_PVT.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_STACK_PVT.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_Stack.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGap.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGatt.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGattClient.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGattDb.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGattServer.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackHostMain.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackL2cap.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_bless_isr.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_eventHandler.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_gatt.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_ias.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyFlash.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/BLE_1_HAL_INT.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_HAL_PVT.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_STACK_PVT.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_Stack.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGap.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGatt.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGattClient.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGattDb.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGattServer.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackHostMain.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackL2cap.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_bless_isr.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_eventHandler.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_gatt.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_ias.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyFlash.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyLib.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_HAL_INT.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_HAL_INT.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/BLE_1_HAL_PVT.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_HAL_PVT.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_STACK_PVT.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_Stack.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGap.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGatt.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGattClient.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGattDb.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGattServer.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackHostMain.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackL2cap.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_bless_isr.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_eventHandler.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_gatt.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_ias.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyFlash.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyLib.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_HAL_PVT.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_HAL_PVT.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/BLE_1_bless_isr.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_bless_isr.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyLib.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_bless_isr.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_bless_isr.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/BLE_1_eventHandler.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_Stack.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGap.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGatt.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGattClient.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGattDb.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGattServer.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackHostMain.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackL2cap.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_eventHandler.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_gatt.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_ias.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyFlash.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyLib.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_eventHandler.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_eventHandler.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/BLE_1_gatt.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_Stack.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGap.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGatt.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGattClient.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGattDb.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGattServer.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackHostMain.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackL2cap.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_eventHandler.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_gatt.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_ias.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyFlash.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyLib.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_gatt.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_gatt.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/BLE_1_ias.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_Stack.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGap.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGatt.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGattClient.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGattDb.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackGattServer.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackHostMain.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_StackL2cap.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_eventHandler.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_gatt.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_ias.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyFlash.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyLib.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_ias.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/BLE_1_ias.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/Cm0Start.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyLib.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter_cfg.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/Cm0Start.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter_cfg.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/Cm0Start.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/CyFlash.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyFlash.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyLib.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyFlash.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyFlash.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/CyLib.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyLib.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyLib.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyLib.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/FR_STBY.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/FR_STBY.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/FR_STBY_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cypins.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/FR_STBY.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/FR_STBY.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/FR_STBY_aliases.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cypins.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/FR_STBY.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/H.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/H.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/H_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cypins.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/H.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/H.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/H_aliases.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/H.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/H_CS.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/H_CS.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/H_CS_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cypins.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/H_CS.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/H_CS.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/H_CS_aliases.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/H_CS.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/I_MEAS.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/I_MEAS.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/I_MEAS_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cypins.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/I_MEAS.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/I_MEAS.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/I_MEAS_aliases.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/I_MEAS.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/LED_B.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/LED_B.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/LED_B_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cypins.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/LED_B.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/LED_B.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/LED_B_aliases.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/LED_B.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/LED_G.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/LED_G.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/LED_G_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cypins.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/LED_G.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/LED_G.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/LED_G_aliases.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/LED_G.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/LED_R.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/LED_R.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/LED_R_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cypins.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/LED_R.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/LED_R.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/LED_R_aliases.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/LED_R.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/NOT_BTN.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/NOT_BTN.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/NOT_BTN_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cypins.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/NOT_BTN.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/NOT_BTN.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/NOT_BTN_aliases.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/NOT_BTN.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/P3_3.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/P3_3.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/P3_3_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cypins.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/P3_3.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/P3_3.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/P3_3_aliases.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/P3_3.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/SPI_1.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyLib.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_PINS.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_PVT.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_SCBCLK.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_SPI_UART.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_SPI_UART_PVT.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_miso_m.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_miso_m_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_mosi_m.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_mosi_m_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_sclk_m.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_sclk_m_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_ss0_m.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_ss0_m_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cypins.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_PINS.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_PVT.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_SCBCLK.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_SPI_UART.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_SPI_UART_PVT.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_miso_m.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_miso_m_aliases.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_mosi_m.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_mosi_m_aliases.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_sclk_m.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_sclk_m_aliases.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_ss0_m.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_ss0_m_aliases.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/SPI_1_BOOT.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyLib.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_BOOT.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_PINS.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_PVT.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_SCBCLK.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_SPI_UART.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_miso_m.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_miso_m_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_mosi_m.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_mosi_m_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_sclk_m.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_sclk_m_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_ss0_m.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_ss0_m_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cypins.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_BOOT.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_BOOT.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_BOOT.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/SPI_1_PM.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyLib.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_PINS.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_PVT.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_SCBCLK.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_SPI_UART.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_SPI_UART_PVT.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_miso_m.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_miso_m_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_mosi_m.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_mosi_m_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_sclk_m.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_sclk_m_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_ss0_m.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_ss0_m_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cypins.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_PM.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_PM.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/SPI_1_SCBCLK.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_SCBCLK.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_SCBCLK.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_SCBCLK.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/SPI_1_SPI.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyLib.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_PINS.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_PVT.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_SCBCLK.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_SPI_UART.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_SPI_UART_PVT.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_miso_m.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_miso_m_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_mosi_m.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_mosi_m_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_sclk_m.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_sclk_m_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_ss0_m.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_ss0_m_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cypins.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_SPI.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_SPI.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/SPI_1_SPI_BOOT.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyLib.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_BOOT.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_PINS.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_PVT.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_SCBCLK.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_SPI_UART.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_miso_m.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_miso_m_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_mosi_m.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_mosi_m_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_sclk_m.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_sclk_m_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_ss0_m.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_ss0_m_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cypins.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_SPI_BOOT.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_SPI_BOOT.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/SPI_1_SPI_UART.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyLib.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_PINS.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_PVT.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_SCBCLK.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_SPI_UART.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_SPI_UART_PVT.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_miso_m.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_miso_m_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_mosi_m.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_mosi_m_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_sclk_m.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_sclk_m_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_ss0_m.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_ss0_m_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cypins.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_SPI_UART.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_SPI_UART.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/SPI_1_miso_m.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_miso_m.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_miso_m_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cypins.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_miso_m.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_miso_m.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/SPI_1_mosi_m.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_mosi_m.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_mosi_m_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cypins.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_mosi_m.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_mosi_m.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/SPI_1_sclk_m.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_sclk_m.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_sclk_m_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cypins.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_sclk_m.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_sclk_m.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/SPI_1_ss0_m.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_ss0_m.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_ss0_m_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cypins.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_ss0_m.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/SPI_1_ss0_m.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/TP_P0_2.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/TP_P0_2.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/TP_P0_2_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cypins.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/TP_P0_2.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/TP_P0_2.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/TP_P0_2_aliases.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/TP_P0_2.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/TP_P0_3.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/TP_P0_3.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/TP_P0_3_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cypins.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/TP_P0_3.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/TP_P0_3.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/TP_P0_3_aliases.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/TP_P0_3.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/TP_P1_7.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/TP_P1_7.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/TP_P1_7_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cypins.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/TP_P1_7.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/TP_P1_7.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/TP_P1_7_aliases.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/TP_P1_7.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/TP_P2_7.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/TP_P2_7.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/TP_P2_7_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cypins.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/TP_P2_7.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/TP_P2_7.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/TP_P2_7_aliases.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/TP_P2_7.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/V_MEAS.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/V_MEAS.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/V_MEAS_aliases.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cypins.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/V_MEAS.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/V_MEAS.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/V_MEAS_aliases.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/V_MEAS.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/cyPm.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyLib.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyPm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyPm.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyPm.h : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyPm.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/cyfitter_cfg.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/CyLib.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter_cfg.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter_cfg.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter_cfg.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/cymetadata.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cymetadata.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cymetadata.c : 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/CortexM0/ARM_GCC_484/Debug/cyutils.o : E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cydevice_trm.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyfitter.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cytypes.h E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyutils.c 
+
+E:/Documents/UROPs/Biomech\ UROP/Code/Batt/Batt.cydsn/Generated_Source/PSoC4/cyutils.c : 
+
