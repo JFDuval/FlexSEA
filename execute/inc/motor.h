@@ -60,7 +60,7 @@ void encoder_write(int32 enc);
 #define GAIN_D					0					//Idem
 	
 //Current controller
-#define CURRENT_ZERO			((int32)2090)		//Should be calibrated board by board
+#define CURRENT_ZERO			((int32)2155)		//Should be calibrated board by board
 #define CURRENT_SPAN			((int32)1850)		//Variation from zero (technically, that's SPAN/2)
 #define CURRENT_POS_LIMIT		CURRENT_SPAN
 #define CURRENT_NEG_LIMIT		(-CURRENT_SPAN)
