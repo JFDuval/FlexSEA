@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: ADC_SAR_Seq_1.c
-* Version 2.0
+* Version 2.10
 *
 * Description:
 *  This file provides the source code to the API for the Sequencing Successive
@@ -9,7 +9,7 @@
 * Note:
 *
 ********************************************************************************
-* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -143,7 +143,10 @@ void ADC_SAR_Seq_1_Init(void)
 
     /* Init SAR and MUX registers */
     ADC_SAR_Seq_1_SAR_CHAN_EN_REG = ADC_SAR_Seq_1_DEFAULT_EN_CHANNELS;
-    ADC_SAR_Seq_1_SAR_CTRL_REG = ADC_SAR_Seq_1_DEFAULT_CTRL_REG_CFG;
+    ADC_SAR_Seq_1_SAR_CTRL_REG |= ADC_SAR_Seq_1_DEFAULT_CTRL_REG_CFG | 
+        /* Enable the SAR internal pump when global pump is enabled */
+        (((ADC_SAR_Seq_1_PUMP_CTRL_REG & ADC_SAR_Seq_1_PUMP_CTRL_ENABLED) != 0u) ? 
+        ADC_SAR_Seq_1_BOOSTPUMP_EN : 0u);
     ADC_SAR_Seq_1_SAR_SAMPLE_CTRL_REG = ADC_SAR_Seq_1_DEFAULT_SAMPLE_CTRL_REG_CFG;
     ADC_SAR_Seq_1_SAR_RANGE_THRES_REG = ADC_SAR_Seq_1_DEFAULT_RANGE_THRES_REG_CFG;
     ADC_SAR_Seq_1_SAR_RANGE_COND_REG  = ADC_SAR_Seq_1_COMPARE_MODE;

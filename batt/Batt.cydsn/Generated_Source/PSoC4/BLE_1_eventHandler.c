@@ -1,13 +1,13 @@
 /*******************************************************************************
 File Name: CYBLE_eventHandler.c
-Version 1.10
+Version 1.20
 
 Description:
  This file contains the source code for the Event Handler State Machine
  of the BLE Component.
 
 ********************************************************************************
-Copyright 2014, Cypress Semiconductor Corporation.  All rights reserved.
+Copyright 2014-2015, Cypress Semiconductor Corporation.  All rights reserved.
 You may use this file only in accordance with the license, terms, conditions,
 disclaimers, and limitations in the end user license agreement accompanying
 the software package with which this file was provided.
@@ -24,7 +24,7 @@ the software package with which this file was provided.
 
 static uint8 CyBle_IsDeviceAddressValid(const CYBLE_GAP_BD_ADDR_T *sflashDeviceAddress);
 
-#endif /* (CYBLE_GATT_ROLE_SERVER || CYBLE_GATT_ROLE_CLIENT) */
+#endif /* CYBLE_GATT_ROLE_SERVER || CYBLE_GATT_ROLE_CLIENT */
 
 static void CyBle_GattDisconnectEventHandler(void);
 static void CyBle_TimeOutEventHandler(const CYBLE_TO_REASON_CODE_T *eventParam);
@@ -38,28 +38,36 @@ static void CyBle_GapConnUpdateCompleteEventHandler(const CYBLE_GAP_CONN_PARAM_U
 static void CyBle_WriteReqHandler(CYBLE_GATTS_WRITE_REQ_PARAM_T *eventParam);
 static void CyBle_ValueConfirmation(const CYBLE_CONN_HANDLE_T *eventParam);
 
-#endif /* (CYBLE_GATT_ROLE_SERVER) */
+#endif /* CYBLE_GATT_ROLE_SERVER */
 
 #if (CYBLE_GATT_ROLE_CLIENT)
 
 static void CyBle_GapcDiscoverCharacteristicsEventHandler(CYBLE_DISC_CHAR_INFO_T *discCharInfo);
 static CYBLE_GATT_ATTR_HANDLE_RANGE_T CyBle_GetCharRange(void);
 static void CyBle_GattcWriteResponseEventHandler(const CYBLE_CONN_HANDLE_T *eventParam);
+static void CyBle_NotificationEventHandler(CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *eventParam);
+static void CyBle_IndicationEventHandler(CYBLE_GATTC_HANDLE_VALUE_IND_PARAM_T *eventParam);
+static void CyBle_ReadResponseEventHandler(CYBLE_GATTC_READ_RSP_PARAM_T *eventParam);
 
-#endif /* (CYBLE_GATT_ROLE_CLIENT) */
+#endif /* CYBLE_GATT_ROLE_CLIENT */
 
 
 /***************************************
 ##Global Variables
 ***************************************/
 
-volatile uint8 cyBle_eventHandlerFlag;
+/* This global variable is initialized after connection with peer device, 
+   after CYBLE_EVT_GATT_CONNECT_IND event, and could be used by application code
+   to send data to peer device. 
+*/
 CYBLE_CONN_HANDLE_T cyBle_connHandle;
-volatile uint8 cyBle_busStatus;
+
+volatile uint8 cyBle_eventHandlerFlag;
+volatile uint8 cyBle_busyStatus;
 
 #if(CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_BROADCASTER) 
     uint8 cyBle_advertisingIntervalType;
-#endif /* (CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_BROADCASTER) */
+#endif /* CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_BROADCASTER) */
 
 #if(CYBLE_GAP_ROLE_CENTRAL || CYBLE_GAP_ROLE_OBSERVER) 
     uint8 cyBle_scanningIntervalType;
@@ -70,7 +78,7 @@ uint8 cyBle_disCount; /* Counter for discovery procedures */
 static CYBLE_GATT_DB_ATTR_HANDLE_T cyBle_charEndHandle;
 #ifdef CYBLE_HIDS_CLIENT
     static uint8 disServiceIndex;      /* To discovery descriptors for multiple HID service instances */
-#endif /* defined(CYBLE_HIDS_CLIENT) */
+#endif /* CYBLE_HIDS_CLIENT */
 
 CYBLE_DISC_SRVC_INFO_T cyBle_serverInfo[CYBLE_SRVI_COUNT] = /*3*/
 {
@@ -88,6 +96,9 @@ CYBLE_DISC_SRVC_INFO_T cyBle_serverInfo[CYBLE_SRVI_COUNT] = /*3*/
 #ifdef CYBLE_BLS_CLIENT
     {{CYBLE_GATT_INVALID_ATTR_HANDLE_VALUE, CYBLE_GATT_INVALID_ATTR_HANDLE_VALUE}, CYBLE_UUID_BLOOD_PRESSURE_SERVICE},
 #endif /* CYBLE_BLS_CLIENT */
+#ifdef CYBLE_CGMS_CLIENT
+    {{CYBLE_GATT_INVALID_ATTR_HANDLE_VALUE, CYBLE_GATT_INVALID_ATTR_HANDLE_VALUE}, CYBLE_UUID_CGM_SERVICE},
+#endif /* CYBLE_CGMS_CLIENT */
 #ifdef CYBLE_CPS_CLIENT
     {{CYBLE_GATT_INVALID_ATTR_HANDLE_VALUE, CYBLE_GATT_INVALID_ATTR_HANDLE_VALUE}, CYBLE_UUID_CPS_SERVICE},
 #endif /* CYBLE_CPS_CLIENT */
@@ -142,6 +153,9 @@ CYBLE_DISC_SRVC_INFO_T cyBle_serverInfo[CYBLE_SRVI_COUNT] = /*3*/
 #ifdef CYBLE_TPS_CLIENT
     {{CYBLE_GATT_INVALID_ATTR_HANDLE_VALUE, CYBLE_GATT_INVALID_ATTR_HANDLE_VALUE}, CYBLE_UUID_TX_POWER_SERVICE},
 #endif /* CYBLE_TPS_CLIENT */
+#ifdef CYBLE_UDS_CLIENT
+    {{CYBLE_GATT_INVALID_ATTR_HANDLE_VALUE, CYBLE_GATT_INVALID_ATTR_HANDLE_VALUE}, CYBLE_UUID_USER_DATA_SERVICE},
+#endif /* CYBLE_UDS_CLIENT */
 
 };
 
@@ -180,102 +194,108 @@ static void CyBle_WriteReqHandler(CYBLE_GATTS_WRITE_REQ_PARAM_T *eventParam)
     CYBLE_GATT_ERR_CODE_T gattErr;
     
     gattErr = CyBle_GattsWriteEventHandler(eventParam);
-#if defined(CYBLE_ANS_SERVER)
+#ifdef CYBLE_ANS_SERVER
     if((CYBLE_GATT_ERR_NONE == gattErr) && ((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u))
     {
         gattErr = CyBle_AnssWriteEventHandler(eventParam);
     }
-#endif /* defined(CYBLE_ANS_SERVER) */
-#if defined(CYBLE_BAS_SERVER)
+#endif /* CYBLE_ANS_SERVER */
+#ifdef CYBLE_BAS_SERVER
     if((CYBLE_GATT_ERR_NONE == gattErr) && ((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u))
     {
         gattErr = CyBle_BassWriteEventHandler(eventParam);
     }
-#endif /* defined(CYBLE_BAS_SERVER) */
-#if defined(CYBLE_BLS_SERVER)
+#endif /* CYBLE_BAS_SERVER */
+#ifdef CYBLE_BLS_SERVER
     if((CYBLE_GATT_ERR_NONE == gattErr) && ((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u))
     {
         gattErr = CyBle_BlssWriteEventHandler(eventParam);
     }
-#endif /* defined(CYBLE_BLS_SERVER) */
-#if defined(CYBLE_CPS_SERVER)
+#endif /* CYBLE_BLS_SERVER */
+#ifdef CYBLE_CPS_SERVER
     if((CYBLE_GATT_ERR_NONE == gattErr) && ((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u))
     {
         gattErr = CyBle_CpssWriteEventHandler(eventParam);
     }
-#endif /* defined(CYBLE_CPS_SERVER) */
-#if defined(CYBLE_CSCS_SERVER)
+#endif /* CYBLE_CPS_SERVER */
+#ifdef CYBLE_CSCS_SERVER
     if((CYBLE_GATT_ERR_NONE == gattErr) && ((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u))
     {
         gattErr = CyBle_CscssWriteEventHandler(eventParam);
     }
-#endif /* defined(CYBLE_CSCS_SERVER) */
-#if defined(CYBLE_CTS_SERVER)
+#endif /* CYBLE_CSCS_SERVER */
+#ifdef CYBLE_CTS_SERVER
     if((CYBLE_GATT_ERR_NONE == gattErr) && ((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u))
     {
         gattErr = CyBle_CtssWriteEventHandler(eventParam);
     }
-#endif /* defined(CYBLE_CTS_SERVER) */
-#if defined(CYBLE_GLS_SERVER)
+#endif /* CYBLE_CTS_SERVER */
+#ifdef CYBLE_GLS_SERVER
     if((CYBLE_GATT_ERR_NONE == gattErr) && ((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u))
     {
         gattErr = CyBle_GlssWriteEventHandler(eventParam);
     }
-#endif /* defined(CYBLE_GLS_SERVER) */
-#if defined(CYBLE_HIDS_SERVER)
+#endif /* CYBLE_GLS_SERVER */
+#ifdef CYBLE_HIDS_SERVER
     if((CYBLE_GATT_ERR_NONE == gattErr) && ((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u))
     {
         gattErr = CyBle_HidssWriteEventHandler(eventParam);
     }
-#endif /* defined(CYBLE_HIDS_SERVER) */
-#if defined(CYBLE_HRS_SERVER)
+#endif /* CYBLE_HIDS_SERVER */
+#ifdef CYBLE_HRS_SERVER
     if((CYBLE_GATT_ERR_NONE == gattErr) && ((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u))
     {
         gattErr = CyBle_HrssWriteEventHandler(eventParam);
     }
-#endif /* defined(CYBLE_HRS_SERVER) */
-#if defined(CYBLE_HTS_SERVER)
+#endif /* CYBLE_HRS_SERVER */
+#ifdef CYBLE_HTS_SERVER
     if((CYBLE_GATT_ERR_NONE == gattErr) && ((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u))
     {
         gattErr = CyBle_HtssWriteEventHandler(eventParam);
     }
-#endif /* defined(CYBLE_TPS_SERVER) */
-#if defined(CYBLE_LLS_SERVER)
+#endif /* CYBLE_HTS_SERVER */
+#ifdef CYBLE_LLS_SERVER
     if((CYBLE_GATT_ERR_NONE == gattErr) && ((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u))
     {
         gattErr = CyBle_LlssWriteEventHandler(eventParam);
     }
-#endif /* defined(CYBLE_LLS_SERVER) */
-#if defined(CYBLE_LNS_SERVER)
+#endif /* CYBLE_LLS_SERVER */
+#ifdef CYBLE_LNS_SERVER
     if((CYBLE_GATT_ERR_NONE == gattErr) && ((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u))
     {
         gattErr = CyBle_LnssWriteEventHandler(eventParam);
     }
-#endif /* defined(CYBLE_LNS_SERVER) */
-#if defined(CYBLE_PASS_SERVER)
+#endif /* CYBLE_LNS_SERVER */
+#ifdef CYBLE_PASS_SERVER
     if((CYBLE_GATT_ERR_NONE == gattErr) && ((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u))
     {
         gattErr = CyBle_PasssWriteEventHandler(eventParam);
     }
-#endif /* defined(CYBLE_PASS_SERVER) */
-#if defined(CYBLE_RSCS_SERVER)
+#endif /* CYBLE_PASS_SERVER */
+#ifdef CYBLE_RSCS_SERVER
     if((CYBLE_GATT_ERR_NONE == gattErr) && ((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u))
     {
         gattErr = CyBle_RscssWriteEventHandler(eventParam);
     }
-#endif /* defined(CYBLE_RSCS_SERVER) */
-#if defined(CYBLE_SCPS_SERVER)
+#endif /* CYBLE_RSCS_SERVER */
+#ifdef CYBLE_SCPS_SERVER
     if((CYBLE_GATT_ERR_NONE == gattErr) && ((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u))
     {
         gattErr = CyBle_ScpssWriteEventHandler(eventParam);
     }
-#endif /* defined(CYBLE_SCPS_SERVER) */
-#if defined(CYBLE_TPS_SERVER)
+#endif /* CYBLE_SCPS_SERVER */
+#ifdef CYBLE_TPS_SERVER
     if((CYBLE_GATT_ERR_NONE == gattErr) && ((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u))
     {
         gattErr = CyBle_TpssWriteEventHandler(eventParam);
     }
-#endif /* defined(CYBLE_TPS_SERVER) */
+#endif /* CYBLE_TPS_SERVER */
+#ifdef CYBLE_UDS_SERVER
+    if((CYBLE_GATT_ERR_NONE == gattErr) && ((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u))
+    {
+        gattErr = CyBle_UdssWriteEventHandler(eventParam);
+    }
+#endif /* CYBLE_UDS_SERVER */
 
     /* Send response when event was handled by service */
     if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) == 0u)
@@ -318,55 +338,62 @@ static void CyBle_ValueConfirmation(const CYBLE_CONN_HANDLE_T *eventParam)
 {
     if(eventParam != NULL)
     {
-    #if defined(CYBLE_BLS_SERVER)
+    #ifdef CYBLE_BLS_SERVER
         CyBle_BlssConfirmationEventHandler(eventParam);
-    #endif /* defined(CYBLE_BLS_SERVER) */
+    #endif /* CYBLE_BLS_SERVER */
     
-    #if defined(CYBLE_CPS_SERVER)
+    #ifdef CYBLE_CPS_SERVER
         if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
         {
             CyBle_CpssConfirmationEventHandler(eventParam);
         }
-    #endif /* defined(CYBLE_CPS_SERVER) */
+    #endif /* CYBLE_CPS_SERVER */
     
-    #if defined(CYBLE_CSCS_SERVER)
+    #ifdef CYBLE_CSCS_SERVER
         if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
         {
             CyBle_CscssConfirmationEventHandler(eventParam);
         }
-    #endif /* defined(CYBLE_CSCS_SERVER) */
+    #endif /* CYBLE_CSCS_SERVER */
     
-    #if defined(CYBLE_GLS_SERVER)
+    #ifdef CYBLE_GLS_SERVER
         if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
         {
             CyBle_GlssConfirmationEventHandler(eventParam);
         }
-    #endif /* defined(CYBLE_GLS_SERVER) */
+    #endif /* CYBLE_GLS_SERVER */
     
-    #if defined(CYBLE_HTS_SERVER)
+    #ifdef CYBLE_HTS_SERVER
         if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
         {
             CyBle_HtssConfirmationEventHandler(eventParam);
         }
-    #endif /* defined(CYBLE_HTS_SERVER) */
+    #endif /* CYBLE_HTS_SERVER */
 
-    #if defined(CYBLE_LNS_SERVER)
+    #ifdef CYBLE_LNS_SERVER
         if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
         {
             CyBle_LnssConfirmationEventHandler(eventParam);
         }
-    #endif /* defined(CYBLE_LNS_SERVER) */
+    #endif /* CYBLE_LNS_SERVER */
     
-    #if defined(CYBLE_RSCS_SERVER)
+    #ifdef CYBLE_RSCS_SERVER
         if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
         {
             CyBle_RscssConfirmationEventHandler(eventParam);
         }
-    #endif /* defined(CYBLE_RSCS_SERVER) */
+    #endif /* CYBLE_RSCS_SERVER */
+    
+    #ifdef CYBLE_UDS_SERVER
+        if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+        {
+            CyBle_UdssConfirmationEventHandler(eventParam);
+        }
+    #endif /* CYBLE_UDS_SERVER */
     }
 }
 
-#endif /* (CYBLE_GATT_ROLE_SERVER) */
+#endif /* CYBLE_GATT_ROLE_SERVER */
 
 
 #if (CYBLE_GATT_ROLE_CLIENT)
@@ -405,6 +432,13 @@ static void CyBle_GattcWriteResponseEventHandler(const CYBLE_CONN_HANDLE_T *even
         CyBle_BlscWriteResponseEventHandler(eventParam);
     }
 #endif /* CYBLE_BLS_CLIENT */
+
+#ifdef CYBLE_CGMS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_CgmscWriteResponseEventHandler(eventParam);
+    }
+#endif /* CYBLE_CGMS_CLIENT */
 
 #ifdef CYBLE_CPS_CLIENT
     if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
@@ -496,8 +530,349 @@ static void CyBle_GattcWriteResponseEventHandler(const CYBLE_CONN_HANDLE_T *even
         CyBle_TpscWriteResponseEventHandler(eventParam);
     }
 #endif /* CYBLE_TPS_CLIENT */
+
+#ifdef CYBLE_UDS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_UdscWriteResponseEventHandler(eventParam);
+    }
+#endif /* CYBLE_UDS_CLIENT */
 }
-#endif /* (CYBLE_GATT_ROLE_CLIENT) */
+
+
+/******************************************************************************    
+##Function Name: CyBle_NotificationEventHandler
+*******************************************************************************
+
+Summary:
+ Handles the Notification event from BLE stack.
+
+Parameters:
+ CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T * eventParam - event parameter
+
+Return:
+ None
+
+******************************************************************************/
+static void CyBle_NotificationEventHandler(CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *eventParam)
+{
+#ifdef CYBLE_ANS_CLIENT
+    CyBle_AnscNotificationEventHandler(eventParam);
+#endif /* CYBLE_ANS_CLIENT */
+#ifdef CYBLE_BAS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_BascNotificationEventHandler(eventParam);
+    }
+#endif /* CYBLE_BAS_CLIENT */
+#ifdef CYBLE_BLS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_BlscNotificationEventHandler(eventParam);
+    }
+#endif /* CYBLE_BLS_CLIENT */
+#ifdef CYBLE_CGMS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_CgmscNotificationEventHandler(eventParam);
+    }
+#endif /* CYBLE_CGMS_CLIENT */
+#ifdef CYBLE_CPS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_CpscNotificationEventHandler(eventParam);
+    }
+#endif /* CYBLE_CPS_CLIENT */
+#ifdef CYBLE_CSCS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_CscscNotificationEventHandler(eventParam);
+    }
+#endif /* CYBLE_CSCS_CLIENT */
+#ifdef CYBLE_CTS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_CtscNotificationEventHandler(eventParam);
+    }
+#endif /* CYBLE_CTS_CLIENT */
+#ifdef CYBLE_GLS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_GlscNotificationEventHandler(eventParam);
+    }
+#endif /* CYBLE_GLS_CLIENT */
+#ifdef CYBLE_HIDS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_HidscNotificationEventHandler(eventParam);
+    }
+#endif /* CYBLE_HIDS_CLIENT */
+#ifdef CYBLE_HRS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_HrscNotificationEventHandler(eventParam);
+    }
+#endif /* CYBLE_HRS_CLIENT */
+#ifdef CYBLE_HTS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_HtscNotificationEventHandler(eventParam);
+    }
+#endif /* CYBLE_HTS_CLIENT */
+#ifdef CYBLE_LNS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_LnscNotificationEventHandler(eventParam);
+    }
+#endif /* CYBLE_LNS_CLIENT */
+#ifdef CYBLE_PASS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_PasscNotificationEventHandler(eventParam);
+    }
+#endif /* CYBLE_PASS_CLIENT */
+#ifdef CYBLE_RSCS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_RscscNotificationEventHandler(eventParam);
+    }
+#endif /* CYBLE_RSCS_CLIENT */
+#ifdef CYBLE_SCPS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_ScpscNotificationEventHandler(eventParam);
+    }
+#endif /* CYBLE_SCPS_CLIENT */
+#ifdef CYBLE_TPS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_TpscNotificationEventHandler(eventParam);
+    }
+#endif /* CYBLE_TPS_CLIENT */
+#ifdef CYBLE_UDS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_UdscNotificationEventHandler(eventParam);
+    }
+#endif /* CYBLE_UDS_CLIENT */
+}
+
+
+/******************************************************************************    
+##Function Name: CyBle_IndicationEventHandler
+*******************************************************************************
+
+Summary:
+ Handles the Indication event from BLE stack.
+
+Parameters:
+ CYBLE_GATTC_HANDLE_VALUE_IND_PARAM_T * eventParam - event parameter
+
+Return:
+ None
+
+******************************************************************************/
+static void CyBle_IndicationEventHandler(CYBLE_GATTC_HANDLE_VALUE_IND_PARAM_T *eventParam)
+{
+#ifdef CYBLE_BLS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_BlscIndicationEventHandler(eventParam);
+    }
+#endif /* CYBLE_BLS_CLIENT */
+#ifdef CYBLE_CGMS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_CgmscIndicationEventHandler(eventParam);
+    }
+#endif /* CYBLE_CGMS_CLIENT */
+#ifdef CYBLE_CPS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_CpscIndicationEventHandler(eventParam);
+    }
+#endif /* CYBLE_CPS_CLIENT */
+#ifdef CYBLE_CSCS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_CscscIndicationEventHandler(eventParam);
+    }
+#endif /* CYBLE_CSCS_CLIENT */
+#ifdef CYBLE_GLS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_GlscIndicationEventHandler(eventParam);
+    }
+#endif /* CYBLE_GLS_CLIENT */
+#ifdef CYBLE_HTS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_HtscIndicationEventHandler(eventParam);
+    }
+#endif /* CYBLE_HTS_CLIENT */
+#ifdef CYBLE_LNS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_LnscIndicationEventHandler(eventParam);
+    }
+#endif /* CYBLE_LNS_CLIENT */
+#ifdef CYBLE_RSCS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_RscscIndicationEventHandler(eventParam);
+    }
+#endif /* CYBLE_RSCS_CLIENT */
+#ifdef CYBLE_UDS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_UdscIndicationEventHandler(eventParam);
+    }
+#endif /* CYBLE_UDS_CLIENT */
+}
+
+
+
+/******************************************************************************    
+##Function Name: CyBle_ReadResponseEventHandler
+*******************************************************************************
+
+Summary:
+ Handles the Read Response event from BLE stack.
+
+Parameters:
+ CYBLE_GATTC_READ_RSP_PARAM_T * eventParam - event parameter
+
+Return:
+ None
+
+******************************************************************************/
+static void CyBle_ReadResponseEventHandler(CYBLE_GATTC_READ_RSP_PARAM_T *eventParam)
+{
+#ifdef CYBLE_ANS_CLIENT
+    CyBle_AnscReadResponseEventHandler(eventParam);
+#endif /* CYBLE_ANS_CLIENT */
+#ifdef CYBLE_BAS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_BascReadResponseEventHandler(eventParam);
+    }
+#endif /* CYBLE_BAS_CLIENT */
+#ifdef CYBLE_BLS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_BlscReadResponseEventHandler(eventParam);
+    }
+#endif /* CYBLE_BLS_CLIENT */
+#ifdef CYBLE_CGMS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_CgmscReadResponseEventHandler(eventParam);
+    }
+#endif /* CYBLE_CGMS_CLIENT */
+#ifdef CYBLE_CPS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_CpscReadResponseEventHandler(eventParam);
+    }
+#endif /* CYBLE_CPS_CLIENT */
+#ifdef CYBLE_CSCS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_CscscReadResponseEventHandler(eventParam);
+    }
+#endif /* CYBLE_CSCS_CLIENT */
+#ifdef CYBLE_CTS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_CtscReadResponseEventHandler(eventParam);
+    }
+#endif /* CYBLE_BAS_CLIENT */
+#ifdef CYBLE_DIS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_DiscReadResponseEventHandler(eventParam);
+    }
+#endif /* CYBLE_DIS_CLIENT */
+#ifdef CYBLE_GLS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_GlscReadResponseEventHandler(eventParam);
+    }
+#endif /* CYBLE_GLS_CLIENT */
+#ifdef CYBLE_HIDS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_HidscReadResponseEventHandler(eventParam);
+    }
+#endif /* CYBLE_HIDS_CLIENT */
+#ifdef CYBLE_HRS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_HrscReadResponseEventHandler(eventParam);
+    }
+#endif /* CYBLE_HRS_CLIENT */
+#ifdef CYBLE_HTS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_HtscReadResponseEventHandler(eventParam);
+    }
+#endif /* CYBLE_HTS_CLIENT */
+#ifdef CYBLE_LLS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_LlscReadResponseEventHandler(eventParam);
+    }
+#endif /* CYBLE_LLS_CLIENT */
+#ifdef CYBLE_LNS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_LnscReadResponseEventHandler(eventParam);
+    }
+#endif /* CYBLE_LNS_CLIENT */
+#ifdef CYBLE_NDCS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_NdcscReadResponseEventHandler(eventParam);
+    }
+#endif /* CYBLE_NDCS_CLIENT */
+#ifdef CYBLE_PASS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_PasscReadResponseEventHandler(eventParam);
+    }
+#endif /* CYBLE_PASS_CLIENT */
+#ifdef CYBLE_RSCS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_RscscReadResponseEventHandler(eventParam);
+    }
+#endif /* CYBLE_RSCS_CLIENT */
+#ifdef CYBLE_RTUS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_RtuscReadResponseEventHandler(eventParam);
+    }
+#endif /* CYBLE_RTUS_CLIENT */
+#ifdef CYBLE_SCPS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_ScpscReadResponseEventHandler(eventParam);
+    }
+#endif /* CYBLE_SCPS_CLIENT */
+#ifdef CYBLE_TPS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_TpscReadResponseEventHandler(eventParam);
+    }
+#endif /* CYBLE_TPS_CLIENT */
+#ifdef CYBLE_UDS_CLIENT
+    if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+    {
+        CyBle_UdscReadResponseEventHandler(eventParam);
+    }
+#endif /* CYBLE_UDS_CLIENT */
+}
+#endif /* CYBLE_GATT_ROLE_CLIENT */
 
 
 /****************************************************************************** 
@@ -551,6 +926,10 @@ static void CyBle_GattDisconnectEventHandler(void)
     #ifdef CYBLE_LNS_SERVER
         CyBle_LnsInit();
     #endif /* CYBLE_LNS_SERVER */
+    
+    #ifdef CYBLE_UDS_SERVER
+        CyBle_UdsInit();
+    #endif /* CYBLE_UDS_SERVER */
 }
 
 
@@ -647,7 +1026,7 @@ static void CyBle_GattConnectReqHandler(void)
     #endif /* CYBLE_HIDS_SERVER */
 
     #ifdef CYBLE_RSCS_SERVER
-            CyBle_RscsInit();
+        CyBle_RscsInit();
     #endif /* CYBLE_RSCS_SERVER */
 }
 
@@ -688,7 +1067,7 @@ static uint8 CyBle_IsDeviceAddressValid(const CYBLE_GAP_BD_ADDR_T *sflashDeviceA
     }
     return (sflashAddressValid);
 }
-#endif /* (CYBLE_GATT_ROLE_SERVER || CYBLE_GATT_ROLE_CLIENT) */
+#endif /* CYBLE_GATT_ROLE_SERVER || CYBLE_GATT_ROLE_CLIENT */
 
 
 /****************************************************************************** 
@@ -783,6 +1162,7 @@ void CyBle_EventHandler(uint8 eventCode, void *eventParam)
             bleSsPowerLevel.blePwrLevelInDbm = CYBLE_TX_POWER_LEVEL;
             bleSsPowerLevel.bleSsChId = CYBLE_LL_ADV_CH_TYPE;
             (void) CyBle_SetTxPowerLevel (&bleSsPowerLevel);
+            bleSsPowerLevel.blePwrLevelInDbm = CYBLE_TX_POWER_LEVEL;
             bleSsPowerLevel.bleSsChId = CYBLE_LL_CONN_CH_TYPE;
             (void) CyBle_SetTxPowerLevel (&bleSsPowerLevel);
         }
@@ -792,6 +1172,10 @@ void CyBle_EventHandler(uint8 eventCode, void *eventParam)
             if(CyBle_IsDeviceAddressValid(cyBle_sflashDeviceAddress) != 0u)
             {
                 (void) CyBle_SetDeviceAddress(cyBle_sflashDeviceAddress);
+                #if(CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_BROADCASTER)
+                    CyBle_ChangeAdDeviceAddress(cyBle_sflashDeviceAddress, 0u);
+                    CyBle_ChangeAdDeviceAddress(cyBle_sflashDeviceAddress, 1u);
+                #endif /* CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_BROADCASTER */    
             }
             else
             {
@@ -801,6 +1185,10 @@ void CyBle_EventHandler(uint8 eventCode, void *eventParam)
                 cyBle_deviceAddress.bdAddr[2] = CYBLE_SFLASH_DIE_WAFER_REG;
             #endif /* SILICON_GENERATED_DEVICE_ADDRESS != 0u */
                 (void) CyBle_SetDeviceAddress(&cyBle_deviceAddress);
+                #if(CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_BROADCASTER)
+                    CyBle_ChangeAdDeviceAddress(&cyBle_deviceAddress, 0u);
+                    CyBle_ChangeAdDeviceAddress(&cyBle_deviceAddress, 1u);
+                #endif /* CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_BROADCASTER */    
             }
             /* Set device IO Capability  */
             (void) CyBle_GapSetIoCap(CYBLE_IO_CAPABILITY);    
@@ -811,7 +1199,7 @@ void CyBle_EventHandler(uint8 eventCode, void *eventParam)
             CyBle_TimeOutEventHandler((CYBLE_TO_REASON_CODE_T *)eventParam);
             break;
     	case CYBLE_EVT_STACK_BUSY_STATUS:
-            cyBle_busStatus = *(uint8 *)eventParam;
+            cyBle_busyStatus = *(uint8 *)eventParam;
             break;
 
         /**********************************************************
@@ -843,6 +1231,7 @@ void CyBle_EventHandler(uint8 eventCode, void *eventParam)
         case CYBLE_EVT_GAP_CONNECTION_UPDATE_COMPLETE:
             CyBle_GapConnUpdateCompleteEventHandler((const CYBLE_GAP_CONN_PARAM_UPDATED_IN_CONTROLLER_T *)eventParam);
             break;
+            
         case CYBLE_EVT_GAP_DEVICE_CONNECTED:
             CyBle_GapConnUpdateCompleteEventHandler((const CYBLE_GAP_CONN_PARAM_UPDATED_IN_CONTROLLER_T *)eventParam);
             #if(CYBLE_GAP_ROLE_CENTRAL)
@@ -857,15 +1246,14 @@ void CyBle_EventHandler(uint8 eventCode, void *eventParam)
         case CYBLE_EVT_GAP_DEVICE_DISCONNECTED:
             CyBle_SetState(CYBLE_STATE_DISCONNECTED);
             break;
-            
         #if(CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_BROADCASTER)
-        case CYBLE_EVT_GAPP_ADVERTISEMENT_START_STOP:
             
-        #ifdef CYBLE_CPS_SERVER
-            #if(CYBLE_GAP_ROLE_BROADCASTER)
-                CyBle_CpssAdvertisementStartStopEventHandler();
-            #endif /* CYBLE_GAP_ROLE_BROADCASTER */
-        #endif /* CYBLE_CPS_SERVER */
+        case CYBLE_EVT_GAPP_ADVERTISEMENT_START_STOP:
+            #ifdef CYBLE_CPS_SERVER
+                #if(CYBLE_GAP_ROLE_BROADCASTER)
+                    CyBle_CpssAdvertisementStartStopEventHandler();
+                #endif /* CYBLE_GAP_ROLE_BROADCASTER */
+            #endif /* CYBLE_CPS_SERVER */
             
             if((CYBLE_STATE_CONNECTED != CyBle_GetState()) && ((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u))
             {
@@ -904,10 +1292,9 @@ void CyBle_EventHandler(uint8 eventCode, void *eventParam)
         
         #if(CYBLE_GAP_ROLE_CENTRAL || CYBLE_GAP_ROLE_OBSERVER)    
         case CYBLE_EVT_GAPC_SCAN_START_STOP:
-            
-        #ifdef CYBLE_CPS_CLIENT
-            CyBle_CpscScanStartStopEventHandler();
-        #endif /* CYBLE_CPS_CLIENT */
+            #ifdef CYBLE_CPS_CLIENT
+                CyBle_CpscScanStartStopEventHandler();
+            #endif /* CYBLE_CPS_CLIENT */
             
             if((CYBLE_STATE_CONNECTED != CyBle_GetState()) && ((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u))
             {
@@ -976,28 +1363,28 @@ void CyBle_EventHandler(uint8 eventCode, void *eventParam)
 
     #if((CYBLE_GATT_ROLE_SERVER) || (CYBLE_GATT_ROLE_CLIENT))
         case CYBLE_EVT_GATTS_XCNHG_MTU_REQ:
-        {
-            uint16 cyBle_mtuSize;
-            if(CYBLE_GATT_MTU > ((CYBLE_GATT_XCHG_MTU_PARAM_T *)eventParam)->mtu)
             {
-                cyBle_mtuSize = ((CYBLE_GATT_XCHG_MTU_PARAM_T *)eventParam)->mtu;
+                uint16 cyBle_mtuSize;
+                if(CYBLE_GATT_MTU > ((CYBLE_GATT_XCHG_MTU_PARAM_T *)eventParam)->mtu)
+                {
+                    cyBle_mtuSize = ((CYBLE_GATT_XCHG_MTU_PARAM_T *)eventParam)->mtu;
+                }
+                else
+                {
+                    cyBle_mtuSize = CYBLE_GATT_MTU;
+                }
+                (void)CyBle_GattsExchangeMtuRsp(((CYBLE_GATT_XCHG_MTU_PARAM_T *)eventParam)->connHandle, cyBle_mtuSize);
             }
-            else
-            {
-                cyBle_mtuSize = CYBLE_GATT_MTU;
-            }
-            (void)CyBle_GattsExchangeMtuRsp(((CYBLE_GATT_XCHG_MTU_PARAM_T *)eventParam)->connHandle, cyBle_mtuSize);
-             }
             break;
-    #endif /* (CYBLE_GATT_ROLE_SERVER) || (CYBLE_GATT_ROLE_CLIENT) */
+    #endif /* CYBLE_GATT_ROLE_SERVER || CYBLE_GATT_ROLE_CLIENT */
     
     #if (CYBLE_GATT_ROLE_CLIENT)
         case CYBLE_EVT_GAPC_SCAN_PROGRESS_RESULT:
         #ifdef CYBLE_CPS_CLIENT
                 CyBle_CpscScanProcessEventHandler((CYBLE_GAPC_ADV_REPORT_T *)eventParam);
-        #endif /* defined(CYBLE_CPS_CLIENT) */
+        #endif /* CYBLE_CPS_CLIENT */
             break;
-    #endif /* (CYBLE_GATT_ROLE_CLIENT) */
+    #endif /* CYBLE_GATT_ROLE_CLIENT */
 
     #if(CYBLE_GATT_ROLE_SERVER)
         case CYBLE_EVT_GATTS_WRITE_REQ:
@@ -1005,44 +1392,46 @@ void CyBle_EventHandler(uint8 eventCode, void *eventParam)
             break;
 
         case CYBLE_EVT_GATTS_WRITE_CMD_REQ:
-        #if defined(CYBLE_IAS_SERVER)
+        #ifdef CYBLE_IAS_SERVER
             if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
             {
                 (void)CyBle_IassWriteCmdEventHandler((CYBLE_GATTS_WRITE_REQ_PARAM_T *)eventParam);
             }
-        #endif /* defined(CYBLE_IAS_SERVER) */
-        #if defined(CYBLE_HIDS_SERVER)
+        #endif /* CYBLE_IAS_SERVER */
+        #ifdef CYBLE_HIDS_SERVER
             if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
             {
                 (void)CyBle_HidssWriteEventHandler((CYBLE_GATTS_WRITE_REQ_PARAM_T *)eventParam);
             }
-        #endif /* defined(CYBLE_HIDS_SERVER) */
-        #if defined(CYBLE_PASS_SERVER)
+        #endif /* CYBLE_HIDS_SERVER */
+        #ifdef CYBLE_PASS_SERVER
             if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
             {
                 (void)CyBle_PasssWriteCmdEventHandler((CYBLE_GATTS_WRITE_REQ_PARAM_T *)eventParam);
             }
-        #endif /* defined(CYBLE_PASS_SERVER) */
-        #if defined(CYBLE_RTUS_SERVER)
+        #endif /* CYBLE_PASS_SERVER */
+        #ifdef CYBLE_RTUS_SERVER
             if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
             {
                 (void)CyBle_RtussWriteCmdEventHandler((CYBLE_GATTS_WRITE_REQ_PARAM_T *)eventParam);
             }
-        #endif /* defined(CYBLE_RTUS_SERVER) */
-        #if defined(CYBLE_SCPS_SERVER)
+        #endif /* CYBLE_RTUS_SERVER */
+        #ifdef CYBLE_SCPS_SERVER
             if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
             {
                 (void)CyBle_ScpssWriteEventHandler((CYBLE_GATTS_WRITE_REQ_PARAM_T *)eventParam);
             }
-        #endif /* defined(CYBLE_SCPS_SERVER) */
+        #endif /* CYBLE_SCPS_SERVER */
             break;
             
         case CYBLE_EVT_GATTS_HANDLE_VALUE_CNF:
             CyBle_ValueConfirmation((CYBLE_CONN_HANDLE_T *)eventParam);
             break;
+            
     #endif /* CYBLE_GATT_ROLE_SERVER */
 
     #if (CYBLE_GATT_ROLE_CLIENT)
+        
         case CYBLE_EVT_GATTC_READ_BY_GROUP_TYPE_RSP:
             CyBle_ReadByGroupEventHandler((CYBLE_GATTC_READ_BY_GRP_RSP_PARAM_T *)eventParam);
             break;
@@ -1060,139 +1449,13 @@ void CyBle_EventHandler(uint8 eventCode, void *eventParam)
             break;
 
         case CYBLE_EVT_GATTC_HANDLE_VALUE_NTF:
-        #ifdef CYBLE_ANS_CLIENT
-            CyBle_AnscNotificationEventHandler((CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *)eventParam);
-        #endif /* defined(CYBLE_ANS_CLIENT) */
-        #ifdef CYBLE_BAS_CLIENT
-            if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-            {
-                CyBle_BascNotificationEventHandler((CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *)eventParam);
-            }
-        #endif /* defined(CYBLE_BAS_CLIENT) */
-        #ifdef CYBLE_BLS_CLIENT
-            if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-            {
-                CyBle_BlscNotificationEventHandler((CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *)eventParam);
-            }
-        #endif /* defined(CYBLE_BLS_CLIENT) */
-        #ifdef CYBLE_CPS_CLIENT
-            if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-            {
-                CyBle_CpscNotificationEventHandler((CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *)eventParam);
-            }
-        #endif /* defined(CYBLE_CPS_CLIENT) */
-        #ifdef CYBLE_CSCS_CLIENT
-            if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-            {
-                CyBle_CscscNotificationEventHandler((CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *)eventParam);
-            }
-        #endif /* defined(CYBLE_CSCS_CLIENT) */
-        #ifdef CYBLE_CTS_CLIENT
-            if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-            {
-                CyBle_CtscNotificationEventHandler((CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *)eventParam);
-            }
-        #endif /* defined(CYBLE_CTS_CLIENT) */
-        #ifdef CYBLE_GLS_CLIENT
-            if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-            {
-                CyBle_GlscNotificationEventHandler((CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *)eventParam);
-            }
-        #endif /* defined(CYBLE_GLS_CLIENT) */
-        #ifdef CYBLE_HIDS_CLIENT
-            if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-            {
-                CyBle_HidscNotificationEventHandler((CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *)eventParam);
-            }
-        #endif /* defined(CYBLE_HIDS_CLIENT) */
-        #ifdef CYBLE_HRS_CLIENT
-            if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-            {
-                CyBle_HrscNotificationEventHandler((CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *)eventParam);
-            }
-        #endif /* defined(CYBLE_HRS_CLIENT) */
-        #ifdef CYBLE_HTS_CLIENT
-            if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-            {
-                CyBle_HtscNotificationEventHandler((CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *)eventParam);
-            }
-        #endif /* defined(CYBLE_HTS_CLIENT) */
-        #ifdef CYBLE_LNS_CLIENT
-            if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-            {
-                CyBle_LnscNotificationEventHandler((CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *)eventParam);
-            }
-        #endif /* defined(CYBLE_LNS_CLIENT) */
-        #ifdef CYBLE_PASS_CLIENT
-            if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-            {
-                CyBle_PasscNotificationEventHandler((CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *)eventParam);
-            }
-        #endif /* defined(CYBLE_PASS_CLIENT) */
-        #ifdef CYBLE_RSCS_CLIENT
-            if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-            {
-                CyBle_RscscNotificationEventHandler((CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *)eventParam);
-            }
-        #endif /* defined(CYBLE_RSCS_CLIENT) */
-        #ifdef CYBLE_SCPS_CLIENT
-            if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-            {
-                CyBle_ScpscNotificationEventHandler((CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *)eventParam);
-            }
-        #endif /* defined(CYBLE_SCPS_CLIENT) */
-        #ifdef CYBLE_TPS_CLIENT
-            if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-            {
-                CyBle_TpscNotificationEventHandler((CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *)eventParam);
-            }
-        #endif /* defined(CYBLE_TPS_CLIENT) */
+            CyBle_NotificationEventHandler((CYBLE_GATTC_HANDLE_VALUE_NTF_PARAM_T *)eventParam);
             break;
 
         case CYBLE_EVT_GATTC_HANDLE_VALUE_IND:
             CyBle_GattcIndicationEventHandler((CYBLE_GATTC_HANDLE_VALUE_IND_PARAM_T *)eventParam);
-        #ifdef CYBLE_BLS_CLIENT
-            if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-            {
-                CyBle_BlscIndicationEventHandler((CYBLE_GATTC_HANDLE_VALUE_IND_PARAM_T *)eventParam);
-            }
-        #endif /* defined(CYBLE_BLS_CLIENT) */
-        #ifdef CYBLE_CPS_CLIENT
-            if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-            {
-                CyBle_CpscIndicationEventHandler((CYBLE_GATTC_HANDLE_VALUE_IND_PARAM_T *)eventParam);
-            }
-        #endif /* defined(CYBLE_CPS_CLIENT) */
-        #ifdef CYBLE_CSCS_CLIENT
-            if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-            {
-                CyBle_CscscIndicationEventHandler((CYBLE_GATTC_HANDLE_VALUE_IND_PARAM_T *)eventParam);
-            }
-        #endif /* defined(CYBLE_CSCS_CLIENT) */
-        #ifdef CYBLE_GLS_CLIENT
-            if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-            {
-                CyBle_GlscIndicationEventHandler((CYBLE_GATTC_HANDLE_VALUE_IND_PARAM_T *)eventParam);
-            }
-        #endif /* defined(CYBLE_GLS_CLIENT) */
-        #ifdef CYBLE_HTS_CLIENT
-            if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-            {
-                CyBle_HtscIndicationEventHandler((CYBLE_GATTC_HANDLE_VALUE_IND_PARAM_T *)eventParam);
-            }
-        #endif /* defined(CYBLE_HTS_CLIENT) */
-        #ifdef CYBLE_LNS_CLIENT
-            if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-            {
-                CyBle_LnscIndicationEventHandler((CYBLE_GATTC_HANDLE_VALUE_IND_PARAM_T *)eventParam);
-            }
-        #endif /* defined(CYBLE_LNS_CLIENT) */
-        #ifdef CYBLE_RSCS_CLIENT
-            if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-            {
-                CyBle_RscscIndicationEventHandler((CYBLE_GATTC_HANDLE_VALUE_IND_PARAM_T *)eventParam);
-            }
-        #endif /* defined(CYBLE_RSCS_CLIENT) */
+            CyBle_IndicationEventHandler((CYBLE_GATTC_HANDLE_VALUE_IND_PARAM_T *)eventParam);
+        
             /* Respond with a Handle Value Confirmation when request handled */
             if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) == 0u)
             {
@@ -1201,117 +1464,7 @@ void CyBle_EventHandler(uint8 eventCode, void *eventParam)
             break;
         
         case CYBLE_EVT_GATTC_READ_RSP:
-            #ifdef CYBLE_ANS_CLIENT
-                CyBle_AnscReadResponseEventHandler((CYBLE_GATTC_READ_RSP_PARAM_T *)eventParam);
-            #endif /* CYBLE_ANS_CLIENT */
-            #ifdef CYBLE_BAS_CLIENT
-                if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-                {
-                    CyBle_BascReadResponseEventHandler((CYBLE_GATTC_READ_RSP_PARAM_T *)eventParam);
-                }
-            #endif /* CYBLE_BAS_CLIENT */
-            #ifdef CYBLE_BLS_CLIENT
-                if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-                {
-                    CyBle_BlscReadResponseEventHandler((CYBLE_GATTC_READ_RSP_PARAM_T *)eventParam);
-                }
-            #endif /* CYBLE_BLS_CLIENT */
-            #ifdef CYBLE_CPS_CLIENT
-                if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-                {
-                    CyBle_CpscReadResponseEventHandler((CYBLE_GATTC_READ_RSP_PARAM_T *)eventParam);
-                }
-            #endif /* CYBLE_CPS_CLIENT */
-            #ifdef CYBLE_CSCS_CLIENT
-                if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-                {
-                    CyBle_CscscReadResponseEventHandler((CYBLE_GATTC_READ_RSP_PARAM_T *)eventParam);
-                }
-            #endif /* CYBLE_CSCS_CLIENT */
-            #ifdef CYBLE_CTS_CLIENT
-                if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-                {
-                    CyBle_CtscReadResponseEventHandler((CYBLE_GATTC_READ_RSP_PARAM_T *)eventParam);
-                }
-            #endif /* CYBLE_BAS_CLIENT */
-            #ifdef CYBLE_DIS_CLIENT
-                if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-                {
-                    CyBle_DiscReadResponseEventHandler((CYBLE_GATTC_READ_RSP_PARAM_T *)eventParam);
-                }
-            #endif /* CYBLE_DIS_CLIENT */
-            #ifdef CYBLE_GLS_CLIENT
-                if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-                {
-                    CyBle_GlscReadResponseEventHandler((CYBLE_GATTC_READ_RSP_PARAM_T *)eventParam);
-                }
-            #endif /* CYBLE_GLS_CLIENT */
-            #ifdef CYBLE_HIDS_CLIENT
-                if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-                {
-                    CyBle_HidscReadResponseEventHandler((CYBLE_GATTC_READ_RSP_PARAM_T *)eventParam);
-                }
-            #endif /* CYBLE_HIDS_CLIENT */
-            #ifdef CYBLE_HRS_CLIENT
-                if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-                {
-                    CyBle_HrscReadResponseEventHandler((CYBLE_GATTC_READ_RSP_PARAM_T *)eventParam);
-                }
-            #endif /* CYBLE_HRS_CLIENT */
-            #ifdef CYBLE_HTS_CLIENT
-                if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-                {
-                    CyBle_HtscReadResponseEventHandler((CYBLE_GATTC_READ_RSP_PARAM_T *)eventParam);
-                }
-            #endif /* CYBLE_HTS_CLIENT */
-            #ifdef CYBLE_LLS_CLIENT
-                if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-                {
-                    CyBle_LlscReadResponseEventHandler((CYBLE_GATTC_READ_RSP_PARAM_T *)eventParam);
-                }
-            #endif /* CYBLE_LLS_CLIENT */
-            #ifdef CYBLE_LNS_CLIENT
-                if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-                {
-                    CyBle_LnscReadResponseEventHandler((CYBLE_GATTC_READ_RSP_PARAM_T *)eventParam);
-                }
-            #endif /* CYBLE_LNS_CLIENT */
-            #ifdef CYBLE_NDCS_CLIENT
-                if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-                {
-                    CyBle_NdcscReadResponseEventHandler((CYBLE_GATTC_READ_RSP_PARAM_T *)eventParam);
-                }
-            #endif /* CYBLE_NDCS_CLIENT */
-            #ifdef CYBLE_PASS_CLIENT
-                if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-                {
-                    CyBle_PasscReadResponseEventHandler((CYBLE_GATTC_READ_RSP_PARAM_T *)eventParam);
-                }
-            #endif /* CYBLE_PASS_CLIENT */
-            #ifdef CYBLE_RSCS_CLIENT
-                if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-                {
-                    CyBle_RscscReadResponseEventHandler((CYBLE_GATTC_READ_RSP_PARAM_T *)eventParam);
-                }
-            #endif /* CYBLE_RSCS_CLIENT */
-            #ifdef CYBLE_RTUS_CLIENT
-                if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-                {
-                    CyBle_RtuscReadResponseEventHandler((CYBLE_GATTC_READ_RSP_PARAM_T *)eventParam);
-                }
-            #endif /* CYBLE_RTUS_CLIENT */
-            #ifdef CYBLE_SCPS_CLIENT
-                if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-                {
-                    CyBle_ScpscReadResponseEventHandler((CYBLE_GATTC_READ_RSP_PARAM_T *)eventParam);
-                }
-            #endif /* CYBLE_SCPS_CLIENT */
-            #ifdef CYBLE_TPS_CLIENT
-                if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
-                {
-                    CyBle_TpscReadResponseEventHandler((CYBLE_GATTC_READ_RSP_PARAM_T *)eventParam);
-                }
-            #endif /* CYBLE_TPS_CLIENT */
+            CyBle_ReadResponseEventHandler((CYBLE_GATTC_READ_RSP_PARAM_T *)eventParam);
             break;
 
         case CYBLE_EVT_GATTC_WRITE_RSP:
@@ -1327,6 +1480,7 @@ void CyBle_EventHandler(uint8 eventCode, void *eventParam)
             break;
         
     #endif  /* (CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES) */
+    
         default:
             break;
     }
@@ -1602,6 +1756,12 @@ void CyBle_ReadByTypeEventHandler(CYBLE_GATTC_READ_BY_TYPE_RSP_PARAM_T *eventPar
                         CyBle_BlscDiscoverCharacteristicsEventHandler(&discCharInfo);
                         break;
                 #endif /* CYBLE_BLS_CLIENT */
+                
+                #ifdef CYBLE_CGMS_CLIENT
+                    case CYBLE_UUID_CGM_SERVICE:
+                        CyBle_CgmscDiscoverCharacteristicsEventHandler(&discCharInfo);
+                        break;
+                #endif /* CYBLE_CGMS_CLIENT */
 
                 #ifdef CYBLE_CPS_CLIENT
                     case CYBLE_UUID_CPS_SERVICE:
@@ -1704,6 +1864,12 @@ void CyBle_ReadByTypeEventHandler(CYBLE_GATTC_READ_BY_TYPE_RSP_PARAM_T *eventPar
                         CyBle_TpscDiscoverCharacteristicsEventHandler(&discCharInfo);
                         break;
                 #endif /* CYBLE_TPS_CLIENT */
+                
+                #ifdef CYBLE_UDS_CLIENT
+                    case CYBLE_UUID_USER_DATA_SERVICE:
+                        CyBle_UdscDiscoverCharacteristicsEventHandler(&discCharInfo);
+                        break;
+                #endif /* CYBLE_UDS_CLIENT */
 
                     default:
                         break;
@@ -1832,7 +1998,7 @@ void CyBle_ReadByTypeEventHandler(CYBLE_GATTC_READ_BY_TYPE_RSP_PARAM_T *eventPar
                             cyBle_disCount = 0u;
                             #ifdef CYBLE_HIDS_CLIENT
                                 disServiceIndex = 0u;
-                            #endif /* defined(CYBLE_HIDS_CLIENT) */
+                            #endif /* CYBLE_HIDS_CLIENT */
                             switch(CyBle_NextCharDiscovery())
                             {
                                 case CYBLE_ERROR_OK:
@@ -1945,7 +2111,7 @@ static CYBLE_GATT_ATTR_HANDLE_RANGE_T CyBle_GetCharRange(void)
         charRange.endHandle = 
             cyBle_ansc.characteristics[cyBle_disCount - CYBLE_SCDI_ANS_SUPPORTED_NEW_ALERT_CAT].endHandle;
     }
-#endif /* defined(CYBLE_ANS_CLIENT) */
+#endif /* CYBLE_ANS_CLIENT */
 #ifdef CYBLE_BAS_CLIENT
     if((cyBle_disCount >= (uint8) CYBLE_SCDI_BAS_LEVEL) && (cyBle_disCount <= (uint8) CYBLE_SCDI_BAS_LEVEL_END))
     {
@@ -1970,13 +2136,31 @@ static CYBLE_GATT_ATTR_HANDLE_RANGE_T CyBle_GetCharRange(void)
         }
     }
 #endif /* CYBLE_BLS_CLIENT */
+#ifdef CYBLE_CGMS_CLIENT
+    if((cyBle_disCount >= (uint8) CYBLE_SCDI_CGMS_CGMT) && (cyBle_disCount <= (uint8) CYBLE_SCDI_CGMS_SOCP))
+    {
+        uint8 charIdx = cyBle_disCount - CYBLE_SCDI_CGMS_CGMT;
+        if(CYBLE_CGMS_CGMT < charIdx)
+        {
+            /* charIdx for RACP is 5 and for SOCP is 6 */
+            charIdx += CYBLE_CGMS_RACP - 1u;
+        }
+        
+        if(cyBle_cgmsc.charInfo[charIdx].valueHandle != CYBLE_GATT_INVALID_ATTR_HANDLE_VALUE)
+        {
+            /* One descriptor is available per characteristic */
+            charRange.startHandle = cyBle_cgmsc.charInfo[charIdx].valueHandle + 1u;
+            charRange.endHandle = cyBle_cgmsc.charInfo[charIdx].endHandle;
+        }
+    }
+#endif /* CYBLE_CGMS_CLIENT */
 #ifdef CYBLE_CPS_CLIENT
     if((cyBle_disCount >= (uint8) CYBLE_SCDI_CPS_POWER_MEASURE) && (cyBle_disCount <= (uint8) CYBLE_SCDI_CPS_POWER_CP))
     {
         charRange.startHandle = cyBle_cpsc.charInfo[cyBle_disCount - CYBLE_SCDI_CPS_POWER_MEASURE].valueHandle + 1u;
         charRange.endHandle = cyBle_cpsc.charInfo[cyBle_disCount - CYBLE_SCDI_CPS_POWER_MEASURE].endHandle;
     }
-#endif /* defined(CYBLE_CPS_CLIENT) */
+#endif /* CYBLE_CPS_CLIENT */
 #ifdef CYBLE_CSCS_CLIENT
     if((cyBle_disCount >= (uint8) CYBLE_SCDI_CSCS_CSC_MEASUREMENT) && 
        (cyBle_disCount <= (uint8) CYBLE_SCDI_CSCS_SC_CONTROL_POINT))
@@ -2049,21 +2233,21 @@ static CYBLE_GATT_ATTR_HANDLE_RANGE_T CyBle_GetCharRange(void)
         }
 
     }
-#endif /* defined(CYBLE_HIDS_CLIENT) */
+#endif /* CYBLE_HIDS_CLIENT */
 #ifdef CYBLE_HRS_CLIENT
     if(cyBle_disCount == (uint8) CYBLE_SCDI_HRS_HRM)
     {
         charRange.startHandle = cyBle_hrsc.charInfo[CYBLE_HRS_HRM].valueHandle + 1u;
         charRange.endHandle = cyBle_serverInfo[CYBLE_SRVI_HRS].range.endHandle;
     }
-#endif /* defined(CYBLE_HRS_CLIENT) */
+#endif /* CYBLE_HRS_CLIENT */
 #ifdef CYBLE_HTS_CLIENT
     if((cyBle_disCount >= (uint8) CYBLE_SCDI_HTS_TEMP_MEASURE) && (cyBle_disCount <= (uint8) CYBLE_SCDI_HTS_MEASURE_INTERVAL))
     {
         charRange.startHandle = cyBle_htsc.charInfo[cyBle_disCount - CYBLE_SCDI_HTS_TEMP_MEASURE].valueHandle + 1u;
         charRange.endHandle = cyBle_htsc.charInfo[cyBle_disCount - CYBLE_SCDI_HTS_TEMP_MEASURE].endHandle;
     }
-#endif /* defined(CYBLE_HTS_CLIENT) */
+#endif /* CYBLE_HTS_CLIENT */
 #ifdef CYBLE_LNS_CLIENT
     if((cyBle_disCount >= (uint8) CYBLE_SCDI_LNS_LS) && (cyBle_disCount <= (uint8) CYBLE_SCDI_LNS_NV))
     {
@@ -2075,14 +2259,14 @@ static CYBLE_GATT_ATTR_HANDLE_RANGE_T CyBle_GetCharRange(void)
         charRange.startHandle = cyBle_lnsc.charInfo[charIdx].valueHandle + 1u;
         charRange.endHandle = cyBle_lnsc.charInfo[charIdx].endHandle;
     }
-#endif /* defined(CYBLE_LNS_CLIENT) */
+#endif /* CYBLE_LNS_CLIENT */
 #ifdef CYBLE_PASS_CLIENT
     if((cyBle_disCount == (uint8) CYBLE_SCDI_PASS_AS) || (cyBle_disCount == (uint8) CYBLE_SCDI_PASS_RS))
     {
         charRange.startHandle = cyBle_passc.charInfo[cyBle_disCount - CYBLE_SCDI_PASS_AS].valueHandle + 1u;
         charRange.endHandle = cyBle_passc.charInfo[cyBle_disCount - CYBLE_SCDI_PASS_AS].endHandle;
     }
-#endif /* defined(CYBLE_PASS_CLIENT) */
+#endif /* CYBLE_PASS_CLIENT */
 #ifdef CYBLE_RSCS_CLIENT
     if((cyBle_disCount >= (uint8) CYBLE_SCDI_RSCS_RSC_MEASUREMENT) && 
        (cyBle_disCount <= (uint8) CYBLE_SCDI_RSCS_SC_CONTROL_POINT))
@@ -2102,7 +2286,7 @@ static CYBLE_GATT_ATTR_HANDLE_RANGE_T CyBle_GetCharRange(void)
             charRange.endHandle = cyBle_serverInfo[CYBLE_SRVI_SCPS].range.endHandle;
         }
     }
-#endif /* defined(CYBLE_SCPS_CLIENT) */
+#endif /* CYBLE_SCPS_CLIENT */
 #ifdef CYBLE_TPS_CLIENT
     if(cyBle_disCount == (uint8) CYBLE_SCDI_TPS_TX_PWR_LEVEL)
     {
@@ -2114,6 +2298,23 @@ static CYBLE_GATT_ATTR_HANDLE_RANGE_T CyBle_GetCharRange(void)
         }
     }
 #endif /* CYBLE_TPS_CLIENT */
+#ifdef CYBLE_UDS_CLIENT
+    if((cyBle_disCount == (uint8) CYBLE_SRVI_UDS_DCI) || (cyBle_disCount == (uint8) CYBLE_SRVI_UDS_UCP))
+    {
+        uint8 charIdx;
+        if(cyBle_disCount == (uint8) CYBLE_SRVI_UDS_DCI)
+        {
+            charIdx = CYBLE_UDS_DCI;
+        }
+        else
+        {
+            charIdx = CYBLE_UDS_UCP;
+        }
+        
+        charRange.startHandle = cyBle_udsc.charInfo[charIdx].valueHandle + 1u;
+        charRange.endHandle = cyBle_udsc.charInfo[charIdx].endHandle;
+    }
+#endif /* CYBLE_UDS_CLIENT */
 
     return (charRange);
 }
@@ -2256,7 +2457,7 @@ void CyBle_FindInfoEventHandler(CYBLE_GATTC_FIND_INFO_RSP_PARAM_T *eventParam)
                     {
                         CyBle_HidscDiscoverCharDescriptorsEventHandler(disServiceIndex, cyBle_disCount, &discDescrInfo);
                     }
-                #endif /* defined(CYBLE_HIDS_CLIENT) */
+                #endif /* CYBLE_HIDS_CLIENT */
 
                 #ifdef CYBLE_HRS_CLIENT
                     if(cyBle_disCount == (uint8) CYBLE_SCDI_HRS_HRM)
@@ -2324,6 +2525,14 @@ void CyBle_FindInfoEventHandler(CYBLE_GATTC_FIND_INFO_RSP_PARAM_T *eventParam)
                         CyBle_TpscDiscoverCharDescriptorsEventHandler(&discDescrInfo);
                     }
                 #endif /* CYBLE_TPS_CLIENT */
+                
+                #ifdef CYBLE_UDS_CLIENT
+                    if((cyBle_disCount == (uint8) CYBLE_SRVI_UDS_DCI) || 
+                        (cyBle_disCount == (uint8) CYBLE_SRVI_UDS_UCP))
+                    {
+                        CyBle_UdscDiscoverCharDescriptorsEventHandler(&discDescrInfo);
+                    }
+                #endif /* CYBLE_UDS_CLIENT */
             }
         }
         /* The sub-procedure is complete when an Error Response is received and the
@@ -2346,10 +2555,10 @@ void CyBle_FindInfoEventHandler(CYBLE_GATTC_FIND_INFO_RSP_PARAM_T *eventParam)
                     }
                 #else
                     cyBle_disCount++;
-                #endif /* (CYBLE_HIDSC_SERVICE_COUNT > 1u) */
+                #endif /* CYBLE_HIDSC_SERVICE_COUNT > 1u) */
             #else
                 cyBle_disCount++;
-            #endif /* defined(CYBLE_HIDS_CLIENT) */
+            #endif /* CYBLE_HIDS_CLIENT */
             switch(CyBle_NextCharDscrDiscovery())
             {
             case CYBLE_ERROR_OK:
@@ -2415,13 +2624,12 @@ CYBLE_API_RESULT_T CyBle_NextCharDscrDiscovery(void)
                 }
             #else
                 cyBle_disCount++;
-            #endif /* (CYBLE_HIDSC_SERVICE_COUNT > 1u) */
+            #endif /* CYBLE_HIDSC_SERVICE_COUNT > 1u) */
         #else
             cyBle_disCount++;
-        #endif /* defined(CYBLE_HIDS_CLIENT) */
+        #endif /* CYBLE_HIDS_CLIENT */
         charRange = CyBle_GetCharRange();
     }
-
 
     if(cyBle_disCount < (uint8) CYBLE_SCDI_COUNT)
     {
@@ -2476,7 +2684,7 @@ void CyBle_ErrorResponseEventHandler(const CYBLE_GATTC_ERR_RSP_PARAM_T *eventPar
                     cyBle_disCount = 0u;
                 #ifdef CYBLE_HIDS_CLIENT
                     disServiceIndex = 0u;
-                #endif /* defined(CYBLE_HIDS_CLIENT) */
+                #endif /* CYBLE_HIDS_CLIENT */
                     
                     switch(CyBle_NextCharDiscovery())
                     {
@@ -2520,7 +2728,7 @@ void CyBle_ErrorResponseEventHandler(const CYBLE_GATTC_ERR_RSP_PARAM_T *eventPar
                     cyBle_disCount = 0u;
                     #ifdef CYBLE_HIDS_CLIENT
                         disServiceIndex = 0u;
-                    #endif /* defined(CYBLE_HIDS_CLIENT) */
+                    #endif /* CYBLE_HIDS_CLIENT */
                     
                     switch(CyBle_NextCharDiscovery())
                     {
@@ -2598,10 +2806,10 @@ void CyBle_ErrorResponseEventHandler(const CYBLE_GATTC_ERR_RSP_PARAM_T *eventPar
                     }
                 #else
                     cyBle_disCount++;
-                #endif /* (CYBLE_HIDSC_SERVICE_COUNT > 1u) */
+                #endif /* CYBLE_HIDSC_SERVICE_COUNT > 1u) */
             #else
                 cyBle_disCount++;
-            #endif /* defined(CYBLE_HIDS_CLIENT) */
+            #endif /* CYBLE_HIDS_CLIENT */
 
             switch(CyBle_NextCharDscrDiscovery())
             {
@@ -2637,6 +2845,12 @@ void CyBle_ErrorResponseEventHandler(const CYBLE_GATTC_ERR_RSP_PARAM_T *eventPar
                     CyBle_BlscErrorResponseEventHandler(eventParam);
                 }
             #endif /* CYBLE_BLS_CLIENT */
+            #ifdef CYBLE_CGMS_CLIENT
+                if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+                {
+                    CyBle_CgmscErrorResponseEventHandler(eventParam);
+                }
+            #endif /* CYBLE_CGMS_CLIENT */
             #ifdef CYBLE_CPS_CLIENT
                 if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
                 {
@@ -2721,6 +2935,12 @@ void CyBle_ErrorResponseEventHandler(const CYBLE_GATTC_ERR_RSP_PARAM_T *eventPar
                     CyBle_TpscErrorResponseEventHandler(eventParam);
                 }
             #endif /* CYBLE_TPS_CLIENT */
+            #ifdef CYBLE_UDS_CLIENT
+                if((cyBle_eventHandlerFlag & CYBLE_CALLBACK) != 0u)
+                {
+                    CyBle_UdscErrorResponseEventHandler(eventParam);
+                }
+            #endif /* CYBLE_UDS_CLIENT */
             break;
             
         default:

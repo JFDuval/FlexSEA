@@ -1,6 +1,6 @@
 /*******************************************************************************
 File Name: CYBLE_StackGap.h
-Version 1.10
+Version 1.20
 
 Description:
  This file contains the GAP APIs of the BLE Host Stack IP
@@ -9,7 +9,7 @@ Related Document:
  BLE Standard Spec - CoreV4.1, CSS, CSAs, ESR05, ESR06
 
 ********************************************************************************
-Copyright 2014, Cypress Semiconductor Corporation.  All rights reserved.
+Copyright 2014-2015, Cypress Semiconductor Corporation.  All rights reserved.
 You may use this file only in accordance with the license, terms, conditions,
 disclaimers, and limitations in the end user license agreement accompanying
 the software package with which this file was provided.
@@ -60,7 +60,7 @@ the software package with which this file was provided.
 #define CYBLE_GAPC_LTD_DISC_PROCEDURE           0x01u
 #define CYBLE_GAPC_GEN_DISC_PROCEDURE           0x02u
 
-/* Type of discovery procedure use in CYBLE_GAPC_DISC_INFO_T */
+/* Type of discovery procedure use in CYBLE_GAPC_DISC_INFO_T*/
 #define CYBLE_GAPC_PASSIVE_SCANNING				0x00u	
 #define CYBLE_GAPC_ACTIVE_SCANNING				0x01u
 #define CYBLE_GAPC_ADV_ACCEPT_ALL_PKT 			0x00u
@@ -77,7 +77,7 @@ the software package with which this file was provided.
 /* Initiator filter policy*/
 #define CYBLE_GAPC_CONN_ALL 					0x00u
 #define CYBLE_GAPC_CONN_WHITELIST 				0x01u
-    
+
 /* Maximum number of Remote Devices */
 #define CYBLE_GAP_MAX_BONDED_DEVICE             4u
 
@@ -380,8 +380,8 @@ typedef struct
 	CYBLE_GAPP_ADV_T      	advType;		
 
 	/* Own BD Address Type											
-	    - CYBLE_GAP_ADDR_TYPE_PUBLIC (Public device address)
-        - CYBLE_GAP_ADDR_TYPE_RANDOM (Random device address)
+		- CYBLE_GAP_ADDR_TYPE_PUBLIC (Public device address)
+		- CYBLE_GAP_ADDR_TYPE_RANDOM (Random device address)
      */	
 	uint8      				ownAddrType;	
 
@@ -400,20 +400,20 @@ typedef struct
 
 	/* Advertising channels that shall be used when transmitting advertising packets. 
 	   Channel map selection:
-	   	   - Enable channel 37 = bitmask. xxxxxxx1b
-	   	   - Enable channel 38 = bitmask. xxxxxx1xb
-	   	   - Enable channel 39 = bitmask. xxxxx1xxb 
+		- Enable channel 37 = bitmask. xxxxxxx1b
+		- Enable channel 38 = bitmask. xxxxxx1xb
+		- Enable channel 39 = bitmask. xxxxx1xxb 
 	 */
 	uint8      				advChannelMap;
 
 	/* Advertising Filter Policy
-	   	- CYBLE_SCAN_ANY_CONN_ANY (Allow Scan Request from Any, Allow Connect Request
+	   	- CYBLE_GAPP_SCAN_ANY_CONN_ANY (Allow Scan Request from Any, Allow Connect Request
            from Any (Default))
-	   	- CYBLE_SCAN_WHITELIST_CONN_ANY (Allow Scan Request from White List Only, 
+	   	- CYBLE_GAPP_SCAN_WHITELIST_CONN_ANY (Allow Scan Request from White List Only, 
            Allow Connect Request)
-	   	- CYBLE_SCAN_ANY_CONN_WHITELIST (Allow Scan Request from Any, Allow Connect
+	   	- CYBLE_GAPP_SCAN_ANY_CONN_WHITELIST (Allow Scan Request from Any, Allow Connect
            Request from White List Only)
-	   	- CYBLE_SCAN_WHITELIST_CONN_ANY (Allow Scan Request from White List Only, 
+	   	- CYBLE_GAPP_SCAN_CONN_WHITELIST_ONLY (Allow Scan Request from White List Only, 
            Allow Connect Request from White List Only)
 	 */	
 	uint8      				advFilterPolicy;
@@ -426,7 +426,7 @@ typedef struct
 	/*GAP Advertisement Parameters which includes Flags, Service UUIDs and short name*/
 	uint8      advData[CYBLE_GAP_MAX_ADV_DATA_LEN]; 
 
-	/* Length of the advertising data. This should be made zero if there is no data */
+	/*length of the advertising data. This should be made zero if there is no data */
 	uint8      advDataLen;	
 	
 } CYBLE_GAPP_DISC_DATA_T;
@@ -460,7 +460,7 @@ typedef struct
 	CYBLE_GAPP_DISC_DATA_T    		* advData;
     /* Scan Response data */
 	CYBLE_GAPP_SCAN_RSP_DATA_T	 	* scanRspData;
-    
+
 	/* Advertisement timeout is in seconds. If timeout is set to 0,
         then there will not be any timeout. Parameter 'advTo' can 
         be used for all GAP timeouts related to peripheral operation.
@@ -1170,7 +1170,6 @@ Return:
 ******************************************************************************/
 CYBLE_API_RESULT_T CyBle_GapcCancelConnection(void);
 
-
 #endif /* GAP_CENTRAL */
 
 
@@ -1571,9 +1570,6 @@ Summary:
   CYBLE_EVT_GAP_AUTH_FAILED     Received by both GAP Central and Peripheral
                                  devices (peers) on authentication failure.
                                  Data is of type CYBLE_GAP_AUTH_FAILED_REASON_T.
-  CYBLE_ERROR_INSUFFICIENT_RESOURCES 	On bonded device is full 
-  							and application tries to initiate pairing with 
-  							bonding enable.
  </table>
 
 Parameters:
@@ -1595,6 +1591,9 @@ Return:
   CYBLE_ERROR_MEMORY_ALLOCATION_FAILED  Memory allocation failed
   CYBLE_ERROR_NO_DEVICE_ENTITY          Device identified using 
                                          'bdHandle' does not exist.
+  CYBLE_ERROR_INSUFFICIENT_RESOURCES 	On bonded device is full 
+  							and application tries to initiate pairing with 
+  							bonding enable.                                         
 </table>
 
 ******************************************************************************/
@@ -1685,8 +1684,7 @@ CYBLE_API_RESULT_T CyBle_GapRemoveDeviceFromWhiteList(CYBLE_GAP_BD_ADDR_T* bdAdd
 Summary:
  This function adds the device to the whitelist. Maximum number of devices that
  can be added to the whitelist is eight including CYBLE_GAP_MAX_BONDED_DEVICE.
- Refer to Bluetooth 4.1 core specification, Volume 3, Part C, section 9.3.5 for
- more details on whitelist.
+ Refer to Bluetooth 4.1 core specification, Volume 3, Part C, section 9.3.5 for more details on whitelist.
 
  This is a blocking function. No event is generated on calling this function.
     
@@ -1784,12 +1782,10 @@ CYBLE_API_RESULT_T CyBle_GapRemoveOldestDeviceFromBondedList (void);
 Summary:
  This function sends the connection parameter update command to local controller. 
  This function can only be used from device connected in GAP Central role.
- Note: Connection parameter update procedure, defined as part of Bluetooth spec
-       4.1, is not supported.
-
- This function will allow GAP Central application to update connection parameter
- for local controller and local controller will follow the procedure as defined
- in Bluetooth Core specification 4.0.
+ Note: Connection parameter update procedure, defined as part of Bluetooth spec 4.1, is not supported.
+         This function will allow GAP Central application to update connection parameter for local controller
+         and local controller will follow the procedure as defined in Bluetooth Core specification 4.0.
+ 
 
 Parameters:
  bdHandle: Peer device handle
@@ -1914,16 +1910,8 @@ Summary:
  This function allows changing the ADV data and SCAN response data while 
  advertising is going on. Application shall preserve Bluetooth Spec 4.1
  mandated AD flags fields corresponding to the type of GAP discovery mode and
- only change the rest of the data. When the data is set, there is possible race
- condition that the device might be in process of transmitting ADV data present
- in FIFO and during that time firmware overwrites the data in FIFO. So in that
- particular ADV event adv payload may not be correct.
- This API must be called after checking the state of BLE SS using 
- CyBle_GetBleSsState() API, It can safely be called when BLESS state is 
- CYBLE_BLESS_STATE_EVENT_CLOSE. If this API is called in ADV event where actual
- Tx or Rx is going on then it may have catastrophic effect with respect to power
- on ADV timing.
-    
+ only change the rest of the data.
+ 
 Parameters:
  advData:	   Pointer to a structure of CYBLE_GAPP_DISC_DATA_T. It has two fields
                advData field representing the data and advDataLen indicating the

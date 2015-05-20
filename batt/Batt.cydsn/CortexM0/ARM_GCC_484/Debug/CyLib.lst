@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
   31:.\Generated_Source\PSoC4/CyLib.h **** ***************************************/
   32:.\Generated_Source\PSoC4/CyLib.h **** 
   33:.\Generated_Source\PSoC4/CyLib.h **** /* Clocks API */
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 2
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 2
 
 
   34:.\Generated_Source\PSoC4/CyLib.h **** void CySysClkImoStart(void);
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
   88:.\Generated_Source\PSoC4/CyLib.h ****     void   CySysWdtMaskInterrupt(void);
   89:.\Generated_Source\PSoC4/CyLib.h ****     void   CySysWdtUnmaskInterrupt(void);
   90:.\Generated_Source\PSoC4/CyLib.h **** #endif  /* (CY_IP_SRSSV2) */
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 3
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 3
 
 
   91:.\Generated_Source\PSoC4/CyLib.h **** 
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  145:.\Generated_Source\PSoC4/CyLib.h **** void CySysTickEnableInterrupt(void);
  146:.\Generated_Source\PSoC4/CyLib.h **** void CySysTickDisableInterrupt(void);
  147:.\Generated_Source\PSoC4/CyLib.h **** void CySysTickSetReload(uint32 value);
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 4
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 4
 
 
  148:.\Generated_Source\PSoC4/CyLib.h **** uint32 CySysTickGetReload(void);
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  202:.\Generated_Source\PSoC4/CyLib.h ****     #if (CY_PSOC4_4100BL || CY_PSOC4_4200BL)
  203:.\Generated_Source\PSoC4/CyLib.h ****         /* The ECO is the valid option */
  204:.\Generated_Source\PSoC4/CyLib.h ****         #define CY_SYS_CLK_SELECT_DIRECT_SEL_PARAM_MASK     (( uint32 ) 0x03u)
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 5
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 5
 
 
  205:.\Generated_Source\PSoC4/CyLib.h ****     #else
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  259:.\Generated_Source\PSoC4/CyLib.h ****     #define CY_SYS_CLK_IMO_FREQ_CLEAR                   (( uint32 )(CY_SYS_CLK_IMO_FREQ_BITS_MASK <
  260:.\Generated_Source\PSoC4/CyLib.h **** #else
  261:.\Generated_Source\PSoC4/CyLib.h ****     #define CY_SYS_CLK_IMO_MIN_FREQ_MHZ                 (24u)
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 6
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 6
 
 
  262:.\Generated_Source\PSoC4/CyLib.h ****     #define CY_SYS_CLK_IMO_MAX_FREQ_MHZ                 (48u)
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  316:.\Generated_Source\PSoC4/CyLib.h ****     #define CY_SYS_CLK_IMO_CONFIG_PUMP_SEL_MASK         ((uint32) 0x07u)
  317:.\Generated_Source\PSoC4/CyLib.h ****     #define CY_SYS_CLK_IMO_CONFIG_PUMP_SEL_IMO          (1u)
  318:.\Generated_Source\PSoC4/CyLib.h **** 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 7
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 7
 
 
  319:.\Generated_Source\PSoC4/CyLib.h **** 	#define CY_SYS_CLK_IMO_CONFIG_PUMP_OSC              (( uint32 )(( uint32 )0x01u << 22u))
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  373:.\Generated_Source\PSoC4/CyLib.h ****     #define CY_SYS_CLK_WCO_TRIM_XGM_1870NA              (( uint32 ) 0x04u)
  374:.\Generated_Source\PSoC4/CyLib.h ****     #define CY_SYS_CLK_WCO_TRIM_XGM_1120NA              (( uint32 ) 0x05u)
  375:.\Generated_Source\PSoC4/CyLib.h ****     #define CY_SYS_CLK_WCO_TRIM_XGM_750NA               (( uint32 ) 0x06u)
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 8
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 8
 
 
  376:.\Generated_Source\PSoC4/CyLib.h ****     #define CY_SYS_CLK_WCO_TRIM_XGM_0NA                 (( uint32 ) 0x07u)
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  430:.\Generated_Source\PSoC4/CyLib.h ****     #if (CY_PSOC4_4100 || CY_PSOC4_4200)
  431:.\Generated_Source\PSoC4/CyLib.h ****         #define CY_SYS_WDT_1LFCLK_DELAY_US      ((uint16)( 67u))
  432:.\Generated_Source\PSoC4/CyLib.h ****         #define CY_SYS_WDT_3LFCLK_DELAY_US      ((uint16)(201u))
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 9
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 9
 
 
  433:.\Generated_Source\PSoC4/CyLib.h ****     #endif /* (CY_PSOC4_4100 || CY_PSOC4_4200) */
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  487:.\Generated_Source\PSoC4/CyLib.h **** #define CY_SYS_CM0_AIRCR_VECTKEY_MASK       ((uint32)((uint32)0xFFFFu << CY_SYS_CM0_AIRCR_VECTKEY_S
  488:.\Generated_Source\PSoC4/CyLib.h **** 
  489:.\Generated_Source\PSoC4/CyLib.h **** /* System Reset Request */
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 10
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 10
 
 
  490:.\Generated_Source\PSoC4/CyLib.h **** #define CY_SYS_CM0_AIRCR_SYSRESETREQ_SHIFT  (2u)
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  544:.\Generated_Source\PSoC4/CyLib.h **** *  a Debug build setting.
  545:.\Generated_Source\PSoC4/CyLib.h **** *
  546:.\Generated_Source\PSoC4/CyLib.h **** * Parameters:
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 11
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 11
 
 
  547:.\Generated_Source\PSoC4/CyLib.h **** *  expr: Logical expression.  Asserts if false.
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  601:.\Generated_Source\PSoC4/CyLib.h ****     #define CY_LVD_THRESHOLD_1_90_V             (( uint32 )  2u)
  602:.\Generated_Source\PSoC4/CyLib.h ****     #define CY_LVD_THRESHOLD_2_00_V             (( uint32 )  3u)
  603:.\Generated_Source\PSoC4/CyLib.h ****     #define CY_LVD_THRESHOLD_2_10_V             (( uint32 )  4u)
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 12
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 12
 
 
  604:.\Generated_Source\PSoC4/CyLib.h ****     #define CY_LVD_THRESHOLD_2_20_V             (( uint32 )  5u)
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  658:.\Generated_Source\PSoC4/CyLib.h **** #define CY_SYS_CLK_SELECT_PTR               ( (reg32 *) CYREG_CLK_SELECT)
  659:.\Generated_Source\PSoC4/CyLib.h **** 
  660:.\Generated_Source\PSoC4/CyLib.h **** #if(CY_IP_SRSSV2)
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 13
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 13
 
 
  661:.\Generated_Source\PSoC4/CyLib.h **** 
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  715:.\Generated_Source\PSoC4/CyLib.h **** 
  716:.\Generated_Source\PSoC4/CyLib.h **** #else
  717:.\Generated_Source\PSoC4/CyLib.h **** 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 14
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 14
 
 
  718:.\Generated_Source\PSoC4/CyLib.h ****     #define CY_SYS_CLK_IMO_SELECT_REG           (*(reg32 *) CYREG_CLK_IMO_SELECT)
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  772:.\Generated_Source\PSoC4/CyLib.h **** * WDT API Registers
  773:.\Generated_Source\PSoC4/CyLib.h **** *******************************************************************************/
  774:.\Generated_Source\PSoC4/CyLib.h **** #if(CY_IP_SRSSV2)
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 15
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 15
 
 
  775:.\Generated_Source\PSoC4/CyLib.h ****     #define CY_SYS_WDT_CTRLOW_REG               (*(reg32 *) CYREG_WDT_CTRLOW)
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  829:.\Generated_Source\PSoC4/CyLib.h ****     #define CY_LVD_PWR_INTR_MASK_PTR            ( (reg32 *) CYREG_PWR_INTR_MASK)
  830:.\Generated_Source\PSoC4/CyLib.h **** 
  831:.\Generated_Source\PSoC4/CyLib.h ****     /* Power System Interrupt Register */
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 16
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 16
 
 
  832:.\Generated_Source\PSoC4/CyLib.h ****     #define CY_LVD_PWR_INTR_REG                 (*(reg32 *) CYREG_PWR_INTR)
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  886:.\Generated_Source\PSoC4/CyLib.h ****     *
  887:.\Generated_Source\PSoC4/CyLib.h ****     * Return:
  888:.\Generated_Source\PSoC4/CyLib.h ****     *  None
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 17
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 17
 
 
  889:.\Generated_Source\PSoC4/CyLib.h ****     *
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  904:.\Generated_Source\PSoC4/CyLib.h ****     }
   62              		.loc 1 904 0
   63 0030 BD46     		mov	sp, r7
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 18
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 18
 
 
   64              		@ sp needed
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
   95 000e 1A60     		str	r2, [r3]
  928:.\Generated_Source\PSoC4/CyLib.h **** 
  929:.\Generated_Source\PSoC4/CyLib.h ****         /* Change WCO trim register settings to LPM */
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 19
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 19
 
 
  930:.\Generated_Source\PSoC4/CyLib.h ****         CY_SYS_CLK_WCO_TRIM_REG = (CY_SYS_CLK_WCO_TRIM_REG & (uint32)(~CY_SYS_CLK_WCO_TRIM_XGM_MASK
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  140              		.type	cydelayFreqHz, %object
  141              		.size	cydelayFreqHz, 4
  142              	cydelayFreqHz:
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 20
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 20
 
 
  143 0000 006CDC02 		.word	48000000
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  193              		.size	cyImoFreqMhz2Reg, 46
  194              	cyImoFreqMhz2Reg:
  195 0000 03       		.byte	3
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 21
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 21
 
 
  196 0001 04       		.byte	4
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
    1:.\Generated_Source\PSoC4/CyLib.c **** /*******************************************************************************
    2:.\Generated_Source\PSoC4/CyLib.c **** * File Name: CyLib.c
    3:.\Generated_Source\PSoC4/CyLib.c **** * Version 4.20
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 22
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 22
 
 
    4:.\Generated_Source\PSoC4/CyLib.c **** *
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
   58:.\Generated_Source\PSoC4/CyLib.c ****             /*  3 MHz */ 0x03u,  /*  4 MHz */ 0x04u,  /*  5 MHz */ 0x05u,  /*  6 MHz */ 0x06u,
   59:.\Generated_Source\PSoC4/CyLib.c ****             /*  7 MHz */ 0x07u,  /*  8 MHz */ 0x08u,  /*  9 MHz */ 0x09u,  /* 10 MHz */ 0x0Au,
   60:.\Generated_Source\PSoC4/CyLib.c ****             /* 11 MHz */ 0x0Bu,  /* 12 MHz */ 0x0Cu,  /* 13 MHz */ 0x0Eu,  /* 14 MHz */ 0x0Fu,
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 23
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 23
 
 
   61:.\Generated_Source\PSoC4/CyLib.c ****             /* 15 MHz */ 0x10u,  /* 16 MHz */ 0x11u,  /* 17 MHz */ 0x12u,  /* 18 MHz */ 0x13u,
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  274              		.cfi_endproc
  275              	.LFE2:
  276              		.size	CySysClkImoStart, .-CySysClkImoStart
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 24
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 24
 
 
  277              		.section	.text.CySysClkImoStop,"ax",%progbits
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  311              		.section	.text.CySysClkIloStart,"ax",%progbits
  312              		.align	2
  313              		.global	CySysClkIloStart
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 25
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 25
 
 
  314              		.code	16
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  348              		.global	CySysClkIloStop
  349              		.code	16
  350              		.thumb_func
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 26
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 26
 
 
  351              		.type	CySysClkIloStop, %function
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  166:.\Generated_Source\PSoC4/CyLib.c ****             if (0u != CySysClkIloEnabled())
  370              		.loc 2 166 0
  371 0010 FFF7FEFF 		bl	CySysClkIloEnabled
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 27
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 27
 
 
  372 0014 031C     		mov	r3, r0
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  408 0056 5208     		lsr	r2, r2, #1
  409 0058 1A60     		str	r2, [r3]
  410              	.L16:
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 28
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 28
 
 
  185:.\Generated_Source\PSoC4/CyLib.c ****                 }
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  212:.\Generated_Source\PSoC4/CyLib.c ****         /* Prohibits writing to WDT registers and ILO/WCO registers when not equal 0 */
  213:.\Generated_Source\PSoC4/CyLib.c ****         return ((0u != (CY_SYS_CLK_ILO_CONFIG_REG & (uint32)(CY_SYS_CLK_ILO_CONFIG_ENABLE))) ?
  438              		.loc 2 213 0
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 29
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 29
 
 
  439 0004 044B     		ldr	r3, .L25
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  237:.\Generated_Source\PSoC4/CyLib.c **** #if (CY_IP_WCO)
  238:.\Generated_Source\PSoC4/CyLib.c ****     static uint32 CySysClkGetLfclkSource(void)
  239:.\Generated_Source\PSoC4/CyLib.c ****     {
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 30
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 30
 
 
  470              		.loc 2 239 0
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  255:.\Generated_Source\PSoC4/CyLib.c **** *  the LFCLK, because the glitch risk is around LFCLK positive edge. To ensure
  256:.\Generated_Source\PSoC4/CyLib.c **** *  that the switch can be done safely, the WDT counter value is read until it
  257:.\Generated_Source\PSoC4/CyLib.c **** *  changes.
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 31
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 31
 
 
  258:.\Generated_Source\PSoC4/CyLib.c **** *
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  527              		.loc 2 293 0
  528 0014 3C1C     		mov	r4, r7
  529 0016 0F34     		add	r4, r4, #15
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 32
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 32
 
 
  530 0018 FFF7FEFF 		bl	CyEnterCriticalSection
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  572              		.code	16
  573              		.thumb_func
  574              		.type	CySysClkWriteHfclkDirect, %function
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 33
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 33
 
 
  575              	CySysClkWriteHfclkDirect:
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  345:.\Generated_Source\PSoC4/CyLib.c ****     interruptState = CyEnterCriticalSection();
  589              		.loc 2 345 0
  590 0008 3C1C     		mov	r4, r7
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 34
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 34
 
 
  591 000a 0F34     		add	r4, r4, #15
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  354:.\Generated_Source\PSoC4/CyLib.c **** /*******************************************************************************
  355:.\Generated_Source\PSoC4/CyLib.c **** * Function Name: CySysClkWriteSysclkDiv
  356:.\Generated_Source\PSoC4/CyLib.c **** ********************************************************************************
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 35
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 35
 
 
  357:.\Generated_Source\PSoC4/CyLib.c **** *
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  652 0010 031C     		mov	r3, r0
  653 0012 2370     		strb	r3, [r4]
  395:.\Generated_Source\PSoC4/CyLib.c **** 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 36
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 36
 
 
  396:.\Generated_Source\PSoC4/CyLib.c ****     CY_SYS_CLK_SELECT_REG = ((uint32)(((uint32)divider & CY_SYS_CLK_SELECT_SYSCLK_DIV_MASK) <<
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  406:.\Generated_Source\PSoC4/CyLib.c **** 
  407:.\Generated_Source\PSoC4/CyLib.c ****     /*******************************************************************************
  408:.\Generated_Source\PSoC4/CyLib.c ****     * Function Name: CySysClkWriteImoFreq
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 37
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 37
 
 
  409:.\Generated_Source\PSoC4/CyLib.c ****     ********************************************************************************
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  719              	.LCB517:
  440:.\Generated_Source\PSoC4/CyLib.c ****         {
  441:.\Generated_Source\PSoC4/CyLib.c ****             if(freq <= CY_SFLASH_IMO_MAXF0_REG)
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 38
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 38
 
 
  720              		.loc 2 441 0 is_stmt 1
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  764              		.loc 2 451 0
  765 0060 524B     		ldr	r3, .L53+24
  766 0062 1B78     		ldrb	r3, [r3]
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 39
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 39
 
 
  767 0064 DBB2     		uxtb	r3, r3
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  809 00a8 464A     		ldr	r2, .L53+48
  810 00aa 3B1C     		mov	r3, r7
  811 00ac 0F33     		add	r3, r3, #15
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 40
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 40
 
 
  812 00ae 1278     		ldrb	r2, [r2]
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  485:.\Generated_Source\PSoC4/CyLib.c ****                 CY_SYS_CLK_IMO_TRIM2_REG = (uint32) cyImoFreqMhz2Reg[CY_SYS_CLK_IMO_TEMP_FREQ_MHZ -
  845              		.loc 2 485 0 is_stmt 1
  846 00e6 3A4B     		ldr	r3, .L53+60
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 41
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 41
 
 
  847 00e8 1922     		mov	r2, #25
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  509:.\Generated_Source\PSoC4/CyLib.c ****                 CY_SYS_CLK_IMO_TRIM2_REG = cyImoFreqMhz2Reg[freq - CY_SYS_CLK_IMO_FREQ_TABLE_OFFSET
  878              		.loc 2 509 0
  879 011c 2C4B     		ldr	r3, .L53+60
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 42
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 42
 
 
  880 011e 7A68     		ldr	r2, [r7, #4]
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  921              		.loc 2 522 0
  922 0166 1A4B     		ldr	r3, .L53+60
  923 0168 7A68     		ldr	r2, [r7, #4]
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 43
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 43
 
 
  924 016a 033A     		sub	r2, r2, #3
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  967 01d0 2CFF0B40 		.word	1074528044
  968 01d4 28FF0B40 		.word	1074528040
  969 01d8 1CFF0B40 		.word	1074528028
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 44
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 44
 
 
  970 01dc 20FF0B40 		.word	1074528032
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  576:.\Generated_Source\PSoC4/CyLib.c ****                     ((uint32)((divider & CY_SYS_CLK_SELECT_HFCLK_DIV_MASK) << CY_SYS_CLK_SELECT_HFC
  577:.\Generated_Source\PSoC4/CyLib.c **** 
  578:.\Generated_Source\PSoC4/CyLib.c ****         CyExitCriticalSection(interruptState);
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 45
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 45
 
 
  579:.\Generated_Source\PSoC4/CyLib.c ****     }
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  633:.\Generated_Source\PSoC4/CyLib.c ****             CyDelayCycles(CY_SYS_CLK_IMO_TRIM_DELAY_US);
  634:.\Generated_Source\PSoC4/CyLib.c **** 
  635:.\Generated_Source\PSoC4/CyLib.c ****             if (freq > CY_SYS_CLK_IMO_MIN_FREQ_MHZ)
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 46
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 46
 
 
  636:.\Generated_Source\PSoC4/CyLib.c ****             {
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  690:.\Generated_Source\PSoC4/CyLib.c ****     *******************************************************************************/
  691:.\Generated_Source\PSoC4/CyLib.c ****     cystatus CySysClkEcoStart(uint32 timeoutUs)
  692:.\Generated_Source\PSoC4/CyLib.c ****     {
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 47
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 47
 
 
  982              		.loc 2 692 0
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  707:.\Generated_Source\PSoC4/CyLib.c **** 
  708:.\Generated_Source\PSoC4/CyLib.c ****             for( ; timeoutUs > 0u; timeoutUs--)
  1022              		.loc 2 708 0
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 48
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 48
 
 
  1023 0036 0DE0     		b	.L57
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  1061 0068 78002E40 		.word	1076756600
  1062 006c 02200000 		.word	8194
  1063 0070 10002E40 		.word	1076756496
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 49
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 49
 
 
  1064              		.cfi_endproc
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  1095 0018 0A40     		and	r2, r1
  1096 001a 1A60     		str	r2, [r3]
  746:.\Generated_Source\PSoC4/CyLib.c ****     }
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 50
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 50
 
 
  1097              		.loc 2 746 0
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  1131              		.loc 2 766 0
  1132 000c 181C     		mov	r0, r3
  1133 000e BD46     		mov	sp, r7
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 51
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 51
 
 
  1134              		@ sp needed
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  1156              		.cfi_offset 7, -8
  1157              		.cfi_offset 14, -4
  1158 0002 85B0     		sub	sp, sp, #20
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 52
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 52
 
 
  1159              		.cfi_def_cfa_offset 32
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  1203              		.code	16
  1204              		.thumb_func
  1205              		.type	CySysClkWcoStart, %function
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 53
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 53
 
 
  1206              	CySysClkWcoStart:
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  1228              		@ sp needed
  1229 0018 80BD     		pop	{r7, pc}
  1230              	.L75:
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 54
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 54
 
 
  1231 001a C046     		.align	2
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  1261              		.loc 2 863 0
  1262 0010 FFF7FEFF 		bl	CySysClkGetLfclkSource
  1263 0014 021C     		mov	r2, r0
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 55
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 55
 
 
  1264 0016 8023     		mov	r3, #128
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  1305 005a C046     		.align	2
  1306              	.L79:
  1307 005c 00F02E40 		.word	1076817920
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 56
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 56
 
 
  1308              		.cfi_endproc
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  1340 0012 181C     		mov	r0, r3
  1341 0014 BD46     		mov	sp, r7
  1342              		@ sp needed
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 57
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 57
 
 
  1343 0016 80BD     		pop	{r7, pc}
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  1374 000e 1340     		and	r3, r2
  1375 0010 FB60     		str	r3, [r7, #12]
  922:.\Generated_Source\PSoC4/CyLib.c **** 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 58
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 58
 
 
  923:.\Generated_Source\PSoC4/CyLib.c ****         switch(mode)
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  1413              	.LFE19:
  1414              		.size	CySysClkWcoSetPowerMode, .-CySysClkWcoSetPowerMode
  1415              		.section	.text.CySysWdtLock,"ax",%progbits
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 59
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 59
 
 
  1416              		.align	2
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  971:.\Generated_Source\PSoC4/CyLib.c ****         CY_SYS_CLK_SELECT_REG = (CY_SYS_CLK_SELECT_REG & (uint32)(~CY_SYS_WDT_CLK_LOCK_BITS_MASK)) 
  1439              		.loc 2 971 0
  1440 0010 074B     		ldr	r3, .L97
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 60
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 60
 
 
  1441 0012 074A     		ldr	r2, .L97
@@ -3598,7 +3598,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  1473 0000 80B5     		push	{r7, lr}
  1474              		.cfi_def_cfa_offset 8
  1475              		.cfi_offset 7, -8
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 61
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 61
 
 
  1476              		.cfi_offset 14, -4
@@ -3658,7 +3658,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 1011:.\Generated_Source\PSoC4/CyLib.c ****     *
 1012:.\Generated_Source\PSoC4/CyLib.c ****     *******************************************************************************/
 1013:.\Generated_Source\PSoC4/CyLib.c ****     void CySysWdtUnlock(void)
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 62
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 62
 
 
 1014:.\Generated_Source\PSoC4/CyLib.c ****     {
@@ -3718,7 +3718,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  1554              		.loc 2 1026 0
  1555 003e BD46     		mov	sp, r7
  1556 0040 03B0     		add	sp, sp, #12
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 63
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 63
 
 
  1557              		@ sp needed
@@ -3778,7 +3778,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 1052:.\Generated_Source\PSoC4/CyLib.c ****         CYASSERT(counterNum < CY_SYS_WDT_COUNTERS_MAX);
  1586              		.loc 2 1052 0
  1587 0008 7B68     		ldr	r3, [r7, #4]
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 64
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 64
 
 
  1588 000a 022B     		cmp	r3, #2
@@ -3838,7 +3838,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 1071:.\Generated_Source\PSoC4/CyLib.c ****     *    CY_SYS_WDT_MODE_RESET      Reset on match (valid for counter 0 and 1
 1072:.\Generated_Source\PSoC4/CyLib.c ****     *                               only)
 1073:.\Generated_Source\PSoC4/CyLib.c ****     *    CY_SYS_WDT_MODE_INT_RESET  Generate an interrupt.  Generate a reset on
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 65
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 65
 
 
 1074:.\Generated_Source\PSoC4/CyLib.c ****     *                                    the 3rd unhandled interrupt.
@@ -3898,7 +3898,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  1656 002a D200     		lsl	r2, r2, #3
  1657 002c 0321     		mov	r1, #3
  1658 002e 081C     		mov	r0, r1
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 66
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 66
 
 
  1659 0030 9040     		lsl	r0, r0, r2
@@ -3958,7 +3958,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 1106:.\Generated_Source\PSoC4/CyLib.c ****     * Summary:
 1107:.\Generated_Source\PSoC4/CyLib.c ****     *  Reads the mode of one of the three WDT counters.
 1108:.\Generated_Source\PSoC4/CyLib.c ****     *
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 67
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 67
 
 
 1109:.\Generated_Source\PSoC4/CyLib.c ****     * Parameters:
@@ -4018,7 +4018,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 1123:.\Generated_Source\PSoC4/CyLib.c ****     /*******************************************************************************
 1124:.\Generated_Source\PSoC4/CyLib.c ****     * Function Name: CySysWdtWriteClearOnMatch
 1125:.\Generated_Source\PSoC4/CyLib.c ****     ********************************************************************************
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 68
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 68
 
 
 1126:.\Generated_Source\PSoC4/CyLib.c ****     *
@@ -4078,7 +4078,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  1767              		.loc 2 1154 0 discriminator 3
  1768 001a 0023     		mov	r3, #0
  1769              	.L125:
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 69
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 69
 
 
  1770              		.loc 2 1154 0 discriminator 4
@@ -4138,7 +4138,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  1812 0062 FA68     		ldr	r2, [r7, #12]
  1813 0064 1A60     		str	r2, [r3]
  1814              	.L122:
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 70
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 70
 
 
 1166:.\Generated_Source\PSoC4/CyLib.c ****         }
@@ -4198,7 +4198,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  1847 0008 7B68     		ldr	r3, [r7, #4]
  1848 000a 002B     		cmp	r3, #0
  1849 000c 02D0     		beq	.L131
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 71
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 71
 
 
  1850              		.loc 2 1187 0 is_stmt 0 discriminator 2
@@ -4258,7 +4258,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  1898              		.type	CySysWdtEnable, %function
  1899              	CySysWdtEnable:
  1900              	.LFB28:
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 72
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 72
 
 
 1193:.\Generated_Source\PSoC4/CyLib.c **** 
@@ -4318,7 +4318,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 1236:.\Generated_Source\PSoC4/CyLib.c **** 
 1237:.\Generated_Source\PSoC4/CyLib.c ****         CY_SYS_WDT_CONTROL_REG |= counterMask;
  1912              		.loc 2 1237 0
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 73
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 73
 
 
  1913 0008 154B     		ldr	r3, .L145
@@ -4378,7 +4378,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 1255:.\Generated_Source\PSoC4/CyLib.c ****         if(0u != (counterMask & CY_SYS_WDT_COUNTER2_MASK))
  1950              		.loc 2 1255 0 is_stmt 1
  1951 0042 7A68     		ldr	r2, [r7, #4]
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 74
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 74
 
 
  1952 0044 8023     		mov	r3, #128
@@ -4438,7 +4438,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 1276:.\Generated_Source\PSoC4/CyLib.c ****     *   CY_SYS_WDT_COUNTER0_MASK      0
 1277:.\Generated_Source\PSoC4/CyLib.c ****     *   CY_SYS_WDT_COUNTER1_MASK      1
 1278:.\Generated_Source\PSoC4/CyLib.c ****     *   CY_SYS_WDT_COUNTER2_MASK      2
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 75
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 75
 
 
 1279:.\Generated_Source\PSoC4/CyLib.c ****     *
@@ -4498,7 +4498,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  2022 002e 8023     		mov	r3, #128
  2023 0030 5B00     		lsl	r3, r3, #1
  2024 0032 1340     		and	r3, r2
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 76
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 76
 
 
  2025 0034 06D0     		beq	.L150
@@ -4558,7 +4558,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  2064              		.section	.text.CySysWdtWriteCascade,"ax",%progbits
  2065              		.align	2
  2066              		.global	CySysWdtWriteCascade
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 77
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 77
 
 
  2067              		.code	16
@@ -4618,7 +4618,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 1349:.\Generated_Source\PSoC4/CyLib.c ****         uint32 configRegValue;
 1350:.\Generated_Source\PSoC4/CyLib.c ****         uint32 countersEnableStatus;
 1351:.\Generated_Source\PSoC4/CyLib.c **** 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 78
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 78
 
 
 1352:.\Generated_Source\PSoC4/CyLib.c ****         countersEnableStatus = CySysWdtReadEnabledStatus(CY_SYS_WDT_COUNTER0) |
@@ -4678,7 +4678,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  2124              		.loc 2 1363 0
  2125 0048 BD46     		mov	sp, r7
  2126 004a 05B0     		add	sp, sp, #20
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 79
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 79
 
 
  2127              		@ sp needed
@@ -4738,7 +4738,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 1387:.\Generated_Source\PSoC4/CyLib.c ****     }
  2158              		.loc 2 1387 0
  2159 000c 181C     		mov	r0, r3
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 80
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 80
 
 
  2160 000e BD46     		mov	sp, r7
@@ -4798,7 +4798,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 1411:.\Generated_Source\PSoC4/CyLib.c ****         uint32 regValue;
 1412:.\Generated_Source\PSoC4/CyLib.c **** 
 1413:.\Generated_Source\PSoC4/CyLib.c ****         CYASSERT((counterNum == CY_SYS_WDT_COUNTER0) ||
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 81
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 81
 
 
  2191              		.loc 2 1413 0
@@ -4858,7 +4858,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  2238 0048 111C     		mov	r1, r2
  2239 004a 9940     		lsl	r1, r1, r3
  2240 004c 0B1C     		mov	r3, r1
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 82
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 82
 
 
  2241 004e DA43     		mvn	r2, r3
@@ -4918,7 +4918,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  2290              	CySysWdtWriteToggleBit:
  2291              	.LFB33:
 1426:.\Generated_Source\PSoC4/CyLib.c **** 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 83
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 83
 
 
 1427:.\Generated_Source\PSoC4/CyLib.c **** 
@@ -4978,7 +4978,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 1460:.\Generated_Source\PSoC4/CyLib.c ****             configRegValue &= (uint32)(~((uint32)(CY_SYS_WDT_CONFIG_BITS2_MASK << CY_SYS_WDT_CONFIG
  2313              		.loc 2 1460 0
  2314 001a FA68     		ldr	r2, [r7, #12]
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 84
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 84
 
 
  2315 001c 084B     		ldr	r3, .L177+4
@@ -5038,7 +5038,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 1478:.\Generated_Source\PSoC4/CyLib.c ****     *  The bit that is monitored (range of 0 to 31)
 1479:.\Generated_Source\PSoC4/CyLib.c ****     *
 1480:.\Generated_Source\PSoC4/CyLib.c ****     *******************************************************************************/
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 85
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 85
 
 
 1481:.\Generated_Source\PSoC4/CyLib.c ****     uint32 CySysWdtReadToggleBit(void)
@@ -5098,7 +5098,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 1501:.\Generated_Source\PSoC4/CyLib.c ****     *******************************************************************************/
 1502:.\Generated_Source\PSoC4/CyLib.c ****     uint32 CySysWdtReadMatch(uint32 counterNum)
 1503:.\Generated_Source\PSoC4/CyLib.c ****     {
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 86
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 86
 
 
  2386              		.loc 2 1503 0
@@ -5158,7 +5158,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  2435 003c 80BD     		pop	{r7, pc}
  2436              	.L190:
  2437 003e C046     		.align	2
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 87
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 87
 
 
  2438              	.L189:
@@ -5218,7 +5218,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  2470 0014 022B     		cmp	r3, #2
  2471 0016 0BD0     		beq	.L195
  2472 0018 0EE0     		b	.L198
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 88
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 88
 
 
  2473              	.L194:
@@ -5278,7 +5278,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  2505 0040 FB68     		ldr	r3, [r7, #12]
 1553:.\Generated_Source\PSoC4/CyLib.c ****     }
  2506              		.loc 2 1553 0
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 89
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 89
 
 
  2507 0042 181C     		mov	r0, r3
@@ -5338,7 +5338,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  2537 0004 034B     		ldr	r3, .L203
  2538 0006 1A68     		ldr	r2, [r3]
  2539 0008 034B     		ldr	r3, .L203+4
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 90
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 90
 
 
  2540 000a 1340     		and	r3, r2
@@ -5398,7 +5398,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 1610:.\Generated_Source\PSoC4/CyLib.c ****     {
  2562              		.loc 2 1610 0
  2563              		.cfi_startproc
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 91
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 91
 
 
  2564 0000 90B5     		push	{r4, r7, lr}
@@ -5458,7 +5458,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 1628:.\Generated_Source\PSoC4/CyLib.c ****                         CY_SYS_WDT_COUNTER1_INT |
 1629:.\Generated_Source\PSoC4/CyLib.c ****                         CY_SYS_WDT_COUNTER2_INT);
 1630:.\Generated_Source\PSoC4/CyLib.c **** 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 92
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 92
 
 
 1631:.\Generated_Source\PSoC4/CyLib.c ****         CY_SYS_WDT_CONTROL_REG = counterMask | (CY_SYS_WDT_CONTROL_REG & ~(CY_SYS_WDT_COUNTER0_INT 
@@ -5518,7 +5518,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  2644              	.LFB39:
 1642:.\Generated_Source\PSoC4/CyLib.c **** 
 1643:.\Generated_Source\PSoC4/CyLib.c **** 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 93
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 93
 
 
 1644:.\Generated_Source\PSoC4/CyLib.c ****     /*******************************************************************************
@@ -5578,7 +5578,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  2672              	.L212:
  2673 0020 10020B40 		.word	1074463248
  2674 0024 08080800 		.word	526344
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 94
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 94
 
 
  2675              		.cfi_endproc
@@ -5638,7 +5638,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  2694              		.cfi_def_cfa_register 7
 1706:.\Generated_Source\PSoC4/CyLib.c ****         uint32 firstCount;
 1707:.\Generated_Source\PSoC4/CyLib.c **** 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 95
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 95
 
 
 1708:.\Generated_Source\PSoC4/CyLib.c ****         if (0u != CySysWdtReadEnabledStatus(CY_SYS_WDT_COUNTER0))
@@ -5698,7 +5698,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  2733 0044 0122     		mov	r2, #1
  2734 0046 1A60     		str	r2, [r3]
 1724:.\Generated_Source\PSoC4/CyLib.c ****             lfclkPosedgeEnabledWdtCounter = CY_SYS_WDT_COUNTER0;
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 96
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 96
 
 
  2735              		.loc 2 1724 0
@@ -5758,7 +5758,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  2777              	.L221:
  2778              		.align	2
  2779              	.L220:
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 97
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 97
 
 
  2780 0090 00000000 		.word	lfclkPosedgeEnabledWdtCounter
@@ -5818,7 +5818,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 1765:.\Generated_Source\PSoC4/CyLib.c ****         {
 1766:.\Generated_Source\PSoC4/CyLib.c ****             /* Restore counter # 0 configuration and force it's shutdown */
 1767:.\Generated_Source\PSoC4/CyLib.c ****             CY_SYS_WDT_CONTROL_REG &= (uint32)(~CY_SYS_WDT_COUNTER0_MASK);
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 98
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 98
 
 
  2806              		.loc 2 1767 0
@@ -5878,7 +5878,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 1783:.\Generated_Source\PSoC4/CyLib.c ****     *  None
 1784:.\Generated_Source\PSoC4/CyLib.c ****     *
 1785:.\Generated_Source\PSoC4/CyLib.c ****     * Return:
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 99
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 99
 
 
 1786:.\Generated_Source\PSoC4/CyLib.c ****     *  Status of WDT counter:
@@ -5938,7 +5938,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 1840:.\Generated_Source\PSoC4/CyLib.c **** 
 1841:.\Generated_Source\PSoC4/CyLib.c **** 
 1842:.\Generated_Source\PSoC4/CyLib.c ****     /*******************************************************************************
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 100
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 100
 
 
 1843:.\Generated_Source\PSoC4/CyLib.c ****     * Function Name: CySysWdtWriteMatch
@@ -5998,7 +5998,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 1897:.\Generated_Source\PSoC4/CyLib.c ****     uint32 CySysWdtReadCount(void)
 1898:.\Generated_Source\PSoC4/CyLib.c ****     {
 1899:.\Generated_Source\PSoC4/CyLib.c ****         return ((uint32)CY_SYS_WDT_COUNTER_REG);
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 101
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 101
 
 
 1900:.\Generated_Source\PSoC4/CyLib.c ****     }
@@ -6058,7 +6058,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 1954:.\Generated_Source\PSoC4/CyLib.c ****     *
 1955:.\Generated_Source\PSoC4/CyLib.c ****     * Summary:
 1956:.\Generated_Source\PSoC4/CyLib.c ****     *  Feeds the watch dog. Cleans the WDT match flag, which is set every time the
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 102
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 102
 
 
 1957:.\Generated_Source\PSoC4/CyLib.c ****     *  WDT counter reaches a WDT match value.  Two unserviced interrupts will lead
@@ -6118,7 +6118,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 2011:.\Generated_Source\PSoC4/CyLib.c ****     }
 2012:.\Generated_Source\PSoC4/CyLib.c **** 
 2013:.\Generated_Source\PSoC4/CyLib.c **** #endif /* (CY_IP_SRSSV2) */
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 103
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 103
 
 
 2014:.\Generated_Source\PSoC4/CyLib.c **** 
@@ -6178,7 +6178,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  2857 0008 0D4B     		ldr	r3, .L227
  2858 000a 0D4A     		ldr	r2, .L227
  2859 000c 1268     		ldr	r2, [r2]
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 104
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 104
 
 
  2860 000e 1E21     		mov	r1, #30
@@ -6238,7 +6238,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 2062:.\Generated_Source\PSoC4/CyLib.c **** 
 2063:.\Generated_Source\PSoC4/CyLib.c ****     /*******************************************************************************
 2064:.\Generated_Source\PSoC4/CyLib.c ****     * Function Name: CySysLvdDisable
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 105
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 105
 
 
 2065:.\Generated_Source\PSoC4/CyLib.c ****     ********************************************************************************
@@ -6298,7 +6298,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  2944              		.code	16
  2945              		.thumb_func
  2946              		.type	CySysLvdGetInterruptSource, %function
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 106
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 106
 
 
  2947              	CySysLvdGetInterruptSource:
@@ -6358,7 +6358,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  2980              	CySysLvdClearInterrupt:
  2981              	.LFB45:
 2103:.\Generated_Source\PSoC4/CyLib.c **** 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 107
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 107
 
 
 2104:.\Generated_Source\PSoC4/CyLib.c **** 
@@ -6418,7 +6418,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 2127:.\Generated_Source\PSoC4/CyLib.c **** /*******************************************************************************
 2128:.\Generated_Source\PSoC4/CyLib.c **** * Function Name: CySysGetResetReason
 2129:.\Generated_Source\PSoC4/CyLib.c **** ********************************************************************************
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 108
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 108
 
 
 2130:.\Generated_Source\PSoC4/CyLib.c **** *
@@ -6478,7 +6478,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  3040 0020 FB68     		ldr	r3, [r7, #12]
 2157:.\Generated_Source\PSoC4/CyLib.c **** }
  3041              		.loc 2 2157 0
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 109
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 109
 
 
  3042 0022 181C     		mov	r0, r3
@@ -6538,7 +6538,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  3074 0008 1B68     		ldr	r3, [r3]
  3075 000a 7B60     		str	r3, [r7, #4]
 2180:.\Generated_Source\PSoC4/CyLib.c **** 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 110
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 110
 
 
 2181:.\Generated_Source\PSoC4/CyLib.c ****     /* Disable all interrupts. */
@@ -6598,7 +6598,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  3107              		.cfi_def_cfa_offset 8
  3108              		.cfi_offset 7, -8
  3109              		.cfi_offset 14, -4
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 111
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 111
 
 
  3110 0002 82B0     		sub	sp, sp, #8
@@ -6658,7 +6658,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 2229:.\Generated_Source\PSoC4/CyLib.c **** *******************************************************************************/
 2230:.\Generated_Source\PSoC4/CyLib.c **** cyisraddress CyIntSetSysVector(uint8 number, cyisraddress address)
 2231:.\Generated_Source\PSoC4/CyLib.c **** {
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 112
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 112
 
 
  3139              		.loc 2 2231 0
@@ -6718,7 +6718,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 2243:.\Generated_Source\PSoC4/CyLib.c ****     return(oldIsr);
  3182              		.loc 2 2243 0
  3183 003e BB68     		ldr	r3, [r7, #8]
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 113
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 113
 
 
 2244:.\Generated_Source\PSoC4/CyLib.c **** }
@@ -6778,7 +6778,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  3213 000a 1A70     		strb	r2, [r3]
 2269:.\Generated_Source\PSoC4/CyLib.c ****     cyisraddress *ramVectorTable = (cyisraddress *) CY_INT_VECT_TABLE;
  3214              		.loc 2 2269 0
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 114
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 114
 
 
  3215 000c 8023     		mov	r3, #128
@@ -6838,7 +6838,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 2288:.\Generated_Source\PSoC4/CyLib.c **** * Return:
 2289:.\Generated_Source\PSoC4/CyLib.c **** *   Previous interrupt vector value.
 2290:.\Generated_Source\PSoC4/CyLib.c **** *
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 115
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 115
 
 
 2291:.\Generated_Source\PSoC4/CyLib.c **** *******************************************************************************/
@@ -6898,7 +6898,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  3292 003a FA68     		ldr	r2, [r7, #12]
  3293 003c D318     		add	r3, r2, r3
  3294 003e 3A68     		ldr	r2, [r7]
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 116
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 116
 
 
  3295 0040 1A60     		str	r2, [r3]
@@ -6958,7 +6958,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 2325:.\Generated_Source\PSoC4/CyLib.c ****     cyisraddress *ramVectorTable = (cyisraddress *) CY_INT_VECT_TABLE;
  3328              		.loc 2 2325 0
  3329 000c 8023     		mov	r3, #128
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 117
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 117
 
 
  3330 000e 9B05     		lsl	r3, r3, #22
@@ -7018,7 +7018,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 2344:.\Generated_Source\PSoC4/CyLib.c **** *  None
 2345:.\Generated_Source\PSoC4/CyLib.c **** *
 2346:.\Generated_Source\PSoC4/CyLib.c **** *******************************************************************************/
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 118
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 118
 
 
 2347:.\Generated_Source\PSoC4/CyLib.c **** void CyIntSetPriority(uint8 number, uint8 priority)
@@ -7078,7 +7078,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 2358:.\Generated_Source\PSoC4/CyLib.c ****     interruptState = CyEnterCriticalSection();
  3409              		.loc 2 2358 0
  3410 003c 3C1C     		mov	r4, r7
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 119
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 119
 
 
  3411 003e 1334     		add	r4, r4, #19
@@ -7138,7 +7138,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  3458 0094 1B78     		ldrb	r3, [r3]
  3459 0096 181C     		mov	r0, r3
  3460 0098 FFF7FEFF 		bl	CyExitCriticalSection
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 120
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 120
 
 
 2366:.\Generated_Source\PSoC4/CyLib.c **** }
@@ -7198,7 +7198,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 2387:.\Generated_Source\PSoC4/CyLib.c ****     CYASSERT(number < CY_NUM_INTERRUPTS);
  3494              		.loc 2 2387 0
  3495 000c FB1D     		add	r3, r7, #7
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 121
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 121
 
 
  3496 000e 1B78     		ldrb	r3, [r3]
@@ -7258,7 +7258,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  3545              		.code	16
  3546              		.thumb_func
  3547              		.type	CyIntEnable, %function
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 122
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 122
 
 
  3548              	CyIntEnable:
@@ -7318,7 +7318,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  3582 0028 00E100E0 		.word	-536813312
  3583              		.cfi_endproc
  3584              	.LFE55:
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 123
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 123
 
 
  3585              		.size	CyIntEnable, .-CyIntEnable
@@ -7378,7 +7378,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  3619 0022 1340     		and	r3, r2
  3620 0024 DBB2     		uxtb	r3, r3
 2433:.\Generated_Source\PSoC4/CyLib.c **** }
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 124
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 124
 
 
  3621              		.loc 2 2433 0
@@ -7438,7 +7438,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  3656 000c 064B     		ldr	r3, .L280
  3657 000e FA1D     		add	r2, r7, #7
  3658 0010 1178     		ldrb	r1, [r2]
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 125
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 125
 
 
  3659 0012 1F22     		mov	r2, #31
@@ -7498,7 +7498,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  3695              		.cfi_def_cfa_register 7
  3696 0006 021C     		mov	r2, r0
  3697 0008 FB1D     		add	r3, r7, #7
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 126
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 126
 
 
  3698 000a 1A70     		strb	r2, [r3]
@@ -7558,7 +7558,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  3732 0000 80B5     		push	{r7, lr}
  3733              		.cfi_def_cfa_offset 8
  3734              		.cfi_offset 7, -8
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 127
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 127
 
 
  3735              		.cfi_offset 14, -4
@@ -7618,7 +7618,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 2506:.\Generated_Source\PSoC4/CyLib.c **** *  None
 2507:.\Generated_Source\PSoC4/CyLib.c **** *
 2508:.\Generated_Source\PSoC4/CyLib.c **** *******************************************************************************/
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 128
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 128
 
 
 2509:.\Generated_Source\PSoC4/CyLib.c **** void CyHalt(uint8 reason)
@@ -7678,7 +7678,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 2529:.\Generated_Source\PSoC4/CyLib.c **** *
 2530:.\Generated_Source\PSoC4/CyLib.c **** * Summary:
 2531:.\Generated_Source\PSoC4/CyLib.c **** *  Forces a software reset of the device.
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 129
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 129
 
 
 2532:.\Generated_Source\PSoC4/CyLib.c **** *
@@ -7738,7 +7738,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  3844              		.type	CyDelay, %function
  3845              	CyDelay:
  3846              	.LFB62:
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 130
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 130
 
 
 2549:.\Generated_Source\PSoC4/CyLib.c **** 
@@ -7798,7 +7798,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  3875 0020 1B02     		lsl	r3, r3, #8
  3876 0022 9A42     		cmp	r2, r3
  3877 0024 F1D8     		bhi	.L294
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 131
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 131
 
 
 2574:.\Generated_Source\PSoC4/CyLib.c ****     }
@@ -7858,7 +7858,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  3911              		.cfi_offset 7, -8
  3912              		.cfi_offset 14, -4
  3913 0002 82B0     		sub	sp, sp, #8
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 132
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 132
 
 
  3914              		.cfi_def_cfa_offset 16
@@ -7918,7 +7918,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  3949              		.loc 2 2613 0
  3950              		.cfi_startproc
  3951 0000 80B5     		push	{r7, lr}
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 133
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 133
 
 
  3952              		.cfi_def_cfa_offset 8
@@ -7978,7 +7978,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  3995 0042 FFF7FEFF 		bl	__aeabi_uidiv
  3996 0046 031C     		mov	r3, r0
  3997 0048 1A1C     		mov	r2, r3
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 134
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 134
 
 
  3998 004a 0B4B     		ldr	r3, .L303+24
@@ -8038,7 +8038,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 2644:.\Generated_Source\PSoC4/CyLib.c **** *  Clears SysTick count flag if it was set.
 2645:.\Generated_Source\PSoC4/CyLib.c **** *
 2646:.\Generated_Source\PSoC4/CyLib.c **** *******************************************************************************/
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 135
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 135
 
 
 2647:.\Generated_Source\PSoC4/CyLib.c **** void CySysTickStart(void)
@@ -8098,7 +8098,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 2660:.\Generated_Source\PSoC4/CyLib.c **** * Function Name: CySysTickInit
 2661:.\Generated_Source\PSoC4/CyLib.c **** ********************************************************************************
 2662:.\Generated_Source\PSoC4/CyLib.c **** *
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 136
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 136
 
 
 2663:.\Generated_Source\PSoC4/CyLib.c **** * Summary:
@@ -8158,7 +8158,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4101 001c 7B68     		ldr	r3, [r7, #4]
  4102 001e 042B     		cmp	r3, #4
  4103 0020 F4D9     		bls	.L311
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 137
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 137
 
 
 2688:.\Generated_Source\PSoC4/CyLib.c ****     }
@@ -8218,7 +8218,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4146              		.type	CySysTickEnable, %function
  4147              	CySysTickEnable:
  4148              	.LFB67:
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 138
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 138
 
 
 2700:.\Generated_Source\PSoC4/CyLib.c **** 
@@ -8278,7 +8278,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4179              		.global	CySysTickStop
  4180              		.code	16
  4181              		.thumb_func
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 139
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 139
 
 
  4182              		.type	CySysTickStop, %function
@@ -8338,7 +8338,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4213              		.global	CySysTickEnableInterrupt
  4214              		.code	16
  4215              		.thumb_func
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 140
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 140
 
 
  4216              		.type	CySysTickEnableInterrupt, %function
@@ -8398,7 +8398,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4247              		.global	CySysTickDisableInterrupt
  4248              		.code	16
  4249              		.thumb_func
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 141
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 141
 
 
  4250              		.type	CySysTickDisableInterrupt, %function
@@ -8458,7 +8458,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4281              		.global	CySysTickSetReload
  4282              		.code	16
  4283              		.thumb_func
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 142
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 142
 
 
  4284              		.type	CySysTickSetReload, %function
@@ -8518,7 +8518,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4316              		.section	.text.CySysTickGetReload,"ax",%progbits
  4317              		.align	2
  4318              		.global	CySysTickGetReload
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 143
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 143
 
 
  4319              		.code	16
@@ -8578,7 +8578,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4353              		.thumb_func
  4354              		.type	CySysTickGetValue, %function
  4355              	CySysTickGetValue:
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 144
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 144
 
 
  4356              	.LFB73:
@@ -8638,7 +8638,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4390              	CySysTickSetClockSource:
  4391              	.LFB74:
 2855:.\Generated_Source\PSoC4/CyLib.c **** 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 145
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 145
 
 
 2856:.\Generated_Source\PSoC4/CyLib.c **** 
@@ -8698,7 +8698,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4415              	.L338:
 2887:.\Generated_Source\PSoC4/CyLib.c ****         }
 2888:.\Generated_Source\PSoC4/CyLib.c ****         else
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 146
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 146
 
 
 2889:.\Generated_Source\PSoC4/CyLib.c ****         {
@@ -8758,7 +8758,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 2915:.\Generated_Source\PSoC4/CyLib.c **** uint32 CySysTickGetCountFlag(void)
 2916:.\Generated_Source\PSoC4/CyLib.c **** {
  4444              		.loc 2 2916 0
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 147
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 147
 
 
  4445              		.cfi_startproc
@@ -8818,7 +8818,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4479              		.cfi_startproc
  4480 0000 80B5     		push	{r7, lr}
  4481              		.cfi_def_cfa_offset 8
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 148
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 148
 
 
  4482              		.cfi_offset 7, -8
@@ -8878,7 +8878,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4512              		.cfi_def_cfa_offset 8
  4513              		.cfi_offset 7, -8
  4514              		.cfi_offset 14, -4
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 149
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 149
 
 
  4515 0002 84B0     		sub	sp, sp, #16
@@ -8938,7 +8938,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 2974:.\Generated_Source\PSoC4/CyLib.c **** *  The function get the specified callback pointer.
 2975:.\Generated_Source\PSoC4/CyLib.c **** *
 2976:.\Generated_Source\PSoC4/CyLib.c **** * Parameters:
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 150
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 150
 
 
 2977:.\Generated_Source\PSoC4/CyLib.c **** *  None
@@ -8998,7 +8998,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
 2995:.\Generated_Source\PSoC4/CyLib.c **** *
 2996:.\Generated_Source\PSoC4/CyLib.c **** * Parameters:
 2997:.\Generated_Source\PSoC4/CyLib.c **** *  None
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 151
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 151
 
 
 2998:.\Generated_Source\PSoC4/CyLib.c **** *
@@ -9058,7 +9058,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4628 002e 0133     		add	r3, r3, #1
  4629 0030 7B60     		str	r3, [r7, #4]
  4630              	.L359:
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 152
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 152
 
 
 3010:.\Generated_Source\PSoC4/CyLib.c ****         for (i=0u; i < CY_SYS_SYST_NUM_OF_CALLBACKS; i++)
@@ -9093,48 +9093,48 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4655 0006 00000000 		.4byte	.Ldebug_abbrev0
  4656 000a 04       		.byte	0x4
  4657 000b 01       		.uleb128 0x1
- 4658 000c ED050000 		.4byte	.LASF151
+ 4658 000c B8050000 		.4byte	.LASF151
  4659 0010 01       		.byte	0x1
- 4660 0011 67040000 		.4byte	.LASF152
- 4661 0015 3D050000 		.4byte	.LASF153
+ 4660 0011 60040000 		.4byte	.LASF152
+ 4661 0015 25080000 		.4byte	.LASF153
  4662 0019 00000000 		.4byte	.Ldebug_ranges0+0
  4663 001d 00000000 		.4byte	0
  4664 0021 00000000 		.4byte	.Ldebug_line0
  4665 0025 02       		.uleb128 0x2
  4666 0026 01       		.byte	0x1
  4667 0027 06       		.byte	0x6
- 4668 0028 82010000 		.4byte	.LASF0
+ 4668 0028 7B010000 		.4byte	.LASF0
  4669 002c 02       		.uleb128 0x2
  4670 002d 01       		.byte	0x1
  4671 002e 08       		.byte	0x8
- 4672 002f D2060000 		.4byte	.LASF1
+ 4672 002f 9D060000 		.4byte	.LASF1
  4673 0033 02       		.uleb128 0x2
  4674 0034 02       		.byte	0x2
  4675 0035 05       		.byte	0x5
- 4676 0036 FE060000 		.4byte	.LASF2
+ 4676 0036 C9060000 		.4byte	.LASF2
  4677 003a 02       		.uleb128 0x2
  4678 003b 02       		.byte	0x2
  4679 003c 07       		.byte	0x7
- 4680 003d 2D040000 		.4byte	.LASF3
+ 4680 003d 26040000 		.4byte	.LASF3
  4681 0041 02       		.uleb128 0x2
  4682 0042 04       		.byte	0x4
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 153
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 153
 
 
  4683 0043 05       		.byte	0x5
- 4684 0044 F5010000 		.4byte	.LASF4
+ 4684 0044 EE010000 		.4byte	.LASF4
  4685 0048 02       		.uleb128 0x2
  4686 0049 04       		.byte	0x4
  4687 004a 07       		.byte	0x7
- 4688 004b A2030000 		.4byte	.LASF5
+ 4688 004b 9B030000 		.4byte	.LASF5
  4689 004f 02       		.uleb128 0x2
  4690 0050 08       		.byte	0x8
  4691 0051 05       		.byte	0x5
- 4692 0052 74010000 		.4byte	.LASF6
+ 4692 0052 6D010000 		.4byte	.LASF6
  4693 0056 02       		.uleb128 0x2
  4694 0057 08       		.byte	0x8
  4695 0058 07       		.byte	0x7
- 4696 0059 D9000000 		.4byte	.LASF7
+ 4696 0059 D2000000 		.4byte	.LASF7
  4697 005d 03       		.uleb128 0x3
  4698 005e 04       		.byte	0x4
  4699 005f 05       		.byte	0x5
@@ -9142,9 +9142,9 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4701 0064 02       		.uleb128 0x2
  4702 0065 04       		.byte	0x4
  4703 0066 07       		.byte	0x7
- 4704 0067 64030000 		.4byte	.LASF8
+ 4704 0067 5D030000 		.4byte	.LASF8
  4705 006b 04       		.uleb128 0x4
- 4706 006c 20020000 		.4byte	.LASF9
+ 4706 006c 19020000 		.4byte	.LASF9
  4707 0070 03       		.byte	0x3
  4708 0071 A1       		.byte	0xa1
  4709 0072 2C000000 		.4byte	0x2c
@@ -9154,31 +9154,31 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4713 007c A2       		.byte	0xa2
  4714 007d 3A000000 		.4byte	0x3a
  4715 0081 04       		.uleb128 0x4
- 4716 0082 92020000 		.4byte	.LASF11
+ 4716 0082 8B020000 		.4byte	.LASF11
  4717 0086 03       		.byte	0x3
  4718 0087 A3       		.byte	0xa3
  4719 0088 48000000 		.4byte	0x48
  4720 008c 02       		.uleb128 0x2
  4721 008d 04       		.byte	0x4
  4722 008e 04       		.byte	0x4
- 4723 008f E7050000 		.4byte	.LASF12
+ 4723 008f B2050000 		.4byte	.LASF12
  4724 0093 02       		.uleb128 0x2
  4725 0094 08       		.byte	0x8
  4726 0095 04       		.byte	0x4
- 4727 0096 3C020000 		.4byte	.LASF13
+ 4727 0096 35020000 		.4byte	.LASF13
  4728 009a 02       		.uleb128 0x2
  4729 009b 01       		.byte	0x1
  4730 009c 08       		.byte	0x8
- 4731 009d E3070000 		.4byte	.LASF14
+ 4731 009d AE070000 		.4byte	.LASF14
  4732 00a1 05       		.uleb128 0x5
- 4733 00a2 53090000 		.4byte	.LASF15
+ 4733 00a2 74090000 		.4byte	.LASF15
  4734 00a6 03       		.byte	0x3
  4735 00a7 4301     		.2byte	0x143
  4736 00a9 48000000 		.4byte	0x48
  4737 00ad 05       		.uleb128 0x5
- 4738 00ae BC060000 		.4byte	.LASF16
+ 4738 00ae 87060000 		.4byte	.LASF16
  4739 00b2 03       		.byte	0x3
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 154
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 154
 
 
  4740 00b3 4B01     		.2byte	0x14b
@@ -9186,14 +9186,14 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4742 00b9 06       		.uleb128 0x6
  4743 00ba 6B000000 		.4byte	0x6b
  4744 00be 05       		.uleb128 0x5
- 4745 00bf C0040000 		.4byte	.LASF17
+ 4745 00bf B9040000 		.4byte	.LASF17
  4746 00c3 03       		.byte	0x3
  4747 00c4 4D01     		.2byte	0x14d
  4748 00c6 CA000000 		.4byte	0xca
  4749 00ca 06       		.uleb128 0x6
  4750 00cb 81000000 		.4byte	0x81
  4751 00cf 05       		.uleb128 0x5
- 4752 00d0 F6070000 		.4byte	.LASF18
+ 4752 00d0 C1070000 		.4byte	.LASF18
  4753 00d4 03       		.byte	0x3
  4754 00d5 5D01     		.2byte	0x15d
  4755 00d7 DB000000 		.4byte	0xdb
@@ -9204,14 +9204,14 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4760 00e2 02       		.uleb128 0x2
  4761 00e3 04       		.byte	0x4
  4762 00e4 07       		.byte	0x7
- 4763 00e5 12050000 		.4byte	.LASF19
+ 4763 00e5 0B050000 		.4byte	.LASF19
  4764 00e9 04       		.uleb128 0x4
- 4765 00ea 69060000 		.4byte	.LASF20
+ 4765 00ea 34060000 		.4byte	.LASF20
  4766 00ee 01       		.byte	0x1
  4767 00ef 8B       		.byte	0x8b
  4768 00f0 DB000000 		.4byte	0xdb
  4769 00f4 09       		.uleb128 0x9
- 4770 00f5 58010000 		.4byte	.LASF21
+ 4770 00f5 51010000 		.4byte	.LASF21
  4771 00f9 01       		.byte	0x1
  4772 00fa 7E03     		.2byte	0x37e
  4773 00fc 00000000 		.4byte	.LFB0
@@ -9219,7 +9219,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4775 0104 01       		.uleb128 0x1
  4776 0105 9C       		.byte	0x9c
  4777 0106 09       		.uleb128 0x9
- 4778 0107 B6020000 		.4byte	.LASF22
+ 4778 0107 AF020000 		.4byte	.LASF22
  4779 010b 01       		.byte	0x1
  4780 010c 9C03     		.2byte	0x39c
  4781 010e 00000000 		.4byte	.LFB1
@@ -9227,7 +9227,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4783 0116 01       		.uleb128 0x1
  4784 0117 9C       		.byte	0x9c
  4785 0118 0A       		.uleb128 0xa
- 4786 0119 71090000 		.4byte	.LASF23
+ 4786 0119 92090000 		.4byte	.LASF23
  4787 011d 02       		.byte	0x2
  4788 011e 57       		.byte	0x57
  4789 011f 00000000 		.4byte	.LFB2
@@ -9235,10 +9235,10 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4791 0127 01       		.uleb128 0x1
  4792 0128 9C       		.byte	0x9c
  4793 0129 0A       		.uleb128 0xa
- 4794 012a CF030000 		.4byte	.LASF24
+ 4794 012a C8030000 		.4byte	.LASF24
  4795 012e 02       		.byte	0x2
  4796 012f 6B       		.byte	0x6b
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 155
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 155
 
 
  4797 0130 00000000 		.4byte	.LFB3
@@ -9246,7 +9246,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4799 0138 01       		.uleb128 0x1
  4800 0139 9C       		.byte	0x9c
  4801 013a 0A       		.uleb128 0xa
- 4802 013b 88040000 		.4byte	.LASF25
+ 4802 013b 81040000 		.4byte	.LASF25
  4803 013f 02       		.byte	0x2
  4804 0140 7F       		.byte	0x7f
  4805 0141 00000000 		.4byte	.LFB4
@@ -9254,7 +9254,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4807 0149 01       		.uleb128 0x1
  4808 014a 9C       		.byte	0x9c
  4809 014b 0B       		.uleb128 0xb
- 4810 014c 43020000 		.4byte	.LASF28
+ 4810 014c 3C020000 		.4byte	.LASF28
  4811 0150 02       		.byte	0x2
  4812 0151 9E       		.byte	0x9e
  4813 0152 00000000 		.4byte	.LFB5
@@ -9263,7 +9263,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4816 015b 9C       		.byte	0x9c
  4817 015c 6F010000 		.4byte	0x16f
  4818 0160 0C       		.uleb128 0xc
- 4819 0161 B1010000 		.4byte	.LASF26
+ 4819 0161 AA010000 		.4byte	.LASF26
  4820 0165 02       		.byte	0x2
  4821 0166 A1       		.byte	0xa1
  4822 0167 6B000000 		.4byte	0x6b
@@ -9272,7 +9272,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4825 016d 6F       		.sleb128 -17
  4826 016e 00       		.byte	0
  4827 016f 0D       		.uleb128 0xd
- 4828 0170 77070000 		.4byte	.LASF47
+ 4828 0170 42070000 		.4byte	.LASF47
  4829 0174 02       		.byte	0x2
  4830 0175 D2       		.byte	0xd2
  4831 0176 81000000 		.4byte	0x81
@@ -9281,7 +9281,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4834 0182 01       		.uleb128 0x1
  4835 0183 9C       		.byte	0x9c
  4836 0184 0E       		.uleb128 0xe
- 4837 0185 A3000000 		.4byte	.LASF154
+ 4837 0185 9C000000 		.4byte	.LASF154
  4838 0189 02       		.byte	0x2
  4839 018a EE       		.byte	0xee
  4840 018b 81000000 		.4byte	0x81
@@ -9298,12 +9298,12 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4851 01a8 02       		.uleb128 0x2
  4852 01a9 91       		.byte	0x91
  4853 01aa 74       		.sleb128 -12
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 156
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 156
 
 
  4854 01ab 00       		.byte	0
  4855 01ac 0F       		.uleb128 0xf
- 4856 01ad 71030000 		.4byte	.LASF29
+ 4856 01ad 6A030000 		.4byte	.LASF29
  4857 01b1 02       		.byte	0x2
  4858 01b2 1F01     		.2byte	0x11f
  4859 01b4 00000000 		.4byte	.LFB8
@@ -9312,7 +9312,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4862 01bd 9C       		.byte	0x9c
  4863 01be E1010000 		.4byte	0x1e1
  4864 01c2 10       		.uleb128 0x10
- 4865 01c3 0B050000 		.4byte	.LASF31
+ 4865 01c3 04050000 		.4byte	.LASF31
  4866 01c7 02       		.byte	0x2
  4867 01c8 1F01     		.2byte	0x11f
  4868 01ca 81000000 		.4byte	0x81
@@ -9320,7 +9320,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4870 01cf 91       		.byte	0x91
  4871 01d0 64       		.sleb128 -28
  4872 01d1 11       		.uleb128 0x11
- 4873 01d2 B1010000 		.4byte	.LASF26
+ 4873 01d2 AA010000 		.4byte	.LASF26
  4874 01d6 02       		.byte	0x2
  4875 01d7 2101     		.2byte	0x121
  4876 01d9 6B000000 		.4byte	0x6b
@@ -9338,7 +9338,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4888 01f2 9C       		.byte	0x9c
  4889 01f3 16020000 		.4byte	0x216
  4890 01f7 10       		.uleb128 0x10
- 4891 01f8 5C070000 		.4byte	.LASF32
+ 4891 01f8 27070000 		.4byte	.LASF32
  4892 01fc 02       		.byte	0x2
  4893 01fd 5501     		.2byte	0x155
  4894 01ff 81000000 		.4byte	0x81
@@ -9346,7 +9346,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4896 0204 91       		.byte	0x91
  4897 0205 64       		.sleb128 -28
  4898 0206 11       		.uleb128 0x11
- 4899 0207 B1010000 		.4byte	.LASF26
+ 4899 0207 AA010000 		.4byte	.LASF26
  4900 020b 02       		.byte	0x2
  4901 020c 5701     		.2byte	0x157
  4902 020e 6B000000 		.4byte	0x6b
@@ -9355,10 +9355,10 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4905 0214 6F       		.sleb128 -17
  4906 0215 00       		.byte	0
  4907 0216 0F       		.uleb128 0xf
- 4908 0217 20080000 		.4byte	.LASF33
+ 4908 0217 EB070000 		.4byte	.LASF33
  4909 021b 02       		.byte	0x2
  4910 021c 8601     		.2byte	0x186
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 157
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 157
 
 
  4911 021e 00000000 		.4byte	.LFB10
@@ -9367,7 +9367,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4914 0227 9C       		.byte	0x9c
  4915 0228 4B020000 		.4byte	0x24b
  4916 022c 10       		.uleb128 0x10
- 4917 022d 2E090000 		.4byte	.LASF34
+ 4917 022d 4F090000 		.4byte	.LASF34
  4918 0231 02       		.byte	0x2
  4919 0232 8601     		.2byte	0x186
  4920 0234 81000000 		.4byte	0x81
@@ -9375,7 +9375,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4922 0239 91       		.byte	0x91
  4923 023a 64       		.sleb128 -28
  4924 023b 11       		.uleb128 0x11
- 4925 023c B1010000 		.4byte	.LASF26
+ 4925 023c AA010000 		.4byte	.LASF26
  4926 0240 02       		.byte	0x2
  4927 0241 8801     		.2byte	0x188
  4928 0243 6B000000 		.4byte	0x6b
@@ -9384,7 +9384,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4931 0249 6F       		.sleb128 -17
  4932 024a 00       		.byte	0
  4933 024b 0F       		.uleb128 0xf
- 4934 024c 99040000 		.4byte	.LASF35
+ 4934 024c 92040000 		.4byte	.LASF35
  4935 0250 02       		.byte	0x2
  4936 0251 AE01     		.2byte	0x1ae
  4937 0253 00000000 		.4byte	.LFB11
@@ -9393,7 +9393,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4940 025c 9C       		.byte	0x9c
  4941 025d BC020000 		.4byte	0x2bc
  4942 0261 10       		.uleb128 0x10
- 4943 0262 8E010000 		.4byte	.LASF36
+ 4943 0262 87010000 		.4byte	.LASF36
  4944 0266 02       		.byte	0x2
  4945 0267 AE01     		.2byte	0x1ae
  4946 0269 81000000 		.4byte	0x81
@@ -9409,7 +9409,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4956 027d 91       		.byte	0x91
  4957 027e 6F       		.sleb128 -17
  4958 027f 11       		.uleb128 0x11
- 4959 0280 35050000 		.4byte	.LASF38
+ 4959 0280 2E050000 		.4byte	.LASF38
  4960 0284 02       		.byte	0x2
  4961 0285 B101     		.2byte	0x1b1
  4962 0287 6B000000 		.4byte	0x6b
@@ -9417,8 +9417,8 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4964 028c 91       		.byte	0x91
  4965 028d 6E       		.sleb128 -18
  4966 028e 11       		.uleb128 0x11
- 4967 028f B1010000 		.4byte	.LASF26
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 158
+ 4967 028f AA010000 		.4byte	.LASF26
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 158
 
 
  4968 0293 02       		.byte	0x2
@@ -9428,7 +9428,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4972 029b 91       		.byte	0x91
  4973 029c 6B       		.sleb128 -21
  4974 029d 11       		.uleb128 0x11
- 4975 029e 9C090000 		.4byte	.LASF39
+ 4975 029e BD090000 		.4byte	.LASF39
  4976 02a2 02       		.byte	0x2
  4977 02a3 B301     		.2byte	0x1b3
  4978 02a5 6B000000 		.4byte	0x6b
@@ -9436,7 +9436,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4980 02aa 91       		.byte	0x91
  4981 02ab 6C       		.sleb128 -20
  4982 02ac 11       		.uleb128 0x11
- 4983 02ad AA080000 		.4byte	.LASF40
+ 4983 02ad CB080000 		.4byte	.LASF40
  4984 02b1 02       		.byte	0x2
  4985 02b2 B401     		.2byte	0x1b4
  4986 02b4 6B000000 		.4byte	0x6b
@@ -9445,7 +9445,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4989 02ba 6D       		.sleb128 -19
  4990 02bb 00       		.byte	0
  4991 02bc 12       		.uleb128 0x12
- 4992 02bd 66070000 		.4byte	.LASF49
+ 4992 02bd 31070000 		.4byte	.LASF49
  4993 02c1 02       		.byte	0x2
  4994 02c2 B302     		.2byte	0x2b3
  4995 02c4 A1000000 		.4byte	0xa1
@@ -9455,7 +9455,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  4999 02d1 9C       		.byte	0x9c
  5000 02d2 F5020000 		.4byte	0x2f5
  5001 02d6 10       		.uleb128 0x10
- 5002 02d7 18090000 		.4byte	.LASF41
+ 5002 02d7 39090000 		.4byte	.LASF41
  5003 02db 02       		.byte	0x2
  5004 02dc B302     		.2byte	0x2b3
  5005 02de 81000000 		.4byte	0x81
@@ -9463,7 +9463,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5007 02e3 91       		.byte	0x91
  5008 02e4 6C       		.sleb128 -20
  5009 02e5 11       		.uleb128 0x11
- 5010 02e6 DB080000 		.4byte	.LASF42
+ 5010 02e6 FC080000 		.4byte	.LASF42
  5011 02ea 02       		.byte	0x2
  5012 02eb B502     		.2byte	0x2b5
  5013 02ed A1000000 		.4byte	0xa1
@@ -9472,18 +9472,18 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5016 02f3 74       		.sleb128 -12
  5017 02f4 00       		.byte	0
  5018 02f5 13       		.uleb128 0x13
- 5019 02f6 37080000 		.4byte	.LASF43
+ 5019 02f6 02080000 		.4byte	.LASF43
  5020 02fa 02       		.byte	0x2
  5021 02fb E302     		.2byte	0x2e3
  5022 02fd 00000000 		.4byte	.LFB13
  5023 0301 2C000000 		.4byte	.LFE13-.LFB13
  5024 0305 01       		.uleb128 0x1
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 159
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 159
 
 
  5025 0306 9C       		.byte	0x9c
  5026 0307 14       		.uleb128 0x14
- 5027 0308 99020000 		.4byte	.LASF69
+ 5027 0308 92020000 		.4byte	.LASF69
  5028 030c 02       		.byte	0x2
  5029 030d FB02     		.2byte	0x2fb
  5030 030f 81000000 		.4byte	0x81
@@ -9492,7 +9492,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5033 031b 01       		.uleb128 0x1
  5034 031c 9C       		.byte	0x9c
  5035 031d 0F       		.uleb128 0xf
- 5036 031e 3F090000 		.4byte	.LASF44
+ 5036 031e 60090000 		.4byte	.LASF44
  5037 0322 02       		.byte	0x2
  5038 0323 1D03     		.2byte	0x31d
  5039 0325 00000000 		.4byte	.LFB15
@@ -9501,7 +9501,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5042 032e 9C       		.byte	0x9c
  5043 032f 52030000 		.4byte	0x352
  5044 0333 10       		.uleb128 0x10
- 5045 0334 2E090000 		.4byte	.LASF34
+ 5045 0334 4F090000 		.4byte	.LASF34
  5046 0338 02       		.byte	0x2
  5047 0339 1D03     		.2byte	0x31d
  5048 033b 81000000 		.4byte	0x81
@@ -9509,7 +9509,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5050 0340 91       		.byte	0x91
  5051 0341 64       		.sleb128 -28
  5052 0342 11       		.uleb128 0x11
- 5053 0343 B1010000 		.4byte	.LASF26
+ 5053 0343 AA010000 		.4byte	.LASF26
  5054 0347 02       		.byte	0x2
  5055 0348 1F03     		.2byte	0x31f
  5056 034a 6B000000 		.4byte	0x6b
@@ -9518,7 +9518,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5059 0350 6F       		.sleb128 -17
  5060 0351 00       		.byte	0
  5061 0352 15       		.uleb128 0x15
- 5062 0353 99080000 		.4byte	.LASF45
+ 5062 0353 BA080000 		.4byte	.LASF45
  5063 0357 02       		.byte	0x2
  5064 0358 4303     		.2byte	0x343
  5065 035a 00000000 		.4byte	.LFB16
@@ -9526,7 +9526,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5067 0362 01       		.uleb128 0x1
  5068 0363 9C       		.byte	0x9c
  5069 0364 0F       		.uleb128 0xf
- 5070 0365 BB070000 		.4byte	.LASF46
+ 5070 0365 86070000 		.4byte	.LASF46
  5071 0369 02       		.byte	0x2
  5072 036a 5803     		.2byte	0x358
  5073 036c 00000000 		.4byte	.LFB17
@@ -9535,10 +9535,10 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5076 0375 9C       		.byte	0x9c
  5077 0376 8A030000 		.4byte	0x38a
  5078 037a 11       		.uleb128 0x11
- 5079 037b B1010000 		.4byte	.LASF26
+ 5079 037b AA010000 		.4byte	.LASF26
  5080 037f 02       		.byte	0x2
  5081 0380 5A03     		.2byte	0x35a
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 160
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 160
 
 
  5082 0382 6B000000 		.4byte	0x6b
@@ -9547,7 +9547,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5085 0388 6F       		.sleb128 -17
  5086 0389 00       		.byte	0
  5087 038a 16       		.uleb128 0x16
- 5088 038b 0E010000 		.4byte	.LASF48
+ 5088 038b 07010000 		.4byte	.LASF48
  5089 038f 02       		.byte	0x2
  5090 0390 7D03     		.2byte	0x37d
  5091 0392 81000000 		.4byte	0x81
@@ -9556,7 +9556,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5094 039e 01       		.uleb128 0x1
  5095 039f 9C       		.byte	0x9c
  5096 03a0 12       		.uleb128 0x12
- 5097 03a1 CB070000 		.4byte	.LASF50
+ 5097 03a1 96070000 		.4byte	.LASF50
  5098 03a5 02       		.byte	0x2
  5099 03a6 9503     		.2byte	0x395
  5100 03a8 81000000 		.4byte	0x81
@@ -9566,7 +9566,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5104 03b5 9C       		.byte	0x9c
  5105 03b6 D9030000 		.4byte	0x3d9
  5106 03ba 10       		.uleb128 0x10
- 5107 03bb F1070000 		.4byte	.LASF51
+ 5107 03bb BC070000 		.4byte	.LASF51
  5108 03bf 02       		.byte	0x2
  5109 03c0 9503     		.2byte	0x395
  5110 03c2 81000000 		.4byte	0x81
@@ -9574,7 +9574,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5112 03c7 91       		.byte	0x91
  5113 03c8 6C       		.sleb128 -20
  5114 03c9 11       		.uleb128 0x11
- 5115 03ca DB080000 		.4byte	.LASF42
+ 5115 03ca FC080000 		.4byte	.LASF42
  5116 03ce 02       		.byte	0x2
  5117 03cf 9703     		.2byte	0x397
  5118 03d1 81000000 		.4byte	0x81
@@ -9583,7 +9583,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5121 03d7 74       		.sleb128 -12
  5122 03d8 00       		.byte	0
  5123 03d9 0F       		.uleb128 0xf
- 5124 03da 13080000 		.4byte	.LASF52
+ 5124 03da DE070000 		.4byte	.LASF52
  5125 03de 02       		.byte	0x2
  5126 03df C603     		.2byte	0x3c6
  5127 03e1 00000000 		.4byte	.LFB20
@@ -9592,19 +9592,19 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5130 03ea 9C       		.byte	0x9c
  5131 03eb FF030000 		.4byte	0x3ff
  5132 03ef 11       		.uleb128 0x11
- 5133 03f0 B1010000 		.4byte	.LASF26
+ 5133 03f0 AA010000 		.4byte	.LASF26
  5134 03f4 02       		.byte	0x2
  5135 03f5 C803     		.2byte	0x3c8
  5136 03f7 6B000000 		.4byte	0x6b
  5137 03fb 02       		.uleb128 0x2
  5138 03fc 91       		.byte	0x91
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 161
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 161
 
 
  5139 03fd 6F       		.sleb128 -17
  5140 03fe 00       		.byte	0
  5141 03ff 16       		.uleb128 0x16
- 5142 0400 AD060000 		.4byte	.LASF53
+ 5142 0400 78060000 		.4byte	.LASF53
  5143 0404 02       		.byte	0x2
  5144 0405 E003     		.2byte	0x3e0
  5145 0407 81000000 		.4byte	0x81
@@ -9622,7 +9622,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5157 0426 9C       		.byte	0x9c
  5158 0427 3B040000 		.4byte	0x43b
  5159 042b 11       		.uleb128 0x11
- 5160 042c B1010000 		.4byte	.LASF26
+ 5160 042c AA010000 		.4byte	.LASF26
  5161 0430 02       		.byte	0x2
  5162 0431 F703     		.2byte	0x3f7
  5163 0433 6B000000 		.4byte	0x6b
@@ -9631,7 +9631,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5166 0439 6F       		.sleb128 -17
  5167 043a 00       		.byte	0
  5168 043b 12       		.uleb128 0x12
- 5169 043c 82090000 		.4byte	.LASF55
+ 5169 043c A3090000 		.4byte	.LASF55
  5170 0440 02       		.byte	0x2
  5171 0441 1A04     		.2byte	0x41a
  5172 0443 81000000 		.4byte	0x81
@@ -9658,7 +9658,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5193 0475 01       		.uleb128 0x1
  5194 0476 9C       		.byte	0x9c
  5195 0477 A9040000 		.4byte	0x4a9
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 162
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 162
 
 
  5196 047b 10       		.uleb128 0x10
@@ -9670,7 +9670,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5202 0488 91       		.byte	0x91
  5203 0489 6C       		.sleb128 -20
  5204 048a 10       		.uleb128 0x10
- 5205 048b F1070000 		.4byte	.LASF51
+ 5205 048b BC070000 		.4byte	.LASF51
  5206 048f 02       		.byte	0x2
  5207 0490 3E04     		.2byte	0x43e
  5208 0492 81000000 		.4byte	0x81
@@ -9678,7 +9678,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5210 0497 91       		.byte	0x91
  5211 0498 68       		.sleb128 -24
  5212 0499 11       		.uleb128 0x11
- 5213 049a E2080000 		.4byte	.LASF58
+ 5213 049a 03090000 		.4byte	.LASF58
  5214 049e 02       		.byte	0x2
  5215 049f 4004     		.2byte	0x440
  5216 04a1 81000000 		.4byte	0x81
@@ -9687,7 +9687,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5219 04a7 74       		.sleb128 -12
  5220 04a8 00       		.byte	0
  5221 04a9 17       		.uleb128 0x17
- 5222 04aa DF020000 		.4byte	.LASF59
+ 5222 04aa D8020000 		.4byte	.LASF59
  5223 04ae 02       		.byte	0x2
  5224 04af 5D04     		.2byte	0x45d
  5225 04b1 81000000 		.4byte	0x81
@@ -9706,7 +9706,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5238 04d1 74       		.sleb128 -12
  5239 04d2 00       		.byte	0
  5240 04d3 0F       		.uleb128 0xf
- 5241 04d4 E2040000 		.4byte	.LASF60
+ 5241 04d4 DB040000 		.4byte	.LASF60
  5242 04d8 02       		.byte	0x2
  5243 04d9 7E04     		.2byte	0x47e
  5244 04db 00000000 		.4byte	.LFB26
@@ -9718,7 +9718,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5250 04ea 77000000 		.4byte	.LASF56
  5251 04ee 02       		.byte	0x2
  5252 04ef 7E04     		.2byte	0x47e
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 163
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 163
 
 
  5253 04f1 81000000 		.4byte	0x81
@@ -9726,7 +9726,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5255 04f6 91       		.byte	0x91
  5256 04f7 6C       		.sleb128 -20
  5257 04f8 10       		.uleb128 0x10
- 5258 04f9 35020000 		.4byte	.LASF61
+ 5258 04f9 2E020000 		.4byte	.LASF61
  5259 04fd 02       		.byte	0x2
  5260 04fe 7E04     		.2byte	0x47e
  5261 0500 81000000 		.4byte	0x81
@@ -9734,7 +9734,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5263 0505 91       		.byte	0x91
  5264 0506 68       		.sleb128 -24
  5265 0507 11       		.uleb128 0x11
- 5266 0508 E2080000 		.4byte	.LASF58
+ 5266 0508 03090000 		.4byte	.LASF58
  5267 050c 02       		.byte	0x2
  5268 050d 8004     		.2byte	0x480
  5269 050f 81000000 		.4byte	0x81
@@ -9743,7 +9743,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5272 0515 74       		.sleb128 -12
  5273 0516 00       		.byte	0
  5274 0517 12       		.uleb128 0x12
- 5275 0518 F1080000 		.4byte	.LASF62
+ 5275 0518 12090000 		.4byte	.LASF62
  5276 051c 02       		.byte	0x2
  5277 051d A104     		.2byte	0x4a1
  5278 051f 81000000 		.4byte	0x81
@@ -9762,7 +9762,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5291 053f 74       		.sleb128 -12
  5292 0540 00       		.byte	0
  5293 0541 0F       		.uleb128 0xf
- 5294 0542 33030000 		.4byte	.LASF63
+ 5294 0542 2C030000 		.4byte	.LASF63
  5295 0546 02       		.byte	0x2
  5296 0547 CF04     		.2byte	0x4cf
  5297 0549 00000000 		.4byte	.LFB28
@@ -9771,19 +9771,19 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5300 0552 9C       		.byte	0x9c
  5301 0553 67050000 		.4byte	0x567
  5302 0557 10       		.uleb128 0x10
- 5303 0558 42030000 		.4byte	.LASF64
+ 5303 0558 3B030000 		.4byte	.LASF64
  5304 055c 02       		.byte	0x2
  5305 055d CF04     		.2byte	0x4cf
  5306 055f 81000000 		.4byte	0x81
  5307 0563 02       		.uleb128 0x2
  5308 0564 91       		.byte	0x91
  5309 0565 74       		.sleb128 -12
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 164
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 164
 
 
  5310 0566 00       		.byte	0
  5311 0567 0F       		.uleb128 0xf
- 5312 0568 1C070000 		.4byte	.LASF65
+ 5312 0568 E7060000 		.4byte	.LASF65
  5313 056c 02       		.byte	0x2
  5314 056d 0405     		.2byte	0x504
  5315 056f 00000000 		.4byte	.LFB29
@@ -9792,7 +9792,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5318 0578 9C       		.byte	0x9c
  5319 0579 8D050000 		.4byte	0x58d
  5320 057d 10       		.uleb128 0x10
- 5321 057e 42030000 		.4byte	.LASF64
+ 5321 057e 3B030000 		.4byte	.LASF64
  5322 0582 02       		.byte	0x2
  5323 0583 0405     		.2byte	0x504
  5324 0585 81000000 		.4byte	0x81
@@ -9801,7 +9801,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5327 058b 74       		.sleb128 -12
  5328 058c 00       		.byte	0
  5329 058d 0F       		.uleb128 0xf
- 5330 058e 53020000 		.4byte	.LASF66
+ 5330 058e 4C020000 		.4byte	.LASF66
  5331 0592 02       		.byte	0x2
  5332 0593 4305     		.2byte	0x543
  5333 0595 00000000 		.4byte	.LFB30
@@ -9810,7 +9810,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5336 059e 9C       		.byte	0x9c
  5337 059f D1050000 		.4byte	0x5d1
  5338 05a3 10       		.uleb128 0x10
- 5339 05a4 22090000 		.4byte	.LASF67
+ 5339 05a4 43090000 		.4byte	.LASF67
  5340 05a8 02       		.byte	0x2
  5341 05a9 4305     		.2byte	0x543
  5342 05ab 81000000 		.4byte	0x81
@@ -9818,7 +9818,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5344 05b0 91       		.byte	0x91
  5345 05b1 64       		.sleb128 -28
  5346 05b2 11       		.uleb128 0x11
- 5347 05b3 E2080000 		.4byte	.LASF58
+ 5347 05b3 03090000 		.4byte	.LASF58
  5348 05b7 02       		.byte	0x2
  5349 05b8 4505     		.2byte	0x545
  5350 05ba 81000000 		.4byte	0x81
@@ -9826,7 +9826,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5352 05bf 91       		.byte	0x91
  5353 05c0 68       		.sleb128 -24
  5354 05c1 11       		.uleb128 0x11
- 5355 05c2 10030000 		.4byte	.LASF68
+ 5355 05c2 09030000 		.4byte	.LASF68
  5356 05c6 02       		.byte	0x2
  5357 05c7 4605     		.2byte	0x546
  5358 05c9 81000000 		.4byte	0x81
@@ -9835,10 +9835,10 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5361 05cf 6C       		.sleb128 -20
  5362 05d0 00       		.byte	0
  5363 05d1 14       		.uleb128 0x14
- 5364 05d2 08070000 		.4byte	.LASF70
+ 5364 05d2 D3060000 		.4byte	.LASF70
  5365 05d6 02       		.byte	0x2
  5366 05d7 6805     		.2byte	0x568
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 165
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 165
 
 
  5367 05d9 81000000 		.4byte	0x81
@@ -9847,7 +9847,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5370 05e5 01       		.uleb128 0x1
  5371 05e6 9C       		.byte	0x9c
  5372 05e7 0F       		.uleb128 0xf
- 5373 05e8 DD010000 		.4byte	.LASF71
+ 5373 05e8 D6010000 		.4byte	.LASF71
  5374 05ec 02       		.byte	0x2
  5375 05ed 8105     		.2byte	0x581
  5376 05ef 00000000 		.4byte	.LFB32
@@ -9864,7 +9864,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5387 060a 91       		.byte	0x91
  5388 060b 6C       		.sleb128 -20
  5389 060c 10       		.uleb128 0x10
- 5390 060d 72050000 		.4byte	.LASF72
+ 5390 060d 3D050000 		.4byte	.LASF72
  5391 0611 02       		.byte	0x2
  5392 0612 8105     		.2byte	0x581
  5393 0614 81000000 		.4byte	0x81
@@ -9872,7 +9872,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5395 0619 91       		.byte	0x91
  5396 061a 68       		.sleb128 -24
  5397 061b 11       		.uleb128 0x11
- 5398 061c D6020000 		.4byte	.LASF73
+ 5398 061c CF020000 		.4byte	.LASF73
  5399 0620 02       		.byte	0x2
  5400 0621 8305     		.2byte	0x583
  5401 0623 81000000 		.4byte	0x81
@@ -9881,7 +9881,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5404 0629 74       		.sleb128 -12
  5405 062a 00       		.byte	0
  5406 062b 0F       		.uleb128 0xf
- 5407 062c E7090000 		.4byte	.LASF74
+ 5407 062c 080A0000 		.4byte	.LASF74
  5408 0630 02       		.byte	0x2
  5409 0631 AD05     		.2byte	0x5ad
  5410 0633 00000000 		.4byte	.LFB33
@@ -9890,7 +9890,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5413 063c 9C       		.byte	0x9c
  5414 063d 60060000 		.4byte	0x660
  5415 0641 10       		.uleb128 0x10
- 5416 0642 F0010000 		.4byte	.LASF75
+ 5416 0642 E9010000 		.4byte	.LASF75
  5417 0646 02       		.byte	0x2
  5418 0647 AD05     		.2byte	0x5ad
  5419 0649 81000000 		.4byte	0x81
@@ -9898,10 +9898,10 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5421 064e 91       		.byte	0x91
  5422 064f 6C       		.sleb128 -20
  5423 0650 11       		.uleb128 0x11
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 166
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 166
 
 
- 5424 0651 E2080000 		.4byte	.LASF58
+ 5424 0651 03090000 		.4byte	.LASF58
  5425 0655 02       		.byte	0x2
  5426 0656 AF05     		.2byte	0x5af
  5427 0658 81000000 		.4byte	0x81
@@ -9910,7 +9910,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5430 065e 74       		.sleb128 -12
  5431 065f 00       		.byte	0
  5432 0660 14       		.uleb128 0x14
- 5433 0661 97060000 		.4byte	.LASF76
+ 5433 0661 62060000 		.4byte	.LASF76
  5434 0665 02       		.byte	0x2
  5435 0666 C905     		.2byte	0x5c9
  5436 0668 81000000 		.4byte	0x81
@@ -9919,7 +9919,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5439 0674 01       		.uleb128 0x1
  5440 0675 9C       		.byte	0x9c
  5441 0676 12       		.uleb128 0x12
- 5442 0677 4A070000 		.4byte	.LASF77
+ 5442 0677 15070000 		.4byte	.LASF77
  5443 067b 02       		.byte	0x2
  5444 067c DE05     		.2byte	0x5de
  5445 067e 81000000 		.4byte	0x81
@@ -9938,7 +9938,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5458 069e 74       		.sleb128 -12
  5459 069f 00       		.byte	0
  5460 06a0 12       		.uleb128 0x12
- 5461 06a1 93010000 		.4byte	.LASF78
+ 5461 06a1 8C010000 		.4byte	.LASF78
  5462 06a5 02       		.byte	0x2
  5463 06a6 F605     		.2byte	0x5f6
  5464 06a8 81000000 		.4byte	0x81
@@ -9956,9 +9956,9 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5476 06c7 91       		.byte	0x91
  5477 06c8 6C       		.sleb128 -20
  5478 06c9 11       		.uleb128 0x11
- 5479 06ca D6020000 		.4byte	.LASF73
+ 5479 06ca CF020000 		.4byte	.LASF73
  5480 06ce 02       		.byte	0x2
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 167
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 167
 
 
  5481 06cf F805     		.2byte	0x5f8
@@ -9968,7 +9968,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5485 06d7 74       		.sleb128 -12
  5486 06d8 00       		.byte	0
  5487 06d9 14       		.uleb128 0x14
- 5488 06da 8A070000 		.4byte	.LASF79
+ 5488 06da 55070000 		.4byte	.LASF79
  5489 06de 02       		.byte	0x2
  5490 06df 2706     		.2byte	0x627
  5491 06e1 81000000 		.4byte	0x81
@@ -9977,7 +9977,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5494 06ed 01       		.uleb128 0x1
  5495 06ee 9C       		.byte	0x9c
  5496 06ef 0F       		.uleb128 0xf
- 5497 06f0 D0050000 		.4byte	.LASF80
+ 5497 06f0 9B050000 		.4byte	.LASF80
  5498 06f4 02       		.byte	0x2
  5499 06f5 4906     		.2byte	0x649
  5500 06f7 00000000 		.4byte	.LFB38
@@ -9986,7 +9986,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5503 0700 9C       		.byte	0x9c
  5504 0701 33070000 		.4byte	0x733
  5505 0705 10       		.uleb128 0x10
- 5506 0706 42030000 		.4byte	.LASF64
+ 5506 0706 3B030000 		.4byte	.LASF64
  5507 070a 02       		.byte	0x2
  5508 070b 4906     		.2byte	0x649
  5509 070d 81000000 		.4byte	0x81
@@ -9994,7 +9994,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5511 0712 91       		.byte	0x91
  5512 0713 64       		.sleb128 -28
  5513 0714 11       		.uleb128 0x11
- 5514 0715 B1010000 		.4byte	.LASF26
+ 5514 0715 AA010000 		.4byte	.LASF26
  5515 0719 02       		.byte	0x2
  5516 071a 4B06     		.2byte	0x64b
  5517 071c 6B000000 		.4byte	0x6b
@@ -10002,7 +10002,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5519 0721 91       		.byte	0x91
  5520 0722 6B       		.sleb128 -21
  5521 0723 11       		.uleb128 0x11
- 5522 0724 CE080000 		.4byte	.LASF81
+ 5522 0724 EF080000 		.4byte	.LASF81
  5523 0728 02       		.byte	0x2
  5524 0729 4C06     		.2byte	0x64c
  5525 072b 81000000 		.4byte	0x81
@@ -10011,19 +10011,19 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5528 0731 6C       		.sleb128 -20
  5529 0732 00       		.byte	0
  5530 0733 18       		.uleb128 0x18
- 5531 0734 A9050000 		.4byte	.LASF82
+ 5531 0734 74050000 		.4byte	.LASF82
  5532 0738 02       		.byte	0x2
  5533 0739 8106     		.2byte	0x681
  5534 073b 00000000 		.4byte	.LFB39
  5535 073f 28000000 		.4byte	.LFE39-.LFB39
  5536 0743 01       		.uleb128 0x1
  5537 0744 9C       		.byte	0x9c
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 168
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 168
 
 
  5538 0745 59070000 		.4byte	0x759
  5539 0749 10       		.uleb128 0x10
- 5540 074a 6E020000 		.4byte	.LASF83
+ 5540 074a 67020000 		.4byte	.LASF83
  5541 074e 02       		.byte	0x2
  5542 074f 8106     		.2byte	0x681
  5543 0751 81000000 		.4byte	0x81
@@ -10032,7 +10032,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5546 0757 74       		.sleb128 -12
  5547 0758 00       		.byte	0
  5548 0759 19       		.uleb128 0x19
- 5549 075a 89000000 		.4byte	.LASF139
+ 5549 075a 82000000 		.4byte	.LASF139
  5550 075e 02       		.byte	0x2
  5551 075f A806     		.2byte	0x6a8
  5552 0761 00000000 		.4byte	.LFB40
@@ -10041,7 +10041,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5555 076a 9C       		.byte	0x9c
  5556 076b 7F070000 		.4byte	0x77f
  5557 076f 11       		.uleb128 0x11
- 5558 0770 88030000 		.4byte	.LASF84
+ 5558 0770 81030000 		.4byte	.LASF84
  5559 0774 02       		.byte	0x2
  5560 0775 AA06     		.2byte	0x6aa
  5561 0777 81000000 		.4byte	0x81
@@ -10050,7 +10050,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5564 077d 74       		.sleb128 -12
  5565 077e 00       		.byte	0
  5566 077f 1A       		.uleb128 0x1a
- 5567 0780 DF030000 		.4byte	.LASF85
+ 5567 0780 D8030000 		.4byte	.LASF85
  5568 0784 02       		.byte	0x2
  5569 0785 E206     		.2byte	0x6e2
  5570 0787 00000000 		.4byte	.LFB41
@@ -10058,7 +10058,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5572 078f 01       		.uleb128 0x1
  5573 0790 9C       		.byte	0x9c
  5574 0791 18       		.uleb128 0x18
- 5575 0792 F0020000 		.4byte	.LASF86
+ 5575 0792 E9020000 		.4byte	.LASF86
  5576 0796 02       		.byte	0x2
  5577 0797 0408     		.2byte	0x804
  5578 0799 00000000 		.4byte	.LFB42
@@ -10067,7 +10067,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5581 07a2 9C       		.byte	0x9c
  5582 07a3 B7070000 		.4byte	0x7b7
  5583 07a7 10       		.uleb128 0x10
- 5584 07a8 C1060000 		.4byte	.LASF87
+ 5584 07a8 8C060000 		.4byte	.LASF87
  5585 07ac 02       		.byte	0x2
  5586 07ad 0408     		.2byte	0x804
  5587 07af 81000000 		.4byte	0x81
@@ -10076,9 +10076,9 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5590 07b5 74       		.sleb128 -12
  5591 07b6 00       		.byte	0
  5592 07b7 13       		.uleb128 0x13
- 5593 07b8 89080000 		.4byte	.LASF88
+ 5593 07b8 AA080000 		.4byte	.LASF88
  5594 07bc 02       		.byte	0x2
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 169
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 169
 
 
  5595 07bd 1D08     		.2byte	0x81d
@@ -10087,7 +10087,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5598 07c7 01       		.uleb128 0x1
  5599 07c8 9C       		.byte	0x9c
  5600 07c9 14       		.uleb128 0x14
- 5601 07ca B4030000 		.4byte	.LASF89
+ 5601 07ca AD030000 		.4byte	.LASF89
  5602 07ce 02       		.byte	0x2
  5603 07cf 3308     		.2byte	0x833
  5604 07d1 81000000 		.4byte	0x81
@@ -10096,7 +10096,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5607 07dd 01       		.uleb128 0x1
  5608 07de 9C       		.byte	0x9c
  5609 07df 13       		.uleb128 0x13
- 5610 07e0 7B020000 		.4byte	.LASF90
+ 5610 07e0 74020000 		.4byte	.LASF90
  5611 07e4 02       		.byte	0x2
  5612 07e5 4708     		.2byte	0x847
  5613 07e7 00000000 		.4byte	.LFB45
@@ -10104,7 +10104,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5615 07ef 01       		.uleb128 0x1
  5616 07f0 9C       		.byte	0x9c
  5617 07f1 17       		.uleb128 0x17
- 5618 07f2 19040000 		.4byte	.LASF91
+ 5618 07f2 12040000 		.4byte	.LASF91
  5619 07f6 02       		.byte	0x2
  5620 07f7 6308     		.2byte	0x863
  5621 07f9 81000000 		.4byte	0x81
@@ -10114,7 +10114,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5625 0806 9C       		.byte	0x9c
  5626 0807 2A080000 		.4byte	0x82a
  5627 080b 10       		.uleb128 0x10
- 5628 080c A5070000 		.4byte	.LASF92
+ 5628 080c 70070000 		.4byte	.LASF92
  5629 0810 02       		.byte	0x2
  5630 0811 6308     		.2byte	0x863
  5631 0813 81000000 		.4byte	0x81
@@ -10122,7 +10122,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5633 0818 91       		.byte	0x91
  5634 0819 6C       		.sleb128 -20
  5635 081a 11       		.uleb128 0x11
- 5636 081b DB080000 		.4byte	.LASF42
+ 5636 081b FC080000 		.4byte	.LASF42
  5637 081f 02       		.byte	0x2
  5638 0820 6508     		.2byte	0x865
  5639 0822 81000000 		.4byte	0x81
@@ -10131,14 +10131,14 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5642 0828 74       		.sleb128 -12
  5643 0829 00       		.byte	0
  5644 082a 17       		.uleb128 0x17
- 5645 082b 0B040000 		.4byte	.LASF93
+ 5645 082b 04040000 		.4byte	.LASF93
  5646 082f 02       		.byte	0x2
  5647 0830 7E08     		.2byte	0x87e
  5648 0832 81000000 		.4byte	0x81
  5649 0836 00000000 		.4byte	.LFB47
  5650 083a 24000000 		.4byte	.LFE47-.LFB47
  5651 083e 01       		.uleb128 0x1
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 170
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 170
 
 
  5652 083f 9C       		.byte	0x9c
@@ -10153,7 +10153,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5661 0852 74       		.sleb128 -12
  5662 0853 00       		.byte	0
  5663 0854 18       		.uleb128 0x18
- 5664 0855 01010000 		.4byte	.LASF95
+ 5664 0855 FA000000 		.4byte	.LASF95
  5665 0859 02       		.byte	0x2
  5666 085a 9A08     		.2byte	0x89a
  5667 085c 00000000 		.4byte	.LFB48
@@ -10162,7 +10162,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5670 0865 9C       		.byte	0x9c
  5671 0866 7A080000 		.4byte	0x87a
  5672 086a 10       		.uleb128 0x10
- 5673 086b D1020000 		.4byte	.LASF96
+ 5673 086b CA020000 		.4byte	.LASF96
  5674 086f 02       		.byte	0x2
  5675 0870 9A08     		.2byte	0x89a
  5676 0872 81000000 		.4byte	0x81
@@ -10171,7 +10171,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5679 0878 74       		.sleb128 -12
  5680 0879 00       		.byte	0
  5681 087a 12       		.uleb128 0x12
- 5682 087b AE040000 		.4byte	.LASF97
+ 5682 087b A7040000 		.4byte	.LASF97
  5683 087f 02       		.byte	0x2
  5684 0880 B608     		.2byte	0x8b6
  5685 0882 CF000000 		.4byte	0xcf
@@ -10181,7 +10181,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5689 088f 9C       		.byte	0x9c
  5690 0890 D1080000 		.4byte	0x8d1
  5691 0894 10       		.uleb128 0x10
- 5692 0895 AF020000 		.4byte	.LASF98
+ 5692 0895 A8020000 		.4byte	.LASF98
  5693 0899 02       		.byte	0x2
  5694 089a B608     		.2byte	0x8b6
  5695 089c 6B000000 		.4byte	0x6b
@@ -10189,7 +10189,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5697 08a1 91       		.byte	0x91
  5698 08a2 6F       		.sleb128 -17
  5699 08a3 10       		.uleb128 0x10
- 5700 08a4 2D050000 		.4byte	.LASF99
+ 5700 08a4 26050000 		.4byte	.LASF99
  5701 08a8 02       		.byte	0x2
  5702 08a9 B608     		.2byte	0x8b6
  5703 08ab CF000000 		.4byte	0xcf
@@ -10198,7 +10198,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5706 08b1 68       		.sleb128 -24
  5707 08b2 11       		.uleb128 0x11
  5708 08b3 70000000 		.4byte	.LASF100
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 171
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 171
 
 
  5709 08b7 02       		.byte	0x2
@@ -10208,7 +10208,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5713 08bf 91       		.byte	0x91
  5714 08c0 70       		.sleb128 -16
  5715 08c1 11       		.uleb128 0x11
- 5716 08c2 AC070000 		.4byte	.LASF101
+ 5716 08c2 77070000 		.4byte	.LASF101
  5717 08c6 02       		.byte	0x2
  5718 08c7 B908     		.2byte	0x8b9
  5719 08c9 D1080000 		.4byte	0x8d1
@@ -10220,7 +10220,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5725 08d2 04       		.byte	0x4
  5726 08d3 CF000000 		.4byte	0xcf
  5727 08d7 12       		.uleb128 0x12
- 5728 08d8 38070000 		.4byte	.LASF102
+ 5728 08d8 03070000 		.4byte	.LASF102
  5729 08dc 02       		.byte	0x2
  5730 08dd DB08     		.2byte	0x8db
  5731 08df CF000000 		.4byte	0xcf
@@ -10230,7 +10230,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5735 08ec 9C       		.byte	0x9c
  5736 08ed 10090000 		.4byte	0x910
  5737 08f1 10       		.uleb128 0x10
- 5738 08f2 AF020000 		.4byte	.LASF98
+ 5738 08f2 A8020000 		.4byte	.LASF98
  5739 08f6 02       		.byte	0x2
  5740 08f7 DB08     		.2byte	0x8db
  5741 08f9 6B000000 		.4byte	0x6b
@@ -10238,7 +10238,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5743 08fe 91       		.byte	0x91
  5744 08ff 6F       		.sleb128 -17
  5745 0900 11       		.uleb128 0x11
- 5746 0901 AC070000 		.4byte	.LASF101
+ 5746 0901 77070000 		.4byte	.LASF101
  5747 0905 02       		.byte	0x2
  5748 0906 DD08     		.2byte	0x8dd
  5749 0908 D1080000 		.4byte	0x8d1
@@ -10247,7 +10247,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5752 090e 74       		.sleb128 -12
  5753 090f 00       		.byte	0
  5754 0910 12       		.uleb128 0x12
- 5755 0911 58040000 		.4byte	.LASF103
+ 5755 0911 51040000 		.4byte	.LASF103
  5756 0915 02       		.byte	0x2
  5757 0916 F408     		.2byte	0x8f4
  5758 0918 CF000000 		.4byte	0xcf
@@ -10257,8 +10257,8 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5762 0925 9C       		.byte	0x9c
  5763 0926 67090000 		.4byte	0x967
  5764 092a 10       		.uleb128 0x10
- 5765 092b AF020000 		.4byte	.LASF98
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 172
+ 5765 092b A8020000 		.4byte	.LASF98
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 172
 
 
  5766 092f 02       		.byte	0x2
@@ -10268,7 +10268,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5770 0937 91       		.byte	0x91
  5771 0938 6F       		.sleb128 -17
  5772 0939 10       		.uleb128 0x10
- 5773 093a 2D050000 		.4byte	.LASF99
+ 5773 093a 26050000 		.4byte	.LASF99
  5774 093e 02       		.byte	0x2
  5775 093f F408     		.2byte	0x8f4
  5776 0941 CF000000 		.4byte	0xcf
@@ -10284,7 +10284,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5786 0955 91       		.byte	0x91
  5787 0956 70       		.sleb128 -16
  5788 0957 11       		.uleb128 0x11
- 5789 0958 AC070000 		.4byte	.LASF101
+ 5789 0958 77070000 		.4byte	.LASF101
  5790 095c 02       		.byte	0x2
  5791 095d F708     		.2byte	0x8f7
  5792 095f D1080000 		.4byte	0x8d1
@@ -10293,7 +10293,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5795 0965 74       		.sleb128 -12
  5796 0966 00       		.byte	0
  5797 0967 12       		.uleb128 0x12
- 5798 0968 7B060000 		.4byte	.LASF104
+ 5798 0968 46060000 		.4byte	.LASF104
  5799 096c 02       		.byte	0x2
  5800 096d 1309     		.2byte	0x913
  5801 096f CF000000 		.4byte	0xcf
@@ -10303,7 +10303,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5805 097c 9C       		.byte	0x9c
  5806 097d A0090000 		.4byte	0x9a0
  5807 0981 10       		.uleb128 0x10
- 5808 0982 AF020000 		.4byte	.LASF98
+ 5808 0982 A8020000 		.4byte	.LASF98
  5809 0986 02       		.byte	0x2
  5810 0987 1309     		.2byte	0x913
  5811 0989 6B000000 		.4byte	0x6b
@@ -10311,19 +10311,19 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5813 098e 91       		.byte	0x91
  5814 098f 6F       		.sleb128 -17
  5815 0990 11       		.uleb128 0x11
- 5816 0991 AC070000 		.4byte	.LASF101
+ 5816 0991 77070000 		.4byte	.LASF101
  5817 0995 02       		.byte	0x2
  5818 0996 1509     		.2byte	0x915
  5819 0998 D1080000 		.4byte	0x8d1
  5820 099c 02       		.uleb128 0x2
  5821 099d 91       		.byte	0x91
  5822 099e 74       		.sleb128 -12
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 173
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 173
 
 
  5823 099f 00       		.byte	0
  5824 09a0 0F       		.uleb128 0xf
- 5825 09a1 BF050000 		.4byte	.LASF105
+ 5825 09a1 8A050000 		.4byte	.LASF105
  5826 09a5 02       		.byte	0x2
  5827 09a6 2B09     		.2byte	0x92b
  5828 09a8 00000000 		.4byte	.LFB53
@@ -10332,7 +10332,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5831 09b1 9C       		.byte	0x9c
  5832 09b2 020A0000 		.4byte	0xa02
  5833 09b6 10       		.uleb128 0x10
- 5834 09b7 AF020000 		.4byte	.LASF98
+ 5834 09b7 A8020000 		.4byte	.LASF98
  5835 09bb 02       		.byte	0x2
  5836 09bc 2B09     		.2byte	0x92b
  5837 09be 6B000000 		.4byte	0x6b
@@ -10340,7 +10340,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5839 09c3 91       		.byte	0x91
  5840 09c4 5F       		.sleb128 -33
  5841 09c5 10       		.uleb128 0x10
- 5842 09c6 E8070000 		.4byte	.LASF106
+ 5842 09c6 B3070000 		.4byte	.LASF106
  5843 09ca 02       		.byte	0x2
  5844 09cb 2B09     		.2byte	0x92b
  5845 09cd 6B000000 		.4byte	0x6b
@@ -10348,7 +10348,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5847 09d2 91       		.byte	0x91
  5848 09d3 5E       		.sleb128 -34
  5849 09d4 11       		.uleb128 0x11
- 5850 09d5 B1010000 		.4byte	.LASF26
+ 5850 09d5 AA010000 		.4byte	.LASF26
  5851 09d9 02       		.byte	0x2
  5852 09da 2D09     		.2byte	0x92d
  5853 09dc 6B000000 		.4byte	0x6b
@@ -10356,7 +10356,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5855 09e1 91       		.byte	0x91
  5856 09e2 6B       		.sleb128 -21
  5857 09e3 11       		.uleb128 0x11
- 5858 09e4 68020000 		.4byte	.LASF107
+ 5858 09e4 61020000 		.4byte	.LASF107
  5859 09e8 02       		.byte	0x2
  5860 09e9 2E09     		.2byte	0x92e
  5861 09eb 81000000 		.4byte	0x81
@@ -10373,12 +10373,12 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5872 0a00 64       		.sleb128 -28
  5873 0a01 00       		.byte	0
  5874 0a02 12       		.uleb128 0x12
- 5875 0a03 FF020000 		.4byte	.LASF109
+ 5875 0a03 F8020000 		.4byte	.LASF109
  5876 0a07 02       		.byte	0x2
  5877 0a08 4F09     		.2byte	0x94f
  5878 0a0a 6B000000 		.4byte	0x6b
  5879 0a0e 00000000 		.4byte	.LFB54
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 174
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 174
 
 
  5880 0a12 58000000 		.4byte	.LFE54-.LFB54
@@ -10386,7 +10386,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5882 0a17 9C       		.byte	0x9c
  5883 0a18 3B0A0000 		.4byte	0xa3b
  5884 0a1c 10       		.uleb128 0x10
- 5885 0a1d AF020000 		.4byte	.LASF98
+ 5885 0a1d A8020000 		.4byte	.LASF98
  5886 0a21 02       		.byte	0x2
  5887 0a22 4F09     		.2byte	0x94f
  5888 0a24 6B000000 		.4byte	0x6b
@@ -10394,7 +10394,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5890 0a29 91       		.byte	0x91
  5891 0a2a 6F       		.sleb128 -17
  5892 0a2b 11       		.uleb128 0x11
- 5893 0a2c E8070000 		.4byte	.LASF106
+ 5893 0a2c B3070000 		.4byte	.LASF106
  5894 0a30 02       		.byte	0x2
  5895 0a31 5109     		.2byte	0x951
  5896 0a33 6B000000 		.4byte	0x6b
@@ -10403,7 +10403,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5899 0a39 77       		.sleb128 -9
  5900 0a3a 00       		.byte	0
  5901 0a3b 18       		.uleb128 0x18
- 5902 0a3c 2C070000 		.4byte	.LASF110
+ 5902 0a3c F7060000 		.4byte	.LASF110
  5903 0a40 02       		.byte	0x2
  5904 0a41 6909     		.2byte	0x969
  5905 0a43 00000000 		.4byte	.LFB55
@@ -10412,7 +10412,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5908 0a4c 9C       		.byte	0x9c
  5909 0a4d 610A0000 		.4byte	0xa61
  5910 0a51 10       		.uleb128 0x10
- 5911 0a52 AF020000 		.4byte	.LASF98
+ 5911 0a52 A8020000 		.4byte	.LASF98
  5912 0a56 02       		.byte	0x2
  5913 0a57 6909     		.2byte	0x969
  5914 0a59 6B000000 		.4byte	0x6b
@@ -10421,7 +10421,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5917 0a5f 77       		.sleb128 -9
  5918 0a60 00       		.byte	0
  5919 0a61 17       		.uleb128 0x17
- 5920 0a62 4A010000 		.4byte	.LASF111
+ 5920 0a62 43010000 		.4byte	.LASF111
  5921 0a66 02       		.byte	0x2
  5922 0a67 7D09     		.2byte	0x97d
  5923 0a69 6B000000 		.4byte	0x6b
@@ -10431,19 +10431,19 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5927 0a76 9C       		.byte	0x9c
  5928 0a77 8B0A0000 		.4byte	0xa8b
  5929 0a7b 10       		.uleb128 0x10
- 5930 0a7c AF020000 		.4byte	.LASF98
+ 5930 0a7c A8020000 		.4byte	.LASF98
  5931 0a80 02       		.byte	0x2
  5932 0a81 7D09     		.2byte	0x97d
  5933 0a83 6B000000 		.4byte	0x6b
  5934 0a87 02       		.uleb128 0x2
  5935 0a88 91       		.byte	0x91
  5936 0a89 77       		.sleb128 -9
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 175
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 175
 
 
  5937 0a8a 00       		.byte	0
  5938 0a8b 18       		.uleb128 0x18
- 5939 0a8c FE010000 		.4byte	.LASF112
+ 5939 0a8c F7010000 		.4byte	.LASF112
  5940 0a90 02       		.byte	0x2
  5941 0a91 9209     		.2byte	0x992
  5942 0a93 00000000 		.4byte	.LFB57
@@ -10452,7 +10452,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5945 0a9c 9C       		.byte	0x9c
  5946 0a9d B10A0000 		.4byte	0xab1
  5947 0aa1 10       		.uleb128 0x10
- 5948 0aa2 AF020000 		.4byte	.LASF98
+ 5948 0aa2 A8020000 		.4byte	.LASF98
  5949 0aa6 02       		.byte	0x2
  5950 0aa7 9209     		.2byte	0x992
  5951 0aa9 6B000000 		.4byte	0x6b
@@ -10461,7 +10461,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5954 0aaf 77       		.sleb128 -9
  5955 0ab0 00       		.byte	0
  5956 0ab1 18       		.uleb128 0x18
- 5957 0ab2 FB030000 		.4byte	.LASF113
+ 5957 0ab2 F4030000 		.4byte	.LASF113
  5958 0ab6 02       		.byte	0x2
  5959 0ab7 A509     		.2byte	0x9a5
  5960 0ab9 00000000 		.4byte	.LFB58
@@ -10470,7 +10470,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5963 0ac2 9C       		.byte	0x9c
  5964 0ac3 D70A0000 		.4byte	0xad7
  5965 0ac7 10       		.uleb128 0x10
- 5966 0ac8 AF020000 		.4byte	.LASF98
+ 5966 0ac8 A8020000 		.4byte	.LASF98
  5967 0acc 02       		.byte	0x2
  5968 0acd A509     		.2byte	0x9a5
  5969 0acf 6B000000 		.4byte	0x6b
@@ -10479,7 +10479,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5972 0ad5 77       		.sleb128 -9
  5973 0ad6 00       		.byte	0
  5974 0ad7 18       		.uleb128 0x18
- 5975 0ad8 1B050000 		.4byte	.LASF114
+ 5975 0ad8 14050000 		.4byte	.LASF114
  5976 0adc 02       		.byte	0x2
  5977 0add B909     		.2byte	0x9b9
  5978 0adf 00000000 		.4byte	.LFB59
@@ -10488,7 +10488,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5981 0ae8 9C       		.byte	0x9c
  5982 0ae9 FD0A0000 		.4byte	0xafd
  5983 0aed 10       		.uleb128 0x10
- 5984 0aee AF020000 		.4byte	.LASF98
+ 5984 0aee A8020000 		.4byte	.LASF98
  5985 0af2 02       		.byte	0x2
  5986 0af3 B909     		.2byte	0x9b9
  5987 0af5 6B000000 		.4byte	0x6b
@@ -10497,8 +10497,8 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5990 0afb 77       		.sleb128 -9
  5991 0afc 00       		.byte	0
  5992 0afd 18       		.uleb128 0x18
- 5993 0afe CB060000 		.4byte	.LASF115
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 176
+ 5993 0afe 96060000 		.4byte	.LASF115
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 176
 
 
  5994 0b02 02       		.byte	0x2
@@ -10509,7 +10509,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  5999 0b0e 9C       		.byte	0x9c
  6000 0b0f 230B0000 		.4byte	0xb23
  6001 0b13 10       		.uleb128 0x10
- 6002 0b14 A5070000 		.4byte	.LASF92
+ 6002 0b14 70070000 		.4byte	.LASF92
  6003 0b18 02       		.byte	0x2
  6004 0b19 CD09     		.2byte	0x9cd
  6005 0b1b 6B000000 		.4byte	0x6b
@@ -10518,7 +10518,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6008 0b21 77       		.sleb128 -9
  6009 0b22 00       		.byte	0
  6010 0b23 13       		.uleb128 0x13
- 6011 0b24 21010000 		.4byte	.LASF116
+ 6011 0b24 1A010000 		.4byte	.LASF116
  6012 0b28 02       		.byte	0x2
  6013 0b29 EC09     		.2byte	0x9ec
  6014 0b2b 00000000 		.4byte	.LFB61
@@ -10526,7 +10526,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6016 0b33 01       		.uleb128 0x1
  6017 0b34 9C       		.byte	0x9c
  6018 0b35 0F       		.uleb128 0xf
- 6019 0b36 5A080000 		.4byte	.LASF117
+ 6019 0b36 7B080000 		.4byte	.LASF117
  6020 0b3a 02       		.byte	0x2
  6021 0b3b 050A     		.2byte	0xa05
  6022 0b3d 00000000 		.4byte	.LFB62
@@ -10535,7 +10535,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6025 0b46 9C       		.byte	0x9c
  6026 0b47 5B0B0000 		.4byte	0xb5b
  6027 0b4b 10       		.uleb128 0x10
- 6028 0b4c 8A060000 		.4byte	.LASF118
+ 6028 0b4c 55060000 		.4byte	.LASF118
  6029 0b50 02       		.byte	0x2
  6030 0b51 050A     		.2byte	0xa05
  6031 0b53 81000000 		.4byte	0x81
@@ -10544,7 +10544,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6034 0b59 74       		.sleb128 -12
  6035 0b5a 00       		.byte	0
  6036 0b5b 0F       		.uleb128 0xf
- 6037 0b5c C0010000 		.4byte	.LASF119
+ 6037 0b5c B9010000 		.4byte	.LASF119
  6038 0b60 02       		.byte	0x2
  6039 0b61 210A     		.2byte	0xa21
  6040 0b63 00000000 		.4byte	.LFB63
@@ -10553,19 +10553,19 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6043 0b6c 9C       		.byte	0x9c
  6044 0b6d 810B0000 		.4byte	0xb81
  6045 0b71 10       		.uleb128 0x10
- 6046 0b72 AD090000 		.4byte	.LASF120
+ 6046 0b72 CE090000 		.4byte	.LASF120
  6047 0b76 02       		.byte	0x2
  6048 0b77 210A     		.2byte	0xa21
  6049 0b79 76000000 		.4byte	0x76
  6050 0b7d 02       		.uleb128 0x2
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 177
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 177
 
 
  6051 0b7e 91       		.byte	0x91
  6052 0b7f 76       		.sleb128 -10
  6053 0b80 00       		.byte	0
  6054 0b81 0F       		.uleb128 0xf
- 6055 0b82 A5010000 		.4byte	.LASF121
+ 6055 0b82 9E010000 		.4byte	.LASF121
  6056 0b86 02       		.byte	0x2
  6057 0b87 340A     		.2byte	0xa34
  6058 0b89 00000000 		.4byte	.LFB64
@@ -10574,7 +10574,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6061 0b92 9C       		.byte	0x9c
  6062 0b93 A70B0000 		.4byte	0xba7
  6063 0b97 10       		.uleb128 0x10
- 6064 0b98 8E010000 		.4byte	.LASF36
+ 6064 0b98 87010000 		.4byte	.LASF36
  6065 0b9c 02       		.byte	0x2
  6066 0b9d 340A     		.2byte	0xa34
  6067 0b9f 81000000 		.4byte	0x81
@@ -10583,7 +10583,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6070 0ba5 74       		.sleb128 -12
  6071 0ba6 00       		.byte	0
  6072 0ba7 15       		.uleb128 0x15
- 6073 0ba8 FC040000 		.4byte	.LASF122
+ 6073 0ba8 F5040000 		.4byte	.LASF122
  6074 0bac 02       		.byte	0x2
  6075 0bad 570A     		.2byte	0xa57
  6076 0baf 00000000 		.4byte	.LFB65
@@ -10591,7 +10591,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6078 0bb7 01       		.uleb128 0x1
  6079 0bb8 9C       		.byte	0x9c
  6080 0bb9 0F       		.uleb128 0xf
- 6081 0bba 25030000 		.4byte	.LASF123
+ 6081 0bba 1E030000 		.4byte	.LASF123
  6082 0bbe 02       		.byte	0x2
  6083 0bbf 790A     		.2byte	0xa79
  6084 0bc1 00000000 		.4byte	.LFB66
@@ -10609,7 +10609,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6096 0bdb 74       		.sleb128 -12
  6097 0bdc 00       		.byte	0
  6098 0bdd 15       		.uleb128 0x15
- 6099 0bde 03080000 		.4byte	.LASF124
+ 6099 0bde CE070000 		.4byte	.LASF124
  6100 0be2 02       		.byte	0x2
  6101 0be3 9F0A     		.2byte	0xa9f
  6102 0be5 00000000 		.4byte	.LFB67
@@ -10617,8 +10617,8 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6104 0bed 01       		.uleb128 0x1
  6105 0bee 9C       		.byte	0x9c
  6106 0bef 13       		.uleb128 0x13
- 6107 0bf0 0A090000 		.4byte	.LASF125
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 178
+ 6107 0bf0 2B090000 		.4byte	.LASF125
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 178
 
 
  6108 0bf4 02       		.byte	0x2
@@ -10628,7 +10628,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6112 0bff 01       		.uleb128 0x1
  6113 0c00 9C       		.byte	0x9c
  6114 0c01 13       		.uleb128 0x13
- 6115 0c02 31010000 		.4byte	.LASF126
+ 6115 0c02 2A010000 		.4byte	.LASF126
  6116 0c06 02       		.byte	0x2
  6117 0c07 CE0A     		.2byte	0xace
  6118 0c09 00000000 		.4byte	.LFB69
@@ -10636,7 +10636,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6120 0c11 01       		.uleb128 0x1
  6121 0c12 9C       		.byte	0x9c
  6122 0c13 13       		.uleb128 0x13
- 6123 0c14 62080000 		.4byte	.LASF127
+ 6123 0c14 83080000 		.4byte	.LASF127
  6124 0c18 02       		.byte	0x2
  6125 0c19 E50A     		.2byte	0xae5
  6126 0c1b 00000000 		.4byte	.LFB70
@@ -10644,7 +10644,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6128 0c23 01       		.uleb128 0x1
  6129 0c24 9C       		.byte	0x9c
  6130 0c25 18       		.uleb128 0x18
- 6131 0c26 BA090000 		.4byte	.LASF128
+ 6131 0c26 DB090000 		.4byte	.LASF128
  6132 0c2a 02       		.byte	0x2
  6133 0c2b FB0A     		.2byte	0xafb
  6134 0c2d 00000000 		.4byte	.LFB71
@@ -10662,7 +10662,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6146 0c49 74       		.sleb128 -12
  6147 0c4a 00       		.byte	0
  6148 0c4b 14       		.uleb128 0x14
- 6149 0c4c CA010000 		.4byte	.LASF129
+ 6149 0c4c C3010000 		.4byte	.LASF129
  6150 0c50 02       		.byte	0x2
  6151 0c51 0F0B     		.2byte	0xb0f
  6152 0c53 81000000 		.4byte	0x81
@@ -10671,19 +10671,19 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6155 0c5f 01       		.uleb128 0x1
  6156 0c60 9C       		.byte	0x9c
  6157 0c61 14       		.uleb128 0x14
- 6158 0c62 89050000 		.4byte	.LASF130
+ 6158 0c62 54050000 		.4byte	.LASF130
  6159 0c66 02       		.byte	0x2
  6160 0c67 230B     		.2byte	0xb23
  6161 0c69 81000000 		.4byte	0x81
  6162 0c6d 00000000 		.4byte	.LFB73
  6163 0c71 1C000000 		.4byte	.LFE73-.LFB73
  6164 0c75 01       		.uleb128 0x1
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 179
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 179
 
 
  6165 0c76 9C       		.byte	0x9c
  6166 0c77 18       		.uleb128 0x18
- 6167 0c78 40040000 		.4byte	.LASF131
+ 6167 0c78 39040000 		.4byte	.LASF131
  6168 0c7c 02       		.byte	0x2
  6169 0c7d 420B     		.2byte	0xb42
  6170 0c7f 00000000 		.4byte	.LFB74
@@ -10701,7 +10701,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6182 0c9b 74       		.sleb128 -12
  6183 0c9c 00       		.byte	0
  6184 0c9d 14       		.uleb128 0x14
- 6185 0c9e 4E030000 		.4byte	.LASF133
+ 6185 0c9e 47030000 		.4byte	.LASF133
  6186 0ca2 02       		.byte	0x2
  6187 0ca3 630B     		.2byte	0xb63
  6188 0ca5 81000000 		.4byte	0x81
@@ -10710,7 +10710,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6191 0cb1 01       		.uleb128 0x1
  6192 0cb2 9C       		.byte	0x9c
  6193 0cb3 13       		.uleb128 0x13
- 6194 0cb4 93030000 		.4byte	.LASF134
+ 6194 0cb4 8C030000 		.4byte	.LASF134
  6195 0cb8 02       		.byte	0x2
  6196 0cb9 770B     		.2byte	0xb77
  6197 0cbb 00000000 		.4byte	.LFB76
@@ -10718,7 +10718,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6199 0cc3 01       		.uleb128 0x1
  6200 0cc4 9C       		.byte	0x9c
  6201 0cc5 17       		.uleb128 0x17
- 6202 0cc6 5C090000 		.4byte	.LASF135
+ 6202 0cc6 7D090000 		.4byte	.LASF135
  6203 0cca 02       		.byte	0x2
  6204 0ccb 8F0B     		.2byte	0xb8f
  6205 0ccd E9000000 		.4byte	0xe9
@@ -10728,7 +10728,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6209 0cda 9C       		.byte	0x9c
  6210 0cdb 0D0D0000 		.4byte	0xd0d
  6211 0cdf 10       		.uleb128 0x10
- 6212 0ce0 AF020000 		.4byte	.LASF98
+ 6212 0ce0 A8020000 		.4byte	.LASF98
  6213 0ce4 02       		.byte	0x2
  6214 0ce5 8F0B     		.2byte	0xb8f
  6215 0ce7 81000000 		.4byte	0x81
@@ -10736,9 +10736,9 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6217 0cec 91       		.byte	0x91
  6218 0ced 6C       		.sleb128 -20
  6219 0cee 10       		.uleb128 0x10
- 6220 0cef 36090000 		.4byte	.LASF136
+ 6220 0cef 57090000 		.4byte	.LASF136
  6221 0cf3 02       		.byte	0x2
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 180
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 180
 
 
  6222 0cf4 8F0B     		.2byte	0xb8f
@@ -10747,7 +10747,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6225 0cfb 91       		.byte	0x91
  6226 0cfc 68       		.sleb128 -24
  6227 0cfd 11       		.uleb128 0x11
- 6228 0cfe 82000000 		.4byte	.LASF137
+ 6228 0cfe 36050000 		.4byte	.LASF137
  6229 0d02 02       		.byte	0x2
  6230 0d03 910B     		.2byte	0xb91
  6231 0d05 E9000000 		.4byte	0xe9
@@ -10756,7 +10756,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6234 0d0b 74       		.sleb128 -12
  6235 0d0c 00       		.byte	0
  6236 0d0d 17       		.uleb128 0x17
- 6237 0d0e 0B020000 		.4byte	.LASF138
+ 6237 0d0e 04020000 		.4byte	.LASF138
  6238 0d12 02       		.byte	0x2
  6239 0d13 A70B     		.2byte	0xba7
  6240 0d15 E9000000 		.4byte	0xe9
@@ -10766,7 +10766,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6244 0d22 9C       		.byte	0x9c
  6245 0d23 370D0000 		.4byte	0xd37
  6246 0d27 10       		.uleb128 0x10
- 6247 0d28 AF020000 		.4byte	.LASF98
+ 6247 0d28 A8020000 		.4byte	.LASF98
  6248 0d2c 02       		.byte	0x2
  6249 0d2d A70B     		.2byte	0xba7
  6250 0d2f 81000000 		.4byte	0x81
@@ -10775,7 +10775,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6253 0d35 74       		.sleb128 -12
  6254 0d36 00       		.byte	0
  6255 0d37 19       		.uleb128 0x19
- 6256 0d38 CD090000 		.4byte	.LASF140
+ 6256 0d38 EE090000 		.4byte	.LASF140
  6257 0d3c 02       		.byte	0x2
  6258 0d3d BB0B     		.2byte	0xbbb
  6259 0d3f 00000000 		.4byte	.LFB79
@@ -10798,12 +10798,12 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6276 0d64 1D       		.uleb128 0x1d
  6277 0d65 E2000000 		.4byte	0xe2
  6278 0d69 04       		.byte	0x4
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 181
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 181
 
 
  6279 0d6a 00       		.byte	0
  6280 0d6b 0C       		.uleb128 0xc
- 6281 0d6c 47080000 		.4byte	.LASF141
+ 6281 0d6c 12080000 		.4byte	.LASF141
  6282 0d70 02       		.byte	0x2
  6283 0d71 32       		.byte	0x32
  6284 0d72 5B0D0000 		.4byte	0xd5b
@@ -10811,7 +10811,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6286 0d77 03       		.byte	0x3
  6287 0d78 0C000000 		.4byte	CySysTickCallbacks
  6288 0d7c 1E       		.uleb128 0x1e
- 6289 0d7d F0000000 		.4byte	.LASF142
+ 6289 0d7d E9000000 		.4byte	.LASF142
  6290 0d81 02       		.byte	0x2
  6291 0d82 34       		.byte	0x34
  6292 0d83 81000000 		.4byte	0x81
@@ -10819,7 +10819,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6294 0d88 03       		.byte	0x3
  6295 0d89 00000000 		.4byte	CySysTickInitVar
  6296 0d8d 1E       		.uleb128 0x1e
- 6297 0d8e 9B050000 		.4byte	.LASF143
+ 6297 0d8e 66050000 		.4byte	.LASF143
  6298 0d92 02       		.byte	0x2
  6299 0d93 17       		.byte	0x17
  6300 0d94 81000000 		.4byte	0x81
@@ -10827,7 +10827,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6302 0d99 03       		.byte	0x3
  6303 0d9a 00000000 		.4byte	cydelayFreqHz
  6304 0d9e 1E       		.uleb128 0x1e
- 6305 0d9f 26020000 		.4byte	.LASF144
+ 6305 0d9f 1F020000 		.4byte	.LASF144
  6306 0da3 02       		.byte	0x2
  6307 0da4 18       		.byte	0x18
  6308 0da5 81000000 		.4byte	0x81
@@ -10835,7 +10835,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6310 0daa 03       		.byte	0x3
  6311 0dab 00000000 		.4byte	cydelayFreqKhz
  6312 0daf 1E       		.uleb128 0x1e
- 6313 0db0 BF080000 		.4byte	.LASF145
+ 6313 0db0 E0080000 		.4byte	.LASF145
  6314 0db4 02       		.byte	0x2
  6315 0db5 19       		.byte	0x19
  6316 0db6 6B000000 		.4byte	0x6b
@@ -10843,7 +10843,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6318 0dbb 03       		.byte	0x3
  6319 0dbc 00000000 		.4byte	cydelayFreqMhz
  6320 0dc0 1E       		.uleb128 0x1e
- 6321 0dc1 7C080000 		.4byte	.LASF146
+ 6321 0dc1 9D080000 		.4byte	.LASF146
  6322 0dc5 02       		.byte	0x2
  6323 0dc6 1A       		.byte	0x1a
  6324 0dc7 81000000 		.4byte	0x81
@@ -10851,18 +10851,18 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6326 0dcc 03       		.byte	0x3
  6327 0dcd 00000000 		.4byte	cydelay32kMs
  6328 0dd1 1E       		.uleb128 0x1e
- 6329 0dd2 BA000000 		.4byte	.LASF147
+ 6329 0dd2 B3000000 		.4byte	.LASF147
  6330 0dd6 02       		.byte	0x2
  6331 0dd7 23       		.byte	0x23
  6332 0dd8 81000000 		.4byte	0x81
  6333 0ddc 05       		.uleb128 0x5
  6334 0ddd 03       		.byte	0x3
  6335 0dde 00000000 		.4byte	lfclkPosedgeWdtCounter0Enabled
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 182
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 182
 
 
  6336 0de2 1E       		.uleb128 0x1e
- 6337 0de3 E0060000 		.4byte	.LASF148
+ 6337 0de3 AB060000 		.4byte	.LASF148
  6338 0de7 02       		.byte	0x2
  6339 0de8 24       		.byte	0x24
  6340 0de9 81000000 		.4byte	0x81
@@ -10870,7 +10870,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6342 0dee 03       		.byte	0x3
  6343 0def 00000000 		.4byte	lfclkPosedgeEnabledWdtCounter
  6344 0df3 1E       		.uleb128 0x1e
- 6345 0df4 C6040000 		.4byte	.LASF149
+ 6345 0df4 BF040000 		.4byte	.LASF149
  6346 0df8 02       		.byte	0x2
  6347 0df9 25       		.byte	0x25
  6348 0dfa 81000000 		.4byte	0x81
@@ -10885,7 +10885,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6357 0e12 2D       		.byte	0x2d
  6358 0e13 00       		.byte	0
  6359 0e14 1E       		.uleb128 0x1e
- 6360 0e15 78050000 		.4byte	.LASF150
+ 6360 0e15 43050000 		.4byte	.LASF150
  6361 0e19 02       		.byte	0x2
  6362 0e1a 39       		.byte	0x39
  6363 0e1b 250E0000 		.4byte	0xe25
@@ -10918,7 +10918,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6390 0012 00       		.byte	0
  6391 0013 02       		.uleb128 0x2
  6392 0014 24       		.uleb128 0x24
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 183
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 183
 
 
  6393 0015 00       		.byte	0
@@ -10978,7 +10978,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6447 004b 0F       		.uleb128 0xf
  6448 004c 00       		.byte	0
  6449 004d 0B       		.uleb128 0xb
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 184
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 184
 
 
  6450 004e 0B       		.uleb128 0xb
@@ -11038,7 +11038,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6504 0086 00       		.byte	0
  6505 0087 00       		.byte	0
  6506 0088 0B       		.uleb128 0xb
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 185
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 185
 
 
  6507 0089 2E       		.uleb128 0x2e
@@ -11098,7 +11098,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6561 00c0 12       		.uleb128 0x12
  6562 00c1 06       		.uleb128 0x6
  6563 00c2 40       		.uleb128 0x40
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 186
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 186
 
 
  6564 00c3 18       		.uleb128 0x18
@@ -11158,7 +11158,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6618 00fc 00       		.byte	0
  6619 00fd 10       		.uleb128 0x10
  6620 00fe 05       		.uleb128 0x5
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 187
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 187
 
 
  6621 00ff 00       		.byte	0
@@ -11218,7 +11218,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6675 0136 00       		.byte	0
  6676 0137 13       		.uleb128 0x13
  6677 0138 2E       		.uleb128 0x2e
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 188
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 188
 
 
  6678 0139 00       		.byte	0
@@ -11278,7 +11278,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6732 0171 0B       		.uleb128 0xb
  6733 0172 3B       		.uleb128 0x3b
  6734 0173 05       		.uleb128 0x5
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 189
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 189
 
 
  6735 0174 27       		.uleb128 0x27
@@ -11338,7 +11338,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6789 01ac 40       		.uleb128 0x40
  6790 01ad 18       		.uleb128 0x18
  6791 01ae 9742     		.uleb128 0x2117
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 190
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 190
 
 
  6792 01b0 19       		.uleb128 0x19
@@ -11398,7 +11398,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6846 01e8 2E       		.uleb128 0x2e
  6847 01e9 00       		.byte	0
  6848 01ea 03       		.uleb128 0x3
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 191
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 191
 
 
  6849 01eb 0E       		.uleb128 0xe
@@ -11458,7 +11458,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6903 0222 0E       		.uleb128 0xe
  6904 0223 3A       		.uleb128 0x3a
  6905 0224 0B       		.uleb128 0xb
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 192
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 192
 
 
  6906 0225 3B       		.uleb128 0x3b
@@ -11518,7 +11518,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  6960 0080 00000000 		.4byte	.LFB14
  6961 0084 18000000 		.4byte	.LFE14-.LFB14
  6962 0088 00000000 		.4byte	.LFB15
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 193
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 193
 
 
  6963 008c 40000000 		.4byte	.LFE15-.LFB15
@@ -11578,7 +11578,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  7017 0164 48000000 		.4byte	.LFE42-.LFB42
  7018 0168 00000000 		.4byte	.LFB43
  7019 016c 28000000 		.4byte	.LFE43-.LFB43
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 194
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 194
 
 
  7020 0170 00000000 		.4byte	.LFB44
@@ -11638,7 +11638,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  7074 0248 00000000 		.4byte	.LFB71
  7075 024c 1C000000 		.4byte	.LFE71-.LFB71
  7076 0250 00000000 		.4byte	.LFB72
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 195
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 195
 
 
  7077 0254 18000000 		.4byte	.LFE72-.LFB72
@@ -11698,7 +11698,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  7131 008c 60000000 		.4byte	.LFE17
  7132 0090 00000000 		.4byte	.LFB18
  7133 0094 1C000000 		.4byte	.LFE18
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 196
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 196
 
 
  7134 0098 00000000 		.4byte	.LFB19
@@ -11758,7 +11758,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  7188 0170 00000000 		.4byte	.LFB46
  7189 0174 30000000 		.4byte	.LFE46
  7190 0178 00000000 		.4byte	.LFB47
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 197
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 197
 
 
  7191 017c 24000000 		.4byte	.LFE47
@@ -11818,7 +11818,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  7245 0254 34000000 		.4byte	.LFE74
  7246 0258 00000000 		.4byte	.LFB75
  7247 025c 18000000 		.4byte	.LFE75
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 198
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 198
 
 
  7248 0260 00000000 		.4byte	.LFB76
@@ -11878,7 +11878,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  7278      636B00
  7279              	.LASF100:
  7280 0070 6F6C6449 		.ascii	"oldIsr\000"
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 199
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 199
 
 
  7280      737200
@@ -11886,772 +11886,778 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 1
  7282 0077 636F756E 		.ascii	"counterNum\000"
  7282      7465724E 
  7282      756D00
- 7283              	.LASF137:
- 7284 0082 72657456 		.ascii	"retVal\000"
- 7284      616C00
- 7285              	.LASF139:
- 7286 0089 43795379 		.ascii	"CySysClkLfclkPosedgeCatch\000"
+ 7283              	.LASF139:
+ 7284 0082 43795379 		.ascii	"CySysClkLfclkPosedgeCatch\000"
+ 7284      73436C6B 
+ 7284      4C66636C 
+ 7284      6B506F73 
+ 7284      65646765 
+ 7285              	.LASF154:
+ 7286 009c 43795379 		.ascii	"CySysClkGetLfclkSource\000"
  7286      73436C6B 
- 7286      4C66636C 
- 7286      6B506F73 
- 7286      65646765 
- 7287              	.LASF154:
- 7288 00a3 43795379 		.ascii	"CySysClkGetLfclkSource\000"
- 7288      73436C6B 
- 7288      4765744C 
- 7288      66636C6B 
- 7288      536F7572 
- 7289              	.LASF147:
- 7290 00ba 6C66636C 		.ascii	"lfclkPosedgeWdtCounter0Enabled\000"
- 7290      6B506F73 
- 7290      65646765 
- 7290      57647443 
- 7290      6F756E74 
- 7291              	.LASF7:
- 7292 00d9 6C6F6E67 		.ascii	"long long unsigned int\000"
- 7292      206C6F6E 
- 7292      6720756E 
- 7292      7369676E 
- 7292      65642069 
- 7293              	.LASF142:
- 7294 00f0 43795379 		.ascii	"CySysTickInitVar\000"
- 7294      73546963 
- 7294      6B496E69 
- 7294      74566172 
+ 7286      4765744C 
+ 7286      66636C6B 
+ 7286      536F7572 
+ 7287              	.LASF147:
+ 7288 00b3 6C66636C 		.ascii	"lfclkPosedgeWdtCounter0Enabled\000"
+ 7288      6B506F73 
+ 7288      65646765 
+ 7288      57647443 
+ 7288      6F756E74 
+ 7289              	.LASF7:
+ 7290 00d2 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 7290      206C6F6E 
+ 7290      6720756E 
+ 7290      7369676E 
+ 7290      65642069 
+ 7291              	.LASF142:
+ 7292 00e9 43795379 		.ascii	"CySysTickInitVar\000"
+ 7292      73546963 
+ 7292      6B496E69 
+ 7292      74566172 
+ 7292      00
+ 7293              	.LASF95:
+ 7294 00fa 4379456E 		.ascii	"CyEnableInts\000"
+ 7294      61626C65 
+ 7294      496E7473 
  7294      00
- 7295              	.LASF95:
- 7296 0101 4379456E 		.ascii	"CyEnableInts\000"
- 7296      61626C65 
- 7296      496E7473 
- 7296      00
- 7297              	.LASF48:
- 7298 010e 43795379 		.ascii	"CySysClkWcoEnabled\000"
- 7298      73436C6B 
- 7298      57636F45 
- 7298      6E61626C 
- 7298      656400
- 7299              	.LASF116:
- 7300 0121 4379536F 		.ascii	"CySoftwareReset\000"
- 7300      66747761 
- 7300      72655265 
- 7300      73657400 
- 7301              	.LASF126:
- 7302 0131 43795379 		.ascii	"CySysTickEnableInterrupt\000"
- 7302      73546963 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 200
+ 7295              	.LASF48:
+ 7296 0107 43795379 		.ascii	"CySysClkWcoEnabled\000"
+ 7296      73436C6B 
+ 7296      57636F45 
+ 7296      6E61626C 
+ 7296      656400
+ 7297              	.LASF116:
+ 7298 011a 4379536F 		.ascii	"CySoftwareReset\000"
+ 7298      66747761 
+ 7298      72655265 
+ 7298      73657400 
+ 7299              	.LASF126:
+ 7300 012a 43795379 		.ascii	"CySysTickEnableInterrupt\000"
+ 7300      73546963 
+ 7300      6B456E61 
+ 7300      626C6549 
+ 7300      6E746572 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 200
 
 
- 7302      6B456E61 
- 7302      626C6549 
- 7302      6E746572 
- 7303              	.LASF111:
- 7304 014a 4379496E 		.ascii	"CyIntGetState\000"
- 7304      74476574 
- 7304      53746174 
- 7304      6500
- 7305              	.LASF21:
- 7306 0158 43795379 		.ascii	"CySysClkWcoSetHighPowerMode\000"
- 7306      73436C6B 
- 7306      57636F53 
- 7306      65744869 
- 7306      6768506F 
- 7307              	.LASF6:
- 7308 0174 6C6F6E67 		.ascii	"long long int\000"
- 7308      206C6F6E 
- 7308      6720696E 
- 7308      7400
- 7309              	.LASF0:
- 7310 0182 7369676E 		.ascii	"signed char\000"
- 7310      65642063 
- 7310      68617200 
- 7311              	.LASF36:
- 7312 018e 66726571 		.ascii	"freq\000"
- 7312      00
- 7313              	.LASF78:
- 7314 0193 43795379 		.ascii	"CySysWdtReadCount\000"
- 7314      73576474 
- 7314      52656164 
- 7314      436F756E 
- 7314      7400
- 7315              	.LASF121:
- 7316 01a5 43794465 		.ascii	"CyDelayFreq\000"
- 7316      6C617946 
- 7316      72657100 
- 7317              	.LASF26:
- 7318 01b1 696E7465 		.ascii	"interruptState\000"
- 7318      72727570 
- 7318      74537461 
- 7318      746500
- 7319              	.LASF119:
- 7320 01c0 43794465 		.ascii	"CyDelayUs\000"
- 7320      6C617955 
- 7320      7300
- 7321              	.LASF129:
- 7322 01ca 43795379 		.ascii	"CySysTickGetReload\000"
- 7322      73546963 
- 7322      6B476574 
- 7322      52656C6F 
- 7322      616400
- 7323              	.LASF71:
- 7324 01dd 43795379 		.ascii	"CySysWdtWriteMatch\000"
- 7324      73576474 
- 7324      57726974 
- 7324      654D6174 
- 7324      636800
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 201
+ 7301              	.LASF111:
+ 7302 0143 4379496E 		.ascii	"CyIntGetState\000"
+ 7302      74476574 
+ 7302      53746174 
+ 7302      6500
+ 7303              	.LASF21:
+ 7304 0151 43795379 		.ascii	"CySysClkWcoSetHighPowerMode\000"
+ 7304      73436C6B 
+ 7304      57636F53 
+ 7304      65744869 
+ 7304      6768506F 
+ 7305              	.LASF6:
+ 7306 016d 6C6F6E67 		.ascii	"long long int\000"
+ 7306      206C6F6E 
+ 7306      6720696E 
+ 7306      7400
+ 7307              	.LASF0:
+ 7308 017b 7369676E 		.ascii	"signed char\000"
+ 7308      65642063 
+ 7308      68617200 
+ 7309              	.LASF36:
+ 7310 0187 66726571 		.ascii	"freq\000"
+ 7310      00
+ 7311              	.LASF78:
+ 7312 018c 43795379 		.ascii	"CySysWdtReadCount\000"
+ 7312      73576474 
+ 7312      52656164 
+ 7312      436F756E 
+ 7312      7400
+ 7313              	.LASF121:
+ 7314 019e 43794465 		.ascii	"CyDelayFreq\000"
+ 7314      6C617946 
+ 7314      72657100 
+ 7315              	.LASF26:
+ 7316 01aa 696E7465 		.ascii	"interruptState\000"
+ 7316      72727570 
+ 7316      74537461 
+ 7316      746500
+ 7317              	.LASF119:
+ 7318 01b9 43794465 		.ascii	"CyDelayUs\000"
+ 7318      6C617955 
+ 7318      7300
+ 7319              	.LASF129:
+ 7320 01c3 43795379 		.ascii	"CySysTickGetReload\000"
+ 7320      73546963 
+ 7320      6B476574 
+ 7320      52656C6F 
+ 7320      616400
+ 7321              	.LASF71:
+ 7322 01d6 43795379 		.ascii	"CySysWdtWriteMatch\000"
+ 7322      73576474 
+ 7322      57726974 
+ 7322      654D6174 
+ 7322      636800
+ 7323              	.LASF75:
+ 7324 01e9 62697473 		.ascii	"bits\000"
+ 7324      00
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 201
 
 
- 7325              	.LASF75:
- 7326 01f0 62697473 		.ascii	"bits\000"
+ 7325              	.LASF4:
+ 7326 01ee 6C6F6E67 		.ascii	"long int\000"
+ 7326      20696E74 
  7326      00
- 7327              	.LASF4:
- 7328 01f5 6C6F6E67 		.ascii	"long int\000"
- 7328      20696E74 
+ 7327              	.LASF112:
+ 7328 01f7 4379496E 		.ascii	"CyIntDisable\000"
+ 7328      74446973 
+ 7328      61626C65 
  7328      00
- 7329              	.LASF112:
- 7330 01fe 4379496E 		.ascii	"CyIntDisable\000"
- 7330      74446973 
- 7330      61626C65 
- 7330      00
- 7331              	.LASF138:
- 7332 020b 43795379 		.ascii	"CySysTickGetCallback\000"
- 7332      73546963 
- 7332      6B476574 
- 7332      43616C6C 
- 7332      6261636B 
- 7333              	.LASF9:
- 7334 0220 75696E74 		.ascii	"uint8\000"
- 7334      3800
- 7335              	.LASF144:
- 7336 0226 63796465 		.ascii	"cydelayFreqKhz\000"
- 7336      6C617946 
- 7336      7265714B 
- 7336      687A00
- 7337              	.LASF61:
- 7338 0235 656E6162 		.ascii	"enable\000"
+ 7329              	.LASF138:
+ 7330 0204 43795379 		.ascii	"CySysTickGetCallback\000"
+ 7330      73546963 
+ 7330      6B476574 
+ 7330      43616C6C 
+ 7330      6261636B 
+ 7331              	.LASF9:
+ 7332 0219 75696E74 		.ascii	"uint8\000"
+ 7332      3800
+ 7333              	.LASF144:
+ 7334 021f 63796465 		.ascii	"cydelayFreqKhz\000"
+ 7334      6C617946 
+ 7334      7265714B 
+ 7334      687A00
+ 7335              	.LASF61:
+ 7336 022e 656E6162 		.ascii	"enable\000"
+ 7336      6C6500
+ 7337              	.LASF13:
+ 7338 0235 646F7562 		.ascii	"double\000"
  7338      6C6500
- 7339              	.LASF13:
- 7340 023c 646F7562 		.ascii	"double\000"
- 7340      6C6500
- 7341              	.LASF28:
- 7342 0243 43795379 		.ascii	"CySysClkIloStop\000"
- 7342      73436C6B 
- 7342      496C6F53 
- 7342      746F7000 
- 7343              	.LASF66:
- 7344 0253 43795379 		.ascii	"CySysWdtWriteCascade\000"
- 7344      73576474 
- 7344      57726974 
- 7344      65436173 
- 7344      63616465 
- 7345              	.LASF107:
- 7346 0268 73686966 		.ascii	"shift\000"
- 7346      7400
- 7347              	.LASF83:
- 7348 026e 636F756E 		.ascii	"countersMask\000"
- 7348      74657273 
- 7348      4D61736B 
- 7348      00
- 7349              	.LASF90:
- 7350 027b 43795379 		.ascii	"CySysLvdClearInterrupt\000"
- 7350      734C7664 
- 7350      436C6561 
- 7350      72496E74 
- 7350      65727275 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 202
+ 7339              	.LASF28:
+ 7340 023c 43795379 		.ascii	"CySysClkIloStop\000"
+ 7340      73436C6B 
+ 7340      496C6F53 
+ 7340      746F7000 
+ 7341              	.LASF66:
+ 7342 024c 43795379 		.ascii	"CySysWdtWriteCascade\000"
+ 7342      73576474 
+ 7342      57726974 
+ 7342      65436173 
+ 7342      63616465 
+ 7343              	.LASF107:
+ 7344 0261 73686966 		.ascii	"shift\000"
+ 7344      7400
+ 7345              	.LASF83:
+ 7346 0267 636F756E 		.ascii	"countersMask\000"
+ 7346      74657273 
+ 7346      4D61736B 
+ 7346      00
+ 7347              	.LASF90:
+ 7348 0274 43795379 		.ascii	"CySysLvdClearInterrupt\000"
+ 7348      734C7664 
+ 7348      436C6561 
+ 7348      72496E74 
+ 7348      65727275 
+ 7349              	.LASF11:
+ 7350 028b 75696E74 		.ascii	"uint32\000"
+ 7350      333200
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 202
 
 
- 7351              	.LASF11:
- 7352 0292 75696E74 		.ascii	"uint32\000"
- 7352      333200
- 7353              	.LASF69:
- 7354 0299 43795379 		.ascii	"CySysClkEcoReadStatus\000"
- 7354      73436C6B 
- 7354      45636F52 
- 7354      65616453 
- 7354      74617475 
- 7355              	.LASF98:
- 7356 02af 6E756D62 		.ascii	"number\000"
- 7356      657200
- 7357              	.LASF22:
- 7358 02b6 43795379 		.ascii	"CySysClkWcoSetLowPowerMode\000"
- 7358      73436C6B 
- 7358      57636F53 
- 7358      65744C6F 
- 7358      77506F77 
- 7359              	.LASF96:
- 7360 02d1 6D61736B 		.ascii	"mask\000"
+ 7351              	.LASF69:
+ 7352 0292 43795379 		.ascii	"CySysClkEcoReadStatus\000"
+ 7352      73436C6B 
+ 7352      45636F52 
+ 7352      65616453 
+ 7352      74617475 
+ 7353              	.LASF98:
+ 7354 02a8 6E756D62 		.ascii	"number\000"
+ 7354      657200
+ 7355              	.LASF22:
+ 7356 02af 43795379 		.ascii	"CySysClkWcoSetLowPowerMode\000"
+ 7356      73436C6B 
+ 7356      57636F53 
+ 7356      65744C6F 
+ 7356      77506F77 
+ 7357              	.LASF96:
+ 7358 02ca 6D61736B 		.ascii	"mask\000"
+ 7358      00
+ 7359              	.LASF73:
+ 7360 02cf 72656756 		.ascii	"regValue\000"
+ 7360      616C7565 
  7360      00
- 7361              	.LASF73:
- 7362 02d6 72656756 		.ascii	"regValue\000"
- 7362      616C7565 
+ 7361              	.LASF59:
+ 7362 02d8 43795379 		.ascii	"CySysWdtReadMode\000"
+ 7362      73576474 
+ 7362      52656164 
+ 7362      4D6F6465 
  7362      00
- 7363              	.LASF59:
- 7364 02df 43795379 		.ascii	"CySysWdtReadMode\000"
- 7364      73576474 
- 7364      52656164 
- 7364      4D6F6465 
- 7364      00
- 7365              	.LASF86:
- 7366 02f0 43795379 		.ascii	"CySysLvdEnable\000"
- 7366      734C7664 
- 7366      456E6162 
- 7366      6C6500
- 7367              	.LASF109:
- 7368 02ff 4379496E 		.ascii	"CyIntGetPriority\000"
- 7368      74476574 
- 7368      5072696F 
- 7368      72697479 
- 7368      00
- 7369              	.LASF68:
- 7370 0310 636F756E 		.ascii	"countersEnableStatus\000"
- 7370      74657273 
- 7370      456E6162 
- 7370      6C655374 
- 7370      61747573 
- 7371              	.LASF123:
- 7372 0325 43795379 		.ascii	"CySysTickInit\000"
- 7372      73546963 
- 7372      6B496E69 
- 7372      7400
- 7373              	.LASF63:
- 7374 0333 43795379 		.ascii	"CySysWdtEnable\000"
- 7374      73576474 
- 7374      456E6162 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 203
+ 7363              	.LASF86:
+ 7364 02e9 43795379 		.ascii	"CySysLvdEnable\000"
+ 7364      734C7664 
+ 7364      456E6162 
+ 7364      6C6500
+ 7365              	.LASF109:
+ 7366 02f8 4379496E 		.ascii	"CyIntGetPriority\000"
+ 7366      74476574 
+ 7366      5072696F 
+ 7366      72697479 
+ 7366      00
+ 7367              	.LASF68:
+ 7368 0309 636F756E 		.ascii	"countersEnableStatus\000"
+ 7368      74657273 
+ 7368      456E6162 
+ 7368      6C655374 
+ 7368      61747573 
+ 7369              	.LASF123:
+ 7370 031e 43795379 		.ascii	"CySysTickInit\000"
+ 7370      73546963 
+ 7370      6B496E69 
+ 7370      7400
+ 7371              	.LASF63:
+ 7372 032c 43795379 		.ascii	"CySysWdtEnable\000"
+ 7372      73576474 
+ 7372      456E6162 
+ 7372      6C6500
+ 7373              	.LASF64:
+ 7374 033b 636F756E 		.ascii	"counterMask\000"
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 203
 
 
- 7374      6C6500
- 7375              	.LASF64:
- 7376 0342 636F756E 		.ascii	"counterMask\000"
- 7376      7465724D 
- 7376      61736B00 
- 7377              	.LASF133:
- 7378 034e 43795379 		.ascii	"CySysTickGetCountFlag\000"
- 7378      73546963 
- 7378      6B476574 
- 7378      436F756E 
- 7378      74466C61 
- 7379              	.LASF8:
- 7380 0364 756E7369 		.ascii	"unsigned int\000"
- 7380      676E6564 
- 7380      20696E74 
- 7380      00
- 7381              	.LASF29:
- 7382 0371 43795379 		.ascii	"CySysClkSetLfclkSource\000"
- 7382      73436C6B 
- 7382      5365744C 
- 7382      66636C6B 
- 7382      536F7572 
- 7383              	.LASF84:
- 7384 0388 66697273 		.ascii	"firstCount\000"
- 7384      74436F75 
- 7384      6E7400
- 7385              	.LASF134:
- 7386 0393 43795379 		.ascii	"CySysTickClear\000"
- 7386      73546963 
- 7386      6B436C65 
- 7386      617200
- 7387              	.LASF5:
- 7388 03a2 6C6F6E67 		.ascii	"long unsigned int\000"
- 7388      20756E73 
- 7388      69676E65 
- 7388      6420696E 
- 7388      7400
- 7389              	.LASF89:
- 7390 03b4 43795379 		.ascii	"CySysLvdGetInterruptSource\000"
- 7390      734C7664 
- 7390      47657449 
- 7390      6E746572 
- 7390      72757074 
- 7391              	.LASF24:
- 7392 03cf 43795379 		.ascii	"CySysClkImoStop\000"
+ 7374      7465724D 
+ 7374      61736B00 
+ 7375              	.LASF133:
+ 7376 0347 43795379 		.ascii	"CySysTickGetCountFlag\000"
+ 7376      73546963 
+ 7376      6B476574 
+ 7376      436F756E 
+ 7376      74466C61 
+ 7377              	.LASF8:
+ 7378 035d 756E7369 		.ascii	"unsigned int\000"
+ 7378      676E6564 
+ 7378      20696E74 
+ 7378      00
+ 7379              	.LASF29:
+ 7380 036a 43795379 		.ascii	"CySysClkSetLfclkSource\000"
+ 7380      73436C6B 
+ 7380      5365744C 
+ 7380      66636C6B 
+ 7380      536F7572 
+ 7381              	.LASF84:
+ 7382 0381 66697273 		.ascii	"firstCount\000"
+ 7382      74436F75 
+ 7382      6E7400
+ 7383              	.LASF134:
+ 7384 038c 43795379 		.ascii	"CySysTickClear\000"
+ 7384      73546963 
+ 7384      6B436C65 
+ 7384      617200
+ 7385              	.LASF5:
+ 7386 039b 6C6F6E67 		.ascii	"long unsigned int\000"
+ 7386      20756E73 
+ 7386      69676E65 
+ 7386      6420696E 
+ 7386      7400
+ 7387              	.LASF89:
+ 7388 03ad 43795379 		.ascii	"CySysLvdGetInterruptSource\000"
+ 7388      734C7664 
+ 7388      47657449 
+ 7388      6E746572 
+ 7388      72757074 
+ 7389              	.LASF24:
+ 7390 03c8 43795379 		.ascii	"CySysClkImoStop\000"
+ 7390      73436C6B 
+ 7390      496D6F53 
+ 7390      746F7000 
+ 7391              	.LASF85:
+ 7392 03d8 43795379 		.ascii	"CySysClkLfclkPosedgeRestore\000"
  7392      73436C6B 
- 7392      496D6F53 
- 7392      746F7000 
- 7393              	.LASF85:
- 7394 03df 43795379 		.ascii	"CySysClkLfclkPosedgeRestore\000"
- 7394      73436C6B 
- 7394      4C66636C 
- 7394      6B506F73 
- 7394      65646765 
- 7395              	.LASF113:
- 7396 03fb 4379496E 		.ascii	"CyIntSetPending\000"
- 7396      74536574 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 204
+ 7392      4C66636C 
+ 7392      6B506F73 
+ 7392      65646765 
+ 7393              	.LASF113:
+ 7394 03f4 4379496E 		.ascii	"CyIntSetPending\000"
+ 7394      74536574 
+ 7394      50656E64 
+ 7394      696E6700 
+ 7395              	.LASF93:
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 204
 
 
- 7396      50656E64 
- 7396      696E6700 
- 7397              	.LASF93:
- 7398 040b 43794469 		.ascii	"CyDisableInts\000"
- 7398      7361626C 
- 7398      65496E74 
- 7398      7300
- 7399              	.LASF91:
- 7400 0419 43795379 		.ascii	"CySysGetResetReason\000"
- 7400      73476574 
- 7400      52657365 
- 7400      74526561 
- 7400      736F6E00 
- 7401              	.LASF3:
- 7402 042d 73686F72 		.ascii	"short unsigned int\000"
- 7402      7420756E 
- 7402      7369676E 
- 7402      65642069 
- 7402      6E7400
- 7403              	.LASF131:
- 7404 0440 43795379 		.ascii	"CySysTickSetClockSource\000"
- 7404      73546963 
- 7404      6B536574 
- 7404      436C6F63 
- 7404      6B536F75 
- 7405              	.LASF103:
- 7406 0458 4379496E 		.ascii	"CyIntSetVector\000"
- 7406      74536574 
- 7406      56656374 
- 7406      6F7200
- 7407              	.LASF152:
- 7408 0467 2E5C4765 		.ascii	".\\Generated_Source\\PSoC4\\CyLib.c\000"
- 7408      6E657261 
- 7408      7465645F 
- 7408      536F7572 
- 7408      63655C50 
- 7409              	.LASF25:
- 7410 0488 43795379 		.ascii	"CySysClkIloStart\000"
+ 7396 0404 43794469 		.ascii	"CyDisableInts\000"
+ 7396      7361626C 
+ 7396      65496E74 
+ 7396      7300
+ 7397              	.LASF91:
+ 7398 0412 43795379 		.ascii	"CySysGetResetReason\000"
+ 7398      73476574 
+ 7398      52657365 
+ 7398      74526561 
+ 7398      736F6E00 
+ 7399              	.LASF3:
+ 7400 0426 73686F72 		.ascii	"short unsigned int\000"
+ 7400      7420756E 
+ 7400      7369676E 
+ 7400      65642069 
+ 7400      6E7400
+ 7401              	.LASF131:
+ 7402 0439 43795379 		.ascii	"CySysTickSetClockSource\000"
+ 7402      73546963 
+ 7402      6B536574 
+ 7402      436C6F63 
+ 7402      6B536F75 
+ 7403              	.LASF103:
+ 7404 0451 4379496E 		.ascii	"CyIntSetVector\000"
+ 7404      74536574 
+ 7404      56656374 
+ 7404      6F7200
+ 7405              	.LASF152:
+ 7406 0460 2E5C4765 		.ascii	".\\Generated_Source\\PSoC4\\CyLib.c\000"
+ 7406      6E657261 
+ 7406      7465645F 
+ 7406      536F7572 
+ 7406      63655C50 
+ 7407              	.LASF25:
+ 7408 0481 43795379 		.ascii	"CySysClkIloStart\000"
+ 7408      73436C6B 
+ 7408      496C6F53 
+ 7408      74617274 
+ 7408      00
+ 7409              	.LASF35:
+ 7410 0492 43795379 		.ascii	"CySysClkWriteImoFreq\000"
  7410      73436C6B 
- 7410      496C6F53 
- 7410      74617274 
- 7410      00
- 7411              	.LASF35:
- 7412 0499 43795379 		.ascii	"CySysClkWriteImoFreq\000"
- 7412      73436C6B 
- 7412      57726974 
- 7412      65496D6F 
- 7412      46726571 
- 7413              	.LASF97:
- 7414 04ae 4379496E 		.ascii	"CyIntSetSysVector\000"
- 7414      74536574 
- 7414      53797356 
- 7414      6563746F 
- 7414      7200
- 7415              	.LASF17:
- 7416 04c0 72656733 		.ascii	"reg32\000"
- 7416      3200
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 205
+ 7410      57726974 
+ 7410      65496D6F 
+ 7410      46726571 
+ 7411              	.LASF97:
+ 7412 04a7 4379496E 		.ascii	"CyIntSetSysVector\000"
+ 7412      74536574 
+ 7412      53797356 
+ 7412      6563746F 
+ 7412      7200
+ 7413              	.LASF17:
+ 7414 04b9 72656733 		.ascii	"reg32\000"
+ 7414      3200
+ 7415              	.LASF149:
+ 7416 04bf 6C66636C 		.ascii	"lfclkPosedgeWdtCounter0Mode\000"
+ 7416      6B506F73 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 205
 
 
- 7417              	.LASF149:
- 7418 04c6 6C66636C 		.ascii	"lfclkPosedgeWdtCounter0Mode\000"
- 7418      6B506F73 
- 7418      65646765 
- 7418      57647443 
- 7418      6F756E74 
- 7419              	.LASF60:
- 7420 04e2 43795379 		.ascii	"CySysWdtWriteClearOnMatch\000"
- 7420      73576474 
- 7420      57726974 
- 7420      65436C65 
- 7420      61724F6E 
- 7421              	.LASF122:
- 7422 04fc 43795379 		.ascii	"CySysTickStart\000"
- 7422      73546963 
- 7422      6B537461 
- 7422      727400
- 7423              	.LASF31:
- 7424 050b 736F7572 		.ascii	"source\000"
- 7424      636500
- 7425              	.LASF19:
- 7426 0512 73697A65 		.ascii	"sizetype\000"
- 7426      74797065 
- 7426      00
- 7427              	.LASF114:
- 7428 051b 4379496E 		.ascii	"CyIntClearPending\000"
- 7428      74436C65 
- 7428      61725065 
- 7428      6E64696E 
- 7428      6700
- 7429              	.LASF99:
- 7430 052d 61646472 		.ascii	"address\000"
- 7430      65737300 
- 7431              	.LASF38:
- 7432 0535 62675472 		.ascii	"bgTrim5\000"
- 7432      696D3500 
- 7433              	.LASF153:
- 7434 053d 453A5C44 		.ascii	"E:\\Documents\\UROPs\\Biomech UROP\\Code\\Batt\\Bat"
- 7434      6F63756D 
- 7434      656E7473 
- 7434      5C55524F 
- 7434      50735C42 
- 7435 056a 742E6379 		.ascii	"t.cydsn\000"
- 7435      64736E00 
- 7436              	.LASF72:
- 7437 0572 6D617463 		.ascii	"match\000"
- 7437      6800
- 7438              	.LASF150:
- 7439 0578 6379496D 		.ascii	"cyImoFreqMhz2Reg\000"
- 7439      6F467265 
- 7439      714D687A 
- 7439      32526567 
- 7439      00
- 7440              	.LASF130:
- 7441 0589 43795379 		.ascii	"CySysTickGetValue\000"
- 7441      73546963 
- 7441      6B476574 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 206
+ 7416      65646765 
+ 7416      57647443 
+ 7416      6F756E74 
+ 7417              	.LASF60:
+ 7418 04db 43795379 		.ascii	"CySysWdtWriteClearOnMatch\000"
+ 7418      73576474 
+ 7418      57726974 
+ 7418      65436C65 
+ 7418      61724F6E 
+ 7419              	.LASF122:
+ 7420 04f5 43795379 		.ascii	"CySysTickStart\000"
+ 7420      73546963 
+ 7420      6B537461 
+ 7420      727400
+ 7421              	.LASF31:
+ 7422 0504 736F7572 		.ascii	"source\000"
+ 7422      636500
+ 7423              	.LASF19:
+ 7424 050b 73697A65 		.ascii	"sizetype\000"
+ 7424      74797065 
+ 7424      00
+ 7425              	.LASF114:
+ 7426 0514 4379496E 		.ascii	"CyIntClearPending\000"
+ 7426      74436C65 
+ 7426      61725065 
+ 7426      6E64696E 
+ 7426      6700
+ 7427              	.LASF99:
+ 7428 0526 61646472 		.ascii	"address\000"
+ 7428      65737300 
+ 7429              	.LASF38:
+ 7430 052e 62675472 		.ascii	"bgTrim5\000"
+ 7430      696D3500 
+ 7431              	.LASF137:
+ 7432 0536 72657456 		.ascii	"retVal\000"
+ 7432      616C00
+ 7433              	.LASF72:
+ 7434 053d 6D617463 		.ascii	"match\000"
+ 7434      6800
+ 7435              	.LASF150:
+ 7436 0543 6379496D 		.ascii	"cyImoFreqMhz2Reg\000"
+ 7436      6F467265 
+ 7436      714D687A 
+ 7436      32526567 
+ 7436      00
+ 7437              	.LASF130:
+ 7438 0554 43795379 		.ascii	"CySysTickGetValue\000"
+ 7438      73546963 
+ 7438      6B476574 
+ 7438      56616C75 
+ 7438      6500
+ 7439              	.LASF143:
+ 7440 0566 63796465 		.ascii	"cydelayFreqHz\000"
+ 7440      6C617946 
+ 7440      72657148 
+ 7440      7A00
+ 7441              	.LASF82:
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 206
 
 
- 7441      56616C75 
- 7441      6500
- 7442              	.LASF143:
- 7443 059b 63796465 		.ascii	"cydelayFreqHz\000"
- 7443      6C617946 
- 7443      72657148 
- 7443      7A00
- 7444              	.LASF82:
- 7445 05a9 43795379 		.ascii	"CySysWdtResetCounters\000"
- 7445      73576474 
- 7445      52657365 
- 7445      74436F75 
- 7445      6E746572 
- 7446              	.LASF105:
- 7447 05bf 4379496E 		.ascii	"CyIntSetPriority\000"
- 7447      74536574 
- 7447      5072696F 
- 7447      72697479 
- 7447      00
- 7448              	.LASF80:
- 7449 05d0 43795379 		.ascii	"CySysWdtClearInterrupt\000"
- 7449      73576474 
- 7449      436C6561 
- 7449      72496E74 
- 7449      65727275 
- 7450              	.LASF12:
- 7451 05e7 666C6F61 		.ascii	"float\000"
- 7451      7400
- 7452              	.LASF151:
- 7453 05ed 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
- 7453      4320342E 
- 7453      382E3420 
- 7453      32303134 
- 7453      30353236 
- 7454 0620 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
- 7454      20726576 
- 7454      6973696F 
- 7454      6E203231 
- 7454      31333538 
- 7455 0653 30202D66 		.ascii	"0 -ffunction-sections\000"
- 7455      66756E63 
- 7455      74696F6E 
- 7455      2D736563 
- 7455      74696F6E 
- 7456              	.LASF20:
- 7457 0669 63795379 		.ascii	"cySysTickCallback\000"
- 7457      73546963 
- 7457      6B43616C 
- 7457      6C626163 
- 7457      6B00
- 7458              	.LASF104:
- 7459 067b 4379496E 		.ascii	"CyIntGetVector\000"
- 7459      74476574 
- 7459      56656374 
- 7459      6F7200
- 7460              	.LASF118:
- 7461 068a 6D696C6C 		.ascii	"milliseconds\000"
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 207
+ 7442 0574 43795379 		.ascii	"CySysWdtResetCounters\000"
+ 7442      73576474 
+ 7442      52657365 
+ 7442      74436F75 
+ 7442      6E746572 
+ 7443              	.LASF105:
+ 7444 058a 4379496E 		.ascii	"CyIntSetPriority\000"
+ 7444      74536574 
+ 7444      5072696F 
+ 7444      72697479 
+ 7444      00
+ 7445              	.LASF80:
+ 7446 059b 43795379 		.ascii	"CySysWdtClearInterrupt\000"
+ 7446      73576474 
+ 7446      436C6561 
+ 7446      72496E74 
+ 7446      65727275 
+ 7447              	.LASF12:
+ 7448 05b2 666C6F61 		.ascii	"float\000"
+ 7448      7400
+ 7449              	.LASF151:
+ 7450 05b8 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 7450      4320342E 
+ 7450      382E3420 
+ 7450      32303134 
+ 7450      30353236 
+ 7451 05eb 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 7451      20726576 
+ 7451      6973696F 
+ 7451      6E203231 
+ 7451      31333538 
+ 7452 061e 30202D66 		.ascii	"0 -ffunction-sections\000"
+ 7452      66756E63 
+ 7452      74696F6E 
+ 7452      2D736563 
+ 7452      74696F6E 
+ 7453              	.LASF20:
+ 7454 0634 63795379 		.ascii	"cySysTickCallback\000"
+ 7454      73546963 
+ 7454      6B43616C 
+ 7454      6C626163 
+ 7454      6B00
+ 7455              	.LASF104:
+ 7456 0646 4379496E 		.ascii	"CyIntGetVector\000"
+ 7456      74476574 
+ 7456      56656374 
+ 7456      6F7200
+ 7457              	.LASF118:
+ 7458 0655 6D696C6C 		.ascii	"milliseconds\000"
+ 7458      69736563 
+ 7458      6F6E6473 
+ 7458      00
+ 7459              	.LASF76:
+ 7460 0662 43795379 		.ascii	"CySysWdtReadToggleBit\000"
+ 7460      73576474 
+ 7460      52656164 
+ 7460      546F6767 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 207
 
 
- 7461      69736563 
- 7461      6F6E6473 
- 7461      00
- 7462              	.LASF76:
- 7463 0697 43795379 		.ascii	"CySysWdtReadToggleBit\000"
- 7463      73576474 
- 7463      52656164 
- 7463      546F6767 
- 7463      6C654269 
- 7464              	.LASF53:
- 7465 06ad 43795379 		.ascii	"CySysWdtLocked\000"
- 7465      73576474 
- 7465      4C6F636B 
- 7465      656400
- 7466              	.LASF16:
- 7467 06bc 72656738 		.ascii	"reg8\000"
- 7467      00
- 7468              	.LASF87:
- 7469 06c1 74687265 		.ascii	"threshold\000"
- 7469      73686F6C 
- 7469      6400
- 7470              	.LASF115:
- 7471 06cb 43794861 		.ascii	"CyHalt\000"
- 7471      6C7400
- 7472              	.LASF1:
- 7473 06d2 756E7369 		.ascii	"unsigned char\000"
- 7473      676E6564 
- 7473      20636861 
- 7473      7200
- 7474              	.LASF148:
- 7475 06e0 6C66636C 		.ascii	"lfclkPosedgeEnabledWdtCounter\000"
- 7475      6B506F73 
- 7475      65646765 
- 7475      456E6162 
- 7475      6C656457 
- 7476              	.LASF2:
- 7477 06fe 73686F72 		.ascii	"short int\000"
- 7477      7420696E 
- 7477      7400
- 7478              	.LASF70:
- 7479 0708 43795379 		.ascii	"CySysWdtReadCascade\000"
- 7479      73576474 
- 7479      52656164 
- 7479      43617363 
- 7479      61646500 
- 7480              	.LASF65:
- 7481 071c 43795379 		.ascii	"CySysWdtDisable\000"
- 7481      73576474 
- 7481      44697361 
- 7481      626C6500 
- 7482              	.LASF110:
- 7483 072c 4379496E 		.ascii	"CyIntEnable\000"
- 7483      74456E61 
- 7483      626C6500 
- 7484              	.LASF102:
- 7485 0738 4379496E 		.ascii	"CyIntGetSysVector\000"
- 7485      74476574 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 208
+ 7460      6C654269 
+ 7461              	.LASF53:
+ 7462 0678 43795379 		.ascii	"CySysWdtLocked\000"
+ 7462      73576474 
+ 7462      4C6F636B 
+ 7462      656400
+ 7463              	.LASF16:
+ 7464 0687 72656738 		.ascii	"reg8\000"
+ 7464      00
+ 7465              	.LASF87:
+ 7466 068c 74687265 		.ascii	"threshold\000"
+ 7466      73686F6C 
+ 7466      6400
+ 7467              	.LASF115:
+ 7468 0696 43794861 		.ascii	"CyHalt\000"
+ 7468      6C7400
+ 7469              	.LASF1:
+ 7470 069d 756E7369 		.ascii	"unsigned char\000"
+ 7470      676E6564 
+ 7470      20636861 
+ 7470      7200
+ 7471              	.LASF148:
+ 7472 06ab 6C66636C 		.ascii	"lfclkPosedgeEnabledWdtCounter\000"
+ 7472      6B506F73 
+ 7472      65646765 
+ 7472      456E6162 
+ 7472      6C656457 
+ 7473              	.LASF2:
+ 7474 06c9 73686F72 		.ascii	"short int\000"
+ 7474      7420696E 
+ 7474      7400
+ 7475              	.LASF70:
+ 7476 06d3 43795379 		.ascii	"CySysWdtReadCascade\000"
+ 7476      73576474 
+ 7476      52656164 
+ 7476      43617363 
+ 7476      61646500 
+ 7477              	.LASF65:
+ 7478 06e7 43795379 		.ascii	"CySysWdtDisable\000"
+ 7478      73576474 
+ 7478      44697361 
+ 7478      626C6500 
+ 7479              	.LASF110:
+ 7480 06f7 4379496E 		.ascii	"CyIntEnable\000"
+ 7480      74456E61 
+ 7480      626C6500 
+ 7481              	.LASF102:
+ 7482 0703 4379496E 		.ascii	"CyIntGetSysVector\000"
+ 7482      74476574 
+ 7482      53797356 
+ 7482      6563746F 
+ 7482      7200
+ 7483              	.LASF77:
+ 7484 0715 43795379 		.ascii	"CySysWdtReadMatch\000"
+ 7484      73576474 
+ 7484      52656164 
+ 7484      4D617463 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 208
 
 
- 7485      53797356 
- 7485      6563746F 
- 7485      7200
- 7486              	.LASF77:
- 7487 074a 43795379 		.ascii	"CySysWdtReadMatch\000"
- 7487      73576474 
- 7487      52656164 
- 7487      4D617463 
- 7487      6800
- 7488              	.LASF32:
- 7489 075c 636C6B53 		.ascii	"clkSelect\000"
- 7489      656C6563 
- 7489      7400
- 7490              	.LASF49:
- 7491 0766 43795379 		.ascii	"CySysClkEcoStart\000"
- 7491      73436C6B 
- 7491      45636F53 
- 7491      74617274 
- 7491      00
- 7492              	.LASF47:
- 7493 0777 43795379 		.ascii	"CySysClkIloEnabled\000"
- 7493      73436C6B 
- 7493      496C6F45 
- 7493      6E61626C 
- 7493      656400
- 7494              	.LASF79:
- 7495 078a 43795379 		.ascii	"CySysWdtGetInterruptSource\000"
- 7495      73576474 
- 7495      47657449 
- 7495      6E746572 
- 7495      72757074 
- 7496              	.LASF92:
- 7497 07a5 72656173 		.ascii	"reason\000"
- 7497      6F6E00
- 7498              	.LASF101:
- 7499 07ac 72616D56 		.ascii	"ramVectorTable\000"
- 7499      6563746F 
- 7499      72546162 
- 7499      6C6500
- 7500              	.LASF46:
- 7501 07bb 43795379 		.ascii	"CySysClkWcoStop\000"
- 7501      73436C6B 
- 7501      57636F53 
- 7501      746F7000 
- 7502              	.LASF50:
- 7503 07cb 43795379 		.ascii	"CySysClkWcoSetPowerMode\000"
- 7503      73436C6B 
- 7503      57636F53 
- 7503      6574506F 
- 7503      7765724D 
- 7504              	.LASF14:
- 7505 07e3 63686172 		.ascii	"char\000"
- 7505      00
- 7506              	.LASF106:
- 7507 07e8 7072696F 		.ascii	"priority\000"
- 7507      72697479 
- 7507      00
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 209
+ 7484      6800
+ 7485              	.LASF32:
+ 7486 0727 636C6B53 		.ascii	"clkSelect\000"
+ 7486      656C6563 
+ 7486      7400
+ 7487              	.LASF49:
+ 7488 0731 43795379 		.ascii	"CySysClkEcoStart\000"
+ 7488      73436C6B 
+ 7488      45636F53 
+ 7488      74617274 
+ 7488      00
+ 7489              	.LASF47:
+ 7490 0742 43795379 		.ascii	"CySysClkIloEnabled\000"
+ 7490      73436C6B 
+ 7490      496C6F45 
+ 7490      6E61626C 
+ 7490      656400
+ 7491              	.LASF79:
+ 7492 0755 43795379 		.ascii	"CySysWdtGetInterruptSource\000"
+ 7492      73576474 
+ 7492      47657449 
+ 7492      6E746572 
+ 7492      72757074 
+ 7493              	.LASF92:
+ 7494 0770 72656173 		.ascii	"reason\000"
+ 7494      6F6E00
+ 7495              	.LASF101:
+ 7496 0777 72616D56 		.ascii	"ramVectorTable\000"
+ 7496      6563746F 
+ 7496      72546162 
+ 7496      6C6500
+ 7497              	.LASF46:
+ 7498 0786 43795379 		.ascii	"CySysClkWcoStop\000"
+ 7498      73436C6B 
+ 7498      57636F53 
+ 7498      746F7000 
+ 7499              	.LASF50:
+ 7500 0796 43795379 		.ascii	"CySysClkWcoSetPowerMode\000"
+ 7500      73436C6B 
+ 7500      57636F53 
+ 7500      6574506F 
+ 7500      7765724D 
+ 7501              	.LASF14:
+ 7502 07ae 63686172 		.ascii	"char\000"
+ 7502      00
+ 7503              	.LASF106:
+ 7504 07b3 7072696F 		.ascii	"priority\000"
+ 7504      72697479 
+ 7504      00
+ 7505              	.LASF51:
+ 7506 07bc 6D6F6465 		.ascii	"mode\000"
+ 7506      00
+ 7507              	.LASF18:
+ 7508 07c1 63796973 		.ascii	"cyisraddress\000"
+ 7508      72616464 
+ 7508      72657373 
+ 7508      00
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 209
 
 
- 7508              	.LASF51:
- 7509 07f1 6D6F6465 		.ascii	"mode\000"
- 7509      00
- 7510              	.LASF18:
- 7511 07f6 63796973 		.ascii	"cyisraddress\000"
- 7511      72616464 
- 7511      72657373 
- 7511      00
- 7512              	.LASF124:
- 7513 0803 43795379 		.ascii	"CySysTickEnable\000"
- 7513      73546963 
- 7513      6B456E61 
- 7513      626C6500 
- 7514              	.LASF52:
- 7515 0813 43795379 		.ascii	"CySysWdtLock\000"
- 7515      73576474 
- 7515      4C6F636B 
- 7515      00
- 7516              	.LASF33:
- 7517 0820 43795379 		.ascii	"CySysClkWriteSysclkDiv\000"
- 7517      73436C6B 
- 7517      57726974 
- 7517      65537973 
- 7517      636C6B44 
- 7518              	.LASF43:
- 7519 0837 43795379 		.ascii	"CySysClkEcoStop\000"
- 7519      73436C6B 
- 7519      45636F53 
- 7519      746F7000 
- 7520              	.LASF141:
- 7521 0847 43795379 		.ascii	"CySysTickCallbacks\000"
- 7521      73546963 
- 7521      6B43616C 
- 7521      6C626163 
- 7521      6B7300
+ 7509              	.LASF124:
+ 7510 07ce 43795379 		.ascii	"CySysTickEnable\000"
+ 7510      73546963 
+ 7510      6B456E61 
+ 7510      626C6500 
+ 7511              	.LASF52:
+ 7512 07de 43795379 		.ascii	"CySysWdtLock\000"
+ 7512      73576474 
+ 7512      4C6F636B 
+ 7512      00
+ 7513              	.LASF33:
+ 7514 07eb 43795379 		.ascii	"CySysClkWriteSysclkDiv\000"
+ 7514      73436C6B 
+ 7514      57726974 
+ 7514      65537973 
+ 7514      636C6B44 
+ 7515              	.LASF43:
+ 7516 0802 43795379 		.ascii	"CySysClkEcoStop\000"
+ 7516      73436C6B 
+ 7516      45636F53 
+ 7516      746F7000 
+ 7517              	.LASF141:
+ 7518 0812 43795379 		.ascii	"CySysTickCallbacks\000"
+ 7518      73546963 
+ 7518      6B43616C 
+ 7518      6C626163 
+ 7518      6B7300
+ 7519              	.LASF153:
+ 7520 0825 433A5C55 		.ascii	"C:\\Users\\JFDuval\\Desktop\\Work_Folder\\Biomech-E"
+ 7520      73657273 
+ 7520      5C4A4644 
+ 7520      7576616C 
+ 7520      5C446573 
+ 7521 0853 452D5356 		.ascii	"E-SVN2\\Code\\flexsea_1_0\\batt\\Batt.cydsn\000"
+ 7521      4E325C43 
+ 7521      6F64655C 
+ 7521      666C6578 
+ 7521      7365615F 
  7522              	.LASF117:
- 7523 085a 43794465 		.ascii	"CyDelay\000"
+ 7523 087b 43794465 		.ascii	"CyDelay\000"
  7523      6C617900 
  7524              	.LASF127:
- 7525 0862 43795379 		.ascii	"CySysTickDisableInterrupt\000"
+ 7525 0883 43795379 		.ascii	"CySysTickDisableInterrupt\000"
  7525      73546963 
  7525      6B446973 
  7525      61626C65 
  7525      496E7465 
  7526              	.LASF146:
- 7527 087c 63796465 		.ascii	"cydelay32kMs\000"
+ 7527 089d 63796465 		.ascii	"cydelay32kMs\000"
  7527      6C617933 
  7527      326B4D73 
  7527      00
  7528              	.LASF88:
- 7529 0889 43795379 		.ascii	"CySysLvdDisable\000"
+ 7529 08aa 43795379 		.ascii	"CySysLvdDisable\000"
  7529      734C7664 
  7529      44697361 
  7529      626C6500 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 210
+
+
  7530              	.LASF45:
- 7531 0899 43795379 		.ascii	"CySysClkWcoStart\000"
+ 7531 08ba 43795379 		.ascii	"CySysClkWcoStart\000"
  7531      73436C6B 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 210
-
-
  7531      57636F53 
  7531      74617274 
  7531      00
  7532              	.LASF40:
- 7533 08aa 63757272 		.ascii	"currentImoTrim2Value\000"
+ 7533 08cb 63757272 		.ascii	"currentImoTrim2Value\000"
  7533      656E7449 
  7533      6D6F5472 
  7533      696D3256 
  7533      616C7565 
  7534              	.LASF145:
- 7535 08bf 63796465 		.ascii	"cydelayFreqMhz\000"
+ 7535 08e0 63796465 		.ascii	"cydelayFreqMhz\000"
  7535      6C617946 
  7535      7265714D 
  7535      687A00
  7536              	.LASF81:
- 7537 08ce 7764744C 		.ascii	"wdtLockState\000"
+ 7537 08ef 7764744C 		.ascii	"wdtLockState\000"
  7537      6F636B53 
  7537      74617465 
  7537      00
  7538              	.LASF42:
- 7539 08db 73746174 		.ascii	"status\000"
+ 7539 08fc 73746174 		.ascii	"status\000"
  7539      757300
  7540              	.LASF58:
- 7541 08e2 636F6E66 		.ascii	"configRegValue\000"
+ 7541 0903 636F6E66 		.ascii	"configRegValue\000"
  7541      69675265 
  7541      6756616C 
  7541      756500
  7542              	.LASF62:
- 7543 08f1 43795379 		.ascii	"CySysWdtReadClearOnMatch\000"
+ 7543 0912 43795379 		.ascii	"CySysWdtReadClearOnMatch\000"
  7543      73576474 
  7543      52656164 
  7543      436C6561 
  7543      724F6E4D 
  7544              	.LASF125:
- 7545 090a 43795379 		.ascii	"CySysTickStop\000"
+ 7545 092b 43795379 		.ascii	"CySysTickStop\000"
  7545      73546963 
  7545      6B53746F 
  7545      7000
  7546              	.LASF41:
- 7547 0918 74696D65 		.ascii	"timeoutUs\000"
+ 7547 0939 74696D65 		.ascii	"timeoutUs\000"
  7547      6F757455 
  7547      7300
  7548              	.LASF67:
- 7549 0922 63617363 		.ascii	"cascadeMask\000"
+ 7549 0943 63617363 		.ascii	"cascadeMask\000"
  7549      6164654D 
  7549      61736B00 
  7550              	.LASF34:
- 7551 092e 64697669 		.ascii	"divider\000"
+ 7551 094f 64697669 		.ascii	"divider\000"
  7551      64657200 
  7552              	.LASF136:
- 7553 0936 66756E63 		.ascii	"function\000"
+ 7553 0957 66756E63 		.ascii	"function\000"
  7553      74696F6E 
  7553      00
  7554              	.LASF44:
- 7555 093f 43795379 		.ascii	"CySysClkWriteEcoDiv\000"
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 211
+
+
+ 7555 0960 43795379 		.ascii	"CySysClkWriteEcoDiv\000"
  7555      73436C6B 
  7555      57726974 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\cc80UvG0.s 			page 211
-
-
  7555      6545636F 
  7555      44697600 
  7556              	.LASF15:
- 7557 0953 63797374 		.ascii	"cystatus\000"
+ 7557 0974 63797374 		.ascii	"cystatus\000"
  7557      61747573 
  7557      00
  7558              	.LASF135:
- 7559 095c 43795379 		.ascii	"CySysTickSetCallback\000"
+ 7559 097d 43795379 		.ascii	"CySysTickSetCallback\000"
  7559      73546963 
  7559      6B536574 
  7559      43616C6C 
  7559      6261636B 
  7560              	.LASF23:
- 7561 0971 43795379 		.ascii	"CySysClkImoStart\000"
+ 7561 0992 43795379 		.ascii	"CySysClkImoStart\000"
  7561      73436C6B 
  7561      496D6F53 
  7561      74617274 
  7561      00
  7562              	.LASF55:
- 7563 0982 43795379 		.ascii	"CySysWdtReadEnabledStatus\000"
+ 7563 09a3 43795379 		.ascii	"CySysWdtReadEnabledStatus\000"
  7563      73576474 
  7563      52656164 
  7563      456E6162 
  7563      6C656453 
  7564              	.LASF39:
- 7565 099c 6E657749 		.ascii	"newImoTrim2Value\000"
+ 7565 09bd 6E657749 		.ascii	"newImoTrim2Value\000"
  7565      6D6F5472 
  7565      696D3256 
  7565      616C7565 
  7565      00
  7566              	.LASF120:
- 7567 09ad 6D696372 		.ascii	"microseconds\000"
+ 7567 09ce 6D696372 		.ascii	"microseconds\000"
  7567      6F736563 
  7567      6F6E6473 
  7567      00
  7568              	.LASF128:
- 7569 09ba 43795379 		.ascii	"CySysTickSetReload\000"
+ 7569 09db 43795379 		.ascii	"CySysTickSetReload\000"
  7569      73546963 
  7569      6B536574 
  7569      52656C6F 
  7569      616400
  7570              	.LASF140:
- 7571 09cd 43795379 		.ascii	"CySysTickServiceCallbacks\000"
+ 7571 09ee 43795379 		.ascii	"CySysTickServiceCallbacks\000"
  7571      73546963 
  7571      6B536572 
  7571      76696365 
  7571      43616C6C 
  7572              	.LASF74:
- 7573 09e7 43795379 		.ascii	"CySysWdtWriteToggleBit\000"
+ 7573 0a08 43795379 		.ascii	"CySysWdtWriteToggleBit\000"
  7573      73576474 
  7573      57726974 
  7573      65546F67 
  7573      676C6542 
  7574              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqlXSq7.s 			page 212
+
+

@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 1
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccYD7NCh.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 1
   30:.\Generated_Source\PSoC4/SPI_1_sclk_m.c **** ********************************************************************************
   31:.\Generated_Source\PSoC4/SPI_1_sclk_m.c **** *
   32:.\Generated_Source\PSoC4/SPI_1_sclk_m.c **** * Summary:
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 2
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccYD7NCh.s 			page 2
 
 
   33:.\Generated_Source\PSoC4/SPI_1_sclk_m.c **** *  Assign a new value to the digital port's data output register.  
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 1
   66 003c 0F32     		add	r2, r2, #15
   67 003e 1278     		ldrb	r2, [r2]
   68 0040 1A60     		str	r2, [r3]
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 3
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccYD7NCh.s 			page 3
 
 
   47:.\Generated_Source\PSoC4/SPI_1_sclk_m.c **** }
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 1
   95 0002 82B0     		sub	sp, sp, #8
   96              		.cfi_def_cfa_offset 16
   97 0004 00AF     		add	r7, sp, #0
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 4
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccYD7NCh.s 			page 4
 
 
   98              		.cfi_def_cfa_register 7
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 1
   92:.\Generated_Source\PSoC4/SPI_1_sclk_m.c **** *  
   93:.\Generated_Source\PSoC4/SPI_1_sclk_m.c **** * Note:
   94:.\Generated_Source\PSoC4/SPI_1_sclk_m.c **** *  Macro SPI_1_sclk_m_ReadPS calls this function. 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 5
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccYD7NCh.s 			page 5
 
 
   95:.\Generated_Source\PSoC4/SPI_1_sclk_m.c **** *  
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 1
  114:.\Generated_Source\PSoC4/SPI_1_sclk_m.c **** *  Returns the current value assigned to the Digital Port's data output register
  115:.\Generated_Source\PSoC4/SPI_1_sclk_m.c **** *  
  116:.\Generated_Source\PSoC4/SPI_1_sclk_m.c **** *******************************************************************************/
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 6
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccYD7NCh.s 			page 6
 
 
  117:.\Generated_Source\PSoC4/SPI_1_sclk_m.c **** uint8 SPI_1_sclk_m_ReadDataReg(void) 
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 1
  136:.\Generated_Source\PSoC4/SPI_1_sclk_m.c ****     *
  137:.\Generated_Source\PSoC4/SPI_1_sclk_m.c ****     * Return: 
  138:.\Generated_Source\PSoC4/SPI_1_sclk_m.c ****     *  Returns the value of the interrupt status register
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 7
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccYD7NCh.s 			page 7
 
 
  139:.\Generated_Source\PSoC4/SPI_1_sclk_m.c ****     *  
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 1
  251 0000 48010000 		.4byte	0x148
  252 0004 0400     		.2byte	0x4
  253 0006 00000000 		.4byte	.Ldebug_abbrev0
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 8
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccYD7NCh.s 			page 8
 
 
  254 000a 04       		.byte	0x4
@@ -426,14 +426,14 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 1
  256 000c D0000000 		.4byte	.LASF24
  257 0010 01       		.byte	0x1
  258 0011 68000000 		.4byte	.LASF25
- 259 0015 9B010000 		.4byte	.LASF26
+ 259 0015 8B010000 		.4byte	.LASF26
  260 0019 00000000 		.4byte	.Ldebug_ranges0+0
  261 001d 00000000 		.4byte	0
  262 0021 00000000 		.4byte	.Ldebug_line0
  263 0025 02       		.uleb128 0x2
  264 0026 01       		.byte	0x1
  265 0027 06       		.byte	0x6
- 266 0028 08020000 		.4byte	.LASF0
+ 266 0028 29020000 		.4byte	.LASF0
  267 002c 02       		.uleb128 0x2
  268 002d 01       		.byte	0x1
  269 002e 08       		.byte	0x8
@@ -441,7 +441,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 1
  271 0033 02       		.uleb128 0x2
  272 0034 02       		.byte	0x2
  273 0035 05       		.byte	0x5
- 274 0036 8B010000 		.4byte	.LASF2
+ 274 0036 E1010000 		.4byte	.LASF2
  275 003a 02       		.uleb128 0x2
  276 003b 02       		.byte	0x2
  277 003c 07       		.byte	0x7
@@ -449,7 +449,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 1
  279 0041 02       		.uleb128 0x2
  280 0042 04       		.byte	0x4
  281 0043 05       		.byte	0x5
- 282 0044 EC010000 		.4byte	.LASF4
+ 282 0044 0D020000 		.4byte	.LASF4
  283 0048 02       		.uleb128 0x2
  284 0049 04       		.byte	0x4
  285 004a 07       		.byte	0x7
@@ -471,14 +471,14 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 1
  301 0066 07       		.byte	0x7
  302 0067 C3000000 		.4byte	.LASF8
  303 006b 04       		.uleb128 0x4
- 304 006c 95010000 		.4byte	.LASF9
+ 304 006c EB010000 		.4byte	.LASF9
  305 0070 02       		.byte	0x2
  306 0071 A1       		.byte	0xa1
  307 0072 2C000000 		.4byte	0x2c
  308 0076 04       		.uleb128 0x4
  309 0077 BC000000 		.4byte	.LASF10
  310 007b 02       		.byte	0x2
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 9
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccYD7NCh.s 			page 9
 
 
  311 007c A3       		.byte	0xa3
@@ -503,7 +503,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 1
  330 00a2 06       		.uleb128 0x6
  331 00a3 76000000 		.4byte	0x76
  332 00a7 07       		.uleb128 0x7
- 333 00a8 F5010000 		.4byte	.LASF15
+ 333 00a8 16020000 		.4byte	.LASF15
  334 00ac 01       		.byte	0x1
  335 00ad 2A       		.byte	0x2a
  336 00ae 00000000 		.4byte	.LFB0
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 1
  365 00e9 9C       		.byte	0x9c
  366 00ea FD000000 		.4byte	0xfd
  367 00ee 08       		.uleb128 0x8
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 10
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccYD7NCh.s 			page 10
 
 
  368 00ef 4C010000 		.4byte	.LASF18
@@ -568,7 +568,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 1
  392 0125 01       		.uleb128 0x1
  393 0126 9C       		.byte	0x9c
  394 0127 0B       		.uleb128 0xb
- 395 0128 D0010000 		.4byte	.LASF21
+ 395 0128 F1010000 		.4byte	.LASF21
  396 012c 01       		.byte	0x1
  397 012d 8D       		.byte	0x8d
  398 012e 6B000000 		.4byte	0x6b
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 1
  422 0007 03       		.uleb128 0x3
  423 0008 0E       		.uleb128 0xe
  424 0009 1B       		.uleb128 0x1b
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 11
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccYD7NCh.s 			page 11
 
 
  425 000a 0E       		.uleb128 0xe
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 1
  479 0040 13       		.uleb128 0x13
  480 0041 00       		.byte	0
  481 0042 00       		.byte	0
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 12
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccYD7NCh.s 			page 12
 
 
  482 0043 06       		.uleb128 0x6
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 1
  536 007a 3B       		.uleb128 0x3b
  537 007b 0B       		.uleb128 0xb
  538 007c 49       		.uleb128 0x49
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 13
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccYD7NCh.s 			page 13
 
 
  539 007d 13       		.uleb128 0x13
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 1
  593 00b5 00       		.byte	0
  594 00b6 00       		.byte	0
  595              		.section	.debug_aranges,"",%progbits
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 14
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccYD7NCh.s 			page 14
 
 
  596 0000 3C000000 		.4byte	0x3c
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 1
  639      7400
  640              	.LASF7:
  641 0024 6C6F6E67 		.ascii	"long long unsigned int\000"
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 15
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccYD7NCh.s 			page 15
 
 
  641      206C6F6E 
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 1
  662      20726576 
  662      6973696F 
  662      6E203231 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 16
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccYD7NCh.s 			page 16
 
 
  662      31333538 
@@ -929,42 +929,45 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 1
  672              	.LASF13:
  673 0186 63686172 		.ascii	"char\000"
  673      00
- 674              	.LASF2:
- 675 018b 73686F72 		.ascii	"short int\000"
- 675      7420696E 
- 675      7400
- 676              	.LASF9:
- 677 0195 75696E74 		.ascii	"uint8\000"
- 677      3800
- 678              	.LASF26:
- 679 019b 453A5C44 		.ascii	"E:\\Documents\\UROPs\\Biomech UROP\\Code\\Batt\\Bat"
- 679      6F63756D 
- 679      656E7473 
- 679      5C55524F 
- 679      50735C42 
- 680 01c8 742E6379 		.ascii	"t.cydsn\000"
- 680      64736E00 
+ 674              	.LASF26:
+ 675 018b 433A5C55 		.ascii	"C:\\Users\\JFDuval\\Desktop\\Work_Folder\\Biomech-E"
+ 675      73657273 
+ 675      5C4A4644 
+ 675      7576616C 
+ 675      5C446573 
+ 676 01b9 452D5356 		.ascii	"E-SVN2\\Code\\flexsea_1_0\\batt\\Batt.cydsn\000"
+ 676      4E325C43 
+ 676      6F64655C 
+ 676      666C6578 
+ 676      7365615F 
+ 677              	.LASF2:
+ 678 01e1 73686F72 		.ascii	"short int\000"
+ 678      7420696E 
+ 678      7400
+ 679              	.LASF9:
+ 680 01eb 75696E74 		.ascii	"uint8\000"
+ 680      3800
  681              	.LASF21:
- 682 01d0 5350495F 		.ascii	"SPI_1_sclk_m_ClearInterrupt\000"
+ 682 01f1 5350495F 		.ascii	"SPI_1_sclk_m_ClearInterrupt\000"
  682      315F7363 
  682      6C6B5F6D 
  682      5F436C65 
  682      6172496E 
  683              	.LASF4:
- 684 01ec 6C6F6E67 		.ascii	"long int\000"
+ 684 020d 6C6F6E67 		.ascii	"long int\000"
  684      20696E74 
  684      00
  685              	.LASF15:
- 686 01f5 5350495F 		.ascii	"SPI_1_sclk_m_Write\000"
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccYD7NCh.s 			page 17
+
+
+ 686 0216 5350495F 		.ascii	"SPI_1_sclk_m_Write\000"
  686      315F7363 
  686      6C6B5F6D 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccVGQ8EG.s 			page 17
-
-
  686      5F577269 
  686      746500
  687              	.LASF0:
- 688 0208 7369676E 		.ascii	"signed char\000"
+ 688 0229 7369676E 		.ascii	"signed char\000"
  688      65642063 
  688      68617200 
  689              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br

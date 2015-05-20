@@ -1,12 +1,12 @@
 /*******************************************************************************
 File Name: CYBLE_gatt.h
-Version 1.10
+Version 1.20
 
 Description:
  Contains the prototypes and constants used in the BLE GATT profile.
 
 ********************************************************************************
-Copyright 2014, Cypress Semiconductor Corporation.  All rights reserved.
+Copyright 2014-2015, Cypress Semiconductor Corporation.  All rights reserved.
 You may use this file only in accordance with the license, terms, conditions,
 disclaimers, and limitations in the end user license agreement accompanying
 the software package with which this file was provided.
@@ -229,7 +229,12 @@ extern CYBLE_GATTC_T cyBle_gattc;
 #define CYBLE_UUID_PULSE_OXIMETER_SERVICE            (0x1817u)
 #define CYBLE_UUID_CPS_SERVICE                       (0x1818u)
 #define CYBLE_UUID_LOCATION_AND_NAVIGATION_SERVICE   (0x1819u)
-#define CYBLE_UUID_CGM_SERVICE                       (0x181Au)
+#define CYBLE_UUID_ENVIRONMENTAL_SENSING_SERVICE     (0x181Au)
+#define CYBLE_UUID_BODY_COMPOSITION_SERVICE          (0x181Bu)
+#define CYBLE_UUID_USER_DATA_SERVICE                 (0x181Cu)
+#define CYBLE_UUID_WEIGHT_SCALE_SERVICE              (0x181Du)
+#define CYBLE_UUID_BOND_MANAGEMENT_SERVICE           (0x181Eu)
+#define CYBLE_UUID_CGM_SERVICE                       (0x181Fu)
 #define CYBLE_UUID_FIND_ME_SERVICE                   (0x18A3u)
 
 
@@ -360,7 +365,7 @@ extern CYBLE_GATTC_T cyBle_gattc;
 #define CYBLE_UUID_CHAR_SCAN_WINDOW                  (0x2A4Fu)
 #define CYBLE_UUID_CHAR_PNP_ID                       (0x2A50u)
 #define CYBLE_UUID_CHAR_GL_FEATURE                   (0x2A51u)
-#define CYBLE_UUID_CHAR_RACP                         (0x2A52u)
+#define CYBLE_UUID_CHAR_RACP                         (0x2A52u) /* Record Access Control Point */
 #define CYBLE_UUID_CHAR_RSC_MSRMT                    (0x2A53u)
 #define CYBLE_UUID_CHAR_RSC_FEATURE                  (0x2A54u)
 #define CYBLE_UUID_CHAR_SC_CONTROL_POINT             (0x2A55u)
@@ -376,11 +381,43 @@ extern CYBLE_GATTC_T cyBle_gattc;
 #define CYBLE_UUID_CHAR_POSITION_QUALITY             (0x2A69u)
 #define CYBLE_UUID_CHAR_LN_FEATURE                   (0x2A6Au)
 #define CYBLE_UUID_CHAR_LN_CONTROL_POINT             (0x2A6Bu)
-
-
-/***************************************
-##UUID: Still Not Adopted Characteristics
-***************************************/
+#define CYBLE_UUID_CHAR_AEL                          (0x2A7Eu) /* Aerobic Heart Rate Lower Limit */
+#define CYBLE_UUID_CHAR_AEROBIC_THRESHOLD            (0x2A7Fu)
+#define CYBLE_UUID_CHAR_AGE                          (0x2A80u)
+#define CYBLE_UUID_CHAR_ANL                          (0x2A81u) /* Anaerobic Heart Rate Lower Limit */
+#define CYBLE_UUID_CHAR_ANU                          (0x2A82u) /* Anaerobic Heart Rate Upper Limit */
+#define CYBLE_UUID_CHAR_ANAEROBIC_THRESHOLD          (0x2A83u)
+#define CYBLE_UUID_CHAR_AEU                          (0x2A84u) /* Anaerobic Heart Rate Upper Limit */
+#define CYBLE_UUID_CHAR_DATE_OF_BIRTH                (0x2A85u)
+#define CYBLE_UUID_CHAR_DATE_OF_THRESHOLD_ASSESSMENT (0x2A86u)
+#define CYBLE_UUID_CHAR_EMAIL_ADDRESS                (0x2A87u)
+#define CYBLE_UUID_CHAR_FBL                          (0x2A88u) /* Fat Burn Heart Rate Lower Limit */
+#define CYBLE_UUID_CHAR_FBU                          (0x2A89u) /* Fat Burn Heart Rate Upper Limit */
+#define CYBLE_UUID_CHAR_FIRST_NAME                   (0x2A8Au)
+#define CYBLE_UUID_CHAR_FIVE_ZONE_HEART_RATE_LIMITS  (0x2A8Bu)
+#define CYBLE_UUID_CHAR_GENDER                       (0x2A8Cu)
+#define CYBLE_UUID_CHAR_HEART_RATE_MAX               (0x2A8Du)
+#define CYBLE_UUID_CHAR_HEIGHT                       (0x2A8Eu)
+#define CYBLE_UUID_CHAR_HIP_CIRCUNFERENCE            (0x2A8Fu)
+#define CYBLE_UUID_CHAR_LAST_NAME                    (0x2A90u)
+#define CYBLE_UUID_CHAR_MRH                          (0x2A91u) /* Maximum Recommended Heart Rate */
+#define CYBLE_UUID_CHAR_RESTING_HEART_RATE           (0x2A92u)
+#define CYBLE_UUID_CHAR_STP                          (0x2A93u) /* Sport Type for Aerobic and Anaerobic Thresholds */
+#define CYBLE_UUID_CHAR_THREE_ZONE_HEART_RATE_LIMITS (0x2A94u)
+#define CYBLE_UUID_CHAR_TWO_ZONE_HEART_RATE_LIMIT    (0x2A95u)
+#define CYBLE_UUID_CHAR_VO2_MAX                      (0x2A96u)
+#define CYBLE_UUID_CHAR_WAIST_CIRCUMFERENCE          (0x2A97u)
+#define CYBLE_UUID_CHAR_WEIGHT                       (0x2A98u)
+#define CYBLE_UUID_CHAR_DATABASE_CHANGE_INCREMENT    (0x2A99u)
+#define CYBLE_UUID_CHAR_USER_INDEX                   (0x2A9Au)
+#define CYBLE_UUID_CHAR_USER_CONTROL_POINT           (0x2A9Fu)
+#define CYBLE_UUID_CHAR_LANGUAGE                     (0x2AA2u)
+#define CYBLE_UUID_CHAR_CGM_MEASUREMENT              (0x2AA7u)
+#define CYBLE_UUID_CHAR_CGM_FEATURE                  (0x2AA8u)
+#define CYBLE_UUID_CHAR_CGM_STATUS                   (0x2AA9u)
+#define CYBLE_UUID_CHAR_CGM_SESSION_START_TIME       (0x2AAAu)
+#define CYBLE_UUID_CHAR_CGM_SESSION_RUN_TIME         (0x2AABu)
+#define CYBLE_UUID_CHAR_CGM_SOCP                     (0x2AACu) /* CGM Specific Ops Control Point */
 
 /* Pulse Oximeter Characteristics defines */
 #define CYBLE_UUID_CHAR_POX_SPOT_CHK_MSRMT           (0x2A5Eu)
@@ -399,13 +436,6 @@ extern CYBLE_GATTC_T cyBle_gattc;
 #define CYBLE_UUID_CHAR_LN_POSITION_QUALITY          (0x2A69u)
 #define CYBLE_UUID_CHAR_LN_FEATURE                   (0x2A6Au)
 #define CYBLE_UUID_CHAR_LN_CNTRL_PNT                 (0x2A6Bu)
-/* CGM Characteristics defines */
-#define CYBLE_UUID_CHAR_CGM_MSRMT                    (0x2A6Cu)
-#define CYBLE_UUID_CHAR_CGM_FEATURES                 (0x2A6Du)
-#define CYBLE_UUID_CHAR_CGM_STATUS                   (0x2A6Eu)
-#define CYBLE_UUID_CHAR_CGM_SSN_STRT_TIME            (0x2A6Fu)
-#define CYBLE_UUID_CHAR_CGM_ASCP                     (0x2A70u)
-#define CYBLE_UUID_CHAR_CGM_SPECIFIC_OPS_CP          (0x2A71u)
 
 /* GATT Characteristic Properties bit field */
 #define CYBLE_CHAR_PROP_BROADCAST                    (0x01u)

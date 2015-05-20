@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 1
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccTdShZa.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 1
   30:.\Generated_Source\PSoC4/SPI_1_SPI.c ****         SPI_1_SPI_SUB_MODE,
   31:.\Generated_Source\PSoC4/SPI_1_SPI.c ****         SPI_1_SPI_CLOCK_MODE,
   32:.\Generated_Source\PSoC4/SPI_1_SPI.c ****         SPI_1_SPI_OVS_FACTOR,
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 2
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccTdShZa.s 			page 2
 
 
   33:.\Generated_Source\PSoC4/SPI_1_SPI.c ****         SPI_1_SPI_MEDIAN_FILTER_ENABLE,
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 1
   87:.\Generated_Source\PSoC4/SPI_1_SPI.c ****             /* Set RX direction internal variables */
   88:.\Generated_Source\PSoC4/SPI_1_SPI.c ****             SPI_1_rxBuffer      =         config->rxBuffer;
   89:.\Generated_Source\PSoC4/SPI_1_SPI.c ****             SPI_1_rxDataBits    = (uint8) config->rxDataBits;
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 3
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccTdShZa.s 			page 3
 
 
   90:.\Generated_Source\PSoC4/SPI_1_SPI.c ****             SPI_1_rxBufferSize  = (uint8) config->rxBufferSize;
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 1
  144:.\Generated_Source\PSoC4/SPI_1_SPI.c ****             /* Clear RX buffer indexes */
  145:.\Generated_Source\PSoC4/SPI_1_SPI.c ****             SPI_1_rxBufferHead     = 0u;
  146:.\Generated_Source\PSoC4/SPI_1_SPI.c ****             SPI_1_rxBufferTail     = 0u;
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 4
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccTdShZa.s 			page 4
 
 
  147:.\Generated_Source\PSoC4/SPI_1_SPI.c ****             SPI_1_rxBufferOverflow = 0u;
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 1
   47 0016 164B     		ldr	r3, .L2+24
   48 0018 0722     		mov	r2, #7
   49 001a 1A60     		str	r2, [r3]
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 5
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccTdShZa.s 			page 5
 
 
  180:.\Generated_Source\PSoC4/SPI_1_SPI.c **** 
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 1
  202:.\Generated_Source\PSoC4/SPI_1_SPI.c ****         SPI_1_SpiSetActiveSlaveSelect(SPI_1_SPI_SLAVE_SELECT0);
   82              		.loc 1 202 0
   83 004c 0020     		mov	r0, #0
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 6
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccTdShZa.s 			page 6
 
 
   84 004e FFF7FEFF 		bl	SPI_1_SpiSetActiveSlaveSelect
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 1
  223:.\Generated_Source\PSoC4/SPI_1_SPI.c ****     * Function Name: SPI_1_SetActiveSlaveSelect
  224:.\Generated_Source\PSoC4/SPI_1_SPI.c ****     ********************************************************************************
  225:.\Generated_Source\PSoC4/SPI_1_SPI.c ****     *
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 7
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccTdShZa.s 			page 7
 
 
  226:.\Generated_Source\PSoC4/SPI_1_SPI.c ****     * Summary:
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 1
  141 001a C023     		mov	r3, #192
  142 001c 1B05     		lsl	r3, r3, #20
  143 001e 1340     		and	r3, r2
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 8
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccTdShZa.s 			page 8
 
 
  144 0020 FA68     		ldr	r2, [r7, #12]
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 1
  283:.\Generated_Source\PSoC4/SPI_1_SPI.c ****     *  polarity: active polarity of slave select line.
  284:.\Generated_Source\PSoC4/SPI_1_SPI.c ****     *   SPI_1_SPI_SS_ACTIVE_LOW  - Slave select is active low
  285:.\Generated_Source\PSoC4/SPI_1_SPI.c ****     *   SPI_1_SPI_SS_ACTIVE_HIGH - Slave select is active high
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 9
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccTdShZa.s 			page 9
 
 
  286:.\Generated_Source\PSoC4/SPI_1_SPI.c ****     *
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 1
  304:.\Generated_Source\PSoC4/SPI_1_SPI.c ****             SPI_1_SPI_CTRL_REG &= (uint32) ~ssPolarity;
  208              		.loc 1 304 0
  209 0032 054B     		ldr	r3, .L10
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 10
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccTdShZa.s 			page 10
 
 
  210 0034 044A     		ldr	r2, .L10
@@ -575,7 +575,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 1
  239 000c 99000000 		.4byte	.LASF19
  240 0010 01       		.byte	0x1
  241 0011 5D010000 		.4byte	.LASF20
- 242 0015 82010000 		.4byte	.LASF21
+ 242 0015 B8010000 		.4byte	.LASF21
  243 0019 00000000 		.4byte	.Ldebug_ranges0+0
  244 001d 00000000 		.4byte	0
  245 0021 00000000 		.4byte	.Ldebug_line0
@@ -590,7 +590,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 1
  254 0033 02       		.uleb128 0x2
  255 0034 02       		.byte	0x2
  256 0035 05       		.byte	0x5
- 257 0036 E3010000 		.4byte	.LASF2
+ 257 0036 AE010000 		.4byte	.LASF2
  258 003a 02       		.uleb128 0x2
  259 003b 02       		.byte	0x2
  260 003c 07       		.byte	0x7
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 1
  262 0041 02       		.uleb128 0x2
  263 0042 04       		.byte	0x4
  264 0043 05       		.byte	0x5
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 11
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccTdShZa.s 			page 11
 
 
  265 0044 28010000 		.4byte	.LASF4
@@ -630,7 +630,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 1
  291 0076 02       		.uleb128 0x2
  292 0077 04       		.byte	0x4
  293 0078 04       		.byte	0x4
- 294 0079 B7010000 		.4byte	.LASF9
+ 294 0079 82010000 		.4byte	.LASF9
  295 007d 02       		.uleb128 0x2
  296 007e 08       		.byte	0x8
  297 007f 04       		.byte	0x4
@@ -649,7 +649,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 1
  310 009c 02       		.uleb128 0x2
  311 009d 04       		.byte	0x4
  312 009e 07       		.byte	0x7
- 313 009f ED010000 		.4byte	.LASF14
+ 313 009f 0E020000 		.4byte	.LASF14
  314 00a3 07       		.uleb128 0x7
  315 00a4 2D000000 		.4byte	.LASF22
  316 00a8 01       		.byte	0x1
@@ -658,11 +658,11 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 1
  319 00ae 94000000 		.4byte	.LFE2-.LFB2
  320 00b2 01       		.uleb128 0x1
  321 00b3 9C       		.byte	0x9c
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 12
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccTdShZa.s 			page 12
 
 
  322 00b4 08       		.uleb128 0x8
- 323 00b5 BD010000 		.4byte	.LASF23
+ 323 00b5 88010000 		.4byte	.LASF23
  324 00b9 01       		.byte	0x1
  325 00ba F9       		.byte	0xf9
  326 00bb 00000000 		.4byte	.LFB3
@@ -679,7 +679,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 1
  337 00d5 91       		.byte	0x91
  338 00d6 6C       		.sleb128 -20
  339 00d7 0A       		.uleb128 0xa
- 340 00d8 DB010000 		.4byte	.LASF17
+ 340 00d8 A6010000 		.4byte	.LASF17
  341 00dc 01       		.byte	0x1
  342 00dd FB       		.byte	0xfb
  343 00de 6B000000 		.4byte	0x6b
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 1
  376 011e 6B000000 		.4byte	0x6b
  377 0122 02       		.uleb128 0x2
  378 0123 91       		.byte	0x91
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 13
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccTdShZa.s 			page 13
 
 
  379 0124 74       		.sleb128 -12
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 1
  433 0031 0B       		.uleb128 0xb
  434 0032 49       		.uleb128 0x49
  435 0033 13       		.uleb128 0x13
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 14
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccTdShZa.s 			page 14
 
 
  436 0034 00       		.byte	0
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 1
  490 006b 3B       		.uleb128 0x3b
  491 006c 0B       		.uleb128 0xb
  492 006d 27       		.uleb128 0x27
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 15
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccTdShZa.s 			page 15
 
 
  493 006e 19       		.uleb128 0x19
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 1
  547 00a5 27       		.uleb128 0x27
  548 00a6 19       		.uleb128 0x19
  549 00a7 11       		.uleb128 0x11
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 16
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccTdShZa.s 			page 16
 
 
  550 00a8 01       		.uleb128 0x1
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 1
  604 0028 00000000 		.4byte	0
  605 002c 00000000 		.4byte	0
  606              		.section	.debug_ranges,"",%progbits
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 17
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccTdShZa.s 			page 17
 
 
  607              	.Ldebug_ranges0:
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 1
  635              	.LASF7:
  636 0079 6C6F6E67 		.ascii	"long long unsigned int\000"
  636      206C6F6E 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 18
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccTdShZa.s 			page 18
 
 
  636      6720756E 
@@ -1078,35 +1078,38 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 1
  658      7465645F 
  658      536F7572 
  658      63655C50 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCdlLee.s 			page 19
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccTdShZa.s 			page 19
 
 
- 659              	.LASF21:
- 660 0182 453A5C44 		.ascii	"E:\\Documents\\UROPs\\Biomech UROP\\Code\\Batt\\Bat"
- 660      6F63756D 
- 660      656E7473 
- 660      5C55524F 
- 660      50735C42 
- 661 01af 742E6379 		.ascii	"t.cydsn\000"
- 661      64736E00 
- 662              	.LASF9:
- 663 01b7 666C6F61 		.ascii	"float\000"
- 663      7400
- 664              	.LASF23:
- 665 01bd 5350495F 		.ascii	"SPI_1_SpiSetActiveSlaveSelect\000"
- 665      315F5370 
- 665      69536574 
- 665      41637469 
- 665      7665536C 
- 666              	.LASF17:
- 667 01db 73706943 		.ascii	"spiCtrl\000"
- 667      74726C00 
- 668              	.LASF2:
- 669 01e3 73686F72 		.ascii	"short int\000"
- 669      7420696E 
- 669      7400
+ 659              	.LASF9:
+ 660 0182 666C6F61 		.ascii	"float\000"
+ 660      7400
+ 661              	.LASF23:
+ 662 0188 5350495F 		.ascii	"SPI_1_SpiSetActiveSlaveSelect\000"
+ 662      315F5370 
+ 662      69536574 
+ 662      41637469 
+ 662      7665536C 
+ 663              	.LASF17:
+ 664 01a6 73706943 		.ascii	"spiCtrl\000"
+ 664      74726C00 
+ 665              	.LASF2:
+ 666 01ae 73686F72 		.ascii	"short int\000"
+ 666      7420696E 
+ 666      7400
+ 667              	.LASF21:
+ 668 01b8 433A5C55 		.ascii	"C:\\Users\\JFDuval\\Desktop\\Work_Folder\\Biomech-E"
+ 668      73657273 
+ 668      5C4A4644 
+ 668      7576616C 
+ 668      5C446573 
+ 669 01e6 452D5356 		.ascii	"E-SVN2\\Code\\flexsea_1_0\\batt\\Batt.cydsn\000"
+ 669      4E325C43 
+ 669      6F64655C 
+ 669      666C6578 
+ 669      7365615F 
  670              	.LASF14:
- 671 01ed 73697A65 		.ascii	"sizetype\000"
+ 671 020e 73697A65 		.ascii	"sizetype\000"
  671      74797065 
  671      00
  672              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br

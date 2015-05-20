@@ -1,6 +1,6 @@
 /*******************************************************************************
 File Name: CYBLE_StackGattServer.h
-Version 1.10
+Version 1.20
 
 Description:
  This file contains the GATT Server routines
@@ -9,7 +9,7 @@ Related Document:
  BLE Standard Spec - CoreV4.1, CSS, CSAs, ESR05, ESR06
 
 ********************************************************************************
-Copyright 2014, Cypress Semiconductor Corporation.  All rights reserved.
+Copyright 2014-2015, Cypress Semiconductor Corporation.  All rights reserved.
 You may use this file only in accordance with the license, terms, conditions,
 disclaimers, and limitations in the end user license agreement accompanying
 the software package with which this file was provided.
@@ -144,7 +144,8 @@ Summary:
 Parameters:
  connHandle: Connection handle to identify the peer GATT entity, of type
              CYBLE_CONN_HANDLE_T.
- ntfParam: Pointer to structure of type CYBLE_GATTS_HANDLE_VALUE_NTF_T.
+ ntfParam: Pointer to structure of type CYBLE_GATTS_HANDLE_VALUE_NTF_T which is same as 
+		 CYBLE_GATT_HANDLE_VALUE_PAIR_T.
 
 Return:
  CYBLE_API_RESULT_T : Return value indicates if the function succeeded or
@@ -188,7 +189,8 @@ Summary:
 Parameters:
  connHandle: Connection handle to identify the peer GATT entity, of type 
               CYBLE_CONN_HANDLE_T.
- indParam: Pointer to structure of type CYBLE_GATTS_HANDLE_VALUE_IND_T.
+ indParam: Pointer to structure of type CYBLE_GATTS_HANDLE_VALUE_IND_T which is same as 
+		 CYBLE_GATT_HANDLE_VALUE_PAIR_T.
 
 Return:
  CYBLE_API_RESULT_T : Return value indicates if the function succeeded or

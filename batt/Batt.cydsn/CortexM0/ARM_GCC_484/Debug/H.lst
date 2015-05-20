@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 1
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD4MZaN.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 1
   30:.\Generated_Source\PSoC4/H.c **** ********************************************************************************
   31:.\Generated_Source\PSoC4/H.c **** *
   32:.\Generated_Source\PSoC4/H.c **** * Summary:
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 2
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD4MZaN.s 			page 2
 
 
   33:.\Generated_Source\PSoC4/H.c **** *  Assign a new value to the digital port's data output register.  
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 1
   66 003c 0F32     		add	r2, r2, #15
   67 003e 1278     		ldrb	r2, [r2]
   68 0040 1A60     		str	r2, [r3]
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 3
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD4MZaN.s 			page 3
 
 
   47:.\Generated_Source\PSoC4/H.c **** }
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 1
   95 0002 82B0     		sub	sp, sp, #8
   96              		.cfi_def_cfa_offset 16
   97 0004 00AF     		add	r7, sp, #0
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 4
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD4MZaN.s 			page 4
 
 
   98              		.cfi_def_cfa_register 7
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 1
   93:.\Generated_Source\PSoC4/H.c **** * Note:
   94:.\Generated_Source\PSoC4/H.c **** *  Macro H_ReadPS calls this function. 
   95:.\Generated_Source\PSoC4/H.c **** *  
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 5
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD4MZaN.s 			page 5
 
 
   96:.\Generated_Source\PSoC4/H.c **** *******************************************************************************/
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 1
  115:.\Generated_Source\PSoC4/H.c **** *  
  116:.\Generated_Source\PSoC4/H.c **** *******************************************************************************/
  117:.\Generated_Source\PSoC4/H.c **** uint8 H_ReadDataReg(void) 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 6
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD4MZaN.s 			page 6
 
 
  118:.\Generated_Source\PSoC4/H.c **** {
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 1
  137:.\Generated_Source\PSoC4/H.c ****     * Return: 
  138:.\Generated_Source\PSoC4/H.c ****     *  Returns the value of the interrupt status register
  139:.\Generated_Source\PSoC4/H.c ****     *  
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 7
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD4MZaN.s 			page 7
 
 
  140:.\Generated_Source\PSoC4/H.c ****     *******************************************************************************/
@@ -418,21 +418,21 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 1
  251 0004 0400     		.2byte	0x4
  252 0006 00000000 		.4byte	.Ldebug_abbrev0
  253 000a 04       		.byte	0x4
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 8
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD4MZaN.s 			page 8
 
 
  254 000b 01       		.uleb128 0x1
  255 000c B7000000 		.4byte	.LASF24
  256 0010 01       		.byte	0x1
  257 0011 8D000000 		.4byte	.LASF25
- 258 0015 88010000 		.4byte	.LASF26
+ 258 0015 69010000 		.4byte	.LASF26
  259 0019 00000000 		.4byte	.Ldebug_ranges0+0
  260 001d 00000000 		.4byte	0
  261 0021 00000000 		.4byte	.Ldebug_line0
  262 0025 02       		.uleb128 0x2
  263 0026 01       		.byte	0x1
  264 0027 06       		.byte	0x6
- 265 0028 C6010000 		.4byte	.LASF0
+ 265 0028 E7010000 		.4byte	.LASF0
  266 002c 02       		.uleb128 0x2
  267 002d 01       		.byte	0x1
  268 002e 08       		.byte	0x8
@@ -440,7 +440,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 1
  270 0033 02       		.uleb128 0x2
  271 0034 02       		.byte	0x2
  272 0035 05       		.byte	0x5
- 273 0036 69010000 		.4byte	.LASF2
+ 273 0036 BF010000 		.4byte	.LASF2
  274 003a 02       		.uleb128 0x2
  275 003b 02       		.byte	0x2
  276 003c 07       		.byte	0x7
@@ -448,7 +448,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 1
  278 0041 02       		.uleb128 0x2
  279 0042 04       		.byte	0x4
  280 0043 05       		.byte	0x5
- 281 0044 BD010000 		.4byte	.LASF4
+ 281 0044 DE010000 		.4byte	.LASF4
  282 0048 02       		.uleb128 0x2
  283 0049 04       		.byte	0x4
  284 004a 07       		.byte	0x7
@@ -470,7 +470,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 1
  300 0066 07       		.byte	0x7
  301 0067 AA000000 		.4byte	.LASF8
  302 006b 04       		.uleb128 0x4
- 303 006c 73010000 		.4byte	.LASF9
+ 303 006c C9010000 		.4byte	.LASF9
  304 0070 02       		.byte	0x2
  305 0071 A1       		.byte	0xa1
  306 0072 2C000000 		.4byte	0x2c
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 1
  308 0077 86000000 		.4byte	.LASF10
  309 007b 02       		.byte	0x2
  310 007c A3       		.byte	0xa3
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 9
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD4MZaN.s 			page 9
 
 
  311 007d 48000000 		.4byte	0x48
@@ -528,7 +528,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 1
  355 00d7 77       		.sleb128 -9
  356 00d8 00       		.byte	0
  357 00d9 07       		.uleb128 0x7
- 358 00da 79010000 		.4byte	.LASF16
+ 358 00da CF010000 		.4byte	.LASF16
  359 00de 01       		.byte	0x1
  360 00df 49       		.byte	0x49
  361 00e0 00000000 		.4byte	.LFB1
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 1
  365 00ea FD000000 		.4byte	0xfd
  366 00ee 08       		.uleb128 0x8
  367 00ef 33010000 		.4byte	.LASF18
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 10
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD4MZaN.s 			page 10
 
 
  368 00f3 01       		.byte	0x1
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 1
  422 0008 0E       		.uleb128 0xe
  423 0009 1B       		.uleb128 0x1b
  424 000a 0E       		.uleb128 0xe
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 11
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD4MZaN.s 			page 11
 
 
  425 000b 55       		.uleb128 0x55
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 1
  479 0041 00       		.byte	0
  480 0042 00       		.byte	0
  481 0043 06       		.uleb128 0x6
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 12
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD4MZaN.s 			page 12
 
 
  482 0044 35       		.uleb128 0x35
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 1
  536 007b 0B       		.uleb128 0xb
  537 007c 49       		.uleb128 0x49
  538 007d 13       		.uleb128 0x13
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 13
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD4MZaN.s 			page 13
 
 
  539 007e 02       		.uleb128 0x2
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 1
  593 00b6 00       		.byte	0
  594              		.section	.debug_aranges,"",%progbits
  595 0000 3C000000 		.4byte	0x3c
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 14
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD4MZaN.s 			page 14
 
 
  596 0004 0200     		.2byte	0x2
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 1
  640 0020 6C6F6E67 		.ascii	"long long unsigned int\000"
  640      206C6F6E 
  640      6720756E 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 15
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD4MZaN.s 			page 15
 
 
  640      7369676E 
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 1
  663      6E203231 
  663      31333538 
  664 011d 30202D66 		.ascii	"0 -ffunction-sections\000"
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 16
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD4MZaN.s 			page 16
 
 
  664      66756E63 
@@ -927,32 +927,38 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccCvlUMd.s 			page 1
  674      6E746572 
  674      72757074 
  674      00
- 675              	.LASF2:
- 676 0169 73686F72 		.ascii	"short int\000"
- 676      7420696E 
- 676      7400
- 677              	.LASF9:
- 678 0173 75696E74 		.ascii	"uint8\000"
- 678      3800
- 679              	.LASF16:
- 680 0179 485F5365 		.ascii	"H_SetDriveMode\000"
- 680      74447269 
- 680      76654D6F 
- 680      646500
- 681              	.LASF26:
- 682 0188 453A5C44 		.ascii	"E:\\Documents\\UROPs\\Biomech UROP\\Code\\Batt\\Bat"
- 682      6F63756D 
- 682      656E7473 
- 682      5C55524F 
- 682      50735C42 
- 683 01b5 742E6379 		.ascii	"t.cydsn\000"
- 683      64736E00 
+ 675              	.LASF26:
+ 676 0169 433A5C55 		.ascii	"C:\\Users\\JFDuval\\Desktop\\Work_Folder\\Biomech-E"
+ 676      73657273 
+ 676      5C4A4644 
+ 676      7576616C 
+ 676      5C446573 
+ 677 0197 452D5356 		.ascii	"E-SVN2\\Code\\flexsea_1_0\\batt\\Batt.cydsn\000"
+ 677      4E325C43 
+ 677      6F64655C 
+ 677      666C6578 
+ 677      7365615F 
+ 678              	.LASF2:
+ 679 01bf 73686F72 		.ascii	"short int\000"
+ 679      7420696E 
+ 679      7400
+ 680              	.LASF9:
+ 681 01c9 75696E74 		.ascii	"uint8\000"
+ 681      3800
+ 682              	.LASF16:
+ 683 01cf 485F5365 		.ascii	"H_SetDriveMode\000"
+ 683      74447269 
+ 683      76654D6F 
+ 683      646500
  684              	.LASF4:
- 685 01bd 6C6F6E67 		.ascii	"long int\000"
+ 685 01de 6C6F6E67 		.ascii	"long int\000"
  685      20696E74 
  685      00
  686              	.LASF0:
- 687 01c6 7369676E 		.ascii	"signed char\000"
+ 687 01e7 7369676E 		.ascii	"signed char\000"
  687      65642063 
  687      68617200 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD4MZaN.s 			page 17
+
+
  688              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br

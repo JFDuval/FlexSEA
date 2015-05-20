@@ -20,15 +20,12 @@
 
 uint8 i2c_tmp_buf[IMU_MAX_BUF_SIZE];
 volatile uint8 i2c_r_buf[16];
-uint8 imu_last_request = IMU_RQ_GYRO;
-
 struct imu_s imu;
 
 //****************************************************************************
 // Private Function Prototype(s)
 //****************************************************************************
 
-static void store_imu_data(uint8 newdata[7]);
 
 //****************************************************************************
 // Public Function(s)
@@ -111,10 +108,10 @@ int16 get_gyro_z(void)
 //Puts all the gyroscope values in the structure:
 void get_gyro_xyz(void)
 {
-	uint8 tmp_data[7] = {0,0,0,0,0,0, 0};
+	uint8 tmp_data[7] = {0,0,0,0,0,0,0};
 	
 	//According to the documentation it's X_H, X_L, Y_H, ...
-	imu_read(IMU_GYRO_XOUT_H, tmp_data, 7);
+	imu_read(IMU_GYRO_XOUT_H, tmp_data, 6);
 	//Note: reading 6 bytes causes a bad reading on Z ([6] always 0).	
 }
 
@@ -175,7 +172,7 @@ int imu_read(uint8 internal_reg_addr, uint8 *pData, uint16 length)
 	}
 	
 	//Store data:
-	store_imu_data(i2c_r_buf);
+	assign_i2c_data(&i2c_r_buf);
 	
 	//Clear status:
 	//I2C_1_MasterClearStatus();
@@ -305,37 +302,4 @@ uint8 I2C_1_MasterWriteByteTimeOut(uint8 theByte, uint32 timeout)
 // Private Function(s)
 //****************************************************************************
 
-//Associate data with the right structure
-static void store_imu_data(uint8 newdata[7])
-{
-	uint16 tmp = 0;
-	
-	if(imu_last_request == IMU_RQ_GYRO)
-	{
-		//Gyro X:
-		tmp = ((uint16)newdata[0] << 8) | ((uint16) newdata[1]);
-		imu.gyro.x = (int16)tmp;
-		
-		//Gyro Y:
-		tmp = ((uint16)newdata[2] << 8) | ((uint16) newdata[3]);
-		imu.gyro.y = (int16)tmp;
-		
-		//Gyro Z:
-		tmp = ((uint16)newdata[4] << 8) | ((uint16) newdata[5]);
-		imu.gyro.z = (int16)tmp;		
-	}
-	else if(imu_last_request == IMU_RQ_ACCEL)
-	{
-		//Accel X:
-		tmp = ((uint16)newdata[0] << 8) | ((uint16) newdata[1]);
-		imu.accel.x = (int16)tmp;
-		
-		//Accel Y:
-		tmp = ((uint16)newdata[2] << 8) | ((uint16) newdata[3]);
-		imu.accel.y = (int16)tmp;
-		
-		//Accel Z:
-		tmp = ((uint16)newdata[4] << 8) | ((uint16) newdata[5]);
-		imu.accel.z = (int16)tmp;		
-	}
-}
+

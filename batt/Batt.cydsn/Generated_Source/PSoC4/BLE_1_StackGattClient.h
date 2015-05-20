@@ -1,6 +1,6 @@
 /*******************************************************************************
 File Name: CYBLE_StackGattClient.h
-Version 1.10
+Version 1.20
 
 Description:
  This file contains the GATT Client routines
@@ -9,7 +9,7 @@ Related Document:
  BLE Standard Spec - CoreV4.1, CSS, CSAs, ESR05, ESR06
 
 ********************************************************************************
-Copyright 2014, Cypress Semiconductor Corporation.  All rights reserved.
+Copyright 2014-2015, Cypress Semiconductor Corporation.  All rights reserved.
 You may use this file only in accordance with the license, terms, conditions,
 disclaimers, and limitations in the end user license agreement accompanying
 the software package with which this file was provided.
@@ -928,7 +928,7 @@ Summary:
 
  Internally, Signed Write Command is used.
  Refer Bluetooth Spec4.1 Security Manager [Vol. 3] Part H, Section 2.4.5.
-    
+
  If the authenticated Characteristic Value that is written is the wrong size, 
  has an invalid value as defined by the profile, or the signed value does not
  authenticate the client, then the write shall not succeed and no error shall

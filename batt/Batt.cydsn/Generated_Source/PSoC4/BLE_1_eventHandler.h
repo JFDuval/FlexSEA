@@ -1,13 +1,13 @@
 /*******************************************************************************
 File Name: CYBLE_eventHandler.h
-Version 1.10
+Version 1.20
 
 Description:
  Contains the prototypes and constants used in the Event Handler State Machine
  of the BLE Component.
 
 ********************************************************************************
-Copyright 2014, Cypress Semiconductor Corporation.  All rights reserved.
+Copyright 2014-2015, Cypress Semiconductor Corporation.  All rights reserved.
 You may use this file only in accordance with the license, terms, conditions,
 disclaimers, and limitations in the end user license agreement accompanying
 the software package with which this file was provided.
@@ -33,6 +33,9 @@ the software package with which this file was provided.
 #ifdef CYBLE_BLS
     #include "BLE_1_bls.h"
 #endif /* CYBLE_BLS */
+#ifdef CYBLE_CGMS
+    #include "BLE_1_cgms.h"
+#endif /* CYBLE_CGMS */
 #ifdef CYBLE_CPS
     #include "BLE_1_cps.h"
 #endif /* CYBLE_CPS */
@@ -87,6 +90,9 @@ the software package with which this file was provided.
 #ifdef CYBLE_CUSTOM
     #include "BLE_1_custom.h"
 #endif /* CYBLE_CUSTOM */
+#ifdef CYBLE_UDS
+    #include "BLE_1_uds.h"
+#endif /* CYBLE_UDS */
 
 
 /***************************************
@@ -378,6 +384,86 @@ typedef enum
     CYBLE_EVT_BLSC_WRITE_DESCR_RESPONSE,
     
 
+    /***************************************
+    ##CGM Service Events
+    ***************************************/
+    
+    /* CGMS Server - Indication for Glucose Service Characteristic
+        was enabled. The parameter of this event is a structure 
+        of CYBLE_CGMS_CHAR_VALUE_T type.
+    */
+    CYBLE_EVT_CGMSS_INDICATION_ENABLED,
+    
+    /* CGMS Server - Indication for Glucose Service Characteristic
+        was disabled. The parameter of this event is a structure 
+        of CYBLE_CGMS_CHAR_VALUE_T type.
+    */
+    CYBLE_EVT_CGMSS_INDICATION_DISABLED,
+    
+    /* CGMS Server - Glucose Service Characteristic
+        Indication was confirmed. The parameter of this event
+        is a structure of CYBLE_CGMS_CHAR_VALUE_T type.
+    */
+    CYBLE_EVT_CGMSS_INDICATION_CONFIRMED,
+    
+    /* CGMS Server - Notifications for Glucose Service Characteristic
+        was enabled. The parameter of this event is a structure of
+        CYBLE_CGMS_CHAR_VALUE_T type.
+    */
+    CYBLE_EVT_CGMSS_NOTIFICATION_ENABLED,
+    
+    /* CGMS Server - Notifications for Glucose Service Characteristic
+        were disabled. The parameter of this event is a structure 
+        of CYBLE_CGMS_CHAR_VALUE_T type.
+    */
+    CYBLE_EVT_CGMSS_NOTIFICATION_DISABLED,
+    
+    /* CGMS Server - Write Request for Glucose Service 
+        was received. The parameter of this event is a structure
+        of CYBLE_CGMS_CHAR_VALUE_T type.
+    */    
+    CYBLE_EVT_CGMSS_WRITE_CHAR,
+    
+    /* CGMS Client - Glucose Service Characteristic
+        Indication was received. The parameter of this event
+        is a structure of CYBLE_CGMS_CHAR_VALUE_T type.
+    */
+    CYBLE_EVT_CGMSC_INDICATION,
+    
+    /* CGMS Client - Glucose Service Characteristic
+        Notification was received. The parameter of this event
+        is a structure of CYBLE_CGMS_CHAR_VALUE_T type.
+    */
+    CYBLE_EVT_CGMSC_NOTIFICATION,
+    
+    /* CGMS Client - Read Response for Read Request of Glucose 
+        Service Characteristic value. The parameter of this event
+        is a structure of CYBLE_CGMS_CHAR_VALUE_T type.
+    */
+    CYBLE_EVT_CGMSC_READ_CHAR_RESPONSE,
+    
+    /* CGMS Client - Write Response for Write Request of Glucose
+        Service Characteristic value. The 
+        parameter of this event is a structure of
+        CYBLE_CGMS_CHAR_VALUE_T type.
+    */
+    CYBLE_EVT_CGMSC_WRITE_CHAR_RESPONSE,
+    
+    /* CGMS Client - Read Response for Read Request of Glucose
+        Service Characteristic Descriptor Read request. The 
+        parameter of this event is a structure of
+        CYBLE_CGMS_DESCR_VALUE_T type.
+    */
+    CYBLE_EVT_CGMSC_READ_DESCR_RESPONSE,
+    
+    /* CGMS Client - Write Response for Write Request of Glucose
+        Service Characteristic Configuration Descriptor value.
+        The parameter of this event is a structure of 
+        CYBLE_CGMS_DESCR_VALUE_T type.
+    */
+    CYBLE_EVT_CGMSC_WRITE_DESCR_RESPONSE,
+    
+    
     /***************************************
     ##CPS Service Events
     ***************************************/
@@ -1249,6 +1335,85 @@ typedef enum
         is a structure of CYBLE_TPS_DESCR_VALUE_T type.
     */
     CYBLE_EVT_TPSC_WRITE_DESCR_RESPONSE,
+    
+    
+    /***************************************
+    ##User Data Service Events
+    ***************************************/
+
+    /* UDS Server - Indication for User Data Service Characteristic
+        was enabled. The parameter of this event is a structure 
+        of CYBLE_UDS_CHAR_VALUE_T type.
+    */
+    CYBLE_EVT_UDSS_INDICATION_ENABLED,
+
+    /* UDS Server - Indication for User Data Service Characteristic
+        was disabled. The parameter of this event is a structure 
+        of CYBLE_UDS_CHAR_VALUE_T type.
+    */
+    CYBLE_EVT_UDSS_INDICATION_DISABLED,
+
+    /* UDS Server - User Data Service Characteristic
+        Indication was confirmed. The parameter of this event
+        is a structure of CYBLE_UDS_CHAR_VALUE_T type.
+    */
+    CYBLE_EVT_UDSS_INDICATION_CONFIRMED,
+
+    /* UDS Server - Notifications for User Data Service Characteristic
+        were enabled. The parameter of this event is a structure of
+        CYBLE_UDS_CHAR_VALUE_T type.
+    */
+    CYBLE_EVT_UDSS_NOTIFICATION_ENABLED,
+
+    /* UDS Server - Notifications for User Data Service Characteristic
+        were disabled. The parameter of this event is a structure 
+        of CYBLE_UDS_CHAR_VALUE_T type.
+    */
+    CYBLE_EVT_UDSS_NOTIFICATION_DISABLED,
+
+    /* UDS Server - Write Request for User Data Service Characteristic 
+        was received. The parameter of this event is a structure
+        of CYBLE_UDS_CHAR_VALUE_T type.
+    */    
+    CYBLE_EVT_UDSS_WRITE_CHAR,
+
+    /* UDS Client - User Data Service Characteristic
+        Indication was received. The parameter of this event
+        is a structure of CYBLE_UDS_CHAR_VALUE_T type.
+    */
+    CYBLE_EVT_UDSC_INDICATION,
+
+    /* UDS Client - User Data Service Characteristic
+        Notification was received. The parameter of this event
+        is a structure of CYBLE_UDS_CHAR_VALUE_T type.
+    */
+    CYBLE_EVT_UDSC_NOTIFICATION,
+
+    /* UDS Client - Read Response for Read Request of User Data 
+        Service Characteristic value. The parameter of this event
+        is a structure of CYBLE_UDS_CHAR_VALUE_T type.
+    */
+    CYBLE_EVT_UDSC_READ_CHAR_RESPONSE,
+
+    /* UDS Client - Write Response for Write Request of User Data 
+        Service Characteristic value. The parameter of this event
+        is a structure of CYBLE_UDS_CHAR_VALUE_T type.
+    */
+    CYBLE_EVT_UDSC_WRITE_CHAR_RESPONSE,
+
+    /* UDS Client - Read Response for Read Request of User Data
+        Service Characteristic Descriptor Read request. The 
+        parameter of this event is a structure of
+        CYBLE_UDS_DESCR_VALUE_T type.
+    */
+    CYBLE_EVT_UDSC_READ_DESCR_RESPONSE,
+
+    /* UDS Client - Write Response for Write Request of User Data
+        Service Characteristic Configuration Descriptor value.
+        The parameter of this event is a structure of 
+        CYBLE_UDS_DESCR_VALUE_T type.
+    */
+    CYBLE_EVT_UDSC_WRITE_DESCR_RESPONSE,
 
     
     /***************************************
@@ -1325,6 +1490,9 @@ typedef enum
 #ifdef CYBLE_BLS_CLIENT
     CYBLE_SRVI_BLS,
 #endif /* CYBLE_BLS_CLIENT */
+#ifdef CYBLE_CGMS_CLIENT
+    CYBLE_SRVI_CGMS,
+#endif /* CYBLE_CGMS_CLIENT */
 #ifdef CYBLE_CPS_CLIENT
     CYBLE_SRVI_CPS,
 #endif /* CYBLE_CPS_CLIENT */
@@ -1377,6 +1545,9 @@ typedef enum
 #ifdef CYBLE_TPS_CLIENT
     CYBLE_SRVI_TPS,
 #endif /* CYBLE_TPS_CLIENT */
+#ifdef CYBLE_UDS_CLIENT
+    CYBLE_SRVI_UDS,
+#endif /* CYBLE_UDS_CLIENT */
 
     CYBLE_SRVI_COUNT /* Total count of services */
 }CYBLE_SRVI_T;
@@ -1401,6 +1572,11 @@ typedef enum
     CYBLE_SCDI_BLS_BPM,                                     /* Blood Pressure Measurement Characteristic */
     CYBLE_SCDI_BLS_ICP,                                     /* Intermediate Cuff Pressure Characteristic */
 #endif /* CYBLE_BLS_CLIENT */
+#ifdef CYBLE_CGMS_CLIENT
+    CYBLE_SCDI_CGMS_CGMT,                                   /* CGM Measurement Characteristic */
+    CYBLE_SCDI_CGMS_RACP,                                   /* Record Access Control Point Characteristic */
+    CYBLE_SCDI_CGMS_SOCP,                                   /* CGM Specific Ops Control Point Characteristic */
+#endif /* CYBLE_CGMS_CLIENT */
 #ifdef CYBLE_CPS_CLIENT
     CYBLE_SCDI_CPS_POWER_MEASURE,                           /* Cycling Power Measurement characteristic */ 
     CYBLE_SCDI_CPS_POWER_FEATURE,                           /* Cycling Power Feature characteristic */ 
@@ -1462,6 +1638,10 @@ typedef enum
 #ifdef CYBLE_TPS_CLIENT
     CYBLE_SCDI_TPS_TX_PWR_LEVEL,
 #endif /* CYBLE_TPS_CLIENT */
+#ifdef CYBLE_UDS_CLIENT
+    CYBLE_SRVI_UDS_DCI,                                     /*  Database Change Increment Characteristic */
+    CYBLE_SRVI_UDS_UCP,                                     /*  User Control Point Characteristic */
+#endif /* CYBLE_UDS_CLIENT */
 
     CYBLE_SCDI_COUNT /* Total count of descriptors */
 }CYBLE_SCDI_T;
@@ -1477,7 +1657,7 @@ typedef enum
 void CyBle_EventHandler(uint8 eventCode, void *eventParam);
 void CyBle_ReadByGroupEventHandler(CYBLE_GATTC_READ_BY_GRP_RSP_PARAM_T *eventParam);
 void CyBle_ReadByTypeEventHandler(CYBLE_GATTC_READ_BY_TYPE_RSP_PARAM_T *eventParam);
-void CyBle_FindInfoEventHandler( CYBLE_GATTC_FIND_INFO_RSP_PARAM_T *eventParam);
+void CyBle_FindInfoEventHandler(CYBLE_GATTC_FIND_INFO_RSP_PARAM_T *eventParam);
 void CyBle_ErrorResponseEventHandler(const CYBLE_GATTC_ERR_RSP_PARAM_T *eventParam);
 CYBLE_API_RESULT_T CyBle_NextInclDiscovery(void);
 CYBLE_API_RESULT_T CyBle_NextCharDiscovery(void);
@@ -1528,16 +1708,40 @@ Return:
 #define CyBle_GetState() (cyBle_state)
 
 
-#if(CYBLE_GATT_ROLE_CLIENT)
+/****************************************************************************** 
+##Function Name: CyBle_GattGetBusyStatus
+*******************************************************************************
+
+Summary:
+ This function returns the status of BLE stack(busy or not busy).
+
+Parameters:
+ None
+
+Return:
+ uint8: Busy status 
+  * CYBLE_STACK_STATE_BUSY - BLE stack busy
+  * CYBLE_STACK_STATE_FREE - BLE stack not busy
+
+******************************************************************************/
+#define CyBle_GattGetBusyStatus() (cyBle_busyStatus)
+
 
 /* DOM-IGNORE-BEGIN */
+
+/* Deprecated macro name. Not recommended for use in new design */
+#define CyBle_GattGetBusStatus  CyBle_GattGetBusyStatus
+#define cyBle_busStatus         cyBle_busyStatus
+
+#if(CYBLE_GATT_ROLE_CLIENT)
+
 
 /******************************************************************************    
 ##Function Name: CyBle_SetClientState
 *******************************************************************************
 
 Summary:
- Used to sets the Event Handler GATT Client State Machine's state
+ Used to set the Event Handler GATT Client State Machine's state
 
 Parameters:
  CYBLE_STATE_T state:  The state which is desired to be set
@@ -1565,6 +1769,7 @@ Return:
 ******************************************************************************/
 #define CyBle_GetClientState() (cyBle_clientState)
     
+
 
 #define CYBLE_GapcCheckCharHandle(handle, discCharInfo)\
     do {\
@@ -1609,24 +1814,9 @@ Return:
 #endif /* CYBLE_GATT_ROLE_CLIENT */
 
 
-/****************************************************************************** 
-##Function Name: CyBle_GattGetBusStatus
-*******************************************************************************
-
-Summary:
- This function returns the state of BLE stack.
-
-Parameters:
- None
-
-Return:
- uint8: Bus status 
-  * CYBLE_STACK_STATE_BUSY - BLE stack busy
-  * CYBLE_STACK_STATE_FREE - BLE stack not busy
-
-******************************************************************************/
-#define CyBle_GattGetBusStatus() (cyBle_busStatus)
 /* DOM-IGNORE-END */
+
+
 
 
 /***************************************
@@ -1635,7 +1825,7 @@ Return:
 
 extern CYBLE_STATE_T            cyBle_state;
 extern CYBLE_CONN_HANDLE_T      cyBle_connHandle;
-extern volatile uint8           cyBle_busStatus;
+extern volatile uint8           cyBle_busyStatus;
 
 #if(CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_BROADCASTER) 
     extern uint8 cyBle_advertisingIntervalType;

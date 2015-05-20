@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: CYBLE_STACK_PVT.h
-* Version 1.10
+* Version 1.20
 *
 * Description:
 *  Contains the function prototypes and constants for the HAL section
@@ -9,7 +9,7 @@
 * Note:
 *
 ********************************************************************************
-* Copyright 2014, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2014-2015, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.

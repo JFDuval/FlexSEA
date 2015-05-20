@@ -134,6 +134,9 @@ int safety_cop_read(uint8 internal_reg_addr, uint8 *pData, uint16 length)
 		pData[i] = i2c_r_buf[i];
 	}
 	
+	//Store data:
+	assign_i2c_data(&i2c_r_buf);
+	
 	//Clear status:
 	//I2C_1_MasterClearStatus();
 	

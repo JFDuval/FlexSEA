@@ -1,6 +1,6 @@
 /*******************************************************************************
 File Name: CYBLE_StackL2cap.h
-Version 1.10
+Version 1.20
 
 Description:
  This file contains the L2CAP APIs of the BLE Host Stack IP
@@ -9,7 +9,7 @@ Related Document:
  BLE Standard Spec - CoreV4.1, CSS, CSAs, ESR05, ESR06
 
 ********************************************************************************
-Copyright 2014, Cypress Semiconductor Corporation.  All rights reserved.
+Copyright 2014-2015, Cypress Semiconductor Corporation.  All rights reserved.
 You may use this file only in accordance with the license, terms, conditions,
 disclaimers, and limitations in the end user license agreement accompanying
 the software package with which this file was provided.
@@ -49,6 +49,7 @@ the software package with which this file was provided.
 #define CYBLE_L2CAP_CONNECTION_REFUSED_AUTHENTICATION_INSUFFICIENT      0x0005u
 #define CYBLE_L2CAP_CONNECTION_REFUSED_AUTHORIZATION_INSUFFICIENT       0x0006u
 #define CYBLE_L2CAP_CONNECTION_REFUSED_ENC_KEY_SIZE_INSUFFICIENT        0x0007u
+
 /*##Response codes for Connection parameter update request */
 
 /* Connection Parameters accepted */
@@ -91,7 +92,7 @@ typedef enum
 	/* Not enough credit to perform this operation */
 	CYBLE_L2CAP_RESULT_NOT_ENOUGH_CREDITS = 0x2371u,
 	
-	/* Credit overflow. Total credit exceeded 56535 (maximum) */
+	/* Credit overflow. Total credit exceeded 65535 (maximum) */
 	CYBLE_L2CAP_RESULT_CREDIT_OVERFLOW = 0x2373u,
 	
 	/* Invalid credit value, receive credit is Zero */
@@ -457,9 +458,8 @@ localCid: This parameter specifies the local channel end-point for the L2CAP
            value when it receives the event CYBLE_EVT_L2CAP_CBFC_CONN_IND.
 
 credit: The credit value field represents number of credits the receiving 
-         device can increment, corresponding to the number of LE-frames that 
-         can be sent to the peer device sending the LE Flow Control Credit 
-         packet. The credit value field is a number between 1 and 65535.
+         device can increment. The credit value field is a number between 1 and
+         65535.
 	
 Return:
  CYBLE_API_RESULT_T : Return value indicates if the function succeeded or

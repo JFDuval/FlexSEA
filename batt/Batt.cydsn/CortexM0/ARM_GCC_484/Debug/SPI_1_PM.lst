@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 1
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\cc5BTpp6.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 1
   23:.\Generated_Source\PSoC4/SPI_1_PM.c **** #endif /* (SPI_1_SCB_MODE_I2C_INC) */
   24:.\Generated_Source\PSoC4/SPI_1_PM.c **** 
   25:.\Generated_Source\PSoC4/SPI_1_PM.c **** #if(SPI_1_SCB_MODE_EZI2C_INC)
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 2
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\cc5BTpp6.s 			page 2
 
 
   26:.\Generated_Source\PSoC4/SPI_1_PM.c ****     #include "SPI_1_EZI2C_PVT.h"
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 1
   72:.\Generated_Source\PSoC4/SPI_1_PM.c ****     {
   73:.\Generated_Source\PSoC4/SPI_1_PM.c ****         if(SPI_1_SCB_MODE_I2C_RUNTM_CFG)
   74:.\Generated_Source\PSoC4/SPI_1_PM.c ****         {
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 3
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\cc5BTpp6.s 			page 3
 
 
   75:.\Generated_Source\PSoC4/SPI_1_PM.c ****             SPI_1_I2CSaveConfig();
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 1
   47 000e 064B     		ldr	r3, .L3+4
   48 0010 1A70     		strb	r2, [r3]
  123:.\Generated_Source\PSoC4/SPI_1_PM.c **** 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 4
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\cc5BTpp6.s 			page 4
 
 
  124:.\Generated_Source\PSoC4/SPI_1_PM.c ****         if(0u != SPI_1_backup.enableState)
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 1
  150:.\Generated_Source\PSoC4/SPI_1_PM.c **** *
  151:.\Generated_Source\PSoC4/SPI_1_PM.c **** *******************************************************************************/
  152:.\Generated_Source\PSoC4/SPI_1_PM.c **** void SPI_1_Wakeup(void)
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 5
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\cc5BTpp6.s 			page 5
 
 
  153:.\Generated_Source\PSoC4/SPI_1_PM.c **** {
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 1
  199:.\Generated_Source\PSoC4/SPI_1_PM.c **** 
  200:.\Generated_Source\PSoC4/SPI_1_PM.c ****     #elif (SPI_1_SCB_MODE_UART_CONST_CFG && SPI_1_UART_WAKE_ENABLE_CONST)
  201:.\Generated_Source\PSoC4/SPI_1_PM.c ****         SPI_1_UartRestoreConfig();
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 6
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\cc5BTpp6.s 			page 6
 
 
  202:.\Generated_Source\PSoC4/SPI_1_PM.c **** 
@@ -343,40 +343,40 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 1
  112 0006 00000000 		.4byte	.Ldebug_abbrev0
  113 000a 04       		.byte	0x4
  114 000b 01       		.uleb128 0x1
- 115 000c 6A000000 		.4byte	.LASF19
+ 115 000c C0000000 		.4byte	.LASF19
  116 0010 01       		.byte	0x1
- 117 0011 0E010000 		.4byte	.LASF20
- 118 0015 5F010000 		.4byte	.LASF21
+ 117 0011 64010000 		.4byte	.LASF20
+ 118 0015 3B000000 		.4byte	.LASF21
  119 0019 00000000 		.4byte	.Ldebug_ranges0+0
  120 001d 00000000 		.4byte	0
  121 0021 00000000 		.4byte	.Ldebug_line0
  122 0025 02       		.uleb128 0x2
  123 0026 01       		.byte	0x1
  124 0027 06       		.byte	0x6
- 125 0028 45010000 		.4byte	.LASF0
+ 125 0028 9B010000 		.4byte	.LASF0
  126 002c 02       		.uleb128 0x2
  127 002d 01       		.byte	0x1
  128 002e 08       		.byte	0x8
- 129 002f 51010000 		.4byte	.LASF1
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 7
+ 129 002f A7010000 		.4byte	.LASF1
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\cc5BTpp6.s 			page 7
 
 
  130 0033 02       		.uleb128 0x2
  131 0034 02       		.byte	0x2
  132 0035 05       		.byte	0x5
- 133 0036 9A010000 		.4byte	.LASF2
+ 133 0036 BB010000 		.4byte	.LASF2
  134 003a 02       		.uleb128 0x2
  135 003b 02       		.byte	0x2
  136 003c 07       		.byte	0x7
- 137 003d 32010000 		.4byte	.LASF3
+ 137 003d 88010000 		.4byte	.LASF3
  138 0041 02       		.uleb128 0x2
  139 0042 04       		.byte	0x4
  140 0043 05       		.byte	0x5
- 141 0044 F8000000 		.4byte	.LASF4
+ 141 0044 4E010000 		.4byte	.LASF4
  142 0048 02       		.uleb128 0x2
  143 0049 04       		.byte	0x4
  144 004a 07       		.byte	0x7
- 145 004b 41000000 		.4byte	.LASF5
+ 145 004b 97000000 		.4byte	.LASF5
  146 004f 02       		.uleb128 0x2
  147 0050 08       		.byte	0x8
  148 0051 05       		.byte	0x5
@@ -384,7 +384,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 1
  150 0056 02       		.uleb128 0x2
  151 0057 08       		.byte	0x8
  152 0058 07       		.byte	0x7
- 153 0059 53000000 		.4byte	.LASF7
+ 153 0059 A9000000 		.4byte	.LASF7
  154 005d 03       		.uleb128 0x3
  155 005e 04       		.byte	0x4
  156 005f 05       		.byte	0x5
@@ -394,7 +394,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 1
  160 0066 07       		.byte	0x7
  161 0067 21000000 		.4byte	.LASF8
  162 006b 04       		.uleb128 0x4
- 163 006c 3B000000 		.4byte	.LASF9
+ 163 006c 91000000 		.4byte	.LASF9
  164 0070 02       		.byte	0x2
  165 0071 A1       		.byte	0xa1
  166 0072 2C000000 		.4byte	0x2c
@@ -406,19 +406,19 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 1
  172 0081 02       		.uleb128 0x2
  173 0082 04       		.byte	0x4
  174 0083 04       		.byte	0x4
- 175 0084 94010000 		.4byte	.LASF11
+ 175 0084 B5010000 		.4byte	.LASF11
  176 0088 02       		.uleb128 0x2
  177 0089 08       		.byte	0x8
  178 008a 04       		.byte	0x4
- 179 008b 01010000 		.4byte	.LASF12
+ 179 008b 57010000 		.4byte	.LASF12
  180 008f 02       		.uleb128 0x2
  181 0090 01       		.byte	0x1
  182 0091 08       		.byte	0x8
- 183 0092 F3000000 		.4byte	.LASF13
+ 183 0092 49010000 		.4byte	.LASF13
  184 0096 05       		.uleb128 0x5
- 185 0097 08010000 		.4byte	.LASF14
+ 185 0097 5E010000 		.4byte	.LASF14
  186 009b 02       		.byte	0x2
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 8
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\cc5BTpp6.s 			page 8
 
 
  187 009c 4D01     		.2byte	0x14d
@@ -428,7 +428,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 1
  191 00a7 02       		.uleb128 0x2
  192 00a8 04       		.byte	0x4
  193 00a9 07       		.byte	0x7
- 194 00aa C4010000 		.4byte	.LASF15
+ 194 00aa E5010000 		.4byte	.LASF15
  195 00ae 07       		.uleb128 0x7
  196 00af 01       		.byte	0x1
  197 00b0 03       		.byte	0x3
@@ -442,12 +442,12 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 1
  205 00c1 00       		.byte	0
  206 00c2 00       		.byte	0
  207 00c3 04       		.uleb128 0x4
- 208 00c4 A4010000 		.4byte	.LASF16
+ 208 00c4 C5010000 		.4byte	.LASF16
  209 00c8 03       		.byte	0x3
  210 00c9 5B       		.byte	0x5b
  211 00ca AE000000 		.4byte	0xae
  212 00ce 09       		.uleb128 0x9
- 213 00cf B8010000 		.4byte	.LASF17
+ 213 00cf D9010000 		.4byte	.LASF17
  214 00d3 01       		.byte	0x1
  215 00d4 43       		.byte	0x43
  216 00d5 00000000 		.4byte	.LFB2
@@ -455,7 +455,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 1
  218 00dd 01       		.uleb128 0x1
  219 00de 9C       		.byte	0x9c
  220 00df 09       		.uleb128 0x9
- 221 00e0 E6000000 		.4byte	.LASF18
+ 221 00e0 3C010000 		.4byte	.LASF18
  222 00e4 01       		.byte	0x1
  223 00e5 98       		.byte	0x98
  224 00e6 00000000 		.4byte	.LFB3
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 1
  241 0002 01       		.byte	0x1
  242 0003 25       		.uleb128 0x25
  243 0004 0E       		.uleb128 0xe
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 9
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\cc5BTpp6.s 			page 9
 
 
  244 0005 13       		.uleb128 0x13
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 1
  298 003b 3A       		.uleb128 0x3a
  299 003c 0B       		.uleb128 0xb
  300 003d 3B       		.uleb128 0x3b
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 10
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\cc5BTpp6.s 			page 10
 
 
  301 003e 05       		.uleb128 0x5
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 1
  355 0074 01       		.uleb128 0x1
  356 0075 12       		.uleb128 0x12
  357 0076 06       		.uleb128 0x6
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 11
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\cc5BTpp6.s 			page 11
 
 
  358 0077 40       		.uleb128 0x40
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 1
  408 0000 6C6F6E67 		.ascii	"long long int\000"
  408      206C6F6E 
  408      6720696E 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 12
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\cc5BTpp6.s 			page 12
 
 
  408      7400
@@ -679,109 +679,112 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 1
  416      315F6261 
  416      636B7570 
  416      00
- 417              	.LASF9:
- 418 003b 75696E74 		.ascii	"uint8\000"
- 418      3800
- 419              	.LASF5:
- 420 0041 6C6F6E67 		.ascii	"long unsigned int\000"
- 420      20756E73 
- 420      69676E65 
- 420      6420696E 
- 420      7400
- 421              	.LASF7:
- 422 0053 6C6F6E67 		.ascii	"long long unsigned int\000"
- 422      206C6F6E 
- 422      6720756E 
- 422      7369676E 
- 422      65642069 
- 423              	.LASF19:
- 424 006a 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
- 424      4320342E 
- 424      382E3420 
- 424      32303134 
- 424      30353236 
- 425 009d 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
- 425      20726576 
- 425      6973696F 
- 425      6E203231 
- 425      31333538 
- 426 00d0 30202D66 		.ascii	"0 -ffunction-sections\000"
- 426      66756E63 
- 426      74696F6E 
- 426      2D736563 
- 426      74696F6E 
- 427              	.LASF18:
- 428 00e6 5350495F 		.ascii	"SPI_1_Wakeup\000"
- 428      315F5761 
- 428      6B657570 
- 428      00
- 429              	.LASF13:
- 430 00f3 63686172 		.ascii	"char\000"
- 430      00
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 13
+ 417              	.LASF21:
+ 418 003b 433A5C55 		.ascii	"C:\\Users\\JFDuval\\Desktop\\Work_Folder\\Biomech-E"
+ 418      73657273 
+ 418      5C4A4644 
+ 418      7576616C 
+ 418      5C446573 
+ 419 0069 452D5356 		.ascii	"E-SVN2\\Code\\flexsea_1_0\\batt\\Batt.cydsn\000"
+ 419      4E325C43 
+ 419      6F64655C 
+ 419      666C6578 
+ 419      7365615F 
+ 420              	.LASF9:
+ 421 0091 75696E74 		.ascii	"uint8\000"
+ 421      3800
+ 422              	.LASF5:
+ 423 0097 6C6F6E67 		.ascii	"long unsigned int\000"
+ 423      20756E73 
+ 423      69676E65 
+ 423      6420696E 
+ 423      7400
+ 424              	.LASF7:
+ 425 00a9 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 425      206C6F6E 
+ 425      6720756E 
+ 425      7369676E 
+ 425      65642069 
+ 426              	.LASF19:
+ 427 00c0 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 427      4320342E 
+ 427      382E3420 
+ 427      32303134 
+ 427      30353236 
+ 428 00f3 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 428      20726576 
+ 428      6973696F 
+ 428      6E203231 
+ 428      31333538 
+ 429 0126 30202D66 		.ascii	"0 -ffunction-sections\000"
+ 429      66756E63 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\cc5BTpp6.s 			page 13
 
 
- 431              	.LASF4:
- 432 00f8 6C6F6E67 		.ascii	"long int\000"
- 432      20696E74 
- 432      00
- 433              	.LASF12:
- 434 0101 646F7562 		.ascii	"double\000"
- 434      6C6500
- 435              	.LASF14:
- 436 0108 72656733 		.ascii	"reg32\000"
- 436      3200
- 437              	.LASF20:
- 438 010e 2E5C4765 		.ascii	".\\Generated_Source\\PSoC4\\SPI_1_PM.c\000"
- 438      6E657261 
- 438      7465645F 
- 438      536F7572 
- 438      63655C50 
- 439              	.LASF3:
- 440 0132 73686F72 		.ascii	"short unsigned int\000"
- 440      7420756E 
- 440      7369676E 
- 440      65642069 
- 440      6E7400
- 441              	.LASF0:
- 442 0145 7369676E 		.ascii	"signed char\000"
- 442      65642063 
- 442      68617200 
- 443              	.LASF1:
- 444 0151 756E7369 		.ascii	"unsigned char\000"
- 444      676E6564 
- 444      20636861 
- 444      7200
- 445              	.LASF21:
- 446 015f 453A5C44 		.ascii	"E:\\Documents\\UROPs\\Biomech UROP\\Code\\Batt\\Bat"
- 446      6F63756D 
- 446      656E7473 
- 446      5C55524F 
- 446      50735C42 
- 447 018c 742E6379 		.ascii	"t.cydsn\000"
- 447      64736E00 
+ 429      74696F6E 
+ 429      2D736563 
+ 429      74696F6E 
+ 430              	.LASF18:
+ 431 013c 5350495F 		.ascii	"SPI_1_Wakeup\000"
+ 431      315F5761 
+ 431      6B657570 
+ 431      00
+ 432              	.LASF13:
+ 433 0149 63686172 		.ascii	"char\000"
+ 433      00
+ 434              	.LASF4:
+ 435 014e 6C6F6E67 		.ascii	"long int\000"
+ 435      20696E74 
+ 435      00
+ 436              	.LASF12:
+ 437 0157 646F7562 		.ascii	"double\000"
+ 437      6C6500
+ 438              	.LASF14:
+ 439 015e 72656733 		.ascii	"reg32\000"
+ 439      3200
+ 440              	.LASF20:
+ 441 0164 2E5C4765 		.ascii	".\\Generated_Source\\PSoC4\\SPI_1_PM.c\000"
+ 441      6E657261 
+ 441      7465645F 
+ 441      536F7572 
+ 441      63655C50 
+ 442              	.LASF3:
+ 443 0188 73686F72 		.ascii	"short unsigned int\000"
+ 443      7420756E 
+ 443      7369676E 
+ 443      65642069 
+ 443      6E7400
+ 444              	.LASF0:
+ 445 019b 7369676E 		.ascii	"signed char\000"
+ 445      65642063 
+ 445      68617200 
+ 446              	.LASF1:
+ 447 01a7 756E7369 		.ascii	"unsigned char\000"
+ 447      676E6564 
+ 447      20636861 
+ 447      7200
  448              	.LASF11:
- 449 0194 666C6F61 		.ascii	"float\000"
+ 449 01b5 666C6F61 		.ascii	"float\000"
  449      7400
  450              	.LASF2:
- 451 019a 73686F72 		.ascii	"short int\000"
+ 451 01bb 73686F72 		.ascii	"short int\000"
  451      7420696E 
  451      7400
  452              	.LASF16:
- 453 01a4 5350495F 		.ascii	"SPI_1_BACKUP_STRUCT\000"
+ 453 01c5 5350495F 		.ascii	"SPI_1_BACKUP_STRUCT\000"
  453      315F4241 
  453      434B5550 
  453      5F535452 
  453      55435400 
  454              	.LASF17:
- 455 01b8 5350495F 		.ascii	"SPI_1_Sleep\000"
+ 455 01d9 5350495F 		.ascii	"SPI_1_Sleep\000"
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\cc5BTpp6.s 			page 14
+
+
  455      315F536C 
  455      65657000 
  456              	.LASF15:
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccireZI4.s 			page 14
-
-
- 457 01c4 73697A65 		.ascii	"sizetype\000"
+ 457 01e5 73697A65 		.ascii	"sizetype\000"
  457      74797065 
  457      00
  458              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br

@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD1mW3X.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
   30:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c **** 
   31:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c **** #if(SPI_1_INTERNAL_TX_SW_BUFFER_CONST)
   32:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c ****     volatile uint32 SPI_1_txBufferHead;
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 2
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD1mW3X.s 			page 2
 
 
   33:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c ****     volatile uint32 SPI_1_txBufferTail;
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
   74:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c ****         #if(SPI_1_INTERNAL_RX_SW_BUFFER_CONST)
   75:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c ****             uint32 locTail;
   76:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c ****         #endif /* (SPI_1_INTERNAL_RX_SW_BUFFER_CONST) */
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 3
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD1mW3X.s 			page 3
 
 
   77:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c **** 
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
   63              		.type	SPI_1_SpiUartGetRxBufferSize, %function
   64              	SPI_1_SpiUartGetRxBufferSize:
   65              	.LFB3:
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 4
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD1mW3X.s 			page 4
 
 
  107:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c **** 
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
   77 0006 054B     		ldr	r3, .L7
   78 0008 1A68     		ldr	r2, [r3]
   79 000a 1F23     		mov	r3, #31
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 5
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD1mW3X.s 			page 5
 
 
   80 000c 1340     		and	r3, r2
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  111 0002 00AF     		add	r7, sp, #0
  112              		.cfi_def_cfa_register 7
  173:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c ****         #if(SPI_1_INTERNAL_RX_SW_BUFFER_CONST)
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 6
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD1mW3X.s 			page 6
 
 
  174:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c ****             uint32 intSourceMask;
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  143              		.thumb_func
  144              		.type	SPI_1_SpiUartWriteTxData, %function
  145              	SPI_1_SpiUartWriteTxData:
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 7
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD1mW3X.s 			page 7
 
 
  146              	.LFB5:
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  240:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c ****             {
  241:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c ****                 /* Wait for space in TX software buffer */
  242:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c ****             }
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 8
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD1mW3X.s 			page 8
 
 
  243:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c **** 
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  176 0020 80BD     		pop	{r7, pc}
  177              	.L15:
  178 0022 C046     		.align	2
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 9
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD1mW3X.s 			page 9
 
 
  179              	.L14:
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  208 000e 09E0     		b	.L17
  209              	.L18:
  304:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c ****         {
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 10
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD1mW3X.s 			page 10
 
 
  305:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c ****             SPI_1_SpiUartWriteTxData((uint32) wrBuf[i]);
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  324:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c ****     *  None
  325:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c ****     *
  326:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c ****     * Return:
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 11
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD1mW3X.s 			page 11
 
 
  327:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c ****     *  Number of data elements ready to transmit.
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  265              		@ sp needed
  266 0018 80BD     		pop	{r7, pc}
  267              	.L22:
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 12
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD1mW3X.s 			page 12
 
 
  268 001a C046     		.align	2
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  391:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c ****             intSourceMask &= (uint32) ~SPI_1_INTR_TX_NOT_FULL;
  392:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c **** 
  393:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c ****             SPI_1_SpiUartEnableIntTx(intSourceMask);
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 13
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD1mW3X.s 			page 13
 
 
  394:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c ****         }
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  414:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c **** *
  415:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c **** * Return:
  416:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c **** *  Returns the RX interrupt sources enabled before the function call.
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 14
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD1mW3X.s 			page 14
 
 
  417:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c **** *
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  430:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c **** 
  431:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c **** /*******************************************************************************
  432:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c **** * Function Name: SPI_1_SpiUartDisableIntTx
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 15
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD1mW3X.s 			page 15
 
 
  433:.\Generated_Source\PSoC4/SPI_1_SPI_UART.c **** ********************************************************************************
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  397              		.size	SPI_1_SpiUartDisableIntTx, .-SPI_1_SpiUartDisableIntTx
  398              		.text
  399              	.Letext0:
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 16
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD1mW3X.s 			page 16
 
 
  400              		.file 2 ".\\Generated_Source\\PSoC4/cytypes.h"
@@ -912,14 +912,14 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  408 000c B5000000 		.4byte	.LASF32
  409 0010 01       		.byte	0x1
  410 0011 68000000 		.4byte	.LASF33
- 411 0015 1A020000 		.4byte	.LASF34
+ 411 0015 F7010000 		.4byte	.LASF34
  412 0019 00000000 		.4byte	.Ldebug_ranges0+0
  413 001d 00000000 		.4byte	0
  414 0021 00000000 		.4byte	.Ldebug_line0
  415 0025 02       		.uleb128 0x2
  416 0026 01       		.byte	0x1
  417 0027 06       		.byte	0x6
- 418 0028 8D020000 		.4byte	.LASF0
+ 418 0028 AE020000 		.4byte	.LASF0
  419 002c 02       		.uleb128 0x2
  420 002d 01       		.byte	0x1
  421 002e 08       		.byte	0x8
@@ -927,7 +927,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  423 0033 02       		.uleb128 0x2
  424 0034 02       		.byte	0x2
  425 0035 05       		.byte	0x5
- 426 0036 F7010000 		.4byte	.LASF2
+ 426 0036 4D020000 		.4byte	.LASF2
  427 003a 02       		.uleb128 0x2
  428 003b 02       		.byte	0x2
  429 003c 07       		.byte	0x7
@@ -935,7 +935,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  431 0041 02       		.uleb128 0x2
  432 0042 04       		.byte	0x4
  433 0043 05       		.byte	0x5
- 434 0044 4F020000 		.4byte	.LASF4
+ 434 0044 70020000 		.4byte	.LASF4
  435 0048 02       		.uleb128 0x2
  436 0049 04       		.byte	0x4
  437 004a 07       		.byte	0x7
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  454 0067 43000000 		.4byte	.LASF8
  455 006b 04       		.uleb128 0x4
  456 006c 48010000 		.4byte	.LASF9
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 17
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD1mW3X.s 			page 17
 
 
  457 0070 02       		.byte	0x2
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  511 00dd 76000000 		.4byte	0x76
  512 00e1 00000000 		.4byte	.LFB3
  513 00e5 20000000 		.4byte	.LFE3-.LFB3
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 18
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD1mW3X.s 			page 18
 
 
  514 00e9 01       		.uleb128 0x1
@@ -1034,7 +1034,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  524 00fc 74       		.sleb128 -12
  525 00fd 00       		.byte	0
  526 00fe 09       		.uleb128 0x9
- 527 00ff 58020000 		.4byte	.LASF26
+ 527 00ff 79020000 		.4byte	.LASF26
  528 0103 01       		.byte	0x1
  529 0104 AB       		.byte	0xab
  530 0105 00000000 		.4byte	.LFB4
@@ -1042,7 +1042,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  532 010d 01       		.uleb128 0x1
  533 010e 9C       		.byte	0x9c
  534 010f 0A       		.uleb128 0xa
- 535 0110 01020000 		.4byte	.LASF20
+ 535 0110 57020000 		.4byte	.LASF20
  536 0114 01       		.byte	0x1
  537 0115 DD       		.byte	0xdd
  538 0116 00000000 		.4byte	.LFB5
@@ -1060,7 +1060,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  550 0131 74       		.sleb128 -12
  551 0132 00       		.byte	0
  552 0133 0C       		.uleb128 0xc
- 553 0134 99020000 		.4byte	.LASF21
+ 553 0134 BA020000 		.4byte	.LASF21
  554 0138 01       		.byte	0x1
  555 0139 2B01     		.2byte	0x12b
  556 013b 00000000 		.4byte	.LFB6
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  568 0157 6C       		.sleb128 -20
  569 0158 0D       		.uleb128 0xd
  570 0159 23000000 		.4byte	.LASF24
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 19
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD1mW3X.s 			page 19
 
 
  571 015d 01       		.byte	0x1
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  625 01d0 01       		.uleb128 0x1
  626 01d1 9C       		.byte	0x9c
  627 01d2 E6010000 		.4byte	0x1e6
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 20
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD1mW3X.s 			page 20
 
 
  628 01d6 12       		.uleb128 0x12
@@ -1151,7 +1151,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  635 01e4 74       		.sleb128 -12
  636 01e5 00       		.byte	0
  637 01e6 14       		.uleb128 0x14
- 638 01e7 73020000 		.4byte	.LASF30
+ 638 01e7 94020000 		.4byte	.LASF30
  639 01eb 01       		.byte	0x1
  640 01ec BD01     		.2byte	0x1bd
  641 01ee 76000000 		.4byte	0x76
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  682 0018 3E       		.uleb128 0x3e
  683 0019 0B       		.uleb128 0xb
  684 001a 03       		.uleb128 0x3
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 21
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD1mW3X.s 			page 21
 
 
  685 001b 0E       		.uleb128 0xe
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  739 0051 3A       		.uleb128 0x3a
  740 0052 0B       		.uleb128 0xb
  741 0053 3B       		.uleb128 0x3b
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 22
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD1mW3X.s 			page 22
 
 
  742 0054 0B       		.uleb128 0xb
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  796 008c 00       		.byte	0
  797 008d 0A       		.uleb128 0xa
  798 008e 2E       		.uleb128 0x2e
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 23
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD1mW3X.s 			page 23
 
 
  799 008f 01       		.byte	0x1
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  853 00c6 06       		.uleb128 0x6
  854 00c7 40       		.uleb128 0x40
  855 00c8 18       		.uleb128 0x18
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 24
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD1mW3X.s 			page 24
 
 
  856 00c9 9642     		.uleb128 0x2116
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  910 0100 01       		.byte	0x1
  911 0101 3F       		.uleb128 0x3f
  912 0102 19       		.uleb128 0x19
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 25
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD1mW3X.s 			page 25
 
 
  913 0103 03       		.uleb128 0x3
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  967 013a 40       		.uleb128 0x40
  968 013b 18       		.uleb128 0x18
  969 013c 9742     		.uleb128 0x2117
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 26
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD1mW3X.s 			page 26
 
 
  970 013e 19       		.uleb128 0x19
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  1024 0054 20000000 		.4byte	.LFE10-.LFB10
  1025 0058 00000000 		.4byte	0
  1026 005c 00000000 		.4byte	0
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 27
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD1mW3X.s 			page 27
 
 
  1027              		.section	.debug_ranges,"",%progbits
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  1063      00
  1064              	.LASF16:
  1065 0050 5350495F 		.ascii	"SPI_1_SpiUartReadRxData\000"
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 28
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD1mW3X.s 			page 28
 
 
  1065      315F5370 
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  1085 0168 72784461 		.ascii	"rxData\000"
  1085      746100
  1086              	.LASF23:
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 29
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD1mW3X.s 			page 29
 
 
  1087 016f 77724275 		.ascii	"wrBuf\000"
@@ -1727,49 +1727,52 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 1
  1106              	.LASF13:
  1107 01f2 63686172 		.ascii	"char\000"
  1107      00
- 1108              	.LASF2:
- 1109 01f7 73686F72 		.ascii	"short int\000"
- 1109      7420696E 
- 1109      7400
- 1110              	.LASF20:
- 1111 0201 5350495F 		.ascii	"SPI_1_SpiUartWriteTxData\000"
- 1111      315F5370 
- 1111      69556172 
- 1111      74577269 
- 1111      74655478 
- 1112              	.LASF34:
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccQyIhgW.s 			page 30
+ 1108              	.LASF34:
+ 1109 01f7 433A5C55 		.ascii	"C:\\Users\\JFDuval\\Desktop\\Work_Folder\\Biomech-E"
+ 1109      73657273 
+ 1109      5C4A4644 
+ 1109      7576616C 
+ 1109      5C446573 
+ 1110 0225 452D5356 		.ascii	"E-SVN2\\Code\\flexsea_1_0\\batt\\Batt.cydsn\000"
+ 1110      4E325C43 
+ 1110      6F64655C 
+ 1110      666C6578 
+ 1110      7365615F 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccD1mW3X.s 			page 30
 
 
- 1113 021a 453A5C44 		.ascii	"E:\\Documents\\UROPs\\Biomech UROP\\Code\\Batt\\Bat"
- 1113      6F63756D 
- 1113      656E7473 
- 1113      5C55524F 
- 1113      50735C42 
- 1114 0247 742E6379 		.ascii	"t.cydsn\000"
- 1114      64736E00 
+ 1111              	.LASF2:
+ 1112 024d 73686F72 		.ascii	"short int\000"
+ 1112      7420696E 
+ 1112      7400
+ 1113              	.LASF20:
+ 1114 0257 5350495F 		.ascii	"SPI_1_SpiUartWriteTxData\000"
+ 1114      315F5370 
+ 1114      69556172 
+ 1114      74577269 
+ 1114      74655478 
  1115              	.LASF4:
- 1116 024f 6C6F6E67 		.ascii	"long int\000"
+ 1116 0270 6C6F6E67 		.ascii	"long int\000"
  1116      20696E74 
  1116      00
  1117              	.LASF26:
- 1118 0258 5350495F 		.ascii	"SPI_1_SpiUartClearRxBuffer\000"
+ 1118 0279 5350495F 		.ascii	"SPI_1_SpiUartClearRxBuffer\000"
  1118      315F5370 
  1118      69556172 
  1118      74436C65 
  1118      61725278 
  1119              	.LASF30:
- 1120 0273 5350495F 		.ascii	"SPI_1_SpiUartDisableIntTx\000"
+ 1120 0294 5350495F 		.ascii	"SPI_1_SpiUartDisableIntTx\000"
  1120      315F5370 
  1120      69556172 
  1120      74446973 
  1120      61626C65 
  1121              	.LASF0:
- 1122 028d 7369676E 		.ascii	"signed char\000"
+ 1122 02ae 7369676E 		.ascii	"signed char\000"
  1122      65642063 
  1122      68617200 
  1123              	.LASF21:
- 1124 0299 5350495F 		.ascii	"SPI_1_SpiUartPutArray\000"
+ 1124 02ba 5350495F 		.ascii	"SPI_1_SpiUartPutArray\000"
  1124      315F5370 
  1124      69556172 
  1124      74507574 

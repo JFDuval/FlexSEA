@@ -13,13 +13,12 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="execute\execute_1_0\Source Files\src\main.c">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="execute\execute_1_0\Source Files\src\misc.c">
 <ExpandedNodeIds>
 <v>execute</v>
 <v>execute\execute_1_0</v>
 <v>execute\execute_1_0\TopDesign</v>
 <v>execute\execute_1_0\Header Files</v>
-<v>execute\execute_1_0\Header Files\common</v>
 <v>execute\execute_1_0\Header Files\common\flexsea_buffers.h</v>
 <v>execute\execute_1_0\Header Files\common\flexsea_cmd_comm.h</v>
 <v>execute\execute_1_0\Header Files\common\flexsea_cmd_control.h</v>
@@ -52,15 +51,12 @@
 <v>execute\execute_1_0\Source Files\src\usb.c</v>
 <v>execute\execute_1_0\Generated_Source</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_CLK</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_CLK\ADC_CLK.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_CLK\ADC_CLK.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1\ADC_DelSig_1.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1\ADC_DelSig_1.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1\ADC_DelSig_1_INT.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1\ADC_DelSig_1_PM.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1_AMux</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1_AMux\ADC_DelSig_1_AMux.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1_AMux\ADC_DelSig_1_AMux.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1_Ext_CP_Clk</v>
@@ -115,6 +111,10 @@
 <v>execute\execute_1_0\Generated_Source\PSoC5\CLUTCH\CLUTCH.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\CLUTCH\CLUTCH.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\CLUTCH\CLUTCH_aliases.h</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\Coast_Brake</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\Coast_Brake\Coast_Brake.c</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\Coast_Brake\Coast_Brake.h</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\Coast_Brake\Coast_Brake_PM.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\CS1</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\CS1\CS1.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\CS1\CS1.h</v>
@@ -482,6 +482,10 @@
 <v>execute\execute_1_0\Generated_Source\PSoC5\VDAC8_1\VDAC8_1.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\VDAC8_1\VDAC8_1.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\VDAC8_1\VDAC8_1_PM.c</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\VDAC8_2</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\VDAC8_2\VDAC8_2.c</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\VDAC8_2\VDAC8_2.h</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\VDAC8_2\VDAC8_2_PM.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\VDAC8_3</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\VDAC8_3\VDAC8_3.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\VDAC8_3\VDAC8_3.h</v>
@@ -744,7 +748,7 @@
 <v>execute\execute-cop\Generated_Source\PSoC4\project.h</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
-<v>execute\execute_1_0\Header Files\common\flexsea_tx_cmd.h</v>
+<v>execute\execute_1_0\Header Files\common</v>
 <v>execute\execute_1_0\Header Files\inc</v>
 <v>execute\execute_1_0\Header Files\inc\analog.h</v>
 <v>execute\execute_1_0\Header Files\inc\flexsea_local.h</v>
@@ -787,11 +791,12 @@
 <v>execute\execute_1_0\Generated_Source</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_CLK</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_CLK\ADC_CLK.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_CLK\ADC_CLK.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1\ADC_DelSig_1.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1\ADC_DelSig_1.h</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1_AMux</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1_Ext_CP_Clk</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1_Ext_CP_Clk\ADC_DelSig_1_Ext_CP_Clk.c</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1_Ext_CP_Clk\ADC_DelSig_1_Ext_CP_Clk.h</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_DelSig_1_IRQ</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
@@ -843,6 +848,8 @@
 <v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\Clock_4.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\CLUTCH.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\Cm3Start.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\Coast_Brake.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\Coast_Brake_PM.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\CS1.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\CS2.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\CS3.lst</v>
@@ -991,6 +998,8 @@
 <v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\VB_SNS.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\VDAC8_1.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\VDAC8_1_PM.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\VDAC8_2.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\VDAC8_2_PM.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\VDAC8_3.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\VDAC8_3_PM.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\VR1.lst</v>
@@ -1087,6 +1096,52 @@
 <VisibleNodeIds>
 <v>execute</v>
 <v>execute\execute_1_0</v>
+<v>execute\execute_1_0\CortexM3</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_CLK.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_DelSig_1.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_DelSig_1_AMux.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_DelSig_1_Ext_CP_Clk.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_DelSig_1_INT.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_DelSig_1_IRQ.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_DelSig_1_PM.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_DelSig_1_theACLK.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_SAR_1.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_SAR_1_INT.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_SAR_1_IRQ.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_SAR_1_PM.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_SAR_1_theACLK.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_SAR_2.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_SAR_2_INT.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_SAR_2_IRQ.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\ADC_SAR_2_PM.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\AMux_1.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\AMux_2.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\analog.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\AOP_IN.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\AOP_OUT.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\C8M.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\Clock_4.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\CLUTCH.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\Cm3Start.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\Coast_Brake.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\Coast_Brake_PM.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\CS1.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\CS2.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\CS3.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\CyBootAsmGnu.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\CyDmac.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\cyfitter_cfg.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\CyFlash.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\CyHBUS_40MHZ.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\CyLib.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\cymetadata.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\cyPm.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\CySpc.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\cyutils.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_484\Debug\Listing Files\DE.lst</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStates>
@@ -1105,6 +1160,7 @@
 <v>execute\execute_1_0\ADC_SAR_v3_0</v>
 <v>execute\execute_1_0\AMux_v1_80</v>
 <v>execute\execute_1_0\AMuxHw_v1_50</v>
+<v>execute\execute_1_0\and_v1_0</v>
 <v>execute\execute_1_0\cy_clock_v2_20</v>
 <v>execute\execute_1_0\cy_constant_v1_0</v>
 <v>execute\execute_1_0\cy_dma_v1_70</v>
@@ -1191,26 +1247,13 @@
 </CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
 <Unloaded />
 <OpenDocs>
-<name v="..\common\src\flexsea_payload.c" />
-<name v=".\src\peripherals.c" />
-<name v="..\common\src\flexsea_cmd_control.c" />
-<name v=".\src\motor.c" />
-<name v=".\src\main.c" />
-<name v=".\inc\motor.h" />
-<name v=".\src\flexsea_local.c" />
-<name v=".\src\misc.c" />
-<name v=".\execute_1_0.cydsn\Generated_Source\PSoC5\cyfitter_cfg.c" />
-<name v="..\common\inc\flexsea.h" />
 <name v=".\execute_1_0.cydsn\TopDesign\TopDesign.cysch" />
-<name v=".\src\trapez.c" />
-<name v="..\common\src\flexsea_cmd_user.c" />
-<name v="..\common\src\flexsea_cmd_sensors.c" />
-<name v=".\inc\trapez.h" />
-<name v=".\execute_1_0.cydsn\execute_1_0.cydwr" />
-<name v="..\execute-cop\execute-cop.cydsn\TopDesign\TopDesign.cysch" />
-<name v="..\execute-cop\inc\sensors.h" />
-<name v="..\execute-cop\src\sensors.c" />
-<name v=".\inc\peripherals.h" />
+<name v=".\src\main.c" />
+<name v=".\src\motor.c" />
+<name v=".\inc\motor.h" />
+<name v=".\src\misc.c" />
+<name v=".\inc\misc.h" />
+<name v=".\src\strain.c" />
 </OpenDocs>
 <config v="" />
 <AutoUpdate v="true" />

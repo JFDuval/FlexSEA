@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 1
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccHDbMzk.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 1
   30:.\Generated_Source\PSoC4/TP_P0_2.c **** ********************************************************************************
   31:.\Generated_Source\PSoC4/TP_P0_2.c **** *
   32:.\Generated_Source\PSoC4/TP_P0_2.c **** * Summary:
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 2
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccHDbMzk.s 			page 2
 
 
   33:.\Generated_Source\PSoC4/TP_P0_2.c **** *  Assign a new value to the digital port's data output register.  
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 1
   66 003c 0F32     		add	r2, r2, #15
   67 003e 1278     		ldrb	r2, [r2]
   68 0040 1A60     		str	r2, [r3]
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 3
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccHDbMzk.s 			page 3
 
 
   47:.\Generated_Source\PSoC4/TP_P0_2.c **** }
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 1
   95 0002 82B0     		sub	sp, sp, #8
   96              		.cfi_def_cfa_offset 16
   97 0004 00AF     		add	r7, sp, #0
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 4
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccHDbMzk.s 			page 4
 
 
   98              		.cfi_def_cfa_register 7
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 1
   93:.\Generated_Source\PSoC4/TP_P0_2.c **** * Note:
   94:.\Generated_Source\PSoC4/TP_P0_2.c **** *  Macro TP_P0_2_ReadPS calls this function. 
   95:.\Generated_Source\PSoC4/TP_P0_2.c **** *  
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 5
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccHDbMzk.s 			page 5
 
 
   96:.\Generated_Source\PSoC4/TP_P0_2.c **** *******************************************************************************/
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 1
  115:.\Generated_Source\PSoC4/TP_P0_2.c **** *  
  116:.\Generated_Source\PSoC4/TP_P0_2.c **** *******************************************************************************/
  117:.\Generated_Source\PSoC4/TP_P0_2.c **** uint8 TP_P0_2_ReadDataReg(void) 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 6
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccHDbMzk.s 			page 6
 
 
  118:.\Generated_Source\PSoC4/TP_P0_2.c **** {
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 1
  137:.\Generated_Source\PSoC4/TP_P0_2.c ****     * Return: 
  138:.\Generated_Source\PSoC4/TP_P0_2.c ****     *  Returns the value of the interrupt status register
  139:.\Generated_Source\PSoC4/TP_P0_2.c ****     *  
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 7
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccHDbMzk.s 			page 7
 
 
  140:.\Generated_Source\PSoC4/TP_P0_2.c ****     *******************************************************************************/
@@ -418,21 +418,21 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 1
  251 0004 0400     		.2byte	0x4
  252 0006 00000000 		.4byte	.Ldebug_abbrev0
  253 000a 04       		.byte	0x4
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 8
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccHDbMzk.s 			page 8
 
 
  254 000b 01       		.uleb128 0x1
  255 000c B6000000 		.4byte	.LASF24
  256 0010 01       		.byte	0x1
- 257 0011 BF010000 		.4byte	.LASF25
- 258 0015 75010000 		.4byte	.LASF26
+ 257 0011 E0010000 		.4byte	.LASF25
+ 258 0015 65010000 		.4byte	.LASF26
  259 0019 00000000 		.4byte	.Ldebug_ranges0+0
  260 001d 00000000 		.4byte	0
  261 0021 00000000 		.4byte	.Ldebug_line0
  262 0025 02       		.uleb128 0x2
  263 0026 01       		.byte	0x1
  264 0027 06       		.byte	0x6
- 265 0028 B3010000 		.4byte	.LASF0
+ 265 0028 D4010000 		.4byte	.LASF0
  266 002c 02       		.uleb128 0x2
  267 002d 01       		.byte	0x1
  268 002e 08       		.byte	0x8
@@ -440,7 +440,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 1
  270 0033 02       		.uleb128 0x2
  271 0034 02       		.byte	0x2
  272 0035 05       		.byte	0x5
- 273 0036 65010000 		.4byte	.LASF2
+ 273 0036 BB010000 		.4byte	.LASF2
  274 003a 02       		.uleb128 0x2
  275 003b 02       		.byte	0x2
  276 003c 07       		.byte	0x7
@@ -448,7 +448,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 1
  278 0041 02       		.uleb128 0x2
  279 0042 04       		.byte	0x4
  280 0043 05       		.byte	0x5
- 281 0044 AA010000 		.4byte	.LASF4
+ 281 0044 CB010000 		.4byte	.LASF4
  282 0048 02       		.uleb128 0x2
  283 0049 04       		.byte	0x4
  284 004a 07       		.byte	0x7
@@ -470,7 +470,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 1
  300 0066 07       		.byte	0x7
  301 0067 A9000000 		.4byte	.LASF8
  302 006b 04       		.uleb128 0x4
- 303 006c 6F010000 		.4byte	.LASF9
+ 303 006c C5010000 		.4byte	.LASF9
  304 0070 02       		.byte	0x2
  305 0071 A1       		.byte	0xa1
  306 0072 2C000000 		.4byte	0x2c
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 1
  308 0077 A2000000 		.4byte	.LASF10
  309 007b 02       		.byte	0x2
  310 007c A3       		.byte	0xa3
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 9
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccHDbMzk.s 			page 9
 
 
  311 007d 48000000 		.4byte	0x48
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 1
  365 00ea FD000000 		.4byte	0xfd
  366 00ee 08       		.uleb128 0x8
  367 00ef 32010000 		.4byte	.LASF18
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 10
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccHDbMzk.s 			page 10
 
 
  368 00f3 01       		.byte	0x1
@@ -558,7 +558,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 1
  382 0110 01       		.uleb128 0x1
  383 0111 9C       		.byte	0x9c
  384 0112 0A       		.uleb128 0xa
- 385 0113 E2010000 		.4byte	.LASF20
+ 385 0113 03020000 		.4byte	.LASF20
  386 0117 01       		.byte	0x1
  387 0118 75       		.byte	0x75
  388 0119 6B000000 		.4byte	0x6b
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 1
  422 0008 0E       		.uleb128 0xe
  423 0009 1B       		.uleb128 0x1b
  424 000a 0E       		.uleb128 0xe
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 11
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccHDbMzk.s 			page 11
 
 
  425 000b 55       		.uleb128 0x55
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 1
  479 0041 00       		.byte	0
  480 0042 00       		.byte	0
  481 0043 06       		.uleb128 0x6
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 12
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccHDbMzk.s 			page 12
 
 
  482 0044 35       		.uleb128 0x35
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 1
  536 007b 0B       		.uleb128 0xb
  537 007c 49       		.uleb128 0x49
  538 007d 13       		.uleb128 0x13
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 13
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccHDbMzk.s 			page 13
 
 
  539 007e 02       		.uleb128 0x2
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 1
  593 00b6 00       		.byte	0
  594              		.section	.debug_aranges,"",%progbits
  595 0000 3C000000 		.4byte	0x3c
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 14
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccHDbMzk.s 			page 14
 
 
  596 0004 0200     		.2byte	0x2
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 1
  640 001f 6C6F6E67 		.ascii	"long long unsigned int\000"
  640      206C6F6E 
  640      6720756E 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 15
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccHDbMzk.s 			page 15
 
 
  640      7369676E 
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 1
  661      6E203231 
  661      31333538 
  662 011c 30202D66 		.ascii	"0 -ffunction-sections\000"
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 16
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccHDbMzk.s 			page 16
 
 
  662      66756E63 
@@ -926,41 +926,44 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 1
  671              	.LASF13:
  672 0160 63686172 		.ascii	"char\000"
  672      00
- 673              	.LASF2:
- 674 0165 73686F72 		.ascii	"short int\000"
- 674      7420696E 
- 674      7400
- 675              	.LASF9:
- 676 016f 75696E74 		.ascii	"uint8\000"
- 676      3800
- 677              	.LASF26:
- 678 0175 453A5C44 		.ascii	"E:\\Documents\\UROPs\\Biomech UROP\\Code\\Batt\\Bat"
- 678      6F63756D 
- 678      656E7473 
- 678      5C55524F 
- 678      50735C42 
- 679 01a2 742E6379 		.ascii	"t.cydsn\000"
- 679      64736E00 
+ 673              	.LASF26:
+ 674 0165 433A5C55 		.ascii	"C:\\Users\\JFDuval\\Desktop\\Work_Folder\\Biomech-E"
+ 674      73657273 
+ 674      5C4A4644 
+ 674      7576616C 
+ 674      5C446573 
+ 675 0193 452D5356 		.ascii	"E-SVN2\\Code\\flexsea_1_0\\batt\\Batt.cydsn\000"
+ 675      4E325C43 
+ 675      6F64655C 
+ 675      666C6578 
+ 675      7365615F 
+ 676              	.LASF2:
+ 677 01bb 73686F72 		.ascii	"short int\000"
+ 677      7420696E 
+ 677      7400
+ 678              	.LASF9:
+ 679 01c5 75696E74 		.ascii	"uint8\000"
+ 679      3800
  680              	.LASF4:
- 681 01aa 6C6F6E67 		.ascii	"long int\000"
+ 681 01cb 6C6F6E67 		.ascii	"long int\000"
  681      20696E74 
  681      00
  682              	.LASF0:
- 683 01b3 7369676E 		.ascii	"signed char\000"
+ 683 01d4 7369676E 		.ascii	"signed char\000"
  683      65642063 
  683      68617200 
  684              	.LASF25:
- 685 01bf 2E5C4765 		.ascii	".\\Generated_Source\\PSoC4\\TP_P0_2.c\000"
+ 685 01e0 2E5C4765 		.ascii	".\\Generated_Source\\PSoC4\\TP_P0_2.c\000"
  685      6E657261 
  685      7465645F 
  685      536F7572 
  685      63655C50 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccHDbMzk.s 			page 17
+
+
  686              	.LASF20:
- 687 01e2 54505F50 		.ascii	"TP_P0_2_ReadDataReg\000"
+ 687 0203 54505F50 		.ascii	"TP_P0_2_ReadDataReg\000"
  687      305F325F 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccdlJHsI.s 			page 17
-
-
  687      52656164 
  687      44617461 
  687      52656700 

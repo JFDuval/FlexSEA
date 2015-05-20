@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 1
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccCU7Zds.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 1
   30:.\Generated_Source\PSoC4/SPI_1_mosi_m.c **** ********************************************************************************
   31:.\Generated_Source\PSoC4/SPI_1_mosi_m.c **** *
   32:.\Generated_Source\PSoC4/SPI_1_mosi_m.c **** * Summary:
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 2
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccCU7Zds.s 			page 2
 
 
   33:.\Generated_Source\PSoC4/SPI_1_mosi_m.c **** *  Assign a new value to the digital port's data output register.  
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 1
   66 003c 1A60     		str	r2, [r3]
   47:.\Generated_Source\PSoC4/SPI_1_mosi_m.c **** }
   67              		.loc 1 47 0
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 3
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccCU7Zds.s 			page 3
 
 
   68 003e BD46     		mov	sp, r7
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 1
   95 0004 00AF     		add	r7, sp, #0
   96              		.cfi_def_cfa_register 7
   97 0006 021C     		mov	r2, r0
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 4
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccCU7Zds.s 			page 4
 
 
   98 0008 FB1D     		add	r3, r7, #7
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 1
   95:.\Generated_Source\PSoC4/SPI_1_mosi_m.c **** *  
   96:.\Generated_Source\PSoC4/SPI_1_mosi_m.c **** *******************************************************************************/
   97:.\Generated_Source\PSoC4/SPI_1_mosi_m.c **** uint8 SPI_1_mosi_m_Read(void) 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 5
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccCU7Zds.s 			page 5
 
 
   98:.\Generated_Source\PSoC4/SPI_1_mosi_m.c **** {
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 1
  117:.\Generated_Source\PSoC4/SPI_1_mosi_m.c **** uint8 SPI_1_mosi_m_ReadDataReg(void) 
  118:.\Generated_Source\PSoC4/SPI_1_mosi_m.c **** {
  167              		.loc 1 118 0
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 6
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccCU7Zds.s 			page 6
 
 
  168              		.cfi_startproc
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 1
  139:.\Generated_Source\PSoC4/SPI_1_mosi_m.c ****     *  
  140:.\Generated_Source\PSoC4/SPI_1_mosi_m.c ****     *******************************************************************************/
  141:.\Generated_Source\PSoC4/SPI_1_mosi_m.c ****     uint8 SPI_1_mosi_m_ClearInterrupt(void) 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 7
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccCU7Zds.s 			page 7
 
 
  142:.\Generated_Source\PSoC4/SPI_1_mosi_m.c ****     {
@@ -418,17 +418,17 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 1
  251 000c B7000000 		.4byte	.LASF24
  252 0010 01       		.byte	0x1
  253 0011 0C000000 		.4byte	.LASF25
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 8
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccCU7Zds.s 			page 8
 
 
- 254 0015 9E010000 		.4byte	.LASF26
+ 254 0015 8E010000 		.4byte	.LASF26
  255 0019 00000000 		.4byte	.Ldebug_ranges0+0
  256 001d 00000000 		.4byte	0
  257 0021 00000000 		.4byte	.Ldebug_line0
  258 0025 02       		.uleb128 0x2
  259 0026 01       		.byte	0x1
  260 0027 06       		.byte	0x6
- 261 0028 08020000 		.4byte	.LASF0
+ 261 0028 29020000 		.4byte	.LASF0
  262 002c 02       		.uleb128 0x2
  263 002d 01       		.byte	0x1
  264 002e 08       		.byte	0x8
@@ -436,7 +436,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 1
  266 0033 02       		.uleb128 0x2
  267 0034 02       		.byte	0x2
  268 0035 05       		.byte	0x5
- 269 0036 8E010000 		.4byte	.LASF2
+ 269 0036 E4010000 		.4byte	.LASF2
  270 003a 02       		.uleb128 0x2
  271 003b 02       		.byte	0x2
  272 003c 07       		.byte	0x7
@@ -444,7 +444,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 1
  274 0041 02       		.uleb128 0x2
  275 0042 04       		.byte	0x4
  276 0043 05       		.byte	0x5
- 277 0044 FF010000 		.4byte	.LASF4
+ 277 0044 20020000 		.4byte	.LASF4
  278 0048 02       		.uleb128 0x2
  279 0049 04       		.byte	0x4
  280 004a 07       		.byte	0x7
@@ -466,7 +466,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 1
  296 0066 07       		.byte	0x7
  297 0067 AA000000 		.4byte	.LASF8
  298 006b 04       		.uleb128 0x4
- 299 006c 98010000 		.4byte	.LASF9
+ 299 006c EE010000 		.4byte	.LASF9
  300 0070 02       		.byte	0x2
  301 0071 A1       		.byte	0xa1
  302 0072 2C000000 		.4byte	0x2c
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 1
  308 0081 02       		.uleb128 0x2
  309 0082 04       		.byte	0x4
  310 0083 04       		.byte	0x4
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 9
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccCU7Zds.s 			page 9
 
 
  311 0084 34000000 		.4byte	.LASF11
@@ -498,7 +498,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 1
  325 00a2 06       		.uleb128 0x6
  326 00a3 76000000 		.4byte	0x76
  327 00a7 07       		.uleb128 0x7
- 328 00a8 EC010000 		.4byte	.LASF15
+ 328 00a8 0D020000 		.4byte	.LASF15
  329 00ac 01       		.byte	0x1
  330 00ad 2A       		.byte	0x2a
  331 00ae 00000000 		.4byte	.LFB0
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 1
  365 00f4 49       		.byte	0x49
  366 00f5 6B000000 		.4byte	0x6b
  367 00f9 02       		.uleb128 0x2
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 10
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccCU7Zds.s 			page 10
 
 
  368 00fa 91       		.byte	0x91
@@ -554,7 +554,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 1
  378 0110 01       		.uleb128 0x1
  379 0111 9C       		.byte	0x9c
  380 0112 0A       		.uleb128 0xa
- 381 0113 D3010000 		.4byte	.LASF20
+ 381 0113 F4010000 		.4byte	.LASF20
  382 0117 01       		.byte	0x1
  383 0118 75       		.byte	0x75
  384 0119 6B000000 		.4byte	0x6b
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 1
  422 000c 17       		.uleb128 0x17
  423 000d 11       		.uleb128 0x11
  424 000e 01       		.uleb128 0x1
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 11
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccCU7Zds.s 			page 11
 
 
  425 000f 10       		.uleb128 0x10
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 1
  479 0045 00       		.byte	0
  480 0046 49       		.uleb128 0x49
  481 0047 13       		.uleb128 0x13
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 12
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccCU7Zds.s 			page 12
 
 
  482 0048 00       		.byte	0
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 1
  536 007f 18       		.uleb128 0x18
  537 0080 00       		.byte	0
  538 0081 00       		.byte	0
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 13
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccCU7Zds.s 			page 13
 
 
  539 0082 0A       		.uleb128 0xa
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 1
  593 0006 00000000 		.4byte	.Ldebug_info0
  594 000a 04       		.byte	0x4
  595 000b 00       		.byte	0
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 14
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccCU7Zds.s 			page 14
 
 
  596 000c 0000     		.2byte	0
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 1
  636      7369676E 
  636      65642069 
  637              	.LASF1:
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 15
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccCU7Zds.s 			page 15
 
 
  638 0051 756E7369 		.ascii	"unsigned char\000"
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 1
  658      315F6D6F 
  658      73695F6D 
  658      5F536574 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 16
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccCU7Zds.s 			page 16
 
 
  658      44726976 
@@ -924,42 +924,45 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 1
  667              	.LASF13:
  668 0189 63686172 		.ascii	"char\000"
  668      00
- 669              	.LASF2:
- 670 018e 73686F72 		.ascii	"short int\000"
- 670      7420696E 
- 670      7400
- 671              	.LASF9:
- 672 0198 75696E74 		.ascii	"uint8\000"
- 672      3800
- 673              	.LASF26:
- 674 019e 453A5C44 		.ascii	"E:\\Documents\\UROPs\\Biomech UROP\\Code\\Batt\\Bat"
- 674      6F63756D 
- 674      656E7473 
- 674      5C55524F 
- 674      50735C42 
- 675 01cb 742E6379 		.ascii	"t.cydsn\000"
- 675      64736E00 
+ 669              	.LASF26:
+ 670 018e 433A5C55 		.ascii	"C:\\Users\\JFDuval\\Desktop\\Work_Folder\\Biomech-E"
+ 670      73657273 
+ 670      5C4A4644 
+ 670      7576616C 
+ 670      5C446573 
+ 671 01bc 452D5356 		.ascii	"E-SVN2\\Code\\flexsea_1_0\\batt\\Batt.cydsn\000"
+ 671      4E325C43 
+ 671      6F64655C 
+ 671      666C6578 
+ 671      7365615F 
+ 672              	.LASF2:
+ 673 01e4 73686F72 		.ascii	"short int\000"
+ 673      7420696E 
+ 673      7400
+ 674              	.LASF9:
+ 675 01ee 75696E74 		.ascii	"uint8\000"
+ 675      3800
  676              	.LASF20:
- 677 01d3 5350495F 		.ascii	"SPI_1_mosi_m_ReadDataReg\000"
+ 677 01f4 5350495F 		.ascii	"SPI_1_mosi_m_ReadDataReg\000"
  677      315F6D6F 
  677      73695F6D 
  677      5F526561 
  677      64446174 
  678              	.LASF15:
- 679 01ec 5350495F 		.ascii	"SPI_1_mosi_m_Write\000"
+ 679 020d 5350495F 		.ascii	"SPI_1_mosi_m_Write\000"
  679      315F6D6F 
  679      73695F6D 
  679      5F577269 
  679      746500
  680              	.LASF4:
- 681 01ff 6C6F6E67 		.ascii	"long int\000"
+ 681 0220 6C6F6E67 		.ascii	"long int\000"
  681      20696E74 
  681      00
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccCU7Zds.s 			page 17
+
+
  682              	.LASF0:
- 683 0208 7369676E 		.ascii	"signed char\000"
+ 683 0229 7369676E 		.ascii	"signed char\000"
  683      65642063 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccJQyP5W.s 			page 17
-
-
  683      68617200 
  684              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br

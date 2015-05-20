@@ -1,6 +1,6 @@
 /*******************************************************************************
 File Name: CYBLE_StackGattDb.h
-Version 1.10
+Version 1.20
 
 Description:
  This file contains the data structure for GATT Database
@@ -9,7 +9,7 @@ Related Document:
  BLE Standard Spec - CoreV4.1, CSS, CSAs, ESR05, ESR06
 
 ********************************************************************************
-Copyright 2014, Cypress Semiconductor Corporation.  All rights reserved.
+Copyright 2014-2015, Cypress Semiconductor Corporation.  All rights reserved.
 You may use this file only in accordance with the license, terms, conditions,
 disclaimers, and limitations in the end user license agreement accompanying
 the software package with which this file was provided.
@@ -215,7 +215,7 @@ typedef struct
     uint16 				attHandle;
 	
     /* UUID: 16 bit UUID type for an attribute entry, for 32 bit and
-       128 bit UUIDs the last 16 bits should be storeded in this entry
+       128 bit UUIDs the last 16 bits should be stored in this entry
        GATT DB access layer shall retrieve complete 128 bit UUID from
        CYBLE_GATTS_ATT_GENERIC_VAL_T structure. */
     uint16 				attType;

@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccps9A8Z.s 			page 1
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccQI9xeI.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -28,14 +28,14 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccps9A8Z.s 			page 1
   25              		.file 1 ".\\Generated_Source\\PSoC4\\BLE_1_HAL_INT.c"
    1:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c **** /*******************************************************************************
    2:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c **** * File Name: BLE_1_HAL_INT.c
-   3:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c **** * Version 1.10
+   3:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c **** * Version 1.20
    4:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c **** *
    5:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c **** * Description:
    6:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c **** *  This file contains the source code for the Interrupt Service Routine for the
    7:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c **** *  HAL section of the BLE component
    8:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c **** *
    9:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c **** ********************************************************************************
-  10:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c **** * Copyright 2014, Cypress Semiconductor Corporation.  All rights reserved.
+  10:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c **** * Copyright 2014-2015, Cypress Semiconductor Corporation.  All rights reserved.
   11:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c **** * You may use this file only in accordance with the license, terms, conditions,
   12:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c **** * disclaimers, and limitations in the end user license agreement accompanying
   13:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c **** * the software package with which this file was provided.
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccps9A8Z.s 			page 1
   30:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c **** *  None
   31:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c **** *
   32:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c **** *******************************************************************************/
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccps9A8Z.s 			page 2
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccQI9xeI.s 			page 2
 
 
   33:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c **** CY_ISR(CyBLE_Bless_Interrupt)
@@ -71,15 +71,15 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccps9A8Z.s 			page 1
   31              		.cfi_offset 14, -4
   32 0002 00AF     		add	r7, sp, #0
   33              		.cfi_def_cfa_register 7
-  35:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c ****     /* Call stack manager bless function handler */
-  36:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c ****     CyBLE_pf_bless_event_hdlr();
-  34              		.loc 1 36 0
+  35:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c ****     #if(CYBLE_STACK_MODE_DEBUG)
+  36:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c ****         CyBle_ApplCallback(CYBLE_DEBUG_EVT_BLESS_INT, NULL);
+  37:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c ****     #endif /* CYBLE_STACK_MODE_DEBUG */
+  38:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c **** 
+  39:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c ****     /* Call stack manager bless function handler */
+  40:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c ****     CyBLE_pf_bless_event_hdlr();
+  34              		.loc 1 40 0
   35 0004 FFF7FEFF 		bl	CyBle_BleSSInterruptHandler
-  37:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c ****     /* Host stack takes care of clearing interrupts */
-  38:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c ****     #if(CYBLE_STACK_MODE_DEBUG)
-  39:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c ****         CyBle_ApplCallback(CYBLE_DEBUG_EVT_BLESS_INT, NULL);
-  40:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c ****     #endif /* CYBLE_STACK_MODE_DEBUG */
-  41:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c **** 
+  41:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c ****     /* Host stack takes care of clearing interrupts */
   42:.\Generated_Source\PSoC4/BLE_1_HAL_INT.c **** }
   36              		.loc 1 42 0
   37 0008 BD46     		mov	sp, r7
@@ -97,40 +97,40 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccps9A8Z.s 			page 1
   49 0006 00000000 		.4byte	.Ldebug_abbrev0
   50 000a 04       		.byte	0x4
   51 000b 01       		.uleb128 0x1
-  52 000c 6D000000 		.4byte	.LASF13
+  52 000c C3000000 		.4byte	.LASF13
   53 0010 01       		.byte	0x1
   54 0011 1B000000 		.4byte	.LASF14
-  55 0015 41010000 		.4byte	.LASF15
+  55 0015 44000000 		.4byte	.LASF15
   56 0019 00000000 		.4byte	.Ldebug_ranges0+0
   57 001d 00000000 		.4byte	0
   58 0021 00000000 		.4byte	.Ldebug_line0
   59 0025 02       		.uleb128 0x2
   60 0026 01       		.byte	0x1
   61 0027 06       		.byte	0x6
-  62 0028 35010000 		.4byte	.LASF0
+  62 0028 8B010000 		.4byte	.LASF0
   63 002c 02       		.uleb128 0x2
   64 002d 01       		.byte	0x1
   65 002e 08       		.byte	0x8
-  66 002f E9000000 		.4byte	.LASF1
+  66 002f 3F010000 		.4byte	.LASF1
   67 0033 02       		.uleb128 0x2
   68 0034 02       		.byte	0x2
   69 0035 05       		.byte	0x5
-  70 0036 7C010000 		.4byte	.LASF2
+  70 0036 9D010000 		.4byte	.LASF2
   71 003a 02       		.uleb128 0x2
   72 003b 02       		.byte	0x2
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccps9A8Z.s 			page 3
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccQI9xeI.s 			page 3
 
 
   73 003c 07       		.byte	0x7
-  74 003d 22010000 		.4byte	.LASF3
+  74 003d 78010000 		.4byte	.LASF3
   75 0041 02       		.uleb128 0x2
   76 0042 04       		.byte	0x4
   77 0043 05       		.byte	0x5
-  78 0044 FC000000 		.4byte	.LASF4
+  78 0044 52010000 		.4byte	.LASF4
   79 0048 02       		.uleb128 0x2
   80 0049 04       		.byte	0x4
   81 004a 07       		.byte	0x7
-  82 004b 44000000 		.4byte	.LASF5
+  82 004b 9A000000 		.4byte	.LASF5
   83 004f 02       		.uleb128 0x2
   84 0050 08       		.byte	0x8
   85 0051 05       		.byte	0x5
@@ -138,7 +138,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccps9A8Z.s 			page 1
   87 0056 02       		.uleb128 0x2
   88 0057 08       		.byte	0x8
   89 0058 07       		.byte	0x7
-  90 0059 56000000 		.4byte	.LASF7
+  90 0059 AC000000 		.4byte	.LASF7
   91 005d 03       		.uleb128 0x3
   92 005e 04       		.byte	0x4
   93 005f 05       		.byte	0x5
@@ -150,21 +150,21 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccps9A8Z.s 			page 1
   99 006b 02       		.uleb128 0x2
  100 006c 04       		.byte	0x4
  101 006d 04       		.byte	0x4
- 102 006e 76010000 		.4byte	.LASF9
+ 102 006e 97010000 		.4byte	.LASF9
  103 0072 02       		.uleb128 0x2
  104 0073 08       		.byte	0x8
  105 0074 04       		.byte	0x4
- 106 0075 1B010000 		.4byte	.LASF10
+ 106 0075 71010000 		.4byte	.LASF10
  107 0079 02       		.uleb128 0x2
  108 007a 01       		.byte	0x1
  109 007b 08       		.byte	0x8
- 110 007c F7000000 		.4byte	.LASF11
+ 110 007c 4D010000 		.4byte	.LASF11
  111 0080 02       		.uleb128 0x2
  112 0081 04       		.byte	0x4
  113 0082 07       		.byte	0x7
- 114 0083 86010000 		.4byte	.LASF12
+ 114 0083 A7010000 		.4byte	.LASF12
  115 0087 04       		.uleb128 0x4
- 116 0088 05010000 		.4byte	.LASF16
+ 116 0088 5B010000 		.4byte	.LASF16
  117 008c 01       		.byte	0x1
  118 008d 21       		.byte	0x21
  119 008e 00000000 		.4byte	.LFB2
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccps9A8Z.s 			page 1
  127 0001 11       		.uleb128 0x11
  128 0002 01       		.byte	0x1
  129 0003 25       		.uleb128 0x25
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccps9A8Z.s 			page 4
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccQI9xeI.s 			page 4
 
 
  130 0004 0E       		.uleb128 0xe
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccps9A8Z.s 			page 1
  184 003a 40       		.uleb128 0x40
  185 003b 18       		.uleb128 0x18
  186 003c 9642     		.uleb128 0x2116
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccps9A8Z.s 			page 5
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccQI9xeI.s 			page 5
 
 
  187 003e 19       		.uleb128 0x19
@@ -286,88 +286,91 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccps9A8Z.s 			page 1
  217      7465645F 
  217      536F7572 
  217      63655C50 
- 218              	.LASF5:
- 219 0044 6C6F6E67 		.ascii	"long unsigned int\000"
- 219      20756E73 
- 219      69676E65 
- 219      6420696E 
- 219      7400
- 220              	.LASF7:
- 221 0056 6C6F6E67 		.ascii	"long long unsigned int\000"
- 221      206C6F6E 
- 221      6720756E 
- 221      7369676E 
- 221      65642069 
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccps9A8Z.s 			page 6
+ 218              	.LASF15:
+ 219 0044 433A5C55 		.ascii	"C:\\Users\\JFDuval\\Desktop\\Work_Folder\\Biomech-E"
+ 219      73657273 
+ 219      5C4A4644 
+ 219      7576616C 
+ 219      5C446573 
+ 220 0072 452D5356 		.ascii	"E-SVN2\\Code\\flexsea_1_0\\batt\\Batt.cydsn\000"
+ 220      4E325C43 
+ 220      6F64655C 
+ 220      666C6578 
+ 220      7365615F 
+ 221              	.LASF5:
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccQI9xeI.s 			page 6
 
 
- 222              	.LASF13:
- 223 006d 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
- 223      4320342E 
- 223      382E3420 
- 223      32303134 
- 223      30353236 
- 224 00a0 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
- 224      20726576 
- 224      6973696F 
- 224      6E203231 
- 224      31333538 
- 225 00d3 30202D66 		.ascii	"0 -ffunction-sections\000"
- 225      66756E63 
- 225      74696F6E 
- 225      2D736563 
- 225      74696F6E 
- 226              	.LASF1:
- 227 00e9 756E7369 		.ascii	"unsigned char\000"
- 227      676E6564 
- 227      20636861 
- 227      7200
- 228              	.LASF11:
- 229 00f7 63686172 		.ascii	"char\000"
- 229      00
- 230              	.LASF4:
- 231 00fc 6C6F6E67 		.ascii	"long int\000"
- 231      20696E74 
- 231      00
- 232              	.LASF16:
- 233 0105 4379424C 		.ascii	"CyBLE_Bless_Interrupt\000"
- 233      455F426C 
- 233      6573735F 
- 233      496E7465 
- 233      72727570 
- 234              	.LASF10:
- 235 011b 646F7562 		.ascii	"double\000"
- 235      6C6500
- 236              	.LASF3:
- 237 0122 73686F72 		.ascii	"short unsigned int\000"
- 237      7420756E 
- 237      7369676E 
- 237      65642069 
- 237      6E7400
- 238              	.LASF0:
- 239 0135 7369676E 		.ascii	"signed char\000"
- 239      65642063 
- 239      68617200 
- 240              	.LASF15:
- 241 0141 453A5C44 		.ascii	"E:\\Documents\\UROPs\\Biomech UROP\\Code\\Batt\\Bat"
- 241      6F63756D 
- 241      656E7473 
- 241      5C55524F 
- 241      50735C42 
- 242 016e 742E6379 		.ascii	"t.cydsn\000"
- 242      64736E00 
+ 222 009a 6C6F6E67 		.ascii	"long unsigned int\000"
+ 222      20756E73 
+ 222      69676E65 
+ 222      6420696E 
+ 222      7400
+ 223              	.LASF7:
+ 224 00ac 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 224      206C6F6E 
+ 224      6720756E 
+ 224      7369676E 
+ 224      65642069 
+ 225              	.LASF13:
+ 226 00c3 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 226      4320342E 
+ 226      382E3420 
+ 226      32303134 
+ 226      30353236 
+ 227 00f6 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 227      20726576 
+ 227      6973696F 
+ 227      6E203231 
+ 227      31333538 
+ 228 0129 30202D66 		.ascii	"0 -ffunction-sections\000"
+ 228      66756E63 
+ 228      74696F6E 
+ 228      2D736563 
+ 228      74696F6E 
+ 229              	.LASF1:
+ 230 013f 756E7369 		.ascii	"unsigned char\000"
+ 230      676E6564 
+ 230      20636861 
+ 230      7200
+ 231              	.LASF11:
+ 232 014d 63686172 		.ascii	"char\000"
+ 232      00
+ 233              	.LASF4:
+ 234 0152 6C6F6E67 		.ascii	"long int\000"
+ 234      20696E74 
+ 234      00
+ 235              	.LASF16:
+ 236 015b 4379424C 		.ascii	"CyBLE_Bless_Interrupt\000"
+ 236      455F426C 
+ 236      6573735F 
+ 236      496E7465 
+ 236      72727570 
+ 237              	.LASF10:
+ 238 0171 646F7562 		.ascii	"double\000"
+ 238      6C6500
+ 239              	.LASF3:
+ 240 0178 73686F72 		.ascii	"short unsigned int\000"
+ 240      7420756E 
+ 240      7369676E 
+ 240      65642069 
+ 240      6E7400
+ 241              	.LASF0:
+ 242 018b 7369676E 		.ascii	"signed char\000"
+ 242      65642063 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccQI9xeI.s 			page 7
+
+
+ 242      68617200 
  243              	.LASF9:
- 244 0176 666C6F61 		.ascii	"float\000"
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccps9A8Z.s 			page 7
-
-
+ 244 0197 666C6F61 		.ascii	"float\000"
  244      7400
  245              	.LASF2:
- 246 017c 73686F72 		.ascii	"short int\000"
+ 246 019d 73686F72 		.ascii	"short int\000"
  246      7420696E 
  246      7400
  247              	.LASF12:
- 248 0186 73697A65 		.ascii	"sizetype\000"
+ 248 01a7 73697A65 		.ascii	"sizetype\000"
  248      74797065 
  248      00
  249              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br

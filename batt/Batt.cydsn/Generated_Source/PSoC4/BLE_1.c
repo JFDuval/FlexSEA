@@ -1,12 +1,12 @@
 /*******************************************************************************
 File Name: CYBLE.c
-Version 1.10
+Version 1.20
 
 Description:
  This file contains the source code for the Common APIs of the BLE Component.
 
 ********************************************************************************
-Copyright 2014, Cypress Semiconductor Corporation.  All rights reserved.
+Copyright 2014-2015, Cypress Semiconductor Corporation.  All rights reserved.
 You may use this file only in accordance with the license, terms, conditions,
 disclaimers, and limitations in the end user license agreement accompanying
 the software package with which this file was provided.
@@ -31,12 +31,14 @@ the software package with which this file was provided.
 ##Global Variables
 ***************************************/
 
+/* Indicates whether the BLE has been initialized. The variable is initialized to
+   0 and set to 1 the first time CyBle_Start() is called. This allows the component
+   to restart without reinitialization after the first call to the CyBle_Start() 
+   routine. If reinitialization of the component is required, the variable should 
+   be set to 0 before the CyBle_Start() routine is called. Alternatively, the BLE
+   can be reinitialized by calling the CyBle_Init() function.
+*/
 uint8  cyBle_initVar = 0u;
-
-CYBLE_CALLBACK_T CyBle_ApplCallback;
-
-CYBLE_GAP_BD_ADDR_T cyBle_deviceAddress = {{0x00u, 0x00u, 0x00u, 0x50u, 0xA0u, 0x00u}, 0x00u };
-CYBLE_GAP_BD_ADDR_T * cyBle_sflashDeviceAddress = CYBLE_SFLASH_DEVICE_ADDRESS_PTR;
 
 #if(CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_BROADCASTER)
 
@@ -112,6 +114,10 @@ uint8 cyBle_pendingFlashWrite;
     
 #endif  /* (CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES) */
 
+CYBLE_CALLBACK_T CyBle_ApplCallback;
+CYBLE_GAP_BD_ADDR_T cyBle_deviceAddress = {{0x00u, 0x00u, 0x00u, 0x50u, 0xA0u, 0x00u}, 0x00u };
+CYBLE_GAP_BD_ADDR_T * cyBle_sflashDeviceAddress = CYBLE_SFLASH_DEVICE_ADDRESS_PTR;
+
 
 /******************************************************************************
 ##Function Name: CyBle_Init
@@ -129,7 +135,7 @@ uint8 cyBle_pendingFlashWrite;
 void CyBle_Init(void)
 {
     cyBle_eventHandlerFlag = 0u;
-    cyBle_busStatus = CYBLE_STACK_STATE_FREE;
+    cyBle_busyStatus = CYBLE_STACK_STATE_FREE;
     
     #if(CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_BROADCASTER) 
         cyBle_advertisingIntervalType = CYBLE_ADVERTISING_FAST; 
@@ -151,8 +157,6 @@ void CyBle_Init(void)
         cyBle_connectionParameters.supervisionTO = CYBLE_GAPC_CONNECTION_TIME_OUT;
         cyBle_connectionParameters.minCeLength = 0x0000u;
         cyBle_connectionParameters.maxCeLength = 0xFFFFu;
-        
-        cyBle_discoveryInfo.scanType = 0x01u; /* Active scanning (0x01) */
         
         cyBle_connectingTimeout = CYBLE_GAPC_CONNECTING_TIMEOUT;
     #endif /* CYBLE_GAP_ROLE_CENTRAL */
@@ -198,6 +202,10 @@ void CyBle_ServiceInit(void)
     #ifdef CYBLE_BLS
         CyBle_BlsInit();
     #endif /* CYBLE_BLS */
+    
+    #ifdef CYBLE_CGMS
+        CyBle_CgmsInit();
+    #endif /* CYBLE_CGMS */
 
     #ifdef CYBLE_CPS
         CyBle_CpsInit();
@@ -262,7 +270,10 @@ void CyBle_ServiceInit(void)
     #ifdef CYBLE_TPS
         CyBle_TpsInit();
     #endif /* CYBLE_TPS */
-
+    
+    #ifdef CYBLE_UDS
+        CyBle_UdsInit();
+    #endif /* CYBLE_UDS */
 }
 
 
@@ -559,6 +570,54 @@ CYBLE_API_RESULT_T CyBle_StoreBondingData(uint8 isForceWrite)
         cyBle_eventHandlerFlag |= CYBLE_STOP_FLAG;
     }
     
+    
+    /******************************************************************************
+    ##Function Name: CyBle_ChangeAdDeviceAddress
+    *******************************************************************************
+
+    Summary:
+     This API is used to set the Bluetooth device address into the advertisement 
+     or scan response data structure.
+
+    Parameters:
+     bdAddr: Bluetooth Device address. The variable is of type CYBLE_GAP_BD_ADDR_T
+     uint8 dest: 0 - avrevtisement structure, not zero value selects scan response
+                 structure.
+
+    Return:
+     None
+ 
+    ******************************************************************************/
+    void CyBle_ChangeAdDeviceAddress(const CYBLE_GAP_BD_ADDR_T* bdAddr, uint8 dest)
+    {
+        uint8 i;
+        uint8 *destBuffer = NULL;
+        
+        if(dest == 0u)      /* Destination - advertising structure */
+        {
+            #ifdef CYBLE_ADV_PKT_INDEX_BLUETOOTH_DEVICE_ADDRESS
+                destBuffer = &cyBle_discoveryData.advData[CYBLE_ADV_PKT_INDEX_BLUETOOTH_DEVICE_ADDRESS + 2u];
+            #endif /* CYBLE_ADV_PKT_INDEX_BLUETOOTH_DEVICE_ADDRESS */
+        }
+        else                /* Destination - scan response structure */
+        {
+            #ifdef CYBLE_SCN_PKT_INDEX_BLUETOOTH_DEVICE_ADDRESS
+                destBuffer = &cyBle_scanRspData.scanRspData[CYBLE_SCN_PKT_INDEX_BLUETOOTH_DEVICE_ADDRESS + 2u];
+            #endif /* CYBLE_SCN_PKT_INDEX_BLUETOOTH_DEVICE_ADDRESS */    
+        }
+        
+        if(destBuffer != NULL)
+        {
+            /* Update Device Address type */
+            destBuffer[0u] = bdAddr->type;
+            
+            for(i = 0; i < CYBLE_GAP_BD_ADDR_SIZE; i++)
+            {
+                destBuffer[i + 1u] = bdAddr->bdAddr[i];
+            }
+        }
+    }
+  
 #endif /* CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_BROADCASTER */
 
 
@@ -925,6 +984,7 @@ CYBLE_API_RESULT_T CyBle_StoreBondingData(uint8 isForceWrite)
                 }
             }
         }
+        
 #endif /* (CYBLE_GAP_ROLE_PERIPHERAL) */  
     
     

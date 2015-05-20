@@ -1,12 +1,12 @@
 /*******************************************************************************
 File Name: CYBLE_gatt.c
-Version 1.10
+Version 1.20
 
 Description:
  This file contains the source code for the GATT API of the BLE Component.
 
 ********************************************************************************
-Copyright 2014, Cypress Semiconductor Corporation.  All rights reserved.
+Copyright 2014-2015, Cypress Semiconductor Corporation.  All rights reserved.
 You may use this file only in accordance with the license, terms, conditions,
 disclaimers, and limitations in the end user license agreement accompanying
 the software package with which this file was provided.

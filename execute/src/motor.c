@@ -37,6 +37,7 @@ int debug_var = 0;
 void motor_open_speed_1(int16 pwm_duty)
 {
 	int16 pdc = 0;
+	uint16 tmp = 0;
 	
 	//Clip PWM to valid range
 	if(pwm_duty >= MAX_PWM)
@@ -61,9 +62,9 @@ void motor_open_speed_1(int16 pwm_duty)
 	}
 	
 	//Write duty cycle to PWM module
-	pdc = PWM1DC(pdc);
-	PWM_1_WriteCompare1(pdc);
-	PWM_1_WriteCompare2(PWM2DC(pdc));	//Can't be 0 or the ADC won't trigger
+	tmp = PWM1DC((uint16)pdc);
+	PWM_1_WriteCompare1(tmp);
+	PWM_1_WriteCompare2(PWM2DC(tmp));	//Can't be 0 or the ADC won't trigger
 }
 
 //Controls motor PWM duty cycle
@@ -448,6 +449,9 @@ void init_motor(void)
 	PWM_1_WriteCompare1(0);	//Start at 0%
 	PWM_1_WriteCompare2(PWM2DC(0));	
 	
+	//Default is Coast mode:
+	Coast_Brake_Write(0);
+	
 	//ADC2: Motor current
 	ADC_SAR_2_Start();
 	ADC_SAR_2_IRQ_Enable();
@@ -530,8 +534,10 @@ void init_motor_data_structure(void)
 //Copy of the test code used in main.c to test the hardware:
 void motor_fixed_pwm_test_code_blocking(int spd)
 {
-	ctrl.active_ctrl = CTRL_OPEN;
+	ctrl.active_ctrl = CTRL_OPEN;	
+	Coast_Brake_Write(0);	//Coast
 	motor_open_speed_1(spd);
+	
 	while(1)
 	{	
 		LED_R_Write(H1_Read());

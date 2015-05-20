@@ -74,9 +74,10 @@ int main(void)
 	//strain_test_blocking();
 	//safety_cop_comm_test_blocking();
 	//imu_test_code_blocking();
-	motor_fixed_pwm_test_code_blocking(0);
+	//motor_fixed_pwm_test_code_blocking(100);
 	//wdclk_test_blocking();
 	//timing_test_blocking();
+	//test_current_tracking_blocking();
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 	//Main loop
@@ -107,8 +108,8 @@ int main(void)
 						case 0:
 						
 							#ifdef USE_IMU							
-							//get_accel_xyz();
-							//imu_last_request = IMU_RQ_ACCEL;
+							get_accel_xyz();
+							i2c_last_request = I2C_RQ_ACCEL;
 							#endif 	//USE_IMU
 						
 							break;
@@ -118,7 +119,7 @@ int main(void)
 							
 							#ifdef USE_IMU							
 							get_gyro_xyz();		
-							imu_last_request = IMU_RQ_GYRO;
+							i2c_last_request = I2C_RQ_GYRO;
 							#endif 	//USE_IMU
 							
 							break;
@@ -126,8 +127,8 @@ int main(void)
 						//Case 0.2: Safety-Cop
 						case 2:
 							
-							//safety_cop_get_status();
-							
+							safety_cop_get_status();
+							i2c_last_request = I2C_RQ_SAFETY;
 							break;
 						
 						//Case 0.3: Free

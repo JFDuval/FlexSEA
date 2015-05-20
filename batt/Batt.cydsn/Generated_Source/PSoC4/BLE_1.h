@@ -1,12 +1,12 @@
 /*******************************************************************************
 File Name: CYBLE.h
-Version 1.10
+Version 1.20
 
 Description:
  Contains the function prototypes and constants available to the BLE component.
 
 ********************************************************************************
-Copyright 2014, Cypress Semiconductor Corporation.  All rights reserved.
+Copyright 2014-2015, Cypress Semiconductor Corporation.  All rights reserved.
 You may use this file only in accordance with the license, terms, conditions,
 disclaimers, and limitations in the end user license agreement accompanying
 the software package with which this file was provided.
@@ -122,6 +122,13 @@ the software package with which this file was provided.
 
 /* Tx Power Level */
 #define CYBLE_TX_POWER_LEVEL                         (CYBLE_LL_PWR_LVL_0_DBM)
+
+#define CYBLE_ADV_PKT_INDEX_FLAGS   (0x00u)
+#define CYBLE_ADV_PKT_INDEX_LOCAL_NAME   (0x03u)
+#define CYBLE_ADV_PKT_INDEX_SERVICE_UUID_16   (0x11u)
+
+
+
 
 #endif /* CYBLE_MODE_PROFILE */
 
@@ -336,6 +343,7 @@ void CyBle_Stop(void);
 #if(CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_BROADCASTER)
     CYBLE_API_RESULT_T CyBle_GappStartAdvertisement(uint8 advertisingIntervalType);
     void CyBle_GappStopAdvertisement(void);
+    void CyBle_ChangeAdDeviceAddress(const CYBLE_GAP_BD_ADDR_T* bdAddr, uint8 dest);
 #endif /* CYBLE_GAP_ROLE_PERIPHERAL */
 
 #if(CYBLE_GAP_ROLE_CENTRAL || CYBLE_GAP_ROLE_OBSERVER)
@@ -378,6 +386,13 @@ extern CYBLE_GAP_AUTH_INFO_T                        cyBle_authInfo;
 #endif /* CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_BROADCASTER */
 
 #if((CYBLE_GAP_ROLE_PERIPHERAL || CYBLE_GAP_ROLE_CENTRAL) && (CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES))
+
+/* This is a two-bit variable that contains status of pending write to flash operation. 
+   This variable is initialized to zero in CyBle_Init() API.
+   CYBLE_PENDING_CCCD_FLASH_WRITE_BIT flag is set after write to CCCD event. 
+   CYBLE_PENDING_STACK_FLASH_WRITE_BIT flag is set after CYBLE_EVT_PENDING_FLASH_WRITE event.
+   CyBle_StoreBondingData API should be called to store pending bonding data.
+   This API automatically clears pending bits after write operation complete. */
     extern uint8 cyBle_pendingFlashWrite;
 #endif  /* (CYBLE_BONDING_REQUIREMENT == CYBLE_BONDING_YES) */
 

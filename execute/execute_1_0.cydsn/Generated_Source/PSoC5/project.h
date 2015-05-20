@@ -180,6 +180,8 @@
 #include <ADC_CLK.h>
 #include <EXP9_aliases.h>
 #include <EXP9.h>
+#include <Coast_Brake.h>
+#include <VDAC8_2.h>
 #include <ADC_DelSig_1_AMux.h>
 #include <ADC_DelSig_1_Ext_CP_Clk.h>
 #include <ADC_DelSig_1_IRQ.h>

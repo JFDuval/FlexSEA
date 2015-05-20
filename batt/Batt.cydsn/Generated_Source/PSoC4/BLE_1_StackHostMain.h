@@ -1,6 +1,6 @@
 /*******************************************************************************
 File Name: CYBLE_StackHostMain.h
-Version 1.10
+Version 1.20
 
 Description:
  This file contains the constants of the BLE Host Stack IP
@@ -9,7 +9,7 @@ Related Document:
  BLE Standard Spec - CoreV4.1, CSS, CSAs, ESR05, ESR06
 
 ********************************************************************************
-Copyright 2014, Cypress Semiconductor Corporation.  All rights reserved.
+Copyright 2014-2015, Cypress Semiconductor Corporation.  All rights reserved.
 You may use this file only in accordance with the license, terms, conditions,
 disclaimers, and limitations in the end user license agreement accompanying
 the software package with which this file was provided.
@@ -75,7 +75,7 @@ typedef enum
 	/* GATT procedure timeout */
 	CYBLE_GATT_RSP_TO,
 
-    /* Generic timeout */
+	/* Generic timeout */
 	CYBLE_GENERIC_TO
 	
 }CYBLE_TO_REASON_CODE_T;

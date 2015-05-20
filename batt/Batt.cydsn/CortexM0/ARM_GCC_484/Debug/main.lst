@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccO4Vuxa.s 			page 1
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccq4FbZ6.s 			page 1
 
 
    1              		.cpu cortex-m0
@@ -38,10 +38,11 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccO4Vuxa.s 			page 1
   10:..\src/main.c ****  * ========================================
   11:..\src/main.c **** */
   12:..\src/main.c **** #include <project.h>
-  13:..\src/main.c **** 
-  14:..\src/main.c **** int main()
-  15:..\src/main.c **** {
-  26              		.loc 1 15 0
+  13:..\src/main.c **** #include <stdio.h>
+  14:..\src/main.c **** 
+  15:..\src/main.c **** int main()
+  16:..\src/main.c **** {
+  26              		.loc 1 16 0
   27              		.cfi_startproc
   28 0000 80B5     		push	{r7, lr}
   29              		.cfi_def_cfa_offset 8
@@ -51,60 +52,81 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccO4Vuxa.s 			page 1
   33              		.cfi_def_cfa_offset 16
   34 0004 00AF     		add	r7, sp, #0
   35              		.cfi_def_cfa_register 7
-  16:..\src/main.c ****     uint16 voltage = 0; //mV
-  36              		.loc 1 16 0
+  17:..\src/main.c ****     uint16 voltage = 0; //mV
+  36              		.loc 1 17 0
   37 0006 BB1D     		add	r3, r7, #6
   38 0008 0022     		mov	r2, #0
   39 000a 1A80     		strh	r2, [r3]
-  17:..\src/main.c ****     
-  18:..\src/main.c ****     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccO4Vuxa.s 			page 2
+  18:..\src/main.c ****     
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccq4FbZ6.s 			page 2
 
 
-  19:..\src/main.c ****     ADC_SAR_Seq_1_Start();
-  40              		.loc 1 19 0
+  19:..\src/main.c ****     //CyGlobalIntEnable;
+  20:..\src/main.c ****     
+  21:..\src/main.c ****     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
+  22:..\src/main.c ****     ADC_SAR_Seq_1_Start();
+  40              		.loc 1 22 0
   41 000c FFF7FEFF 		bl	ADC_SAR_Seq_1_Start
-  20:..\src/main.c ****     ADC_SAR_Seq_1_StartConvert();
-  42              		.loc 1 20 0
+  23:..\src/main.c ****     ADC_SAR_Seq_1_StartConvert();
+  42              		.loc 1 23 0
   43 0010 FFF7FEFF 		bl	ADC_SAR_Seq_1_StartConvert
-  21:..\src/main.c ****     
-  22:..\src/main.c ****     CyDelay(50);
-  44              		.loc 1 22 0
+  24:..\src/main.c ****     
+  25:..\src/main.c ****     CyDelay(50);
+  44              		.loc 1 25 0
   45 0014 3220     		mov	r0, #50
   46 0016 FFF7FEFF 		bl	CyDelay
-  23:..\src/main.c ****     // turn on the system
-  24:..\src/main.c ****     H_Write(1);
-  47              		.loc 1 24 0
+  26:..\src/main.c ****     // turn on the system
+  27:..\src/main.c ****     H_Write(1);
+  47              		.loc 1 27 0
   48 001a 0120     		mov	r0, #1
   49 001c FFF7FEFF 		bl	H_Write
-  25:..\src/main.c ****     LED_G_Write(1);
-  50              		.loc 1 25 0
+  28:..\src/main.c ****     LED_G_Write(1);
+  50              		.loc 1 28 0
   51 0020 0120     		mov	r0, #1
   52 0022 FFF7FEFF 		bl	LED_G_Write
   53              	.L2:
   54              	.LBB2:
-  26:..\src/main.c ****     
-  27:..\src/main.c **** 
-  28:..\src/main.c ****     /* CyGlobalIntEnable; */ /* Uncomment this line to enable global interrupts. */
-  29:..\src/main.c ****     for(;;)
-  30:..\src/main.c ****     {
-  31:..\src/main.c ****         /* Place your application code here. */
-  32:..\src/main.c ****         voltage = read_battery_voltage();
-  55              		.loc 1 32 0 discriminator 1
+  29:..\src/main.c ****     
+  30:..\src/main.c ****     /*
+  31:..\src/main.c ****     // flash SPI test code
+  32:..\src/main.c ****     SPI_1_Start();
+  33:..\src/main.c ****     // write the "read ID" command
+  34:..\src/main.c ****     SPI_1_SpiUartWriteTxData(0x05u);
+  35:..\src/main.c ****     
+  36:..\src/main.c ****     while(0u == (SPI_1_GetMasterInterruptSource() & SPI_1_INTR_MASTER_SPI_DONE))
+  37:..\src/main.c ****     {
+  38:..\src/main.c ****         // Wait while Master completes transfer
+  39:..\src/main.c ****     }
+  40:..\src/main.c ****     
+  41:..\src/main.c ****     // Clear interrupt source after transfer completion
+  42:..\src/main.c ****     SPI_1_ClearMasterInterruptSource(SPI_1_INTR_MASTER_SPI_DONE);
+  43:..\src/main.c ****     
+  44:..\src/main.c ****     uint32 data = SPI_1_SpiUartReadRxData();
+  45:..\src/main.c ****     */
+  46:..\src/main.c ****         
+  47:..\src/main.c ****     /* CyGlobalIntEnable; */ /* Uncomment this line to enable global interrupts. */
+  48:..\src/main.c ****     for(;;)
+  49:..\src/main.c ****     {
+  50:..\src/main.c ****         /* Place your application code here. */
+  51:..\src/main.c ****         voltage = read_battery_voltage();
+  55              		.loc 1 51 0 discriminator 1
   56 0026 FFF7FEFF 		bl	read_battery_voltage
   57 002a 021C     		mov	r2, r0
   58 002c BB1D     		add	r3, r7, #6
   59 002e 1A80     		strh	r2, [r3]
-  33:..\src/main.c ****         
-  34:..\src/main.c ****         CyDelay(500);
-  60              		.loc 1 34 0 discriminator 1
+  52:..\src/main.c ****         
+  53:..\src/main.c ****         CyDelay(500);
+  60              		.loc 1 53 0 discriminator 1
   61 0030 FA23     		mov	r3, #250
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccq4FbZ6.s 			page 3
+
+
   62 0032 5B00     		lsl	r3, r3, #1
   63 0034 181C     		mov	r0, r3
   64 0036 FFF7FEFF 		bl	CyDelay
   65              	.LBE2:
-  35:..\src/main.c ****     }
-  66              		.loc 1 35 0 discriminator 1
+  54:..\src/main.c ****     }
+  66              		.loc 1 54 0 discriminator 1
   67 003a F4E7     		b	.L2
   68              		.cfi_endproc
   69              	.LFE35:
@@ -118,49 +140,49 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccO4Vuxa.s 			page 1
   77 0004 0400     		.2byte	0x4
   78 0006 00000000 		.4byte	.Ldebug_abbrev0
   79 000a 04       		.byte	0x4
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccO4Vuxa.s 			page 3
-
-
   80 000b 01       		.uleb128 0x1
-  81 000c 7A000000 		.4byte	.LASF13
+  81 000c D0000000 		.4byte	.LASF13
   82 0010 01       		.byte	0x1
-  83 0011 2D000000 		.4byte	.LASF14
-  84 0015 15010000 		.4byte	.LASF15
+  83 0011 83000000 		.4byte	.LASF14
+  84 0015 1B000000 		.4byte	.LASF15
   85 0019 00000000 		.4byte	.Ldebug_ranges0+0
   86 001d 00000000 		.4byte	0
   87 0021 00000000 		.4byte	.Ldebug_line0
   88 0025 02       		.uleb128 0x2
   89 0026 01       		.byte	0x1
   90 0027 06       		.byte	0x6
-  91 0028 09010000 		.4byte	.LASF0
+  91 0028 5F010000 		.4byte	.LASF0
   92 002c 02       		.uleb128 0x2
   93 002d 01       		.byte	0x1
   94 002e 08       		.byte	0x8
-  95 002f 57000000 		.4byte	.LASF1
+  95 002f AD000000 		.4byte	.LASF1
   96 0033 02       		.uleb128 0x2
   97 0034 02       		.byte	0x2
   98 0035 05       		.byte	0x5
-  99 0036 65010000 		.4byte	.LASF2
+  99 0036 86010000 		.4byte	.LASF2
  100 003a 02       		.uleb128 0x2
  101 003b 02       		.byte	0x2
  102 003c 07       		.byte	0x7
- 103 003d F6000000 		.4byte	.LASF3
+ 103 003d 4C010000 		.4byte	.LASF3
  104 0041 02       		.uleb128 0x2
  105 0042 04       		.byte	0x4
  106 0043 05       		.byte	0x5
- 107 0044 6A000000 		.4byte	.LASF4
+ 107 0044 C0000000 		.4byte	.LASF4
  108 0048 02       		.uleb128 0x2
  109 0049 04       		.byte	0x4
  110 004a 07       		.byte	0x7
- 111 004b 1B000000 		.4byte	.LASF5
+ 111 004b 71000000 		.4byte	.LASF5
  112 004f 02       		.uleb128 0x2
  113 0050 08       		.byte	0x8
  114 0051 05       		.byte	0x5
  115 0052 00000000 		.4byte	.LASF6
  116 0056 02       		.uleb128 0x2
  117 0057 08       		.byte	0x8
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccq4FbZ6.s 			page 4
+
+
  118 0058 07       		.byte	0x7
- 119 0059 3B000000 		.4byte	.LASF7
+ 119 0059 91000000 		.4byte	.LASF7
  120 005d 03       		.uleb128 0x3
  121 005e 04       		.byte	0x4
  122 005f 05       		.byte	0x5
@@ -170,42 +192,39 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccO4Vuxa.s 			page 1
  126 0066 07       		.byte	0x7
  127 0067 0E000000 		.4byte	.LASF8
  128 006b 04       		.uleb128 0x4
- 129 006c 6F010000 		.4byte	.LASF16
+ 129 006c 90010000 		.4byte	.LASF16
  130 0070 02       		.byte	0x2
  131 0071 A2       		.byte	0xa2
  132 0072 3A000000 		.4byte	0x3a
  133 0076 02       		.uleb128 0x2
  134 0077 04       		.byte	0x4
  135 0078 04       		.byte	0x4
- 136 0079 4A010000 		.4byte	.LASF9
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccO4Vuxa.s 			page 4
-
-
+ 136 0079 6B010000 		.4byte	.LASF9
  137 007d 02       		.uleb128 0x2
  138 007e 08       		.byte	0x8
  139 007f 04       		.byte	0x4
- 140 0080 73000000 		.4byte	.LASF10
+ 140 0080 C9000000 		.4byte	.LASF10
  141 0084 02       		.uleb128 0x2
  142 0085 01       		.byte	0x1
  143 0086 08       		.byte	0x8
- 144 0087 52000000 		.4byte	.LASF11
+ 144 0087 A8000000 		.4byte	.LASF11
  145 008b 02       		.uleb128 0x2
  146 008c 04       		.byte	0x4
  147 008d 07       		.byte	0x7
- 148 008e 7E010000 		.4byte	.LASF12
+ 148 008e 9F010000 		.4byte	.LASF12
  149 0092 05       		.uleb128 0x5
- 150 0093 65000000 		.4byte	.LASF17
+ 150 0093 BB000000 		.4byte	.LASF17
  151 0097 01       		.byte	0x1
- 152 0098 0E       		.byte	0xe
+ 152 0098 0F       		.byte	0xf
  153 0099 5D000000 		.4byte	0x5d
  154 009d 00000000 		.4byte	.LFB35
  155 00a1 3C000000 		.4byte	.LFE35-.LFB35
  156 00a5 01       		.uleb128 0x1
  157 00a6 9C       		.byte	0x9c
  158 00a7 06       		.uleb128 0x6
- 159 00a8 76010000 		.4byte	.LASF18
+ 159 00a8 97010000 		.4byte	.LASF18
  160 00ac 01       		.byte	0x1
- 161 00ad 10       		.byte	0x10
+ 161 00ad 11       		.byte	0x11
  162 00ae 6B000000 		.4byte	0x6b
  163 00b2 02       		.uleb128 0x2
  164 00b3 91       		.byte	0x91
@@ -214,11 +233,14 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccO4Vuxa.s 			page 1
  167 00b6 26000000 		.4byte	.LBB2
  168 00ba 14000000 		.4byte	.LBE2-.LBB2
  169 00be 08       		.uleb128 0x8
- 170 00bf 50010000 		.4byte	.LASF19
+ 170 00bf 71010000 		.4byte	.LASF19
  171 00c3 01       		.byte	0x1
- 172 00c4 20       		.byte	0x20
+ 172 00c4 33       		.byte	0x33
  173 00c5 5D000000 		.4byte	0x5d
  174 00c9 09       		.uleb128 0x9
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccq4FbZ6.s 			page 5
+
+
  175 00ca 00       		.byte	0
  176 00cb 00       		.byte	0
  177 00cc 00       		.byte	0
@@ -238,9 +260,6 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccO4Vuxa.s 			page 1
  191 000a 0E       		.uleb128 0xe
  192 000b 55       		.uleb128 0x55
  193 000c 17       		.uleb128 0x17
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccO4Vuxa.s 			page 5
-
-
  194 000d 11       		.uleb128 0x11
  195 000e 01       		.uleb128 0x1
  196 000f 10       		.uleb128 0x10
@@ -279,6 +298,9 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccO4Vuxa.s 			page 1
  229 0030 3B       		.uleb128 0x3b
  230 0031 0B       		.uleb128 0xb
  231 0032 49       		.uleb128 0x49
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccq4FbZ6.s 			page 6
+
+
  232 0033 13       		.uleb128 0x13
  233 0034 00       		.byte	0
  234 0035 00       		.byte	0
@@ -298,9 +320,6 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccO4Vuxa.s 			page 1
  248 0043 11       		.uleb128 0x11
  249 0044 01       		.uleb128 0x1
  250 0045 12       		.uleb128 0x12
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccO4Vuxa.s 			page 6
-
-
  251 0046 06       		.uleb128 0x6
  252 0047 40       		.uleb128 0x40
  253 0048 18       		.uleb128 0x18
@@ -339,6 +358,9 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccO4Vuxa.s 			page 1
  286 006a 19       		.uleb128 0x19
  287 006b 03       		.uleb128 0x3
  288 006c 0E       		.uleb128 0xe
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccq4FbZ6.s 			page 7
+
+
  289 006d 3A       		.uleb128 0x3a
  290 006e 0B       		.uleb128 0xb
  291 006f 3B       		.uleb128 0x3b
@@ -358,9 +380,6 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccO4Vuxa.s 			page 1
  305              		.section	.debug_aranges,"",%progbits
  306 0000 1C000000 		.4byte	0x1c
  307 0004 0200     		.2byte	0x2
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccO4Vuxa.s 			page 7
-
-
  308 0006 00000000 		.4byte	.Ldebug_info0
  309 000a 04       		.byte	0x4
  310 000b 00       		.byte	0
@@ -378,7 +397,7 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccO4Vuxa.s 			page 1
  322 000c 00000000 		.4byte	0
  323              		.section	.debug_line,"",%progbits
  324              	.Ldebug_line0:
- 325 0000 74000000 		.section	.debug_str,"MS",%progbits,1
+ 325 0000 76000000 		.section	.debug_str,"MS",%progbits,1
  325      02004A00 
  325      00000201 
  325      FB0E0D00 
@@ -393,102 +412,105 @@ ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccO4Vuxa.s 			page 1
  329      676E6564 
  329      20696E74 
  329      00
- 330              	.LASF5:
- 331 001b 6C6F6E67 		.ascii	"long unsigned int\000"
- 331      20756E73 
- 331      69676E65 
- 331      6420696E 
- 331      7400
- 332              	.LASF14:
- 333 002d 2E2E5C73 		.ascii	"..\\src\\main.c\000"
- 333      72635C6D 
- 333      61696E2E 
- 333      6300
- 334              	.LASF7:
- 335 003b 6C6F6E67 		.ascii	"long long unsigned int\000"
- 335      206C6F6E 
- 335      6720756E 
- 335      7369676E 
- 335      65642069 
- 336              	.LASF11:
- 337 0052 63686172 		.ascii	"char\000"
- 337      00
- 338              	.LASF1:
- 339 0057 756E7369 		.ascii	"unsigned char\000"
- 339      676E6564 
- 339      20636861 
- 339      7200
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccO4Vuxa.s 			page 8
+ 330              	.LASF15:
+ 331 001b 433A5C55 		.ascii	"C:\\Users\\JFDuval\\Desktop\\Work_Folder\\Biomech-E"
+ 331      73657273 
+ 331      5C4A4644 
+ 331      7576616C 
+ 331      5C446573 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccq4FbZ6.s 			page 8
 
 
- 340              	.LASF17:
- 341 0065 6D61696E 		.ascii	"main\000"
- 341      00
- 342              	.LASF4:
- 343 006a 6C6F6E67 		.ascii	"long int\000"
- 343      20696E74 
- 343      00
- 344              	.LASF10:
- 345 0073 646F7562 		.ascii	"double\000"
- 345      6C6500
- 346              	.LASF13:
- 347 007a 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
- 347      4320342E 
- 347      382E3420 
- 347      32303134 
- 347      30353236 
- 348 00ad 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
- 348      20726576 
- 348      6973696F 
- 348      6E203231 
- 348      31333538 
- 349 00e0 30202D66 		.ascii	"0 -ffunction-sections\000"
- 349      66756E63 
- 349      74696F6E 
- 349      2D736563 
- 349      74696F6E 
- 350              	.LASF3:
- 351 00f6 73686F72 		.ascii	"short unsigned int\000"
- 351      7420756E 
- 351      7369676E 
- 351      65642069 
- 351      6E7400
- 352              	.LASF0:
- 353 0109 7369676E 		.ascii	"signed char\000"
- 353      65642063 
- 353      68617200 
- 354              	.LASF15:
- 355 0115 453A5C44 		.ascii	"E:\\Documents\\UROPs\\Biomech UROP\\Code\\Batt\\Bat"
- 355      6F63756D 
- 355      656E7473 
- 355      5C55524F 
- 355      50735C42 
- 356 0142 742E6379 		.ascii	"t.cydsn\000"
- 356      64736E00 
+ 332 0049 452D5356 		.ascii	"E-SVN2\\Code\\flexsea_1_0\\batt\\Batt.cydsn\000"
+ 332      4E325C43 
+ 332      6F64655C 
+ 332      666C6578 
+ 332      7365615F 
+ 333              	.LASF5:
+ 334 0071 6C6F6E67 		.ascii	"long unsigned int\000"
+ 334      20756E73 
+ 334      69676E65 
+ 334      6420696E 
+ 334      7400
+ 335              	.LASF14:
+ 336 0083 2E2E5C73 		.ascii	"..\\src\\main.c\000"
+ 336      72635C6D 
+ 336      61696E2E 
+ 336      6300
+ 337              	.LASF7:
+ 338 0091 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 338      206C6F6E 
+ 338      6720756E 
+ 338      7369676E 
+ 338      65642069 
+ 339              	.LASF11:
+ 340 00a8 63686172 		.ascii	"char\000"
+ 340      00
+ 341              	.LASF1:
+ 342 00ad 756E7369 		.ascii	"unsigned char\000"
+ 342      676E6564 
+ 342      20636861 
+ 342      7200
+ 343              	.LASF17:
+ 344 00bb 6D61696E 		.ascii	"main\000"
+ 344      00
+ 345              	.LASF4:
+ 346 00c0 6C6F6E67 		.ascii	"long int\000"
+ 346      20696E74 
+ 346      00
+ 347              	.LASF10:
+ 348 00c9 646F7562 		.ascii	"double\000"
+ 348      6C6500
+ 349              	.LASF13:
+ 350 00d0 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 350      4320342E 
+ 350      382E3420 
+ 350      32303134 
+ 350      30353236 
+ 351 0103 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 351      20726576 
+ 351      6973696F 
+ 351      6E203231 
+ 351      31333538 
+ 352 0136 30202D66 		.ascii	"0 -ffunction-sections\000"
+ 352      66756E63 
+ 352      74696F6E 
+ 352      2D736563 
+ 352      74696F6E 
+ 353              	.LASF3:
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccq4FbZ6.s 			page 9
+
+
+ 354 014c 73686F72 		.ascii	"short unsigned int\000"
+ 354      7420756E 
+ 354      7369676E 
+ 354      65642069 
+ 354      6E7400
+ 355              	.LASF0:
+ 356 015f 7369676E 		.ascii	"signed char\000"
+ 356      65642063 
+ 356      68617200 
  357              	.LASF9:
- 358 014a 666C6F61 		.ascii	"float\000"
+ 358 016b 666C6F61 		.ascii	"float\000"
  358      7400
  359              	.LASF19:
- 360 0150 72656164 		.ascii	"read_battery_voltage\000"
+ 360 0171 72656164 		.ascii	"read_battery_voltage\000"
  360      5F626174 
  360      74657279 
  360      5F766F6C 
  360      74616765 
  361              	.LASF2:
- 362 0165 73686F72 		.ascii	"short int\000"
+ 362 0186 73686F72 		.ascii	"short int\000"
  362      7420696E 
  362      7400
-ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccO4Vuxa.s 			page 9
-
-
  363              	.LASF16:
- 364 016f 75696E74 		.ascii	"uint16\000"
+ 364 0190 75696E74 		.ascii	"uint16\000"
  364      313600
  365              	.LASF18:
- 366 0176 766F6C74 		.ascii	"voltage\000"
+ 366 0197 766F6C74 		.ascii	"voltage\000"
  366      61676500 
  367              	.LASF12:
- 368 017e 73697A65 		.ascii	"sizetype\000"
+ 368 019f 73697A65 		.ascii	"sizetype\000"
  368      74797065 
  368      00
  369              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br

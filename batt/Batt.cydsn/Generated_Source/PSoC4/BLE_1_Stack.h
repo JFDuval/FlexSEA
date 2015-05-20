@@ -1,6 +1,6 @@
 /*******************************************************************************
 File Name: CYBLE_Stack.h
-Version 1.10
+Version 1.20
 
 Description:
  This file contains declaration of public BLE APIs other than those covered by
@@ -11,7 +11,7 @@ Related Document:
  BLE Standard Spec - CoreV4.1, CSS, CSAs, ESR05, ESR06
 
 ********************************************************************************
-Copyright 2014, Cypress Semiconductor Corporation.  All rights reserved.
+Copyright 2014-2015, Cypress Semiconductor Corporation.  All rights reserved.
 You may use this file only in accordance with the license, terms, conditions,
 disclaimers, and limitations in the end user license agreement accompanying
 the software package with which this file was provided.
@@ -26,7 +26,22 @@ the software package with which this file was provided.
 ***************************************/
 
 #include "cytypes.h"
-    
+
+
+/***************************************
+##Constants
+***************************************/
+
+#define CYBLE_STACK_STATE_BUSY		   	0x01u
+
+#define CYBLE_STACK_STATE_FREE		   	0x00u
+
+/***************************************
+##Retention data definition
+***************************************/
+
+/* Bluetooth Device Address size  */
+#define CYBLE_GAP_BD_ADDR_SIZE			0x06u
 
 /***************************************
 ## Memory pool configuration data defines
@@ -45,24 +60,15 @@ the software package with which this file was provided.
 #define CYBLE_BLESS_HIGH_GAIN_MODE                              0x01u
 
 
-/***************************************
-##Retention data definition
-***************************************/
-
-/* Size to store BLE stack retention data */
-#define CYBLE_RAM_STORAGE_SIZE              1024u
-
-/* Bluetooth Device Address size  */
-#define CYBLE_GAP_BD_ADDR_SIZE              0x06u
 
 /***************************************
 ##Deprecated definitions
 ***************************************/
 
 /* Event indicating connection update complete on the GAP Central.
-   Do not use this for new designs. Use CYBLE_EVT_GAP_CONNECTION_UPDATE_COMPLETE
-   instead */
-#define CYBLE_EVT_GAPC_CONNECTION_UPDATE_COMPLETE   CYBLE_EVT_GAP_CONNECTION_UPDATE_COMPLETE
+	Do not use this for new designs. Use CYBLE_EVT_GAP_CONNECTION_UPDATE_COMPLETE
+	instead */
+#define CYBLE_EVT_GAPC_CONNECTION_UPDATE_COMPLETE	CYBLE_EVT_GAP_CONNECTION_UPDATE_COMPLETE
 
 /***************************************
 ##Enumerated Types and Structs
@@ -99,10 +105,26 @@ typedef enum
        Part D, section 1.3. This event will be received only if there is an error. */
     CYBLE_EVT_HCI_STATUS,
 
-    /* This event is triggered by host stack if BLE stack is busy or not busy. Parameter corresponding to this event
-       will be the state of BLE stack.
-        * BLE stack busy = CYBLE_STACK_STATE_BUSY,
-        * BLE stack not busy = CYBLE_STACK_STATE_FREE */
+    /* This event is triggered by host stack if BLE stack is busy or not. 
+       Event Parameter corresponding to this event will indicate the state of BLE stack's internal protocol buffers
+       for the application to safely initiate data transactions (GATT, GAP Security, and L2CAP transactions)
+       with the peer BLE device.
+
+        * CYBLE_STACK_STATE_BUSY (0x01) = CYBLE_STACK_STATE_BUSY indicates application that BLE stack's internal buffers
+        *                   are about to be filled, and the remaining buffers are required to respond peer BLE device
+        *                   After this event, application shall not initiate (GATT, GAP Security and L2CAP data transactions). 
+        *                   However application shall respond to peer initiated transactions to prevent BLE protocol timeouts
+        *                   to occur.
+        *                   Application initiated data transactions can be resumed after CYBLE_EVT_STACK_BUSY_STATUS
+        *                   event with parameter 'CYBLE_STACK_STATE_FREE' is received.
+        *
+        * CYBLE_STACK_STATE_FREE (0x00) = CYBLE_STACK_STATE_FREE indicates application that pending transactions within
+        *                   BLE stack's are completed and sufficient buffers are available to process application initiated
+        *                   transactions.
+        *                   The 'CYBLE_EVT_STACK_BUSY_STATUS' event with 'CYBLE_STACK_STATE_FREE' is indicated to 
+        *                   application if BLE Stack's internal buffer state has transitioned from 'CYBLE_STACK_STATE_BUSY'
+        *                   to 'CYBLE_STACK_STATE_FREE'.
+        **/
     CYBLE_EVT_STACK_BUSY_STATUS,
 
     /*##Range for GAP events - 0x20 to 0x3F */
@@ -159,7 +181,7 @@ typedef enum
        
        If the data is '0x00', it indicates 'success'; Anything else indicates 'failure'. */
     CYBLE_EVT_GAPP_ADVERTISEMENT_START_STOP,
-
+    
     /* This event is generated at the GAP Central end after connection is completed with peer device.
 	Event parameter is a pointer to a structure of type CYBLE_GAP_CONN_PARAM_UPDATED_IN_CONTROLLER_T. */
     CYBLE_EVT_GAP_DEVICE_CONNECTED,
@@ -178,8 +200,7 @@ typedef enum
     CYBLE_EVT_GAP_ENCRYPT_CHANGE,
 
     /* This event is generated at the GAP Central and the Peripheral end after connection parameter update
-		is requested from the host to the controller. Event parameter is a pointer to a structure of type 
-        CYBLE_GAP_CONN_PARAM_UPDATED_IN_CONTROLLER_T. */
+		is requested from the host to the controller. Event parameter is a pointer to a structure of type CYBLE_GAP_CONN_PARAM_UPDATED_IN_CONTROLLER_T. */
     CYBLE_EVT_GAP_CONNECTION_UPDATE_COMPLETE,
 
     /* Central device has started/stopped scanning. 
@@ -266,7 +287,7 @@ typedef enum
     /* 'Execute Write' response from client device. Event parameter is a
        pointer to a structure of type 'CYBLE_GATTS_EXEC_WRITE_REQ_T'
        This event will be triggered as soon as GATT DB is modified. If at any point of 
-       time 'CYBLE_GATT_EXECUTE_WRITE_CANCEL_FLAG' is received in result fiels of 
+       time 'CYBLE_GATT_EXECUTE_WRITE_CANCEL_FLAG' is received in result fields of 
        'CYBLE_GATTS_EXEC_WRITE_REQ_T' structure, then all previous writes are cancelled.
      */
     CYBLE_EVT_GATTS_EXEC_WRITE_REQ,
@@ -369,7 +390,8 @@ typedef enum
        function. */
     CYBLE_EVT_L2CAP_CBFC_TX_CREDIT_IND,
 
-    /* This event is used to inform application of data transmission completion over L2CAP CBFC channel. Event parameter is of type 'CYBLE_L2CAP_CBFC_DATA_WRITE_PARAM_T' */
+    /* This event is used to inform application of data transmission completion over L2CAP CBFC
+     * channel. Event parameter is of type 'CYBLE_L2CAP_CBFC_DATA_WRITE_PARAM_T' */
     CYBLE_EVT_L2CAP_CBFC_DATA_WRITE_IND,
 
     /*##Range for for future use - 0x80 to 0xFF*/
@@ -443,9 +465,6 @@ typedef enum
     /* L2CAP channel not found */
     CYBLE_ERROR_L2CAP_CHANNEL_NOT_FOUND,
     
-    /* L2CAP not enough credits */
-    CYBLE_ERROR_L2CAP_NOT_ENOUGH_CREDITS,
-    
     /* Specified PSM is out of range */
     CYBLE_ERROR_L2CAP_PSM_NOT_IN_RANGE,
 
@@ -461,9 +480,9 @@ typedef enum
     
     /* Write to flash is not permitted */
     CYBLE_ERROR_FLASH_WRITE_NOT_PERMITED = 0x28u,
-    
-    /* MIC Authentication failure */
-    CYBLE_ERROR_MIC_AUTH_FAILED = 0x29u,
+
+	/* MIC Authentication failure */
+	CYBLE_ERROR_MIC_AUTH_FAILED = 0x29u,	
     
     /* All other errors not covered in the above list map to this error code */
     CYBLE_ERROR_MAX = 0xFFu,
@@ -534,8 +553,8 @@ typedef enum
     CYBLE_LL_PWR_LVL_NEG_3_DBM,          /* ABS PWR = -3dBm, PA_Gain = 0x04 */
     CYBLE_LL_PWR_LVL_NEG_2_DBM,          /* ABS PWR = -2dBm, PA_Gain = 0x05 */
     CYBLE_LL_PWR_LVL_NEG_1_DBM,          /* ABS PWR = -1dBm, PA_Gain = 0x06 */
-	CYBLE_LL_PWR_LVL_3_DBM,              /* ABS PWR = 3dBm, PA_Gain = 0x07 */
     CYBLE_LL_PWR_LVL_0_DBM,              /* ABS PWR = 0dBm, PA_Gain = 0x07 */
+    CYBLE_LL_PWR_LVL_3_DBM,              /* ABS PWR = 3dBm, PA_Gain = 0x07 */
     CYBLE_LL_PWR_LVL_MAX
 } CYBLE_BLESS_PWR_LVL_T;
 
@@ -544,7 +563,7 @@ typedef enum
 {
     /* Advertisement channel type */
     CYBLE_LL_ADV_CH_TYPE = 0x00u,
-    /* Connectipn channel type */
+    /* Connection channel type */
     CYBLE_LL_CONN_CH_TYPE,
     /* Maximum value of CYBLE_BLESS_PHY_CH_GRP_ID_T type */
     CYBLE_LL_MAX_CH_TYPE
@@ -592,7 +611,7 @@ typedef struct
     CYBLE_BLESS_ECO_CLK_DIV_T  bleLlClockDiv;
     /* ECO crystal startup time in micro seconds. 
     The maximum allowed value for this field is 
-    4000 (4 milli seconds) */
+    4000 (4 milliseconds) */
     uint16 ecoXtalStartUpTime;
 } CYBLE_BLESS_CLK_CFG_PARAMS_T;
 
@@ -612,7 +631,6 @@ typedef struct
     uint8     bdAddr[CYBLE_GAP_BD_ADDR_SIZE]; /* Bluetooth device address */
     uint8     type; /*public = 0, Random = 1*/
 }CYBLE_GAP_BD_ADDR_T;
-
 
 /***************************************
 ##Global Function Declarations
@@ -682,7 +700,8 @@ Return:
 </table>
     
 ******************************************************************************/
-CYBLE_API_RESULT_T CyBle_StackInit(CYBLE_APP_CB_T CyBleAppCbFunc, uint8 *memoryHeapPtr, uint16 maxMtuSize);
+CYBLE_API_RESULT_T CyBle_StackInit(CYBLE_APP_CB_T CyBleAppCbFunc, uint8 *memoryHeapPtr,
+ uint16 maxMtuSize);
 
 
 /******************************************************************************
@@ -734,7 +753,7 @@ Return:
 									 function.
 
  </table>
-
+    
 ******************************************************************************/
 CYBLE_API_RESULT_T CyBle_SoftReset(void);
 
@@ -1452,7 +1471,6 @@ Return Value:
 ******************************************************************************/
 CYBLE_BLESS_STATE_T CyBle_GetBleSsState(void);
 
-
 /******************************************************************************
 ##Function Name: CyBle_AesCcmInit
 *******************************************************************************
@@ -1483,17 +1501,17 @@ Summary:
 
 Parameters:	
  key: Pointer to an array of bytes holding the key. The array length to be
-      allocated by the application should be 16 bytes.
+		allocated by the application should be 16 bytes.
  nonce:	Pointer to an array of bytes. The array length to be allocated by the
-        application is 13 Bytes.
+ 		 application is 13 Bytes.
  in_data: Pointer to an array of bytes to be encrypted. Size of the array
-          should be equal to the value of 'length' parameter.
+ 			should be equal to the value of 'length' parameter.
  length: Length of the data to be encrypted, in Bytes. Valid value range
-         is 1 to 27.
+			is 1 to 27.
  out_data: Pointer to an array of size 'length' where the encrypted data
-           is stored.
+ 			is stored.
  out_mic: Pointer to an array of bytes (4 Bytes) to store the MIC value
-          generated during encryption.
+ 			generated during encryption.
 
 Return Value:
  CYBLE_API_RESULT_T: Return value indicates if the function succeeded or
@@ -1513,8 +1531,8 @@ CYBLE_API_RESULT_T CyBle_AesCcmEncrypt(
     uint8 *in_data,
     uint8 length,
     uint8 *out_data,
-    uint8 *out_mic
-    );
+	uint8 *out_mic
+	);
 
 /******************************************************************************
 ##Function Name: CyBle_AesCcmDecrypt
@@ -1527,17 +1545,17 @@ Summary:
 
 Parameters:	
  key: Pointer to an array of bytes holding the key. The array length to be
-      allocated by the application should be 16 bytes.
+		allocated by the application should be 16 bytes.
  nonce:	Pointer to an array of bytes. The array length to be allocated by the
- 		application is 13 Bytes.
+ 		 application is 13 Bytes.
  in_data: Pointer to an array of bytes to be decrypted. Size of the array
-          should be equal to the value of 'length' parameter.
+ 			should be equal to the value of 'length' parameter.
  length: Length of the data to be decrypted, in Bytes. Valid value range
-         is 1 to 27.
+			is 1 to 27.
  out_data: Pointer to an array of size 'length' where the decrypted data
-           is stored.
+ 			is stored.
  in_mic: Pointer to an array of bytes (4 Bytes) to provide the MIC value
-         generated during encryption.
+			generated during encryption.
 
 Return Value:
  CYBLE_API_RESULT_T: Return value indicates if the function succeeded or
@@ -1560,8 +1578,8 @@ CYBLE_API_RESULT_T CyBle_AesCcmDecrypt(
     uint8 *in_data,
     uint8 length,
     uint8 *out_data,
-    uint8 *in_mic
-    );	
+	uint8 *in_mic
+	);	
 
 
 /******************************************************************************
@@ -1592,7 +1610,7 @@ void CyBle_SetTxGainMode(uint8 bleSsGainMode);
 
 
 /******************************************************************************
-##Function Name: CyBle_SetRxGainMode
+##Function Name: CyBle_SetTxGainMode
 *******************************************************************************
 
 Summary:

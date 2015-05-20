@@ -1,13 +1,13 @@
 /*******************************************************************************
 * File Name: BLE_1_HAL_INT.c
-* Version 1.10
+* Version 1.20
 *
 * Description:
 *  This file contains the source code for the Interrupt Service Routine for the
 *  HAL section of the BLE component
 *
 ********************************************************************************
-* Copyright 2014, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2014-2015, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -32,13 +32,13 @@
 *******************************************************************************/
 CY_ISR(CyBLE_Bless_Interrupt)
 {
-    /* Call stack manager bless function handler */
-    CyBLE_pf_bless_event_hdlr();
-    /* Host stack takes care of clearing interrupts */
     #if(CYBLE_STACK_MODE_DEBUG)
         CyBle_ApplCallback(CYBLE_DEBUG_EVT_BLESS_INT, NULL);
     #endif /* CYBLE_STACK_MODE_DEBUG */
 
+    /* Call stack manager bless function handler */
+    CyBLE_pf_bless_event_hdlr();
+    /* Host stack takes care of clearing interrupts */
 }
 
 

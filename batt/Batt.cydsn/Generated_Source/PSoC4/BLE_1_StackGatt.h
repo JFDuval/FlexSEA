@@ -1,6 +1,6 @@
 /*******************************************************************************
 File Name: CYBLE_StackGatt.h
-Version 1.10
+Version 1.20
 
 Description:
  This file contains the GATT APIs of the BLE Host Stack IP
@@ -9,7 +9,7 @@ Related Document:
  BLE Standard Spec - CoreV4.1, CSS, CSAs, ESR05, ESR06
 
 ********************************************************************************
-Copyright 2014, Cypress Semiconductor Corporation.  All rights reserved.
+Copyright 2014-2015, Cypress Semiconductor Corporation.  All rights reserved.
 You may use this file only in accordance with the license, terms, conditions,
 disclaimers, and limitations in the end user license agreement accompanying
 the software package with which this file was provided.
@@ -260,9 +260,17 @@ typedef enum
        code is written into Heart Rate service Control Point characteristic. */
     CYBLE_GATT_ERR_HEART_RATE_CONTROL_POINT_NOT_SUPPORTED = 0x80u,
     
+    /* The user data access is not permitted (i.e. the user has not given
+       consent in order to access these data). */
+    CYBLE_GATT_ERR_USER_DATA_ACCESS_NOT_PERMITTED = 0x80u,
+    
     /* The notifications of the Cycling Power Vector characteristic cannot be sent 
        due to inappropriate connection parameters. */
     CYBLE_GATT_ERR_CPS_INAPPROPRIATE_CONNECTION_PARAMETERS = 0x80u,
+
+	/* The value is considered invalid and outside of the range allowed by 
+       the characteristic. */
+	CYBLE_GATT_ERR_HTS_OUT_OF_RANGE = 0x80u,
 
     /* Procedure Already in Progress error code is used when a profile or service
        request cannot be serviced because an operation that has been previously
@@ -332,10 +340,17 @@ typedef uint16 		CYBLE_GATT_DB_ATTR_HANDLE_T;
 /* Connection Handle */
 typedef struct
 {
-    /* Identifies the peer instance */
+    /* Identifies the peer device(s) bonded or in current connection. Stack supports CYBLE_GAP_MAX_BONDED_DEVICE+1 devices.
+       first device connected is assinged value CYBLE_GAP_MAX_BONDED_DEVICE. If previous 
+       device is bonded then current device will be assigned value CYBLE_GAP_MAX_BONDED_DEVICE-1, 
+       else CYBLE_GAP_MAX_BONDED_DEVICE.
+    */
     uint8     	bdHandle;
 
-    /* Identifies the ATT Instance */
+    /* Identifies the ATT Instance. Current implementation supports only one att instance (0) due to availability
+       of only on fixed channel for att. This parameter is introduced as part of connection handle to keep the 
+       interface unchanged event if new Bluetooth spect defines more fixed channels for ATT payload. 
+    */
     uint8       attId;
 
 }CYBLE_CONN_HANDLE_T;
@@ -367,8 +382,11 @@ typedef struct
     /* Length of Value to be packed */
     uint16   len;
 
-    /* Out Parameter Indicating Actual Length Packed. Actual length
-       can be less than or equal to the 'len' parameter value. */
+    /* Out Parameter Indicating Actual Length Packed and sent over the air. Actual length
+       can be less than or equal to the 'len' parameter value. This provides information
+       to application that what is the actual length of data that is transmitted over the 
+       air. Each GATT procedures defines different length of data that can ne transmitted 
+       over the air. If application sends more than that, all data may not transmitted over air.*/
     uint16   actualLen;
 
 }CYBLE_GATT_VALUE_T;
@@ -379,7 +397,7 @@ typedef struct
 	/* Attribute Value	*/
     CYBLE_GATT_VALUE_T          	value;      
 
-	/* Attribute Handle */
+	/* Attribute Handle of GATT DB */
     CYBLE_GATT_DB_ATTR_HANDLE_T	  	attrHandle;     
 
 }CYBLE_GATT_HANDLE_VALUE_PAIR_T;
