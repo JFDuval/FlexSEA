@@ -166,8 +166,6 @@ void safety_cop_get_status(void)
 	uint8 tmp_buf[4] = {0,0,0,0};
 	
 	safety_cop_read(MEM_R_STATUS1, tmp_buf, 3);
-	safety_cop.status1 = tmp_buf[0];
-	safety_cop.status2 = tmp_buf[1];
 }
 
 void status_error_codes(uint8 sts1, uint8 sts2, uint8 *l0, uint8 *l1, uint8 *l2)

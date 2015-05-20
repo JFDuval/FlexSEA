@@ -496,6 +496,11 @@ void assign_i2c_data(uint8 *newdata)
 		tmp = ((uint16)newdata[4] << 8) | ((uint16) newdata[5]);
 		imu.accel.z = (int16)tmp;		
 	}
+	else if(i2c_last_request == I2C_RQ_SAFETY)
+	{
+		safety_cop.status1 = newdata[0];
+		safety_cop.status2 = newdata[1];
+	}
 }
 
 //****************************************************************************

@@ -71,7 +71,7 @@ int main()
 			
 			ezI2Cbuf[MEM_R_TEMPERATURE] = read_temp();
 			
-			ezI2Cbuf[MEM_R_STATUS1]  = STATUS1_GOOD;
+			//ezI2Cbuf[MEM_R_STATUS1]  = STATUS1_GOOD;
 			
 			//Safety functions:
 			
@@ -83,14 +83,6 @@ int main()
 			ezI2Cbuf[MEM_R_STATUS1] = CMB_FLAGS_STATUS1(err_wdclk, err_discon, err_temp, err_v_vb, err_v_vg);
 			ezI2Cbuf[MEM_R_STATUS2] = CMB_FLAGS_STATUS2(err_v_3v3);
 		}
-		
-		/*
-		//Test code - Disconnected
-		if(err_discon == BATT_CONNECTED)
-			ELED_Write(0);
-		else
-			ELED_Write(1);
-		*/
 		
 		if(flag_tb_1ms)
 		{
