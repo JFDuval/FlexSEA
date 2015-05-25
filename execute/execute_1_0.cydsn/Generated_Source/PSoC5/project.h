@@ -187,6 +187,9 @@
 #include <DMA_4_dma.h>
 #include <UART_DMA_XMIT.h>
 #include <isr_dma_uart_tx.h>
+#include <Timer_2.h>
+#include <T2_RESET.h>
+#include <isr_t2.h>
 #include <ADC_DelSig_1_AMux.h>
 #include <ADC_DelSig_1_Ext_CP_Clk.h>
 #include <ADC_DelSig_1_IRQ.h>

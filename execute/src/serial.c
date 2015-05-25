@@ -43,9 +43,16 @@ void rs485_putc(uint8 byte)
 	//NOT_RE_Write(0);			//Enable Receiver
 }
 
+//Wrapper for the 'puts' function, used to avoid modifying all the code.
+//Redirects to the DMA function by default
+void rs485_puts(uint8 *buf, uint32 len)
+{
+	rs485_dma_puts(buf);
+}
+
 //Sends a string of characters to the UART. ISR based, UART needs a big FIFO buffer.
 //ToDo test, optimize/remove fixed delays
-void rs485_puts(uint8 *buf, uint32 len)
+void rs485_isr_puts(uint8 *buf, uint32 len)
 {
 	uint32_t i = 0, log = 0;
 	
@@ -80,9 +87,37 @@ void rs485_puts(uint8 *buf, uint32 len)
 	NOT_RE_Write(0);				
 }
 
+//Transmit serial data with DMA
+//The DMA transfer is for 48 bytes, by configuration. ToDo: this isn't clean
+void rs485_dma_puts(uint8 *buf)
+{
+	int i = 0;
+	
+	UART_DMA_XMIT_Write(0);		//No transmission
+	UART_2_ClearTxBuffer();		//Clear any old data
+	
+	NOT_RE_Write(1);			//Disable Receiver
+	CyDelayUs(1);				//Wait (ToDo optimize/eliminate)
+	DE_Write(1);				//Enable Receiver
+	CyDelayUs(1);				//Wait (ToDo optimize/eliminate)
+	
+	//Sends the bytes:
+	for(i = 0; i < 48; i++)
+	{
+		uart_dma_tx_buf[i] = buf[i];
+	}
+	
+	//Enable channel and UART TX ISR line:
+	CyDmaChEnable(DMA_4_Chan, 1);
+	UART_DMA_XMIT_Write(1);		//Allow transmission
+	
+	//DMA will take it from here, go to CY_ISR(isr_dma_uart_tx_Interrupt) for the end
+}
+
 void init_rs485(void)
 {
 	#ifdef USE_RS485
+		
 	UART_2_Init();
 	UART_2_Enable();
 	UART_2_Start();		
@@ -91,6 +126,12 @@ void init_rs485(void)
 	init_dma_4();				//DMA, Transmission
 	isr_dma_uart_tx_Start();
 	NOT_RE_Write(0);			//Enable RS-485 Receiver
+	
+	//Timer 2: 10us (2 bytes)
+	Timer_2_Init();
+	Timer_2_Start();
+	isr_t2_Start();
+	
 	#endif	//USE_RS485
 }
 
@@ -122,6 +163,20 @@ void test_uart_dma_xmit(void)
 		CyDelay(10);	//Wait 10ms
 	}
 }
+
+//Confirms that my timer is running in 10us one-shot mode
+void t2_oneshot_test(void)
+{
+	while(1)
+	{
+		T2_RESET_Write(0);
+		EXP10_Write(1);
+		Timer_2_Start();
+		//ISR will take it from here...
+		CyDelay(1);		//1ms period
+	}
+}
+	
 
 //****************************************************************************
 // Private Function(s)

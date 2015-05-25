@@ -9,7 +9,7 @@
 *  Note:
 *
 ********************************************************************************
-* Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions, 
 * disclaimers, and limitations in the end user license agreement accompanying 
 * the software package with which this file was provided.
@@ -27,8 +27,7 @@
 ********************************************************************************/
 /* `#START isr_t2_intc` */
 
-#include <project.h>
-#include "misc.h"
+#include "main.h"
 
 /* `#END` */
 
@@ -48,7 +47,10 @@ CY_ISR_PROTO(IntDefaultHandler);
 ********************************************************************************
 *
 * Summary:
-*  Set up the interrupt and enable it.
+*  Set up the interrupt and enable it. This function disables the interrupt, 
+*  sets the default interrupt vector, sets the priority from the value in the
+*  Design Wide Resources Interrupt Editor, then enables the interrupt to the 
+*  interrupt controller.
 *
 * Parameters:  
 *   None
@@ -78,7 +80,20 @@ void isr_t2_Start(void)
 ********************************************************************************
 *
 * Summary:
-*  Set up the interrupt and enable it.
+*  Sets up the interrupt and enables it. This function disables the interrupt,
+*  sets the interrupt vector based on the address passed in, sets the priority 
+*  from the value in the Design Wide Resources Interrupt Editor, then enables 
+*  the interrupt to the interrupt controller.
+*  
+*  When defining ISR functions, the CY_ISR and CY_ISR_PROTO macros should be 
+*  used to provide consistent definition across compilers:
+*  
+*  Function definition example:
+*   CY_ISR(MyISR)
+*   {
+*   }
+*   Function prototype example:
+*   CY_ISR_PROTO(MyISR);
 *
 * Parameters:  
 *   address: Address of the ISR to set in the interrupt vector table.
@@ -111,6 +126,7 @@ void isr_t2_StartEx(cyisraddress address)
 *   Disables and removes the interrupt.
 *
 * Parameters:  
+*   None
 *
 * Return:
 *   None
@@ -147,25 +163,19 @@ CY_ISR(isr_t2_Interrupt)
     /*  Place your Interrupt code here. */
     /* `#START isr_t2_Interrupt` */
 	
-	static uint8 cnt_50ms = 0;
-	
-	//Timer 2: 10ms with divider to 50ms
+	//Timer 2: 10us delay. RS-485 transceiver.
 	
 	//Clear interrupt
 	Timer_2_ReadStatusRegister();
 	isr_t2_ClearPending();	
 	
-	//Flag for the main code
-	t2_10ms_flag = 1;
-	if(cnt_50ms >= 4)
-	{
-		cnt_50ms = 0;
-		t2_50ms_flag = 1;
-	}
-	else
-	{
-		cnt_50ms++;
-	}
+	//Transfer is over, enable Receiver & disable Emitter
+	UART_DMA_XMIT_Write(0);		//No transmission
+	DE_Write(0);
+	//CyDelayUs(1);
+	NOT_RE_Write(0);
+	
+	T2_RESET_Write(1);
 	
     /* `#END` */
 }
@@ -179,6 +189,17 @@ CY_ISR(isr_t2_Interrupt)
 *   Change the ISR vector for the Interrupt. Note calling isr_t2_Start
 *   will override any effect this method would have had. To set the vector 
 *   before the component has been started use isr_t2_StartEx instead.
+* 
+*   When defining ISR functions, the CY_ISR and CY_ISR_PROTO macros should be 
+*   used to provide consistent definition across compilers:
+*
+*   Function definition example:
+*   CY_ISR(MyISR)
+*   {
+*   }
+*
+*   Function prototype example:
+*     CY_ISR_PROTO(MyISR);
 *
 * Parameters:
 *   address: Address of the ISR to set in the interrupt vector table.
@@ -226,14 +247,20 @@ cyisraddress isr_t2_GetVector(void)
 ********************************************************************************
 *
 * Summary:
-*   Sets the Priority of the Interrupt. Note calling isr_t2_Start
-*   or isr_t2_StartEx will override any effect this method 
-*   would have had. This method should only be called after 
-*   isr_t2_Start or isr_t2_StartEx has been called. To set 
-*   the initial priority for the component use the cydwr file in the tool.
+*   Sets the Priority of the Interrupt. 
+*
+*   Note calling isr_t2_Start or isr_t2_StartEx will 
+*   override any effect this API would have had. This API should only be called
+*   after isr_t2_Start or isr_t2_StartEx has been called. 
+*   To set the initial priority for the component, use the Design-Wide Resources
+*   Interrupt Editor.
+*
+*   Note This API has no effect on Non-maskable interrupt NMI).
 *
 * Parameters:
-*   priority: Priority of the interrupt. 0 - 7, 0 being the highest.
+*   priority: Priority of the interrupt, 0 being the highest priority
+*             PSoC 3 and PSoC 5LP: Priority is from 0 to 7.
+*             PSoC 4: Priority is from 0 to 3.
 *
 * Return:
 *   None
@@ -256,7 +283,9 @@ void isr_t2_SetPriority(uint8 priority)
 *   None
 *
 * Return:
-*   Priority of the interrupt. 0 - 7, 0 being the highest.
+*   Priority of the interrupt, 0 being the highest priority
+*    PSoC 3 and PSoC 5LP: Priority is from 0 to 7.
+*    PSoC 4: Priority is from 0 to 3.
 *
 *******************************************************************************/
 uint8 isr_t2_GetPriority(void)
@@ -275,7 +304,9 @@ uint8 isr_t2_GetPriority(void)
 ********************************************************************************
 *
 * Summary:
-*   Enables the interrupt.
+*   Enables the interrupt to the interrupt controller. Do not call this function
+*   unless ISR_Start() has been called or the functionality of the ISR_Start() 
+*   function, which sets the vector and the priority, has been called.
 *
 * Parameters:
 *   None
@@ -317,7 +348,7 @@ uint8 isr_t2_GetState(void)
 ********************************************************************************
 *
 * Summary:
-*   Disables the Interrupt.
+*   Disables the Interrupt in the interrupt controller.
 *
 * Parameters:
 *   None
@@ -347,6 +378,11 @@ void isr_t2_Disable(void)
 * Return:
 *   None
 *
+* Side Effects:
+*   If interrupts are enabled and the interrupt is set up properly, the ISR is
+*   entered (depending on the priority of this interrupt and other pending 
+*   interrupts).
+*
 *******************************************************************************/
 void isr_t2_SetPending(void)
 {
@@ -359,7 +395,12 @@ void isr_t2_SetPending(void)
 ********************************************************************************
 *
 * Summary:
-*   Clears a pending interrupt.
+*   Clears a pending interrupt in the interrupt controller.
+*
+*   Note Some interrupt sources are clear-on-read and require the block 
+*   interrupt/status register to be read/cleared with the appropriate block API 
+*   (GPIO, UART, and so on). Otherwise the ISR will continue to remain in 
+*   pending state even though the interrupt itself is cleared using this API.
 *
 * Parameters:
 *   None

@@ -23,6 +23,10 @@
 void init_rs485(void);
 void rs485_putc(uint8 byte);
 void rs485_puts(uint8 *buf, uint32 len);
+void rs485_isr_puts(uint8 *buf, uint32 len);
+void rs485_dma_puts(uint8 *buf);
+void test_uart_dma_xmit(void);
+void t2_oneshot_test(void);
 
 //****************************************************************************
 // Shared Variable(s):

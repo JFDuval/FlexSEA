@@ -78,7 +78,7 @@ int main(void)
 	//wdclk_test_blocking();
 	//timing_test_blocking();
 	//test_current_tracking_blocking();
-	test_uart_dma_xmit();
+	//test_uart_dma_xmit();
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 	//Main loop
