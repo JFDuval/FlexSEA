@@ -22,6 +22,10 @@
 //****************************************************************************
 
 uint8 clutch_pwm = 0;
+uint8 uart_dma_rx_buf[96];	//ToDo #define
+uint8 uart_dma_tx_buf[96];
+uint8 DMA_4_Chan;
+uint8 DMA_4_TD[1];
 
 //****************************************************************************
 // Function(s)
@@ -105,16 +109,6 @@ void init_tb_timers(void)
 	Timer_1_Init();
 	Timer_1_Start();
 	isr_t1_Start();
-}
-
-void init_rs485(void)
-{
-	#ifdef USE_RS485
-	UART_2_Init();
-	UART_2_Enable();
-	UART_2_Start();		
-	NOT_RE_Write(0);			//Enable RS-485 Receiver
-	#endif	//USE_RS485
 }
 
 void init_i2c1(void)

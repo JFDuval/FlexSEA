@@ -31,8 +31,8 @@
 #define UART_2_RX_ENABLED                     (1u)
 #define UART_2_TX_ENABLED                     (1u)
 #define UART_2_HD_ENABLED                     (0u)
-#define UART_2_RX_INTERRUPT_ENABLED           (1u)
-#define UART_2_TX_INTERRUPT_ENABLED           (1u)
+#define UART_2_RX_INTERRUPT_ENABLED           (0u)
+#define UART_2_TX_INTERRUPT_ENABLED           (0u)
 #define UART_2_INTERNAL_CLOCK_USED            (0u)
 #define UART_2_RXHW_ADDRESS_ENABLED           (0u)
 #define UART_2_OVER_SAMPLE_COUNT              (8u)
@@ -45,8 +45,8 @@
 #define UART_2_USE23POLLING                   (1u)
 #define UART_2_FLOW_CONTROL                   (0u)
 #define UART_2_CLK_FREQ                       (0u)
-#define UART_2_TX_BUFFER_SIZE                 (128u)
-#define UART_2_RX_BUFFER_SIZE                 (1024u)
+#define UART_2_TX_BUFFER_SIZE                 (4u)
+#define UART_2_RX_BUFFER_SIZE                 (4u)
 
 /* Check to see if required defines such as CY_PSOC5LP are available */
 /* They are defined starting with cy_boot v3.0 */
@@ -112,7 +112,7 @@ void UART_2_Wakeup(void) ;
     uint8 UART_2_ReadRxStatus(void) ;
     uint8 UART_2_GetChar(void) ;
     uint16 UART_2_GetByte(void) ;
-    uint16 UART_2_GetRxBufferSize(void)
+    uint8 UART_2_GetRxBufferSize(void)
                                                             ;
     void UART_2_ClearRxBuffer(void) ;
 
@@ -316,8 +316,8 @@ extern uint8 UART_2_initVar;
 #if (UART_2_RX_INTERRUPT_ENABLED && (UART_2_RX_ENABLED || UART_2_HD_ENABLED))
     extern uint8 UART_2_errorStatus;
     extern volatile uint8 UART_2_rxBuffer[UART_2_RX_BUFFER_SIZE];
-    extern volatile uint16 UART_2_rxBufferRead;
-    extern volatile uint16 UART_2_rxBufferWrite;
+    extern volatile uint8 UART_2_rxBufferRead;
+    extern volatile uint8 UART_2_rxBufferWrite;
     extern volatile uint8 UART_2_rxBufferLoopDetect;
     extern volatile uint8 UART_2_rxBufferOverflow;
     #if (UART_2_RXHW_ADDRESS_ENABLED)

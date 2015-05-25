@@ -18,6 +18,7 @@
 #include <DieTemp_1.h>
 #include <math.h>
 #include "stdio.h"
+#include "serial.h"
 #include "motor.h"
 #include "misc.h"
 #include "trapez.h"

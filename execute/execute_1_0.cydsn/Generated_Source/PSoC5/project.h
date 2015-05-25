@@ -182,6 +182,11 @@
 #include <EXP9.h>
 #include <Coast_Brake.h>
 #include <VDAC8_2.h>
+#include <DMA_3_dma.h>
+#include <isr_dma_uart.h>
+#include <DMA_4_dma.h>
+#include <UART_DMA_XMIT.h>
+#include <isr_dma_uart_tx.h>
 #include <ADC_DelSig_1_AMux.h>
 #include <ADC_DelSig_1_Ext_CP_Clk.h>
 #include <ADC_DelSig_1_IRQ.h>

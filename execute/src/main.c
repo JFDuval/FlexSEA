@@ -65,7 +65,7 @@ int main(void)
 	init_peripherals();
 	
 	//Start with an empty buffer
-	flexsea_clear_slave_read_buffer();	
+	flexsea_clear_slave_read_buffer();
 	
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- =
 	//Test code - enable one and only one for special debugging
@@ -78,6 +78,7 @@ int main(void)
 	//wdclk_test_blocking();
 	//timing_test_blocking();
 	//test_current_tracking_blocking();
+	test_uart_dma_xmit();
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 	//Main loop
@@ -260,7 +261,7 @@ int main(void)
 			//RS-485 Byte Input
 			#ifdef USE_RS485			
 		
-			get_uart_data();
+			//get_uart_data();	//Now done via DMA
 			
 			if(data_ready_485_1)
 			{

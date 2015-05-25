@@ -36,8 +36,6 @@ extern uint8 minm_rgb_color;
 // Public Function Prototype(s):
 //****************************************************************************
 
-void rs485_putc(uint8 byte);
-void rs485_puts(uint8 *buf, uint32 len);
 void i2c_write_minm_rgb(uint8 cmd, uint8 r, uint8 g, uint8 b);
 void alive_led(void);
 void power_on(void);

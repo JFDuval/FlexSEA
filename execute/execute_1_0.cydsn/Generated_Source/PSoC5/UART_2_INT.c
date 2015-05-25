@@ -23,6 +23,8 @@
 #include <project.h>
 #include "main.h"
 
+uint8 toggle_flag = 0;
+
 /* `#END` */
 
 #if (UART_2_RX_INTERRUPT_ENABLED && (UART_2_RX_ENABLED || UART_2_HD_ENABLED))
@@ -71,6 +73,8 @@
         /* User code required at start of ISR */
         /* `#START UART_2_RXISR_START` */
 
+		toggle_flag ^= 1;
+		EXP10_Write(toggle_flag);
 		
         /* `#END` */
 

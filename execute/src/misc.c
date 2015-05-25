@@ -22,8 +22,6 @@
 
 uint8 i2c_last_request = 0;
 
-volatile int8_t tx_cnt = 0;
-
 //Timers:
 volatile uint8 t1_100us_flag = 0;
 volatile uint8 t1_time_share = 0, t1_new_value = 0;
@@ -49,52 +47,6 @@ uint8 minm_rgb_color = 0;
 //****************************************************************************
 // Public Function(s)
 //****************************************************************************
-
-//ToDo should probably be in a different file
-//Sends a single character to the UART
-void rs485_putc(uint8 byte)
-{
-	NOT_RE_Write(1);			//Disable Receiver
-	UART_2_PutChar(byte);		//Send byte
-	//NOT_RE_Write(0);			//Enable Receiver
-}
-
-//Sends a string of characters to the UART
-//ToDo test, optimize/remove fixed delays
-void rs485_puts(uint8 *buf, uint32 len)
-{
-	uint32_t i = 0, log = 0;
-	
-	NOT_RE_Write(1);				//Disable Receiver
-	CyDelayUs(1);					//Wait (ToDo optimize/eliminate)
-	//UART_2_ClearTxBuffer();			//Flush the TX buffer
-	DE_Write(1);
-	CyDelayUs(1);
-	tx_cnt = len;
-	
-	//Can we store all the bytes we want to send?
-	if((UART_2_TXBUFFERSIZE - UART_2_GetTxBufferSize()) < len)
-	{
-		//EXP5_Write(1);
-		//Buffer is overflowing, flush it:
-		UART_2_ClearTxBuffer();
-		//EXP5_Write(0);
-	}	
-	
-	//Sends the bytes:
-	for(i = 0; i < len; i++)
-	{
-		UART_2_PutChar(buf[i]);
-	}	
-	
-	//Wait till they get out
-	CyDelayUs(100);					//Wait (ToDo optimize/eliminate)
-		
-	//Back to normal, enable Receiver disable emitter
-	DE_Write(0);
-	CyDelayUs(1);
-	NOT_RE_Write(0);				
-}
 
 //Write to MinM RGB LED
 void i2c_write_minm_rgb(uint8 cmd, uint8 r, uint8 g, uint8 b)
@@ -502,6 +454,7 @@ void assign_i2c_data(uint8 *newdata)
 		safety_cop.status2 = newdata[1];
 	}
 }
+
 
 //****************************************************************************
 // Private Function(s)

@@ -2,13 +2,13 @@
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
 // jfduval@mit.edu
-// 02/2015
+// 05/2015
 //****************************************************************************
-// peripherals: code for the general peripheral modules
+// serial: code for UART module
 //****************************************************************************
 	
-#ifndef INC_PERIPH_H
-#define INC_PERIPH_H
+#ifndef INC_SERIAL_H
+#define INC_SERIAL_H
 
 //****************************************************************************
 // Include(s)
@@ -20,13 +20,9 @@
 // Public Function Prototype(s):
 //****************************************************************************
 
-void init_peripherals(void);
-void init_tb_timers(void);
-void init_i2c1(void);
-void init_i2c2(void);
-void init_clutch(void);
-void clutch_output(uint8 value);
-uint8 read_clutch(void);
+void init_rs485(void);
+void rs485_putc(uint8 byte);
+void rs485_puts(uint8 *buf, uint32 len);
 
 //****************************************************************************
 // Shared Variable(s):
@@ -39,5 +35,5 @@ extern uint8 uart_dma_tx_buf[96];
 // Definition(s):
 //****************************************************************************
 	
-#endif	//INC_PERIPH_H
+#endif	//INC_SERIAL_H
 	
