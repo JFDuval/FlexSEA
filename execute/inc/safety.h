@@ -88,6 +88,20 @@ extern struct scop safety_cop;
 
 //How many 1ms cycles do we skip before we start looking at safety flags?
 #define SAFETY_DELAY			1000
+
+#define T_NORMAL				0
+#define T_WARNING				1
+#define T_ERROR					2
+
+//STATUS1 = [WDCLK, DISCON, TEMPH, TEMPL, VBH, VBL, VGH, VGL]
+#define CMB_FLAGS_STATUS1(err_wdclk, err_discon, err_temp, err_v_vb, err_v_vg) \
+	(((err_wdclk & 0x01) << 7) | ((err_discon & 0x01) << 6) | ((err_temp & 0x03) << 4) | \
+	((err_v_vb & 0x03) << 2) | (err_v_vg & 0x03))
+	
+#define GET_OVERTEMP_FLAG(status1) ((status1 >> 4) & 0x03)
+	
+//STATUS2 = [0, 0, 0, 0, 0, 0, 3V3H, 3V3L]
+#define CMB_FLAGS_STATUS2(err_v_3v3)		(err_v_3v3 & 0x03)
 	
 #endif	//INC_SAFE_H
 	
