@@ -301,6 +301,8 @@ struct execute_s
 	uint8_t clutch;
 	uint8_t active_ctrl;
 	int16_t pwm;
+	uint8_t status1;
+	uint8_t status2;
 
 	struct ctrl_s ctrl;	//ToDo update previous fields (ex: PWM should be under ctrl)
 };

@@ -217,6 +217,8 @@ void flexsea_stream_print_1(void)
 
 	printf("Encoder: %i\n", exec1.encoder);
 
+	printf("Status: %i & %i\n", exec1.status1, exec1.status2);
+
 	#endif
 }
 
@@ -236,6 +238,8 @@ void flexsea_stream_print_2(void)
 	printf("Current: %i\n", exec2.current);
 
 	printf("Encoder: %i\n", exec2.encoder);
+
+	printf("Status: %i & %i\n", exec2.status1, exec2.status2);
 
 	#endif
 }

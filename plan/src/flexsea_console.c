@@ -377,9 +377,19 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 
 		case 12: 	//'encoder'
 			tmp0 = atoi(argv[4]);
-			_USE_PRINTF("[Encoder]: %i.\n", tmp0);
-			//Prepare and send data:
-			numb = tx_cmd_encoder(slave_id[slave], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, tmp0);
+			if(rw == 'r')
+			{
+				_USE_PRINTF("[Read Encoder]\n");
+				//Prepare and send data:
+				numb = tx_cmd_encoder(slave_id[slave], CMD_READ, tmp_payload_xmit, PAYLOAD_BUF_LEN, 0);
+			}
+			else
+			{
+				_USE_PRINTF("[Write Encoder]: %i.\n", tmp0);
+				//Prepare and send data:
+				numb = tx_cmd_encoder(slave_id[slave], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, tmp0);
+			}
+
 			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
 			break;
 

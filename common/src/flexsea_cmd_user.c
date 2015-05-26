@@ -126,7 +126,10 @@ uint32_t tx_cmd_ctrl_special_1(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 		buf[P_DATA1 + 14] = tmp0;
 		buf[P_DATA1 + 15] = tmp1;
 
-		bytes = P_DATA1 + 16;     //Bytes is always last+1
+		buf[P_DATA1 + 16] = safety_cop.status1;
+		buf[P_DATA1 + 17] = safety_cop.status2;
+
+		bytes = P_DATA1 + 18;     //Bytes is always last+1
 		
 		#else
 		
@@ -264,6 +267,9 @@ void rx_cmd_special_1(uint8_t *buf)
 										buf[P_DATA1+12], buf[P_DATA1+13]));
 			
 			exec_s_ptr->current = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+14], buf[P_DATA1+15]));
+
+			exec_s_ptr->status1 = buf[P_DATA1+16];
+			exec_s_ptr->status2 = buf[P_DATA1+17];
 
 			#ifdef MULTIPLE_COMMANDS
 			//To interface with Python:
