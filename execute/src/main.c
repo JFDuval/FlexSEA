@@ -182,27 +182,9 @@ int main(void)
 						safety_delay++;
 					}
 					
-					//Display temperature status on RGB
-					temp_status = GET_OVERTEMP_FLAG(safety_cop.status1);
-					if(temp_status == T_WARNING)
-					{
-						eL1 = 1;
-						eL2 = 0;
-					}
-					else if(temp_status == T_ERROR)
-					{
-						eL1 = 0;
-						eL2 = 1;
-						
-						//Override PWM:
-						motor_open_speed_1(0);
-					}
-					else
-					{
-						eL1 = 0;
-						eL2 = 0;
-					}
-					rgb_led_ui(eL0, eL1, eL2, new_cmd_led);	//ToDo add error codes
+					//Display temperature status on RGB	
+					overtemp_error(&eL1, &eL2);	//Comment this line if safety code is problematic
+					rgb_led_ui(eL0, eL1, eL2, new_cmd_led);	//ToDo add more error codes
 					if(new_cmd_led)
 					{
 						new_cmd_led = 0;
@@ -226,6 +208,7 @@ int main(void)
 					{	
 						//Trapezoidal trajectories (can be used for both Position & Impedance)				
 						ctrl.position.setp = trapez_get_pos(steps);	//New setpoint
+						ctrl.impedance.setpoint_val = trapez_get_pos(steps);	//New setpoint
 					}
 					
 					#endif	//USE_TRAPEZ	

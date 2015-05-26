@@ -501,7 +501,7 @@ void rx_cmd_ctrl_p(uint8_t *buf)
 			#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
 			//Store value:
-			ctrl.position.pos = tmp_pos;
+			//ctrl.position.pos = tmp_pos;
 			ctrl.position.posi = tmp_posi;
 			ctrl.position.posf = tmp_posf;
 			ctrl.position.spdm = tmp_spdm;

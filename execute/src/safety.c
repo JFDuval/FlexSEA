@@ -211,3 +211,34 @@ void status_error_codes(uint8 sts1, uint8 sts2, uint8 *l0, uint8 *l1, uint8 *l2)
 		*l2 = 0;
 	}
 }
+
+void overtemp_error(uint8 *eL1, uint8 *eL2)
+{
+	uint8 temp_status = 0;
+	static uint8 err_cnt = 0;
+	temp_status = GET_OVERTEMP_FLAG(safety_cop.status1);
+	
+	if(temp_status == T_WARNING)
+	{
+		(*eL1) = 1;
+		(*eL2) = 0;
+	}
+	else if(temp_status == T_ERROR)
+	{
+		err_cnt++;
+		if(err_cnt > 25)
+		{
+			(*eL1) = 0;
+			(*eL2) = 1;
+			
+			//Override PWM:
+			motor_open_speed_1(0);
+		}
+	}
+	else
+	{
+		err_cnt = 0;
+		(*eL1) = 0;
+		(*eL2) = 0;
+	}
+}
