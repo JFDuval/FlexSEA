@@ -85,6 +85,11 @@ int main(void)
 	//test_current_tracking_blocking();
 	//test_uart_dma_xmit();
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+	
+	//Special code for the ExoBoots:
+	#ifdef USE_EXO
+	init_exo();
+	#endif
 
 	//Main loop
 	while(1)
@@ -255,7 +260,16 @@ int main(void)
 					
 					break;
 				
+				//Case 9: User functions	
 				case 9:
+					
+					//ExoBoot code - 1kHz
+					#ifdef USE_EXO
+						
+					exo_fsm();	
+						
+					#endif
+					
 					break;
 				
 				default:
