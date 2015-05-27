@@ -29,6 +29,7 @@ static void flexsea_stream_exp_2(void);
 static void flexsea_stream_exp_3(void);
 static void flexsea_stream_exp_4(void);
 static void flexsea_stream_exp_5(void);
+static void flexsea_stream_exp_6(void);
 
 static void flexsea_log_exp_null(FILE *logfile, char min, char sec, uint32_t *tmp, uint32_t *lines, uint32_t *good);
 static void flexsea_log_exp_1(FILE *logfile, char min, char sec, uint32_t *tmp, uint32_t *lines, uint32_t *good);
@@ -81,6 +82,12 @@ void flexsea_console_stream(int experiment)
     		exp_fctPtr = &flexsea_stream_exp_5;
     		print_fct_ptr = flexsea_stream_print_4;
     		slow_terminal_display = 1;
+    		break;
+
+    	case 6:
+    		exp_fctPtr = &flexsea_stream_exp_6;
+    		//print_fct_ptr = flexsea_stream_print_5;
+    		slow_terminal_display = 0;
     		break;
 
     	default:
@@ -289,6 +296,29 @@ void flexsea_stream_print_4(void)
 	#endif
 }
 
+void flexsea_stream_print_5(void)
+{
+	//Prints data from Execute 1
+	//Designed to be used with the CSEA Knee
+
+	//ToDo replace fields
+#ifdef USE_PRINTF
+
+printf("Gyro X: %i\n", exec2.imu.x);
+printf("Gyro Y: %i\n", exec2.imu.y);
+printf("Gyro Z: %i\n", exec2.imu.z);
+
+printf("Strain: %i\n", exec2.strain);
+printf("Analog: %i\n", exec2.analog[0]);
+printf("Current: %i\n", exec2.current);
+
+printf("Encoder: %i\n", exec2.encoder);
+
+printf("Status: %i & %i\n", exec2.status1, exec2.status2);
+
+#endif
+}
+
 //****************************************************************************
 // Private Function(s)
 //****************************************************************************
@@ -419,6 +449,40 @@ static void flexsea_stream_exp_5(void)
 	decode_spi_rx();
 
 	usleep(STREAM_DELAY_US);
+}
+
+static void flexsea_stream_exp_6(void)
+{
+	int numb = 0;
+
+	//Special2 command to test the CSEA Knee.
+
+	numb = tx_cmd_ctrl_special_2(FLEXSEA_EXECUTE_2, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
+									0, 0, 0, 0, 0,\
+									KEEP, 0, 0, 0, 0);
+
+	numb = comm_gen_str(payload_str, comm_str_spi, PAYLOAD_BUF_LEN);
+	numb = COMM_STR_BUF_LEN;
+
+	#ifdef USE_SPI
+
+	flexsea_spi_transmit(numb, comm_str_spi, 0);
+
+	//Can we decode what we received?
+	decode_spi_rx();
+
+	#endif
+
+	#ifdef USE_USB
+
+	flexsea_serial_transmit(numb, comm_str_spi, 0);
+
+	//Can we decode what we received?
+	decode_usb_rx();
+
+	#endif
+
+	flexsea_stream_print_5();
 }
 
 //All the Log Experiment functions need to have this prototype:

@@ -148,6 +148,7 @@
 								</option>
 								<option id="gnu.c.compiler.option.preprocessor.def.symbols.87657918" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="MULTIPLE_COMMANDS"/>
+									<listOptionValue builtIn="false" value="USE_SPI"/>
 								</option>
 								<option id="gnu.c.compiler.option.dialect.std.245571474" name="Language standard" superClass="gnu.c.compiler.option.dialect.std" useByScannerDiscovery="true" value="gnu.c.compiler.dialect.default" valueType="enumerated"/>
 								<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.91447721" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
