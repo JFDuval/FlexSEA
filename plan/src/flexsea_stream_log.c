@@ -116,6 +116,9 @@ void flexsea_console_stream(int experiment)
 			system("clear");
 			exp_fctPtr();
 			usleep(STREAM_DELAY_US);
+			#ifdef USE_USB
+			usleep(5*STREAM_DELAY_US);	//Extra long delay for USB
+			#endif
 		}
     }
 }
@@ -330,10 +333,24 @@ static void flexsea_stream_exp_2(void)
 									KEEP, 0, KEEP, 0, 0, 0);
 	numb = comm_gen_str(payload_str, comm_str_spi, PAYLOAD_BUF_LEN);
 	numb = COMM_STR_BUF_LEN;
+
+	#ifdef USE_SPI
+
 	flexsea_spi_transmit(numb, comm_str_spi, 0);
 
 	//Can we decode what we received?
 	decode_spi_rx();
+
+	#endif
+
+	#ifdef USE_USB
+
+	flexsea_serial_transmit(numb, comm_str_spi, 0);
+
+	//Can we decode what we received?
+	decode_usb_rx();
+
+	#endif
 
 	flexsea_stream_print_2();
 }

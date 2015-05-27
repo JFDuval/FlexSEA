@@ -119,8 +119,38 @@ void flexsea_serial_transmit(char bytes_to_send, unsigned char *serial_tx_data, 
 
     //Valid port
     if(write(fd, (char *)serial_tx_data, bytes_to_send))
-        printf("Wrote a string\n");
+    {
+        //printf("Wrote a string\n");
+    }
     else
+    {
         printf("Failed.\n");
+    }
 }
 
+#define TRIES 	8
+#define DELAY	1
+void flexsea_serial_read(uint8_t *buffer)
+{
+	int i = 0, n = 0, cnt = 0;
+
+	do
+	{
+		n = read(fd, buffer, sizeof(buffer));
+
+		if(n > 0)
+		{
+			//printf("Received %i bytes: [%s].\n", n, buffer);
+
+			//Transfer spi_rx to flexsea's buffer
+			for(i = 0; i < n; i++)
+			{
+				update_rx_buf_byte_usb(buffer[i]);
+			}
+		}
+		usleep(DELAY);
+		cnt++;
+	}
+	while(cnt < TRIES);
+
+}

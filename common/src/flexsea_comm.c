@@ -47,6 +47,7 @@ uint8_t comm_str_tmp[COMM_STR_BUF_LEN];
 uint8_t comm_str_spi[COMM_STR_BUF_LEN];
 uint8_t comm_str_485_1[COMM_STR_BUF_LEN];
 uint8_t comm_str_485_2[COMM_STR_BUF_LEN];
+uint8_t comm_str_usb[COMM_STR_BUF_LEN];
 
 uint8_t rx_command_spi[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
 uint8_t rx_command_485_1[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];

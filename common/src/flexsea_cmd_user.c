@@ -308,8 +308,10 @@ void rx_cmd_special_1(uint8_t *buf)
 
 //Transmission of a CTRL_SPECIAL_2 command: CSEA Knee
 //Arguments are only for data that the user will change at runtime.
+//'trapeze' can be KEEP/CHANGE.
 uint32_t tx_cmd_ctrl_special_2(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
-								int16_t z_k, int16_t z_b, int16_t z_i, uint8_t rgb, uint8_t clutch)
+								int16_t z_k, int16_t z_b, int16_t z_i, uint8_t rgb, uint8_t clutch, \
+								uint8_t trapeze, int32_t posi, int32_t posf, int32_t spdm, int32_t acc)
 {
 	uint8_t tmp0 = 0, tmp1 = 0, tmp2 = 0, tmp3 = 0;
 	uint32_t bytes = 0;
@@ -339,9 +341,29 @@ uint32_t tx_cmd_ctrl_special_2(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 		buf[P_DATA1 + 5] = tmp1;
 		buf[P_DATA1 + 6] = rgb;
 		buf[P_DATA1 + 7] = clutch;
+		uint32_to_bytes((uint32_t)posi, &tmp0, &tmp1, &tmp2, &tmp3);
+		buf[P_DATA1 + 8] = tmp0;
+		buf[P_DATA1 + 9] = tmp1;
+		buf[P_DATA1 + 10] = tmp2;
+		buf[P_DATA1 + 11] = tmp3;
+		uint32_to_bytes((uint32_t)posf, &tmp0, &tmp1, &tmp2, &tmp3);
+		buf[P_DATA1 + 12] = tmp0;
+		buf[P_DATA1 + 13] = tmp1;
+		buf[P_DATA1 + 14] = tmp2;
+		buf[P_DATA1 + 15] = tmp3;
+		uint32_to_bytes((uint32_t)spdm, &tmp0, &tmp1, &tmp2, &tmp3);
+		buf[P_DATA1 + 16] = tmp0;
+		buf[P_DATA1 + 17] = tmp1;
+		buf[P_DATA1 + 18] = tmp2;
+		buf[P_DATA1 + 19] = tmp3;
+		uint32_to_bytes((uint32_t)acc, &tmp0, &tmp1, &tmp2, &tmp3);
+		buf[P_DATA1 + 20] = tmp0;
+		buf[P_DATA1 + 21] = tmp1;
+		buf[P_DATA1 + 22] = tmp2;
+		buf[P_DATA1 + 23] = tmp3;
+		buf[P_DATA1 + 24] = trapeze;
 
-
-		bytes = P_DATA1 + 8;     //Bytes is always last+1
+		bytes = P_DATA1 + 25;     //Bytes is always last+1
 	}
 	else if(cmd_type == CMD_WRITE)
 	{
@@ -403,6 +425,7 @@ void rx_cmd_special_2(uint8_t *buf)
 {
 	uint32_t numb = 0;
 	int16_t tmp_zk = 0, tmp_zb = 0, tmp_zi = 0, tmp_current = 0;
+	int32_t tmp_posi = 0, tmp_posf = 0, tmp_spdm = 0, tmp_acc = 0;
 
 	#if((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
 
@@ -446,6 +469,38 @@ void rx_cmd_special_2(uint8_t *buf)
 
 		//MinM RGB:
 		minm_rgb_color = buf[P_DATA1 + 6]; //ToDo set value that will be used in the next cycle
+
+		//Trapeze:
+		if(buf[P_DATA1 + 24] == CHANGE)
+		{
+			//Time to update the trajectory
+
+			tmp_posi = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1 + 8], buf[P_DATA1 + 9], buf[P_DATA1 + 10], buf[P_DATA1 + 11]));
+			tmp_posf = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1 + 12], buf[P_DATA1 + 13], buf[P_DATA1 + 14], buf[P_DATA1 + 15]));
+			tmp_spd = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1 + 16], buf[P_DATA1 + 17], buf[P_DATA1 + 18], buf[P_DATA1 + 19]));
+			tmp_acc = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1 + 20], buf[P_DATA1 + 21], buf[P_DATA1 + 22], buf[P_DATA1 + 23]));
+
+			if(ctrl.active_ctrl == CTRL_IMPEDANCE)
+			{
+				//Backup gains
+				tmp_z_k = ctrl.impedance.gain.Z_K;
+				tmp_z_b = ctrl.impedance.gain.Z_B;
+				tmp_z_i = ctrl.impedance.gain.Z_I;
+
+				//Zero them
+				ctrl.impedance.gain.Z_K = 0;
+				ctrl.impedance.gain.Z_B = 0;
+				ctrl.impedance.gain.Z_I = 0;
+
+				//New trajectory
+				steps = trapez_gen_motion_1(tmp_posi, tmp_posf, tmp_spdm, tmp_acc);
+
+				//Restore gains
+				ctrl.impedance.gain.Z_K = tmp_z_k;
+				ctrl.impedance.gain.Z_B = tmp_z_b;
+				ctrl.impedance.gain.Z_I = tmp_z_i;
+			}
+		}
 
 		//Generate the reply:
 		//===================

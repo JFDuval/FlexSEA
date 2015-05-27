@@ -25,7 +25,8 @@ uint32_t tx_cmd_ctrl_special_1(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 								int16_t current, int16_t open_spd);
 void rx_cmd_special_1(uint8_t *buf);
 uint32_t tx_cmd_ctrl_special_2(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
-								int16_t z_k, int16_t z_b, int16_t z_i, uint8_t rgb, uint8_t clutch);
+								int16_t z_k, int16_t z_b, int16_t z_i, uint8_t rgb, uint8_t clutch, \
+								uint8_t trapeze, int32_t posi, int32_t posf, int32_t spdm, int32_t acc);
 void rx_cmd_special_2(uint8_t *buf);
 uint32_t tx_cmd_ctrl_special_3(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
 								int16_t i_kp, int16_t i_ki, int16_t i_kd, int16_t w_curr);

@@ -37,6 +37,8 @@ int main(int argc, char *argv[])
 
 	#ifndef DEBUG
 
+	#ifdef USE_SPI
+
     //Open SPI:
     flexsea_spi_open();
 
@@ -45,9 +47,18 @@ int main(int argc, char *argv[])
     iolib_setdir(RESET_PORT, RESET_PIN, DIR_OUT);
     pin_low(RESET_PORT, RESET_PIN);
 
+	#endif
+
 	#else
 
-    printf("\nFlexSEA-Plan - Debug\n=====================\n\n");
+    printf("\nFlexSEA-Plan - Debug or Native USB\n==================================\n\n");
+
+	#ifdef USE_USB
+
+	//Open USB (serial) port:
+	flexsea_serial_open(100, 50000);
+
+	#endif
 
 	#endif
 
@@ -105,16 +116,38 @@ int main(int argc, char *argv[])
     parser_console(argc, argv);
 
     //Can we decode what we received?
+
+	#ifdef USE_SPI
+
     decode_spi_rx();
+
+	#endif
+
+	#ifdef USE_USB
+
+	//decode_usb_rx();	ToDo
+
+	#endif
 
 	#endif  //SINGLE_COMMAND
 
 	#ifndef DEBUG
 
+	#ifdef USE_SPI
+
     //Close SPI:
     flexsea_spi_close();
 
     iolib_free();
+
+	#endif
+
+	#ifdef USE_USB
+
+    //Close serial port:
+    flexsea_serial_close();
+
+	#endif
 
 	#endif
 

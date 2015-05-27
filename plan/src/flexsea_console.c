@@ -550,8 +550,13 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
     //If a command was generated, send it
     if(numb)
     {
+		#ifdef USE_SPI
     	flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
-    	//ToDo support USB!
+    	#endif
+
+		#ifdef USE_USB
+    	flexsea_send_serial_slave(PORT_USB, comm_str_spi, numb+1);
+    	#endif
     }
 }
 
@@ -586,7 +591,15 @@ static void flexsea_console_print_info(void)
 
 	printf("[FlexSEA][Compiled %s %s]\n", __DATE__, __TIME__);
 
+	#ifdef USE_SPI
+
 	flexsea_spi_print_details();
+
+	#else
+
+	printf("SPI not in use - can't display info.\n");
+
+	#endif
 
     printf(	"\nList of commands: \n=-=-=-=-=-=-=-=-=-=-=-=\n\n");
 
