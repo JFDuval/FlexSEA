@@ -18,7 +18,7 @@
 // Variable(s)
 //****************************************************************************
 
-uint8 buffer[BUFFER_LEN];
+uint8 buffer[RX_BUF_LEN];
 
 //****************************************************************************
 // Function(s)
@@ -82,6 +82,25 @@ uint8 usb_echo_blocking(void)
     } 
 	
 	return 0;	//No byte
+}
+
+void get_usb_data(void)
+{
+	static 	int16 count = 0;
+	uint16 i = 0;
+	
+	//USB Data
+	if(USBUART_1_DataIsReady() != 0u)               	//Check for input data from PC
+	{   
+		count = USBUART_1_GetAll(buffer);           	//Read received data and re-enable OUT endpoint
+		if(count != 0u)
+		{
+			//Store all bytes in rx buf:			
+			update_rx_buf_array_usb(buffer, count+1);
+		
+			data_ready_usb++;
+		}
+    } 	
 }
 
 //Send 4 uint16 to the terminal
@@ -185,4 +204,10 @@ void send_usb_int32(int payload)
 	USBUART_1_PutData((const uint8*)packet, 4);
 
 	return;
+}
+
+void usb_puts(uint8 *buf, uint32 len)
+{
+	if(USBUART_1_CDCIsReady() == 1)
+		USBUART_1_PutData(( const uint8*)buf, len);
 }

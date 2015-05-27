@@ -226,6 +226,9 @@ void rx_cmd_special_1(uint8_t *buf)
 
 		//(for now, send it)
 		rs485_puts(comm_str_485_1, (numb));	
+		#ifdef USE_USB
+		usb_puts(comm_str_485_1, (numb));	
+		#endif
 
 		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 

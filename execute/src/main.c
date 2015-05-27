@@ -36,6 +36,7 @@
 uint8 last_byte = 0;
 int steps = 0, current_step = 0;
 uint8_t tmp_rx_command_485_1[PAYLOAD_BUF_LEN];
+uint8_t tmp_rx_command_usb[PAYLOAD_BUF_LEN];
 uint8 eL0 = 0, eL1 = 0, eL2 = 0;
 
 //****************************************************************************
@@ -58,6 +59,9 @@ int main(void)
 	uint16 safety_delay = 0;
 	uint8 i2c_time_share = 0;
 	uint8 temp_status = 0;
+	
+	int numb = 0;
+	unsigned char tmp_payload_xmit[PAYLOAD_BUF_LEN];
 	
 	//Power on delay with LEDs
 	power_on();	     
@@ -136,6 +140,7 @@ int main(void)
 						//Case 0.3: Free
 						case 3:
 							//(can be the I2C RGB LED)
+							
 							break;
 						
 						default:
@@ -276,6 +281,22 @@ int main(void)
 				
 			#endif	//USE_RS485
 			
+			//USB Byte Input
+			#ifdef USE_USB			
+		
+			get_usb_data();
+			
+			if(data_ready_usb)
+			{
+				data_ready_usb = 0;
+				//Got new data in, try to decode
+				cmd_ready_usb = unpack_payload_usb();
+				
+				eL1 = 1;
+			}
+
+			#endif	//USE_USB
+			
 			//FlexSEA Network Communication
 			#ifdef USE_COMM
 				
@@ -300,12 +321,29 @@ int main(void)
 					new_cmd_led = 1;
 				}
 			}
-			
+
 			//Valid communication from USB?
 			if(cmd_ready_usb != 0)
 			{
-				//ToDo
+				cmd_ready_usb = 0;
+				
+				//Cheap trick to get first line	//ToDo: support more than 1
+				for(i = 0; i < PAYLOAD_BUF_LEN; i++)
+				{
+					tmp_rx_command_usb[i] = rx_command_usb[0][i];
+				}
+				
+				//payload_parse_str() calls the functions (if valid)
+				result = payload_parse_str(tmp_rx_command_usb);
+				
+				//LED:
+				if(result == PARSE_SUCCESSFUL)
+				{
+					//Green LED only if the ID matched and the command was known
+					new_cmd_led = 1;
+				}
 			}
+
 			
 			#endif	//USE_COMM	
 			
@@ -320,35 +358,4 @@ int main(void)
 			WDCLK_Write(toggle_wdclk);
 		}
 	}
-}
-
-volatile uint8 uart_tmp_buf[RX_BUF_LEN];
-void get_uart_data(void)
-{
-	uint32 uart_buf_size = 0, i = 0;
-	uint16 tmp = 0, status = 0;
-	
-	uart_buf_size = UART_2_GetRxBufferSize();
-	if(uart_buf_size > 0)
-	{
-		for(i = 0; i < uart_buf_size; i++)
-		{
-			//It's a shame but there is no gets function
-			//uart_tmp_buf[i] = UART_2_GetChar();	//Get as many bytes as possible...
-			tmp = UART_2_GetByte() & 0xFF;
-			uart_tmp_buf[i] = (uint8)tmp;
-			
-			/*status = (tmp & 0xFF00)>>8;
-			if(!status)
-				uart_tmp_buf[i] = (uint8)tmp;
-			else
-				break;
-			*/
-		}
-		
-		//...then mass update rx_buf:
-		update_rx_buf_array_485_1(uart_tmp_buf, uart_buf_size+1);
-		
-		data_ready_485_1++;
-	}		
 }

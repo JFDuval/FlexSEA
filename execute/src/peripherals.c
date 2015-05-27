@@ -91,14 +91,14 @@ void init_peripherals(void)
 	//USB CDC
 	#ifdef USE_USB	
 	usb_success = init_usb();
-	if(usb_success)
+	/*if(usb_success)
 	{
 		LED_B_Write(0);
 	}
 	else
 	{
 		LED_B_Write(1);
-	}
+	}*/
 	#endif	//USE_USB
 }
 
