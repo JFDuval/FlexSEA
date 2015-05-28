@@ -551,7 +551,9 @@ void rx_cmd_special_2(uint8_t *buf)
 			exec_s_ptr->imu.z = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+4], buf[P_DATA1+5]));
 
 			exec_s_ptr->analog[0] = (BYTES_TO_UINT16(buf[P_DATA1+6], buf[P_DATA1+7]));
+			//printf("A0: %i.\n", (BYTES_TO_UINT16(buf[P_DATA1+6], buf[P_DATA1+7])));	//ToDo remove (debug only)
 			exec_s_ptr->analog[1] = (BYTES_TO_UINT16(buf[P_DATA1+8], buf[P_DATA1+9]));
+			//printf("A1: %i.\n", (BYTES_TO_UINT16(buf[P_DATA1+8], buf[P_DATA1+9])));		//ToDo remove (debug only)
 
 			exec_s_ptr->encoder = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1+10], buf[P_DATA1+11], \
 										buf[P_DATA1+12], buf[P_DATA1+13]));

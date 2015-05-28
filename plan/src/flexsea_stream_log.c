@@ -301,22 +301,21 @@ void flexsea_stream_print_5(void)
 	//Prints data from Execute 1
 	//Designed to be used with the CSEA Knee
 
-	//ToDo replace fields
-#ifdef USE_PRINTF
+	#ifdef USE_PRINTF
 
-printf("Gyro X: %i\n", exec2.imu.x);
-printf("Gyro Y: %i\n", exec2.imu.y);
-printf("Gyro Z: %i\n", exec2.imu.z);
+	printf("Gyro X: %i\n", exec1.imu.x);
+	printf("Gyro Y: %i\n", exec1.imu.y);
+	printf("Gyro Z: %i\n", exec1.imu.z);
 
-printf("Strain: %i\n", exec2.strain);
-printf("Analog: %i\n", exec2.analog[0]);
-printf("Current: %i\n", exec2.current);
+	printf("Angle: %i\n", exec1.analog[0]);
+	printf("Force: %i\n", exec1.analog[1]);
+	printf("Current: %i\n", exec1.current);
 
-printf("Encoder: %i\n", exec2.encoder);
+	printf("Encoder: %i\n", exec1.encoder);
 
-printf("Status: %i & %i\n", exec2.status1, exec2.status2);
+	printf("Status: %i & %i\n", exec1.status1, exec1.status2);
 
-#endif
+	#endif
 }
 
 //****************************************************************************
@@ -457,7 +456,7 @@ static void flexsea_stream_exp_6(void)
 
 	//Special2 command to test the CSEA Knee.
 
-	numb = tx_cmd_ctrl_special_2(FLEXSEA_EXECUTE_2, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
+	numb = tx_cmd_ctrl_special_2(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
 									0, 0, 0, 0, 0,\
 									KEEP, 0, 0, 0, 0);
 
