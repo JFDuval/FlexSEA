@@ -387,11 +387,11 @@ uint32_t tx_cmd_ctrl_special_2(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 		buf[P_DATA1 + 4] = tmp0;
 		buf[P_DATA1 + 5] = tmp1;
 
-		uint16_to_bytes(read_analog(0), &tmp0, &tmp1);
+		uint16_to_bytes((uint16_t)read_analog(0), &tmp0, &tmp1);	//Angle
 		buf[P_DATA1 + 6] = tmp0;
 		buf[P_DATA1 + 7] = tmp1;
 
-		uint16_to_bytes(read_analog(1), &tmp0, &tmp1);	//ToDo
+		uint16_to_bytes((uint16_t)read_analog(1), &tmp0, &tmp1);	//Force
 		buf[P_DATA1 + 8] = tmp0;
 		buf[P_DATA1 + 9] = tmp1;
 
