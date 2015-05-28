@@ -56,7 +56,7 @@ int main(void);
 #define USE_TRAPEZ
 //#define USE_DIETEMP
 #define USE_I2C_INT
-//#define USE_I2C_EXT
+#define USE_I2C_EXT
 #define USE_IMU			//Requires USE_I2C_INT
 #define USE_STRAIN		//Requires USE_I2C_INT
 #define USE_EXO			//Enable this to use the ExoBoot code

@@ -73,6 +73,23 @@ void i2c_write_minm_rgb(uint8 cmd, uint8 r, uint8 g, uint8 b)
 	return;	
 }
 
+//Use this to test your RGB hardware
+void minm_test_code(void)
+{
+	static uint16 rgb_test_code = 0;
+	
+	rgb_test_code++;
+	if(rgb_test_code < 100)
+		i2c_write_minm_rgb(SET_RGB, 255, 0, 0);
+	else if((rgb_test_code >= 100) && (rgb_test_code <= 200))
+		i2c_write_minm_rgb(SET_RGB, 0, 255, 0);
+	else
+		i2c_write_minm_rgb(SET_RGB, 0, 0, 255);
+		
+	if(rgb_test_code > 300)
+		rgb_test_code = 0;
+}
+
 void alive_led(void)
 {
 	static uint8 toggle0 = 1, count0 = 0;

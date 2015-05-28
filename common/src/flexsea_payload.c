@@ -169,7 +169,7 @@ unsigned int payload_parse_str(unsigned char *cp_str)
                 rx_cmd_special_1(cp_str);
                 break;	
 			case CMD_SPC2:
-				rx_cmd_special_1(cp_str);
+				rx_cmd_special_2(cp_str);
 				break;
 			case CMD_SPC4:
 				rx_cmd_special_4(cp_str);

@@ -75,6 +75,9 @@ void init_peripherals(void)
 	//I2C2 (external)	
 	#ifdef USE_I2C_EXT
 	
+	//Enable pull-ups:
+	I2C_OPT_PU_Write(1);
+		
 	//I2C2 peripheral:
 	init_i2c2();
 	

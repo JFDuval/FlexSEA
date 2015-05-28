@@ -427,7 +427,7 @@ uint32_t tx_cmd_ctrl_special_2(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 void rx_cmd_special_2(uint8_t *buf)
 {
 	uint32_t numb = 0;
-	int16_t tmp_zk = 0, tmp_zb = 0, tmp_zi = 0, tmp_current = 0;
+	int16_t tmp_z_k = 0, tmp_z_b = 0, tmp_z_i = 0, tmp_current = 0;
 	int32_t tmp_posi = 0, tmp_posf = 0, tmp_spdm = 0, tmp_acc = 0;
 
 	#if((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
@@ -459,12 +459,12 @@ void rx_cmd_special_2(uint8_t *buf)
 		//Impedance gains:
 		if(ctrl.active_ctrl == CTRL_IMPEDANCE)
 		{
-			tmp_zk = BYTES_TO_UINT16(buf[P_DATA1 + 0], buf[P_DATA1 + 1]);
-			ctrl.impedance.gain.Z_K = tmp_zk;
-			tmp_zb = BYTES_TO_UINT16(buf[P_DATA1 + 2], buf[P_DATA1 + 3]);
-			ctrl.impedance.gain.Z_B = tmp_zb;
-			tmp_zi = BYTES_TO_UINT16(buf[P_DATA1 + 4], buf[P_DATA1 + 5]);
-			ctrl.impedance.gain.Z_I = tmp_zi;
+			tmp_z_k = BYTES_TO_UINT16(buf[P_DATA1 + 0], buf[P_DATA1 + 1]);
+			ctrl.impedance.gain.Z_K = tmp_z_k;
+			tmp_z_b = BYTES_TO_UINT16(buf[P_DATA1 + 2], buf[P_DATA1 + 3]);
+			ctrl.impedance.gain.Z_B = tmp_z_b;
+			tmp_z_i = BYTES_TO_UINT16(buf[P_DATA1 + 4], buf[P_DATA1 + 5]);
+			ctrl.impedance.gain.Z_I = tmp_z_i;
 		}
 
 		//Clutch:
@@ -480,7 +480,7 @@ void rx_cmd_special_2(uint8_t *buf)
 
 			tmp_posi = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1 + 8], buf[P_DATA1 + 9], buf[P_DATA1 + 10], buf[P_DATA1 + 11]));
 			tmp_posf = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1 + 12], buf[P_DATA1 + 13], buf[P_DATA1 + 14], buf[P_DATA1 + 15]));
-			tmp_spd = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1 + 16], buf[P_DATA1 + 17], buf[P_DATA1 + 18], buf[P_DATA1 + 19]));
+			tmp_spdm = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1 + 16], buf[P_DATA1 + 17], buf[P_DATA1 + 18], buf[P_DATA1 + 19]));
 			tmp_acc = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1 + 20], buf[P_DATA1 + 21], buf[P_DATA1 + 22], buf[P_DATA1 + 23]));
 
 			if(ctrl.active_ctrl == CTRL_IMPEDANCE)
@@ -509,7 +509,8 @@ void rx_cmd_special_2(uint8_t *buf)
 		//===================
 
 		numb = tx_cmd_ctrl_special_2(buf[P_XID], CMD_WRITE, tmp_payload_xmit, \
-									PAYLOAD_BUF_LEN, 0, 0, 0, 0, 0);
+									PAYLOAD_BUF_LEN, 0, 0, 0, 0, 0, \
+									KEEP, 0, 0, 0, 0);	//ToDo confirm
 		numb = comm_gen_str(tmp_payload_xmit, comm_str_485_1, numb);
 		numb = COMM_STR_BUF_LEN;	//Fixed length for now to accomodate the DMA
 
