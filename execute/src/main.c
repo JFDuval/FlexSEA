@@ -91,7 +91,7 @@ int main(void)
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 	
 	//Special code for the ExoBoots:
-	#ifdef USE_EXO
+	#ifdef PROJECT_EXOCUTE
 	init_exo();
 	#endif
 
@@ -270,7 +270,7 @@ int main(void)
 				case 9:
 					
 					//ExoBoot code - 1kHz
-					#ifdef USE_EXO
+					#ifdef PROJECT_EXOCUTE
 						
 					exo_fsm();	
 						

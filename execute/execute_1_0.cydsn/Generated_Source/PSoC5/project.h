@@ -190,6 +190,7 @@
 #include <Timer_2.h>
 #include <T2_RESET.h>
 #include <isr_t2.h>
+#include <PGA_1.h>
 #include <ADC_DelSig_1_AMux.h>
 #include <ADC_DelSig_1_Ext_CP_Clk.h>
 #include <ADC_DelSig_1_IRQ.h>

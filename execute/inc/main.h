@@ -59,7 +59,11 @@ int main(void);
 #define USE_I2C_EXT
 #define USE_IMU			//Requires USE_I2C_INT
 #define USE_STRAIN		//Requires USE_I2C_INT
-#define USE_EXO			//Enable this to use the ExoBoot code
+
+//Project specific code:
+//#define PROJECT_EXOCUTE			//ExoBoot, everything running on Execute
+#define PROJECT_CSEA_KNEE			//CSEA Knee + FlexSEA
+//Enable only one project at a time!
 
 //Trapez test parameters
 #define SPD1        			1500

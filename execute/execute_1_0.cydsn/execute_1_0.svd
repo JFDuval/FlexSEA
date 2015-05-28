@@ -2495,6 +2495,636 @@
       </registers>
     </peripheral>
     <peripheral>
+      <name>PGA_1</name>
+      <description>No description available</description>
+      <baseAddress>0x0</baseAddress>
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x0</size>
+        <usage>registers</usage>
+      </addressBlock>
+      <registers>
+        <register>
+          <name>SC__PM_ACT_CFG</name>
+          <description>Active Power Mode Configuration Register 9</description>
+          <addressOffset>0x400043A9</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>en_swcap</name>
+              <description>Enable switchcap block(s)</description>
+              <lsb>0</lsb>
+              <msb>3</msb>
+              <access>read-only</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>en_swcap_0_</name>
+                  <description>Enables SC Block 0</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>en_swcap_1_</name>
+                  <description>Enables SC Block 1</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>en_swcap_2_</name>
+                  <description>Enables SC Block 2</description>
+                  <value>4</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>en_swcap_3_</name>
+                  <description>Enables SC Block 3</description>
+                  <value>8</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>SC__PM_STBY_CFG</name>
+          <description>Standby Power Mode Configuration Register 9</description>
+          <addressOffset>0x400043B9</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>en_swcap</name>
+              <description>Enable switchcap block(s)</description>
+              <lsb>0</lsb>
+              <msb>3</msb>
+              <access>read-only</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>en_swcap_0_</name>
+                  <description>Enables SC Block 0</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>en_swcap_1_</name>
+                  <description>Enables SC Block 1</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>en_swcap_2_</name>
+                  <description>Enables SC Block 2</description>
+                  <value>4</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>en_swcap_3_</name>
+                  <description>Enables SC Block 3</description>
+                  <value>8</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>SC_CR0</name>
+          <description>Switched Capacitor Control Register 0</description>
+          <addressOffset>0x40005804</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>mode</name>
+              <description>Configuration select for the SC block </description>
+              <lsb>1</lsb>
+              <msb>3</msb>
+              <access>read-only</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>SC_MODE_NAKED_OPAMP</name>
+                  <description>Naked Op-Amp</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SC_MODE_TIA</name>
+                  <description>Transimpedance Amplifier </description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SC_MODE_CTMIXER</name>
+                  <description>Continuous Time Mixer</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SC_MODE_NRZ_SH</name>
+                  <description>Discrete Time Mixer - NRZ S/H</description>
+                  <value>3</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SC_MODE_UNITY</name>
+                  <description>Unity Gain Buffer</description>
+                  <value>4</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SC_MODE_1ST_MOD</name>
+                  <description>First Order Modulator</description>
+                  <value>5</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SC_MODE_PGA</name>
+                  <description>Programmable Gain Amplifier (PGA)</description>
+                  <value>6</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SC_MODE_TRACKANDHOLD</name>
+                  <description>Track and Hold</description>
+                  <value>7</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>dft</name>
+              <description>Configuration select for the SC block</description>
+              <lsb>4</lsb>
+              <msb>5</msb>
+              <access>read-only</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>SC_DFT_NORMAL</name>
+                  <description>Normal Operation</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SC_DFT_VBOOST</name>
+                  <description>Vboost DFT</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SC_DFT_MODE_DEPENDENT</name>
+                  <description>Mode Dependent (PGA Mode = Voltage Integrator, TIA Mode = Charge Integrator, Naked Opamp Mode = Comparator)</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SC_DFT_RESET</name>
+                  <description>DFT reset</description>
+                  <value>3</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>SC_CR1</name>
+          <description>Switched Capacitor Control Register 1</description>
+          <addressOffset>0x40005805</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>drive</name>
+              <description>Selects between current settings (I_Load (uA)) in the output buffer</description>
+              <lsb>0</lsb>
+              <msb>1</msb>
+              <access>read-only</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>I_LOAD_175UA</name>
+                  <description>175 uA</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>I_LOAD_260UA</name>
+                  <description>260 uA</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>I_LOAD_330UA</name>
+                  <description>330 uA</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>I_LOAD_400UA</name>
+                  <description>400 uA</description>
+                  <value>3</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>comp</name>
+              <description>Selects between various compensation capacitor sizes</description>
+              <lsb>2</lsb>
+              <msb>3</msb>
+              <access>read-only</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>SC_COMP_3P0PF</name>
+                  <description>3.0pF</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SC_COMP_3P6PF</name>
+                  <description>3.6pF</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SC_COMP_4P35PF</name>
+                  <description>4.35pF</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SC_COMP_5P1PF</name>
+                  <description>5.1pF</description>
+                  <value>3</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>div2</name>
+              <description>When 0, the sample clock only needs to be half the desired sample frequency for S/H Mixer mode </description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-only</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>SC_DIV2_DISABLEF</name>
+                  <description>no frequency division</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SC_DIV2_ENABLE</name>
+                  <description>SC CLK is divided by two</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>gain</name>
+              <description>Controls the ratio of the feedback cap for S/H Mixer mode and PGA mode </description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-only</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>GAIN_0DB</name>
+                  <description>0 dB</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>GAIN_6DB</name>
+                  <description>6 dB</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>SC_CR2</name>
+          <description>Switched Capacitor Control Register 2</description>
+          <addressOffset>0x40005806</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>bias_ctrl</name>
+              <description>Toggles the bias current in the amplifier between normal and 1/2 </description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-only</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>BIAS_1X</name>
+                  <description>1x current reference reduces bandwidth to increase stability</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>BIAS_2X</name>
+                  <description>normal operation - 2x current reference to increase bandwidth</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>r20_40b</name>
+              <description>PGA Mode: input impedance (Rin), Mixer Mode: input and feedback impedance (Rmix)</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>SC_R20_40B_40K</name>
+                  <description>40kOhm</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SC_R20_40B_20K</name>
+                  <description>20kOhm</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>redc</name>
+              <description>Another stability control setting. Adjusts capactiance between amplifier output and first stage </description>
+              <lsb>2</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>SC_REDC_00</name>
+                  <description>Varies depending on mode. See Switched Cap documentation</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SC_REDC_01</name>
+                  <description>Varies depending on mode. See Switched Cap documentation</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SC_REDC_10</name>
+                  <description>Varies depending on mode. See Switched Cap documentation</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SC_REDC_11</name>
+                  <description>Varies depending on mode. See Switched Cap documentation</description>
+                  <value>3</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>rval</name>
+              <description>Programmable Gain Amplifier (PGA) and Transimpedance Amplifier (TIA): Feedback resistor (Rfb)</description>
+              <lsb>4</lsb>
+              <msb>6</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>SC_RVAL_20</name>
+                  <description>20 kOhm</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SC_RVAL_30</name>
+                  <description>30 kOhm</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SC_RVAL_40</name>
+                  <description>40 kOhm</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SC_RVAL_80</name>
+                  <description>80 kOhm</description>
+                  <value>3</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SC_RVAL_120</name>
+                  <description>120 kOhm</description>
+                  <value>4</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SC_RVAL_250</name>
+                  <description>250 kOhm</description>
+                  <value>5</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SC_RVAL_500</name>
+                  <description>500 kOhm</description>
+                  <value>6</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SC_RVAL_1000</name>
+                  <description>1 MegaOhm</description>
+                  <value>7</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>pga_gndvref</name>
+              <description>Programmable Gain Amplifier Application - Ground VREF)</description>
+              <lsb>7</lsb>
+              <msb>7</msb>
+              <access>read-only</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>SC_PGA_GNDVREF_DIS</name>
+                  <description>VREF not grounded</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SC_PGA_GNDVREF_EN</name>
+                  <description>VREF grounded</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>PUMP_CR1</name>
+          <description>Pump Configuration Register 1</description>
+          <addressOffset>0x40005877</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>npump_sc_selclk</name>
+              <description>Switched Cap Negative Pump Clock Selection</description>
+              <lsb>7</lsb>
+              <msb>7</msb>
+              <access>read-only</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>NPUMP_SC_SELCLK_EXTERNAL</name>
+                  <description>External (DSI) clock selected</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>NPUMP_SC_SELCLK_INTERNAL_</name>
+                  <description>Negative pump internal clock selected</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>npump_opamp_selclk</name>
+              <description>Opamp Negative Pump Clock Selection</description>
+              <lsb>6</lsb>
+              <msb>6</msb>
+              <access>read-only</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>NPUMP_OPAMP_SELCLK_EXTERNAL</name>
+                  <description>External (DSI) clock selected</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>NPUMP_OPAMP_SELCLK_INTERNAL_</name>
+                  <description>Negative pump internal clock selected</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>npump_dsm_selclk</name>
+              <description>DSM Negative Pump Clock Selection</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-only</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>NPUMP_DSM_SELCLK_EXTERNAL</name>
+                  <description>External (DSI) clock selected</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>NPUMP_DSM_SELCLK_INTERNAL</name>
+                  <description>Negative pump internal clock selectedd</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>SC__BST</name>
+          <description>Switched Capacitor Boost Clock Selection Register</description>
+          <addressOffset>0x40005A1C</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>mx_bst_clk</name>
+              <description>Clock Selection</description>
+              <lsb>0</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>MX_CLK_0</name>
+                  <description>Select clk_a0 and clk_a0_dig</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>MX_CLK_1</name>
+                  <description>Select clk_a1 and clk_a1_dig</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>MX_CLK_2</name>
+                  <description>Select clk_a2 and clk_a2_dig</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>MX_CLK_3</name>
+                  <description>Select clk_a3 and clk_a3_dig</description>
+                  <value>3</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>MX_CLK_4</name>
+                  <description>Select UDB generated clock</description>
+                  <value>4</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>MX_CLK_5</name>
+                  <description>Reserved</description>
+                  <value>5</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>MX_CLK_6</name>
+                  <description>Reserved</description>
+                  <value>6</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>MX_CLK_7</name>
+                  <description>Reserved</description>
+                  <value>7</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>bst_clk_en</name>
+              <description>Clock gating control</description>
+              <lsb>3</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>CLK_EN_0</name>
+                  <description>disable clock</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>CLK_EN_1</name>
+                  <description>enable clock</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>SC_MISC</name>
+          <description>Switched Cap Miscellaneous Control Register</description>
+          <addressOffset>0x40005B56</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>diff_pga_0_2</name>
+              <description>Switched Cap Pair Connect for Differential Amplifier Applications</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-only</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>SC_DIFF_PGA_DISABLED</name>
+                  <description>Differential PGA pair connect disabled</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SC_DIFF_PGA_ENABLED_</name>
+                  <description>Differential PGA pair connect enabled</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>diff_pga_1_3</name>
+              <description>Switched Cap Pair Connect for Differential Amplifier Applications</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-only</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>SC_DIFF_PGA_DISABLED</name>
+                  <description>Differential PGA pair connect disabled</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SC_DIFF_PGA_ENABLED</name>
+                  <description>Differential PGA pair connect enabled</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+      </registers>
+    </peripheral>
+    <peripheral>
       <name>Timer_2</name>
       <description>No description available</description>
       <baseAddress>0x0</baseAddress>

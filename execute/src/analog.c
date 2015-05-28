@@ -42,6 +42,16 @@ void init_analog(void)
 	ADC_SAR_1_Start();
 	ADC_SAR_1_IRQ_Enable();
 	ADC_SAR_1_StartConvert();
+	
+	//PGA:
+	PGA_1_Start();
+	
+	//PGA Gain:
+	#ifdef PROJECT_CSEA_KNEE
+	PGA_1_SetGain(2);
+	#else
+	PGA_1_SetGain(1);
+	#endif	//PROJECT_CSEA_KNEE
 }
 
 uint16 adc_avg8(uint16 new_data)

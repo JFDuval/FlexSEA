@@ -534,11 +534,145 @@
   <block name="or_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
   <block name="and_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
   <block name="DMA_4" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-  <block name="timer_clock_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
   <block name="T2_RESET" BASE="0x0" SIZE="0x0" desc="" visible="true">
     <register name="T2_RESET_CONTROL_REG" address="0x4000657B" bitWidth="8" desc="" />
   </block>
   <block name="isr_t2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+  <block name="PGA_1" BASE="0x0" SIZE="0x0" desc="" visible="true">
+    <block name="ZeroTerminal_3" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="SC" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="ZeroTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="ZeroTerminal_2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="cy_analog_noconnect_2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="ZeroTerminal_4" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="cy_analog_virtualmux_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <register name="SC__PM_ACT_CFG" address="0x400043A9" bitWidth="8" desc="Active Power Mode Configuration Register 9">
+      <field name="en_swcap" from="3" to="0" access="R" resetVal="" desc="Enable switchcap block(s)">
+        <value name="en_swcap[0]" value="0001" desc="Enables SC Block 0" />
+        <value name="en_swcap[1]" value="0010" desc="Enables SC Block 1" />
+        <value name="en_swcap[2]" value="0100" desc="Enables SC Block 2" />
+        <value name="en_swcap[3]" value="1000" desc="Enables SC Block 3" />
+      </field>
+    </register>
+    <register name="SC__PM_STBY_CFG" address="0x400043B9" bitWidth="8" desc="Standby Power Mode Configuration Register 9">
+      <field name="en_swcap" from="3" to="0" access="R" resetVal="" desc="Enable switchcap block(s)">
+        <value name="en_swcap[0]" value="0001" desc="Enables SC Block 0" />
+        <value name="en_swcap[1]" value="0010" desc="Enables SC Block 1" />
+        <value name="en_swcap[2]" value="0100" desc="Enables SC Block 2" />
+        <value name="en_swcap[3]" value="1000" desc="Enables SC Block 3" />
+      </field>
+    </register>
+    <register name="SC_CR0" address="0x40005804" bitWidth="8" desc="Switched Capacitor Control Register 0">
+      <field name="mode" from="3" to="1" access="R" resetVal="" desc="Configuration select for the SC block ">
+        <value name="SC_MODE_NAKED_OPAMP" value="000" desc="Naked Op-Amp" />
+        <value name="SC_MODE_TIA" value="001" desc="Transimpedance Amplifier " />
+        <value name="SC_MODE_CTMIXER" value="010" desc="Continuous Time Mixer" />
+        <value name="SC_MODE_NRZ_SH" value="011" desc="Discrete Time Mixer - NRZ S/H" />
+        <value name="SC_MODE_UNITY" value="100" desc="Unity Gain Buffer" />
+        <value name="SC_MODE_1ST_MOD" value="101" desc="First Order Modulator" />
+        <value name="SC_MODE_PGA" value="110" desc="Programmable Gain Amplifier (PGA)" />
+        <value name="SC_MODE_TRACKANDHOLD" value="111" desc="Track and Hold" />
+      </field>
+      <field name="dft" from="5" to="4" access="R" resetVal="" desc="Configuration select for the SC block">
+        <value name="SC_DFT_NORMAL" value="00" desc="Normal Operation" />
+        <value name="SC_DFT_VBOOST" value="01" desc="Vboost DFT" />
+        <value name="SC_DFT_MODE_DEPENDENT" value="10" desc="Mode Dependent (PGA Mode = Voltage Integrator, TIA Mode = Charge Integrator, Naked Opamp Mode = Comparator)" />
+        <value name="SC_DFT_RESET" value="11" desc="DFT reset" />
+      </field>
+    </register>
+    <register name="SC_CR1" address="0x40005805" bitWidth="8" desc="Switched Capacitor Control Register 1">
+      <field name="drive" from="1" to="0" access="R" resetVal="" desc="Selects between current settings (I_Load (uA)) in the output buffer">
+        <value name="I_LOAD_175UA" value="00" desc="175 uA" />
+        <value name="I_LOAD_260UA" value="01" desc="260 uA" />
+        <value name="I_LOAD_330UA" value="10" desc="330 uA" />
+        <value name="I_LOAD_400UA" value="11" desc="400 uA" />
+      </field>
+      <field name="comp" from="3" to="2" access="R" resetVal="" desc="Selects between various compensation capacitor sizes">
+        <value name="SC_COMP_3P0PF" value="00" desc="3.0pF" />
+        <value name="SC_COMP_3P6PF" value="01" desc="3.6pF" />
+        <value name="SC_COMP_4P35PF" value="10" desc="4.35pF" />
+        <value name="SC_COMP_5P1PF" value="11" desc="5.1pF" />
+      </field>
+      <field name="div2" from="4" to="4" access="R" resetVal="" desc="When 0, the sample clock only needs to be half the desired sample frequency for S/H Mixer mode ">
+        <value name="SC_DIV2_DISABLEF" value="0" desc="no frequency division" />
+        <value name="SC_DIV2_ENABLE" value="1" desc="SC CLK is divided by two" />
+      </field>
+      <field name="gain" from="5" to="5" access="R" resetVal="" desc="Controls the ratio of the feedback cap for S/H Mixer mode and PGA mode ">
+        <value name="GAIN_0DB" value="0" desc="0 dB" />
+        <value name="GAIN_6DB" value="1" desc="6 dB" />
+      </field>
+    </register>
+    <register name="SC_CR2" address="0x40005806" bitWidth="8" desc="Switched Capacitor Control Register 2">
+      <field name="bias_ctrl" from="0" to="0" access="R" resetVal="" desc="Toggles the bias current in the amplifier between normal and 1/2 ">
+        <value name="BIAS_1X" value="0" desc="1x current reference reduces bandwidth to increase stability" />
+        <value name="BIAS_2X" value="1" desc="normal operation - 2x current reference to increase bandwidth" />
+      </field>
+      <field name="r20_40b" from="1" to="1" access="RW" resetVal="" desc="PGA Mode: input impedance (Rin), Mixer Mode: input and feedback impedance (Rmix)">
+        <value name="SC_R20_40B_40K" value="0" desc="40kOhm" />
+        <value name="SC_R20_40B_20K" value="1" desc="20kOhm" />
+      </field>
+      <field name="redc" from="3" to="2" access="RW" resetVal="" desc="Another stability control setting. Adjusts capactiance between amplifier output and first stage ">
+        <value name="SC_REDC_00" value="00" desc="Varies depending on mode. See Switched Cap documentation" />
+        <value name="SC_REDC_01" value="01" desc="Varies depending on mode. See Switched Cap documentation" />
+        <value name="SC_REDC_10" value="10" desc="Varies depending on mode. See Switched Cap documentation" />
+        <value name="SC_REDC_11" value="11" desc="Varies depending on mode. See Switched Cap documentation" />
+      </field>
+      <field name="rval" from="6" to="4" access="RW" resetVal="" desc="Programmable Gain Amplifier (PGA) and Transimpedance Amplifier (TIA): Feedback resistor (Rfb)">
+        <value name="SC_RVAL_20" value="000" desc="20 kOhm" />
+        <value name="SC_RVAL_30" value="001" desc="30 kOhm" />
+        <value name="SC_RVAL_40" value="010" desc="40 kOhm" />
+        <value name="SC_RVAL_80" value="011" desc="80 kOhm" />
+        <value name="SC_RVAL_120" value="100" desc="120 kOhm" />
+        <value name="SC_RVAL_250" value="101" desc="250 kOhm" />
+        <value name="SC_RVAL_500" value="110" desc="500 kOhm" />
+        <value name="SC_RVAL_1000" value="111" desc="1 MegaOhm" />
+      </field>
+      <field name="pga_gndvref" from="7" to="7" access="R" resetVal="" desc="Programmable Gain Amplifier Application - Ground VREF)">
+        <value name="SC_PGA_GNDVREF_DIS" value="0" desc="VREF not grounded" />
+        <value name="SC_PGA_GNDVREF_EN" value="1" desc="VREF grounded" />
+      </field>
+    </register>
+    <register name="PUMP_CR1" address="0x40005877" bitWidth="8" desc="Pump Configuration Register 1">
+      <field name="npump_sc_selclk" from="7" to="7" access="R" resetVal="" desc="Switched Cap Negative Pump Clock Selection">
+        <value name="NPUMP_SC_SELCLK_EXTERNAL" value="0" desc="External (DSI) clock selected" />
+        <value name="NPUMP_SC_SELCLK_INTERNAL " value="1" desc="Negative pump internal clock selected" />
+      </field>
+      <field name="npump_opamp_selclk" from="6" to="6" access="R" resetVal="" desc="Opamp Negative Pump Clock Selection">
+        <value name="NPUMP_OPAMP_SELCLK_EXTERNAL" value="0" desc="External (DSI) clock selected" />
+        <value name="NPUMP_OPAMP_SELCLK_INTERNAL " value="1" desc="Negative pump internal clock selected" />
+      </field>
+      <field name="npump_dsm_selclk" from="2" to="2" access="R" resetVal="" desc="DSM Negative Pump Clock Selection">
+        <value name="NPUMP_DSM_SELCLK_EXTERNAL" value="0" desc="External (DSI) clock selected" />
+        <value name="NPUMP_DSM_SELCLK_INTERNAL" value="1" desc="Negative pump internal clock selectedd" />
+      </field>
+    </register>
+    <register name="SC__BST" address="0x40005A1C" bitWidth="8" desc="Switched Capacitor Boost Clock Selection Register">
+      <field name="mx_bst_clk" from="2" to="0" access="RW" resetVal="" desc="Clock Selection">
+        <value name="MX_CLK_0" value="000" desc="Select clk_a0 and clk_a0_dig" />
+        <value name="MX_CLK_1" value="001" desc="Select clk_a1 and clk_a1_dig" />
+        <value name="MX_CLK_2" value="010" desc="Select clk_a2 and clk_a2_dig" />
+        <value name="MX_CLK_3" value="011" desc="Select clk_a3 and clk_a3_dig" />
+        <value name="MX_CLK_4" value="100" desc="Select UDB generated clock" />
+        <value name="MX_CLK_5" value="101" desc="Reserved" />
+        <value name="MX_CLK_6" value="110" desc="Reserved" />
+        <value name="MX_CLK_7" value="111" desc="Reserved" />
+      </field>
+      <field name="bst_clk_en" from="3" to="3" access="RW" resetVal="" desc="Clock gating control">
+        <value name="CLK_EN_0" value="0" desc="disable clock" />
+        <value name="CLK_EN_1" value="1" desc="enable clock" />
+      </field>
+    </register>
+    <register name="SC_MISC" address="0x40005B56" bitWidth="8" desc="Switched Cap Miscellaneous Control Register">
+      <field name="diff_pga_0_2" from="0" to="0" access="R" resetVal="" desc="Switched Cap Pair Connect for Differential Amplifier Applications">
+        <value name="SC_DIFF_PGA_DISABLED" value="0" desc="Differential PGA pair connect disabled" />
+        <value name="SC_DIFF_PGA_ENABLED " value="1" desc="Differential PGA pair connect enabled" />
+      </field>
+      <field name="diff_pga_1_3" from="1" to="1" access="R" resetVal="" desc="Switched Cap Pair Connect for Differential Amplifier Applications">
+        <value name="SC_DIFF_PGA_DISABLED" value="0" desc="Differential PGA pair connect disabled" />
+        <value name="SC_DIFF_PGA_ENABLED" value="1" desc="Differential PGA pair connect enabled" />
+      </field>
+    </register>
+  </block>
   <block name="Timer_2" BASE="0x0" SIZE="0x0" desc="" visible="true">
     <block name="VirtualMux_2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
     <block name="ZeroTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />

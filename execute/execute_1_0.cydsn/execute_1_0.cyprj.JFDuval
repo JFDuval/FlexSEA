@@ -125,6 +125,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -344,6 +345,7 @@
 <file name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <file name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <file name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<file name=".\Generated_Source\PSoC5\PGA_1.h" />
 <file name=".\Generated_Source\PSoC5\PWMH1.h" />
 <file name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <file name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -563,6 +565,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -785,6 +788,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -1007,6 +1011,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -1229,6 +1234,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -1451,6 +1457,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -1673,6 +1680,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -1895,6 +1903,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -2117,6 +2126,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -2339,6 +2349,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -2561,6 +2572,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -2783,6 +2795,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -3005,6 +3018,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -3227,6 +3241,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -3449,6 +3464,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -3671,6 +3687,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -3893,6 +3910,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -4115,6 +4133,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -4337,6 +4356,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -4559,6 +4579,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -4781,6 +4802,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -5003,6 +5025,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -5225,6 +5248,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -5447,6 +5471,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -5669,6 +5694,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -5891,6 +5917,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -6113,6 +6140,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -6335,6 +6363,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -6557,6 +6586,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -6779,6 +6809,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -7001,6 +7032,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -7110,18 +7142,6 @@
 <dep name=".\Generated_Source\PSoC5\isr_t2.c" />
 </file>
 <file name=".\Generated_Source\PSoC5\isr_t2.c" />
-<file name=".\CortexM3\ARM_GCC_484\Debug\flexsea_payload.o">
-<dep name="..\inc\flexsea_local.h" />
-<dep name="..\..\common\inc\flexsea.h" />
-<dep name="..\..\common\src\flexsea_payload.c" />
-</file>
-<file name="..\..\common\src\flexsea_payload.c" />
-<file name=".\CortexM3\ARM_GCC_484\Debug\flexsea.o">
-<dep name="..\inc\flexsea_local.h" />
-<dep name="..\..\common\inc\flexsea.h" />
-<dep name="..\..\common\src\flexsea.c" />
-</file>
-<file name="..\..\common\src\flexsea.c" />
 <file name=".\CortexM3\ARM_GCC_484\Debug\ADC_CLK.o">
 <dep name=".\Generated_Source\PSoC5\ADC_CLK.h" />
 <dep name=".\Generated_Source\PSoC5\cydevice.h" />
@@ -8172,6 +8192,32 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_3_PM.c" />
 </file>
 <file name=".\Generated_Source\PSoC5\Opamp_3_PM.c" />
+<file name=".\CortexM3\ARM_GCC_484\Debug\PGA_1.o">
+<dep name=".\Generated_Source\PSoC5\CyFlash.h" />
+<dep name=".\Generated_Source\PSoC5\CyLib.h" />
+<dep name=".\Generated_Source\PSoC5\CySpc.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
+<dep name=".\Generated_Source\PSoC5\cyPm.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
+<dep name=".\Generated_Source\PSoC5\cyfitter.h" />
+<dep name=".\Generated_Source\PSoC5\cytypes.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.c" />
+</file>
+<file name=".\Generated_Source\PSoC5\PGA_1.c" />
+<file name=".\CortexM3\ARM_GCC_484\Debug\PGA_1_PM.o">
+<dep name=".\Generated_Source\PSoC5\CyFlash.h" />
+<dep name=".\Generated_Source\PSoC5\CyLib.h" />
+<dep name=".\Generated_Source\PSoC5\CySpc.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
+<dep name=".\Generated_Source\PSoC5\cyPm.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
+<dep name=".\Generated_Source\PSoC5\cyfitter.h" />
+<dep name=".\Generated_Source\PSoC5\cytypes.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1_PM.c" />
+</file>
+<file name=".\Generated_Source\PSoC5\PGA_1_PM.c" />
 <file name=".\CortexM3\ARM_GCC_484\Debug\PWMH1.o">
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
@@ -8930,6 +8976,7 @@
 <dep name=".\Generated_Source\PSoC5\Opamp_1.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_2.h" />
 <dep name=".\Generated_Source\PSoC5\Opamp_3.h" />
+<dep name=".\Generated_Source\PSoC5\PGA_1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH1_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\PWMH2.h" />
@@ -9237,6 +9284,18 @@
 <file name=".\Generated_Source\PSoC5\cydevicegnu_trm.inc" />
 <file name=".\Generated_Source\PSoC5\cyfittergnu.inc" />
 <file name=".\Generated_Source\PSoC5\CyBootAsmGnu.s" />
+<file name=".\CortexM3\ARM_GCC_484\Debug\flexsea_payload.o">
+<dep name="..\inc\flexsea_local.h" />
+<dep name="..\..\common\inc\flexsea.h" />
+<dep name="..\..\common\src\flexsea_payload.c" />
+</file>
+<file name="..\..\common\src\flexsea_payload.c" />
+<file name=".\CortexM3\ARM_GCC_484\Debug\flexsea.o">
+<dep name="..\inc\flexsea_local.h" />
+<dep name="..\..\common\inc\flexsea.h" />
+<dep name="..\..\common\src\flexsea.c" />
+</file>
+<file name="..\..\common\src\flexsea.c" />
 <file name=".\CortexM3\ARM_GCC_484\Debug\trapez.o">
 <dep name="..\inc\trapez.h" />
 <dep name="..\src\trapez.c" />
@@ -16732,7 +16791,6 @@
 <dep name="..\..\common\inc\flexsea.h" />
 <dep name="..\..\common\src\flexsea_payload.c" />
 </file>
-<file name=".\Generated_Source\PSoC5\PGA_1.h" />
 <file name=".\CortexM3\ARM_GCC_473\Debug\PGA_1.o">
 <dep name=".\Generated_Source\PSoC5\CyFlash.h" />
 <dep name=".\Generated_Source\PSoC5\CyLib.h" />
@@ -16745,7 +16803,6 @@
 <dep name=".\Generated_Source\PSoC5\cytypes.h" />
 <dep name=".\Generated_Source\PSoC5\PGA_1.c" />
 </file>
-<file name=".\Generated_Source\PSoC5\PGA_1.c" />
 <file name=".\CortexM3\ARM_GCC_473\Debug\PGA_1_PM.o">
 <dep name=".\Generated_Source\PSoC5\CyFlash.h" />
 <dep name=".\Generated_Source\PSoC5\CyLib.h" />
@@ -16758,7 +16815,6 @@
 <dep name=".\Generated_Source\PSoC5\cytypes.h" />
 <dep name=".\Generated_Source\PSoC5\PGA_1_PM.c" />
 </file>
-<file name=".\Generated_Source\PSoC5\PGA_1_PM.c" />
 <file name=".\Generated_Source\PSoC5\I2C_2_IntClock.h" />
 <file name=".\CortexM3\ARM_GCC_473\Debug\I2C_2_IntClock.o">
 <dep name=".\Generated_Source\PSoC5\I2C_2_IntClock.h" />
@@ -17394,6 +17450,8 @@
 <dep name=".\CortexM3\ARM_GCC_484\Debug\I2C_2_PM.o" />
 <dep name=".\CortexM3\ARM_GCC_484\Debug\I2C_2_SLAVE.o" />
 <dep name=".\CortexM3\ARM_GCC_484\Debug\I2C_2_MASTER.o" />
+<dep name=".\CortexM3\ARM_GCC_484\Debug\PGA_1.o" />
+<dep name=".\CortexM3\ARM_GCC_484\Debug\PGA_1_PM.o" />
 <dep name=".\CortexM3\ARM_GCC_484\Debug\EXP6_SDA.o" />
 <dep name=".\CortexM3\ARM_GCC_484\Debug\EXP7_SCL.o" />
 <dep name=".\CortexM3\ARM_GCC_484\Debug\AMux_1.o" />
@@ -17612,8 +17670,8 @@
 <name_val_pair name=".\Generated_Source\PSoC5\I2C_2_PM.c" v="-mcpu=cortex-m3 -mthumb -Wno-main -I..\inc -I. -I.\Generated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -finline-functions -O3" />
 <name_val_pair name=".\Generated_Source\PSoC5\I2C_2_SLAVE.c" v="-mcpu=cortex-m3 -mthumb -Wno-main -I..\inc -I. -I.\Generated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -finline-functions -O3" />
 <name_val_pair name=".\Generated_Source\PSoC5\I2C_2_MASTER.c" v="-mcpu=cortex-m3 -mthumb -Wno-main -I..\inc -I. -I.\Generated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -finline-functions -O3" />
-<name_val_pair name=".\Generated_Source\PSoC5\PGA_1.c" v="&quot;-I. &quot;&quot;-I./Generated_Source/PSoC5 &quot;&quot;-Wno-main &quot;&quot;-mcpu=cortex-m3 &quot;&quot;-mthumb &quot;&quot;-I &quot;&quot;..\inc &quot;&quot;-Wall &quot;&quot;-g &quot;&quot;-D &quot;&quot;DEBUG &quot;&quot;-Wa,-alh=${OutputDir}\${CompileFile}.lst &quot;&quot;-ffunction-sections &quot;" />
-<name_val_pair name=".\Generated_Source\PSoC5\PGA_1_PM.c" v="&quot;-I. &quot;&quot;-I./Generated_Source/PSoC5 &quot;&quot;-Wno-main &quot;&quot;-mcpu=cortex-m3 &quot;&quot;-mthumb &quot;&quot;-I &quot;&quot;..\inc &quot;&quot;-Wall &quot;&quot;-g &quot;&quot;-D &quot;&quot;DEBUG &quot;&quot;-Wa,-alh=${OutputDir}\${CompileFile}.lst &quot;&quot;-ffunction-sections &quot;" />
+<name_val_pair name=".\Generated_Source\PSoC5\PGA_1.c" v="-mcpu=cortex-m3 -mthumb -Wno-main -I..\inc -I. -I.\Generated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -finline-functions -O3" />
+<name_val_pair name=".\Generated_Source\PSoC5\PGA_1_PM.c" v="-mcpu=cortex-m3 -mthumb -Wno-main -I..\inc -I. -I.\Generated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -finline-functions -O3" />
 <name_val_pair name=".\Generated_Source\PSoC5\EXP6_SDA.c" v="-mcpu=cortex-m3 -mthumb -Wno-main -I..\inc -I. -I.\Generated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -finline-functions -O3" />
 <name_val_pair name=".\Generated_Source\PSoC5\EXP7_SCL.c" v="-mcpu=cortex-m3 -mthumb -Wno-main -I..\inc -I. -I.\Generated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -finline-functions -O3" />
 <name_val_pair name=".\Generated_Source\PSoC5\AMux_1.c" v="-mcpu=cortex-m3 -mthumb -Wno-main -I..\inc -I. -I.\Generated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -finline-functions -O3" />
@@ -21759,13 +21817,6 @@
 <v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\cy_virtualmux_v1_0\cy_virtualmux_v1_0.pdf</v>
 <v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\cy_virtualmux_v1_0\cy_virtualmux_v1_0.v</v>
 <v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\cy_virtualmux_v1_0\Custom\custom.cs</v>
-<v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\cy_clock_v2_20\cy_clock_v2_20.cyprimitive</v>
-<v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\cy_clock_v2_20\cy_clock_v2_20.cysym</v>
-<v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\cy_clock_v2_20\cy_clock_v2_20.pdf</v>
-<v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\cy_clock_v2_20\cy_clock_v2_20.cystate</v>
-<v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\cy_clock_v2_20\API\clk.c</v>
-<v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\cy_clock_v2_20\API\clk.h</v>
-<v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\cy_clock_v2_20\Custom\custom.cs</v>
 <v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\CyControlReg_v1_80\CyControlReg_v1_80.cysym</v>
 <v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\CyControlReg_v1_80\CyControlReg_v1_80.v</v>
 <v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\CyControlReg_v1_80\CyControlReg_v1_80.cycdx</v>
@@ -21789,6 +21840,37 @@
 <v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\cy_isr_v1_70\Custom\custom.cs</v>
 <v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\cy_isr_v1_70\PSoC5\API\intc.c</v>
 <v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\cy_isr_v1_70\PSoC5\API\intc.h</v>
+<v>${CyRoot}\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\PGA_v2_0\PGA_v2_0.cysch</v>
+<v>${CyRoot}\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\PGA_v2_0\PGA_v2_0.cysym</v>
+<v>${CyRoot}\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\PGA_v2_0\PGA_v2_0.pdf</v>
+<v>${CyRoot}\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\PGA_v2_0\PGA_v2_0.cycdx</v>
+<v>${CyRoot}\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\PGA_v2_0\PGA_v2_0.cystate</v>
+<v>${CyRoot}\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\PGA_v2_0\PGA_v2_0.dll</v>
+<v>${CyRoot}\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\PGA_v2_0\API\PGA.c</v>
+<v>${CyRoot}\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\PGA_v2_0\API\PGA.h</v>
+<v>${CyRoot}\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\PGA_v2_0\API\PGA_PM.c</v>
+<v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\cy_psoc3_scblock_v1_0\cy_psoc3_scblock_v1_0.cyprimitive</v>
+<v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\cy_psoc3_scblock_v1_0\cy_psoc3_scblock_v1_0.cysym</v>
+<v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\ZeroTerminal\ZeroTerminal.cysym</v>
+<v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\ZeroTerminal\ZeroTerminal.pdf</v>
+<v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\ZeroTerminal\ZeroTerminal.v</v>
+<v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\ZeroTerminal\ZeroTerminal.cysym</v>
+<v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\ZeroTerminal\ZeroTerminal.pdf</v>
+<v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\ZeroTerminal\ZeroTerminal.v</v>
+<v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\ZeroTerminal\ZeroTerminal.cysym</v>
+<v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\ZeroTerminal\ZeroTerminal.pdf</v>
+<v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\ZeroTerminal\ZeroTerminal.v</v>
+<v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\ZeroTerminal\ZeroTerminal.cysym</v>
+<v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\ZeroTerminal\ZeroTerminal.pdf</v>
+<v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\ZeroTerminal\ZeroTerminal.v</v>
+<v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\cy_analog_virtualmux_v1_0\cy_analog_virtualmux_v1_0.cysym</v>
+<v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\cy_analog_virtualmux_v1_0\cy_analog_virtualmux_v1_0.pdf</v>
+<v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\cy_analog_virtualmux_v1_0\cy_analog_virtualmux_v1_0.v</v>
+<v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\cy_analog_virtualmux_v1_0\Custom\cy_analog_virtualmux_v1_0.cs</v>
+<v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\cy_analog_noconnect_v1_0\cy_analog_noconnect_v1_0.cysym</v>
+<v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\cy_analog_noconnect_v1_0\cy_analog_noconnect_v1_0.pdf</v>
+<v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\cy_analog_noconnect_v1_0\cy_analog_noconnect_v1_0.primitive</v>
+<v>${CyRoot}\psoc\content\cyprimitives\CyPrimitives.cylib\cy_analog_noconnect_v1_0\Custom\custom.cs</v>
 <v>.\execute_1_0.cydwr</v>
 <v>${CyRoot}\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\cy_boot_v4_20\PSoC5\API\cm3gcc.ld</v>
 <v>${CyRoot}\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\cy_boot_v4_20\PSoC5\API\Cm3RealView.scat</v>
@@ -22319,14 +22401,14 @@
 <v>C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp\lib\common\stdlogic\rtlpkg.vif</v>
 <v>C:\Program Files (x86)\Cypress\PSoC Creator\3.1\PSoC Creator\warp\lib\common\stdlogic\cy_psoc3.vif</v>
 </warp_dep>
-<deps_time v="130770591414713354" />
+<deps_time v="130773107424131917" />
 <top_block v="TopDesign" />
 <last_generation v="0" />
 </CyGuid_925cc1e1-309e-4e08-b0a1-09a83c35b157>
 </dataGuid>
 <dataGuid v="769d31ea-68b1-4f0c-b90a-7c10a43ee563">
 <CyGuid_769d31ea-68b1-4f0c-b90a-7c10a43ee563 type_name="CyDesigner.Common.ProjMgmt.Model.CyLinkCustomData" version="1">
-<deps_time v="130773090756988611" />
+<deps_time v="130773112951188046" />
 </CyGuid_769d31ea-68b1-4f0c-b90a-7c10a43ee563>
 </dataGuid>
 <dataGuid v="718b6b01-68ba-4a17-b632-d38dc61ebb3b">
