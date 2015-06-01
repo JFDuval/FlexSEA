@@ -114,6 +114,7 @@ void init_tb_timers(void)
 	isr_t1_Start();
 }
 
+//Internal I2C: IMU, Safety-CoP, potentiometers
 void init_i2c1(void)
 {
 	#ifdef USE_I2C_INT	
@@ -122,11 +123,13 @@ void init_i2c1(void)
 	#endif	//USE_I2C_INT
 }
 
+//External I2C: expansion connector
 void init_i2c2(void)
 {
 	#ifdef USE_I2C_EXT
 	I2C_2_Init();
 	I2C_2_Enable();
+	I2C_1_EnableInt();
 	I2C_2_Start();
 	#endif	//USE_I2C_EXT	
 }

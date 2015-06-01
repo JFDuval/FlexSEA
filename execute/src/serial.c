@@ -118,6 +118,19 @@ void init_rs485(void)
 {
 	#ifdef USE_RS485
 		
+	//Exocute uses a wireless transmitter. We need 3V3 IOs and a low baudrate:
+	#ifdef PROJECT_EXOCUTE
+		
+	C8M_SetDividerValue(40);	//2MHz UART clock (250k)
+	VDAC8_2_Start();			//
+	VDAC8_2_SetValue(207);		//207 = 3.3V (8 bits 0-4.08V)
+	
+	#else
+		
+	C8M_SetDividerValue(5);		//16MHz UART clock (2M)
+	
+	#endif
+		
 	UART_2_Init();
 	UART_2_Enable();
 	UART_2_Start();		

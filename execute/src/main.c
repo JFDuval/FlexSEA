@@ -73,9 +73,6 @@ int main(void)
 	//Start with an empty buffer
 	flexsea_clear_slave_read_buffer();
 	
-	//Set RGB LED - Starts Green
-	i2c_write_minm_rgb(SET_RGB, 0, 255, 0);
-	
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- =
 	//Test code - enable one and only one for special debugging
 	//Normal code WILL NOT EXECUTE when this is enabled!
@@ -148,9 +145,10 @@ int main(void)
 						
 						//Case 0.3: Free
 						case 3:
-							//(can be the I2C RGB LED)
+							//I2C RGB LED
 							
 							//minm_test_code();
+							update_minm_rgb();
 							
 							break;
 						

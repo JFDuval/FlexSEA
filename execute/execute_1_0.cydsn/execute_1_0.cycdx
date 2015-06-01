@@ -528,14 +528,14 @@
   <block name="DMA_3" BASE="0x0" SIZE="0x0" desc="" visible="true" />
   <block name="isr_dma_uart" BASE="0x0" SIZE="0x0" desc="" visible="true" />
   <block name="Coast_Brake" BASE="0x0" SIZE="0x0" desc="" visible="true">
-    <register name="Coast_Brake_CONTROL_REG" address="0x40006579" bitWidth="8" desc="" />
+    <register name="Coast_Brake_CONTROL_REG" address="0x40006479" bitWidth="8" desc="" />
   </block>
   <block name="Clock_3" BASE="0x0" SIZE="0x0" desc="" visible="true" />
   <block name="or_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
   <block name="and_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
   <block name="DMA_4" BASE="0x0" SIZE="0x0" desc="" visible="true" />
   <block name="T2_RESET" BASE="0x0" SIZE="0x0" desc="" visible="true">
-    <register name="T2_RESET_CONTROL_REG" address="0x4000657B" bitWidth="8" desc="" />
+    <register name="T2_RESET_CONTROL_REG" address="0x40006577" bitWidth="8" desc="" />
   </block>
   <block name="isr_t2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
   <block name="PGA_1" BASE="0x0" SIZE="0x0" desc="" visible="true">
@@ -562,7 +562,7 @@
         <value name="en_swcap[3]" value="1000" desc="Enables SC Block 3" />
       </field>
     </register>
-    <register name="SC_CR0" address="0x40005804" bitWidth="8" desc="Switched Capacitor Control Register 0">
+    <register name="SC_CR0" address="0x4000580C" bitWidth="8" desc="Switched Capacitor Control Register 0">
       <field name="mode" from="3" to="1" access="R" resetVal="" desc="Configuration select for the SC block ">
         <value name="SC_MODE_NAKED_OPAMP" value="000" desc="Naked Op-Amp" />
         <value name="SC_MODE_TIA" value="001" desc="Transimpedance Amplifier " />
@@ -580,7 +580,7 @@
         <value name="SC_DFT_RESET" value="11" desc="DFT reset" />
       </field>
     </register>
-    <register name="SC_CR1" address="0x40005805" bitWidth="8" desc="Switched Capacitor Control Register 1">
+    <register name="SC_CR1" address="0x4000580D" bitWidth="8" desc="Switched Capacitor Control Register 1">
       <field name="drive" from="1" to="0" access="R" resetVal="" desc="Selects between current settings (I_Load (uA)) in the output buffer">
         <value name="I_LOAD_175UA" value="00" desc="175 uA" />
         <value name="I_LOAD_260UA" value="01" desc="260 uA" />
@@ -602,7 +602,7 @@
         <value name="GAIN_6DB" value="1" desc="6 dB" />
       </field>
     </register>
-    <register name="SC_CR2" address="0x40005806" bitWidth="8" desc="Switched Capacitor Control Register 2">
+    <register name="SC_CR2" address="0x4000580E" bitWidth="8" desc="Switched Capacitor Control Register 2">
       <field name="bias_ctrl" from="0" to="0" access="R" resetVal="" desc="Toggles the bias current in the amplifier between normal and 1/2 ">
         <value name="BIAS_1X" value="0" desc="1x current reference reduces bandwidth to increase stability" />
         <value name="BIAS_2X" value="1" desc="normal operation - 2x current reference to increase bandwidth" />
@@ -646,7 +646,7 @@
         <value name="NPUMP_DSM_SELCLK_INTERNAL" value="1" desc="Negative pump internal clock selectedd" />
       </field>
     </register>
-    <register name="SC__BST" address="0x40005A1C" bitWidth="8" desc="Switched Capacitor Boost Clock Selection Register">
+    <register name="SC__BST" address="0x40005A3C" bitWidth="8" desc="Switched Capacitor Boost Clock Selection Register">
       <field name="mx_bst_clk" from="2" to="0" access="RW" resetVal="" desc="Clock Selection">
         <value name="MX_CLK_0" value="000" desc="Select clk_a0 and clk_a0_dig" />
         <value name="MX_CLK_1" value="001" desc="Select clk_a1 and clk_a1_dig" />
@@ -732,7 +732,7 @@
   </block>
   <block name="and_2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
   <block name="UART_DMA_XMIT" BASE="0x0" SIZE="0x0" desc="" visible="true">
-    <register name="UART_DMA_XMIT_CONTROL_REG" address="0x40006474" bitWidth="8" desc="" />
+    <register name="UART_DMA_XMIT_CONTROL_REG" address="0x4000647C" bitWidth="8" desc="" />
   </block>
   <block name="isr_dma_uart_tx" BASE="0x0" SIZE="0x0" desc="" visible="true" />
   <block name="EdgeDetect_2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
@@ -757,17 +757,11 @@
   <block name="UART_2" BASE="0x0" SIZE="0x0" desc="UART" visible="true">
     <block name="VirtualMux_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
     <block name="BUART" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-    <register name="RX_UART_2_RX_ADDRESS1" address="0x4000642B" bitWidth="8" desc="RX Address1 Register" />
-    <register name="RX_UART_2_RX_ADDRESS2" address="0x4000643B" bitWidth="8" desc="RX Address2 Register" />
-    <register name="TX_UART_2_TX_DATA" address="0x40006444" bitWidth="8" desc="TX Data Register" />
-    <register name="RX_UART_2_RX_DATA" address="0x4000644B" bitWidth="8" desc="RX Data Register" />
-    <register name="TX_UART_2_TX_STATUS" address="0x40006464" bitWidth="8" desc="TX status register">
-      <field name="UART_2_TX_STS_COMPLETE" from="0" to="0" access="R" resetVal="" desc="" />
-      <field name="UART_2_TX_STS_FIFO_EMPTY" from="1" to="1" access="R" resetVal="" desc="" />
-      <field name="UART_2_TX_STS_FIFO_FULL" from="2" to="2" access="R" resetVal="" desc="" />
-      <field name="UART_2_TX_STS_FIFO_NOT_FULL" from="3" to="3" access="R" resetVal="" desc="" />
-    </register>
-    <register name="RX_UART_2_RX_STATUS" address="0x4000646C" bitWidth="8" desc="RX status register">
+    <register name="RX_UART_2_RX_ADDRESS1" address="0x4000642E" bitWidth="8" desc="RX Address1 Register" />
+    <register name="RX_UART_2_RX_ADDRESS2" address="0x4000643E" bitWidth="8" desc="RX Address2 Register" />
+    <register name="RX_UART_2_RX_DATA" address="0x4000644E" bitWidth="8" desc="RX Data Register" />
+    <register name="TX_UART_2_TX_DATA" address="0x4000644F" bitWidth="8" desc="TX Data Register" />
+    <register name="RX_UART_2_RX_STATUS" address="0x4000646E" bitWidth="8" desc="RX status register">
       <field name="UART_2_RX_STS_MRKSPC" from="0" to="0" access="R" resetVal="" desc="" />
       <field name="UART_2_RX_STS_BREAK" from="1" to="1" access="R" resetVal="" desc="" />
       <field name="UART_2_RX_STS_PAR_ERROR" from="2" to="2" access="R" resetVal="" desc="" />
@@ -775,6 +769,12 @@
       <field name="UART_2_RX_STS_OVERRUN" from="4" to="4" access="R" resetVal="" desc="" />
       <field name="UART_2_RX_STS_FIFO_NOTEMPTY" from="5" to="5" access="R" resetVal="" desc="" />
       <field name="UART_2_RX_STS_ADDR_MATCH" from="6" to="6" access="R" resetVal="" desc="" />
+    </register>
+    <register name="TX_UART_2_TX_STATUS" address="0x4000646F" bitWidth="8" desc="TX status register">
+      <field name="UART_2_TX_STS_COMPLETE" from="0" to="0" access="R" resetVal="" desc="" />
+      <field name="UART_2_TX_STS_FIFO_EMPTY" from="1" to="1" access="R" resetVal="" desc="" />
+      <field name="UART_2_TX_STS_FIFO_FULL" from="2" to="2" access="R" resetVal="" desc="" />
+      <field name="UART_2_TX_STS_FIFO_NOT_FULL" from="3" to="3" access="R" resetVal="" desc="" />
     </register>
   </block>
   <block name="Q1_I" BASE="0x0" SIZE="0x0" desc="" visible="true" />
@@ -820,7 +820,7 @@
   <block name="cy_constant_3" BASE="0x0" SIZE="0x0" desc="" visible="true" />
   <block name="NOT_RE" BASE="0x0" SIZE="0x0" desc="" visible="true" />
   <block name="MotorDirection" BASE="0x0" SIZE="0x0" desc="" visible="true">
-    <register name="MotorDirection_CONTROL_REG" address="0x40006479" bitWidth="8" desc="" />
+    <register name="MotorDirection_CONTROL_REG" address="0x40006579" bitWidth="8" desc="" />
   </block>
   <block name="cy_constant_2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
   <block name="cy_constant_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
@@ -1838,18 +1838,10 @@
     <block name="OneTerminal_2" BASE="0x0" SIZE="0x0" desc="" visible="true" />
     <block name="bI2C_UDB" BASE="0x0" SIZE="0x0" desc="" visible="true" />
     <block name="Vmux_scl_out" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-    <register name="I2C_1_DATA" address="0x40006408" bitWidth="8" desc="I2C Data Register">
+    <register name="I2C_1_DATA" address="0x40006407" bitWidth="8" desc="I2C Data Register">
       <field name="data" from="7" to="0" access="RW" resetVal="" desc="Read received data or write data to transmit." />
     </register>
-    <register name="I2C_1_CFG" address="0x40006475" bitWidth="8" desc="I2C Configuration Register">
-      <field name="start_gen" from="7" to="7" access="RW" resetVal="" desc="Set to 1 to generate a Start condition on the bus. This bit must be cleared by firmware before initiating the next transaction." />
-      <field name="stop_gen" from="6" to="6" access="RW" resetVal="" desc="Set to 1 to generate a Stop condition on the bus. This bit must be cleared by firmware before initiating the next transaction." />
-      <field name="restart_gen" from="5" to="5" access="RW" resetVal="" desc="Set to 1 to generate a Restart condition on the bus. This bit must be cleared by firmware after a Restart condition is generated." />
-      <field name="nack" from="4" to="4" access="RW" resetVal="" desc="Set to 1 to NAK the next read byte. Clear to ACK next read byte. This bit must be cleared by firmware between bytes." />
-      <field name="transmit" from="2" to="2" access="RW" resetVal="" desc="Set to 1 to set the current mode to transmit or clear to 0 to receive a byte of data. This bit must be cleared by firmware before starting the next transmit or receive transaction." />
-      <field name="master_en" from="1" to="1" access="RW" resetVal="" desc="Set to 1 to enable the master functionality." />
-    </register>
-    <register name="I2C_1_CSR" address="0x40006566" bitWidth="8" desc="I2C Status Register">
+    <register name="I2C_1_CSR" address="0x40006466" bitWidth="8" desc="I2C Status Register">
       <field name="lost_arb" from="6" to="6" access="R" resetVal="" desc="If set, indicates arbitration was lost (multi-master and multi-master-slave modes)." />
       <field name="stop_status" from="5" to="5" access="R" resetVal="" desc="If set, indicates a Stop condition was detected on the bus." />
       <field name="bus_busy" from="4" to="4" access="R" resetVal="" desc="If set, indicates the bus is busy. Data is currently being transmitted or received." />
@@ -1858,7 +1850,15 @@
       <field name="lrb" from="1" to="1" access="R" resetVal="" desc="Last Received Bit. Indicates the state of the last received bit, which is the ACK/NAK received for the last byte transmitted. Cleared = ACK and set = NAK." />
       <field name="byte_complete" from="0" to="0" access="R" resetVal="" desc="Transmit or receive status since the last read of this register. In Transmit mode this bit indicates that eight bits of data plus ACK/NAK have been transmitted since the last read. In Receive mode this bit indicates that eight bits of data have been received since the last read of this register." />
     </register>
-    <register name="I2C_1_INT_MASK" address="0x40006586" bitWidth="8" desc="I2C Interrupt Enable Mask">
+    <register name="I2C_1_CFG" address="0x40006477" bitWidth="8" desc="I2C Configuration Register">
+      <field name="start_gen" from="7" to="7" access="RW" resetVal="" desc="Set to 1 to generate a Start condition on the bus. This bit must be cleared by firmware before initiating the next transaction." />
+      <field name="stop_gen" from="6" to="6" access="RW" resetVal="" desc="Set to 1 to generate a Stop condition on the bus. This bit must be cleared by firmware before initiating the next transaction." />
+      <field name="restart_gen" from="5" to="5" access="RW" resetVal="" desc="Set to 1 to generate a Restart condition on the bus. This bit must be cleared by firmware after a Restart condition is generated." />
+      <field name="nack" from="4" to="4" access="RW" resetVal="" desc="Set to 1 to NAK the next read byte. Clear to ACK next read byte. This bit must be cleared by firmware between bytes." />
+      <field name="transmit" from="2" to="2" access="RW" resetVal="" desc="Set to 1 to set the current mode to transmit or clear to 0 to receive a byte of data. This bit must be cleared by firmware before starting the next transmit or receive transaction." />
+      <field name="master_en" from="1" to="1" access="RW" resetVal="" desc="Set to 1 to enable the master functionality." />
+    </register>
+    <register name="I2C_1_INT_MASK" address="0x40006486" bitWidth="8" desc="I2C Interrupt Enable Mask">
       <field name="lost_arb" from="6" to="6" access="RW" resetVal="" desc="Enables interrupt from the corresponding bit in status register." />
       <field name="stop_status" from="5" to="5" access="RW" resetVal="" desc="Enables interrupt from the corresponding bit in status register." />
       <field name="bus_busy" from="4" to="4" access="RW" resetVal="" desc="Enables interrupt from the corresponding bit in status register." />
@@ -1898,7 +1898,7 @@
       <register name="QuadDec_1_Cnt16_COUNTER" address="0x40006402" bitWidth="16" desc="UDB.A0 - Current Counter Value" />
       <register name="QuadDec_1_Cnt16_PERIOD" address="0x40006422" bitWidth="16" desc="UDB.D0 - Assigned Period" />
       <register name="QuadDec_1_Cnt16_COMPARE" address="0x40006432" bitWidth="16" desc="UDB.D1 - Assigned Compare Value" />
-      <register name="QuadDec_1_Cnt16_Control_Reg" address="0x40006472" bitWidth="8" desc="UDB Control Register - Assigned Control Register Value">
+      <register name="QuadDec_1_Cnt16_Control_Reg" address="0x40006473" bitWidth="8" desc="UDB Control Register - Assigned Control Register Value">
         <field name="CTRL_ENABLE" from="7" to="7" access="RW" resetVal="" desc="Enable Counter" />
         <field name="CTRL_CAPMODE" from="4" to="3" access="RW" resetVal="" desc="Capture mode" />
         <field name="CTRL_CMPMODE" from="2" to="0" access="RW" resetVal="" desc="Compare mode" />
@@ -1942,7 +1942,7 @@
     <block name="bQuadDec" BASE="0x0" SIZE="0x0" desc="" visible="true" />
     <block name="VirtualMux_3" BASE="0x0" SIZE="0x0" desc="" visible="true" />
     <register name="QuadDec_1_Cnt16_COUNTER" address="0x40006402" bitWidth="16" desc="Counter value" />
-    <register name="QuadDec_1_STATUS_REG" address="0x40006463" bitWidth="8" desc="Quadrature Decoder Status Register">
+    <register name="QuadDec_1_STATUS_REG" address="0x40006464" bitWidth="8" desc="Quadrature Decoder Status Register">
       <field name="OVERFLOW" from="0" to="0" access="R" resetVal="" desc="Counter overflow" />
       <field name="UNDERFLOW" from="1" to="1" access="R" resetVal="" desc="Counter underflow" />
       <field name="RESET" from="2" to="2" access="R" resetVal="" desc="Counter Reset due index" />
@@ -2172,19 +2172,19 @@
     <block name="vmCompare" BASE="0x0" SIZE="0x0" desc="" visible="true" />
     <block name="PWMUDB" BASE="0x0" SIZE="0x0" desc="" visible="true" />
     <block name="vmTC" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-    <block name="FFKillMux" BASE="0x0" SIZE="0x0" desc="" visible="true" />
     <block name="ZeroTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="FFKillMux" BASE="0x0" SIZE="0x0" desc="" visible="true" />
     <block name="OneTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-    <register name="PWM_1_Control_Reg" address="0x4000647D" bitWidth="8" desc="UDB Control Register - Assigned Control Register Value">
+    <register name="PWM_1_DeadBand_Counter" address="0x40006508" bitWidth="8" desc="UDB DeadBand - DeadBand Counter Value" />
+    <register name="PWM_1_DeadBand_Count" address="0x40006528" bitWidth="8" desc="UDB DeadBand - Assigned DeadBand Count Value" />
+    <register name="PWM_1_COMPARE_1" address="0x4000652A" bitWidth="16" desc="UDB.D0 - Assigned Compare1 Value" />
+    <register name="PWM_1_COMPARE_2" address="0x4000653A" bitWidth="16" desc="UDB.D1 - Assigned Compare2 Value" />
+    <register name="PWM_1_Control_Reg" address="0x4000657A" bitWidth="8" desc="UDB Control Register - Assigned Control Register Value">
       <field name="CTRL_ENABLE" from="7" to="7" access="RW" resetVal="" desc="Enable the PWM" />
       <field name="CTRL_CMPMODE2" from="5" to="3" access="RW" resetVal="" desc="Compare mode 2" />
       <field name="CTRL_CMPMODE1" from="2" to="0" access="RW" resetVal="" desc="Compare mode 1" />
     </register>
-    <register name="PWM_1_DeadBand_Counter" address="0x40006509" bitWidth="8" desc="UDB DeadBand - DeadBand Counter Value" />
-    <register name="PWM_1_DeadBand_Count" address="0x40006529" bitWidth="8" desc="UDB DeadBand - Assigned DeadBand Count Value" />
-    <register name="PWM_1_COMPARE_1" address="0x4000652A" bitWidth="16" desc="UDB.D0 - Assigned Compare1 Value" />
-    <register name="PWM_1_COMPARE_2" address="0x4000653A" bitWidth="16" desc="UDB.D1 - Assigned Compare2 Value" />
-    <register name="PWM_1_STATUS_MASK" address="0x4000658A" bitWidth="8" desc="UDB Status bits Interrupt Mask Enable Register">
+    <register name="PWM_1_STATUS_MASK" address="0x4000658B" bitWidth="8" desc="UDB Status bits Interrupt Mask Enable Register">
       <field name="PWM_STS_CMP1" from="0" to="0" access="R" resetVal="" desc="Enables the Interrupt on Compare 1" />
       <field name="PWM_STS_CMP2" from="1" to="1" access="R" resetVal="" desc="Enables the Interrupt on Compare 2" />
       <field name="PWM_STS_TC" from="2" to="2" access="R" resetVal="" desc="Enables the Interrupt on Terminal Count" />

@@ -37,7 +37,7 @@ volatile uint8 data_ready_485_1 = 0;
 volatile uint8 data_ready_usb = 0;
 
 //MinM RGB:
-uint8 minm_rgb_color = 0;
+uint8 minm_rgb_color = 0, last_minm_rgb_color = 0;
 
 //****************************************************************************
 // Private Function Prototype(s):
@@ -47,7 +47,7 @@ uint8 minm_rgb_color = 0;
 //****************************************************************************
 // Public Function(s)
 //****************************************************************************
-
+//TODO ***This function is problematic!
 //Write to MinM RGB LED
 void i2c_write_minm_rgb(uint8 cmd, uint8 r, uint8 g, uint8 b)
 {
@@ -58,19 +58,66 @@ void i2c_write_minm_rgb(uint8 cmd, uint8 r, uint8 g, uint8 b)
 	minm_i2c_buf[1] = r;
 	minm_i2c_buf[2] = g;
 	minm_i2c_buf[3] = b;
-
+	
+	I2C_2_MasterClearStatus();
     I2C_2_MasterWriteBuf(I2C_SLAVE_ADDR_MINM, (uint8 *) minm_i2c_buf,
                              4, I2C_2_MODE_COMPLETE_XFER);
-
+/*
     while(0u == (I2C_2_MasterStatus() & I2C_2_MSTAT_WR_CMPLT))
     {
         // Wait until master complete write
     }    
-  
+  */
     // Clear I2C master status 
-    (void) I2C_2_MasterClearStatus();
+    //(void) I2C_2_MasterClearStatus();
 	
 	return;	
+}
+
+//One byte encodes the colors: 0 = Off, 1 = Red, 2 = Green, 3 = Blue, 4 = White
+void minm_byte_to_rgb(uint8 byte, uint8 *r, uint8 *g, uint8 *b)
+{
+	switch(byte)
+	{
+		case 0:	//Off (black)
+			(*r) = 0; (*g) = 0; (*b) = 0; 
+			break;
+		case 1:	//Red
+			(*r) = 255; (*g) = 0; (*b) = 0; 
+			break;
+		case 2:	//Green
+			(*r) = 0; (*g) = 255; (*b) = 0; 
+			break;
+		case 3:	//Blue
+			(*r) = 0; (*g) = 0; (*b) = 255; 
+			break;
+		case 4:	//White
+			(*r) = 255; (*g) = 255; (*b) = 255; 
+			break;
+		default:
+			(*r) = 0; (*g) = 0; (*b) = 0; 
+			break;
+	}
+}
+
+//Updates the MinM LED if the color changed, otherwise does noting
+void update_minm_rgb(void)
+{
+	static uint8 r = 0, g = 0, b = 0;
+	
+	#ifdef USE_I2C_EXT
+	
+	if(minm_rgb_color != last_minm_rgb_color)
+	{
+		//Color changed.
+		
+		minm_byte_to_rgb(minm_rgb_color, &r, &g, &b);
+		i2c_write_minm_rgb(SET_RGB, r, g, b);
+	}
+	
+	last_minm_rgb_color = minm_rgb_color;
+	
+	#endif	//USE_I2C_EXT
 }
 
 //Use this to test your RGB hardware
