@@ -26,6 +26,10 @@ const char *delims = " \n";
 
 int main(int argc, char *argv[])
 {
+	int i = 0;
+	unsigned char datatosend[20] = {0,1,2,3,4,5,6,7,8,9};
+	unsigned char tmp_payload_xmit[PAYLOAD_BUF_LEN];
+
 	#ifdef MULTIPLE_COMMANDS
 
     char command[MAX_COMMAND_LEN];
@@ -57,6 +61,17 @@ int main(int argc, char *argv[])
 
 	//Open USB (serial) port:
 	flexsea_serial_open(100, 50000);
+
+/*
+
+	//Test code
+	for(i = 0; i < 30; i++)
+	{
+		tx_cmd_ctrl_mode(FLEXSEA_EXECUTE_2, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, CTRL_OPEN);
+		comm_gen_str(tmp_payload_xmit, comm_str_spi, PAYLOAD_BUF_LEN);
+		flexsea_serial_transmit(COMM_STR_BUF_LEN, comm_str_spi, 0);
+	}
+	*/
 
 	#endif
 

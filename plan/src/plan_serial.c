@@ -21,7 +21,8 @@
 //****************************************************************************
 
 static const char *file_w_name = "../serial_port.txt";
-static const char *device = "/dev/ttyACM0";
+//static const char *device = "/dev/ttyACM0";
+static const char *device = "/dev/ttyUSB0";
 int fd;
 
 //****************************************************************************
@@ -87,9 +88,29 @@ void flexsea_serial_open(unsigned int tries, unsigned int delay)
 
 
     if (fd < 0)
+    {
         printf("Tried %i times, couldn't open %s.\n", cnt, device);
+    }
     else
+    {
         printf("Successfully opened %s.\n", device);
+
+        /* set the other settings (in this case, 9600 8N1) */
+        struct termios settings;
+        tcgetattr(fd, &settings);
+
+        cfsetospeed(&settings, B115200); /* baud rate */
+        settings.c_cflag &= ~PARENB; /* no parity */
+        settings.c_cflag &= ~CSTOPB; /* 1 stop bit */
+        settings.c_cflag &= ~CSIZE;
+        settings.c_cflag |= CS8 | CLOCAL; /* 8 bits */
+        settings.c_lflag = ICANON; /* canonical mode */
+        settings.c_oflag &= ~OPOST; /* raw output */
+
+        tcsetattr(fd, TCSANOW, &settings); /* apply the settings */
+        tcflush(fd, TCOFLUSH);
+
+    }
 }
 
 //Serial port test: sends a single char
@@ -120,7 +141,7 @@ void flexsea_serial_transmit(char bytes_to_send, unsigned char *serial_tx_data, 
     //Valid port
     if(write(fd, (char *)serial_tx_data, bytes_to_send))
     {
-        //printf("Wrote a string\n");
+        printf("Wrote a string\n");
     }
     else
     {

@@ -32,7 +32,8 @@ void test_code(void)
 {
 	//test_code_plan_manage_comm();
 	//test_code_2();
-	test_code_plan_2x_exec_comm();
+	//test_code_plan_2x_exec_comm();
+	test_code_spc2_csea();
 }
 
 //PWM triangle wave
@@ -263,4 +264,92 @@ void test_code_plan_2x_exec_comm(void)
     	//Delay
         usleep(500);
     }
+}
+
+//Special Command #2 - CSEA Knee test
+void test_code_spc2_csea(void)
+{
+	int numb = 0, state = 0, rgb = 0, clutch = 0;
+	int zk = 10, zi = 0;
+
+    //Initial configuration:
+
+    //Controller = impedance
+    numb = tx_cmd_ctrl_mode(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, CTRL_IMPEDANCE);
+    numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
+    flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
+    usleep(10000);
+
+    //Current gain
+    numb = tx_cmd_ctrl_i_g(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 20, 25, 0);
+    numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
+    flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
+    usleep(10000);
+
+    //Z gain
+    numb = tx_cmd_ctrl_z_g(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, zk, zi, 0);
+    numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
+    flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
+    usleep(10000);
+
+
+    printf("RGB via Spc2 Test\n");
+    while(!kbhit())
+    {
+    	switch(state)
+    	{
+    		case 0:
+    			rgb = 0;
+    			break;
+			case 1:
+				rgb = 1;
+				break;
+			case 2:
+				rgb = 2;
+				break;
+			case 3:
+				rgb = 3;
+				break;
+			case 4:
+				rgb = 4;
+				break;
+			default:
+				rgb = 0;
+				break;
+    	}
+
+    	state++;
+    	if(state > 4)
+    		state = 0;
+
+    	if(state == 0)
+    		clutch = 255;
+    	else
+    		clutch = 0;
+
+    	clutch = 0;
+    	numb = tx_cmd_ctrl_special_2(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
+    									zk, zi, 0, rgb, clutch,\
+    									KEEP, 0, 0, 0, 0);
+
+    	numb = comm_gen_str(payload_str, comm_str_spi, PAYLOAD_BUF_LEN);
+    	numb = COMM_STR_BUF_LEN;
+
+    	#ifdef USE_SPI
+
+    	flexsea_spi_transmit(numb, comm_str_spi, 0);
+
+    	//Can we decode what we received?
+    	decode_spi_rx();
+
+    	#endif
+
+    	printf("RGB: %i.\n", rgb);
+    	usleep(250000);
+    }
+
+    //Done with the experiment, drop PWM to 0:
+    numb = tx_cmd_ctrl_o(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 0);
+    numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
+    flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
 }

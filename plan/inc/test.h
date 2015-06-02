@@ -24,6 +24,7 @@ void test_code_1(void);
 void test_code_2(void);
 void test_code_plan_manage_comm(void);
 void test_code_plan_2x_exec_comm(void);
+void test_code_spc2_csea(void);
 
 //****************************************************************************
 // Definition(s):
