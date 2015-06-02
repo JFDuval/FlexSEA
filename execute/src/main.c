@@ -60,6 +60,7 @@ int main(void)
 	uint8 i2c_time_share = 0;
 	uint8 temp_status = 0;
 	uint16 rgb_test_code = 0;
+	static int32 enc_test = 0;
 	
 	int numb = 0;
 	unsigned char tmp_payload_xmit[PAYLOAD_BUF_LEN];
@@ -80,7 +81,7 @@ int main(void)
 	//strain_test_blocking();
 	//safety_cop_comm_test_blocking();
 	//imu_test_code_blocking();
-	//motor_fixed_pwm_test_code_blocking(100);
+	//motor_fixed_pwm_test_code_blocking(80);
 	//wdclk_test_blocking();
 	//timing_test_blocking();
 	//test_current_tracking_blocking();
@@ -213,6 +214,7 @@ int main(void)
 				
 					//Refresh encoder readings
 					encoder_read();
+					enc_test = (int32)encoder.count;
 						
 					#endif	//USE_QEI1		
 					

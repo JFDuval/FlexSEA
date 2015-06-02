@@ -173,7 +173,7 @@ void test_uart_dma_xmit(void)
 		
 		CyDmaChEnable(DMA_4_Chan, 1);
 		UART_DMA_XMIT_Write(1);	//Allow transmission
-		CyDelay(10);	//Wait 10ms
+		CyDelay(1000);	//Wait 10ms
 	}
 }
 

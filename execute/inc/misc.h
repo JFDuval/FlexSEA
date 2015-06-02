@@ -58,7 +58,7 @@ void assign_i2c_data(uint8 *newdata);
 #define ALIVE_HALF_T				125		//ms	
 
 //I2C - MinM
-#define MINM_BUF_SIZE				4
+#define MINM_BUF_SIZE				5
 #define I2C_SLAVE_ADDR_MINM			0x09
 #define I2C_SLAVE_ADDR_IMU			
 #define SET_RGB						'n' 

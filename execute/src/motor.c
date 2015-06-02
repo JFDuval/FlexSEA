@@ -543,6 +543,8 @@ void motor_fixed_pwm_test_code_blocking(int spd)
 		LED_R_Write(H1_Read());
 		LED_G_Write(H2_Read());
 		LED_B_Write(H3_Read());
+		
+		encoder_read();
 	}
 }
 
@@ -560,6 +562,7 @@ int32 encoder_read(void)
 	
 	return encoder.count;
 }
+//Warning: encoder.count seems to be interpreted as a uint... casting (int32) before using it works.
 
 //Updates the structure with the desired value and write it to the encoder
 void encoder_write(int32 enc)

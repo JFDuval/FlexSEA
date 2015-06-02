@@ -127,9 +127,9 @@ void init_i2c1(void)
 void init_i2c2(void)
 {
 	#ifdef USE_I2C_EXT
-	I2C_2_Init();
-	I2C_2_Enable();
-	I2C_1_EnableInt();
+	//I2C_2_Init();
+	//I2C_2_Enable();
+	I2C_2_EnableInt();
 	I2C_2_Start();
 	#endif	//USE_I2C_EXT	
 }

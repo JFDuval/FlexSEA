@@ -38,6 +38,7 @@ volatile uint8 data_ready_usb = 0;
 
 //MinM RGB:
 uint8 minm_rgb_color = 0, last_minm_rgb_color = 0;
+uint8 minm_i2c_buf[MINM_BUF_SIZE];
 
 //****************************************************************************
 // Private Function Prototype(s):
@@ -47,12 +48,10 @@ uint8 minm_rgb_color = 0, last_minm_rgb_color = 0;
 //****************************************************************************
 // Public Function(s)
 //****************************************************************************
-//TODO ***This function is problematic!
+
 //Write to MinM RGB LED
 void i2c_write_minm_rgb(uint8 cmd, uint8 r, uint8 g, uint8 b)
-{
-	uint8 minm_i2c_buf[MINM_BUF_SIZE];
-	
+{	
 	// Write data to the slave : address pointer
 	minm_i2c_buf[0] = cmd;
 	minm_i2c_buf[1] = r;
@@ -60,16 +59,11 @@ void i2c_write_minm_rgb(uint8 cmd, uint8 r, uint8 g, uint8 b)
 	minm_i2c_buf[3] = b;
 	
 	I2C_2_MasterClearStatus();
+	//I2C_2_MasterClearWriteBuf();
     I2C_2_MasterWriteBuf(I2C_SLAVE_ADDR_MINM, (uint8 *) minm_i2c_buf,
                              4, I2C_2_MODE_COMPLETE_XFER);
-/*
-    while(0u == (I2C_2_MasterStatus() & I2C_2_MSTAT_WR_CMPLT))
-    {
-        // Wait until master complete write
-    }    
-  */
-    // Clear I2C master status 
-    //(void) I2C_2_MasterClearStatus();
+
+	//ISR will take it from here...
 	
 	return;	
 }
