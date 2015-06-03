@@ -449,8 +449,8 @@ void init_motor(void)
 	PWM_1_WriteCompare1(0);	//Start at 0%
 	PWM_1_WriteCompare2(PWM2DC(0));	
 	
-	//Default is Coast mode:
-	Coast_Brake_Write(0);
+	//Default is Brake mode:
+	Coast_Brake_Write(1);
 	
 	//ADC2: Motor current
 	ADC_SAR_2_Start();
@@ -535,7 +535,7 @@ void init_motor_data_structure(void)
 void motor_fixed_pwm_test_code_blocking(int spd)
 {
 	ctrl.active_ctrl = CTRL_OPEN;	
-	Coast_Brake_Write(0);	//Coast
+	Coast_Brake_Write(1);	//Brake
 	motor_open_speed_1(spd);
 	
 	while(1)

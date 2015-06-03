@@ -19,7 +19,7 @@
 //****************************************************************************
 
 //Board ID (this board) -  - pick from Board list in /common/inc/flexsea.h
-uint8 board_id = FLEXSEA_EXECUTE_1;
+uint8 board_id = FLEXSEA_EXECUTE_2;
 uint8 board_up_id = FLEXSEA_MANAGE_1;
 uint8 board_sub1_id[SLAVE_BUS_1_CNT];
 uint8 board_sub2_id[SLAVE_BUS_2_CNT];

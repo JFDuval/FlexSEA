@@ -66,7 +66,7 @@ void init_exo(void)
 	
 	//FlexSEA-Execute setup:
 	ctrl.active_ctrl = CTRL_OPEN;	//Open controller
-	Coast_Brake_Write(0);			//Coast (rather than Brake)
+	Coast_Brake_Write(1);			//Brake (rather than Coast)
 	motor_open_speed_1(0);			//0% PWM
 }
 
