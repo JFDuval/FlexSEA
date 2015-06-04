@@ -193,7 +193,7 @@ void rx_cmd_special_1(uint8_t *buf)
 		if(buf[P_DATA1] == CHANGE)
 		{
 			//User wants to change the type of controller:
-			control_strategy(buf[P_DATA1]);
+			//control_strategy(buf[P_DATA1]);	//Disabled, change it manually
 		}
 		
 		//Only change the setpoint if we are in current control mode:	
@@ -424,7 +424,7 @@ uint32_t tx_cmd_ctrl_special_2(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 	return bytes;
 }
 
-//Reception of a CMD_SPECIAL_1 command
+//Reception of a CMD_SPECIAL_2 command
 void rx_cmd_special_2(uint8_t *buf)
 {
 	uint32_t numb = 0;

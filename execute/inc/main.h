@@ -61,7 +61,7 @@ int main(void);
 #define USE_STRAIN		//Requires USE_I2C_INT
 
 //Project specific code:
-//#define PROJECT_EXOCUTE				//ExoBoot, everything running on Execute
+#define PROJECT_EXOCUTE				//ExoBoot, everything running on Execute
 //#define PROJECT_CSEA_KNEE			//CSEA Knee + FlexSEA
 //Enable only one project at a time!
 
