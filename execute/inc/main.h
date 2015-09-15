@@ -21,6 +21,7 @@
 #include "serial.h"
 #include "motor.h"
 #include "misc.h"
+#include "ui.h"
 #include "trapez.h"
 #include "flexsea_local.h"
 #include "imu.h"
@@ -61,8 +62,8 @@ int main(void);
 #define USE_STRAIN		//Requires USE_I2C_INT
 
 //Project specific code:
-#define PROJECT_EXOCUTE				//ExoBoot, everything running on Execute
-//#define PROJECT_CSEA_KNEE			//CSEA Knee + FlexSEA
+//#define PROJECT_EXOCUTE				//ExoBoot, everything running on Execute
+#define PROJECT_CSEA_KNEE			//CSEA Knee + FlexSEA
 //Enable only one project at a time!
 
 //Trapez test parameters

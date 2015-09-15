@@ -40,6 +40,7 @@ void init_motor_data_structure(void);
 void motor_fixed_pwm_test_code_blocking(int spd);
 int32 encoder_read(void);
 void encoder_write(int32 enc);
+void motor_cancel_damping_test_code_blocking(void);
 
 //****************************************************************************
 // Definition(s):

@@ -570,3 +570,37 @@ void encoder_write(int32 enc)
 	encoder.count = enc;
 	QuadDec_1_SetCounter(enc);
 }
+
+//Can we cancel the damping by changing the Hall direction based on the encoder? Yes.
+void motor_cancel_damping_test_code_blocking(void)
+{
+	ctrl.active_ctrl = CTRL_OPEN;	
+	Coast_Brake_Write(1);	//Brake
+	motor_open_speed_1(0);
+	
+	while(1)
+	{	
+		//RGB LED = Hall code:
+		LED_R_Write(H1_Read());
+		LED_G_Write(H2_Read());
+		LED_B_Write(H3_Read());
+		
+		//Refresh encoder data:
+		encoder.count_last = encoder.count;	
+		encoder.count = QuadDec_1_GetCounter();
+		encoder.count_dif = encoder.count - encoder.count_last;
+		
+		//Act based on the sign:
+		if(encoder.count_dif >= 0)
+		{
+			MotorDirection_Write(0);
+		}
+		else
+		{
+			MotorDirection_Write(1);
+		}		
+		
+		//Loop delay (otherwise we don't get a good difference)
+		CyDelay(10);
+	}
+}
