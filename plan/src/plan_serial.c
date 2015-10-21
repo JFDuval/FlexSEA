@@ -15,6 +15,7 @@
 
 #include "main.h"
 #include "../inc/plan_serial.h"
+#include <sys/ioctl.h>
 
 //****************************************************************************
 // Local variable(s)
@@ -24,6 +25,7 @@ static const char *file_w_name = "../serial_port.txt";
 //static const char *device = "/dev/ttyACM0";
 static const char *device = "/dev/ttyUSB0";
 int fd;
+struct termios tty;
 
 //****************************************************************************
 // External variable(s)
@@ -72,13 +74,14 @@ int read_port_name_from_file(void)
 
 //Opens the Serial port specified in device[]
 //will try "tries" times with a delay of "delay" us between each try
+//From http://stackoverflow.com/questions/18108932/linux-c-serial-port-reading-writing
 void flexsea_serial_open(unsigned int tries, unsigned int delay)
 {
     unsigned int cnt = 0;
 
     do
     {
-        fd = open(device, O_RDWR);
+        fd = open(device, O_RDWR | O_NOCTTY);
         cnt++;
         if(cnt >= tries)
             break;
@@ -95,20 +98,29 @@ void flexsea_serial_open(unsigned int tries, unsigned int delay)
     {
         printf("Successfully opened %s.\n", device);
 
-        /* set the other settings (in this case, 9600 8N1) */
-        struct termios settings;
-        tcgetattr(fd, &settings);
+        /* Set Baud Rate */
+        cfsetospeed (&tty, (speed_t)B57600);
+        cfsetispeed (&tty, (speed_t)B57600);
 
-        cfsetospeed(&settings, B115200); /* baud rate */
-        settings.c_cflag &= ~PARENB; /* no parity */
-        settings.c_cflag &= ~CSTOPB; /* 1 stop bit */
-        settings.c_cflag &= ~CSIZE;
-        settings.c_cflag |= CS8 | CLOCAL; /* 8 bits */
-        settings.c_lflag = ICANON; /* canonical mode */
-        settings.c_oflag &= ~OPOST; /* raw output */
+        /* Setting other Port Stuff */
+        tty.c_cflag     &=  ~PARENB;            // Make 8n1
+        tty.c_cflag     &=  ~CSTOPB;
+        tty.c_cflag     &=  ~CSIZE;
+        tty.c_cflag     |=  CS8;
 
-        tcsetattr(fd, TCSANOW, &settings); /* apply the settings */
-        tcflush(fd, TCOFLUSH);
+        tty.c_cflag     &=  ~CRTSCTS;           // no flow control
+        tty.c_cc[VMIN]   =  1;                  // read doesn't block
+        tty.c_cc[VTIME]  =  5;                  // 0.5 seconds read timeout
+        tty.c_cflag     |=  CREAD | CLOCAL;     // turn on READ & ignore ctrl lines
+
+        /* Make raw */
+        cfmakeraw(&tty);
+
+        /* Flush Port, then applies attributes */
+        tcflush(fd, TCIFLUSH);
+        if ( tcsetattr (fd, TCSANOW, &tty ) != 0) {
+           printf("Error from tcsetattr.\n");
+        }
 
     }
 }
@@ -151,27 +163,83 @@ void flexsea_serial_transmit(char bytes_to_send, unsigned char *serial_tx_data, 
 
 #define TRIES 	8
 #define DELAY	1
+//From http://stackoverflow.com/questions/18108932/linux-c-serial-port-reading-writing
 void flexsea_serial_read(uint8_t *buffer)
 {
+	/*
 	int i = 0, n = 0, cnt = 0;
 
 	do
 	{
-		n = read(fd, buffer, sizeof(buffer));
+		printf("reading...\n");
+		n = read(fd, buffer, 64);
 
 		if(n > 0)
 		{
-			//printf("Received %i bytes: [%s].\n", n, buffer);
+			printf("cnt = %i.\n", cnt);
+			printf("Received %i bytes: [%s].\n", n, buffer);
 
 			//Transfer spi_rx to flexsea's buffer
 			for(i = 0; i < n; i++)
 			{
-				update_rx_buf_byte_usb(buffer[i]);
+				//update_rx_buf_byte_usb(buffer[i]);
 			}
 		}
-		usleep(DELAY);
+		//usleep(DELAY);
 		cnt++;
+
 	}
 	while(cnt < TRIES);
+
+	printf("Done trying\n");
+	*/
+
+	int n = 0, spot = 0, i = 0;
+	unsigned char buf = '\0';
+	char bytesavailable = 0;
+	unsigned char store[50];
+
+	/* Whole response*/
+	//unsigned char response[48];
+	//memset(response, '\0', sizeof response);
+
+	//Wait for n bytes
+	spot = 0;
+	do{
+		ioctl(fd, FIONREAD, &bytesavailable);
+		if(bytesavailable > 0)
+		{
+			for(i = 0; i < bytesavailable; i++)
+			{
+			   read( fd, &buf, 1 );
+			   update_rx_buf_byte_usb(buf);
+			   store[spot] = buf;
+			   spot++;
+			}
+		}
+		else
+		{
+			usleep(10);
+			n++;
+			if(n > 500)
+				break;
+		}
+	}while(bytesavailable > 0);
+
+	printf("Received: ");
+	for(i = 0; i < spot; i++)
+	{
+		printf("%i.", store[i]);
+	}
+
+	printf("\nSpot = %i.\n", spot);
+
+
+	printf("usb_rx: ");
+	for(i = 0; i < RX_BUF_LEN; i++)
+	{
+		printf("%i.", rx_buf_usb[i]);
+	}
+	printf("\n\n");
 
 }

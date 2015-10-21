@@ -41,6 +41,13 @@ int main(void)
 	// start receiving from master via interrupts
 	flexsea_start_receiving_from_master();
 
+	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+	//Test code - enable one and only one for special debugging
+	//Normal code WILL NOT EXECUTE when this is enabled!
+	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+	rgb_led_test_code_blocking();
+	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 	//Infinite loop
 	while (1)
     {

@@ -180,3 +180,26 @@ void rgb_led_ui(uint8_t err_l0, uint8_t err_l1, uint8_t err_l2, uint8_t new_comm
 	//Assign the color to the RGB LED:
 	set_led_rgb(r, g, b);
 }
+
+//Cycles through all the colors
+void rgb_led_test_code_blocking(void)
+{
+	unsigned char r = 0, g = 0, b = 0;
+	unsigned char cnt = 0;
+	unsigned long delay = 0;
+
+	while(1)
+	{
+		cnt++;
+		cnt %= 8;
+
+		r = cnt & 0x01;
+		g = (cnt & 0x02)>>1;
+		b = (cnt & 0x04)>>2;
+
+		set_led_rgb(r, g, b);
+
+		//Waste some time:
+		for(delay = 0; delay < 75000000; delay++);
+	}
+}

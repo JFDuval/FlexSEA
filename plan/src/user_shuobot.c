@@ -313,11 +313,19 @@ static void shuobot_demo_3(void)
 
     //Initial configuration:
 
-    //Controller = open
-    numb = tx_cmd_ctrl_mode(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, CTRL_OPEN);
+    //Controller = current
+    numb = tx_cmd_ctrl_mode(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, CTRL_CURRENT);
     send_cmd_slave();
     usleep(1000);
-    numb = tx_cmd_ctrl_mode(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, CTRL_OPEN);
+    numb = tx_cmd_ctrl_mode(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, CTRL_CURRENT);
+    send_cmd_slave();
+    usleep(10000);
+
+    //Controller gains
+    numb = tx_cmd_ctrl_i_g(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 20, 25, 0);
+    send_cmd_slave();
+    usleep(1000);
+    numb = tx_cmd_ctrl_i_g(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 20, 25, 0);
     send_cmd_slave();
     usleep(10000);
 
@@ -347,6 +355,9 @@ static void shuobot_demo_3(void)
     		if(open_spd1 > SB_MAX_PWM)
     			open_spd1 = 0;
     	}
+
+    	open_spd1 = 150;
+    	current1 = -100;
 
     	//Reactive changes:
     	if((exec1.encoder > MAX_ENC) || (exec1.encoder < -MAX_ENC))

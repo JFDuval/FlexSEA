@@ -84,7 +84,7 @@ uint8_t comm_gen_str(uint8_t payload[], uint8_t *cstr, uint8_t bytes)
     {
     	cstr[i] = 0xAA; //'0';
     }
-    DEBUG_COMM_PRINTF("comm_str: %s\n", comm_str);
+    DEBUG_COMM_PRINTF("comm_str: %s\n", cstr);
 
     //Fill comm_str with payload and add ESCAPE characters
     escapes = 0;
@@ -104,7 +104,7 @@ uint8_t comm_gen_str(uint8_t payload[], uint8_t *cstr, uint8_t bytes)
         }
         idx++;
     }
-    DEBUG_COMM_PRINTF("comm_str: %s\n", comm_str);
+    DEBUG_COMM_PRINTF("comm_str: %s\n", cstr);
 
     total_bytes = bytes + escapes;
 
@@ -114,7 +114,7 @@ uint8_t comm_gen_str(uint8_t payload[], uint8_t *cstr, uint8_t bytes)
     checksum = 0;
     for (i = 0; i < total_bytes; i++)
     {
-    	DEBUG_COMM_PRINTF("cs b[%i] = %c\n", i, comm_str[2+i]);
+    	//DEBUG_COMM_PRINTF("cs b[%i] = %c\n", i, cstr[2+i]);
 
         checksum = checksum + cstr[2+i];
     }
