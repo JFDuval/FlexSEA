@@ -150,7 +150,7 @@ uint8_t decode_usb_rx(void)
     if(cmd_ready_usb != 0)
     {
 		#ifdef USE_PRINTF
-        printf("[Received a valid comm_str!]\n");
+        //printf("[Received a valid comm_str!]\n");
     	valid = 1;
 		#endif
     }

@@ -22,8 +22,8 @@
 //****************************************************************************
 
 static const char *file_w_name = "../serial_port.txt";
-//static const char *device = "/dev/ttyACM0";
-static const char *device = "/dev/ttyUSB0";
+static const char *device = "/dev/ttyACM0";
+//static const char *device = "/dev/ttyUSB0";
 int fd;
 struct termios tty;
 
@@ -153,7 +153,7 @@ void flexsea_serial_transmit(char bytes_to_send, unsigned char *serial_tx_data, 
     //Valid port
     if(write(fd, (char *)serial_tx_data, bytes_to_send))
     {
-        printf("Wrote a string\n");
+        //printf("Wrote a string\n");
     }
     else
     {
@@ -166,45 +166,11 @@ void flexsea_serial_transmit(char bytes_to_send, unsigned char *serial_tx_data, 
 //From http://stackoverflow.com/questions/18108932/linux-c-serial-port-reading-writing
 void flexsea_serial_read(uint8_t *buffer)
 {
-	/*
-	int i = 0, n = 0, cnt = 0;
-
-	do
-	{
-		printf("reading...\n");
-		n = read(fd, buffer, 64);
-
-		if(n > 0)
-		{
-			printf("cnt = %i.\n", cnt);
-			printf("Received %i bytes: [%s].\n", n, buffer);
-
-			//Transfer spi_rx to flexsea's buffer
-			for(i = 0; i < n; i++)
-			{
-				//update_rx_buf_byte_usb(buffer[i]);
-			}
-		}
-		//usleep(DELAY);
-		cnt++;
-
-	}
-	while(cnt < TRIES);
-
-	printf("Done trying\n");
-	*/
-
 	int n = 0, spot = 0, i = 0;
 	unsigned char buf = '\0';
 	char bytesavailable = 0;
-	unsigned char store[50];
-
-	/* Whole response*/
-	//unsigned char response[48];
-	//memset(response, '\0', sizeof response);
 
 	//Wait for n bytes
-	spot = 0;
 	do{
 		ioctl(fd, FIONREAD, &bytesavailable);
 		if(bytesavailable > 0)
@@ -213,8 +179,6 @@ void flexsea_serial_read(uint8_t *buffer)
 			{
 			   read( fd, &buf, 1 );
 			   update_rx_buf_byte_usb(buf);
-			   store[spot] = buf;
-			   spot++;
 			}
 		}
 		else
@@ -225,21 +189,4 @@ void flexsea_serial_read(uint8_t *buffer)
 				break;
 		}
 	}while(bytesavailable > 0);
-
-	printf("Received: ");
-	for(i = 0; i < spot; i++)
-	{
-		printf("%i.", store[i]);
-	}
-
-	printf("\nSpot = %i.\n", spot);
-
-
-	printf("usb_rx: ");
-	for(i = 0; i < RX_BUF_LEN; i++)
-	{
-		printf("%i.", rx_buf_usb[i]);
-	}
-	printf("\n\n");
-
 }
