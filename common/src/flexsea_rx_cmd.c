@@ -7,6 +7,10 @@
 // flexsea_rx_cmd: how do we deal with the commands we received?
 //****************************************************************************
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // All the commands that are decoded in flexsea_payload will call functions
 // hosted in that file. These function will redirect to board specific functions.
 
@@ -525,3 +529,7 @@ void rx_cmd_analog_read_reply(uint8_t *buf)
 
 	#endif	//BOARD_TYPE_FLEXSEA_PLAN
 }
+
+#ifdef __cplusplus
+}
+#endif

@@ -10,6 +10,10 @@
 #ifndef INC_FX_CMD_USER_H
 #define INC_FX_CMD_USER_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 //****************************************************************************
 // Include(s)
 //****************************************************************************
@@ -61,6 +65,10 @@ struct spc4_s
 	int16_t current;
 	int16_t open_spd;
 };
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

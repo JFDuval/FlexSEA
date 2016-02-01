@@ -7,6 +7,10 @@
 // flexsea_tx_cmd: prepare commands before we send them out
 //****************************************************************************
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 //****************************************************************************
 // Include(s)
 //****************************************************************************
@@ -292,3 +296,7 @@ uint32_t tx_cmd_analog_read_reply(uint8_t master, uint8_t base_addr, uint8_t byt
 
     return 7;
 }
+
+#ifdef __cplusplus
+}
+#endif

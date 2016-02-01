@@ -10,6 +10,10 @@
 #ifndef INC_FX_BUF_H
 #define INC_FX_BUF_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 //****************************************************************************
 // Include(s)
 //****************************************************************************
@@ -46,5 +50,9 @@ void test_upd(void);
 
 #define UPDATE_BYTE				0
 #define UPDATE_ARRAY			1
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

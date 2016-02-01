@@ -10,6 +10,10 @@
 #ifndef INC_FX_COMM_H
 #define INC_FX_COMM_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 //****************************************************************************
 // Include(s)
 //****************************************************************************
@@ -90,5 +94,9 @@ struct slave_comm_s
 	struct sc_data_s xmit;				//For the Transparent mode
 	struct sc_data_s autosample;		//For the Autosampling mode
 };
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

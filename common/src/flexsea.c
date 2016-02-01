@@ -38,6 +38,10 @@
 //   per packet and no repackaging on the Manage board (straight pass-through)
 //   To be optimized later.
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 //****************************************************************************
 // Include(s)
 //****************************************************************************
@@ -91,3 +95,7 @@ void fill_uint8_buf(uint8_t *buf, uint32_t len, uint8_t filler)
 		buf[i] = filler;
 	}
 }
+
+#ifdef __cplusplus
+}
+#endif

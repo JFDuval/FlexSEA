@@ -7,6 +7,10 @@
 // flexsea_comm: Data-Link layer of the FlexSEA protocole
 //****************************************************************************
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // *** ToDo Update this block of comments ***
 
 //FlexSEA comm. prototype:
@@ -347,3 +351,7 @@ static void clear_rx_command(uint8_t x, uint8_t y, uint8_t rx_cmd[][PACKAGED_PAY
         }
     }
 }
+
+#ifdef __cplusplus
+}
+#endif

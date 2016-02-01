@@ -7,6 +7,9 @@
 // flexsea_buffers: everything related to the reception buffers
 //****************************************************************************
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 //****************************************************************************
 // Include(s)
@@ -278,3 +281,7 @@ void update_rx_buf_array_usb(uint8_t *new_array, uint32_t len)
 {
 	update_rx_buf_usb(UPDATE_ARRAY, 0, new_array, len);
 }
+
+#ifdef __cplusplus
+}
+#endif

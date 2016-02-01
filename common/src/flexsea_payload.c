@@ -7,6 +7,10 @@
 // flexsea_payload: deals with the "intelligent" data packaged in a comm_str
 //****************************************************************************
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 //****************************************************************************
 // Include(s)
 //****************************************************************************
@@ -297,3 +301,7 @@ static uint8_t get_rid(uint8_t *pldata)
 	//If we end up here it's because we didn't get a match:
 	return ID_NO_MATCH;
 }
+
+#ifdef __cplusplus
+}
+#endif

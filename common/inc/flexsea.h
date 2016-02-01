@@ -10,6 +10,10 @@
 #ifndef INC_FLEXSEA_H_
 #define INC_FLEXSEA_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdint.h>
 #include <stdarg.h>
 
@@ -374,5 +378,9 @@ struct manage_s
 #include "flexsea_cmd_sensors.h"
 #include "flexsea_cmd_system.h"
 #include "flexsea_cmd_user.h"
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

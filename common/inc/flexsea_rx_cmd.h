@@ -10,6 +10,10 @@
 #ifndef INC_FX_RX_CMD_H
 #define INC_FX_RX_CMD_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 //****************************************************************************
 // Include(s)
 //****************************************************************************
@@ -61,6 +65,10 @@ extern struct execute_s exec1, exec2, exec3, exec4;
 extern struct manage_s manag1;
 
 #endif	//defined(BOARD_TYPE_FLEXSEA_MANAGE) || defined(BOARD_TYPE_FLEXSEA_PLAN)
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 
