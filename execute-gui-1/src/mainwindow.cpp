@@ -92,7 +92,7 @@ void MainWindow::on_openComButton_clicked()
     if(!com_open)
     {
         qDebug("Successfully opened COM port.");
-        str += QString("Success.");
+        str += QString(" Success!");
 
         //Activate Stream button:
         ui->streamONbutton->setEnabled(1);
@@ -100,7 +100,7 @@ void MainWindow::on_openComButton_clicked()
     else if(com_open == 1)
     {
         qDebug("Tried n times, failed.");
-        str += QString("Tried ") + QString::number(tries) + QString(" times, failed. Right port? Check your permissions.");
+        str += QString(" Tried ") + QString::number(tries) + QString(" times, failed. Right port? Check your permissions.");
 
         //Reactivate button:
         ui->openComButton->setEnabled(1);
@@ -109,7 +109,7 @@ void MainWindow::on_openComButton_clicked()
     else
     {
         qDebug("Some other error...");
-        str += QString("Unknown error.");
+        str += QString(" Unknown error...");
 
         //Reactivate button:
         ui->openComButton->setEnabled(1);
