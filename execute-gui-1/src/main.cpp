@@ -14,25 +14,7 @@ int main(int argc, char *argv[])
 
     w.show();
 
-    /*
-    while(1)
-    {
-        test_function(w);
-    }
-    */
-
     return a.exec();
-}
-
-void test_function(MainWindow &ptr)
-{
-    static unsigned char myvar = 0;
-    myvar++;
-    delay();
-
-    ptr.stream_1_refresh(QString::number(myvar));
-
-    qDebug("Test message");
 }
 
 void delay()

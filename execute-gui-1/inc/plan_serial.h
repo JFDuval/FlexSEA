@@ -29,7 +29,7 @@ int flexsea_serial_open_2(char *port, unsigned int tries, unsigned int delay);
 void flexsea_serial_close(void);
 void flexsea_serial_transmit(char bytes_to_send, unsigned char *serial_tx_data, unsigned char verbal);
 void flexsea_serial_putc(char *bytes_to_write);
-void flexsea_serial_read(uint8_t *buffer);
+int flexsea_serial_read(uint8_t *buffer);
 
 //****************************************************************************
 // Definition(s):

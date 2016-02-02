@@ -231,11 +231,12 @@ void flexsea_serial_transmit(char bytes_to_send, unsigned char *serial_tx_data, 
 #define TRIES 	8
 #define DELAY	1
 //From http://stackoverflow.com/questions/18108932/linux-c-serial-port-reading-writing
-void flexsea_serial_read(uint8_t *buffer)
+int flexsea_serial_read(uint8_t *buffer)
 {
 	int n = 0, spot = 0, i = 0;
 	unsigned char buf = '\0';
 	char bytesavailable = 0;
+    int ret = 0;
 
 	//Wait for n bytes
 	do{
@@ -247,15 +248,22 @@ void flexsea_serial_read(uint8_t *buffer)
 			   read( fd, &buf, 1 );
 			   update_rx_buf_byte_usb(buf);
 			}
+
+            ret = 0;
 		}
 		else
 		{
 			usleep(10);
 			n++;
 			if(n > 500)
+            {
+                ret = 1;
 				break;
+            }
 		}
 	}while(bytesavailable > 0);
+
+    return ret; //1 = failed, 0 = read at least one byte
 }
 
 #ifdef __cplusplus

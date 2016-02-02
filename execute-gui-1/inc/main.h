@@ -70,7 +70,7 @@ extern const char *delims;
 #define RESET_PORT				9
 #define RESET_PIN				12
 
-#define NULL					0
+//#define NULL					0
 
 #ifdef __cplusplus
 }

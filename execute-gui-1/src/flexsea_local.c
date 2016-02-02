@@ -136,10 +136,15 @@ uint8_t decode_usb_rx(void)
     int i = 0, result = 0, n = 0;
     uint8_t cmd_ready_usb = 0;
     uint8_t tmp_rx_command_usb[PACKAGED_PAYLOAD_LEN];
-    uint8_t valid = 0;
+    uint8_t ret = 0;
 
     //Get data
-    flexsea_serial_read(usb_rx);
+    ret = flexsea_serial_read(usb_rx);
+    if(ret == 1)
+    {
+        //ret == 1 means no byte read - abort
+        return ret;
+    }
 
     /*
     //Transfer spi_rx to flexsea's buffer
@@ -155,14 +160,14 @@ uint8_t decode_usb_rx(void)
     {
 		#ifdef USE_PRINTF
         //printf("[Received a valid comm_str!]\n");
-    	valid = 1;
+        ret = 0;
 		#endif
     }
     else
     {
 		#ifdef USE_PRINTF
        // printf("[No intelligent data received]\n");
-    	valid = 0;
+        ret = 2;
 		#endif
     }
 
@@ -178,9 +183,17 @@ uint8_t decode_usb_rx(void)
         }
 
         result = payload_parse_str(tmp_rx_command_usb);
+
+        //One or more new USB commands
+        ret = 3;
+    }
+    else
+    {
+        //No new USB command
+        ret = 4;
     }
 
-    return valid;
+    return ret;
 }
 
 //Received a "Reset" command from the console

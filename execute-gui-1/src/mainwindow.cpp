@@ -3,14 +3,18 @@
 #include "ui_mainwindow.h"
 #include <QPushButton>
 #include <QTimer>
+#include <QDebug>
 #include <string>
+#include "qcustomplot.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    //MainWindow::makePlot();
+
+    makePlot();
+    //QCustomPlot customPlot;
 
     //Default settings:
     //=================
@@ -24,17 +28,23 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->closeComButton->setDisabled(1); //Not programmed yet.
 
     //Stream/log:
+    stream_status = 0;
     ui->streamONbutton->setDisabled(1);
     ui->streamOFFbutton->setDisabled(1);
     ui->openLogButton->setDisabled(1);
     ui->logFileTxt->setText("Not programmed... do not use yet.");
+    ui->streamRefreshTxt->setText("10");
+    ui->streamRefreshStatusTxt->setText("Default setting, 10Hz.");
+    ui->logRefreshTxt->setText("10");
+    ui->logRefreshStatusTxt->setText("Default setting, 10Hz.");
 
     //=================
 
     //Timer:
-    QTimer *timer = new QTimer(this);
+    //QTimer *timer = new QTimer(this);
+    timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(timerEvent()));
-    timer->start(1000);
+    timer->start(100);
 }
 
 MainWindow::~MainWindow()
@@ -42,7 +52,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-/*
 void MainWindow::makePlot()
 {
     // generate some data:
@@ -63,7 +72,7 @@ void MainWindow::makePlot()
     ui->customPlot->yAxis->setRange(0, 1);
     ui->customPlot->replot();
 }
-*/
+
 
 //ToDo this should move to a different file!
 void MainWindow::on_openComButton_clicked()
@@ -87,7 +96,6 @@ void MainWindow::on_openComButton_clicked()
     ui->openComButton->repaint();
 
     //Open USB (serial) port:
-//ToDo save/use com str
     com_open = flexsea_serial_open_2(comport_char, tries, 50000);
     if(!com_open)
     {
@@ -121,15 +129,6 @@ void MainWindow::on_openComButton_clicked()
     ui->comStatusTxt->repaint();
 }
 
-void MainWindow::on_comPortTxt_textChanged(const QString &arg1)
-{
-    //com_port_text();
-}
-
-void MainWindow::com_port_text()
-{
-}
-
 void MainWindow::on_streamONbutton_clicked()
 {
     ui->streamONbutton->setDisabled(1);
@@ -150,11 +149,6 @@ void MainWindow::on_streamOFFbutton_clicked()
     ui->streamOFFbutton->repaint();
 
     stream_status = 0;
-}
-
-void MainWindow::stream_1_refresh(QString val1)
-{
-    ui->disp_accx->setText(val1);
 }
 
 void MainWindow::timerEvent(void)
@@ -178,19 +172,57 @@ void MainWindow::timerEvent(void)
         //Can we decode what we received?
         int val = decode_usb_rx();
 
-        if(val == 1)
-        {
-            qDebug("[Received a valid comm_str!]");
-        }
-        else if(val == 0)
-        {
-            qDebug("[No intelligent data received]");
-        }
-        else
-        {
-            qDebug("Some other error...");
-        }
+        //Display return status:
+        //qDebug() << "decode_usb_rx(): " << val;
+
+        ui->disp_enc->setText(QString::number(exec1.encoder));
+        ui->disp_gyrox->setText(QString::number(exec1.imu.x));
+        ui->disp_gyroy->setText(QString::number(exec1.imu.y));
+        ui->disp_gyroz->setText(QString::number(exec1.imu.z));
+        ui->disp_strain->setText(QString::number(exec1.strain));
+        ui->disp_ana->setText(QString::number(exec1.analog[0]));
+        ui->disp_current->setText(QString::number(exec1.current));
+        ui->disp_stat1->setText(QString::number(exec1.status1));
+        ui->disp_stat2->setText(QString::number(exec1.status2));
+
+        ui->tabWidget->repaint();
 
         //==========
+    }
+}
+
+#define STREAM_MIN_FREQ     1
+#define STREAM_MAX_FREQ     1000
+
+void MainWindow::on_updateRefreshButton_clicked()
+{
+    QString freq_txt, status;
+    int period = 0, freq = 0;
+
+    //Get frequency from text box, check limits
+    freq_txt = ui->streamRefreshTxt->text();
+    freq = freq_txt.toInt();
+    if(freq < STREAM_MIN_FREQ)
+    {
+        status = "Invalid, minimum of " + QString::number(STREAM_MIN_FREQ) + "Hz.";
+        ui->streamRefreshStatusTxt->setText(status);
+        return;
+    }
+    else if(freq > STREAM_MAX_FREQ)
+    {
+        status = "Invalid, maximum of " + QString::number(STREAM_MAX_FREQ) + "Hz.";
+        ui->streamRefreshStatusTxt->setText(status);
+        return;
+    }
+    else
+    {
+        //Valid frequency: compute priod, modify timer.
+
+        period = (1000/freq);   //in ms
+        //qDebug() << "Frequency in textbox is: " << freq << "Hz. Associated period (integer): " << period << "ms.";
+
+        status = "f = " + QString::number(freq) + "Hz, integer period = " + QString::number(period) + "ms.";
+        ui->streamRefreshStatusTxt->setText(status);
+        timer->setInterval(period);
     }
 }
