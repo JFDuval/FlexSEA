@@ -19,6 +19,7 @@ public:
 
 private:
     int stream_status;
+    int plot_buf[1000]; //ToDo!
 
     QTimer *timer_stream, *timer_log, *timer_plot;
 
@@ -30,6 +31,10 @@ private:
     void genTestData(void);
     QCustomPlot customPlot;
     int plot_xmin, plot_ymin, plot_xmax, plot_ymax, plot_len;
+
+    void update_plot_buf(int new_data);
+    void update_plot_buf_single(int *buf, int *idx, int new_data);
+    void plotEncoder(void);
 
 private slots:
 

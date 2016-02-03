@@ -109,7 +109,7 @@ void MainWindow::refreshPlot(int *x, int *y, int len)
     {
         array_minmax(y, len, &plot_ymin, &plot_ymax);
 
-        ui->customPlot->yAxis->setRange(plot_ymin, plot_ymax);
+        ui->customPlot->yAxis->setRange(plot_ymin-10, plot_ymax+10);
         ui->plot_ymin_lineEdit->setText(QString::number(plot_ymin));
         ui->plot_ymax_lineEdit->setText(QString::number(plot_ymax));
     }
@@ -146,6 +146,58 @@ void MainWindow::genTestData(void)
     }
 
     refreshPlot(x, y, plot_len);
+}
+
+void MainWindow::plotEncoder(void)
+{
+    int x[plot_len], y[plot_len];
+
+    //Generate x index - ToDo optimize
+    for (int i=0; i<plot_len; ++i)
+    {
+      x[i] = i; // x goes from 0 to 1
+    }
+
+    //Get new datapoint from Stream:
+    update_plot_buf(exec1.encoder);
+    qCopy(plot_buf, plot_buf+plot_len, y);
+
+    refreshPlot(x, y, plot_len);
+}
+
+void MainWindow::update_plot_buf(int new_data)
+{
+    static int idx_plot = 0;
+
+    //Updating buffer with one new data point
+    update_plot_buf_single(plot_buf, &idx_plot, new_data);
+
+}
+
+//Add one byte to the FIFO buffer
+//Do not call that function directly
+void MainWindow::update_plot_buf_single(int *buf, int *idx, int new_data)
+{
+    uint32_t i = 0;
+
+    if((*idx) < plot_len)
+    {
+        //Buffer isn't full yet, no need to discard "old" bytes
+        buf[(*idx)] = new_data;
+        (*idx)++;
+    }
+    else
+    {
+        //Shift buffer to clear one spot
+        for(i = 1; i < plot_len; i++)
+        {
+            buf[i-1] = buf[i];
+        }
+        //Add last byte to the buffer
+        buf[plot_len-1] = new_data;
+    }
+
+    //buf[] is now up to date
 }
 
 //ToDo this should move to a different file!
@@ -268,7 +320,8 @@ void MainWindow::timerStreamEvent(void)
 void MainWindow::timerPlotEvent(void)
 {
     //Update plot
-    genTestData();  //Test data
+    //genTestData();  //Test data
+    plotEncoder();
 }
 
 #define STREAM_MIN_FREQ     1
