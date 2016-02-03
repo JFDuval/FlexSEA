@@ -11,10 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
-
-    makePlot();
-    //QCustomPlot customPlot;
+    ui->setupUi(this);    
 
     //Default settings:
     //=================
@@ -38,13 +35,35 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->logRefreshTxt->setText("10");
     ui->logRefreshStatusTxt->setText("Default setting, 10Hz.");
 
+    //Plot:
+    plot_len = 101;
+    plot_xmin = 0;
+    plot_xmax = 100;
+    plot_ymin = 0;
+    plot_ymax = 200;
+    ui->radioButtonXAuto->setChecked(1);
+    ui->radioButtonXManual->setChecked(0);
+    ui->radioButtonYAuto->setChecked(1);
+    ui->radioButtonYManual->setChecked(0);
+    ui->plot_xmin_lineEdit->setText(QString::number(plot_xmin));
+    ui->plot_xmax_lineEdit->setText(QString::number(plot_xmax));
+    ui->plot_ymin_lineEdit->setText(QString::number(plot_ymin));
+    ui->plot_ymax_lineEdit->setText(QString::number(plot_ymax));
+    makePlot();
+
+    //=================
+    //Timers:
     //=================
 
-    //Timer:
-    //QTimer *timer = new QTimer(this);
-    timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(timerEvent()));
-    timer->start(100);
+    //Stream:
+    timer_stream = new QTimer(this);
+    connect(timer_stream, SIGNAL(timeout()), this, SLOT(timerStreamEvent()));
+    timer_stream->start(100);
+
+    //Plot:
+    timer_plot = new QTimer(this);
+    connect(timer_plot, SIGNAL(timeout()), this, SLOT(timerPlotEvent()));
+    timer_plot->start(40);
 }
 
 MainWindow::~MainWindow()
@@ -54,25 +73,80 @@ MainWindow::~MainWindow()
 
 void MainWindow::makePlot()
 {
-    // generate some data:
-    QVector<double> x(101), y(101); // initialize with entries 0..100
-    for (int i=0; i<101; ++i)
-    {
-      x[i] = i/50.0 - 1; // x goes from -1 to 1
-      y[i] = x[i]*x[i]; // let's plot a quadratic function
-    }
     // create graph and assign data to it:
     ui->customPlot->addGraph();
-    ui->customPlot->graph(0)->setData(x, y);
+    //ui->customPlot->graph(0)->setData(x, y);
     // give the axes some labels:
     ui->customPlot->xAxis->setLabel("x");
     ui->customPlot->yAxis->setLabel("y");
     // set axes ranges, so we see all data:
-    ui->customPlot->xAxis->setRange(-1, 1);
-    ui->customPlot->yAxis->setRange(0, 1);
+    ui->customPlot->xAxis->setRange(plot_xmin, plot_xmax);
+    ui->customPlot->yAxis->setRange(plot_ymin, plot_ymax);
     ui->customPlot->replot();
 }
 
+//makePlot created a plot. We now update its data.
+void MainWindow::refreshPlot(int *x, int *y, int len)
+{
+    //From array to QVector:
+    QVector<double> xdata(len), ydata(len);
+    qCopy(x, x+len, xdata.begin());
+    qCopy(y, y+len, ydata.begin());
+
+    ui->customPlot->graph(0)->setData(xdata, ydata);
+
+    //In Automatic mode we constantly adjust the axis:
+    if(ui->radioButtonXAuto->isChecked())
+    {
+        array_minmax(x, len, &plot_xmin, &plot_xmax);
+
+        ui->customPlot->xAxis->setRange(plot_xmin, plot_xmax);
+        ui->plot_xmin_lineEdit->setText(QString::number(plot_xmin));
+        ui->plot_xmax_lineEdit->setText(QString::number(plot_xmax));
+    }
+
+    if(ui->radioButtonYAuto->isChecked())
+    {
+        array_minmax(y, len, &plot_ymin, &plot_ymax);
+
+        ui->customPlot->yAxis->setRange(plot_ymin, plot_ymax);
+        ui->plot_ymin_lineEdit->setText(QString::number(plot_ymin));
+        ui->plot_ymax_lineEdit->setText(QString::number(plot_ymax));
+    }
+
+    ui->customPlot->replot();
+}
+
+void MainWindow::array_minmax(int *arr, int len, int *min, int *max)
+{
+    (*min) = arr[0];
+    (*max) = arr[0];
+
+    for(int i = 0; i < len; i++)
+    {
+        if(arr[i] < (*min))
+            (*min) = arr[i];
+        if(arr[i] > (*max))
+            (*max) = arr[i];
+    }
+}
+
+void MainWindow::genTestData(void)
+{
+    int x[plot_len], y[plot_len];
+    static int offset = 0;
+    offset+=1;
+    if(offset > 100)
+        offset = 0;
+
+    for (int i=0; i<plot_len; ++i)
+    {
+      x[i] = i; // x goes from 0 to 1
+      y[i] = i + (offset); // let's plot a quadratic function
+    }
+
+    refreshPlot(x, y, plot_len);
+}
 
 //ToDo this should move to a different file!
 void MainWindow::on_openComButton_clicked()
@@ -151,7 +225,7 @@ void MainWindow::on_streamOFFbutton_clicked()
     stream_status = 0;
 }
 
-void MainWindow::timerEvent(void)
+void MainWindow::timerStreamEvent(void)
 {
     if(stream_status)
     {
@@ -191,6 +265,12 @@ void MainWindow::timerEvent(void)
     }
 }
 
+void MainWindow::timerPlotEvent(void)
+{
+    //Update plot
+    genTestData();  //Test data
+}
+
 #define STREAM_MIN_FREQ     1
 #define STREAM_MAX_FREQ     1000
 
@@ -223,6 +303,29 @@ void MainWindow::on_updateRefreshButton_clicked()
 
         status = "f = " + QString::number(freq) + "Hz, integer period = " + QString::number(period) + "ms.";
         ui->streamRefreshStatusTxt->setText(status);
-        timer->setInterval(period);
+        timer_stream->setInterval(period);
     }
+}
+
+void MainWindow::on_UpdatePlotpushButton_clicked()
+{
+    //X:
+    if(ui->radioButtonXManual->isChecked())
+    {
+        //Manual
+        plot_xmin = ui->plot_xmin_lineEdit->text().toInt();
+        plot_xmax = ui->plot_xmax_lineEdit->text().toInt();
+    }
+
+    //Y:
+    if(ui->radioButtonYManual->isChecked())
+    {
+        //Manual
+        plot_ymin = ui->plot_ymin_lineEdit->text().toInt();
+        plot_ymax = ui->plot_ymax_lineEdit->text().toInt();
+    }
+
+    //Update axis:
+    ui->customPlot->xAxis->setRange(plot_xmin, plot_xmax);
+    ui->customPlot->yAxis->setRange(plot_ymin, plot_ymax);
 }

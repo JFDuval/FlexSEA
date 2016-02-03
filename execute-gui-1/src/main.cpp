@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include <QTime>
+#include <QDebug>
 
 void test_function(MainWindow &ptr);
 void delay();
