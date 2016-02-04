@@ -1059,6 +1059,19 @@
        </item>
       </layout>
      </widget>
+     <widget class="QCheckBox" name="checkBoxFakeData">
+      <property name="geometry">
+       <rect>
+        <x>910</x>
+        <y>10</y>
+        <width>97</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Fake data?</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="exp">
      <attribute name="title">

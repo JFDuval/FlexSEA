@@ -38,7 +38,11 @@ SOURCES += src/main.cpp \
     ../common/src/flexsea_buffers.c \
     ../common/src/flexsea_cmd_system.c \
     ../common/src/flexsea.c \
-    ../common/src/flexsea_cmd_comm.c
+    ../common/src/flexsea_cmd_comm.c \
+    src/mw_tab_config.cpp \
+    src/mw_tab_plot_1.cpp \
+    src/mw_tab_stream_1.cpp \
+    src/mw_tab_exp.cpp
 
 HEADERS  += inc/mainwindow.h \
     inc/qcustomplot.h \
