@@ -36,45 +36,6 @@ void decode_psoc4_values(uint8 *psoc4_data)
 	safety_cop.status2 = psoc4_data[MEM_R_STATUS2];
 }
 
-//Copy of the test code used in main.c to test the hardware:
-void safety_cop_comm_test_blocking(void)
-{
-	//PSoC 4 <=> PSoC 5 I2C Test code
-	
-	uint8 i2c_test_wbuf[9];
-	uint8 i2c_test_rbuf[24];
-	uint8 ledg_state = 0;
-	
-	while(1)
-	{
-		//Write to slave:
-		//I2C_1_MasterWriteBuf(0x11, (uint8 *) i2c_test_wbuf, 9, I2C_1_MODE_COMPLETE_XFER);
-		
-		//Read from slave:
-		i2c_test_wbuf[0] = 0;
-		I2C_1_MasterWriteBuf(SCOP_I2C_ADDR, (uint8 *) i2c_test_wbuf, 1, I2C_1_MODE_COMPLETE_XFER);	//Write offset
-		CyDelayUs(500);
-		I2C_1_MasterReadBuf(SCOP_I2C_ADDR, i2c_test_rbuf, 24, I2C_1_MODE_COMPLETE_XFER);
-		CyDelayUs(500);
-		decode_psoc4_values(i2c_test_rbuf);
-		
-		ledg_state ^= 1;
-		LED_G_Write(ledg_state);
-		
-		//Yellow when there is an error:
-		if(safety_cop.status1)
-		{
-			LED_R_Write(ledg_state);
-		}
-		else
-		{
-			LED_R_Write(0);
-		}
-		
-		CyDelay(250);	
-	}
-}
-
 //Returns the die temperature.
 //ToDo deal with the active_error, or replace with better code
 int16 dietemp_read(void)
@@ -107,18 +68,6 @@ int16 dietemp_read(void)
 		return 0;
 			
 	#endif	//USE_DIETEMP		
-}
-
-void wdclk_test_blocking(void)
-{
-	uint8 toggle_wdclk = 0;
-	
-	while(1)
-	{
-		toggle_wdclk ^= 1;
-		WDCLK_Write(toggle_wdclk);
-		CyDelayUs(1200);
-	}
 }
 
 //Manual I2C [Write - Restart - Read n bytes] function
@@ -240,5 +189,60 @@ void overtemp_error(uint8 *eL1, uint8 *eL2)
 		err_cnt = 0;
 		(*eL1) = 0;
 		(*eL2) = 0;
+	}
+}
+
+//****************************************************************************
+// Test Function(s) - Use with care!
+//****************************************************************************
+
+//Copy of the test code used in main.c to test the hardware:
+void safety_cop_comm_test_blocking(void)
+{
+	//PSoC 4 <=> PSoC 5 I2C Test code
+	
+	uint8 i2c_test_wbuf[9];
+	uint8 i2c_test_rbuf[24];
+	uint8 ledg_state = 0;
+	
+	while(1)
+	{
+		//Write to slave:
+		//I2C_1_MasterWriteBuf(0x11, (uint8 *) i2c_test_wbuf, 9, I2C_1_MODE_COMPLETE_XFER);
+		
+		//Read from slave:
+		i2c_test_wbuf[0] = 0;
+		I2C_1_MasterWriteBuf(SCOP_I2C_ADDR, (uint8 *) i2c_test_wbuf, 1, I2C_1_MODE_COMPLETE_XFER);	//Write offset
+		CyDelayUs(500);
+		I2C_1_MasterReadBuf(SCOP_I2C_ADDR, i2c_test_rbuf, 24, I2C_1_MODE_COMPLETE_XFER);
+		CyDelayUs(500);
+		decode_psoc4_values(i2c_test_rbuf);
+		
+		ledg_state ^= 1;
+		LED_G_Write(ledg_state);
+		
+		//Yellow when there is an error:
+		if(safety_cop.status1)
+		{
+			LED_R_Write(ledg_state);
+		}
+		else
+		{
+			LED_R_Write(0);
+		}
+		
+		CyDelay(250);	
+	}
+}
+
+void wdclk_test_blocking(void)
+{
+	uint8 toggle_wdclk = 0;
+	
+	while(1)
+	{
+		toggle_wdclk ^= 1;
+		WDCLK_Write(toggle_wdclk);
+		CyDelayUs(1200);
 	}
 }

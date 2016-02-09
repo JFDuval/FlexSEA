@@ -29,14 +29,6 @@
 //Initializes all the variable
 void init_motor(void)
 {
-	//Variables:
-	//=-=-=-=-=-=
-	
-	init_ctrl_data_structure();
-	
-	//Peripherals:
-	//=-=-=-=-=-=
-	
 	//PWM1: BLDC
 	PWM_1_Start();
 	PWM_1_WriteCompare1(0);			//Start at 0%

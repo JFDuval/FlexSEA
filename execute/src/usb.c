@@ -55,39 +55,9 @@ uint8 init_usb(void)
 	return 0;	//Timeout	
 }
 
-//Returns chars to PC. ToDo: make it non-blocking!
-uint8 usb_echo_blocking(void)
-{
-	static 	int16 count = 0;
-	uint16 i = 0;
-	
-	//USB Data
-	if(USBUART_1_DataIsReady() != 0u)               	//Check for input data from PC
-	{   
-		count = USBUART_1_GetAll(buffer);           	//Read received data and re-enable OUT endpoint
-		if(count != 0u)
-		{
-			while(USBUART_1_CDCIsReady() == 0u);    	//Wait till component is ready to send more data to the PC
-			USBUART_1_PutData(buffer, count);   		//Send data back to PC
-
-			//Store all bytes in rx buf:			
-			for(i = 0; i < count; i++)
-		    {
-		        update_rx_buf_byte_usb(buffer[i]);
-		    }	
-			//ToDo should use array update
-			
-			return 1;	//Got byte(s)
-		}
-    } 
-	
-	return 0;	//No byte
-}
-
 void get_usb_data(void)
 {
 	static 	int16 count = 0;
-	uint16 i = 0;
 	
 	//USB Data
 	if(USBUART_1_DataIsReady() != 0u)               	//Check for input data from PC
@@ -101,40 +71,6 @@ void get_usb_data(void)
 			data_ready_usb++;
 		}
     } 	
-}
-
-//Send 4 uint16 to the terminal
-int16 send_usb_packet(uint16 word1, uint16 word2, uint16 word3, uint16 word4)
-{
-	static uint8 cnt = 0;
-	char8 packet[18];
-
-	cnt++;
-	
-	packet[0] = 0xAA;	//Start byte	
-
-	packet[2] = ((word1 & 0xFF00) >> 8);
-	packet[3] = ((word1 & 0x00FF));
-	
-	packet[4] = ((word2 & 0xFF00) >> 8);
-	packet[5] = ((word2 & 0x00FF));
-	
-	packet[6] = ((word3 & 0xFF00) >> 8);
-	packet[7] = ((word3 & 0x00FF));
-	
-	packet[8] = ((word4 & 0xFF00) >> 8);
-	packet[9] = ((word4 & 0x00FF));
-	
-
-	packet[15] = 0xCC;	//End byte
-	packet[16] = '\n';
-	packet[17] = '\0';
-	
-	//Make sure that the peripheral is ready
-	while(USBUART_1_CDCIsReady() == 0u);	//ToDo Add timeout!
-	USBUART_1_PutData((const uint8*)packet, 18);
-
-	return 0;
 }
 
 //1 byte through USB - ho headers, raw data
@@ -210,4 +146,75 @@ void usb_puts(uint8 *buf, uint32 len)
 {
 	if(USBUART_1_CDCIsReady() == 1)
 		USBUART_1_PutData(( const uint8*)buf, len);
+}
+
+//****************************************************************************
+// Test Function(s) - Use with care!
+//****************************************************************************
+
+//Returns chars to PC. ToDo: make it non-blocking!
+uint8 usb_echo_blocking(void)
+{
+	static 	int16 count = 0;
+	uint16 i = 0;
+	
+	//USB Data
+	if(USBUART_1_DataIsReady() != 0u)               	//Check for input data from PC
+	{   
+		count = USBUART_1_GetAll(buffer);           	//Read received data and re-enable OUT endpoint
+		if(count != 0u)
+		{
+			while(USBUART_1_CDCIsReady() == 0u);    	//Wait till component is ready to send more data to the PC
+			USBUART_1_PutData(buffer, count);   		//Send data back to PC
+
+			//Store all bytes in rx buf:			
+			for(i = 0; i < count; i++)
+		    {
+		        update_rx_buf_byte_usb(buffer[i]);
+		    }	
+			//ToDo should use array update
+			
+			return 1;	//Got byte(s)
+		}
+    } 
+	
+	return 0;	//No byte
+}
+
+//****************************************************************************
+// Deprecated Function(s)
+//****************************************************************************
+
+//Send 4 uint16 to the terminal
+int16 send_usb_packet(uint16 word1, uint16 word2, uint16 word3, uint16 word4)
+{
+	static uint8 cnt = 0;
+	char8 packet[18];
+
+	cnt++;
+	
+	packet[0] = 0xAA;	//Start byte	
+
+	packet[2] = ((word1 & 0xFF00) >> 8);
+	packet[3] = ((word1 & 0x00FF));
+	
+	packet[4] = ((word2 & 0xFF00) >> 8);
+	packet[5] = ((word2 & 0x00FF));
+	
+	packet[6] = ((word3 & 0xFF00) >> 8);
+	packet[7] = ((word3 & 0x00FF));
+	
+	packet[8] = ((word4 & 0xFF00) >> 8);
+	packet[9] = ((word4 & 0x00FF));
+	
+
+	packet[15] = 0xCC;	//End byte
+	packet[16] = '\n';
+	packet[17] = '\0';
+	
+	//Make sure that the peripheral is ready
+	while(USBUART_1_CDCIsReady() == 0u);	//ToDo Add timeout!
+	USBUART_1_PutData((const uint8*)packet, 18);
+
+	return 0;
 }

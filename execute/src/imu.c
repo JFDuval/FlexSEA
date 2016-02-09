@@ -206,44 +206,6 @@ int imu_read(uint8 internal_reg_addr, uint8 *pData, uint16 length)
 	return 0;
 }
 
-//Copy of the test code used in main.c to test the hardware:
-void imu_test_code_blocking(void)
-{
-	//IMU test code
-	
-	uint8 ledg_state = 0;
-	int16 imu_accel_x = 0;
-
-	/*
-	//Single channel test:
-	while(1)
-	{
-		imu_accel_x = get_accel_x();
-		send_usb_int16(imu_accel_x);
-		
-		ledg_state ^= 1;
-		LED_G_Write(ledg_state);
-		
-		CyDelay(75);		
-	}
-	*/
-	
-	// 3 channels test (only one displayed)
-	while(1)
-	{
-		get_accel_xyz();
-		//get_gyro_xyz();
-		#ifdef USE_USB
-		send_usb_int16(imu.gyro.z);
-		#endif	//USE_USB
-		
-		ledg_state ^= 1;
-		LED_G_Write(ledg_state);
-		
-		CyDelay(75);		
-	}
-}
-
 //Simplified version of I2C_1_MasterWriteByte() (single master only) with timeouts
 //timeout is in us
 uint8 I2C_1_MasterWriteByteTimeOut(uint8 theByte, uint32 timeout)
@@ -310,4 +272,44 @@ uint8 I2C_1_MasterWriteByteTimeOut(uint8 theByte, uint32 timeout)
 // Private Function(s)
 //****************************************************************************
 
+//****************************************************************************
+// Test Function(s) - Use with care!
+//****************************************************************************
 
+//Copy of the test code used in main.c to test the hardware:
+void imu_test_code_blocking(void)
+{
+	//IMU test code
+	
+	uint8 ledg_state = 0;
+	//int16 imu_accel_x = 0;
+
+	/*
+	//Single channel test:
+	while(1)
+	{
+		imu_accel_x = get_accel_x();
+		send_usb_int16(imu_accel_x);
+		
+		ledg_state ^= 1;
+		LED_G_Write(ledg_state);
+		
+		CyDelay(75);		
+	}
+	*/
+	
+	// 3 channels test (only one displayed)
+	while(1)
+	{
+		get_accel_xyz();
+		//get_gyro_xyz();
+		#ifdef USE_USB
+		send_usb_int16(imu.gyro.z);
+		#endif	//USE_USB
+		
+		ledg_state ^= 1;
+		LED_G_Write(ledg_state);
+		
+		CyDelay(75);		
+	}
+}

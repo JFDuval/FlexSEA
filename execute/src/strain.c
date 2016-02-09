@@ -127,17 +127,6 @@ uint16 strain_filter_dma(void)
 	uint32 sum = 0;
 	uint8 cnt = 0;
 	uint16 avg = 0;
-	volatile uint8 bug = 0;
-	
-	//Test code todo remove:
-	if(adc_delsig_dma_array[0] < 15000)
-	{
-		bug = 1;
-	}
-	else
-	{
-		bug = 0;
-	}
 	
 	//Sum all the terms
 	for(cnt = 2; cnt < STRAIN_BUF_LEN; cnt++)

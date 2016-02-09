@@ -34,10 +34,11 @@ uint8 DMA_4_TD[1];
 //Initialize and enables all the peripherals
 void init_peripherals(void)
 {
-	int usb_success = 0;
-	
 	//Motor control variables & peripherals:
 	init_motor();
+	
+	//Init Control:
+	init_ctrl_data_structure();
 	
 	//Timebases:
 	init_tb_timers();
@@ -101,15 +102,7 @@ void init_peripherals(void)
 	
 	//USB CDC
 	#ifdef USE_USB	
-	usb_success = init_usb();
-	/*if(usb_success)
-	{
-		LED_B_Write(0);
-	}
-	else
-	{
-		LED_B_Write(1);
-	}*/
+	init_usb();
 	#endif	//USE_USB
 }
 

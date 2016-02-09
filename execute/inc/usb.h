@@ -21,15 +21,17 @@
 //****************************************************************************
 
 uint8 init_usb(void);
-uint8 usb_echo_blocking(void);
-int16 send_usb_packet(uint16 word1, uint16 word2, uint16 word3, uint16 word4);
 void send_usb_int8(char payload);
 void send_usb_uint8(uint8 payload);
 void send_usb_int16(int16 payload);
 void send_usb_int32(int payload);
 void get_usb_data(void);
 void usb_puts(uint8 *buf, uint32 len);
-	
+
+uint8 usb_echo_blocking(void);
+
+int16 send_usb_packet(uint16 word1, uint16 word2, uint16 word3, uint16 word4);
+
 //****************************************************************************
 // Definition(s):
 //****************************************************************************

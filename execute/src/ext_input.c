@@ -131,7 +131,7 @@ static uint16 add_even_parity_msb(uint16 word)
 
 void as5047_test_code_blocking(void)
 {
-    uint8 i = 0;
+    //uint8 i = 0;
    
     //Init SPIM module:
     SPIM_1_Start();
