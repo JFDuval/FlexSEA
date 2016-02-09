@@ -47,24 +47,13 @@ uint16 angle = 0;
 int main(void)
 {
 	//Local variables:
-	int16 comm_res = 0, comm_success = 0;
-	uint8 last_byte = 0, uart_buf_size = 0;
 	uint8 i = 0;
 	unsigned char result = 0;
-	unsigned char comm_str_payload1[16];
-	unsigned char ledr_state = 0, ledg_state = 0, ledb_state = 0;
 	uint8 toggle_wdclk = 0;	
 	uint8 cmd_ready_485_1 = 0, cmd_ready_usb = 0;
 	static uint8 new_cmd_led = 0;
-	uint8 div2 = 0;
 	uint16 safety_delay = 0;
 	uint8 i2c_time_share = 0;
-	uint8 temp_status = 0;
-	uint16 rgb_test_code = 0;
-	static int32 enc_test = 0;
-	
-	int numb = 0;
-	unsigned char tmp_payload_xmit[PAYLOAD_BUF_LEN];
 	
 	//Power on delay with LEDs
 	power_on();	     
@@ -90,7 +79,7 @@ int main(void)
 	//test_uart_dma_xmit();
 	//motor_cancel_damping_test_code_blocking();
 	//csea_knee_up_down_test_demo();
-	motor_stepper_test_blocking_1(110);
+	//motor_stepper_test_blocking_1(110);
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 	
 	//Special code for the ExoBoots:
@@ -221,7 +210,6 @@ int main(void)
 				
 					//Refresh encoder readings
 					encoder_read();
-					enc_test = (int32)encoder.count;
 						
 					#endif	//USE_QEI1		
 					

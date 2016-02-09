@@ -1,14 +1,14 @@
 //****************************************************************************
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
-// jfduval@mit.edu
-// 02/2015
+// jfduval@media.mit.edu
+// 02/2016
 //****************************************************************************
-// motor: motor control functions
+// demo: Demonstration Test Code
 //****************************************************************************
 	
-#ifndef INC_MOTOR_H
-#define INC_MOTOR_H
+#ifndef INC_DEMO_H
+#define INC_DEMO_H
 
 //****************************************************************************
 // Include(s)
@@ -20,33 +20,30 @@
 // Shared variable(s)
 //****************************************************************************
 
+	
 //****************************************************************************
-// Prototype(s):
+// Public Function Prototype(s):
 //****************************************************************************	
-
-void init_motor(void);	
-void motor_open_speed_1(int16 pwm_duty);
-void motor_open_speed_2(int16 pwm_duty, int sign);
-
-void motor_fixed_pwm_test_code_blocking(int spd);
-
-int8 serial_motor_speed(int8 letter);
 
 //****************************************************************************
 // Definition(s):
 //****************************************************************************	
 
-//PWM limits
-#define MAX_PWM					760					//760 is 96% of 800			
-#define MIN_PWM					-MAX_PWM
-#define P1_DEADTIME				55					//Make sure that it matches the hardware setting!
-#define PWM1DC(x)				MAX(x, (P1_DEADTIME+2))
-#define PWM2DC(x)				MAX(((x - P1_DEADTIME)>>1), 10)
+//CSEA Knee will go up and down. Trajectory calculated by Trapez, feeding a position PI.
+#define CSEA_UP 		72000
+#define CSEA_DOWN 		11500
+#define MARGIN			375
+#define SPD_UP			7000000
+#define ACC_UP			4000000
+#define SPD_DOWN		7000000
+#define ACC_DOWN		4500000
+#define TICK_TO_ANGLE	672
+#define FF_GAIN			10
 	
 //****************************************************************************
 // Structure(s)
 //****************************************************************************	
 
 	
-#endif	//INC_MOTOR_H
+#endif	//INC_DEMO_H
 	

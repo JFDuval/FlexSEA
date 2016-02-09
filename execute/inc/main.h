@@ -30,7 +30,12 @@
 #include "strain.h"
 #include "safety.h"
 #include "peripherals.h"
-#include "exo.h"
+#include "user_exo.h"
+#include "control.h"
+#include "sensor_commut.h"
+#include "ext_input.h"
+#include "gen_waveform.h"
+#include "demo.h"
 #include "../../common/inc/flexsea.h"
 
 //****************************************************************************

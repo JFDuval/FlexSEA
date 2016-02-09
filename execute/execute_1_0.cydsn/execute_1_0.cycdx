@@ -147,10 +147,10 @@
     <register name="VDAC8_PM_STBY_CFG" address="0x400043B8" bitWidth="8" desc="Standby Power Mode Configuration Register 8" hidden="false">
       <field name="en_dac" from="4" to="0" access="RW" resetVal="" desc="Enable DAC block(s). Populated subsystems are counted from the LSB" />
     </register>
-    <register name="VDAC8_TR" address="0x40004608" bitWidth="8" desc="VDAC8_TR" hidden="false">
+    <register name="VDAC8_TR" address="0x4000460A" bitWidth="8" desc="VDAC8_TR" hidden="false">
       <field name="tr" from="7" to="0" access="RW" resetVal="" desc="8 Calibration bits" />
     </register>
-    <register name="VDAC8_CR0" address="0x40005820" bitWidth="8" desc="DAC Block Control Register 0" hidden="false">
+    <register name="VDAC8_CR0" address="0x40005828" bitWidth="8" desc="DAC Block Control Register 0" hidden="false">
       <field name="mode" from="4" to="4" access="R" resetVal="" desc="Mode Bit">
         <value name="DAC_MODE_V" value="0" desc="voltage DAC" />
         <value name="DAC_MODE_I" value="1" desc="current DAC" />
@@ -166,7 +166,7 @@
         <value name="DAC_HS_HIGHSPEED" value="1" desc="high speed (higher power)" />
       </field>
     </register>
-    <register name="VDAC8_CR1" address="0x40005821" bitWidth="8" desc="DAC Block Control Register 1" hidden="false">
+    <register name="VDAC8_CR1" address="0x40005829" bitWidth="8" desc="DAC Block Control Register 1" hidden="false">
       <field name="mx_data" from="5" to="5" access="RW" resetVal="" desc="Select DATA source">
         <value name="MX_DATA_REG" value="0" desc="Select register source (DACxn_D)" />
         <value name="MX_DATA_UDB" value="1" desc="Select UDB source" />
@@ -184,7 +184,7 @@
         <value name="RESET_UDB_EN_ENABLE" value="1" desc="Enable DAC Reset Source from UDB" />
       </field>
     </register>
-    <register name="VDAC8_SW0" address="0x40005A80" bitWidth="8" desc="DAC Analog Routing Register 0" hidden="false">
+    <register name="VDAC8_SW0" address="0x40005A90" bitWidth="8" desc="DAC Analog Routing Register 0" hidden="false">
       <field name="v_ag1" from="1" to="1" access="RW" resetVal="" desc="Connect voltage output to analog global of same side">
         <value name="AG_NC" value="0" desc="not connected" />
         <value name="AG_CONNECTED" value="1" desc="Connect to Analog Global" />
@@ -194,7 +194,7 @@
         <value name="AG_CONNECTED" value="1" desc="Connect to Analog Global" />
       </field>
     </register>
-    <register name="VDAC8_SW2" address="0x40005A82" bitWidth="8" desc="DAC Analog Routing Register 2" hidden="false">
+    <register name="VDAC8_SW2" address="0x40005A92" bitWidth="8" desc="DAC Analog Routing Register 2" hidden="false">
       <field name="v_abus3" from="3" to="3" access="RW" resetVal="" desc="Connect voltage output to analog (local) bus of the same side ">
         <value name="ABUS_NC" value="0" desc="not connected" />
         <value name="ABUS_CONNECTED" value="1" desc="Connect to Analog (local) Bus" />
@@ -204,7 +204,7 @@
         <value name="ABUS_CONNECTED" value="1" desc="Connect to Analog (local) Bus" />
       </field>
     </register>
-    <register name="VDAC8_SW3" address="0x40005A83" bitWidth="8" desc="DAC Analog Routing Register 3" hidden="false">
+    <register name="VDAC8_SW3" address="0x40005A93" bitWidth="8" desc="DAC Analog Routing Register 3" hidden="false">
       <field name="iout" from="7" to="7" access="RW" resetVal="" desc="Connect current output to pad">
         <value name="IOUT_NC" value="0" desc="not connected" />
         <value name="IOUT_CONNECT" value="1" desc="Connect to pad" />
@@ -218,7 +218,7 @@
         <value name="AMX_CONNECTED" value="1" desc="Connect to AMUXBUS" />
       </field>
     </register>
-    <register name="VDAC8_SW4" address="0x40005A84" bitWidth="8" desc="DAC Analog Routing Register 4" hidden="false">
+    <register name="VDAC8_SW4" address="0x40005A94" bitWidth="8" desc="DAC Analog Routing Register 4" hidden="false">
       <field name="i_ag1" from="1" to="1" access="RW" resetVal="" desc="Connect current output to analog global of same side">
         <value name="AG_NC" value="0" desc="not connected" />
         <value name="AG_CONNECTED" value="1" desc="Connect to Analog Global" />
@@ -228,7 +228,7 @@
         <value name="AG_CONNECTED" value="1" desc="Connect to Analog Global" />
       </field>
     </register>
-    <register name="VDAC8_STROBE" address="0x40005A87" bitWidth="8" desc="DAC Strobe Register" hidden="false">
+    <register name="VDAC8_STROBE" address="0x40005A97" bitWidth="8" desc="DAC Strobe Register" hidden="false">
       <field name="mx_strobe" from="2" to="0" access="RW" resetVal="" desc="Strobe source selection">
         <value name="MX_STROBE_BUSWRITE" value="000" desc="Select bus write strobe source (Enable gater regardless of strobe_en setting)" />
         <value name="MX_STROBE_UDB_SRC" value="001" desc="Select UDB strobe source" />
@@ -244,7 +244,7 @@
         <value name="STROBE_EN_1" value="1" desc="enable strobe" />
       </field>
     </register>
-    <register name="VDAC8_DATA" address="0x40005B80" bitWidth="8" desc="DAC Data Register" hidden="false">
+    <register name="VDAC8_DATA" address="0x40005B82" bitWidth="8" desc="DAC Data Register" hidden="false">
       <field name="data" from="7" to="0" access="RW" resetVal="" desc="8 DAC Data bits" />
     </register>
   </block>
@@ -613,90 +613,6 @@
     <block name="VirtualMux_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
     <block name="BSPIM" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   </block>
-  <block name="I2C_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
-    <block name="BusClock" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-    <block name="or_ff" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-    <block name="ZeroTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-    <block name="Vmux_clock" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-    <block name="Vmux_scl_out" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-    <block name="OneTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-    <block name="OneTerminal_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-    <block name="or_udb" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-    <block name="Bufoe_sda" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-    <block name="Vmux_timeout_clock" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-    <block name="or_udb_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-    <block name="Bufoe_scl" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-    <block name="ZeroTerminal_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-    <block name="Vmux_scl_in" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-    <block name="Vmux_sda_in" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-    <block name="ZeroTerminal_3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-    <block name="Vmux_sda_out" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-    <block name="Vmux_interrupt" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-    <block name="I2C_FF" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-    <block name="I2C_IRQ" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-    <register name="I2C_2_FF_XCFG" address="0x400049C8" bitWidth="8" desc="I2C Extended Configuration Register" hidden="false">
-      <field name="csr_clk_en" from="7" to="7" access="RW" resetVal="" desc="This bit is used for gating system clock for the blocks core logic that is not associated with AHB interface. Clock is made available to the core logic only when this bit is set to 1 and the input pin ext_clk_en is also active. If either of them is not active, the blocks core logic does not receive the system clock." />
-      <field name="i2c_on" from="6" to="6" access="RW" resetVal="" desc="This bit should be set by the user during initial block configuration if the user wants to use the I2C block as wake-up source. Only when this bit set along with other bits mentioned in the sleep mode section, the I2C wakes up system from sleep on address match." />
-      <field name="ready_to_sleep" from="5" to="5" access="R" resetVal="" desc="Once the user sets the force_nack bit, the I2C block sets this bit if I2C is not busy or it waits for ongoing transaction to be completed and then sets this bit. As long as this bit is set, the I2C block is going to nack all the transactions.Clearing force_nack bit automatically clears this bit. HW clears this bit automatically on assertion of PD (Power Down)" />
-      <field name="force_nack" from="4" to="4" access="RW" resetVal="" desc="This bit must be set by the user before putting the device to sleep and wait for ready_to_sleep status bit to be set. This can be cleared by user by writing '0' and the HW clears it automatically on assertion of PD(Power Down)" />
-      <field name="hw_addr_en" from="0" to="0" access="RW" resetVal="" desc="When this bit is set to a '1', hardware address compare is enabled. On an address match, an interrupt is generated, CSR register bit 3 is set, and the clock is stalled until the CPU writes a 0 into the CSR register bit 3. The address is automatically ACKed on a match. On an address mismatch,no interrupt is generated, clock is not stalled, and bit 3 in the CSR register is set. The CPU must write a 0 into the CSR register bit 3 to clear it. The address is automatically NACKed on a mismatch. You must configure the compare address in the ADR register. When this bit is set to a '0', software address compare is enabled. An interrupt is generated, the clock is stalled, and CSR register bit 3 is set when the received address byte is available in the Data register; to enable the CPU to do a firmware address compare. The clock is stalled until the CPU writes a 0 into the CSR register bit 3. The functionality of this bit is independent of the data buffering mode." />
-    </register>
-    <register name="I2C_2_FF_ADDR" address="0x400049CA" bitWidth="8" desc="I2C Slave Adddress Register" hidden="false">
-      <field name="slave_address" from="6" to="0" access="RW" resetVal="" desc="These seven bits hold the slave's own device address. These bits are held zero if I2C_CFG.en_mstr and I2C_CFG.en_slave are both zero." />
-    </register>
-    <register name="I2C_2_FF_CFG" address="0x400049D6" bitWidth="8" desc="I2C Configuration Register" hidden="false">
-      <field name="sio_select" from="7" to="7" access="RW" resetVal="" desc="I2C Pin Select for SCL/SDA lines from SIO1/SIO2, 0 = SCL and SDA lines get their inputs from SIO1 module.sclk_str1 and sda_ack1 are driven to SIO1 module and they get asserted once device wakes up from sleep. 1 = SCL and SDA lines get their inputs from SIO2 module. sclk_str2 and sda_ack2 are driven to SIO2 module and they get asserted once device wakes up from sleep. This bit is valid only when I2C.CFG[6] is asserted." />
-      <field name="pselect" from="6" to="6" access="RW" resetVal="" desc="I2C Pin Select for SCL/SDA lines from GPIO/SIO, 0 = SCL and SDA lines get their inputs from GPIO module.sclk_str0 and sda_ack0 are driven to GPIO module and they get asserted once device wakes up from sleep. 1 = SCL and SDA lines get their inputs from one of the SIO Blocks that is chosen based on the configuration of bit I2C.CFG[7]" />
-      <field name="bus_error_ie" from="5" to="5" access="RW" resetVal="" desc="Bus Error Interrupt Enable 0 disabled 1 enabled. An interrupt is generated on the detection of a Bus error condition." />
-      <field name="stop_ie" from="4" to="4" access="RW" resetVal="" desc="Stop Interrupt Enable 0 disabled 1 enabled. An interrupt is generated on the detection of a Stop condition." />
-      <field name="clock_rate" from="2" to="2" access="RW" resetVal="" desc="0 Samples/bit is 16, 1 Samples/bit is 32" />
-      <field name="en_mstr" from="1" to="1" access="RW" resetVal="" desc="Enables master mode for the device" />
-      <field name="en_slave" from="0" to="0" access="RW" resetVal="" desc="Enables Slave mode for the device" />
-    </register>
-    <register name="I2C_2_FF_CSR" address="0x400049D7" bitWidth="8" desc="I2C Control and Status Register" hidden="false">
-      <field name="bus_error" from="7" to="7" access="RW" resetVal="" desc="It must be cleared by firmware by writing a '0' to the bit position. It is never cleared by the hardware. 1 a misplaced Start or Stop condition was detected. This bit is held zero if I2C_CFG.en_mstr and I2C_CFG.en_slave are both zero." />
-      <field name="lost_arb" from="6" to="6" access="RW" resetVal="" desc="This bit is set immediately on lost arbitration; however, it does not cause an interrupt. This status may be checked after the following Byte Complete interrupt. Any Start detect or a write to the Start or Restart generate bits (MCSR register), when operating in Master mode, will also clear the bit. 1 lost Arbitration. This bit is held zero if I2C_CFG.en_mstr is zero." />
-      <field name="stop_status" from="5" to="5" access="RW" resetVal="" desc="It must be cleared by firmware with write of '0' to the bit position. It is never cleared by the hardware. 1 a Stop condition was detected. This bit is held zero if I2C_CFG.en_mstr and I2C_CFG.en_slave are both zero." />
-      <field name="ack" from="4" to="4" access="RW" resetVal="" desc="Acknowledge Out. Bit is automatically cleared by hardware on a Byte Complete event. 0 nack the last received byte. 1 ack the last received byte" />
-      <field name="address" from="3" to="3" access="RW" resetVal="" desc="It must be cleared by firmware with write of '0' to the bit position. 1 the received byte is a slave address. This bit is held zero if I2C_CFG.en_mstr and I2C_CFG.en_slave are both zero" />
-      <field name="transmit" from="2" to="2" access="RW" resetVal="" desc="Bit is set by firmware to define the direction of the byte transfer. Any Start detect will clear the bit. 0 receive mode 1 transmit mode. This bit is held zero if I2C_CFG.en_mstr and I2C_CFG.en_slave are both zero." />
-      <field name="lrb" from="1" to="1" access="RW" resetVal="" desc="Last Received Bit. The value of the 9th bit in a Transmit sequence, which is the acknowledge bit from the receiver. Any Start detect or a write to the Start or Restart generate bits, when operating in Master mode, will also clear the bit. 0 last transmitted byte was ACK'ed by the receiver. 1 last transmitted byte was NACK'ed by the receiver. This bit is held zero if I2C_CFG.en_mstr and I2C_CFG.en_slave are both zero." />
-      <field name="byte_complete" from="0" to="0" access="RW" resetVal="" desc="Transmit/Receive Mode: 0 no completed transmit/receive since last cleared by firmware. Any Start detect or a write to the start or Restart generate bits, when operating in Master mode, will also clear the bit. Transmit mode: 1 eight bits of data have been transmitted and an ACK or NACK has been received. Receive mode: 1 eight bits of data have been received. This bit is held zero if I2C_CFG.en_mstr and I2C_CFG.en_slave are both zero." />
-    </register>
-    <register name="I2C_2_FF_DATA" address="0x400049D8" bitWidth="8" desc="I2C Data Register" hidden="false">
-      <field name="data" from="7" to="0" access="RW" resetVal="" desc="Read received data or write data to transmit. These bits are held zero if I2C_CFG.en_mstr and I2C_CFG.en_slave are both zero." />
-    </register>
-    <register name="I2C_2_FF_MCSR" address="0x400049D9" bitWidth="8" desc="Master Control and Status Register: I2C_MCSR" hidden="false">
-      <field name="stop_gen" from="4" to="4" access="RW" resetVal="" desc="This bit is set only for master transmitter and used at the end of byte transfer. After byte complete status is set, if this bit is set followed by the Transmit bit in I2C.CSR register, Stop condition is generated after byte complete. This bit is automatically reset to 0 after the Stop, start or Restart has been generated. During data phase, if Stop Gen bit is set to 0, clearing the Transmit bit in I2C.CSR register will also generate a Stop condition. This bit is held zero if I2C_CFG.en_mstr and I2C_CFG.en_slave are both zero." />
-      <field name="bus_busy" from="3" to="3" access="R" resetVal="" desc="This bit is set to the following. 0 when a Stop condition is detected (from any bus master). 1 when a Start condition is detected (from any bus master). This bit is held zero if I2C_CFG.en_mstr and I2C_CFG.en_slave are both zero." />
-      <field name="master_mode" from="2" to="2" access="R" resetVal="" desc="This bit is set/cleared by hardware when the device is operating as a master. 0 stop condition detected, generated by this device. 1 start condition detected, generated by this device. This bit is held zero if I2C_CFG.en_mstr and I2C_CFG.en_slave are both zero." />
-      <field name="restart_gen" from="1" to="1" access="RW" resetVal="" desc="This bit is cleared by hardware when the Restart generation is complete. 0 restart generation complete. 1 generate a Restart condition. This bit is held zero if I2C_CFG.en_mstr and I2C_CFG.en_slave are both zero." />
-      <field name="start_gen" from="0" to="0" access="RW" resetVal="" desc="This bit is cleared by hardware when the Start generation is complete. 0 start generation complete. 1 generate a Start condition and send a byte (address) to the I2C bus, if bus is not busy. This bit is held zero if I2C_CFG.en_mstr and I2C_CFG.en_slave are both zero." />
-    </register>
-    <register name="I2C_2_FF_CLK_DIV1" address="0x400049DB" bitWidth="8" desc="I2C Clock Divide Factor Register-1" hidden="false">
-      <field name="Div" from="7" to="0" access="RW" resetVal="" desc="The configuration of this register along with that in register CLK_DIV2 defines the factor by which the SYSCLK will be divided in the I2C block. These bits are held zero if I2C_CFG.en_mstr and I2C_CFG.en_slave are both zero." />
-    </register>
-    <register name="I2C_2_FF_CLK_DIV2" address="0x400049DC" bitWidth="8" desc="I2C Clock Divide Factor Register-2" hidden="false">
-      <field name="Div" from="1" to="0" access="RW" resetVal="" desc="The configuration of this register along with that in register CLK_DIV1 defines the factor by whichthe SYSCLK will be divided in the I2C block. These bits are held zero if I2C_CFG.en_mstr and I2C_CFG.en_slave are both zero." />
-    </register>
-    <register name="I2C_2_FF__TMOUT_CSR" address="0x400049DD" bitWidth="8" desc="I2C Timerout Control and Status Register" hidden="false">
-      <field name="sda_pin_status" from="4" to="4" access="RW" resetVal="" desc="SDA Line status." />
-      <field name="scl_pin_status" from="3" to="3" access="RW" resetVal="" desc="SCL Line status." />
-      <field name="i2c_timeout_int_enable" from="2" to="2" access="R" resetVal="" desc="I2C Timeout interrupt enable." />
-      <field name="i2c_sda_timeout_enable" from="1" to="1" access="RW" resetVal="" desc="I2C SDA Timeout enable." />
-      <field name="i2c_scl_timeout_enable" from="0" to="0" access="RW" resetVal="" desc="I2C SCL Timeout enable." />
-    </register>
-    <register name="I2C_2_FF__TMOUT_SR" address="0x400049DE" bitWidth="8" desc="I2C Timerout Status Register" hidden="false">
-      <field name="sda_tmout_status" from="1" to="1" access="RW" resetVal="" desc="SDA Timeout status." />
-      <field name="scl_tmout_status" from="0" to="0" access="RW" resetVal="" desc="SCL Timeout status." />
-    </register>
-    <register name="I2C_2_FF__TMOUT_CFG0" address="0x400049DF" bitWidth="8" desc="I2C Timerout Period Configuration Register-0" hidden="false">
-      <field name="timeout_period_lowbyte" from="7" to="0" access="RW" resetVal="" desc="The configuration of this register along with that in register TMOUT_CFG1 to define the number units before SCL or SDA stuck low timeout triggers the I2C interrupt. The one unit is equal to SYSCLK/1024. The TMOUT_CFG0 defines lower byte of the period." />
-    </register>
-    <register name="I2C_2_FF__TMOUT_CFG1" address="0x400049E0" bitWidth="8" desc="Extended Configuration Register: TMOUT_CFG1" hidden="false">
-      <field name="timeout_period_highnibble" from="3" to="0" access="RW" resetVal="" desc="The configuration of this register along with that in register TMOUT_CFG1 to define the number units before SCL or SDA stuck low timeout triggers the I2C interrupt. The one unit is equal to SYSCLK/1024. The TMOUT_CFG1 defines higher octet of the period." />
-    </register>
-  </block>
   <block name="isr_dma_uart_tx" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="UART_DMA_XMIT" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
     <register name="UART_DMA_XMIT_CONTROL_REG" address="0x40006470" bitWidth="8" desc="" hidden="false" />
@@ -841,9 +757,6 @@
   </block>
   <block name="and_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="DMA_4" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="REF" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="R_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="AMuxHw_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="VDAC8_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
     <block name="viDAC8" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
     <block name="ZeroTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
@@ -957,121 +870,9 @@
       <field name="data" from="7" to="0" access="RW" resetVal="" desc="8 DAC Data bits" />
     </register>
   </block>
-  <block name="LED_R" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="VDAC8_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
-    <block name="viDAC8" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-    <block name="ZeroTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-    <block name="ZeroTerminal_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-    <block name="cy_analog_noconnect_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-    <block name="ZeroTerminal_3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-    <register name="VDAC8_PM_ACT_CFG" address="0x400043A8" bitWidth="8" desc="Active Power Mode Configuration Register 8" hidden="false">
-      <field name="en_dac" from="4" to="0" access="RW" resetVal="" desc="Enable DAC block(s). Populated subsystems are counted from the LSB" />
-    </register>
-    <register name="VDAC8_PM_STBY_CFG" address="0x400043B8" bitWidth="8" desc="Standby Power Mode Configuration Register 8" hidden="false">
-      <field name="en_dac" from="4" to="0" access="RW" resetVal="" desc="Enable DAC block(s). Populated subsystems are counted from the LSB" />
-    </register>
-    <register name="VDAC8_TR" address="0x4000460A" bitWidth="8" desc="VDAC8_TR" hidden="false">
-      <field name="tr" from="7" to="0" access="RW" resetVal="" desc="8 Calibration bits" />
-    </register>
-    <register name="VDAC8_CR0" address="0x40005828" bitWidth="8" desc="DAC Block Control Register 0" hidden="false">
-      <field name="mode" from="4" to="4" access="R" resetVal="" desc="Mode Bit">
-        <value name="DAC_MODE_V" value="0" desc="voltage DAC" />
-        <value name="DAC_MODE_I" value="1" desc="current DAC" />
-      </field>
-      <field name="range" from="3" to="2" access="RW" resetVal="" desc="Ranges for mode=0 (VDAC) and mode=1 (IDAC)">
-        <value name="DAC_RANGE_0" value="00" desc="x0=0V to 4*vref (1.024V); 0 to 31.875uA" />
-        <value name="DAC_RANGE_1" value="01" desc="x1=0V to 16*vref (4.096V); 0 to 255uA" />
-        <value name="DAC_RANGE_2" value="10" desc="x0=0V to 4*vref (1.024V); 0 to 2.040mA" />
-        <value name="DAC_RANGE_3" value="11" desc="x1=0V to 16*vref (4.096V); not used" />
-      </field>
-      <field name="hs" from="1" to="1" access="RW" resetVal="" desc="High Speed Bit">
-        <value name="DAC_HS_LOWPOWER" value="0" desc="regular (low power)" />
-        <value name="DAC_HS_HIGHSPEED" value="1" desc="high speed (higher power)" />
-      </field>
-    </register>
-    <register name="VDAC8_CR1" address="0x40005829" bitWidth="8" desc="DAC Block Control Register 1" hidden="false">
-      <field name="mx_data" from="5" to="5" access="RW" resetVal="" desc="Select DATA source">
-        <value name="MX_DATA_REG" value="0" desc="Select register source (DACxn_D)" />
-        <value name="MX_DATA_UDB" value="1" desc="Select UDB source" />
-      </field>
-      <field name="mx_idir" from="3" to="3" access="RW" resetVal="" desc="Mux selection for DAC current direction control">
-        <value name="MX_IDIR_REG" value="0" desc="Register source idirbit selected" />
-        <value name="MX_IDIR_UDB" value="1" desc="UDB ictrl selected" />
-      </field>
-      <field name="mx_ioff" from="1" to="1" access="RW" resetVal="" desc="Mux selection for DAC current off control">
-        <value name="MX_IOFF_REG" value="0" desc="Register source ioffbit selected" />
-        <value name="MX_IOFF_UDB" value="1" desc="UDB ictrl selected" />
-      </field>
-      <field name="reset_udb_en" from="4" to="4" access="RW" resetVal="" desc="DAC reset enable">
-        <value name="RESET_UDB_EN_DISABLE" value="0" desc="Disable DAC Reset Source from UDB (System reset always resets)" />
-        <value name="RESET_UDB_EN_ENABLE" value="1" desc="Enable DAC Reset Source from UDB" />
-      </field>
-    </register>
-    <register name="VDAC8_SW0" address="0x40005A90" bitWidth="8" desc="DAC Analog Routing Register 0" hidden="false">
-      <field name="v_ag1" from="1" to="1" access="RW" resetVal="" desc="Connect voltage output to analog global of same side">
-        <value name="AG_NC" value="0" desc="not connected" />
-        <value name="AG_CONNECTED" value="1" desc="Connect to Analog Global" />
-      </field>
-      <field name="v_ag0" from="0" to="0" access="RW" resetVal="" desc="Connect voltage output to analog global of same side">
-        <value name="AG_NC" value="0" desc="not connected" />
-        <value name="AG_CONNECTED" value="1" desc="Connect to Analog Global" />
-      </field>
-    </register>
-    <register name="VDAC8_SW2" address="0x40005A92" bitWidth="8" desc="DAC Analog Routing Register 2" hidden="false">
-      <field name="v_abus3" from="3" to="3" access="RW" resetVal="" desc="Connect voltage output to analog (local) bus of the same side ">
-        <value name="ABUS_NC" value="0" desc="not connected" />
-        <value name="ABUS_CONNECTED" value="1" desc="Connect to Analog (local) Bus" />
-      </field>
-      <field name="v_abus1" from="1" to="1" access="RW" resetVal="" desc="Connect voltage output to analog (local) bus of the same side ">
-        <value name="ABUS_NC" value="0" desc="not connected" />
-        <value name="ABUS_CONNECTED" value="1" desc="Connect to Analog (local) Bus" />
-      </field>
-    </register>
-    <register name="VDAC8_SW3" address="0x40005A93" bitWidth="8" desc="DAC Analog Routing Register 3" hidden="false">
-      <field name="iout" from="7" to="7" access="RW" resetVal="" desc="Connect current output to pad">
-        <value name="IOUT_NC" value="0" desc="not connected" />
-        <value name="IOUT_CONNECT" value="1" desc="Connect to pad" />
-      </field>
-      <field name="i_amx" from="4" to="4" access="RW" resetVal="" desc="Connect current output to Analog Mux Bus">
-        <value name="AMX_NC" value="0" desc="not connected" />
-        <value name="AMX_CONNECTED" value="1" desc="Connect to AMUXBUS" />
-      </field>
-      <field name="v_amx" from="0" to="0" access="RW" resetVal="" desc="Connect voltage output to Analog Mux Bus">
-        <value name="AMX_NC" value="0" desc="not connected" />
-        <value name="AMX_CONNECTED" value="1" desc="Connect to AMUXBUS" />
-      </field>
-    </register>
-    <register name="VDAC8_SW4" address="0x40005A94" bitWidth="8" desc="DAC Analog Routing Register 4" hidden="false">
-      <field name="i_ag1" from="1" to="1" access="RW" resetVal="" desc="Connect current output to analog global of same side">
-        <value name="AG_NC" value="0" desc="not connected" />
-        <value name="AG_CONNECTED" value="1" desc="Connect to Analog Global" />
-      </field>
-      <field name="i_ag0" from="0" to="0" access="RW" resetVal="" desc="Connect current output to analog global of same side">
-        <value name="AG_NC" value="0" desc="not connected" />
-        <value name="AG_CONNECTED" value="1" desc="Connect to Analog Global" />
-      </field>
-    </register>
-    <register name="VDAC8_STROBE" address="0x40005A97" bitWidth="8" desc="DAC Strobe Register" hidden="false">
-      <field name="mx_strobe" from="2" to="0" access="RW" resetVal="" desc="Strobe source selection">
-        <value name="MX_STROBE_BUSWRITE" value="000" desc="Select bus write strobe source (Enable gater regardless of strobe_en setting)" />
-        <value name="MX_STROBE_UDB_SRC" value="001" desc="Select UDB strobe source" />
-        <value name="MX_STROBE_NC_2" value="010" desc="NC" />
-        <value name="MX_STROBE_NC_3" value="011" desc="NC" />
-        <value name="MX_STROBE_CLK_A0_DIG" value="100" desc="Select clk_a0_dig" />
-        <value name="MX_STROBE_CLK_A1_DIG" value="101" desc="Select clk_a1_dig" />
-        <value name="MX_STROBE_CLK_A2_DIG" value="110" desc="Select clk_a2_dig" />
-        <value name="MX_STROBE_CLK_A3_DIG" value="111" desc="Select clk_a3_dig" />
-      </field>
-      <field name="strobe_en" from="3" to="3" access="RW" resetVal="" desc="Strobe gating control (See mx_strobe==3'h0)">
-        <value name="STROBE_EN_0" value="0" desc="disable strobe" />
-        <value name="STROBE_EN_1" value="1" desc="enable strobe" />
-      </field>
-    </register>
-    <register name="VDAC8_DATA" address="0x40005B82" bitWidth="8" desc="DAC Data Register" hidden="false">
-      <field name="data" from="7" to="0" access="RW" resetVal="" desc="8 DAC Data bits" />
-    </register>
-  </block>
-  <block name="R_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="REF" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Clock_5" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="AMuxHw_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="Timer_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
     <block name="VirtualMux_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
     <block name="ZeroTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
@@ -1129,6 +930,9 @@
     <register name="Timer_2_PERIOD" address="0x40004F1C" bitWidth="16" desc="TMRx.PER0 - Assigned Period" hidden="false" />
     <register name="Timer_2_COUNTER" address="0x40004F1E" bitWidth="16" desc="TMRx.CNT_CMP0 - Current Down Counter Value" hidden="false" />
   </block>
+  <block name="LED_R" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="AOP_IN" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="isr_ds" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="DMA_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
@@ -1319,24 +1123,104 @@
   <block name="I2C_OPT_PU" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="ZeroTerminal_3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="i2cclk" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="Clock_5" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="LUT_4Q_PWM" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="cy_constant_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="MV3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="CS2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="SCL_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="EXP11" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="EXP3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="cy_constant_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="LUT_4Q_PWM" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="PWMH1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="MV3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="MotorDirection" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
     <register name="MotorDirection_CONTROL_REG" address="0x40006472" bitWidth="8" desc="" hidden="false" />
   </block>
-  <block name="PWMH3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="PWML3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="PWMH2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="EXP11" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="cy_constant_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="cy_constant_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="PWML2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="SG_VO2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="PWMH1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="PWML1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="PWMH3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="I2C_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
+    <block name="BusClock" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="or_ff" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="ZeroTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="Vmux_clock" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="Vmux_scl_out" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="OneTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="OneTerminal_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="or_udb" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="Bufoe_sda" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="Vmux_timeout_clock" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="or_udb_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="Bufoe_scl" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="ZeroTerminal_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="Vmux_scl_in" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="Vmux_sda_in" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="ZeroTerminal_3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="Vmux_sda_out" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="Vmux_interrupt" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="I2C_FF" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="I2C_IRQ" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <register name="I2C_2_FF_XCFG" address="0x400049C8" bitWidth="8" desc="I2C Extended Configuration Register" hidden="false">
+      <field name="csr_clk_en" from="7" to="7" access="RW" resetVal="" desc="This bit is used for gating system clock for the blocks core logic that is not associated with AHB interface. Clock is made available to the core logic only when this bit is set to 1 and the input pin ext_clk_en is also active. If either of them is not active, the blocks core logic does not receive the system clock." />
+      <field name="i2c_on" from="6" to="6" access="RW" resetVal="" desc="This bit should be set by the user during initial block configuration if the user wants to use the I2C block as wake-up source. Only when this bit set along with other bits mentioned in the sleep mode section, the I2C wakes up system from sleep on address match." />
+      <field name="ready_to_sleep" from="5" to="5" access="R" resetVal="" desc="Once the user sets the force_nack bit, the I2C block sets this bit if I2C is not busy or it waits for ongoing transaction to be completed and then sets this bit. As long as this bit is set, the I2C block is going to nack all the transactions.Clearing force_nack bit automatically clears this bit. HW clears this bit automatically on assertion of PD (Power Down)" />
+      <field name="force_nack" from="4" to="4" access="RW" resetVal="" desc="This bit must be set by the user before putting the device to sleep and wait for ready_to_sleep status bit to be set. This can be cleared by user by writing '0' and the HW clears it automatically on assertion of PD(Power Down)" />
+      <field name="hw_addr_en" from="0" to="0" access="RW" resetVal="" desc="When this bit is set to a '1', hardware address compare is enabled. On an address match, an interrupt is generated, CSR register bit 3 is set, and the clock is stalled until the CPU writes a 0 into the CSR register bit 3. The address is automatically ACKed on a match. On an address mismatch,no interrupt is generated, clock is not stalled, and bit 3 in the CSR register is set. The CPU must write a 0 into the CSR register bit 3 to clear it. The address is automatically NACKed on a mismatch. You must configure the compare address in the ADR register. When this bit is set to a '0', software address compare is enabled. An interrupt is generated, the clock is stalled, and CSR register bit 3 is set when the received address byte is available in the Data register; to enable the CPU to do a firmware address compare. The clock is stalled until the CPU writes a 0 into the CSR register bit 3. The functionality of this bit is independent of the data buffering mode." />
+    </register>
+    <register name="I2C_2_FF_ADDR" address="0x400049CA" bitWidth="8" desc="I2C Slave Adddress Register" hidden="false">
+      <field name="slave_address" from="6" to="0" access="RW" resetVal="" desc="These seven bits hold the slave's own device address. These bits are held zero if I2C_CFG.en_mstr and I2C_CFG.en_slave are both zero." />
+    </register>
+    <register name="I2C_2_FF_CFG" address="0x400049D6" bitWidth="8" desc="I2C Configuration Register" hidden="false">
+      <field name="sio_select" from="7" to="7" access="RW" resetVal="" desc="I2C Pin Select for SCL/SDA lines from SIO1/SIO2, 0 = SCL and SDA lines get their inputs from SIO1 module.sclk_str1 and sda_ack1 are driven to SIO1 module and they get asserted once device wakes up from sleep. 1 = SCL and SDA lines get their inputs from SIO2 module. sclk_str2 and sda_ack2 are driven to SIO2 module and they get asserted once device wakes up from sleep. This bit is valid only when I2C.CFG[6] is asserted." />
+      <field name="pselect" from="6" to="6" access="RW" resetVal="" desc="I2C Pin Select for SCL/SDA lines from GPIO/SIO, 0 = SCL and SDA lines get their inputs from GPIO module.sclk_str0 and sda_ack0 are driven to GPIO module and they get asserted once device wakes up from sleep. 1 = SCL and SDA lines get their inputs from one of the SIO Blocks that is chosen based on the configuration of bit I2C.CFG[7]" />
+      <field name="bus_error_ie" from="5" to="5" access="RW" resetVal="" desc="Bus Error Interrupt Enable 0 disabled 1 enabled. An interrupt is generated on the detection of a Bus error condition." />
+      <field name="stop_ie" from="4" to="4" access="RW" resetVal="" desc="Stop Interrupt Enable 0 disabled 1 enabled. An interrupt is generated on the detection of a Stop condition." />
+      <field name="clock_rate" from="2" to="2" access="RW" resetVal="" desc="0 Samples/bit is 16, 1 Samples/bit is 32" />
+      <field name="en_mstr" from="1" to="1" access="RW" resetVal="" desc="Enables master mode for the device" />
+      <field name="en_slave" from="0" to="0" access="RW" resetVal="" desc="Enables Slave mode for the device" />
+    </register>
+    <register name="I2C_2_FF_CSR" address="0x400049D7" bitWidth="8" desc="I2C Control and Status Register" hidden="false">
+      <field name="bus_error" from="7" to="7" access="RW" resetVal="" desc="It must be cleared by firmware by writing a '0' to the bit position. It is never cleared by the hardware. 1 a misplaced Start or Stop condition was detected. This bit is held zero if I2C_CFG.en_mstr and I2C_CFG.en_slave are both zero." />
+      <field name="lost_arb" from="6" to="6" access="RW" resetVal="" desc="This bit is set immediately on lost arbitration; however, it does not cause an interrupt. This status may be checked after the following Byte Complete interrupt. Any Start detect or a write to the Start or Restart generate bits (MCSR register), when operating in Master mode, will also clear the bit. 1 lost Arbitration. This bit is held zero if I2C_CFG.en_mstr is zero." />
+      <field name="stop_status" from="5" to="5" access="RW" resetVal="" desc="It must be cleared by firmware with write of '0' to the bit position. It is never cleared by the hardware. 1 a Stop condition was detected. This bit is held zero if I2C_CFG.en_mstr and I2C_CFG.en_slave are both zero." />
+      <field name="ack" from="4" to="4" access="RW" resetVal="" desc="Acknowledge Out. Bit is automatically cleared by hardware on a Byte Complete event. 0 nack the last received byte. 1 ack the last received byte" />
+      <field name="address" from="3" to="3" access="RW" resetVal="" desc="It must be cleared by firmware with write of '0' to the bit position. 1 the received byte is a slave address. This bit is held zero if I2C_CFG.en_mstr and I2C_CFG.en_slave are both zero" />
+      <field name="transmit" from="2" to="2" access="RW" resetVal="" desc="Bit is set by firmware to define the direction of the byte transfer. Any Start detect will clear the bit. 0 receive mode 1 transmit mode. This bit is held zero if I2C_CFG.en_mstr and I2C_CFG.en_slave are both zero." />
+      <field name="lrb" from="1" to="1" access="RW" resetVal="" desc="Last Received Bit. The value of the 9th bit in a Transmit sequence, which is the acknowledge bit from the receiver. Any Start detect or a write to the Start or Restart generate bits, when operating in Master mode, will also clear the bit. 0 last transmitted byte was ACK'ed by the receiver. 1 last transmitted byte was NACK'ed by the receiver. This bit is held zero if I2C_CFG.en_mstr and I2C_CFG.en_slave are both zero." />
+      <field name="byte_complete" from="0" to="0" access="RW" resetVal="" desc="Transmit/Receive Mode: 0 no completed transmit/receive since last cleared by firmware. Any Start detect or a write to the start or Restart generate bits, when operating in Master mode, will also clear the bit. Transmit mode: 1 eight bits of data have been transmitted and an ACK or NACK has been received. Receive mode: 1 eight bits of data have been received. This bit is held zero if I2C_CFG.en_mstr and I2C_CFG.en_slave are both zero." />
+    </register>
+    <register name="I2C_2_FF_DATA" address="0x400049D8" bitWidth="8" desc="I2C Data Register" hidden="false">
+      <field name="data" from="7" to="0" access="RW" resetVal="" desc="Read received data or write data to transmit. These bits are held zero if I2C_CFG.en_mstr and I2C_CFG.en_slave are both zero." />
+    </register>
+    <register name="I2C_2_FF_MCSR" address="0x400049D9" bitWidth="8" desc="Master Control and Status Register: I2C_MCSR" hidden="false">
+      <field name="stop_gen" from="4" to="4" access="RW" resetVal="" desc="This bit is set only for master transmitter and used at the end of byte transfer. After byte complete status is set, if this bit is set followed by the Transmit bit in I2C.CSR register, Stop condition is generated after byte complete. This bit is automatically reset to 0 after the Stop, start or Restart has been generated. During data phase, if Stop Gen bit is set to 0, clearing the Transmit bit in I2C.CSR register will also generate a Stop condition. This bit is held zero if I2C_CFG.en_mstr and I2C_CFG.en_slave are both zero." />
+      <field name="bus_busy" from="3" to="3" access="R" resetVal="" desc="This bit is set to the following. 0 when a Stop condition is detected (from any bus master). 1 when a Start condition is detected (from any bus master). This bit is held zero if I2C_CFG.en_mstr and I2C_CFG.en_slave are both zero." />
+      <field name="master_mode" from="2" to="2" access="R" resetVal="" desc="This bit is set/cleared by hardware when the device is operating as a master. 0 stop condition detected, generated by this device. 1 start condition detected, generated by this device. This bit is held zero if I2C_CFG.en_mstr and I2C_CFG.en_slave are both zero." />
+      <field name="restart_gen" from="1" to="1" access="RW" resetVal="" desc="This bit is cleared by hardware when the Restart generation is complete. 0 restart generation complete. 1 generate a Restart condition. This bit is held zero if I2C_CFG.en_mstr and I2C_CFG.en_slave are both zero." />
+      <field name="start_gen" from="0" to="0" access="RW" resetVal="" desc="This bit is cleared by hardware when the Start generation is complete. 0 start generation complete. 1 generate a Start condition and send a byte (address) to the I2C bus, if bus is not busy. This bit is held zero if I2C_CFG.en_mstr and I2C_CFG.en_slave are both zero." />
+    </register>
+    <register name="I2C_2_FF_CLK_DIV1" address="0x400049DB" bitWidth="8" desc="I2C Clock Divide Factor Register-1" hidden="false">
+      <field name="Div" from="7" to="0" access="RW" resetVal="" desc="The configuration of this register along with that in register CLK_DIV2 defines the factor by which the SYSCLK will be divided in the I2C block. These bits are held zero if I2C_CFG.en_mstr and I2C_CFG.en_slave are both zero." />
+    </register>
+    <register name="I2C_2_FF_CLK_DIV2" address="0x400049DC" bitWidth="8" desc="I2C Clock Divide Factor Register-2" hidden="false">
+      <field name="Div" from="1" to="0" access="RW" resetVal="" desc="The configuration of this register along with that in register CLK_DIV1 defines the factor by whichthe SYSCLK will be divided in the I2C block. These bits are held zero if I2C_CFG.en_mstr and I2C_CFG.en_slave are both zero." />
+    </register>
+    <register name="I2C_2_FF__TMOUT_CSR" address="0x400049DD" bitWidth="8" desc="I2C Timerout Control and Status Register" hidden="false">
+      <field name="sda_pin_status" from="4" to="4" access="RW" resetVal="" desc="SDA Line status." />
+      <field name="scl_pin_status" from="3" to="3" access="RW" resetVal="" desc="SCL Line status." />
+      <field name="i2c_timeout_int_enable" from="2" to="2" access="R" resetVal="" desc="I2C Timeout interrupt enable." />
+      <field name="i2c_sda_timeout_enable" from="1" to="1" access="RW" resetVal="" desc="I2C SDA Timeout enable." />
+      <field name="i2c_scl_timeout_enable" from="0" to="0" access="RW" resetVal="" desc="I2C SCL Timeout enable." />
+    </register>
+    <register name="I2C_2_FF__TMOUT_SR" address="0x400049DE" bitWidth="8" desc="I2C Timerout Status Register" hidden="false">
+      <field name="sda_tmout_status" from="1" to="1" access="RW" resetVal="" desc="SDA Timeout status." />
+      <field name="scl_tmout_status" from="0" to="0" access="RW" resetVal="" desc="SCL Timeout status." />
+    </register>
+    <register name="I2C_2_FF__TMOUT_CFG0" address="0x400049DF" bitWidth="8" desc="I2C Timerout Period Configuration Register-0" hidden="false">
+      <field name="timeout_period_lowbyte" from="7" to="0" access="RW" resetVal="" desc="The configuration of this register along with that in register TMOUT_CFG1 to define the number units before SCL or SDA stuck low timeout triggers the I2C interrupt. The one unit is equal to SYSCLK/1024. The TMOUT_CFG0 defines lower byte of the period." />
+    </register>
+    <register name="I2C_2_FF__TMOUT_CFG1" address="0x400049E0" bitWidth="8" desc="Extended Configuration Register: TMOUT_CFG1" hidden="false">
+      <field name="timeout_period_highnibble" from="3" to="0" access="RW" resetVal="" desc="The configuration of this register along with that in register TMOUT_CFG1 to define the number units before SCL or SDA stuck low timeout triggers the I2C interrupt. The one unit is equal to SYSCLK/1024. The TMOUT_CFG1 defines higher octet of the period." />
+    </register>
+  </block>
+  <block name="PWMH2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="ADC_DelSig_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
     <block name="cy_analog_virtualmux_5" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
     <block name="cy_analog_noconnect_5" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
@@ -2158,6 +2042,22 @@
       </field>
     </register>
   </block>
+  <block name="SG_VO2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="PWML3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="PWML1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="EXP3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="isr_t2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="isr_dma" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="timer_clock" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="T2_RESET" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
+    <register name="T2_RESET_CONTROL_REG" address="0x40006476" bitWidth="8" desc="" hidden="false" />
+  </block>
+  <block name="ADC_CLK" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="CS3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="DMA_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Sync_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="and_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="or_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="USBUART_1" BASE="0x0" SIZE="0x0" desc="USBFS" visible="true" hidden="false">
     <block name="ZeroTerminal_5" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
     <block name="VirtualMux_6" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
@@ -2254,24 +2154,11 @@
     <register name="USBUART_1_EP_TYPE" address="0x4000608F" bitWidth="8" desc="Endpoint Type (IN/OUT) Indication" hidden="false" />
     <register name="USBUART_1_USB_CLK_EN" address="0x4000609D" bitWidth="8" desc="USB Block Clock Enable Register" hidden="false" />
   </block>
-  <block name="isr_dma" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="DMA_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="T2_RESET" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
-    <register name="T2_RESET_CONTROL_REG" address="0x40006476" bitWidth="8" desc="" hidden="false" />
-  </block>
-  <block name="isr_t2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="CS3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="CS2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="Sync_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="ADC_CLK" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="or_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="Clock_3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="Coast_Brake" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
     <register name="Coast_Brake_CONTROL_REG" address="0x40006477" bitWidth="8" desc="" hidden="false" />
   </block>
-  <block name="and_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="LUT_HALL_DIR" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="timer_clock" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="EdgeDetect_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="EdgeDetect_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="LUT_HALL_DIR" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Clock_3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="EdgeDetect_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
 </blockRegMap>

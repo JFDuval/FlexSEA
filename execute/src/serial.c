@@ -54,7 +54,7 @@ void rs485_puts(uint8 *buf, uint32 len)
 //ToDo test, optimize/remove fixed delays
 void rs485_isr_puts(uint8 *buf, uint32 len)
 {
-	uint32_t i = 0, log = 0;
+	uint32_t i = 0;
 	
 	NOT_RE_Write(1);				//Disable Receiver
 	CyDelayUs(1);					//Wait (ToDo optimize/eliminate)
@@ -199,7 +199,8 @@ volatile uint8 uart_tmp_buf[RX_BUF_LEN];
 void get_uart_data(void)
 {
 	uint32 uart_buf_size = 0, i = 0;
-	uint16 tmp = 0, status = 0;
+	uint16 tmp = 0;
+	//uint16 status = 0;
 	
 	uart_buf_size = UART_2_GetRxBufferSize();
 	if(uart_buf_size > 0)

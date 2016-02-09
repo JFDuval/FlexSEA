@@ -52,9 +52,7 @@ void init_analog(void)
 	PGA_1_SetGain(PGA_1_GAIN_02);	//x2
 	#else
 	PGA_1_SetGain(PGA_1_GAIN_01);	//x1 (buffer)
-	#endif	//PROJECT_CSEA_KNEE
-	
-	
+	#endif	//PROJECT_CSEA_KNEE	
 }
 
 uint16 adc_avg8(uint16 new_data)

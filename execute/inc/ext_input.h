@@ -1,14 +1,14 @@
 //****************************************************************************
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
-// jfduval@mit.edu
-// 02/2015
+// jfduval@media.mit.edu
+// 02/2016
 //****************************************************************************
-// motor: motor control functions
+// ext_input: External Input Devices/Sensors
 //****************************************************************************
 	
-#ifndef INC_MOTOR_H
-#define INC_MOTOR_H
+#ifndef INC_EXT_IN_H
+#define INC_EXT_IN_H
 
 //****************************************************************************
 // Include(s)
@@ -20,33 +20,30 @@
 // Shared variable(s)
 //****************************************************************************
 
+extern struct enc_s encoder;	
+	
 //****************************************************************************
-// Prototype(s):
+// Public Function Prototype(s):
 //****************************************************************************	
 
-void init_motor(void);	
-void motor_open_speed_1(int16 pwm_duty);
-void motor_open_speed_2(int16 pwm_duty, int sign);
+void init_qei(void);
+int32 encoder_read(void);
+void encoder_write(int32 enc);
+void init_as5047(void);
+uint16 as5047_read_single(uint16 reg);
 
-void motor_fixed_pwm_test_code_blocking(int spd);
-
-int8 serial_motor_speed(int8 letter);
+void as5047_test_code_blocking(void);
 
 //****************************************************************************
 // Definition(s):
 //****************************************************************************	
 
-//PWM limits
-#define MAX_PWM					760					//760 is 96% of 800			
-#define MIN_PWM					-MAX_PWM
-#define P1_DEADTIME				55					//Make sure that it matches the hardware setting!
-#define PWM1DC(x)				MAX(x, (P1_DEADTIME+2))
-#define PWM2DC(x)				MAX(((x - P1_DEADTIME)>>1), 10)
-	
+#define QUAD1_INIT				0	//Initial value, quadrature encoder
+
 //****************************************************************************
 // Structure(s)
 //****************************************************************************	
 
 	
-#endif	//INC_MOTOR_H
+#endif	//INC_EXT_IN_H
 	

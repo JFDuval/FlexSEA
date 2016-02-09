@@ -1,14 +1,14 @@
 //****************************************************************************
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
-// jfduval@mit.edu
-// 02/2015
+// jfduval@media.mit.edu
+// 02/2016
 //****************************************************************************
-// motor: motor control functions
+// sensor_commut: Angle Sensor Motor Commutation
 //****************************************************************************
 	
-#ifndef INC_MOTOR_H
-#define INC_MOTOR_H
+#ifndef INC_SENSOR_COMMUT_H
+#define INC_SENSOR_COMMUT_H
 
 //****************************************************************************
 // Include(s)
@@ -21,32 +21,36 @@
 //****************************************************************************
 
 //****************************************************************************
-// Prototype(s):
+// Public Function Prototype(s):
 //****************************************************************************	
 
-void init_motor(void);	
-void motor_open_speed_1(int16 pwm_duty);
-void motor_open_speed_2(int16 pwm_duty, int sign);
-
-void motor_fixed_pwm_test_code_blocking(int spd);
-
-int8 serial_motor_speed(int8 letter);
 
 //****************************************************************************
 // Definition(s):
 //****************************************************************************	
 
-//PWM limits
-#define MAX_PWM					760					//760 is 96% of 800			
-#define MIN_PWM					-MAX_PWM
-#define P1_DEADTIME				55					//Make sure that it matches the hardware setting!
-#define PWM1DC(x)				MAX(x, (P1_DEADTIME+2))
-#define PWM2DC(x)				MAX(((x - P1_DEADTIME)>>1), 10)
-	
+//AS5047 Magnetic encoder:
+
+	//Registers:
+#define AS5047_REG_NOP           0
+#define AS5047_REG_ERRFL         0x0001
+#define AS5047_REG_PROG          0x0003
+#define AS5047_REG_DIAAGC        0x3FFC
+#define AS5047_REG_MAG           0x3FFD
+#define AS5047_REG_ANGLEUNC      0x3FFE
+#define AS5047_REG_ANGLECOM      0x3FFF
+
+	//Commands & parity:	
+#define AS5047_READ              0x4000     //OR it with your word
+#define AS5047_WRITE             0xBFFF     //AND it with your word
+#define PARITY_0                 0x7FFF     //AND it with your word
+#define PARITY_1                 0x8000     //OR it with your word
+#define WORDS_IN_FRAME           7
+
 //****************************************************************************
 // Structure(s)
 //****************************************************************************	
 
 	
-#endif	//INC_MOTOR_H
+#endif	//INC_SENSOR_COMMUT_H
 	
