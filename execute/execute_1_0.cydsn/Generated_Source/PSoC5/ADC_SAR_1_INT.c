@@ -18,6 +18,7 @@
 #include "ADC_SAR_1.h"
 
 
+
 /******************************************************************************
 * Custom Declarations and Variables
 * - add user inlcude files, prototypes and variables between the following
@@ -33,7 +34,6 @@ volatile uint16 adc1_result = 0;
 volatile uint16 adc1_result_avg8 = 0;
 
 /* `#END`  */
-
 
 #if(ADC_SAR_1_IRQ_REMOVE == 0u)
 
@@ -57,6 +57,11 @@ volatile uint16 adc1_result_avg8 = 0;
     ******************************************************************************/
     CY_ISR( ADC_SAR_1_ISR )
     {
+        #ifdef ADC_SAR_1_ISR_INTERRUPT_CALLBACK
+            ADC_SAR_1_ISR_InterruptCallback();
+        #endif /* ADC_SAR_1_ISR_INTERRUPT_CALLBACK */          
+
+        
         /************************************************************************
         *  Custom Code
         *  - add user ISR code between the following #START and #END tags
@@ -103,7 +108,6 @@ volatile uint16 adc1_result_avg8 = 0;
 		ADC_SAR_1_StartConvert();
 		
           /* `#END`  */
-
     }
 
 #endif   /* End ADC_SAR_1_IRQ_REMOVE */

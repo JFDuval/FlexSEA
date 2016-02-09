@@ -18,6 +18,7 @@
 #include "ADC_DelSig_1.h"
 
 
+
 /*******************************************************************************
 * Custom Declarations and Variables
 * - add user include files, prototypes and variables between the following
@@ -29,7 +30,6 @@
 #include "main.h"
 
 /* `#END`  */
-
 
 #if(ADC_DelSig_1_IRQ_REMOVE == 0u)
 
@@ -53,6 +53,11 @@
     *****************************************************************************/
     CY_ISR( ADC_DelSig_1_ISR1)
     {
+        #ifdef ADC_DelSig_1_ISR1_ENTRY_CALLBACK
+            ADC_DelSig_1_ISR1_EntryCallback();
+        #endif /* ADC_DelSig_1_ISR1_ENTRY_CALLBACK */
+        
+
         /**************************************************************************
         *  Custom Code
         *  - add user ISR code between the following #START and #END tags
@@ -72,7 +77,7 @@
 		*/
 		
         /* `#END`  */
-
+        
         /* Stop the conversion if conversion mode is single sample and resolution
         *  is above 16 bits.
         */
@@ -85,6 +90,9 @@
             ADC_DelSig_1_convDone = ADC_DelSig_1_DEC_CONV_DONE;
         #endif /* Single sample conversion mode with resolution above 16 bits */
 
+        #ifdef ADC_DelSig_1_ISR1_EXIT_CALLBACK
+            ADC_DelSig_1_ISR1_ExitCallback();
+        #endif /* ADC_DelSig_1_ISR1_EXIT_CALLBACK */
     }
 
 
@@ -107,6 +115,11 @@
     *****************************************************************************/
     CY_ISR( ADC_DelSig_1_ISR2)
     {
+        #ifdef ADC_DelSig_1_ISR2_ENTRY_CALLBACK
+            ADC_DelSig_1_ISR2_EntryCallback();
+        #endif /* ADC_DelSig_1_ISR2_ENTRY_CALLBACK */
+        
+        
         /***************************************************************************
         *  Custom Code
         *  - add user ISR code between the following #START and #END tags
@@ -127,6 +140,9 @@
             ADC_DelSig_1_convDone = ADC_DelSig_1_DEC_CONV_DONE;
         #endif /* Single sample conversion mode with resolution above 16 bits */
 
+        #ifdef ADC_DelSig_1_ISR2_EXIT_CALLBACK
+            ADC_DelSig_1_ISR2_ExitCallback();
+        #endif /* ADC_DelSig_1_ISR2_EXIT_CALLBACK */
     }
 
 
@@ -149,6 +165,11 @@
     *****************************************************************************/
     CY_ISR( ADC_DelSig_1_ISR3)
     {
+        #ifdef ADC_DelSig_1_ISR3_ENTRY_CALLBACK
+            ADC_DelSig_1_ISR3_EntryCallback();
+        #endif /* ADC_DelSig_1_ISR3_ENTRY_CALLBACK */        
+
+        
         /***************************************************************************
         *  Custom Code
         *  - add user ISR code between the following #START and #END tags
@@ -156,7 +177,7 @@
         /* `#START MAIN_ADC_ISR3`  */
 
         /* `#END`  */
-
+        
         /* Stop the conversion if conversion mode is set to single sample and
         *  resolution is above 16 bits.
         */
@@ -168,6 +189,10 @@
 			*/
             ADC_DelSig_1_convDone = ADC_DelSig_1_DEC_CONV_DONE;
         #endif /* Single sample conversion mode with resolution above 16 bits */
+
+        #ifdef ADC_DelSig_1_ISR3_EXIT_CALLBACK
+            ADC_DelSig_1_ISR3_ExitCallback();
+        #endif /* ADC_DelSig_1_ISR3_EXIT_CALLBACK */        
     }
 
 
@@ -190,6 +215,11 @@
     *****************************************************************************/
     CY_ISR( ADC_DelSig_1_ISR4)
     {
+        #ifdef ADC_DelSig_1_ISR4_ENTRY_CALLBACK
+            ADC_DelSig_1_ISR4_EntryCallback();
+        #endif /* ADC_DelSig_1_ISR4_ENTRY_CALLBACK */            
+
+        
         /***************************************************************************
         *  Custom Code
         *  - add user ISR code between the following #START and #END tags
@@ -209,6 +239,10 @@
 			*/
             ADC_DelSig_1_convDone = ADC_DelSig_1_DEC_CONV_DONE;
         #endif /* Single sample conversion mode with resolution above 16 bits */
+        
+        #ifdef ADC_DelSig_1_ISR4_EXIT_CALLBACK
+            ADC_DelSig_1_ISR4_ExitCallback();
+        #endif /* ADC_DelSig_1_ISR4_EXIT_CALLBACK */            
     }
 
 #endif   /* End ADC_DelSig_1_IRQ_REMOVE */

@@ -31,7 +31,7 @@ uint8 init_usb(void)
 	uint16 cnt = 0, flag = 0;
 	
 	//Start USBFS Operation with 3V operation
-    USBUART_1_Start(0u, USBUART_1_3V_OPERATION);
+    USBUART_1_Start(0u, USBUART_1_5V_OPERATION);
 	
 	//Wait for Device to enumerate */
     //while(!USBUART_1_GetConfiguration());

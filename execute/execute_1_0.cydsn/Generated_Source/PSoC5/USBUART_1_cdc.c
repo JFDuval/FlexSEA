@@ -23,6 +23,7 @@
 #include "USBUART_1_pvt.h"
 
 
+
 /***************************************
 *    CDC Variables
 ***************************************/
@@ -104,6 +105,10 @@ uint8 USBUART_1_DispatchCDCClassRqst(void)
 
             /* `#END` */
 
+            #ifdef USBUART_1_DISPATCH_CDC_CLASS_CDC_READ_REQUESTS_CALLBACK
+                USBUART_1_DispatchCDCClass_CDC_READ_REQUESTS_Callback();
+            #endif /* USBUART_1_DISPATCH_CDC_CLASS_CDC_READ_REQUESTS_CALLBACK */
+
             default:    /* requestHandled is initialized as FALSE by default */
                 break;
         }
@@ -129,6 +134,10 @@ uint8 USBUART_1_DispatchCDCClassRqst(void)
             /* `#START CDC_WRITE_REQUESTS` Place other request handler here */
 
             /* `#END` */
+
+            #ifdef USBUART_1_DISPATCH_CDC_CLASS_CDC_WRITE_REQUESTS_CALLBACK
+                USBUART_1_DispatchCDCClass_CDC_WRITE_REQUESTS_Callback();
+            #endif /* USBUART_1_DISPATCH_CDC_CLASS_CDC_WRITE_REQUESTS_CALLBACK */
 
             default:    /* requestHandled is initialized as FALSE by default */
                 break;

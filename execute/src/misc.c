@@ -36,6 +36,9 @@ volatile uint8 data_ready_485_1 = 0;
 //USB:
 volatile uint8 data_ready_usb = 0;
 
+//AS5047 Magnetic Encoder:
+uint16 last_as5047_word = 0;
+
 //****************************************************************************
 // Private Function Prototype(s):
 //****************************************************************************
@@ -55,12 +58,14 @@ void timing_test_blocking(void)
 	while(1)
 	{
 		//Synch sequence
+		/*
 		EXP9_Write(1);
 		EXP8_Write(0);
 		EXP8_Write(1);
 		EXP8_Write(0);
 		EXP8_Write(1);
 		EXP8_Write(0);
+		*/
 		
 		CyDelayUs(SDELAY);
 		
@@ -75,7 +80,7 @@ void timing_test_blocking(void)
 		EXP8_Write(0);
 		
 		//Exit sequence:
-		EXP9_Write(0);
+		//EXP9_Write(0);
 		CyDelayUs(10*SDELAY);
 		
 		/*
@@ -236,6 +241,36 @@ uint16 output_arb(void)
 	return output;
 }
 
+//Current/thermal test. 5A average, 20A pulses
+//100ms every second.
+uint16 output_step(void)
+{
+	static int16 i = 0;
+	uint16 output = 0;
+	
+	i++;
+	
+	//Slow ramp-up
+	if(i < 785)
+		output = 420;	//1850;
+
+	if(i >= 785 && i <= 7500)
+		output = 73;	//287;
+	
+	if(i > 7500)
+	{
+		i = 0;
+		output = 73;	//287;
+	}
+	
+	//Output on DAC:
+	//VDAC8_2_SetValue(output);	
+	
+	CyDelayUs(DELAY);
+	
+	return output;
+}
+
 //Use this to test the current controller
 void test_current_tracking_blocking(void)
 {
@@ -243,14 +278,43 @@ void test_current_tracking_blocking(void)
 	ctrl.active_ctrl = CTRL_CURRENT;
 	ctrl.current.gain.I_KP = 30;
 	ctrl.current.gain.I_KI = 25;
-	Coast_Brake_Write(0);	//Coast
+	Coast_Brake_Write(1);	//Brake
 	
 	uint16 val = 0;
 	while(1)
 	{
-		val = output_sine();
-		//val = output_arb();
-		ctrl.current.setpoint_val = val*2 + 125;
+		//val = output_sine();
+		//val = output_arb();		
+		//ctrl.current.setpoint_val = val*2 + 125;
+		
+		//RGB LED = Hall code:
+		LED_R_Write(H1_Read());
+		LED_G_Write(H2_Read());
+		LED_B_Write(H3_Read());
+		
+		val = output_step();
+		ctrl.current.setpoint_val = val;
+	}
+}
+
+//Use this to send PWM pulses in open speed mode
+void test_pwm_pulse_blocking(void)
+{
+	uint16 val = 0;
+	
+	ctrl.active_ctrl = CTRL_OPEN;	
+	Coast_Brake_Write(1);	//Brake
+	motor_open_speed_1(0);	
+	
+	while(1)
+	{	
+		//RGB LED = Hall code:
+		LED_R_Write(H1_Read());
+		LED_G_Write(H2_Read());
+		LED_B_Write(H3_Read());
+		
+		val = output_step();
+		motor_open_speed_1(val);
 	}
 }
 
@@ -295,6 +359,108 @@ void assign_i2c_data(uint8 *newdata)
 	}
 }
 
+//AS4047 Test code:
+//=================
+
+uint16 spidata_mosi[WORDS_IN_FRAME] = {0,0,0,0,0,0,0};
+uint16 spidata_miso[WORDS_IN_FRAME] = {0,0,0,0,0,0,0};
+uint16 spidata_mosi2[WORDS_IN_FRAME];
+uint8 spistatus = 0;
+uint16 angleunc = 0;
+
+void init_as5047(void)
+{
+	//Init SPIM module:
+    SPIM_1_Start();
+}
+
+void as5047_test_code_blocking(void)
+{
+    uint8 i = 0;
+   
+    //Init SPIM module:
+    SPIM_1_Start();
+    CyDelay(10);   
+	
+    //Build the mosi packet:
+    spidata_mosi[0] = add_even_parity_msb(AS5047_READ | AS5047_REG_ERRFL);
+    spidata_mosi[1] = add_even_parity_msb(AS5047_READ | AS5047_REG_PROG);
+    spidata_mosi[2] = add_even_parity_msb(AS5047_READ | AS5047_REG_DIAAGC);
+    spidata_mosi[3] = add_even_parity_msb(AS5047_READ | AS5047_REG_MAG);
+    spidata_mosi[4] = add_even_parity_msb(AS5047_READ | AS5047_REG_ANGLEUNC);
+    spidata_mosi[5] = add_even_parity_msb(AS5047_READ | AS5047_REG_ANGLECOM);
+    spidata_mosi[6] = add_even_parity_msb(AS5047_READ | AS5047_REG_NOP);
+    
+    while(1)
+    {
+		/*
+		SPIM_1_ClearTxBuffer();
+		SPIM_1_ClearRxBuffer();
+        CyDelay(1);
+       
+        for(i = 0; i < WORDS_IN_FRAME ; i++)
+        {
+			spidata_mosi2[0] = spidata_mosi[i];
+			SPIM_1_PutArray(spidata_mosi2, 1);
+			
+			CyDelayUs(15);
+            spidata_miso[i] = SPIM_1_ReadRxData();
+        }
+        CyDelay(4);
+       
+        //Notes: delays only present for early debugging. Minimize/remove.
+       
+        //We could commutate the motor here.
+		*/
+		
+		angleunc = as5047_read_single(AS5047_REG_ANGLEUNC);
+    }
+}
+
+//Read a single word
+uint16 as5047_read_single(uint16 reg)
+{
+	//Clear buffers to start in a known state:
+	SPIM_1_ClearTxBuffer();
+	SPIM_1_ClearRxBuffer();
+    CyDelayUs(10);
+
+	//Send 1st byte (reg addr)
+	spidata_mosi2[0] = add_even_parity_msb(AS5047_READ | reg);
+	SPIM_1_PutArray(spidata_mosi2, 1);	
+	CyDelayUs(10);
+    spidata_miso[0] = SPIM_1_ReadRxData();
+	
+	//Send 2nd byte (empty, used to read)
+	spidata_mosi2[0] = add_even_parity_msb(AS5047_READ | AS5047_REG_NOP);
+	SPIM_1_PutArray(spidata_mosi2, 1);	
+	CyDelayUs(10);
+    spidata_miso[1] = SPIM_1_ReadRxData();	
+	
+	//spidata_miso[1] contains the answer. Remove parity and return value
+	//ToDo: ignore word if wrong parity
+
+	last_as5047_word = (spidata_miso[1] & 0x3FFF);
+	return last_as5047_word;
+}
+
+uint16 add_even_parity_msb(uint16 word)
+{
+	uint16 ret = 0;
+	
+	//__builtin_parity() returns 0 for even, 1 for odd
+	// MSB = 1 when it's odd
+	if(__builtin_parity((int)word))
+	{
+		ret = (word | PARITY_1);
+	}
+	else
+	{
+		ret = (word & PARITY_0);
+	}
+	
+	return ret;
+}
 
 //****************************************************************************
 // Private Function(s)

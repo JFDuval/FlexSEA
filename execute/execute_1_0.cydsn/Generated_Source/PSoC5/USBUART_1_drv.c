@@ -18,6 +18,7 @@
 #include "USBUART_1_pvt.h"
 
 
+
 /***************************************
 * Global data allocation
 ***************************************/
@@ -68,7 +69,10 @@ CY_ISR(USBUART_1_EP_0_ISR)
     uint8 bRegTemp;
     uint8 modifyReg;
 
-
+    #ifdef USBUART_1_EP_0_ISR_ENTRY_CALLBACK
+        USBUART_1_EP_0_ISR_EntryCallback();
+    #endif /* USBUART_1_EP_0_ISR_ENTRY_CALLBACK */
+    
     bRegTemp = CY_GET_REG8(USBUART_1_EP0_CR_PTR);
     if ((bRegTemp & USBUART_1_MODE_ACKD) != 0u)
     {
@@ -128,6 +132,9 @@ CY_ISR(USBUART_1_EP_0_ISR)
             }
         }
     }
+    #ifdef USBUART_1_EP_0_ISR_EXIT_CALLBACK
+        USBUART_1_EP_0_ISR_ExitCallback();
+    #endif /* USBUART_1_EP_0_ISR_EXIT_CALLBACK */
 }
 
 

@@ -188,7 +188,7 @@ void t2_oneshot_test(void)
 	while(1)
 	{
 		T2_RESET_Write(0);
-		EXP10_Write(1);
+		//EXP10_Write(1);
 		Timer_2_Start();
 		//ISR will take it from here...
 		CyDelay(1);		//1ms period

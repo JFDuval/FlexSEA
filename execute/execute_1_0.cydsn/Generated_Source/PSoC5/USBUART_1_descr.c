@@ -149,7 +149,7 @@ const uint8 CYCODE USBUART_1_DEVICE0_CONFIGURATION0_DESCR[67u] = {
 /*********************************************************************
 * String Descriptor Table
 *********************************************************************/
-const uint8 CYCODE USBUART_1_STRING_DESCRIPTORS[159u] = {
+const uint8 CYCODE USBUART_1_STRING_DESCRIPTORS[179u] = {
 /*********************************************************************
 * Language ID Descriptor
 *********************************************************************/
@@ -157,15 +157,14 @@ const uint8 CYCODE USBUART_1_STRING_DESCRIPTORS[159u] = {
 /* DescriptorType: STRING                  */ 0x03u,
 /* Language Id                             */ 0x09u, 0x04u,
 /*********************************************************************
-* String Descriptor: "Cypress Semiconductor"
+* String Descriptor: "MIT Biomechatronics"
 *********************************************************************/
-/* Descriptor Length                       */ 0x2Cu,
+/* Descriptor Length                       */ 0x28u,
 /* DescriptorType: STRING                  */ 0x03u,
- (uint8)'C', 0u,(uint8)'y', 0u,(uint8)'p', 0u,(uint8)'r', 0u,(uint8)'e', 0u,
- (uint8)'s', 0u,(uint8)'s', 0u,(uint8)' ', 0u,(uint8)'S', 0u,(uint8)'e', 0u,
- (uint8)'m', 0u,(uint8)'i', 0u,(uint8)'c', 0u,(uint8)'o', 0u,(uint8)'n', 0u,
- (uint8)'d', 0u,(uint8)'u', 0u,(uint8)'c', 0u,(uint8)'t', 0u,(uint8)'o', 0u,
- (uint8)'r', 0u,
+ (uint8)'M', 0u,(uint8)'I', 0u,(uint8)'T', 0u,(uint8)' ', 0u,(uint8)'B', 0u,
+ (uint8)'i', 0u,(uint8)'o', 0u,(uint8)'m', 0u,(uint8)'e', 0u,(uint8)'c', 0u,
+ (uint8)'h', 0u,(uint8)'a', 0u,(uint8)'t', 0u,(uint8)'r', 0u,(uint8)'o', 0u,
+ (uint8)'n', 0u,(uint8)'i', 0u,(uint8)'c', 0u,(uint8)'s', 0u,
 /*********************************************************************
 * String Descriptor: "CDC Communication Interface"
 *********************************************************************/
@@ -187,12 +186,14 @@ const uint8 CYCODE USBUART_1_STRING_DESCRIPTORS[159u] = {
  (uint8)'n', 0u,(uint8)'t', 0u,(uint8)'e', 0u,(uint8)'r', 0u,(uint8)'f', 0u,
  (uint8)'a', 0u,(uint8)'c', 0u,(uint8)'e', 0u,
 /*********************************************************************
-* String Descriptor: "USBUART"
+* String Descriptor: "FlexSEA-Execute 0.1"
 *********************************************************************/
-/* Descriptor Length                       */ 0x10u,
+/* Descriptor Length                       */ 0x28u,
 /* DescriptorType: STRING                  */ 0x03u,
- (uint8)'U', 0u,(uint8)'S', 0u,(uint8)'B', 0u,(uint8)'U', 0u,(uint8)'A', 0u,
- (uint8)'R', 0u,(uint8)'T', 0u,
+ (uint8)'F', 0u,(uint8)'l', 0u,(uint8)'e', 0u,(uint8)'x', 0u,(uint8)'S', 0u,
+ (uint8)'E', 0u,(uint8)'A', 0u,(uint8)'-', 0u,(uint8)'E', 0u,(uint8)'x', 0u,
+ (uint8)'e', 0u,(uint8)'c', 0u,(uint8)'u', 0u,(uint8)'t', 0u,(uint8)'e', 0u,
+ (uint8)' ', 0u,(uint8)'0', 0u,(uint8)'.', 0u,(uint8)'1', 0u,
 /*********************************************************************/
 /* Marks the end of the list.              */ 0x00u};
 /*********************************************************************/

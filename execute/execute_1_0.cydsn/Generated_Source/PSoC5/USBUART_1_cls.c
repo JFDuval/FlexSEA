@@ -21,6 +21,7 @@
 #include "USBUART_1_pvt.h"
 
 
+
 /***************************************
 * User Implemented Class Driver Declarations.
 ***************************************/
@@ -88,6 +89,10 @@ uint8 USBUART_1_DispatchClassRqst(void)
     /* `#START USER_DEFINED_CLASS_CODE` Place your Class request here */
 
     /* `#END` */
+
+    #ifdef USBUART_1_DISPATCH_CLASS_RQST_CALLBACK
+        USBUART_1_DispatchClassRqst_Callback();
+    #endif /* USBUART_1_DISPATCH_CLASS_RQST_CALLBACK */
 
     return(requestHandled);
 }

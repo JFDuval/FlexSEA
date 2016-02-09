@@ -20,6 +20,7 @@
 #include <CyLib.h>
 #include <QuadDec_1_isr.h>
 
+
 #if !defined(QuadDec_1_isr__REMOVED) /* Check for removal by optimization */
 
 /*******************************************************************************
@@ -158,6 +159,10 @@ void QuadDec_1_isr_Stop(void)
 *******************************************************************************/
 CY_ISR(QuadDec_1_isr_Interrupt)
 {
+    #ifdef QuadDec_1_isr_INTERRUPT_INTERRUPT_CALLBACK
+        QuadDec_1_isr_Interrupt_InterruptCallback();
+    #endif /* QuadDec_1_isr_INTERRUPT_INTERRUPT_CALLBACK */ 
+
     /*  Place your Interrupt code here. */
     /* `#START QuadDec_1_isr_Interrupt` */
 

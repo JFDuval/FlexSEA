@@ -51,15 +51,15 @@ int main(void);
 	
 //Enable/Disable sub-modules:
 #define USE_RS485
-//#define USE_USB
+#define USE_USB
 #define USE_COMM		//Requires USE_RS485 and/or USE_USB
 #define USE_QEI1
 #define USE_TRAPEZ
 //#define USE_DIETEMP
-#define USE_I2C_INT
+//#define USE_I2C_INT
 //#define USE_I2C_EXT
-#define USE_IMU			//Requires USE_I2C_INT
-#define USE_STRAIN		//Requires USE_I2C_INT
+//#define USE_IMU			//Requires USE_I2C_INT
+//#define USE_STRAIN		//Requires USE_I2C_INT
 
 //Project specific code:
 //#define PROJECT_EXOCUTE				//ExoBoot, everything running on Execute

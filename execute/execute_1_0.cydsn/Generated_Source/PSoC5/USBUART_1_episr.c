@@ -16,6 +16,7 @@
 
 #include "USBUART_1.h"
 #include "USBUART_1_pvt.h"
+
 #if (defined(USBUART_1_ENABLE_MIDI_STREAMING) && (USBUART_1_ENABLE_MIDI_API != 0u))
     #include "USBUART_1_midi.h"
 #endif /* (defined(USBUART_1_ENABLE_MIDI_STREAMING) && (USBUART_1_ENABLE_MIDI_API != 0u)) */
@@ -57,6 +58,10 @@
             uint8 int_en;
         #endif /* USBUART_1_ISR_SERVICE_MIDI_OUT && CY_PSOC3 */
 
+        #ifdef USBUART_1_EP_1_ISR_ENTRY_CALLBACK
+            USBUART_1_EP_1_ISR_EntryCallback();
+        #endif /* USBUART_1_EP_1_ISR_ENTRY_CALLBACK */
+
         /* `#START EP1_USER_CODE` Place your code here */
 
         /* `#END` */
@@ -90,6 +95,10 @@
 
         /* `#END` */
 
+        #ifdef USBUART_1_EP_1_ISR_EXIT_CALLBACK
+            USBUART_1_EP_1_ISR_ExitCallback();
+        #endif /* USBUART_1_EP_1_ISR_EXIT_CALLBACK */
+
         #if (defined(USBUART_1_ENABLE_MIDI_STREAMING) && !defined(USBUART_1_MAIN_SERVICE_MIDI_OUT) && \
                      USBUART_1_ISR_SERVICE_MIDI_OUT && CY_PSOC3)
             EA = int_en;
@@ -121,6 +130,10 @@
                      USBUART_1_ISR_SERVICE_MIDI_OUT && CY_PSOC3)
             uint8 int_en;
         #endif /* USBUART_1_ISR_SERVICE_MIDI_OUT && CY_PSOC3 */
+
+        #ifdef USBUART_1_EP_2_ISR_ENTRY_CALLBACK
+            USBUART_1_EP_2_ISR_EntryCallback();
+        #endif /* USBUART_1_EP_2_ISR_ENTRY_CALLBACK */
 
         /* `#START EP2_USER_CODE` Place your code here */
 
@@ -155,6 +168,10 @@
 
         /* `#END` */
 
+        #ifdef USBUART_1_EP_2_ISR_EXIT_CALLBACK
+            USBUART_1_EP_2_ISR_ExitCallback();
+        #endif /* USBUART_1_EP_2_ISR_EXIT_CALLBACK */
+        
         #if (defined(USBUART_1_ENABLE_MIDI_STREAMING) && !defined(USBUART_1_MAIN_SERVICE_MIDI_OUT) && \
                      USBUART_1_ISR_SERVICE_MIDI_OUT && CY_PSOC3)
             EA = int_en;
@@ -186,6 +203,10 @@
                      USBUART_1_ISR_SERVICE_MIDI_OUT && CY_PSOC3)
             uint8 int_en;
         #endif /* USBUART_1_ISR_SERVICE_MIDI_OUT && CY_PSOC3 */
+
+        #ifdef USBUART_1_EP_3_ISR_ENTRY_CALLBACK
+            USBUART_1_EP_3_ISR_EntryCallback();
+        #endif /* USBUART_1_EP_3_ISR_ENTRY_CALLBACK */
 
         /* `#START EP3_USER_CODE` Place your code here */
 
@@ -220,6 +241,10 @@
 
         /* `#END` */
 
+        #ifdef USBUART_1_EP_3_ISR_EXIT_CALLBACK
+            USBUART_1_EP_3_ISR_ExitCallback();
+        #endif /* USBUART_1_EP_3_ISR_EXIT_CALLBACK */
+
         #if (defined(USBUART_1_ENABLE_MIDI_STREAMING) && !defined(USBUART_1_MAIN_SERVICE_MIDI_OUT) && \
                      USBUART_1_ISR_SERVICE_MIDI_OUT && CY_PSOC3)
             EA = int_en;
@@ -251,6 +276,10 @@
                      USBUART_1_ISR_SERVICE_MIDI_OUT && CY_PSOC3)
             uint8 int_en;
         #endif /* CY_PSOC3 & USBUART_1_ISR_SERVICE_MIDI_OUT  */
+
+        #ifdef USBUART_1_EP_4_ISR_ENTRY_CALLBACK
+            USBUART_1_EP_4_ISR_EntryCallback();
+        #endif /* USBUART_1_EP_4_ISR_ENTRY_CALLBACK */
 
         /* `#START EP4_USER_CODE` Place your code here */
 
@@ -285,6 +314,10 @@
 
         /* `#END` */
 
+        #ifdef USBUART_1_EP_4_ISR_EXIT_CALLBACK
+            USBUART_1_EP_4_ISR_ExitCallback();
+        #endif /* USBUART_1_EP_4_ISR_EXIT_CALLBACK */
+
         #if (defined(USBUART_1_ENABLE_MIDI_STREAMING) && !defined(USBUART_1_MAIN_SERVICE_MIDI_OUT) && \
                      USBUART_1_ISR_SERVICE_MIDI_OUT && CY_PSOC3)
             EA = int_en;
@@ -316,6 +349,10 @@
                      USBUART_1_ISR_SERVICE_MIDI_OUT && CY_PSOC3)
             uint8 int_en;
         #endif /* CY_PSOC3 & USBUART_1_ISR_SERVICE_MIDI_OUT  */
+
+        #ifdef USBUART_1_EP_5_ISR_ENTRY_CALLBACK
+            USBUART_1_EP_5_ISR_EntryCallback();
+        #endif /* USBUART_1_EP_5_ISR_ENTRY_CALLBACK */
 
         /* `#START EP5_USER_CODE` Place your code here */
 
@@ -350,6 +387,10 @@
 
         /* `#END` */
 
+        #ifdef USBUART_1_EP_5_ISR_EXIT_CALLBACK
+            USBUART_1_EP_5_ISR_ExitCallback();
+        #endif /* USBUART_1_EP_5_ISR_EXIT_CALLBACK */
+
         #if (defined(USBUART_1_ENABLE_MIDI_STREAMING) && !defined(USBUART_1_MAIN_SERVICE_MIDI_OUT) && \
                      USBUART_1_ISR_SERVICE_MIDI_OUT && CY_PSOC3)
             EA = int_en;
@@ -380,6 +421,10 @@
                      USBUART_1_ISR_SERVICE_MIDI_OUT && CY_PSOC3)
             uint8 int_en;
         #endif /* CY_PSOC3 & USBUART_1_ISR_SERVICE_MIDI_OUT  */
+
+        #ifdef USBUART_1_EP_6_ISR_ENTRY_CALLBACK
+            USBUART_1_EP_6_ISR_EntryCallback();
+        #endif /* USBUART_1_EP_6_ISR_ENTRY_CALLBACK */
 
         /* `#START EP6_USER_CODE` Place your code here */
 
@@ -414,6 +459,10 @@
 
         /* `#END` */
 
+        #ifdef USBUART_1_EP_6_ISR_EXIT_CALLBACK
+            USBUART_1_EP_6_ISR_ExitCallback();
+        #endif /* USBUART_1_EP_6_ISR_EXIT_CALLBACK */
+
         #if (defined(USBUART_1_ENABLE_MIDI_STREAMING) && !defined(USBUART_1_MAIN_SERVICE_MIDI_OUT) && \
                      USBUART_1_ISR_SERVICE_MIDI_OUT && CY_PSOC3)
             EA = int_en;
@@ -445,6 +494,10 @@
                      USBUART_1_ISR_SERVICE_MIDI_OUT && CY_PSOC3)
             uint8 int_en;
         #endif /* CY_PSOC3 & USBUART_1_ISR_SERVICE_MIDI_OUT  */
+
+        #ifdef USBUART_1_EP_7_ISR_ENTRY_CALLBACK
+            USBUART_1_EP_7_ISR_EntryCallback();
+        #endif /* USBUART_1_EP_7_ISR_ENTRY_CALLBACK */
 
         /* `#START EP7_USER_CODE` Place your code here */
 
@@ -479,6 +532,10 @@
 
         /* `#END` */
 
+        #ifdef USBUART_1_EP_7_ISR_EXIT_CALLBACK
+            USBUART_1_EP_7_ISR_ExitCallback();
+        #endif /* USBUART_1_EP_7_ISR_EXIT_CALLBACK */
+
         #if (defined(USBUART_1_ENABLE_MIDI_STREAMING) && !defined(USBUART_1_MAIN_SERVICE_MIDI_OUT) && \
                      USBUART_1_ISR_SERVICE_MIDI_OUT && CY_PSOC3)
             EA = int_en;
@@ -510,6 +567,10 @@
                      USBUART_1_ISR_SERVICE_MIDI_OUT && CY_PSOC3)
             uint8 int_en;
         #endif /* CY_PSOC3 & USBUART_1_ISR_SERVICE_MIDI_OUT  */
+
+        #ifdef USBUART_1_EP_8_ISR_ENTRY_CALLBACK
+            USBUART_1_EP_8_ISR_EntryCallback();
+        #endif /* USBUART_1_EP_8_ISR_ENTRY_CALLBACK */
 
         /* `#START EP8_USER_CODE` Place your code here */
 
@@ -544,6 +605,10 @@
 
         /* `#END` */
 
+        #ifdef USBUART_1_EP_8_ISR_EXIT_CALLBACK
+            USBUART_1_EP_8_ISR_ExitCallback();
+        #endif /* USBUART_1_EP_8_ISR_EXIT_CALLBACK */
+
         #if (defined(USBUART_1_ENABLE_MIDI_STREAMING) && !defined(USBUART_1_MAIN_SERVICE_MIDI_OUT) && \
                      USBUART_1_ISR_SERVICE_MIDI_OUT && CY_PSOC3)
             EA = int_en;
@@ -569,6 +634,10 @@
 *******************************************************************************/
 CY_ISR(USBUART_1_SOF_ISR)
 {
+    #ifdef USBUART_1_SOF_ISR_INTERRUPT_CALLBACK
+        USBUART_1_SOF_ISR_InterruptCallback();
+    #endif /* USBUART_1_SOF_ISR_INTERRUPT_CALLBACK */
+
     /* `#START SOF_USER_CODE` Place your code here */
 
     /* `#END` */
@@ -592,11 +661,19 @@ CY_ISR(USBUART_1_SOF_ISR)
 *******************************************************************************/
 CY_ISR(USBUART_1_BUS_RESET_ISR)
 {
+    #ifdef USBUART_1_BUS_RESET_ISR_ENTRY_CALLBACK
+        USBUART_1_BUS_RESET_ISR_EntryCallback();
+    #endif /* USBUART_1_BUS_RESET_ISR_ENTRY_CALLBACK */
+
     /* `#START BUS_RESET_USER_CODE` Place your code here */
 
     /* `#END` */
 
     USBUART_1_ReInitComponent();
+
+    #ifdef USBUART_1_BUS_RESET_ISR_EXIT_CALLBACK
+        USBUART_1_BUS_RESET_ISR_ExitCallback();
+    #endif /* USBUART_1_BUS_RESET_ISR_EXIT_CALLBACK */    
 }
 
 
@@ -626,6 +703,10 @@ CY_ISR(USBUART_1_BUS_RESET_ISR)
         uint8 ep_status;
         uint8 ep = USBUART_1_EP1;
         uint8 ptr = 0u;
+
+        #ifdef USBUART_1_ARB_ISR_ENTRY_CALLBACK
+            USBUART_1_ARB_ISR_EntryCallback();
+        #endif /* USBUART_1_ARB_ISR_ENTRY_CALLBACK */
 
         /* `#START ARB_BEGIN_USER_CODE` Place your code here */
 
@@ -687,6 +768,10 @@ CY_ISR(USBUART_1_BUS_RESET_ISR)
 
                 /* `#END` */
 
+                #ifdef USBUART_1_ARB_ISR_CALLBACK
+                    USBUART_1_ARB_ISR_Callback();
+                #endif /* USBUART_1_ARB_ISR_CALLBACK */
+
                 CY_SET_REG8((reg8 *)(USBUART_1_ARB_EP1_SR_IND + ptr), ep_status);   /* Clear Serviced events */
             }
             ptr += USBUART_1_EPX_CNTX_ADDR_OFFSET;               /* prepare pointer for next EP */
@@ -697,6 +782,10 @@ CY_ISR(USBUART_1_BUS_RESET_ISR)
         /* `#START ARB_END_USER_CODE` Place your code here */
 
         /* `#END` */
+
+        #ifdef USBUART_1_ARB_ISR_EXIT_CALLBACK
+            USBUART_1_ARB_ISR_ExitCallback();
+        #endif /* USBUART_1_ARB_ISR_EXIT_CALLBACK */
     }
 
 #endif /*  USBUART_1_EP_MM */
@@ -724,6 +813,10 @@ CY_ISR(USBUART_1_BUS_RESET_ISR)
         uint8 ep = USBUART_1_EP1;
         uint8 ptr = 0u;
 
+        #ifdef USBUART_1_EP_DMA_DONE_ISR_ENTRY_CALLBACK
+            USBUART_1_EP_DMA_DONE_ISR_EntryCallback();
+        #endif /* USBUART_1_EP_DMA_DONE_ISR_ENTRY_CALLBACK */
+
         /* `#START EP_DMA_DONE_BEGIN_USER_CODE` Place your code here */
 
         /* `#END` */
@@ -746,6 +839,10 @@ CY_ISR(USBUART_1_BUS_RESET_ISR)
                         /* `#START EP_DMA_DONE_USER_CODE` Place your code here */
 
                         /* `#END` */
+
+                        #ifdef USBUART_1_EP_DMA_DONE_ISR_CALLBACK
+                            USBUART_1_EP_DMA_DONE_ISR_Callback();
+                        #endif /* USBUART_1_EP_DMA_DONE_ISR_CALLBACK */
 
                         CY_SET_REG8((reg8 *)(USBUART_1_ARB_RW1_WA_MSB_IND + ptr), 0x00u);
                         /* repeat 2 last bytes to prefetch endpoint area */
@@ -773,6 +870,10 @@ CY_ISR(USBUART_1_BUS_RESET_ISR)
         /* `#START EP_DMA_DONE_END_USER_CODE` Place your code here */
 
         /* `#END` */
+
+        #ifdef USBUART_1_EP_DMA_DONE_ISR_EXIT_CALLBACK
+            USBUART_1_EP_DMA_DONE_ISR_ExitCallback();
+        #endif /* USBUART_1_EP_DMA_DONE_ISR_EXIT_CALLBACK */
     }
 #endif /* ((USBUART_1_EP_MM == USBUART_1__EP_DMAAUTO) && (USBUART_1_EP_DMA_AUTO_OPT == 0u)) */
 

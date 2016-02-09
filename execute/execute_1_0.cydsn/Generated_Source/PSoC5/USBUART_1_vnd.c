@@ -17,6 +17,7 @@
 #include "USBUART_1.h"
 #include "USBUART_1_pvt.h"
 
+
 #if(USBUART_1_EXTERN_VND == USBUART_1_FALSE)
 
 
@@ -77,6 +78,10 @@ uint8 USBUART_1_HandleVendorRqst(void)
 
     /* `#END` */
 
+    #ifdef USBUART_1_HANDLE_VENDOR_RQST_CALLBACK
+        USBUART_1_HandleVendorRqst_Callback();
+    #endif /* USBUART_1_HANDLE_VENDOR_RQST_CALLBACK */
+
     return(requestHandled);
 }
 
@@ -88,7 +93,6 @@ uint8 USBUART_1_HandleVendorRqst(void)
 /* `#START VENDOR_SPECIFIC_FUNCTIONS` Place any additional functions here */
 
 /* `#END` */
-
 
 #endif /* USBUART_1_EXTERN_VND */
 

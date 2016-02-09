@@ -19,6 +19,7 @@
 #include "QuadDec_1.h"
 #include "QuadDec_1_PVT.h"
 
+
 volatile int32 QuadDec_1_count32SoftPart = 0;
 
 
@@ -48,6 +49,10 @@ CY_ISR( QuadDec_1_ISR )
 
    QuadDec_1_swStatus = QuadDec_1_STATUS_REG;
 
+    #ifdef QuadDec_1_ISR_ENTRY_CALLBACK
+        QuadDec_1_ISR_EntryCallback();
+    #endif /* QuadDec_1_ISR_ENTRY_CALLBACK */
+
     /* User code required at start of ISR */
     /* `#START QuadDec_1_ISR_START` */
 
@@ -75,6 +80,10 @@ CY_ISR( QuadDec_1_ISR )
     /* `#START QuadDec_1_ISR_END` */
 
     /* `#END` */
+
+    #ifdef QuadDec_1_ISR_EXIT_CALLBACK
+        QuadDec_1_ISR_ExitCallback();
+    #endif /* QuadDec_1_ISR_EXIT_CALLBACK */
 }
 
 

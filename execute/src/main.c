@@ -38,6 +38,7 @@ int steps = 0, current_step = 0;
 uint8_t tmp_rx_command_485_1[PAYLOAD_BUF_LEN];
 uint8_t tmp_rx_command_usb[PAYLOAD_BUF_LEN];
 uint8 eL0 = 0, eL1 = 0, eL2 = 0;
+uint16 angle = 0;
 
 //****************************************************************************
 // Function(s)
@@ -81,12 +82,14 @@ int main(void)
 	//strain_test_blocking();
 	//safety_cop_comm_test_blocking();
 	//imu_test_code_blocking();
-	//motor_fixed_pwm_test_code_blocking(0);
+	//motor_fixed_pwm_test_code_blocking(141);
 	//wdclk_test_blocking();
 	//timing_test_blocking();
 	//test_current_tracking_blocking();
+	//test_pwm_pulse_blocking();
 	//test_uart_dma_xmit();
 	//motor_cancel_damping_test_code_blocking();
+	//as5047_test_code_blocking();
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 	
 	//Special code for the ExoBoots:
@@ -159,6 +162,8 @@ int main(void)
 					}
 					
 					#endif //USE_I2C_INT
+					
+					angle = as5047_read_single(AS5047_REG_ANGLEUNC);
 				
 					break;
 				

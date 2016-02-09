@@ -86,6 +86,9 @@ void init_peripherals(void)
 	
 	#endif //USE_I2C_EXT
 	
+	//Magnetic encoder:
+	init_as5047();
+	
 	// First DieTemp reading is always inaccurate -- throw out the first one
 	#ifdef USE_DIETEMP	
 	DieTemp_1_GetTemp(&temp);

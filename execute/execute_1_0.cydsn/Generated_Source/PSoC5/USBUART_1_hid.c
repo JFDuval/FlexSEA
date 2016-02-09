@@ -25,6 +25,7 @@
 #include "USBUART_1_hid.h"
 
 
+
 /***************************************
 *    HID Variables
 ***************************************/
@@ -375,6 +376,11 @@ void USBUART_1_FindReport(void)
     /* `#START HID_FINDREPORT` Place custom handling here */
 
     /* `#END` */
+    
+    #ifdef USBUART_1_FIND_REPORT_CALLBACK
+        USBUART_1_FindReport_Callback();
+    #endif /* USBUART_1_FIND_REPORT_CALLBACK */
+    
     USBUART_1_currentTD.count = 0u;   /* Init not supported condition */
     pTmp = USBUART_1_GetConfigTablePtr(USBUART_1_configuration - 1u);
     reportType = CY_GET_REG8(USBUART_1_wValueHi);

@@ -20,6 +20,7 @@
 #include <CyLib.h>
 #include <ADC_SAR_1_IRQ.h>
 
+
 #if !defined(ADC_SAR_1_IRQ__REMOVED) /* Check for removal by optimization */
 
 /*******************************************************************************
@@ -158,6 +159,10 @@ void ADC_SAR_1_IRQ_Stop(void)
 *******************************************************************************/
 CY_ISR(ADC_SAR_1_IRQ_Interrupt)
 {
+    #ifdef ADC_SAR_1_IRQ_INTERRUPT_INTERRUPT_CALLBACK
+        ADC_SAR_1_IRQ_Interrupt_InterruptCallback();
+    #endif /* ADC_SAR_1_IRQ_INTERRUPT_INTERRUPT_CALLBACK */ 
+
     /*  Place your Interrupt code here. */
     /* `#START ADC_SAR_1_IRQ_Interrupt` */
 

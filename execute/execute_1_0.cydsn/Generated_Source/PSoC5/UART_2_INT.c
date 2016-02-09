@@ -15,6 +15,7 @@
 #include "UART_2.h"
 
 
+
 /***************************************
 * Custom Declarations
 ***************************************/
@@ -70,6 +71,10 @@ uint8 toggle_flag = 0;
         uint8 int_en;
     #endif /* (CY_PSOC3) */
 
+    #ifdef UART_2_RXISR_ENTRY_CALLBACK
+        UART_2_RXISR_EntryCallback();
+    #endif /* UART_2_RXISR_ENTRY_CALLBACK */
+
         /* User code required at start of ISR */
         /* `#START UART_2_RXISR_START` */
 
@@ -105,6 +110,10 @@ uint8 toggle_flag = 0;
                 /* `#START UART_2_RXISR_ERROR` */
 
                 /* `#END` */
+                
+            #ifdef UART_2_RXISR_ERROR_CALLBACK
+                UART_2_RXISR_ERROR_Callback();
+            #endif /* UART_2_RXISR_ERROR_CALLBACK */
             }
             
             if((readStatus & UART_2_RX_STS_FIFO_NOTEMPTY) != 0u)
@@ -178,11 +187,15 @@ uint8 toggle_flag = 0;
 
         /* `#END` */
 
+    #ifdef UART_2_RXISR_EXIT_CALLBACK
+        UART_2_RXISR_ExitCallback();
+    #endif /* UART_2_RXISR_EXIT_CALLBACK */
+
     #if(CY_PSOC3)
         EA = int_en;
     #endif /* (CY_PSOC3) */
     }
-
+    
 #endif /* (UART_2_RX_INTERRUPT_ENABLED && (UART_2_RX_ENABLED || UART_2_HD_ENABLED)) */
 
 
@@ -213,6 +226,10 @@ uint8 toggle_flag = 0;
     #if(CY_PSOC3)
         uint8 int_en;
     #endif /* (CY_PSOC3) */
+
+    #ifdef UART_2_TXISR_ENTRY_CALLBACK
+        UART_2_TXISR_EntryCallback();
+    #endif /* UART_2_TXISR_ENTRY_CALLBACK */
 
         /* User code required at start of ISR */
         /* `#START UART_2_TXISR_START` */
@@ -255,11 +272,14 @@ uint8 toggle_flag = 0;
 	
         /* `#END` */
 
+    #ifdef UART_2_TXISR_EXIT_CALLBACK
+        UART_2_TXISR_ExitCallback();
+    #endif /* UART_2_TXISR_EXIT_CALLBACK */
+
     #if(CY_PSOC3)
         EA = int_en;
     #endif /* (CY_PSOC3) */
-    }
-
+   }
 #endif /* (UART_2_TX_INTERRUPT_ENABLED && UART_2_TX_ENABLED) */
 
 

@@ -277,7 +277,7 @@ struct pos_ctrl_s
 struct ctrl_s
 {
     uint8_t active_ctrl;
-	uint8_t pwm;
+	uint8_t pwm;						//ToDo needs to be more than 8bits!
     struct gen_ctrl_s generic;
     struct gen_ctrl_s current;
     struct pos_ctrl_s position;

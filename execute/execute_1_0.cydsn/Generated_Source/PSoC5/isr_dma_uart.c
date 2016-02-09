@@ -20,6 +20,7 @@
 #include <CyLib.h>
 #include <isr_dma_uart.h>
 
+
 #if !defined(isr_dma_uart__REMOVED) /* Check for removal by optimization */
 
 /*******************************************************************************
@@ -160,6 +161,10 @@ void isr_dma_uart_Stop(void)
 *******************************************************************************/
 CY_ISR(isr_dma_uart_Interrupt)
 {
+    #ifdef isr_dma_uart_INTERRUPT_INTERRUPT_CALLBACK
+        isr_dma_uart_Interrupt_InterruptCallback();
+    #endif /* isr_dma_uart_INTERRUPT_INTERRUPT_CALLBACK */ 
+
     /*  Place your Interrupt code here. */
     /* `#START isr_dma_uart_Interrupt` */
 
@@ -170,7 +175,7 @@ CY_ISR(isr_dma_uart_Interrupt)
 	data_ready_485_1++;
 	
 	toggle ^= 1;
-	EXP10_Write(toggle);
+	//EXP10_Write(toggle);
 	
     /* `#END` */
 }
