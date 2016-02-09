@@ -89,7 +89,8 @@ int main(void)
 	//test_pwm_pulse_blocking();
 	//test_uart_dma_xmit();
 	//motor_cancel_damping_test_code_blocking();
-	//as5047_test_code_blocking();
+	//csea_knee_up_down_test_demo();
+	motor_stepper_test_blocking_1(110);
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 	
 	//Special code for the ExoBoots:
@@ -153,7 +154,7 @@ int main(void)
 							//I2C RGB LED
 							
 							//minm_test_code();
-							update_minm_rgb();
+							update_minm_rgb();		//ToDo: That's EXT_I2C, not INT
 							
 							break;
 						
@@ -204,8 +205,8 @@ int main(void)
 					}
 					
 					//Display temperature status on RGB	
-					overtemp_error(&eL1, &eL2);	//Comment this line if safety code is problematic
-					rgb_led_ui(eL0, eL1, eL2, new_cmd_led);	//ToDo add more error codes
+					overtemp_error(&eL1, &eL2);					//Comment this line if safety code is problematic
+					rgb_led_ui(eL0, eL1, eL2, new_cmd_led);		//ToDo add more error codes
 					if(new_cmd_led)
 					{
 						new_cmd_led = 0;

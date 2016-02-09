@@ -63,6 +63,11 @@ void init_peripherals(void)
 		//MPU-6500 IMU:
 		#ifdef USE_IMU
 		init_imu();
+		CyDelay(25);
+		init_imu();
+		CyDelay(25);
+		init_imu();
+		CyDelay(25);
 		#endif	//USE_IMU
 		
 		//Strain amplifier:

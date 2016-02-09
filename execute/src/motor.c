@@ -173,6 +173,49 @@ int32 motor_position_pid(int32 wanted_pos, int32 actual_pos)
 	return ctrl.position.error;
 }
 
+//Motor position controller - non blocking. PID + Feed FOrward (FF)
+//The FF term comes from the calling function, it's added to the output.
+int32 motor_position_pid_ff_1(int32 wanted_pos, int32 actual_pos, int32 ff)
+{
+	int32 p = 0, i = 0, d = 0;
+	int32 pwm = 0;
+
+	//Position values:
+	ctrl.position.pos = actual_pos;
+	ctrl.position.setp = wanted_pos;
+	
+	//Errors:
+	ctrl.position.error = ctrl.position.pos - ctrl.position.setp;
+	ctrl.position.error_sum = ctrl.position.error_sum + ctrl.position.error;
+	//ctrl.position.error_dif ToDo
+	
+	//Saturate cumulative error
+	if(ctrl.position.error_sum >= MAX_CUMULATIVE_ERROR)
+		ctrl.position.error_sum = MAX_CUMULATIVE_ERROR;
+	if(ctrl.position.error_sum <= -MAX_CUMULATIVE_ERROR)
+		ctrl.position.error_sum = -MAX_CUMULATIVE_ERROR;
+	
+	//Proportional term
+	p = (ctrl.position.gain.P_KP * ctrl.position.error) / 100;
+	//Integral term
+	i = (ctrl.position.gain.P_KI * ctrl.position.error_sum) / 100;
+	//Derivative term
+	d = 0;	//ToDo
+	
+	//Output
+	pwm = (p + i + d) + ff;		//
+	
+	//Saturates PWM to low values
+	if(pwm >= POS_PWM_LIMIT)
+		pwm = POS_PWM_LIMIT;
+	if(pwm <= -POS_PWM_LIMIT)
+		pwm = -POS_PWM_LIMIT;
+	
+	motor_open_speed_1(pwm);
+	
+	return ctrl.position.error;
+}
+
 //PI Current controller
 //'wanted_curr' is centered at zero and is in the ±CURRENT_SPAN range
 //'measured_curr' is also centered at 0
@@ -536,6 +579,8 @@ void init_motor_data_structure(void)
 //Copy of the test code used in main.c to test the hardware:
 void motor_fixed_pwm_test_code_blocking(int spd)
 {
+	uint8 toggle_wdclk = 0;	
+	
 	ctrl.active_ctrl = CTRL_OPEN;	
 	Coast_Brake_Write(1);	//Brake
 	motor_open_speed_1(spd);
@@ -545,6 +590,10 @@ void motor_fixed_pwm_test_code_blocking(int spd)
 		LED_R_Write(H1_Read());
 		LED_G_Write(H2_Read());
 		LED_B_Write(H3_Read());
+		
+		//WatchDog Clock (Safety-CoP)
+		toggle_wdclk ^= 1;
+		WDCLK_Write(toggle_wdclk);
 		
 		encoder_read();
 	}
@@ -604,5 +653,31 @@ void motor_cancel_damping_test_code_blocking(void)
 		
 		//Loop delay (otherwise we don't get a good difference)
 		CyDelay(10);
+	}
+}
+
+uint8 hall_conv[6] = {5,4,6,2,3,1};
+void motor_stepper_test_blocking_1(int spd)
+{
+	uint8 hall_code_0 = 0, hall_code = 0;
+	
+	ctrl.active_ctrl = CTRL_OPEN;	
+	Coast_Brake_Write(1);	//Brake
+	motor_open_speed_1(spd);
+	
+	while(1)
+	{
+		hall_code_0++;
+		hall_code_0 %= 6;
+		hall_code = hall_conv[hall_code_0];
+		
+		Hall_Write(hall_code);
+
+		
+		LED_R_Write(hall_code & 0x01);
+		LED_G_Write((hall_code & 0x02)>>1);
+		LED_B_Write((hall_code & 0x04)>>2);
+		
+		CyDelay(5);
 	}
 }

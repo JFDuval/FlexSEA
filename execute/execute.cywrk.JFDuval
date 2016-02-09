@@ -13,7 +13,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="execute\execute_1_0\Source Files\common\flexsea_cmd_user.c">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="execute\execute_1_0\Source Files\src\motor.c">
 <ExpandedNodeIds>
 <v>execute</v>
 <v>execute\execute_1_0</v>
@@ -216,6 +216,10 @@
 <v>execute\execute_1_0\Generated_Source\PSoC5\HalfV\HalfV.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\HalfV\HalfV.h</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\HalfV\HalfV_aliases.h</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\Hall</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\Hall\Hall.c</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\Hall\Hall.h</v>
+<v>execute\execute_1_0\Generated_Source\PSoC5\Hall\Hall_PM.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\I2C_1</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\I2C_1\I2C_1.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\I2C_1\I2C_1.h</v>
@@ -752,6 +756,12 @@
 <v>execute\execute-cop\Generated_Source\PSoC4\project.h</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
+<v>execute\execute_1_0\Header Files\inc\peripherals.h</v>
+<v>execute\execute_1_0\Header Files\inc\safety.h</v>
+<v>execute\execute_1_0\Header Files\inc\serial.h</v>
+<v>execute\execute_1_0\Header Files\inc\strain.h</v>
+<v>execute\execute_1_0\Header Files\inc\trapez.h</v>
+<v>execute\execute_1_0\Header Files\inc\ui.h</v>
 <v>execute\execute_1_0\Header Files\inc\usb.h</v>
 <v>execute\execute_1_0\Source Files</v>
 <v>execute\execute_1_0\Source Files\common</v>
@@ -794,12 +804,6 @@
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1\ADC_SAR_1.c</v>
 <v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1\ADC_SAR_1.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1\ADC_SAR_1_INT.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1\ADC_SAR_1_PM.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1_IRQ</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1_IRQ\ADC_SAR_1_IRQ.c</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1_IRQ\ADC_SAR_1_IRQ.h</v>
-<v>execute\execute_1_0\Generated_Source\PSoC5\ADC_SAR_1_theACLK</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
@@ -907,6 +911,8 @@
 <v>execute\execute_1_0\CortexM3\ARM_GCC_493\Debug\Listing Files\H2.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_493\Debug\Listing Files\H3.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_493\Debug\Listing Files\HalfV.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_493\Debug\Listing Files\Hall.lst</v>
+<v>execute\execute_1_0\CortexM3\ARM_GCC_493\Debug\Listing Files\Hall_PM.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_493\Debug\Listing Files\I2C_1.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_493\Debug\Listing Files\I2C_1_BOOT.lst</v>
 <v>execute\execute_1_0\CortexM3\ARM_GCC_493\Debug\Listing Files\I2C_1_INT.lst</v>
@@ -1074,7 +1080,8 @@
 <v>execute\execute_1_0\cy_pins_v2_10</v>
 <v>execute\execute_1_0\cy_pins_v2_10\cy_pins_v2_10.pdf</v>
 <v>execute\execute_1_0\cy_sync_v1_0.pdf</v>
-<v>execute\execute_1_0\cy_virtualmux_v1_0.pdf</v>
+<v>execute\execute_1_0\cy_virtualmux_v1_0</v>
+<v>execute\execute_1_0\cy_virtualmux_v1_0\cy_virtualmux_v1_0.pdf</v>
 <v>execute\execute_1_0\cy_vref_v1_60.pdf</v>
 <v>execute\execute_1_0\CyControlReg_v1_80</v>
 <v>execute\execute_1_0\CyControlReg_v1_80\CyControlReg_v1_80.pdf</v>

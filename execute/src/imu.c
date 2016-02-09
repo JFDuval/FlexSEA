@@ -18,7 +18,7 @@
 // Variable(s)
 //****************************************************************************
 
-uint8 i2c_tmp_buf[IMU_MAX_BUF_SIZE];
+volatile uint8 i2c_tmp_buf[IMU_MAX_BUF_SIZE];
 volatile uint8 i2c_r_buf[16];
 struct imu_s imu;
 
@@ -37,7 +37,8 @@ void init_imu()
 {
 	//Reset the IMU
 	reset_imu();
-	while(I2C_1_MasterStatus() != I2C_1_MSTAT_WR_CMPLT);
+	//while(I2C_1_MasterStatus() != I2C_1_MSTAT_WR_CMPLT);
+	CyDelay(25);
 	//ToDo: add a timeout
 	
 	// Initialize the config registers.
@@ -151,6 +152,13 @@ int imu_write(uint8 internal_reg_addr, uint8* pData, uint16 length)
 		{
 			break;
 		}
+		/*
+		else
+		{
+			//Release bus:
+             I2C_1_BUS_RELEASE;
+		}
+		*/
 		
 		CyDelay(10);
 	}
