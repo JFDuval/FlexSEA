@@ -8,13 +8,16 @@
 //****************************************************************************  
   
 As of 02/10/2016, the best source of documentation are:  
-    1) my master's thesis http://jfduval.ca/flexsea/JFDuval_Thesis_FlexSEA_Final.pdf  
-    2) my entry for the Hackaday Prize 2015 https://hackaday.io/project/5765-flexsea-wearable-robotics-toolkit  
+
+- my master's thesis http://jfduval.ca/flexsea/JFDuval_Thesis_FlexSEA_Final.pdf  
+- my entry for the Hackaday Prize 2015 https://hackaday.io/project/5765-flexsea-wearable-robotics-toolkit  
+
 Two papers describing the system have been submitted to an IEEE Conference. Links will be added when available.  
-    1) "FlexSEA: Flexible, Scalable Electronics Architecture for Wearable Robotic Applications"  
-    2) "FlexSEA-Execute: Advanced Motion Controller for Wearable Robotic Applications"  
+
+- "FlexSEA: Flexible, Scalable Electronics Architecture for Wearable Robotic Applications"  
+- "FlexSEA-Execute: Advanced Motion Controller for Wearable Robotic Applications"  
   
-Do not hesitate to contact me if you want to know more about the project.  
+**Do not hesitate to contact me if you want to know more about the project.**  
   
 // Hardware Naming Convention:  
 // ================================  
