@@ -39,7 +39,7 @@ void init_motor(void)
 	
 	//ADC2: Motor current
 	ADC_SAR_2_Start();
-	ADC_SAR_2_IRQ_Enable();
+	//ADC_SAR_2_IRQ_Enable();
 	adc_dma_config();
 	isr_dma_Start();
 	

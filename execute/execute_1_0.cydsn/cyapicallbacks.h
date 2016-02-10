@@ -17,9 +17,21 @@
 	
 	//Define callbacks here to enable them:
 	#define isr_t1_INTERRUPT_INTERRUPT_CALLBACK
+	#define isr_t2_INTERRUPT_INTERRUPT_CALLBACK
+	#define isr_dma_INTERRUPT_INTERRUPT_CALLBACK
+	#define isr_dma_uart_INTERRUPT_INTERRUPT_CALLBACK
+	#define isr_dma_uart_tx_INTERRUPT_INTERRUPT_CALLBACK
+	#define isr_ds_INTERRUPT_INTERRUPT_CALLBACK
+	#define ADC_SAR_1_ISR_INTERRUPT_CALLBACK
 	
 	//And include their prototype:
 	void isr_t1_Interrupt_InterruptCallback();
+	void isr_t2_Interrupt_InterruptCallback();
+	void isr_dma_Interrupt_InterruptCallback();
+	void isr_dma_uart_Interrupt_InterruptCallback();
+	void isr_dma_uart_tx_Interrupt_InterruptCallback();
+	void isr_ds_Interrupt_InterruptCallback();
+	void ADC_SAR_1_ISR_InterruptCallback();
 	//Place all the functions in isr_callback.c
     
 #endif /* CYAPICALLBACKS_H */   
