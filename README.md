@@ -7,7 +7,7 @@
 // FlexSEA: Flexible & Scalable Electronics Architecture  
 //****************************************************************************  
   
-As of 02/10/2016, the best source of documentation are:  
+As of 02/10/2016, the best sources of documentation are:  
 
 - my master's thesis http://jfduval.ca/flexsea/JFDuval_Thesis_FlexSEA_Final.pdf  
 - my entry for the Hackaday Prize 2015 https://hackaday.io/project/5765-flexsea-wearable-robotics-toolkit  
