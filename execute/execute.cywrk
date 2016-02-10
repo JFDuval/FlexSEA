@@ -8,11 +8,10 @@
 <files />
 <projects>
 <v>.\execute_1_0.cydsn\execute_1_0.cyprj</v>
-<v>..\execute-cop\execute-cop.cydsn\execute-cop.cyprj</v>
 </projects>
-<workspace_id v="7efb8776-a654-4ba2-8c5a-a74024fe36ef" />
-<WriteAppVersionLastSavedWith v="3.2.0.6175" />
-<WriteAppMarketingVersionLastSavedWith v="3.2 SP1" />
+<workspace_id v="32b68914-65c1-4ba5-a403-1b37407bb73c" />
+<WriteAppVersionLastSavedWith v="3.3.0.410" />
+<WriteAppMarketingVersionLastSavedWith v="3.3 CP1" />
 <CyGuid_dcbd9771-0334-43dc-9cc3-fe99dc3c5316 type_name="CyDesigner.Common.ProjMgmt.Model.CyPrjDependencyList" version="4">
 <wrkspc_dependencies />
 </CyGuid_dcbd9771-0334-43dc-9cc3-fe99dc3c5316>

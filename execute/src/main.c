@@ -14,6 +14,7 @@
 //****************************************************************************
 
 #include "main.h"
+#include "cyapicallbacks.h"
 
 #if defined (__GNUC__)
     /* Add an explicit reference to the floating point printf library */
