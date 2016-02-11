@@ -15,6 +15,7 @@
 //****************************************************************************
 
 #include <QMainWindow>
+#include <QSerialPort>
 #include "qcustomplot.h"
 
 //****************************************************************************
@@ -31,7 +32,7 @@
 
 #define STREAM_MIN_FREQ         1
 #define STREAM_MAX_FREQ         1000
-#define STREAM_DEFAULT_FREQ     100
+#define STREAM_DEFAULT_FREQ     25
 
 //Log:
 //======
@@ -73,8 +74,10 @@ public:
 private:
     int stream_status, fake_data;
     int plot_buf[1000]; //ToDo!
+    unsigned char usb_rx[256];
 
     QTimer *timer_stream, *timer_log, *timer_plot;
+    QSerialPort USBSerialPort;
 
     //Plot:
 
@@ -88,6 +91,10 @@ private:
     void update_plot_buf(int new_data);
     void update_plot_buf_single(int *buf, int *idx, int new_data);
     void plotEncoder(void);
+    int OpenUSBSerialPort(QString name, int tries, int delay);
+    void CloseUSBSerialPort(void);
+    int USBSerialPort_Write(char bytes_to_send, unsigned char *serial_tx_data);
+    int USBSerialPort_Read(unsigned char *buf);
 
 private slots:
 
@@ -106,6 +113,8 @@ private slots:
     void on_UpdatePlotpushButton_clicked();
 
     void on_checkBoxFakeData_clicked();
+
+    void on_closeComButton_clicked();
 
 private:
     Ui::MainWindow *ui;

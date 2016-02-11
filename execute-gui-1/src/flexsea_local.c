@@ -131,7 +131,7 @@ uint8_t decode_spi_rx(void)
 }
 
 //Parse the usb_rx buffer
-uint8_t decode_usb_rx(void)
+uint8_t decode_usb_rx(unsigned char *newdata)
 {
     int i = 0, result = 0, n = 0;
     uint8_t cmd_ready_usb = 0;
@@ -139,12 +139,14 @@ uint8_t decode_usb_rx(void)
     uint8_t ret = 0;
 
     //Get data
-    ret = flexsea_serial_read(usb_rx);
-    if(ret == 1)
+    //ret = flexsea_serial_read(usb_rx);    //Only for DIY driver.
+
+/*
+    for(i = 0; i < RX_BUF_LEN; i++)
     {
-        //ret == 1 means no byte read - abort
-        return ret;
+        usb_rx[i] = newdata[i];
     }
+    */
 
     /*
     //Transfer spi_rx to flexsea's buffer

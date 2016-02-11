@@ -56,10 +56,12 @@ void MainWindow::timerStreamEvent(void)
         numb = comm_gen_str(payload_str, comm_str_spi, PAYLOAD_BUF_LEN);
         numb = COMM_STR_BUF_LEN;
 
-        flexsea_serial_transmit(numb, comm_str_spi, 0);
+        //flexsea_serial_transmit(numb, comm_str_spi, 0); //DIY driver
+        USBSerialPort_Write(numb, comm_str_spi);        //QSerialPort
 
         //Can we decode what we received?
-        int val = decode_usb_rx();
+        USBSerialPort_Read(usb_rx);
+        decode_usb_rx(usb_rx);
 
         //Display return status:
         //qDebug() << "decode_usb_rx(): " << val;

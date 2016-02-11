@@ -20,6 +20,7 @@
 #include <QPushButton>
 #include <QTimer>
 #include <QDebug>
+#include <QtSerialPort/QtSerialPort>
 #include <string>
 #include "qcustomplot.h"
 
@@ -43,7 +44,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //COM port:
     ui->comPortTxt->setText("/dev/ttyACM0");
     ui->comStatusTxt->setText("Type COM port and click 'Open COM'.");
-    ui->closeComButton->setDisabled(1); //Not programmed yet.
+    ui->closeComButton->setDisabled(1); //Will be enabled when COM is open
 
     //Stream/log:
     stream_status = 0;
@@ -91,5 +92,14 @@ MainWindow::MainWindow(QWidget *parent) :
 //MainWindow destructor
 MainWindow::~MainWindow()
 {
+    //Close Serial port and delete object:
+    qDebug("Closing serial port...");
+    CloseUSBSerialPort();
+
+    qDebug("Closing main program...");
     delete ui;
 }
+
+
+
+
