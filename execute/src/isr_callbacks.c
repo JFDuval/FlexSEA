@@ -60,7 +60,13 @@ void isr_t2_Interrupt_InterruptCallback()
 	T2_RESET_Write(1);	
 }
 
-void isr_dma_Interrupt_InterruptCallback()
+//General ADC:
+void isr_sar1_dma_Interrupt_InterruptCallback()
+{
+}
+
+//Current sensing:
+void isr_sar2_dma_Interrupt_InterruptCallback()
 {
 	volatile int32 adc_sum = 0;
 	volatile int32 adc_avg = 0;
@@ -80,7 +86,7 @@ void isr_dma_Interrupt_InterruptCallback()
 	}
 }
 
-void isr_dma_uart_Interrupt_InterruptCallback()
+void isr_dma_uart_rx_Interrupt_InterruptCallback()
 {
 	//static uint8 toggle = 0;
 	
@@ -98,7 +104,7 @@ void isr_dma_uart_tx_Interrupt_InterruptCallback()
 	Timer_2_Start();		
 }
 
-void isr_ds_Interrupt_InterruptCallback()
+void isr_delsig_Interrupt_InterruptCallback()
 {
 	ADC_DelSig_1_StopConvert();
 	adc_delsig_flag = 1;	
@@ -125,8 +131,8 @@ void ADC_SAR_1_ISR_InterruptCallback()
 			ch++;
 
 		//Refresh MUX:
-		ADC_SAR_1_StopConvert();
-		AMux_1_Select(ch);				
+		ADC_SAR_1_StopConvert();	//ToDo needed?
+		AMuxSeq_1_Next();				
 		
 		adc_sar1_flag = 1;
 	}	

@@ -140,7 +140,7 @@ void init_rs485(void)
 	UART_2_Enable();
 	UART_2_Start();		
 	init_dma_3();				//DMA, Reception
-	isr_dma_uart_Start();
+	isr_dma_uart_rx_Start();
 	init_dma_4();				//DMA, Transmission
 	isr_dma_uart_tx_Start();
 	NOT_RE_Write(0);			//Enable RS-485 Receiver

@@ -24,7 +24,9 @@
 int16 adc1_res[ADC1_CHANNELS][ADC1_BUF_LEN];
 int16 adc1_res_filtered[ADC1_CHANNELS];
 
-int16 adc_dma_array[ADC1_BUF_LEN];
+int16 adc_dma_array[ADC1_BUF_LEN];	//ToDo update constants
+int16 adc_sar1_dma_array[ADC1_BUF_LEN];
+volatile uint8 amux_ch = 0;
 
 //****************************************************************************
 // Function(s)
@@ -35,13 +37,15 @@ void init_analog(void)
 	//Analog amplifiers & multiplexer(s):
 	//PGA_1_Start();	
 	Opamp_3_Start();
-	AMux_1_Start();
-	AMux_1_Select(0);
+	AMuxSeq_1_Start();
+	//AMuxSeq_1_Select(0);
 	
 	//ADC1:
 	ADC_SAR_1_Start();
-	ADC_SAR_1_IRQ_Enable();
+	ADC_SAR_1_IRQ_Enable();		//ToDo disable
 	ADC_SAR_1_StartConvert();
+	adc_sar1_dma_config();
+	isr_sar1_dma_Start();
 	
 	//PGA:
 	PGA_1_Start();
@@ -106,9 +110,32 @@ int16 read_analog(uint8 ch)
 	return 0;
 }
 
-//DMA for ADC SAR 2 transfers
+//ToDo: Work In Progress, test!
+//Triggers an ISR after 8 samples
+void adc_sar1_dma_config(void)
+{
+	/* Variable declarations for DMA_5 */
+	/* Move these variable declarations to the top of the function */
+	uint8 DMA_5_Chan;
+	uint8 DMA_5_TD[1];
+
+	/* DMA Configuration for DMA_1 */
+	#define DMA_5_BYTES_PER_BURST 		2
+	#define DMA_5_REQUEST_PER_BURST 	1
+	#define DMA_5_SRC_BASE 				(CYDEV_PERIPH_BASE)
+	#define DMA_5_DST_BASE 				(CYDEV_SRAM_BASE)
+	DMA_5_Chan = DMA_1_DmaInitialize(DMA_5_BYTES_PER_BURST, DMA_5_REQUEST_PER_BURST, 
+	    HI16(DMA_5_SRC_BASE), HI16(DMA_5_DST_BASE));
+	DMA_5_TD[0] = CyDmaTdAllocate();
+	CyDmaTdSetConfiguration(DMA_5_TD[0], 16, DMA_5_TD[0], DMA_1__TD_TERMOUT_EN | TD_INC_DST_ADR);
+	CyDmaTdSetAddress(DMA_5_TD[0], LO16((uint32)ADC_SAR_2_SAR_WRK0_PTR), LO16((uint32)adc_sar1_dma_array));
+	CyDmaChSetInitialTd(DMA_5_Chan, DMA_5_TD[0]);
+	CyDmaChEnable(DMA_5_Chan, 1);
+}
+
+//DMA for ADC SAR 2 transfers (motor current sensing)
 //Triggers an ISR after 5 transfers
-void adc_dma_config(void)
+void adc_sar2_dma_config(void)
 {
 	/* Variable declarations for DMA_1 */
 	/* Move these variable declarations to the top of the function */
@@ -116,10 +143,10 @@ void adc_dma_config(void)
 	uint8 DMA_1_TD[1];
 
 	/* DMA Configuration for DMA_1 */
-	#define DMA_1_BYTES_PER_BURST 2
-	#define DMA_1_REQUEST_PER_BURST 1
-	#define DMA_1_SRC_BASE (CYDEV_PERIPH_BASE)
-	#define DMA_1_DST_BASE (CYDEV_SRAM_BASE)
+	#define DMA_1_BYTES_PER_BURST 		2
+	#define DMA_1_REQUEST_PER_BURST 	1
+	#define DMA_1_SRC_BASE 				(CYDEV_PERIPH_BASE)
+	#define DMA_1_DST_BASE 				(CYDEV_SRAM_BASE)
 	DMA_1_Chan = DMA_1_DmaInitialize(DMA_1_BYTES_PER_BURST, DMA_1_REQUEST_PER_BURST, 
 	    HI16(DMA_1_SRC_BASE), HI16(DMA_1_DST_BASE));
 	DMA_1_TD[0] = CyDmaTdAllocate();

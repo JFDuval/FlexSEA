@@ -65,9 +65,9 @@ int main(void)
 	//Start with an empty buffer
 	flexsea_clear_slave_read_buffer();
 	
-	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- =
-	//Test code - enable one and only one for special debugging
-	//Normal code WILL NOT EXECUTE when this is enabled!
+	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+	//Blocking Test code - enable one and only one for special 
+	//debugging. Normal code WILL NOT EXECUTE when this is enabled!
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 	//strain_test_blocking();
 	//safety_cop_comm_test_blocking();
@@ -80,8 +80,12 @@ int main(void)
 	//test_uart_dma_xmit();
 	//motor_cancel_damping_test_code_blocking();
 	//csea_knee_up_down_test_demo();
-	//motor_stepper_test_blocking_1(110);
+	//motor_stepper_test_blocking_1(80);
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+	//Non-Blocking Test code
+	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+	motor_stepper_test_init(80);
+	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=	
 	
 	//Special code for the ExoBoots:
 	#ifdef PROJECT_EXOCUTE
@@ -253,6 +257,10 @@ int main(void)
 					break;
 				
 				case 7:
+					
+					//Stepper test code:
+					motor_stepper_test_runtime(10);
+					
 					break;
 				
 				//Case 8: SAR ADC filtering

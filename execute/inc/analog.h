@@ -24,7 +24,8 @@ void init_analog(void);
 uint16 adc_avg8(uint16 new_data);
 void filter_sar_adc(void);
 int16 read_analog(uint8 ch);
-void adc_dma_config(void);
+void adc_sar1_dma_config(void);
+void adc_sar2_dma_config(void);
 
 //****************************************************************************
 // Definition(s):
@@ -40,6 +41,7 @@ void adc_dma_config(void);
 extern int16 adc1_res[ADC1_CHANNELS][ADC1_BUF_LEN];
 extern int16 adc1_res_filtered[ADC1_CHANNELS];
 extern int16 adc_dma_array[ADC1_BUF_LEN];
+extern volatile uint8 amux_ch;
 
 //****************************************************************************
 // Structure(s):

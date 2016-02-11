@@ -24,6 +24,9 @@
 // Public Function Prototype(s):
 //****************************************************************************	
 
+void motor_stepper_test_blocking_1(int spd);
+void motor_stepper_test_init(int spd);
+void motor_stepper_test_runtime(int div);
 
 //****************************************************************************
 // Definition(s):
