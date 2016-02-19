@@ -31,8 +31,14 @@ void adc_sar2_dma_config(void);
 // Definition(s):
 //****************************************************************************
 
+//General ADC:
 #define ADC1_CHANNELS				6
 #define ADC1_BUF_LEN				8
+#define ADC1_SHIFT					3
+//Shift is used for averaging, match with BUF_LEN
+
+//Motor current ADC:
+#define ADC2_BUF_LEN				8
 
 //****************************************************************************
 // Shared variable(s)
@@ -40,7 +46,8 @@ void adc_sar2_dma_config(void);
 	
 extern int16 adc1_res[ADC1_CHANNELS][ADC1_BUF_LEN];
 extern int16 adc1_res_filtered[ADC1_CHANNELS];
-extern int16 adc_dma_array[ADC1_BUF_LEN];
+extern int16 adc_dma_array[ADC2_BUF_LEN];
+extern int16 adc_sar1_dma_array[ADC1_BUF_LEN + 1];
 extern volatile uint8 amux_ch;
 
 //****************************************************************************

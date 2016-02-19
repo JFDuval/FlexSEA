@@ -84,7 +84,7 @@ int main(void)
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 	//Non-Blocking Test code
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-	motor_stepper_test_init(80);
+	//motor_stepper_test_init(80);
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=	
 	
 	//Special code for the ExoBoots:
@@ -259,7 +259,7 @@ int main(void)
 				case 7:
 					
 					//Stepper test code:
-					motor_stepper_test_runtime(10);
+					//motor_stepper_test_runtime(10);
 					
 					break;
 				

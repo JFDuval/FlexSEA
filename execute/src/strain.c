@@ -47,7 +47,7 @@ void init_strain(void)
 	ADC_DelSig_1_Start();
 	ADC_DelSig_1_IRQ_Enable();
 	dma_2_config();
-	isr_ds_Start();
+	isr_delsig_Start();
 	
 	//Defaults:
 	//=-=-=-=-=-=

@@ -56,7 +56,7 @@ int main(void);
 	
 //Enable/Disable sub-modules:
 #define USE_RS485
-#define USE_USB
+//#define USE_USB
 #define USE_COMM		//Requires USE_RS485 and/or USE_USB
 #define USE_QEI1
 #define USE_TRAPEZ

@@ -24,8 +24,8 @@
 int16 adc1_res[ADC1_CHANNELS][ADC1_BUF_LEN];
 int16 adc1_res_filtered[ADC1_CHANNELS];
 
-int16 adc_dma_array[ADC1_BUF_LEN];	//ToDo update constants
-int16 adc_sar1_dma_array[ADC1_BUF_LEN];
+int16 adc_dma_array[ADC2_BUF_LEN];
+int16 adc_sar1_dma_array[ADC1_BUF_LEN + 1];
 volatile uint8 amux_ch = 0;
 
 //****************************************************************************
@@ -35,17 +35,15 @@ volatile uint8 amux_ch = 0;
 void init_analog(void)
 {
 	//Analog amplifiers & multiplexer(s):
-	//PGA_1_Start();	
 	Opamp_3_Start();
-	AMuxSeq_1_Start();
-	//AMuxSeq_1_Select(0);
+	AMuxSeq_1_Start();	//Start the MUX, all channels disabled
+	AMuxSeq_1_Next();	//Select the 1st channel
 	
 	//ADC1:
 	ADC_SAR_1_Start();
-	ADC_SAR_1_IRQ_Enable();		//ToDo disable
-	ADC_SAR_1_StartConvert();
 	adc_sar1_dma_config();
 	isr_sar1_dma_Start();
+	ADC_SAR_1_StartConvert();	//Start converting
 	
 	//PGA:
 	PGA_1_Start();
@@ -82,19 +80,24 @@ uint16 adc_avg8(uint16 new_data)
 }
 
 //Filters the ADC buffer
-//ToDo: generalize & optimize
 void filter_sar_adc(void)
 {
-	uint16 i = 0;
-	uint16 tmp_ch0 = 0, tmp_ch1 = 0;
+	uint16 i = 0, j = 0;
+	uint16 tmp[ADC1_CHANNELS];
 	
-	for(i = 0; i < 8; i++)
+	//For each channel:
+	for(i = 0; i < ADC1_CHANNELS; i++)
 	{
-		tmp_ch0 += adc1_res[0][i];
-		tmp_ch1 += adc1_res[1][i];
+		//For each value in the channel:
+		for(j = 0; j < ADC1_BUF_LEN; j++)
+		{
+			//Add the values
+			tmp[i] += adc1_res[i][j];
+		}
+		
+		//And divide to get mean
+		adc1_res_filtered[i] = tmp[i] >> ADC1_SHIFT;
 	}
-	adc1_res_filtered[0] = tmp_ch0 >> 3;
-	adc1_res_filtered[1] = tmp_ch1 >> 3;
 }
 
 //Returns one filtered value
@@ -110,8 +113,8 @@ int16 read_analog(uint8 ch)
 	return 0;
 }
 
-//ToDo: Work In Progress, test!
-//Triggers an ISR after 8 samples
+//DMA for ADC SAR 1 transfers (Expansion, VB_SNS, etc.)
+//Triggers an ISR after 9 samples
 void adc_sar1_dma_config(void)
 {
 	/* Variable declarations for DMA_5 */
@@ -124,13 +127,15 @@ void adc_sar1_dma_config(void)
 	#define DMA_5_REQUEST_PER_BURST 	1
 	#define DMA_5_SRC_BASE 				(CYDEV_PERIPH_BASE)
 	#define DMA_5_DST_BASE 				(CYDEV_SRAM_BASE)
-	DMA_5_Chan = DMA_1_DmaInitialize(DMA_5_BYTES_PER_BURST, DMA_5_REQUEST_PER_BURST, 
+	
+	DMA_5_Chan = DMA_5_DmaInitialize(DMA_5_BYTES_PER_BURST, DMA_5_REQUEST_PER_BURST,
 	    HI16(DMA_5_SRC_BASE), HI16(DMA_5_DST_BASE));
 	DMA_5_TD[0] = CyDmaTdAllocate();
-	CyDmaTdSetConfiguration(DMA_5_TD[0], 16, DMA_5_TD[0], DMA_1__TD_TERMOUT_EN | TD_INC_DST_ADR);
-	CyDmaTdSetAddress(DMA_5_TD[0], LO16((uint32)ADC_SAR_2_SAR_WRK0_PTR), LO16((uint32)adc_sar1_dma_array));
+	CyDmaTdSetConfiguration(DMA_5_TD[0], 18, DMA_5_TD[0], DMA_5__TD_TERMOUT_EN | TD_INC_DST_ADR);
+	CyDmaTdSetAddress(DMA_5_TD[0], LO16((uint32)ADC_SAR_1_SAR_WRK0_PTR), LO16((uint32)adc_sar1_dma_array));
 	CyDmaChSetInitialTd(DMA_5_Chan, DMA_5_TD[0]);
 	CyDmaChEnable(DMA_5_Chan, 1);
+
 }
 
 //DMA for ADC SAR 2 transfers (motor current sensing)
@@ -147,6 +152,7 @@ void adc_sar2_dma_config(void)
 	#define DMA_1_REQUEST_PER_BURST 	1
 	#define DMA_1_SRC_BASE 				(CYDEV_PERIPH_BASE)
 	#define DMA_1_DST_BASE 				(CYDEV_SRAM_BASE)
+	
 	DMA_1_Chan = DMA_1_DmaInitialize(DMA_1_BYTES_PER_BURST, DMA_1_REQUEST_PER_BURST, 
 	    HI16(DMA_1_SRC_BASE), HI16(DMA_1_DST_BASE));
 	DMA_1_TD[0] = CyDmaTdAllocate();

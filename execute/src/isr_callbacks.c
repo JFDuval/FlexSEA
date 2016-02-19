@@ -60,9 +60,31 @@ void isr_t2_Interrupt_InterruptCallback()
 	T2_RESET_Write(1);	
 }
 
-//General ADC:
+//General ADC - we get here after 8 samples have been taken
 void isr_sar1_dma_Interrupt_InterruptCallback()
 {
+	static unsigned char ch = 0;
+	int i = 0;
+	
+	//Stop conversion
+	ADC_SAR_1_StopConvert();
+
+	//Copy the last DMA buffer to our 2D array:
+	for(i = 0; i < ADC1_BUF_LEN; i++)
+	{
+		adc1_res[ch][i] = adc_sar1_dma_array[i+1];
+	}	
+
+	//Next channel:
+	ch++;
+	ch %= ADC1_CHANNELS;
+
+	//Refresh MUX:
+	AMuxSeq_1_Next();				
+	
+	adc_sar1_flag = 1;
+	
+	ADC_SAR_1_StartConvert();		
 }
 
 //Current sensing:
@@ -112,30 +134,5 @@ void isr_delsig_Interrupt_InterruptCallback()
 
 void ADC_SAR_1_ISR_InterruptCallback()
 {
-	static unsigned char cnt = 0;
-	static unsigned char ch = 0;
-
-	//Store last value
-	adc1_res[ch][cnt] = ADC_SAR_1_GetResult16();
-	
-	//Increment counter
-	cnt++;
-	//Time to switch channel?
-	if(cnt >= ADC1_BUF_LEN)
-	{
-		cnt = 0;
-		
-		if(ch >= ADC1_CHANNELS)
-			ch = 0;
-		else
-			ch++;
-
-		//Refresh MUX:
-		ADC_SAR_1_StopConvert();	//ToDo needed?
-		AMuxSeq_1_Next();				
-		
-		adc_sar1_flag = 1;
-	}	
-	
-	ADC_SAR_1_StartConvert();	
+	//Not used anymore
 }
