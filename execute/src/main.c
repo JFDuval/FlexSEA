@@ -84,7 +84,13 @@ int main(void)
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 	//Non-Blocking Test code
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-	//motor_stepper_test_init(80);
+	#ifdef USE_SPI_COMMUT
+		
+	motor_stepper_test_init(0);
+	//Note: deadtime is 55, small PWM values won't make it move.
+	//Starting at 0, GUI will change that when it wants.
+	
+	#endif	//USE_SPI_COMMUT	
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=	
 	
 	//Special code for the ExoBoots:
