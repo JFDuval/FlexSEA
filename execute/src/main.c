@@ -158,7 +158,11 @@ int main(void)
 					
 					#endif //USE_I2C_INT
 					
+					#ifdef USE_SPI_COMMUT
+						
 					angle = as5047_read_single(AS5047_REG_ANGLEUNC);
+					
+					#endif	//USE_SPI_COMMUT
 				
 					break;
 				
@@ -258,8 +262,12 @@ int main(void)
 				
 				case 7:
 					
+					#ifdef USE_SPI_COMMUT
+						
 					//Stepper test code:
-					//motor_stepper_test_runtime(10);
+					motor_stepper_test_runtime(10);
+					
+					#endif	//USE_SPI_COMMUT					
 					
 					break;
 				

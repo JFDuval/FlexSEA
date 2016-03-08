@@ -36,8 +36,7 @@ void init_analog(void)
 {
 	//Analog amplifiers & multiplexer(s):
 	Opamp_3_Start();
-	AMuxSeq_1_Start();	//Start the MUX, all channels disabled
-	AMuxSeq_1_Next();	//Select the 1st channel
+	AMux_1_Start();				//Start the MUX
 	
 	//ADC1:
 	ADC_SAR_1_Start();
@@ -83,7 +82,7 @@ uint16 adc_avg8(uint16 new_data)
 void filter_sar_adc(void)
 {
 	uint16 i = 0, j = 0;
-	uint16 tmp[ADC1_CHANNELS];
+	int32 tmp[ADC1_CHANNELS];
 	
 	//For each channel:
 	for(i = 0; i < ADC1_CHANNELS; i++)
@@ -96,7 +95,7 @@ void filter_sar_adc(void)
 		}
 		
 		//And divide to get mean
-		adc1_res_filtered[i] = tmp[i] >> ADC1_SHIFT;
+		adc1_res_filtered[i] = (int16) (tmp[i] >> ADC1_SHIFT);
 	}
 }
 

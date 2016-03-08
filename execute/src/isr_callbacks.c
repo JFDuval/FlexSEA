@@ -80,7 +80,7 @@ void isr_sar1_dma_Interrupt_InterruptCallback()
 	ch %= ADC1_CHANNELS;
 
 	//Refresh MUX:
-	AMuxSeq_1_Next();				
+	AMux_1_Select(ch);				
 	
 	adc_sar1_flag = 1;
 	
