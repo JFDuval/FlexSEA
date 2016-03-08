@@ -75,6 +75,7 @@ private:
     int stream_status, fake_data;
     int plot_buf[1000]; //ToDo!
     unsigned char usb_rx[256];
+    int exp_pwm;
 
     QTimer *timer_stream, *timer_log, *timer_plot;
     QSerialPort USBSerialPort;
@@ -115,6 +116,8 @@ private slots:
     void on_checkBoxFakeData_clicked();
 
     void on_closeComButton_clicked();
+
+    void on_hSlider_PWM_valueChanged(int value);
 
 private:
     Ui::MainWindow *ui;

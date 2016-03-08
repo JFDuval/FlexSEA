@@ -41,7 +41,7 @@ void MainWindow::on_openComButton_clicked()
 
     //Open USB (serial) port:
     //com_open = flexsea_serial_open_2(comport_char, tries, 50000);   //DIY driver
-    com_open = OpenUSBSerialPort(comport, tries, 100000);                //QSerialDriver
+    com_open = OpenUSBSerialPort(comport, tries, 100000);             //QSerialDriver
     if(!com_open)
     {
         qDebug("Successfully opened COM port.");

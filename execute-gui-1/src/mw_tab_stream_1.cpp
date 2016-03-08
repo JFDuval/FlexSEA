@@ -52,7 +52,7 @@ void MainWindow::timerStreamEvent(void)
         //Special1 command to test the ShuoBot Exo
 
         numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
-                                        KEEP, 0, KEEP, 0, 0, 0);
+                                        KEEP, 0, KEEP, 0, 0, exp_pwm);
         numb = comm_gen_str(payload_str, comm_str_spi, PAYLOAD_BUF_LEN);
         numb = COMM_STR_BUF_LEN;
 

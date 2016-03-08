@@ -74,6 +74,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->plot_ymax_lineEdit->setText(QString::number(plot_ymax));
     makePlot();
 
+    //Experiments:
+    exp_pwm = 0;
+    ui->disp_MotPWM->setText(QString::number(ui->hSlider_PWM->value()));
+
     //=================
     //Timers:
     //=================
@@ -99,7 +103,3 @@ MainWindow::~MainWindow()
     qDebug("Closing main program...");
     delete ui;
 }
-
-
-
-

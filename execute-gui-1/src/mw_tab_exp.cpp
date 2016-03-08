@@ -18,4 +18,11 @@
 #include <QDebug>
 #include <string>
 
+//Motor PWM slider:
+void MainWindow::on_hSlider_PWM_valueChanged(int value)
+{
+    //PWM will be used by the stream user 1 command:
+    exp_pwm = ui->hSlider_PWM->value();
+    ui->disp_MotPWM->setText(QString::number(exp_pwm));
+}
 
