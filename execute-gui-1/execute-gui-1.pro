@@ -43,7 +43,8 @@ SOURCES += src/main.cpp \
     src/mw_tab_config.cpp \
     src/mw_tab_plot_1.cpp \
     src/mw_tab_stream_1.cpp \
-    src/mw_tab_exp.cpp
+    src/mw_tab_exp.cpp \
+    src/mw_usbserial.cpp
 
 HEADERS  += inc/mainwindow.h \
     inc/qcustomplot.h \
