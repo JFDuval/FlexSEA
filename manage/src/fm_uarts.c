@@ -299,6 +299,8 @@ void puts_rs485_1(uint8_t *str, uint16_t length)
 //Prepares the board for a Reply (reception). Blocking.
 uint8_t reception_rs485_1_blocking(void)
 {
+	int delay = 0;
+
 	//Pointer to our storage buffer:
 	uint32_t *uart1_dma_buf_ptr;
 	uart1_dma_buf_ptr = (uint32_t*)&uart1_dma_rx_buf;
@@ -306,7 +308,7 @@ uint8_t reception_rs485_1_blocking(void)
 
 	//Do not enable if still transmitting:
 	while(husart1.State == HAL_USART_STATE_BUSY_TX);
-	//for(delay = 0; delay < 1000; delay++);		//Short delay
+	for(delay = 0; delay < 600; delay++);		//Short delay
 
 	//Receive enable
 	rs485_set_mode(PORT_RS485_1, RS485_RX);

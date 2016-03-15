@@ -29,8 +29,12 @@ int main(void)
 {
 	//Variables:
 	unsigned char toggle_led0 = 0, toggle_led1 = 0;
+	unsigned char test_payload[PAYLOAD_BUF_LEN];
+	int tx_byte = 0, commstrlen = 0;
 	uint8_t new_cmd_led = 0;
 	uint8_t slave_comm_trig = 0;
+	uint8_t xmit_toggle = 0;
+	int delay = 0;
 
 	//Initialize all the peripherals
 	init_peripherals();
@@ -45,7 +49,7 @@ int main(void)
 	//Test code - enable one and only one for special debugging
 	//Normal code WILL NOT EXECUTE when this is enabled!
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-	rgb_led_test_code_blocking();
+	//rgb_led_test_code_blocking();
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 	//Infinite loop
@@ -84,6 +88,20 @@ int main(void)
 
 				//Case 2:
 				case 2:
+
+					//Test code 03/18/2016:
+
+					xmit_toggle ^= 1;	//500Hz
+					if(xmit_toggle)
+					{
+						tx_byte = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, test_payload, PAYLOAD_BUF_LEN, 0, 0, 0, 0, 0, 0);
+						commstrlen = comm_gen_str(test_payload, comm_str_485_1, tx_byte);
+						commstrlen = COMM_STR_BUF_LEN;
+						flexsea_send_serial_slave(PORT_RS485_1, comm_str_485_1, commstrlen);
+
+						slaves_485_1.xmit.listen = 1;
+					}
+
 					break;
 
 				//Case 3:
