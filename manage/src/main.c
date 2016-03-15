@@ -89,8 +89,9 @@ int main(void)
 				//Case 2:
 				case 2:
 
-					//Test code 03/18/2016:
+					//Test code 03/22/2016:
 
+					/*
 					xmit_toggle ^= 1;	//500Hz
 					if(xmit_toggle)
 					{
@@ -101,6 +102,8 @@ int main(void)
 
 						slaves_485_1.xmit.listen = 1;
 					}
+					*/
+					test_comm_rw_master_v1();
 
 					break;
 

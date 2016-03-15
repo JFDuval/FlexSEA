@@ -43,6 +43,9 @@ extern "C" {
 //****************************************************************************
 
 unsigned char test_payload[PAYLOAD_BUF_LEN];
+int16_t test_comm_val2 = 0;
+uint8_t test_comm_mod = 0;
+uint32_t packet_received = 0;
 
 //****************************************************************************
 // Private Function Prototype(s)
@@ -150,13 +153,7 @@ uint32_t tx_cmd_test(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t 
 	{
 		buf[P_CMD1] = CMD_R(CMD_TEST);
 
-		bytes = P_CMD1 + 1;     //Bytes is always last+1
-	}
-	else if(cmd_type == CMD_WRITE)
-	{
-		buf[P_CMD1] = CMD_W(CMD_TEST);
-
-		//Arguments:
+		//Arguments - user defined:
 		uint16_to_bytes(val1, &tmp0, &tmp1);
 		buf[P_DATA1] = tmp0;
 		buf[P_DATA1 + 1] = tmp1;
@@ -164,7 +161,48 @@ uint32_t tx_cmd_test(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t 
 		buf[P_DATA1 + 2] = tmp0;
 		buf[P_DATA1 + 3] = tmp1;
 
-		bytes = P_DATA1 + 4;     //Bytes is always last+1
+		//Arguments - fixed:
+		buf[P_DATA1 + 4] = 50;
+		buf[P_DATA1 + 5] = 100;
+		buf[P_DATA1 + 6] = 150;
+		buf[P_DATA1 + 7] = 200;
+		buf[P_DATA1 + 8] = 250;
+		buf[P_DATA1 + 9] = 255;
+		buf[P_DATA1 + 10] = 0;
+		buf[P_DATA1 + 11] = 0;
+
+		//Argument - modulo:
+		buf[P_DATA1 + 12] = ((buf[P_DATA1] + buf[P_DATA1 + 1] + buf[P_DATA1 + 4] + buf[P_DATA1 + 6]) % 256);
+
+		bytes = P_DATA1 + 13;     //Bytes is always last+1
+
+	}
+	else if(cmd_type == CMD_WRITE)
+	{
+		buf[P_CMD1] = CMD_W(CMD_TEST);
+
+		//Arguments - user defined:
+		uint16_to_bytes(val1, &tmp0, &tmp1);
+		buf[P_DATA1] = tmp0;
+		buf[P_DATA1 + 1] = tmp1;
+		uint16_to_bytes(val2, &tmp0, &tmp1);
+		buf[P_DATA1 + 2] = tmp0;
+		buf[P_DATA1 + 3] = tmp1;
+
+		//Arguments - fixed:
+		buf[P_DATA1 + 4] = 50;
+		buf[P_DATA1 + 5] = 100;
+		buf[P_DATA1 + 6] = 150;
+		buf[P_DATA1 + 7] = 200;
+		buf[P_DATA1 + 8] = 250;
+		buf[P_DATA1 + 9] = 255;
+		buf[P_DATA1 + 10] = 0;
+		buf[P_DATA1 + 11] = 0;
+
+		//Argument - modulo:
+		buf[P_DATA1 + 12] = ((buf[P_DATA1] + buf[P_DATA1 + 1] + buf[P_DATA1 + 4] + buf[P_DATA1 + 6]) % 256);
+
+		bytes = P_DATA1 + 13;     //Bytes is always last+1
 	}
 	else
 	{
@@ -181,12 +219,52 @@ void rx_cmd_test(uint8_t *buf)
 {
 	uint32_t numb = 0;
 	int16_t tmp_val1 = 0, tmp_val2 = 0;
+	uint8_t mod = 0;
+
+	//Increment received packet counter:
+	packet_received++;
 
 	if(IS_CMD_RW(buf[P_CMD1]) == READ)
 	{
 		//Received a Read command from our master, prepare a reply:
 
-        //...
+		//Decode user data:
+		tmp_val1 = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1], buf[P_DATA1+1]));
+		tmp_val2 = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+2], buf[P_DATA1+3]));
+
+		//Modulo
+		mod = ((buf[P_DATA1] + buf[P_DATA1 + 1] + buf[P_DATA1 + 4] + buf[P_DATA1 + 6]) % 256);
+		if(mod == buf[P_DATA1 + 12])
+		{
+			//We received a valid command, almost certain it has no errors
+
+			#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+
+			numb = tx_cmd_test(buf[P_XID], CMD_WRITE, tmp_payload_xmit, \
+								PAYLOAD_BUF_LEN, tmp_val1, mod);
+			numb = comm_gen_str(tmp_payload_xmit, comm_str_485, numb);
+			numb = COMM_STR_BUF_LEN;
+			rs485_reply_ready(comm_str_485, numb);
+
+			#endif //BOARD_TYPE_FLEXSEA_EXECUTE
+
+		}
+		else
+		{
+			//Modulo didn't match... send a constant, 0xAA
+
+			#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+
+			numb = tx_cmd_test(buf[P_XID], CMD_WRITE, tmp_payload_xmit, \
+								PAYLOAD_BUF_LEN, 0xAA, 0);
+			numb = comm_gen_str(tmp_payload_xmit, comm_str_485, numb);
+			numb = COMM_STR_BUF_LEN;
+			rs485_reply_ready(comm_str_485, numb);
+
+			#endif //BOARD_TYPE_FLEXSEA_EXECUTE
+
+		}
+
 	}
 	else if(IS_CMD_RW(buf[P_CMD1]) == WRITE)
 	{
@@ -200,6 +278,12 @@ void rx_cmd_test(uint8_t *buf)
 		if(sent_from_a_slave(buf))
 		{
 			//We received a reply to our read request
+
+			//Byte 1 should be our Modulo value:
+			test_comm_mod = buf[P_DATA1];
+			test_comm_val2 = tmp_val2;
+
+			//Store the reply:
 
 			DEBUG_PRINTF("Received CMD_TEST_REPLY. Val1 = %i, Val2 = %i.\n", tmp_val1, tmp_val2);
 		}
