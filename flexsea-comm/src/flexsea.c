@@ -221,9 +221,6 @@ void rx_cmd_test(uint8_t *buf)
 	int16_t tmp_val1 = 0, tmp_val2 = 0;
 	uint8_t mod = 0;
 
-	//Increment received packet counter:
-	packet_received++;
-
 	if(IS_CMD_RW(buf[P_CMD1]) == READ)
 	{
 		//Received a Read command from our master, prepare a reply:
@@ -279,7 +276,10 @@ void rx_cmd_test(uint8_t *buf)
 		{
 			//We received a reply to our read request
 
-			//Byte 1 should be our Modulo value:
+			//Increment received packet counter:
+			packet_received++;
+
+			//Store values
 			test_comm_mod = buf[P_DATA1];
 			test_comm_val2 = tmp_val2;
 

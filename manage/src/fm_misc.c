@@ -59,40 +59,17 @@ void init_peripherals(void)
 
 void test_comm_rw_master_v1(void)
 {
-	static uint8_t first_time = 1;
 	static uint8_t xmit_toggle = 0;
 	static int16_t user_val1 = 0, user_val2 = 555;
 	int tx_byte = 0, commstrlen = 0;
 	static uint32_t packet_sent = 0, valid_replies = 0;
 
-	//Packet reception (slave reply):
-	//===============================
-
-	if(first_time)
-	{
-		//We ignore the first one, as nothing was sent
-		first_time = 0;
-	}
-	else
-	{
-		//If we are here, we already sent at least one packet. Did we receive a good reply?
-		if(user_val2 == test_comm_val2)
-		{
-			valid_replies++;
-		}
-
-		//Break here and Watch:
-		//	packet_sent
-		//	packet_received
-		//	valid_replies
-	}
-
-	//Packet transmission:
-	//====================
-
 	xmit_toggle ^= 1;	//Divide by two to get 500Hz
 	if(xmit_toggle)
 	{
+		//Packet transmission:
+		//====================
+
 		//Increment user values just so we send different packets every time:
 		user_val1++;
 		user_val2 += 3;
@@ -106,6 +83,22 @@ void test_comm_rw_master_v1(void)
 
 		//Will start listening for a reply:
 		slaves_485_1.xmit.listen = 1;
+	}
+	else
+	{
+		//Packet reception (slave reply):
+		//===============================
+
+		//If we are here, we already sent at least one packet. Did we receive a good reply?
+		if(user_val2 == test_comm_val2)
+		{
+			valid_replies++;
+		}
+
+		//Break here and Watch:
+		//	packet_sent
+		//	packet_received
+		//	valid_replies
 	}
 }
 
