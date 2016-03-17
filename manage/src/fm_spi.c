@@ -13,7 +13,7 @@
 
 #include "main.h"
 #include "fm_spi.h"
-#include "../../common/inc/flexsea.h"
+//#include "../../common/inc/flexsea.h"
 
 //****************************************************************************
 // Variable(s)

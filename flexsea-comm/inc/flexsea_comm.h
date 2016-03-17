@@ -19,6 +19,7 @@ extern "C" {
 //****************************************************************************
 
 #include "flexsea.h"
+#include "flexsea_board.h"
 #include "flexsea_system.h"
 
 //****************************************************************************
@@ -44,6 +45,7 @@ extern uint8_t comm_str_4[COMM_STR_BUF_LEN];3
 extern uint8_t rx_command_4[PAYLOAD_BUFFERS][PACKAGED_PAYLOAD_LEN];
 #endif	//ENABLE_FLEXSEA_BUF_4
 
+//ToDo: this is project specific! Eliminate or use generic names!
 extern struct slave_comm_s slaves_485_1, slaves_485_2;
 
 //****************************************************************************
@@ -90,6 +92,31 @@ uint8_t unpack_payload_4(void);
 //****************************************************************************
 // Structure(s):
 //****************************************************************************
+
+//ToDo: should this be here?
+
+struct sc_data_s
+{
+	uint8_t flag;						//1 when new data ready to be transmitted
+	uint8_t str[COMM_STR_BUF_LEN];		//Data to be transmitted
+	uint8_t length;						//Number of bytes to be sent
+	uint8_t cmd;						//What's the command? (used to know if we will get an answer)
+	uint8_t listen;						//1 when we expect an answer
+};
+
+struct slave_comm_s
+{
+	uint8_t mode;						//SC_TRANSPARENT or SC_AUTOSAMPLING
+	uint8_t port;						//PORT_RS485_1 or PORT_RS485_2
+	uint8_t bytes_ready;
+	uint8_t cmd_ready;
+
+	//We use 2 structures to avoid confusion in the data if the master was to request
+	//a Read while we are auto-sampling:
+
+	struct sc_data_s xmit;				//For the Transparent mode
+	struct sc_data_s autosample;		//For the Autosampling mode
+};
 
 #ifdef __cplusplus
 }

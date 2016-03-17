@@ -37,8 +37,9 @@
 #include "fm_imu.h"
 #include "fm_pwr_out.h"
 //#include "fm_stm32f4xx_hal_spi.h"
-#include "flexsea_local.h"
-#include "../../common/inc/flexsea.h"
+#include "flexsea_board.h"
+#include "../../flexsea-system/inc/flexsea_system.h"
+#include "../../flexsea-comm/inc/flexsea.h"
 
 //****************************************************************************
 // Prototype(s):

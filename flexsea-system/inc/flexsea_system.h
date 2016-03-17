@@ -14,6 +14,7 @@
 // Include(s)
 //****************************************************************************
 
+#include "flexsea_board.h"
 #include "../../flexsea-comm/inc/flexsea.h"
 //Include all your own files:
 #include "flexsea_cmd_control.h"
@@ -134,14 +135,74 @@ void flexsea_payload_39(uint8_t *buf);
 #define SRB_EXECUTE_BUS_VOLTAGE			10			//Bus voltage
 #define SRB_EXECUTE_TEMPERATURE			11			//Temperature
 
+//ToDO Redo that whole thing
+//Slave Read Buffer Positions - Manage:
+#define SRB_MANAGE_OFFSET				0
+#define SRB_MANAGE_STATUS				1			//Status byte. Includes the 2 switches
+#define SRB_MANAGE_DIGITAL_IO_B1		2			//First Digital IO byte: DIO0-7
+#define SRB_MANAGE_DIGITAL_IO_B2		3			//Second Digital IO byte: DIO8-11
+#define SRB_MANAGE_AN0_MSB				4			//MSB for Analog 0
+#define SRB_MANAGE_AN0_LSB				5			//LSB
+#define SRB_MANAGE_AN1_MSB				6			//MSB for Analog 1
+#define SRB_MANAGE_AN1_LSB				7			//LSB
+#define SRB_MANAGE_AN2_MSB				8			//MSB for Analog 2
+#define SRB_MANAGE_AN2_LSB				9			//LSB
+#define SRB_MANAGE_AN3_MSB				10			//MSB for Analog 3
+#define SRB_MANAGE_AN3_LSB				11			//LSB
+#define SRB_MANAGE_AN4_MSB				12			//MSB for Analog 4
+#define SRB_MANAGE_AN4_LSB				13			//LSB
+#define SRB_MANAGE_AN5_MSB				14			//MSB for Analog 5
+#define SRB_MANAGE_AN5_LSB				15			//LSB
+#define SRB_MANAGE_AN6_MSB				16			//MSB for Analog 6
+#define SRB_MANAGE_AN6_LSB				17			//LSB
+#define SRB_MANAGE_AN7_MSB				18			//MSB for Analog 7
+#define SRB_MANAGE_AN7_LSB				19			//LSB
+
 //****************************************************************************
 // Structure(s):
 //****************************************************************************
 
+//Inner structure for the gyro and the accelero
+struct xyz_s
+{
+     int16_t x;
+     int16_t y;
+     int16_t z;
+};
+
+struct execute_s
+{
+	struct xyz_s imu;	//ToDo Rename Gyro now that we support gyro + accel
+	struct xyz_s accel;
+
+	uint16_t strain;
+	uint16_t analog[8];
+	int16_t current;
+	int32_t encoder;
+	uint8_t clutch;
+	uint8_t active_ctrl;
+	int16_t pwm;
+	uint8_t status1;
+	uint8_t status2;
+
+	struct ctrl_s ctrl;	//ToDo update previous fields (ex: PWM should be under ctrl)
+};
+
+struct manage_s
+{
+	uint8_t sw1;
+	uint8_t sampling;
+};
 
 //****************************************************************************
 // Shared variable(s)
 //****************************************************************************
 
+#if defined(BOARD_TYPE_FLEXSEA_MANAGE) || defined(BOARD_TYPE_FLEXSEA_PLAN)
+
+extern struct execute_s exec1, exec2, exec3, exec4;
+extern struct manage_s manag1;
+
+#endif	//defined(BOARD_TYPE_FLEXSEA_MANAGE) || defined(BOARD_TYPE_FLEXSEA_PLAN)
 
 #endif	//INC_FLEXSEA_SYSTEM_H

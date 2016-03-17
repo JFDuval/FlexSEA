@@ -30,7 +30,6 @@ extern "C" {
 extern uint8_t rx_buf_1[];
 #endif	//ENABLE_FLEXSEA_BUF_1
 #ifdef ENABLE_FLEXSEA_BUF_2
-	
 extern uint8_t rx_buf_2[];
 #endif	//ENABLE_FLEXSEA_BUF_2
 #ifdef ENABLE_FLEXSEA_BUF_3

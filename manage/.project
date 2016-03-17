@@ -26,9 +26,14 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>common</name>
+			<name>flexsea-comm</name>
 			<type>2</type>
-			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/common</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/flexsea-comm</locationURI>
+		</link>
+		<link>
+			<name>flexsea-system</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC/flexsea-system</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>

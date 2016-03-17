@@ -34,10 +34,20 @@
 // Structure(s):
 //****************************************************************************
 
+struct spc4_s
+{
+	uint8_t ctrl_w;
+	uint8_t ctrl;
+	uint8_t encoder_w;
+	int32_t encoder;
+	int16_t current;
+	int16_t open_spd;
+};
 
 //****************************************************************************
 // Shared variable(s)
 //****************************************************************************
 
+extern struct spc4_s spc4_ex1, spc4_ex2;
 
 #endif	//INC_FLEXSEA_CMD_APPL_H

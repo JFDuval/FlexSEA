@@ -94,6 +94,8 @@
 #include "stm32f4xx_hal.h"
 #include "flexsea.h"
 
+#define NULL 0
+
 /** @addtogroup STM32F4xx_HAL_Driver
  * @{
  */
