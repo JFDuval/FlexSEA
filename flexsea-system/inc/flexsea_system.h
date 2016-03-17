@@ -120,6 +120,19 @@ void flexsea_payload_39(uint8_t *buf);
 #define SE_INVALID_READ_TYPE			1024
 #define SE_WRONG_PARSING				2048
 
+//Slave Read Buffer Positions - Execute:
+#define SRB_EXECUTE_OFFSET				0
+#define SRB_EXECUTE_STATUS				1			//Status byte. Includes ?
+#define SRB_EXECUTE_ENC1_MSB			2			//Encoder #1, MSB
+#define SRB_EXECUTE_ENC1_LSB			3			//Encoder #1, LSB
+#define SRB_EXECUTE_AN0_MSB				4			//Analog 0, MSB
+#define SRB_EXECUTE_AN0_LSB				5			//Analog 0, LSB
+#define SRB_EXECUTE_AN1_MSB				6			//Analog 1, MSB
+#define SRB_EXECUTE_AN1_LSB				7			//Analog 1, LSB
+#define SRB_EXECUTE_CURRENT_MSB			8			//Motor current, MSB
+#define SRB_EXECUTE_CURRENT_LSB			9			//Motor current, LSB
+#define SRB_EXECUTE_BUS_VOLTAGE			10			//Bus voltage
+#define SRB_EXECUTE_TEMPERATURE			11			//Temperature
 
 //****************************************************************************
 // Structure(s):

@@ -23,7 +23,6 @@
 #include "misc.h"
 #include "ui.h"
 #include "trapez.h"
-#include "flexsea_local.h"
 #include "imu.h"
 #include "analog.h"
 #include "usb.h"
@@ -36,7 +35,9 @@
 #include "ext_input.h"
 #include "gen_waveform.h"
 #include "demo.h"
-#include "../../common/inc/flexsea.h"
+#include "flexsea_board.h"
+#include "../../flexsea-system/inc/flexsea_system.h"	
+#include "../../flexsea-comm/inc/flexsea.h"	
 
 //****************************************************************************
 // Shared variable(s)

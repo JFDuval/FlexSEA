@@ -23,12 +23,6 @@
     asm (".global _printf_float");
 #endif
 
-#ifdef USE_USB
-	#warning "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="
-	#warning "   USB Enabled - Make sure to connect a cable!   "
-	#warning "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-="
-#endif
-
 //****************************************************************************
 // Variable(s)
 //****************************************************************************
@@ -36,7 +30,7 @@
 //Misc. variables, used for debugging only
 uint8 last_byte = 0;
 int steps = 0, current_step = 0;
-uint8_t tmp_rx_command_485_1[PAYLOAD_BUF_LEN];
+uint8_t tmp_rx_command_485[PAYLOAD_BUF_LEN];
 uint8_t tmp_rx_command_usb[PAYLOAD_BUF_LEN];
 uint8 eL0 = 0, eL1 = 0, eL2 = 0;
 uint16 angle = 0;
@@ -314,7 +308,7 @@ int main(void)
 			{
 				data_ready_485_1 = 0;
 				//Got new data in, try to decode
-				cmd_ready_485_1 = unpack_payload_485_1();
+				cmd_ready_485_1 = unpack_payload_485();
 			}
 				
 			#endif	//USE_RS485
@@ -346,11 +340,11 @@ int main(void)
 				//Cheap trick to get first line	//ToDo: support more than 1
 				for(i = 0; i < PAYLOAD_BUF_LEN; i++)
 				{
-					tmp_rx_command_485_1[i] = rx_command_485_1[0][i];
+					tmp_rx_command_485[i] = rx_command_485[0][i];
 				}
 				
 				//payload_parse_str() calls the functions (if valid)
-				result = payload_parse_str(tmp_rx_command_485_1);
+				result = payload_parse_str(tmp_rx_command_485);
 				
 				//LED:
 				if(result == PARSE_SUCCESSFUL)

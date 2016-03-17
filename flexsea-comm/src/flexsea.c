@@ -97,7 +97,7 @@ void test_flexsea_stack(void)
     uint8_t i = 0, res = 0, bytes = 0;
 
     //We are using a command that Plan can receive to test the parser too:
-    bytes = tx_cmd_test(FLEXSEA_PHOTON_1, CMD_WRITE, test_payload, PAYLOAD_BUF_LEN, 100, 200);
+    bytes = tx_cmd_test(FLEXSEA_PLAN_1, CMD_WRITE, test_payload, PAYLOAD_BUF_LEN, 100, 200);
     //(this fills payload_str[])
 
     DEBUG_PRINTF("bytes = %i\n", bytes);

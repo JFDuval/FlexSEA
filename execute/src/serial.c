@@ -221,7 +221,7 @@ void get_uart_data(void)
 		}
 		
 		//...then mass update rx_buf:
-		update_rx_buf_array_485_1(uart_tmp_buf, uart_buf_size+1);
+		update_rx_buf_array_485(uart_tmp_buf, uart_buf_size+1);
 		
 		data_ready_485_1++;
 	}		
