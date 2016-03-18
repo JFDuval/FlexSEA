@@ -23,7 +23,7 @@
 //TX functions are prototyped in flexsea_system
 
 //Redefine weak functions from flexsea_payload:
-
+void rx_cmd_special_1(uint8_t *buf);	//payload_30
 
 
 //****************************************************************************

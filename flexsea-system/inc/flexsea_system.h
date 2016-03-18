@@ -30,10 +30,15 @@
 //TX functions:
 uint32_t tx_cmd_digital_in(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len);
 uint32_t tx_cmd_analog_in(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len);
+uint32_t tx_cmd_ctrl_special_1(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
+								uint8_t controller_w, uint8_t controller, uint8_t encoder_w, int32_t encoder, \
+								int16_t current, int16_t open_spd);
+
 
 //Overload default function names for this specific system:
 #define rx_cmd_digital_in	flexsea_payload_20
 #define rx_cmd_analog_in	flexsea_payload_22
+#define rx_cmd_special_1	flexsea_payload_30
 
 //Redefine weak functions from flexsea_payload:
 void flexsea_payload_catchall(uint8_t *buf);
@@ -59,7 +64,7 @@ void flexsea_payload_26(uint8_t *buf);
 void flexsea_payload_27(uint8_t *buf);
 void flexsea_payload_28(uint8_t *buf);
 void flexsea_payload_29(uint8_t *buf);
-void flexsea_payload_30(uint8_t *buf);
+//void flexsea_payload_30(uint8_t *buf);
 void flexsea_payload_31(uint8_t *buf);
 void flexsea_payload_32(uint8_t *buf);
 void flexsea_payload_33(uint8_t *buf);
@@ -80,6 +85,7 @@ void flexsea_payload_39(uint8_t *buf);
 //Control:
 
 //Application/user:
+#define CMD_SPC1						30
 
 //Sensors:
 #define CMD_DIGITAL_IN					20
