@@ -207,13 +207,16 @@ void rx_cmd_special_1(uint8_t *buf)
 		
 		numb = tx_cmd_ctrl_special_1(buf[P_XID], CMD_WRITE, tmp_payload_xmit, \
 									PAYLOAD_BUF_LEN, KEEP, 0, KEEP, 0, 0, 0);		
-		numb = comm_gen_str(tmp_payload_xmit, comm_str_485_1, numb);
+		numb = comm_gen_str(tmp_payload_xmit, comm_str_485, numb);
 		numb = COMM_STR_BUF_LEN;	//Fixed length for now to accomodate the DMA
 
+		
 		//(for now, send it)
-		rs485_puts(comm_str_485_1, (numb));	
+		//rs485_puts(comm_str_485, (numb));	
+		rs485_reply_ready(comm_str_485, (numb));	//Delayed response
+		
 		#ifdef USE_USB
-		usb_puts(comm_str_485_1, (numb));	
+		usb_puts(comm_str_485, (numb));	
 		#endif
 
 		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE

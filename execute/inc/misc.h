@@ -26,7 +26,7 @@ extern volatile uint8 t1_100us_flag;
 extern volatile uint8 t1_time_share, t1_new_value;
 	
 extern uint8 adc_sar1_flag;	
-extern volatile uint8 data_ready_485_1;
+extern volatile uint8 data_ready_485;
 extern volatile uint8 data_ready_usb;
 extern volatile uint8 adc_delsig_flag;
 

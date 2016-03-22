@@ -45,7 +45,7 @@ int main(void)
 	uint8 i = 0;
 	unsigned char result = 0;
 	uint8 toggle_wdclk = 0;	
-	uint8 cmd_ready_485_1 = 0, cmd_ready_usb = 0;
+	uint8 cmd_ready_485 = 0, cmd_ready_usb = 0;
 	static uint8 new_cmd_led = 0;
 	uint16 safety_delay = 0;
 	uint8 i2c_time_share = 0;
@@ -163,7 +163,7 @@ int main(void)
 					angle = as5047_read_single(AS5047_REG_ANGLEUNC);
 					
 					#endif	//USE_SPI_COMMUT
-				
+								
 					break;
 				
 				//Case 1:	
@@ -304,11 +304,11 @@ int main(void)
 		
 			//get_uart_data();	//Now done via DMA
 			
-			if(data_ready_485_1)
+			if(data_ready_485)
 			{
-				data_ready_485_1 = 0;
+				data_ready_485 = 0;
 				//Got new data in, try to decode
-				cmd_ready_485_1 = unpack_payload_485();
+				cmd_ready_485 = unpack_payload_485();
 			}
 				
 			#endif	//USE_RS485
@@ -332,10 +332,10 @@ int main(void)
 			//FlexSEA Network Communication
 			#ifdef USE_COMM
 				
-			//Valid communication from RS-485 #1?
-			if(cmd_ready_485_1 != 0)
+			//Valid communication from RS-485?
+			if(cmd_ready_485 != 0)
 			{
-				cmd_ready_485_1 = 0;
+				cmd_ready_485 = 0;
 				
 				//Cheap trick to get first line	//ToDo: support more than 1
 				for(i = 0; i < PAYLOAD_BUF_LEN; i++)
@@ -352,6 +352,22 @@ int main(void)
 					//Green LED only if the ID matched and the command was known
 					new_cmd_led = 1;
 				}
+				
+				//Test ToDo remove
+				CyDmaClearPendingDrq(DMA_3_Chan);
+			}
+			
+			//Time to reply - RS-485?
+			if(reply_ready_flag)
+			{
+				//We never replied in the same time slot:
+				if(t1_time_share != reply_ready_timestamp)
+				{
+					rs485_puts(reply_ready_buf, reply_ready_len);	
+				
+					reply_ready_flag = 0;
+				}
+				
 			}
 
 			//Valid communication from USB?

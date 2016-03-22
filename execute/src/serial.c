@@ -24,6 +24,11 @@ uint8 DMA_4_Chan;
 uint8 DMA_4_TD[1];
 volatile int8_t tx_cnt = 0;
 
+uint8 reply_ready_buf[96];
+uint8 reply_ready_flag = 0;
+uint8 reply_ready_len = 0;
+uint8 reply_ready_timestamp = 0;
+
 //****************************************************************************
 // Private Function Prototype(s):
 //****************************************************************************
@@ -48,6 +53,22 @@ void rs485_putc(uint8 byte)
 void rs485_puts(uint8 *buf, uint32 len)
 {
 	rs485_dma_puts(buf);
+}
+
+void rs485_reply_ready(uint8 *buf, uint32 len)
+{
+	uint8 i = 0;
+	
+	reply_ready_len = len;
+	reply_ready_timestamp = t1_time_share;
+	
+	//Save in reply buf:
+	for(i = 0; i<len; i++)
+	{
+		reply_ready_buf[i] = buf[i];
+	}
+	
+	reply_ready_flag = 1;	
 }
 
 //Sends a string of characters to the UART. ISR based, UART needs a big FIFO buffer.
@@ -95,6 +116,10 @@ void rs485_dma_puts(uint8 *buf)
 	
 	UART_DMA_XMIT_Write(0);		//No transmission
 	UART_2_ClearTxBuffer();		//Clear any old data
+	
+	//ToDo Test - extra delay
+	CyDelayUs(10);
+	
 	
 	NOT_RE_Write(1);			//Disable Receiver
 	CyDelayUs(1);				//Wait (ToDo optimize/eliminate)
@@ -223,7 +248,7 @@ void get_uart_data(void)
 		//...then mass update rx_buf:
 		update_rx_buf_array_485(uart_tmp_buf, uart_buf_size+1);
 		
-		data_ready_485_1++;
+		data_ready_485++;
 	}		
 }
 
@@ -232,13 +257,13 @@ void get_uart_data(void)
 //****************************************************************************
 
 //DMA3: UART RX
+uint8 DMA_3_Chan;
+uint8 DMA_3_TD[1];
 static void init_dma_3(void)
 {
 	/* Variable declarations for DMA_3 */
 	/* Move these variable declarations to the top of the function */
-	uint8 DMA_3_Chan;
-	uint8 DMA_3_TD[1];
-	
+
 	/* DMA Configuration for DMA_3 */
 	#define DMA_3_BYTES_PER_BURST 		1
 	#define DMA_3_REQUEST_PER_BURST 	1
