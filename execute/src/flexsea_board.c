@@ -117,3 +117,19 @@ unsigned char flexsea_prepare_rs485_tx_buffer(void)
 	
 	return (numb + 1);
 }
+
+void rs485_reply_ready(uint8_t *buf, uint32_t len)
+{
+	uint8 i = 0;
+	
+	reply_ready_len = len;
+	reply_ready_timestamp = t1_time_share;
+	
+	//Save in reply buf:
+	for(i = 0; i<len; i++)
+	{
+		reply_ready_buf[i] = buf[i];
+	}
+	
+	reply_ready_flag = 1;	
+}

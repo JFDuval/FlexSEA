@@ -26,6 +26,7 @@ void flexsea_send_serial_master(unsigned char port, unsigned char *str, unsigned
 void flexsea_clear_slave_read_buffer(void);
 void build_slave_payload(unsigned char base_addr);
 unsigned char flexsea_prepare_rs485_tx_buffer(void);
+void rs485_reply_ready(uint8_t *buf, uint32_t len);
 
 //****************************************************************************
 // Definition(s):

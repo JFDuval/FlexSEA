@@ -55,22 +55,6 @@ void rs485_puts(uint8 *buf, uint32 len)
 	rs485_dma_puts(buf);
 }
 
-void rs485_reply_ready(uint8 *buf, uint32 len)
-{
-	uint8 i = 0;
-	
-	reply_ready_len = len;
-	reply_ready_timestamp = t1_time_share;
-	
-	//Save in reply buf:
-	for(i = 0; i<len; i++)
-	{
-		reply_ready_buf[i] = buf[i];
-	}
-	
-	reply_ready_flag = 1;	
-}
-
 //Sends a string of characters to the UART. ISR based, UART needs a big FIFO buffer.
 //ToDo test, optimize/remove fixed delays
 void rs485_isr_puts(uint8 *buf, uint32 len)
