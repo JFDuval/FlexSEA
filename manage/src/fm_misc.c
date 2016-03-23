@@ -94,10 +94,11 @@ void test_comm_rw_master_v1(void)
 	if(xmit_toggle)
 	{
 		//Increment user values just so we send different packets every time:
+		user_val1++;
 		user_val2 += 3;
 
 		//Prepare and send a packet:
-		tx_byte = tx_cmd_test(FLEXSEA_EXECUTE_1, CMD_READ, test_payload, PAYLOAD_BUF_LEN, packet_sent, user_val2);
+		tx_byte = tx_cmd_test(FLEXSEA_EXECUTE_1, CMD_READ, test_payload, PAYLOAD_BUF_LEN, user_val1, user_val2);
 		commstrlen = comm_gen_str(test_payload, comm_str_485_1, tx_byte);
 		commstrlen = COMM_STR_BUF_LEN;	//Fixed length
 		flexsea_send_serial_slave(PORT_RS485_1, comm_str_485_1, commstrlen);
