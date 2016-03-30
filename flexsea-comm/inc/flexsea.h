@@ -34,9 +34,9 @@ void test_flexsea_stack(void);
 // Shared variable(s)
 //****************************************************************************
 
-extern int16_t test_comm_val2;
-extern uint8_t test_comm_mod;
-extern uint32_t packet_received;
+extern int16_t test_comm_val2_1, test_comm_val2_2;
+extern uint8_t test_comm_mod_1, test_comm_mod_2;
+extern uint32_t packet_received_1, packet_received_2;
 
 //****************************************************************************
 // Definition(s):

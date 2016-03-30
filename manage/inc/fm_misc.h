@@ -22,6 +22,7 @@
 
 void init_peripherals(void);
 void test_comm_rw_master_v1(void);
+void test_comm_rw_master_v2(uint8_t fsm_state);
 
 //****************************************************************************
 // Definition(s):

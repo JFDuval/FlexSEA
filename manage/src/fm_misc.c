@@ -75,7 +75,7 @@ void test_comm_rw_master_v1(void)
 		user_val2 += 3;
 
 		//Prepare and send a packet:
-		tx_byte = tx_cmd_test(FLEXSEA_EXECUTE_1, CMD_READ, test_payload, PAYLOAD_BUF_LEN, user_val1, user_val2);
+		tx_byte = tx_cmd_test(FLEXSEA_EXECUTE_2, CMD_READ, test_payload, PAYLOAD_BUF_LEN, user_val1, user_val2);
 		commstrlen = comm_gen_str(test_payload, comm_str_485_1, tx_byte);
 		commstrlen = COMM_STR_BUF_LEN;	//Fixed length
 		flexsea_send_serial_slave(PORT_RS485_1, comm_str_485_1, commstrlen);
@@ -90,7 +90,7 @@ void test_comm_rw_master_v1(void)
 		//===============================
 
 		//If we are here, we already sent at least one packet. Did we receive a good reply?
-		if(user_val2 == test_comm_val2)
+		if(user_val2 == test_comm_val2_1)
 		{
 			valid_replies++;
 		}
@@ -102,4 +102,92 @@ void test_comm_rw_master_v1(void)
 	}
 }
 
+//Test communication - Read & Write - Master function - v2
+//Use that function in the main FSM at 1kHz.
 
+//Slave select == 1
+//	FSM == 0: Xmit Slave 1
+//	FSM == 4: Receive Slave 1. slave select = 2
+//Slave select == 2
+//	FSM == 0: Xmit Slave 2
+//	FSM == 4: Receive Slave 2. slave select = 1
+
+void test_comm_rw_master_v2(uint8_t fsm_state)
+{
+	static uint8_t slave_select = 1;
+	int tx_byte = 0, commstrlen = 0;
+
+	//Slave #1:
+	static int16_t user_val1_1 = 0, user_val2_1 = 555;
+	static uint32_t packet_sent_1 = 0, valid_replies_1 = 0;
+
+	//Slave #2:
+	static int16_t user_val1_2 = 0, user_val2_2 = 666;
+	static uint32_t packet_sent_2 = 0, valid_replies_2 = 0;
+
+	if(fsm_state == 0)
+	{
+		//Packet transmission:
+		//====================
+
+		if(slave_select == 1)
+		{
+			//Increment user values just so we send different packets every time:
+			user_val1_1++;
+			user_val2_1 += 3;
+
+			//Prepare and send a packet:
+			tx_byte = tx_cmd_test(FLEXSEA_EXECUTE_1, CMD_READ, test_payload, PAYLOAD_BUF_LEN, user_val1_1, user_val2_1);
+
+			packet_sent_1++;
+		}
+		else
+		{
+			//Increment user values just so we send different packets every time:
+			user_val1_2++;
+			user_val2_2 += 3;
+
+			//Prepare and send a packet:
+			tx_byte = tx_cmd_test(FLEXSEA_EXECUTE_2, CMD_READ, test_payload, PAYLOAD_BUF_LEN, user_val1_2, user_val2_2);
+
+			packet_sent_2++;
+		}
+
+		commstrlen = comm_gen_str(test_payload, comm_str_485_1, tx_byte);
+		commstrlen = COMM_STR_BUF_LEN;	//Fixed length
+		flexsea_send_serial_slave(PORT_RS485_1, comm_str_485_1, commstrlen);
+
+		//Will start listening for a reply:
+		slaves_485_1.xmit.listen = 1;
+	}
+	else if(fsm_state == 9)
+	{
+		//Packet reception (slave reply):
+		//===============================
+
+		if(slave_select == 1)
+		{
+			//If we are here, we already sent at least one packet. Did we receive a good reply?
+			if(user_val2_1 == test_comm_val2_1)
+			{
+				valid_replies_1++;
+			}
+
+			//Change slave
+			slave_select = 2;
+			return;
+		}
+		else
+		{
+			//If we are here, we already sent at least one packet. Did we receive a good reply?
+			if(user_val2_2 == test_comm_val2_2)
+			{
+				valid_replies_2++;
+			}
+
+			//Change slave
+			slave_select = 1;
+			return;
+		}
+	}
+}

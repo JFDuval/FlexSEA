@@ -80,6 +80,8 @@ int main(void)
 				case 0:
 					slave_comm_trig = 1;
 
+					test_comm_rw_master_v2(systick_100us_timeshare);
+
 					break;
 
 				//Case 1:
@@ -103,7 +105,7 @@ int main(void)
 						slaves_485_1.xmit.listen = 1;
 					}
 					*/
-					test_comm_rw_master_v1();
+					//test_comm_rw_master_v1();
 
 					break;
 
@@ -114,6 +116,7 @@ int main(void)
 
 				//Case 4:
 				case 4:
+
 					break;
 
 				//Case 5:
@@ -124,14 +127,19 @@ int main(void)
 				//Case 6:
 				case 6:
 
+
 					break;
 
 				//Case 7:
 				case 7:
+
+
+
 					break;
 
 				//Case 8:
 				case 8:
+
 					break;
 
 				//Case 9: User Interface
@@ -143,6 +151,8 @@ int main(void)
 					{
 						new_cmd_led = 0;
 					}
+
+					test_comm_rw_master_v2(systick_100us_timeshare);
 
 					break;
 
