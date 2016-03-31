@@ -144,12 +144,139 @@ void MainWindow::plotEncoder(uint8_t graph)
     refreshPlot(x, y, plot_len, graph);
 }
 
+//Plot the AccX value
+void MainWindow::plotAccX(uint8_t graph)
+{
+    int x[plot_len], y[plot_len];
+
+    //Generate x index - ToDo optimize
+    for (int i=0; i<plot_len; ++i)
+    {
+      x[i] = i; // x goes from 0 to 1
+    }
+
+    //Get new datapoint from Stream:
+    update_plot_buf_accx(exec1.imu.x);
+    qCopy(plot_buf_accx, plot_buf_accx+plot_len, y);
+
+    refreshPlot(x, y, plot_len, graph);
+}
+
+//Plot the GyrX value
+void MainWindow::plotGyrX(uint8_t graph)
+{
+    int x[plot_len], y[plot_len];
+
+    //Generate x index - ToDo optimize
+    for (int i=0; i<plot_len; ++i)
+    {
+      x[i] = i; // x goes from 0 to 1
+    }
+
+    //Get new datapoint from Stream:
+    update_plot_buf_gyrx(exec1.imu.x);
+    qCopy(plot_buf_gyrx, plot_buf_gyrx+plot_len, y);
+
+    refreshPlot(x, y, plot_len, graph);
+}
+
+//Plot the GyrY value
+void MainWindow::plotGyrY(uint8_t graph)
+{
+    int x[plot_len], y[plot_len];
+
+    //Generate x index - ToDo optimize
+    for (int i=0; i<plot_len; ++i)
+    {
+      x[i] = i; // x goes from 0 to 1
+    }
+
+    //Get new datapoint from Stream:
+    update_plot_buf_gyry(exec1.imu.y);
+    qCopy(plot_buf_gyry, plot_buf_gyry+plot_len, y);
+
+    refreshPlot(x, y, plot_len, graph);
+}
+
+//Plot the GyrZ value
+void MainWindow::plotGyrZ(uint8_t graph)
+{
+    int x[plot_len], y[plot_len];
+
+    //Generate x index - ToDo optimize
+    for (int i=0; i<plot_len; ++i)
+    {
+      x[i] = i; // x goes from 0 to 1
+    }
+
+    //Get new datapoint from Stream:
+    update_plot_buf_gyrz(exec1.imu.z);
+    qCopy(plot_buf_gyrz, plot_buf_gyrz+plot_len, y);
+
+    refreshPlot(x, y, plot_len, graph);
+}
+
+//Encoder
 void MainWindow::update_plot_buf(int new_data)
 {
     static int idx_plot = 0;
 
     //Updating buffer with one new data point
     update_plot_buf_single(plot_buf, &idx_plot, new_data);
+
+}
+
+void MainWindow::update_plot_buf_accx(int new_data)
+{
+    static int idx_plot = 0;
+
+    //Updating buffer with one new data point
+    update_plot_buf_single(plot_buf_accx, &idx_plot, new_data);
+
+}
+
+void MainWindow::update_plot_buf_accy(int new_data)
+{
+    static int idx_plot = 0;
+
+    //Updating buffer with one new data point
+    update_plot_buf_single(plot_buf_accy, &idx_plot, new_data);
+
+}
+
+void MainWindow::update_plot_buf_accz(int new_data)
+{
+    static int idx_plot = 0;
+
+    //Updating buffer with one new data point
+    update_plot_buf_single(plot_buf_accz, &idx_plot, new_data);
+
+}
+
+void MainWindow::update_plot_buf_gyrx(int new_data)
+{
+    static int idx_plot = 0;
+
+    //Updating buffer with one new data point
+    update_plot_buf_single(plot_buf_gyrx, &idx_plot, new_data);
+
+}
+
+void MainWindow::update_plot_buf_gyry(int new_data)
+{
+    static int idx_plot = 0;
+
+    //Updating buffer with one new data point
+    update_plot_buf_single(plot_buf_gyry, &idx_plot, new_data);
+
+}
+
+void MainWindow::update_plot_buf_gyrz(int new_data)
+{
+    static int idx_plot = 0;
+
+    //Updating buffer with one new data point
+    update_plot_buf_single(plot_buf_gyrz, &idx_plot, new_data);
 
 }
 
@@ -230,10 +357,13 @@ void MainWindow::timerPlotEvent(void)
             case 3: //"Accel Z"
                 break;
             case 4: //"Gyro X"
+                plotGyrX(index);
                 break;
             case 5: //"Gyro Y"
+                plotGyrY(index);
                 break;
             case 6: //"Gyro Z"
+                plotGyrZ(index);
                 break;
             case 7: //"Encoder"
                 plotEncoder(index);

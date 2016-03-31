@@ -133,7 +133,7 @@ void fill_uint8_buf(uint8_t *buf, uint32_t len, uint8_t filler);
 
 //Special commands:
 
-#define CMD_SPC1						100		//ShuoBot Exo
+#define CMD_SPC1						30      // Quick Test ToDo DO NOT DO THAT SHOULD BE 100		//ShuoBot Exo
 #define CMD_SPC2						101		//CSEA Knee
 #define CMD_SPC3						102		//Current controller tuning
 #define CMD_SPC4						120		//Dual ShuoBot

@@ -75,6 +75,8 @@ public:
 private:
     int stream_status, fake_data;
     int plot_buf[1000]; //ToDo!
+    int plot_buf_accx[1000], plot_buf_accy[1000], plot_buf_accz[1000];
+    int plot_buf_gyrx[1000], plot_buf_gyry[1000], plot_buf_gyrz[1000];
     unsigned char usb_rx[256];
     int exp_pwm;
 
@@ -92,7 +94,23 @@ private:
 
     void update_plot_buf(int new_data);
     void update_plot_buf_single(int *buf, int *idx, int new_data);
+
+    void update_plot_buf_accx(int new_data);
+    void update_plot_buf_accy(int new_data);
+    void update_plot_buf_accz(int new_data);
+    void update_plot_buf_gyrx(int new_data);
+    void update_plot_buf_gyry(int new_data);
+    void update_plot_buf_gyrz(int new_data);
+
     void plotEncoder(uint8_t graph);
+    void plotAccX(uint8_t graph);
+    //void plotAccY(uint8_t graph);
+    //void plotAccZ(uint8_t graph);
+    void plotGyrX(uint8_t graph);
+    void plotGyrY(uint8_t graph);
+    void plotGyrZ(uint8_t graph);
+
+
     int OpenUSBSerialPort(QString name, int tries, int delay);
     void CloseUSBSerialPort(void);
     int USBSerialPort_Write(char bytes_to_send, unsigned char *serial_tx_data);
