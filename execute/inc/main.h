@@ -65,7 +65,7 @@ int main(void);
 //#define USE_I2C_EXT
 //#define USE_IMU			//Requires USE_I2C_INT
 //#define USE_STRAIN		//Requires USE_I2C_INT
-//#define USE_SPI_COMMUT
+#define USE_SPI_COMMUT
 
 //Project specific code:
 //#define PROJECT_EXOCUTE				//ExoBoot, everything running on Execute
