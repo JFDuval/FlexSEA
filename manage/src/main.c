@@ -14,6 +14,7 @@
 //****************************************************************************
 
 #include "main.h"
+#include "usb_device.h"
 
 //****************************************************************************
 // Variable(s)
@@ -38,6 +39,9 @@ int main(void)
 
 	//Initialize all the peripherals
 	init_peripherals();
+
+	//USB test - todo move
+	MX_USB_DEVICE_Init();
 
 	//Start with an empty buffer
 	flexsea_clear_slave_read_buffer();

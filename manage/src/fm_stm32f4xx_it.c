@@ -57,6 +57,9 @@
 
 volatile unsigned int spi_bytes_ready = 0;
 
+extern PCD_HandleTypeDef hpcd_USB_OTG_FS;
+
+
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 
@@ -252,6 +255,18 @@ void DMA2_Stream6_IRQHandler(void)
 	HAL_NVIC_ClearPendingIRQ(DMA2_Stream6_IRQn);
 
 	HAL_DMA_IRQHandler(&hdma2_str6_ch5);
+}
+
+//USB:
+void OTG_FS_IRQHandler(void)
+{
+  /* USER CODE BEGIN OTG_FS_IRQn 0 */
+
+  /* USER CODE END OTG_FS_IRQn 0 */
+  HAL_PCD_IRQHandler(&hpcd_USB_OTG_FS);
+  /* USER CODE BEGIN OTG_FS_IRQn 1 */
+
+  /* USER CODE END OTG_FS_IRQn 1 */
 }
 
 /**
