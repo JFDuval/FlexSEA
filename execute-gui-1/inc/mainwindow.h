@@ -50,6 +50,7 @@
 #define INIT_PLOT_XMAX          100
 #define INIT_PLOT_YMIN          0
 #define INIT_PLOT_YMAX          200
+#define VAR_NUM                 6
 
 //Refresh:
 #define PLOT_DEFAULT_FREQ       25
@@ -84,14 +85,14 @@ private:
 
     void makePlot(void);
     //void refreshPlot(QVector<double> x, QVector<double> y);
-    void refreshPlot(int *x, int *y, int len);
-    void genTestData(void);
+    void refreshPlot(int *x, int *y, int len, uint8_t plot_index);
+    void genTestData(uint8_t graph);
     QCustomPlot customPlot;
     int plot_xmin, plot_ymin, plot_xmax, plot_ymax, plot_len;
 
     void update_plot_buf(int new_data);
     void update_plot_buf_single(int *buf, int *idx, int new_data);
-    void plotEncoder(void);
+    void plotEncoder(uint8_t graph);
     int OpenUSBSerialPort(QString name, int tries, int delay);
     void CloseUSBSerialPort(void);
     int USBSerialPort_Write(char bytes_to_send, unsigned char *serial_tx_data);
@@ -112,8 +113,6 @@ private slots:
     void on_updateRefreshButton_clicked();
 
     void on_UpdatePlotpushButton_clicked();
-
-    void on_checkBoxFakeData_clicked();
 
     void on_closeComButton_clicked();
 

@@ -42,7 +42,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="config">
      <attribute name="title">
@@ -901,37 +901,31 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>40</y>
+        <y>10</y>
         <width>1001</width>
-        <height>491</height>
+        <height>502</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_3">
-       <item row="1" column="0">
-        <widget class="QCustomPlot" name="customPlot" native="true"/>
+       <item row="0" column="0" rowspan="2" alignment="Qt::AlignTop">
+        <widget class="QCustomPlot" name="customPlot" native="true">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>500</height>
+          </size>
+         </property>
+        </widget>
        </item>
       </layout>
-     </widget>
-     <widget class="QLabel" name="label_21">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>311</width>
-        <height>17</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic; text-decoration: underline;&quot;&gt;First test: plotting encoder vs time&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
      </widget>
      <widget class="QWidget" name="horizontalLayoutWidget">
       <property name="geometry">
        <rect>
-        <x>9</x>
-        <y>540</y>
-        <width>671</width>
-        <height>141</height>
+        <x>10</x>
+        <y>520</y>
+        <width>1001</width>
+        <height>151</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
@@ -949,7 +943,7 @@
             <x>0</x>
             <y>20</y>
             <width>251</width>
-            <height>113</height>
+            <height>71</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_4">
@@ -1040,38 +1034,50 @@
              </property>
             </widget>
            </item>
+           <item row="2" column="0" colspan="2">
+            <widget class="QPushButton" name="UpdatePlotpushButton">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Update Manual XY</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </widget>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="UpdatePlotpushButton">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>Update</string>
-         </property>
-        </widget>
+        <layout class="QGridLayout" name="gridLayout_8">
+         <item row="1" column="1">
+          <widget class="QComboBox" name="cBoxvar4"/>
+         </item>
+         <item row="0" column="1">
+          <widget class="QComboBox" name="cBoxvar2"/>
+         </item>
+         <item row="1" column="0">
+          <widget class="QComboBox" name="cBoxvar3"/>
+         </item>
+         <item row="0" column="0">
+          <widget class="QComboBox" name="cBoxvar1"/>
+         </item>
+         <item row="2" column="0">
+          <widget class="QComboBox" name="cBoxvar5"/>
+         </item>
+         <item row="2" column="1">
+          <widget class="QComboBox" name="cBoxvar6"/>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>
-     <widget class="QCheckBox" name="checkBoxFakeData">
-      <property name="geometry">
-       <rect>
-        <x>910</x>
-        <y>10</y>
-        <width>97</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Fake data?</string>
-      </property>
-     </widget>
+     <zorder>gridLayoutWidget_3</zorder>
+     <zorder>horizontalLayoutWidget</zorder>
+     <zorder>customPlot</zorder>
     </widget>
     <widget class="QWidget" name="exp">
      <attribute name="title">

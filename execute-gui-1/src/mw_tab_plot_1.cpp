@@ -24,26 +24,52 @@
 
 void MainWindow::makePlot()
 {
-    // create graph and assign data to it:
-    ui->customPlot->addGraph();
-    // give the axes some labels:
-    ui->customPlot->xAxis->setLabel("x");
-    ui->customPlot->yAxis->setLabel("y");
+    QPen pen;
+
     // set axes ranges, so we see all data:
     ui->customPlot->xAxis->setRange(plot_xmin, plot_xmax);
     ui->customPlot->yAxis->setRange(plot_ymin, plot_ymax);
+
+    //Add 6 graphs:
+
+    ui->customPlot->addGraph();
+    pen.setColor(Qt::red);
+    ui->customPlot->graph()->setPen(pen);
+
+    ui->customPlot->addGraph();
+    pen.setColor(Qt::magenta);
+    ui->customPlot->graph()->setPen(pen);
+
+    ui->customPlot->addGraph();
+    pen.setColor(Qt::blue);
+    ui->customPlot->graph()->setPen(pen);
+
+    ui->customPlot->addGraph();
+    pen.setColor(Qt::cyan);
+    ui->customPlot->graph()->setPen(pen);
+
+    ui->customPlot->addGraph();
+    pen.setColor(Qt::green);
+    ui->customPlot->graph()->setPen(pen);
+
+    ui->customPlot->addGraph();
+    pen.setColor(Qt::yellow);
+    ui->customPlot->graph()->setPen(pen);
+
     ui->customPlot->replot();
 }
 
 //makePlot created a plot. We now update its data.
-void MainWindow::refreshPlot(int *x, int *y, int len)
+void MainWindow::refreshPlot(int *x, int *y, int len, uint8_t plot_index)
 {
     //From array to QVector:
     QVector<double> xdata(len), ydata(len);
     qCopy(x, x+len, xdata.begin());
     qCopy(y, y+len, ydata.begin());
 
-    ui->customPlot->graph(0)->setData(xdata, ydata);
+    ui->customPlot->graph(plot_index)->setData(xdata, ydata);
+
+    //ToDo: Modify this code to take the max of all curves!
 
     //In Automatic mode we constantly adjust the axis:
     if(ui->radioButtonXAuto->isChecked())
@@ -83,7 +109,7 @@ void MainWindow::array_minmax(int *arr, int len, int *min, int *max)
 }
 
 //Test data, to showcase Plot when no COM port is available
-void MainWindow::genTestData(void)
+void MainWindow::genTestData(uint8_t graph)
 {
     int x[plot_len], y[plot_len];
     static int offset = 0;
@@ -97,11 +123,11 @@ void MainWindow::genTestData(void)
       y[i] = i + (offset); // let's plot a quadratic function
     }
 
-    refreshPlot(x, y, plot_len);
+    refreshPlot(x, y, plot_len, graph);
 }
 
 //Plot the encoder value
-void MainWindow::plotEncoder(void)
+void MainWindow::plotEncoder(uint8_t graph)
 {
     int x[plot_len], y[plot_len];
 
@@ -115,7 +141,7 @@ void MainWindow::plotEncoder(void)
     update_plot_buf(exec1.encoder);
     qCopy(plot_buf, plot_buf+plot_len, y);
 
-    refreshPlot(x, y, plot_len);
+    refreshPlot(x, y, plot_len, graph);
 }
 
 void MainWindow::update_plot_buf(int new_data)
@@ -179,21 +205,48 @@ void MainWindow::on_UpdatePlotpushButton_clicked()
 
 void MainWindow::timerPlotEvent(void)
 {
-    //Update plot
-    if(fake_data)
-    {
-        genTestData();  //Test data
-    }
-    else
-    {
-        plotEncoder();
-    }
-}
+    uint8_t data_to_plot[VAR_NUM] = {0,0,0,0,0,0};
+    uint8_t index = 0;
 
-void MainWindow::on_checkBoxFakeData_clicked()
-{
-    if(ui->checkBoxFakeData->isChecked())
-        fake_data = 1;
-    else
-        fake_data = 0;
+    //We go through the list and we update the appropriate data:
+
+    data_to_plot[0] = ui->cBoxvar1->currentIndex();
+    data_to_plot[1] = ui->cBoxvar2->currentIndex();
+    data_to_plot[2] = ui->cBoxvar3->currentIndex();
+    data_to_plot[3] = ui->cBoxvar4->currentIndex();
+    data_to_plot[4] = ui->cBoxvar5->currentIndex();
+    data_to_plot[5] = ui->cBoxvar6->currentIndex();
+
+    for(index = 0; index < VAR_NUM; index++)
+    {
+        switch(data_to_plot[index])
+        {
+            case 0: //"**Unused**"
+                break;
+            case 1: //"Accel X"
+                break;
+            case 2: //"Accel Y"
+                break;
+            case 3: //"Accel Z"
+                break;
+            case 4: //"Gyro X"
+                break;
+            case 5: //"Gyro Y"
+                break;
+            case 6: //"Gyro Z"
+                break;
+            case 7: //"Encoder"
+                plotEncoder(index);
+                break;
+            case 8: //"Motor current"
+                break;
+            case 9: //"Analog[0]"
+                break;
+            case 10: //"Strain"
+                break;
+            case 11: //"Fake Data"
+                genTestData(index);
+                break;
+        }
+    }
 }

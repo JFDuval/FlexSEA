@@ -113,7 +113,7 @@ void MainWindow::on_updateRefreshButton_clicked()
     }
     else
     {
-        //Valid frequency: compute priod, modify timer.
+        //Valid frequency: compute period, modify timer.
 
         period = (1000/freq);   //in ms
         //qDebug() << "Frequency in textbox is: " << freq << "Hz. Associated period (integer): " << period << "ms.";

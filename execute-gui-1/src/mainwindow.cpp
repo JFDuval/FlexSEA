@@ -73,6 +73,20 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->plot_ymin_lineEdit->setText(QString::number(plot_ymin));
     ui->plot_ymax_lineEdit->setText(QString::number(plot_ymax));
     makePlot();
+    //Variable option lists:
+    QStringList var_list;
+    var_list << "**Unused**" << "Accel X" << "Accel Y" << "Accel Z" << "Gyro X" << "Gyro Y" << "Gyro Z" << "Encoder" \
+            << "Motor current" << "Analog[0]" << "Strain" << "Fake Data";
+    for(int index = 0; index < var_list.count(); index++)
+    {
+        //All boxes have the same list:
+        ui->cBoxvar1->addItem(var_list.at(index));
+        ui->cBoxvar2->addItem(var_list.at(index));
+        ui->cBoxvar3->addItem(var_list.at(index));
+        ui->cBoxvar4->addItem(var_list.at(index));
+        ui->cBoxvar5->addItem(var_list.at(index));
+        ui->cBoxvar6->addItem(var_list.at(index));
+    }
 
     //Experiments:
     exp_pwm = 0;
