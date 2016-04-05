@@ -78,4 +78,6 @@ MOC_DIR = release/.moc
 RCC_DIR = release/.rcc
 UI_DIR = release/.ui
 
+#QMAKE_LFLAGS += -Xlinker -Bstatic
+
 FORMS    += mainwindow.ui
