@@ -41,7 +41,8 @@ SOURCES += src/main.cpp \
     ../flexsea-system/src/flexsea_cmd_external.c \
     ../flexsea-system/src/flexsea_cmd_sensors.c \
     ../flexsea-system/src/flexsea_system.c \
-    src/flexsea_board.c
+    src/flexsea_board.c \
+    ../flexsea-system/src/flexsea_cmd_data.c
 
 HEADERS  += inc/mainwindow.h \
     inc/qcustomplot.h \
@@ -63,7 +64,8 @@ HEADERS  += inc/mainwindow.h \
     ../flexsea-system/inc/flexsea_cmd_external.h \
     ../flexsea-system/inc/flexsea_cmd_sensors.h \
     ../flexsea-system/inc/flexsea_system.h \
-    inc/flexsea_board.h
+    inc/flexsea_board.h \
+    ../flexsea-system/inc/flexsea_cmd_data.h
 
 DESTDIR = release
 OBJECTS_DIR = release/.obj

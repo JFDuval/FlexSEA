@@ -50,7 +50,7 @@ unsigned char spi_rx[COMM_STR_BUF_LEN];
 unsigned char usb_rx[COMM_STR_BUF_LEN];
 
 //flexsea_comm.c:
-extern uint8_t rx_command_spi[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
+//extern uint8_t rx_command_spi[PAYLOAD_BUF_LEN][PACKAGED_PAYLOAD_LEN];
 
 //****************************************************************************
 // Function(s)
