@@ -20,7 +20,8 @@
 #include "flexsea_cmd_control.h"
 #include "flexsea_cmd_sensors.h"
 #include "flexsea_cmd_external.h"
-#include "flexsea_cmd_application.h"	
+#include "flexsea_cmd_application.h"
+#include "flexsea_cmd_data.h"	
 //...
 
 //****************************************************************************
@@ -28,35 +29,104 @@
 //****************************************************************************
 
 //TX functions:
+//=============
+
+//External:
 uint32_t tx_cmd_digital_in(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len);
 uint32_t tx_cmd_analog_in(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len);
+uint32_t tx_cmd_exp_clutch(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
+								uint8_t clutch);
+								
+//Control:
+uint32_t tx_cmd_ctrl_mode(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, int16_t ctrl);
+uint32_t tx_cmd_ctrl_i(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, int16_t wanted, int16_t measured);
+uint32_t tx_cmd_ctrl_o(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, int16_t open_spd);
+uint32_t tx_cmd_ctrl_p(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
+						int32_t pos, int32_t posi, int32_t posf, int32_t spdm, int32_t acc);
+uint32_t tx_cmd_ctrl_i_g(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
+						int16_t kp, int16_t ki, int16_t kd);
+uint32_t tx_cmd_ctrl_p_g(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
+						int16_t kp, int16_t ki, int16_t kd);
+uint32_t tx_cmd_ctrl_z_g(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
+						int16_t zk, int16_t zb, int16_t zi);
+						
+//Data:
+uint32_t tx_cmd_data_acqui(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, int16_t acqui);
+
+//Application:
 uint32_t tx_cmd_ctrl_special_1(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
 								uint8_t controller_w, uint8_t controller, uint8_t encoder_w, int32_t encoder, \
-								int16_t current, int16_t open_spd);
-
-
+								int16_t current, int16_t open_spd);						
+uint32_t tx_cmd_ctrl_special_2(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
+								int16_t z_k, int16_t z_b, int16_t z_i, uint8_t rgb, uint8_t clutch, \
+								uint8_t trapeze, int32_t posi, int32_t posf, int32_t spdm, int32_t acc);
+uint32_t tx_cmd_ctrl_special_3(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
+								int16_t i_kp, int16_t i_ki, int16_t i_kd, int16_t w_curr);
+uint32_t tx_cmd_ctrl_special_4(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
+								uint8_t controller_w1, uint8_t controller1, uint8_t encoder_w1, int32_t encoder1, \
+								int16_t current1, int16_t open_spd1, \
+								uint8_t controller_w2, uint8_t controller2, uint8_t encoder_w2, int32_t encoder2, \
+								int16_t current2, int16_t open_spd2);
+								
 //Overload default function names for this specific system:
-#define rx_cmd_digital_in	flexsea_payload_20
-#define rx_cmd_analog_in	flexsea_payload_22
-#define rx_cmd_special_1	flexsea_payload_30
+//=========================================================
+
+//External:
+#define rx_cmd_analog_in	flexsea_payload_63
+#define rx_cmd_digital_in	flexsea_payload_64	//ToDo: should be in&out
+
+//Control:
+#define rx_cmd_ctrl_mode	flexsea_payload_80
+#define rx_cmd_ctrl_x_g		flexsea_payload_81
+#define rx_cmd_ctrl_i_g		flexsea_payload_82
+#define rx_cmd_ctrl_p_g		flexsea_payload_83
+#define rx_cmd_ctrl_z_g		flexsea_payload_84
+#define rx_cmd_ctrl_o		flexsea_payload_85
+#define rx_cmd_ctrl_i		flexsea_payload_86
+#define rx_cmd_ctrl_p		flexsea_payload_87
+
+//Data:
+#define rx_cmd_data_acqui	flexsea_payload_21
+//#define rx_cmd_data_mem		flexsea_payload_20
+
+//Application:
+#define rx_cmd_special_1	flexsea_payload_100
+#define rx_cmd_special_2	flexsea_payload_101
+#define rx_cmd_special_3	flexsea_payload_102
+#define rx_cmd_special_4	flexsea_payload_120
 
 //Redefine weak functions from flexsea_payload:
-void flexsea_payload_catchall(uint8_t *buf);
-void flexsea_payload_0(uint8_t *buf);
+//=============================================
 
-void flexsea_payload_10(uint8_t *buf);
-void flexsea_payload_11(uint8_t *buf);
-void flexsea_payload_12(uint8_t *buf);
-void flexsea_payload_13(uint8_t *buf);
+//0-9:
+void flexsea_payload_catchall(uint8_t *buf);
+void flexsea_payload_0(uint8_t *buf);			//CMD_NULL
+//void flexsea_payload_1(uint8_t *buf);			//CMD_TEST
+void flexsea_payload_2(uint8_t *buf);
+void flexsea_payload_3(uint8_t *buf);
+void flexsea_payload_4(uint8_t *buf);
+void flexsea_payload_5(uint8_t *buf);
+void flexsea_payload_6(uint8_t *buf);
+void flexsea_payload_7(uint8_t *buf);
+void flexsea_payload_8(uint8_t *buf);
+void flexsea_payload_9(uint8_t *buf);
+
+//10-19:
+void flexsea_payload_10(uint8_t *buf);			//CMD_PING
+void flexsea_payload_11(uint8_t *buf);			//CMD_STATUS
+void flexsea_payload_12(uint8_t *buf);			//CMD_RESET
+void flexsea_payload_13(uint8_t *buf);			//CMD_ACK
 void flexsea_payload_14(uint8_t *buf);
 void flexsea_payload_15(uint8_t *buf);
 void flexsea_payload_16(uint8_t *buf);
 void flexsea_payload_17(uint8_t *buf);
 void flexsea_payload_18(uint8_t *buf);
 void flexsea_payload_19(uint8_t *buf);
-//void flexsea_payload_20(uint8_t *buf);
-void flexsea_payload_21(uint8_t *buf);
-//void flexsea_payload_22(uint8_t *buf);
+
+//20-29:
+//void flexsea_payload_20(uint8_t *buf);		//CMD_MEM
+//void flexsea_payload_21(uint8_t *buf);		//CMD_ACQUI
+void flexsea_payload_22(uint8_t *buf);
 void flexsea_payload_23(uint8_t *buf);
 void flexsea_payload_24(uint8_t *buf);
 void flexsea_payload_25(uint8_t *buf);
@@ -64,7 +134,9 @@ void flexsea_payload_26(uint8_t *buf);
 void flexsea_payload_27(uint8_t *buf);
 void flexsea_payload_28(uint8_t *buf);
 void flexsea_payload_29(uint8_t *buf);
-//void flexsea_payload_30(uint8_t *buf);
+
+//30-39: 
+void flexsea_payload_30(uint8_t *buf);
 void flexsea_payload_31(uint8_t *buf);
 void flexsea_payload_32(uint8_t *buf);
 void flexsea_payload_33(uint8_t *buf);
@@ -75,28 +147,181 @@ void flexsea_payload_37(uint8_t *buf);
 void flexsea_payload_38(uint8_t *buf);
 void flexsea_payload_39(uint8_t *buf);
 
+//40-49:
+//void flexsea_payload_40(uint8_t *buf);		//CMD_TEMP
+//void flexsea_payload_41(uint8_t *buf);		//CMD_SWITCH
+//void flexsea_payload_42(uint8_t *buf);		//CMD_IMU
+//void flexsea_payload_43(uint8_t *buf);		//CMD_ENCODER
+//void flexsea_payload_44(uint8_t *buf);		//CMD_STRAIN
+//void flexsea_payload_45(uint8_t *buf);		//CMD_STRAIN_CONFIG
+//void flexsea_payload_46(uint8_t *buf);		//CMD_VOLT
+//void flexsea_payload_47(uint8_t *buf);		//CMD_BATT
+void flexsea_payload_48(uint8_t *buf);
+void flexsea_payload_49(uint8_t *buf);
+
+//50-59: 
+void flexsea_payload_50(uint8_t *buf);
+void flexsea_payload_51(uint8_t *buf);
+void flexsea_payload_52(uint8_t *buf);
+void flexsea_payload_53(uint8_t *buf);
+void flexsea_payload_54(uint8_t *buf);
+void flexsea_payload_55(uint8_t *buf);
+void flexsea_payload_56(uint8_t *buf);
+void flexsea_payload_57(uint8_t *buf);
+void flexsea_payload_58(uint8_t *buf);
+void flexsea_payload_59(uint8_t *buf);
+
+//60-69: 
+//void flexsea_payload_60(uint8_t *buf);		//CMD_POWER_OUT
+//void flexsea_payload_61(uint8_t *buf);		//CMD_CLUTCH
+void flexsea_payload_62(uint8_t *buf);			//CMD_ADV_ANA_CONFIG
+void flexsea_payload_63(uint8_t *buf);			//CMD_ANALOG
+void flexsea_payload_64(uint8_t *buf);			//CMD_DIGITAL
+void flexsea_payload_65(uint8_t *buf);			//CMD_DIGITAL_CONFIG
+void flexsea_payload_66(uint8_t *buf);			//CMD_EXP_PERIPH_CONFIG
+void flexsea_payload_67(uint8_t *buf);
+void flexsea_payload_68(uint8_t *buf);
+void flexsea_payload_69(uint8_t *buf);
+
+//70-79: 
+void flexsea_payload_70(uint8_t *buf);
+void flexsea_payload_71(uint8_t *buf);
+void flexsea_payload_72(uint8_t *buf);
+void flexsea_payload_73(uint8_t *buf);
+void flexsea_payload_74(uint8_t *buf);
+void flexsea_payload_75(uint8_t *buf);
+void flexsea_payload_76(uint8_t *buf);
+void flexsea_payload_77(uint8_t *buf);
+void flexsea_payload_78(uint8_t *buf);
+void flexsea_payload_79(uint8_t *buf);
+
+//80-89: 
+//void flexsea_payload_80(uint8_t *buf);	//CMD_CTRL_MODE
+//void flexsea_payload_81(uint8_t *buf);	//CMD_CTRL_X_G
+//void flexsea_payload_82(uint8_t *buf);	//CMD_CTRL_I_G
+//void flexsea_payload_83(uint8_t *buf);	//CMD_CTRL_P_G
+//void flexsea_payload_84(uint8_t *buf);	//CMD_CTRL_Z_G
+//void flexsea_payload_85(uint8_t *buf);	//CMD_CTRL_O
+//void flexsea_payload_86(uint8_t *buf);	//CMD_CTRL_I
+//void flexsea_payload_87(uint8_t *buf);	//CMD_CTRL_P
+void flexsea_payload_88(uint8_t *buf);
+void flexsea_payload_89(uint8_t *buf);
+
+//90-99: 
+void flexsea_payload_90(uint8_t *buf);
+void flexsea_payload_91(uint8_t *buf);
+void flexsea_payload_92(uint8_t *buf);
+void flexsea_payload_93(uint8_t *buf);
+void flexsea_payload_94(uint8_t *buf);
+void flexsea_payload_95(uint8_t *buf);
+void flexsea_payload_96(uint8_t *buf);
+void flexsea_payload_97(uint8_t *buf);
+void flexsea_payload_98(uint8_t *buf);
+void flexsea_payload_99(uint8_t *buf);
+
+//100-109: 
+//void flexsea_payload_100(uint8_t *buf);	//ShuoBot Exo
+//void flexsea_payload_101(uint8_t *buf);	//CSEA Knee
+//void flexsea_payload_102(uint8_t *buf);	//Current controller tuning
+void flexsea_payload_103(uint8_t *buf);
+void flexsea_payload_104(uint8_t *buf);
+void flexsea_payload_105(uint8_t *buf);
+void flexsea_payload_106(uint8_t *buf);
+void flexsea_payload_107(uint8_t *buf);
+void flexsea_payload_108(uint8_t *buf);
+void flexsea_payload_109(uint8_t *buf);
+
+//110-119: 
+void flexsea_payload_110(uint8_t *buf);
+void flexsea_payload_111(uint8_t *buf);
+void flexsea_payload_112(uint8_t *buf);
+void flexsea_payload_113(uint8_t *buf);
+void flexsea_payload_114(uint8_t *buf);
+void flexsea_payload_115(uint8_t *buf);
+void flexsea_payload_116(uint8_t *buf);
+void flexsea_payload_117(uint8_t *buf);
+void flexsea_payload_118(uint8_t *buf);
+void flexsea_payload_119(uint8_t *buf);
+
+//120-129: 
+//void flexsea_payload_120(uint8_t *buf);	//Dual ShuoBot
+void flexsea_payload_121(uint8_t *buf);
+void flexsea_payload_122(uint8_t *buf);
+void flexsea_payload_123(uint8_t *buf);
+void flexsea_payload_124(uint8_t *buf);
+void flexsea_payload_125(uint8_t *buf);
+void flexsea_payload_126(uint8_t *buf);
+void flexsea_payload_127(uint8_t *buf);
+
 //****************************************************************************
 // Definition(s):
 //****************************************************************************
 
 //Nicknames for commands:
-#define CMD_TEST                	1
+//=======================
+//Important: command codes have to be from 0 to 127 (7bits, unsigned)
 
-//Control:
+//System commands:
 
-//Application/user:
-#define CMD_SPC1			30
+#define CMD_NULL              			0
+#define CMD_TEST                		1
+#define CMD_PING						10
+#define CMD_STATUS						11
+#define CMD_RESET						12
+#define CMD_ACK							13
 
-//Sensors:
-#define CMD_DIGITAL_IN			20
-#define CMD_DIGITAL_OUT			21
-#define CMD_ANALOG_IN			22
+//Data commands:
+
+#define CMD_MEM							20
+#define CMD_ACQUI						21
+
+//Sensor commands:
+
+#define CMD_TEMP						40
+#define CMD_SWITCH						41
+#define CMD_IMU							42
+#define CMD_ENCODER						43
+#define CMD_STRAIN						44
+#define CMD_STRAIN_CONFIG				45
+#define CMD_VOLT						46
+#define CMD_BATT						47
+
+//Expansion/external commands:
+
+#define CMD_POWER_OUT					60
+#define CMD_CLUTCH						61
+#define CMD_ADV_ANA_CONFIG				62
+#define CMD_ANALOG						63
+#define CMD_DIGITAL						64
+#define CMD_DIGITAL_CONFIG				65
+#define CMD_EXP_PERIPH_CONFIG			66
+
+//Motor & Control commands:
+
+#define CMD_CTRL_MODE					80
+#define CMD_CTRL_X_G					81
+#define CMD_CTRL_I_G					82
+#define CMD_CTRL_P_G					83
+#define CMD_CTRL_Z_G					84
+#define CMD_CTRL_O						85
+#define CMD_CTRL_I						86
+#define CMD_CTRL_P						87
+#define ShORTED_LEADS					88
+
+//Special commands:
+
+#define CMD_SPC1						100     //ShuoBot Exo
+#define CMD_SPC2						101		//CSEA Knee
+#define CMD_SPC3						102		//Current controller tuning
+#define CMD_SPC4						120		//Dual ShuoBot
+
+//===================
 
 //Board types:
 #define FLEXSEA_PLAN                	1
 #define FLEXSEA_MANAGE              	2
 #define FLEXSEA_EXECUTE             	3
-#define FLEXSEA_BATTERY			4
+#define FLEXSEA_BATTERY					4
 
 //Board addresses:
 #define FLEXSEA_DEFAULT             	0

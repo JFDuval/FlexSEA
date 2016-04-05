@@ -4,11 +4,11 @@
 // jfduval@media.mit.edu
 // 03/2016
 //****************************************************************************
-// flexsea_cmd_external: External/Expansion connector
+// flexsea_cmd_data: Data Commands
 //****************************************************************************
 
-#ifndef INC_FLEXSEA_CMD_EXTERNAL_H
-#define INC_FLEXSEA_CMD_EXTERNAL_H
+#ifndef INC_FLEXSEA_CMD_DATA_H
+#define INC_FLEXSEA_CMD_DATA_H
 
 //****************************************************************************
 // Include(s)
@@ -23,9 +23,7 @@
 //TX functions are prototyped in flexsea_system
 
 //Redefine weak functions from flexsea_payload:
-//void rx_cmd_digital_in(uint8_t *buf);
-//void rx_cmd_analog_in(uint8_t *buf);
-void rx_cmd_exp_clutch(uint8_t *buf);
+void rx_cmd_data_acqui(uint8_t *buf);
 
 //****************************************************************************
 // Definition(s):
@@ -41,4 +39,4 @@ void rx_cmd_exp_clutch(uint8_t *buf);
 //****************************************************************************
 
 
-#endif	//INC_FLEXSEA_CMD_EXTERNAL_H
+#endif	//INC_FLEXSEA_CMD_DATA_H

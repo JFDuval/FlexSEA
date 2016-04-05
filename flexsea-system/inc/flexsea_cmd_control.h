@@ -20,6 +20,13 @@
 // Prototype(s):
 //****************************************************************************
 
+void rx_cmd_ctrl_mode(uint8_t *buf);
+void rx_cmd_ctrl_i(uint8_t *buf);
+void rx_cmd_ctrl_o(uint8_t *buf);
+void rx_cmd_ctrl_p(uint8_t *buf);
+void rx_cmd_ctrl_i_g(uint8_t *buf);
+void rx_cmd_ctrl_p_g(uint8_t *buf);
+void rx_cmd_ctrl_z_g(uint8_t *buf);
 
 
 //****************************************************************************
