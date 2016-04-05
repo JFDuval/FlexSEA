@@ -43,9 +43,9 @@ extern "C" {
 //****************************************************************************
 
 unsigned char test_payload[PAYLOAD_BUF_LEN];
-int16_t test_comm_val2 = 0;
-uint8_t test_comm_mod = 0;
-uint32_t packet_received = 0;
+int16_t test_comm_val2_1 = 0, test_comm_val2_2 = 0;
+uint8_t test_comm_mod_1 = 0, test_comm_mod_2 = 0;
+uint32_t packet_received_1 = 0, packet_received_2 = 0;
 
 //****************************************************************************
 // Private Function Prototype(s)
@@ -276,12 +276,24 @@ void rx_cmd_test(uint8_t *buf)
 		{
 			//We received a reply to our read request
 
-			//Increment received packet counter:
-			packet_received++;
+			if(buf[P_XID] == FLEXSEA_EXECUTE_1)
+			{
+				//Increment received packet counter:
+				packet_received_1++;
 
-			//Store values
-			test_comm_mod = buf[P_DATA1];
-			test_comm_val2 = tmp_val2;
+				//Store values
+				test_comm_mod_1 = buf[P_DATA1];
+				test_comm_val2_1 = tmp_val2;
+			}
+			else if(buf[P_XID] == FLEXSEA_EXECUTE_2)
+			{
+				//Increment received packet counter:
+				packet_received_2++;
+
+				//Store values
+				test_comm_mod_2 = buf[P_DATA1];
+				test_comm_val2_2 = tmp_val2;
+			}
 
 			//Store the reply:
 

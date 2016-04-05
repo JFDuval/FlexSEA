@@ -62,6 +62,7 @@ void PendSV_Handler(void);
 void SysTick_Handler(void);
 void SPIx_IRQHandler(void);	//ToDo Wrong, should be 1
 void USART1_IRQHandler(void);
+void OTG_FS_IRQHandler(void);
 
 #ifdef __cplusplus
 }
