@@ -336,7 +336,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			_USE_PRINTF("[Memory]: Base addr. = %i, bytes = %i.\n", tmp0, tmp1);
 			//Prepare and send data:
 			//numb = tx_cmd_mem_read(slave_id[slave], 0, tmp0, tmp1);	//ToDo
-			numb = comm_gen_str(payload_str, comm_str_spi, numb);
+            numb = comm_gen_str(payload_str, comm_str_usb, numb);
 			break;
 
 		case 5: 	//'acqui'
@@ -344,7 +344,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			_USE_PRINTF("[Acquisition mode]: %i.\n", tmp0);
 			//Prepare and send data:
 			numb = tx_cmd_data_acqui(slave_id[slave], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, tmp0);
-			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
+            numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
 			break;
 
 		case 6:		//'rs485_config'
@@ -367,7 +367,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			_USE_PRINTF("[Switch]");
 			//Prepare and send data:
 			numb = tx_cmd_switch(slave_id[slave], CMD_READ, tmp_payload_xmit, PAYLOAD_BUF_LEN);
-			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
+            numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
 			break;
 
 		case 11: 	//'imu'
@@ -376,7 +376,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			_USE_PRINTF("[IMU]: %i & %i.\n", tmp0, tmp1);
 			//Prepare and send data:
 			//numb = tx_cmd_imu_read(slave_id[slave], tmp0, tmp1);	//ToDo
-			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
+            numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
 			break;
 
 		case 12: 	//'encoder'
@@ -394,14 +394,14 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 				numb = tx_cmd_encoder(slave_id[slave], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, tmp0);
 			}
 
-			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
+            numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
 			break;
 
 		case 13: 	//'strain'
 			_USE_PRINTF("[Strain]\n");
 			//Prepare and send data:
 			//numb = tx_cmd_strain_read(slave_id[slave]);			//ToDo
-			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
+            numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
 			break;
 
 		case 14: 	//'cmd_strain_config'
@@ -411,7 +411,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			_USE_PRINTF("[Config Strain]: Offset = %i, Gain = %i, Output ref. = %i.\n", tmp0, tmp1, tmp2);
 			//Prepare and send data:
 			//numb = tx_cmd_strain_config(slave_id[slave], tmp0, tmp1, tmp2);	//ToDo
-			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
+            numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
 			break;
 
 		case 15:	//'volt'
@@ -431,7 +431,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			_USE_PRINTF("[Clutch]: %i.\n", tmp0);
 			//Prepare and send data:
 			numb = tx_cmd_exp_clutch(slave_id[slave], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, tmp0);
-			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
+            numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
 			break;
 
 		case 19:	//'adv_ana_config'
@@ -444,7 +444,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			_USE_PRINTF("[Analog]: Base addr. = %i, Values = %i.\n", tmp0, tmp1);
 			//Prepare and send data:
 			//numb = tx_cmd_analog_read(slave_id[slave], tmp0, tmp1);	//ToDo
-			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
+            numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
 			break;
 
 		case 21:	//'digital'
@@ -464,7 +464,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			_USE_PRINTF("[Control Mode]: %i.\n", tmp0);
 			//Prepare and send data:
 			numb = tx_cmd_ctrl_mode(slave_id[slave], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, tmp0);
-			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
+            numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
 			break;
 
 		case 25: 	//'ctrl_i_g'
@@ -474,7 +474,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			_USE_PRINTF("[Current Controller Gains]: kp = %i, ki = %i, kd = %i.\n", tmp0, tmp1, tmp2);
 			//Prepare and send data:
 			numb = tx_cmd_ctrl_i_g(slave_id[slave], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, tmp0, tmp1, tmp2);
-			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
+            numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
 			break;
 
 		case 26: 	//'ctrl_p_g'
@@ -484,7 +484,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			_USE_PRINTF("[Position Controller Gains]: kp = %i, ki = %i, kd = %i.\n", tmp0, tmp1, tmp2);
 			//Prepare and send data:
 			numb = tx_cmd_ctrl_p_g(slave_id[slave], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, tmp0, tmp1, tmp2);
-			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
+            numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
 			break;
 
 		case 27: 	//'ctrl_z_g'
@@ -494,7 +494,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			_USE_PRINTF("[Impedance Controller Gains]: kp = %i, ki = %i, kd = %i.\n", tmp0, tmp1, tmp2);
 			//Prepare and send data:
 			numb = tx_cmd_ctrl_z_g(slave_id[slave], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, tmp0, tmp1, tmp2);
-			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
+            numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
 			break;
 
 		case 28: 	//'ctrl_o'
@@ -502,7 +502,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			_USE_PRINTF("[Open Loop Controller]: PWMDC = %i.\n", tmp0);
 			//Prepare and send data:
 			numb = tx_cmd_ctrl_o(slave_id[slave], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, tmp0);
-			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
+            numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
 			break;
 
 		case 29: 	//'ctrl_i'
@@ -510,7 +510,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			_USE_PRINTF("[Current Controller]: %i.\n", tmp0);
 			//Prepare and send data:
 			numb = tx_cmd_ctrl_i(slave_id[slave], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, tmp0, 0);
-			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
+            numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
 			break;
 
 		case 30:	//'ctrl_p'
@@ -521,7 +521,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			_USE_PRINTF("[Position Controller]: %i, %i, %i, %i.\n", tmp0, tmp1, tmp2, tmp3);
 			//Prepare and send data:
 			numb = tx_cmd_ctrl_p(slave_id[slave], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 0, tmp0, tmp1, tmp2, tmp3);
-			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
+            numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
 			break;
 
 		case 31:	//'shorted_leads'
@@ -539,7 +539,7 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			//Prepare and send data:
 			numb = tx_cmd_ctrl_special_1(slave_id[slave], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, \
 										tmp0, tmp1, tmp2, tmp3, tmp4, tmp5);
-			numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
+            numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
 			break;
 
 		case 33:	//'spc2'
@@ -555,11 +555,11 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
     if(numb)
     {
 		#ifdef USE_SPI
-    	flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
+        flexsea_send_serial_slave(PORT_SPI, comm_str_usb, numb);
     	#endif
 
 		#ifdef USE_USB
-    	flexsea_send_serial_slave(PORT_USB, comm_str_spi, numb+1);
+        flexsea_send_serial_slave(PORT_USB, comm_str_usb, numb+1);
     	#endif
     }
 }

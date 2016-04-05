@@ -61,6 +61,8 @@ extern uint32_t packet_received_1, packet_received_2;
 //Communication ports:
 #define PORT_SUB1						0
 #define PORT_SUB2						1
+#define PORT_SPI                        2
+#define PORT_USB                        3
 
 //Communication protocol payload fields:
 #define P_XID                      		0		//Emitter ID

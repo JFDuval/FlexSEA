@@ -27,17 +27,18 @@ extern "C" {
 #include <fcntl.h>
 #include <time.h>
 #include "iolib.h"
-#include "flexsea.h"
 #include "flexsea_console.h"
 #include "flexsea_stream_log.h"
 //#include "plan_spi.h"
 #include "plan_serial.h"
-#include "flexsea_local.h"
 #include "user.h"
 //#include "user_shuobot.h"
 #include "shared.h"
 #include "demo.h"
 #include "test.h"
+#include "flexsea_board.h"
+#include "../../flexsea-system/inc/flexsea_system.h"
+#include "../../flexsea-comm/inc/flexsea.h"
 
 //****************************************************************************
 // Shared variable(s)

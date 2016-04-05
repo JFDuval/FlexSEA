@@ -53,11 +53,11 @@ void MainWindow::timerStreamEvent(void)
 
         numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
                                         KEEP, 0, KEEP, 0, 0, exp_pwm);
-        numb = comm_gen_str(payload_str, comm_str_spi, PAYLOAD_BUF_LEN);
+        numb = comm_gen_str(payload_str, comm_str_usb, PAYLOAD_BUF_LEN);
         numb = COMM_STR_BUF_LEN;
 
         //flexsea_serial_transmit(numb, comm_str_spi, 0); //DIY driver
-        USBSerialPort_Write(numb, comm_str_spi);        //QSerialPort
+        USBSerialPort_Write(numb, comm_str_usb);        //QSerialPort
 
         //Can we decode what we received?
         USBSerialPort_Read(usb_rx);

@@ -40,12 +40,12 @@ void braking_sequence(int cycles, int delay)
 	for(i = 0; i < cycles; i++)
 	{
 		numb = tx_cmd_ctrl_o(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, -400);
-		numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
-		flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
+        numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
+        flexsea_send_serial_slave(PORT_SPI, comm_str_usb, numb);
 		usleep(delay);
 		numb = tx_cmd_ctrl_o(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 0);
-		numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
-		flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
+        numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
+        flexsea_send_serial_slave(PORT_SPI, comm_str_usb, numb);
 		usleep(delay);
 	}
 }

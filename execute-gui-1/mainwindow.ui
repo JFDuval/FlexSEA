@@ -42,7 +42,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="config">
      <attribute name="title">
@@ -1075,9 +1075,6 @@
        </item>
       </layout>
      </widget>
-     <zorder>gridLayoutWidget_3</zorder>
-     <zorder>horizontalLayoutWidget</zorder>
-     <zorder>customPlot</zorder>
     </widget>
     <widget class="QWidget" name="exp">
      <attribute name="title">

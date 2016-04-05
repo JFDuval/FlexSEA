@@ -80,23 +80,23 @@ void flexsea_payload_39(uint8_t *buf);
 //****************************************************************************
 
 //Nicknames for commands:
-#define CMD_TEST                		1
+#define CMD_TEST                	1
 
 //Control:
 
 //Application/user:
-#define CMD_SPC1						30
+#define CMD_SPC1			30
 
 //Sensors:
-#define CMD_DIGITAL_IN					20
-#define CMD_DIGITAL_OUT					21
-#define CMD_ANALOG_IN					22
+#define CMD_DIGITAL_IN			20
+#define CMD_DIGITAL_OUT			21
+#define CMD_ANALOG_IN			22
 
 //Board types:
 #define FLEXSEA_PLAN                	1
 #define FLEXSEA_MANAGE              	2
 #define FLEXSEA_EXECUTE             	3
-#define FLEXSEA_BATTERY					4
+#define FLEXSEA_BATTERY			4
 
 //Board addresses:
 #define FLEXSEA_DEFAULT             	0
