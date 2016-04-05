@@ -49,6 +49,7 @@ int main(void)
 	static uint8 new_cmd_led = 0;
 	uint16 safety_delay = 0;
 	uint8 i2c_time_share = 0;
+	//uint8 toggle_led = 0;
 	
 	//Power on delay with LEDs
 	power_on();	     
@@ -287,6 +288,13 @@ int main(void)
 					exo_fsm();	
 						
 					#endif
+					
+					//1s timebase:
+					if(timebase_1s())
+					{
+						//Insert code that needs to run every second here
+						//...
+					}
 					
 					break;
 				

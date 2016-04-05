@@ -89,6 +89,20 @@ void assign_i2c_data(uint8 *newdata)
 	}
 }
 
+//Call this function in the 1kHz FSM. It will return 1 every second.
+uint8 timebase_1s(void)
+{
+	static uint16 time = 0;
+	
+	time++;
+	if(time >= 999)
+	{
+		time = 0;
+		return 1;
+	}
+	
+	return 0;
+}
 
 //****************************************************************************
 // Private Function(s)

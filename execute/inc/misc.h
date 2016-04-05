@@ -40,6 +40,7 @@ void test_current_tracking_blocking(void);
 void test_pwm_pulse_blocking(void);
 void assign_i2c_data(uint8 *newdata);
 void csea_knee_up_down_test_demo(void);
+uint8 timebase_1s(void);
 
 void timing_test_blocking(void);
 
