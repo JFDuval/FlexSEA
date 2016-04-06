@@ -104,8 +104,8 @@ private:
 
     void plotEncoder(uint8_t graph);
     void plotAccX(uint8_t graph);
-    //void plotAccY(uint8_t graph);
-    //void plotAccZ(uint8_t graph);
+    void plotAccY(uint8_t graph);
+    void plotAccZ(uint8_t graph);
     void plotGyrX(uint8_t graph);
     void plotGyrY(uint8_t graph);
     void plotGyrZ(uint8_t graph);

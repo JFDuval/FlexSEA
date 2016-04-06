@@ -33,6 +33,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    QString str;
+
     ui->setupUi(this);    
 
     //Default settings:
@@ -76,7 +78,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //Variable option lists:
     QStringList var_list;
     var_list << "**Unused**" << "Accel X" << "Accel Y" << "Accel Z" << "Gyro X" << "Gyro Y" << "Gyro Z" << "Encoder" \
-            << "Motor current" << "Analog[0]" << "Strain" << "Fake Data";
+            << "Motor current" << "Analog[0]" << "Strain" << "+VB" << "+VG" << "Temperature" << "Fake Data";
     for(int index = 0; index < var_list.count(); index++)
     {
         //All boxes have the same list:
@@ -98,6 +100,11 @@ MainWindow::MainWindow(QWidget *parent) :
     //Experiments:
     exp_pwm = 0;
     ui->disp_MotPWM->setText(QString::number(ui->hSlider_PWM->value()));
+
+    //About:
+    str.sprintf("Last full build: %s %s.\n", __DATE__, __TIME__);
+    ui->text_last_build->setText(str);
+    ui->text_last_build->repaint();
 
     //=================
     //Timers:

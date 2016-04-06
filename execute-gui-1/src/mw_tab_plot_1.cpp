@@ -162,6 +162,42 @@ void MainWindow::plotAccX(uint8_t graph)
     refreshPlot(x, y, plot_len, graph);
 }
 
+//Plot the AccY value
+void MainWindow::plotAccY(uint8_t graph)
+{
+    int x[plot_len], y[plot_len];
+
+    //Generate x index - ToDo optimize
+    for (int i=0; i<plot_len; ++i)
+    {
+      x[i] = i; // x goes from 0 to 1
+    }
+
+    //Get new datapoint from Stream:
+    update_plot_buf_accy(exec1.accel.y);
+    qCopy(plot_buf_accy, plot_buf_accy+plot_len, y);
+
+    refreshPlot(x, y, plot_len, graph);
+}
+
+//Plot the AccZ value
+void MainWindow::plotAccZ(uint8_t graph)
+{
+    int x[plot_len], y[plot_len];
+
+    //Generate x index - ToDo optimize
+    for (int i=0; i<plot_len; ++i)
+    {
+      x[i] = i; // x goes from 0 to 1
+    }
+
+    //Get new datapoint from Stream:
+    update_plot_buf_accz(exec1.accel.z);
+    qCopy(plot_buf_accz, plot_buf_accz+plot_len, y);
+
+    refreshPlot(x, y, plot_len, graph);
+}
+
 //Plot the GyrX value
 void MainWindow::plotGyrX(uint8_t graph)
 {
@@ -351,10 +387,13 @@ void MainWindow::timerPlotEvent(void)
             case 0: //"**Unused**"
                 break;
             case 1: //"Accel X"
+                plotAccX(index);
                 break;
             case 2: //"Accel Y"
+                plotAccY(index);
                 break;
             case 3: //"Accel Z"
+                plotAccZ(index);
                 break;
             case 4: //"Gyro X"
                 plotGyrX(index);
