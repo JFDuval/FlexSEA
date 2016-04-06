@@ -120,7 +120,7 @@ void rx_cmd_ctrl_mode(uint8_t *buf)
 			#if((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
 
 			//Store value:
-			exec1.active_ctrl = controller;
+			exec1.ctrl.active_ctrl = controller;
 
 			#endif	//((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
 		}

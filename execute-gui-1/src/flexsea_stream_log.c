@@ -533,7 +533,7 @@ static void flexsea_log_exp_1(FILE *logfile, char min, char sec, uint32_t *tmp, 
 
     //Log to file:
     fprintf(logfile, "[%d:%d],%i,%i,%i,%i,%i,%i,%i\n", min, sec, \
-            		exec1.encoder, exec1.current, exec1.imu.x, exec1.imu.y, exec1.imu.z, \
+                    exec1.encoder, exec1.current, exec1.gyro.x, exec1.gyro.y, exec1.gyro.z, \
     				exec1.strain, exec1.analog[0]);
 
 	return;

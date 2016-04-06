@@ -156,7 +156,7 @@ void MainWindow::plotAccX(uint8_t graph)
     }
 
     //Get new datapoint from Stream:
-    update_plot_buf_accx(exec1.imu.x);
+    update_plot_buf_accx(exec1.accel.x);
     qCopy(plot_buf_accx, plot_buf_accx+plot_len, y);
 
     refreshPlot(x, y, plot_len, graph);
@@ -174,7 +174,7 @@ void MainWindow::plotGyrX(uint8_t graph)
     }
 
     //Get new datapoint from Stream:
-    update_plot_buf_gyrx(exec1.imu.x);
+    update_plot_buf_gyrx(exec1.gyro.x);
     qCopy(plot_buf_gyrx, plot_buf_gyrx+plot_len, y);
 
     refreshPlot(x, y, plot_len, graph);
@@ -192,7 +192,7 @@ void MainWindow::plotGyrY(uint8_t graph)
     }
 
     //Get new datapoint from Stream:
-    update_plot_buf_gyry(exec1.imu.y);
+    update_plot_buf_gyry(exec1.gyro.y);
     qCopy(plot_buf_gyry, plot_buf_gyry+plot_len, y);
 
     refreshPlot(x, y, plot_len, graph);
@@ -210,7 +210,7 @@ void MainWindow::plotGyrZ(uint8_t graph)
     }
 
     //Get new datapoint from Stream:
-    update_plot_buf_gyrz(exec1.imu.z);
+    update_plot_buf_gyrz(exec1.gyro.z);
     qCopy(plot_buf_gyrz, plot_buf_gyrz+plot_len, y);
 
     refreshPlot(x, y, plot_len, graph);
