@@ -73,29 +73,29 @@ uint32_t tx_cmd_ctrl_special_4(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 //=========================================================
 
 //External:
-#define rx_cmd_analog_in	flexsea_payload_63
-#define rx_cmd_digital_in	flexsea_payload_64	//ToDo: should be in&out
+#define rx_cmd_analog_in		flexsea_payload_63
+#define rx_cmd_digital_in		flexsea_payload_64	//ToDo: should be in&out
 
 //Control:
-#define rx_cmd_ctrl_mode	flexsea_payload_80
-#define rx_cmd_ctrl_x_g		flexsea_payload_81
-#define rx_cmd_ctrl_i_g		flexsea_payload_82
-#define rx_cmd_ctrl_p_g		flexsea_payload_83
-#define rx_cmd_ctrl_z_g		flexsea_payload_84
-#define rx_cmd_ctrl_o		flexsea_payload_85
-#define rx_cmd_ctrl_i		flexsea_payload_86
-#define rx_cmd_ctrl_p		flexsea_payload_87
+#define rx_cmd_ctrl_mode		flexsea_payload_80
+#define rx_cmd_ctrl_x_g			flexsea_payload_81
+#define rx_cmd_ctrl_i_g			flexsea_payload_82
+#define rx_cmd_ctrl_p_g			flexsea_payload_83
+#define rx_cmd_ctrl_z_g			flexsea_payload_84
+#define rx_cmd_ctrl_o			flexsea_payload_85
+#define rx_cmd_ctrl_i			flexsea_payload_86
+#define rx_cmd_ctrl_p			flexsea_payload_87
 
 //Data:
-#define rx_cmd_data_acqui	flexsea_payload_21
-//#define rx_cmd_data_mem	flexsea_payload_20
-#define rx_cmd_read_all		flexsea_payload_22
+#define rx_cmd_data_acqui		flexsea_payload_21
+//#define rx_cmd_data_mem		flexsea_payload_20
+#define rx_cmd_data_read_all		flexsea_payload_22
 
 //Application:
-#define rx_cmd_special_1	flexsea_payload_100
-#define rx_cmd_special_2	flexsea_payload_101
-#define rx_cmd_special_3	flexsea_payload_102
-#define rx_cmd_special_4	flexsea_payload_120
+#define rx_cmd_special_1		flexsea_payload_100
+#define rx_cmd_special_2		flexsea_payload_101
+#define rx_cmd_special_3		flexsea_payload_102
+#define rx_cmd_special_4		flexsea_payload_120
 
 //Redefine weak functions from flexsea_payload:
 //=============================================
