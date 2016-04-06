@@ -73,7 +73,8 @@ SOURCES       = src/main.cpp \
 		../flexsea-system/src/flexsea_cmd_external.c \
 		../flexsea-system/src/flexsea_cmd_sensors.c \
 		../flexsea-system/src/flexsea_system.c \
-		src/flexsea_board.c release/.moc/moc_mainwindow.cpp \
+		src/flexsea_board.c \
+		../flexsea-system/src/flexsea_cmd_data.c release/.moc/moc_mainwindow.cpp \
 		release/.moc/moc_qcustomplot.cpp
 OBJECTS       = release/.obj/main.o \
 		release/.obj/mainwindow.o \
@@ -101,6 +102,7 @@ OBJECTS       = release/.obj/main.o \
 		release/.obj/flexsea_cmd_sensors.o \
 		release/.obj/flexsea_system.o \
 		release/.obj/flexsea_board.o \
+		release/.obj/flexsea_cmd_data.o \
 		release/.obj/moc_mainwindow.o \
 		release/.obj/moc_qcustomplot.o
 DIST          = ../../../../Qt5.5.1/5.5/gcc/mkspecs/features/spec_pre.prf \
@@ -257,7 +259,8 @@ DIST          = ../../../../Qt5.5.1/5.5/gcc/mkspecs/features/spec_pre.prf \
 		../flexsea-system/inc/flexsea_cmd_external.h \
 		../flexsea-system/inc/flexsea_cmd_sensors.h \
 		../flexsea-system/inc/flexsea_system.h \
-		inc/flexsea_board.h src/main.cpp \
+		inc/flexsea_board.h \
+		../flexsea-system/inc/flexsea_cmd_data.h src/main.cpp \
 		src/mainwindow.cpp \
 		src/qcustomplot.cpp \
 		src/plan_serial.c \
@@ -282,7 +285,8 @@ DIST          = ../../../../Qt5.5.1/5.5/gcc/mkspecs/features/spec_pre.prf \
 		../flexsea-system/src/flexsea_cmd_external.c \
 		../flexsea-system/src/flexsea_cmd_sensors.c \
 		../flexsea-system/src/flexsea_system.c \
-		src/flexsea_board.c
+		src/flexsea_board.c \
+		../flexsea-system/src/flexsea_cmd_data.c
 QMAKE_TARGET  = execute-gui-1
 DESTDIR       = release/#avoid trailing-slash linebreak
 TARGET        = release/execute-gui-1
@@ -609,8 +613,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents inc/mainwindow.h inc/qcustomplot.h inc/test.h inc/flexsea_stream_log.h inc/plan_serial.h inc/main.h inc/flexsea_console.h inc/user.h inc/iolib.h inc/shared.h inc/demo.h ../flexsea-comm/inc/flexsea.h ../flexsea-comm/inc/flexsea_buffers.h ../flexsea-comm/inc/flexsea_comm.h ../flexsea-comm/inc/flexsea_payload.h ../flexsea-system/inc/flexsea_cmd_application.h ../flexsea-system/inc/flexsea_cmd_control.h ../flexsea-system/inc/flexsea_cmd_external.h ../flexsea-system/inc/flexsea_cmd_sensors.h ../flexsea-system/inc/flexsea_system.h inc/flexsea_board.h $(DISTDIR)/
-	$(COPY_FILE) --parents src/main.cpp src/mainwindow.cpp src/qcustomplot.cpp src/plan_serial.c src/flexsea_stream_log.c src/test.c src/flexsea_console.c src/shared.c src/demo.c src/user.c src/iolib.c src/mw_tab_config.cpp src/mw_tab_plot_1.cpp src/mw_tab_stream_1.cpp src/mw_tab_exp.cpp src/mw_usbserial.cpp ../flexsea-comm/src/flexsea.c ../flexsea-comm/src/flexsea_buffers.c ../flexsea-comm/src/flexsea_comm.c ../flexsea-comm/src/flexsea_payload.c ../flexsea-system/src/flexsea_cmd_application.c ../flexsea-system/src/flexsea_cmd_control.c ../flexsea-system/src/flexsea_cmd_external.c ../flexsea-system/src/flexsea_cmd_sensors.c ../flexsea-system/src/flexsea_system.c src/flexsea_board.c $(DISTDIR)/
+	$(COPY_FILE) --parents inc/mainwindow.h inc/qcustomplot.h inc/test.h inc/flexsea_stream_log.h inc/plan_serial.h inc/main.h inc/flexsea_console.h inc/user.h inc/iolib.h inc/shared.h inc/demo.h ../flexsea-comm/inc/flexsea.h ../flexsea-comm/inc/flexsea_buffers.h ../flexsea-comm/inc/flexsea_comm.h ../flexsea-comm/inc/flexsea_payload.h ../flexsea-system/inc/flexsea_cmd_application.h ../flexsea-system/inc/flexsea_cmd_control.h ../flexsea-system/inc/flexsea_cmd_external.h ../flexsea-system/inc/flexsea_cmd_sensors.h ../flexsea-system/inc/flexsea_system.h inc/flexsea_board.h ../flexsea-system/inc/flexsea_cmd_data.h $(DISTDIR)/
+	$(COPY_FILE) --parents src/main.cpp src/mainwindow.cpp src/qcustomplot.cpp src/plan_serial.c src/flexsea_stream_log.c src/test.c src/flexsea_console.c src/shared.c src/demo.c src/user.c src/iolib.c src/mw_tab_config.cpp src/mw_tab_plot_1.cpp src/mw_tab_stream_1.cpp src/mw_tab_exp.cpp src/mw_usbserial.cpp ../flexsea-comm/src/flexsea.c ../flexsea-comm/src/flexsea_buffers.c ../flexsea-comm/src/flexsea_comm.c ../flexsea-comm/src/flexsea_payload.c ../flexsea-system/src/flexsea_cmd_application.c ../flexsea-system/src/flexsea_cmd_control.c ../flexsea-system/src/flexsea_cmd_external.c ../flexsea-system/src/flexsea_cmd_sensors.c ../flexsea-system/src/flexsea_system.c src/flexsea_board.c ../flexsea-system/src/flexsea_cmd_data.c $(DISTDIR)/
 	$(COPY_FILE) --parents mainwindow.ui $(DISTDIR)/
 
 
@@ -2584,6 +2588,7 @@ release/.obj/mainwindow.o: src/mainwindow.cpp inc/main.h \
 		../flexsea-system/inc/flexsea_cmd_sensors.h \
 		../flexsea-system/inc/flexsea_cmd_external.h \
 		../flexsea-system/inc/flexsea_cmd_application.h \
+		../flexsea-system/inc/flexsea_cmd_data.h \
 		inc/mainwindow.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtWidgets/QMainWindow \
 		../../../../Qt5.5.1/5.5/gcc/include/QtWidgets/qmainwindow.h \
@@ -3581,7 +3586,8 @@ release/.obj/plan_serial.o: src/plan_serial.c inc/main.h \
 		../flexsea-system/inc/flexsea_cmd_control.h \
 		../flexsea-system/inc/flexsea_cmd_sensors.h \
 		../flexsea-system/inc/flexsea_cmd_external.h \
-		../flexsea-system/inc/flexsea_cmd_application.h
+		../flexsea-system/inc/flexsea_cmd_application.h \
+		../flexsea-system/inc/flexsea_cmd_data.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o release/.obj/plan_serial.o src/plan_serial.c
 
 release/.obj/flexsea_stream_log.o: src/flexsea_stream_log.c inc/main.h \
@@ -3602,7 +3608,8 @@ release/.obj/flexsea_stream_log.o: src/flexsea_stream_log.c inc/main.h \
 		../flexsea-system/inc/flexsea_cmd_control.h \
 		../flexsea-system/inc/flexsea_cmd_sensors.h \
 		../flexsea-system/inc/flexsea_cmd_external.h \
-		../flexsea-system/inc/flexsea_cmd_application.h
+		../flexsea-system/inc/flexsea_cmd_application.h \
+		../flexsea-system/inc/flexsea_cmd_data.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o release/.obj/flexsea_stream_log.o src/flexsea_stream_log.c
 
 release/.obj/test.o: src/test.c inc/main.h \
@@ -3623,7 +3630,8 @@ release/.obj/test.o: src/test.c inc/main.h \
 		../flexsea-system/inc/flexsea_cmd_control.h \
 		../flexsea-system/inc/flexsea_cmd_sensors.h \
 		../flexsea-system/inc/flexsea_cmd_external.h \
-		../flexsea-system/inc/flexsea_cmd_application.h
+		../flexsea-system/inc/flexsea_cmd_application.h \
+		../flexsea-system/inc/flexsea_cmd_data.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o release/.obj/test.o src/test.c
 
 release/.obj/flexsea_console.o: src/flexsea_console.c inc/main.h \
@@ -3644,7 +3652,8 @@ release/.obj/flexsea_console.o: src/flexsea_console.c inc/main.h \
 		../flexsea-system/inc/flexsea_cmd_control.h \
 		../flexsea-system/inc/flexsea_cmd_sensors.h \
 		../flexsea-system/inc/flexsea_cmd_external.h \
-		../flexsea-system/inc/flexsea_cmd_application.h
+		../flexsea-system/inc/flexsea_cmd_application.h \
+		../flexsea-system/inc/flexsea_cmd_data.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o release/.obj/flexsea_console.o src/flexsea_console.c
 
 release/.obj/shared.o: src/shared.c inc/main.h \
@@ -3665,7 +3674,8 @@ release/.obj/shared.o: src/shared.c inc/main.h \
 		../flexsea-system/inc/flexsea_cmd_control.h \
 		../flexsea-system/inc/flexsea_cmd_sensors.h \
 		../flexsea-system/inc/flexsea_cmd_external.h \
-		../flexsea-system/inc/flexsea_cmd_application.h
+		../flexsea-system/inc/flexsea_cmd_application.h \
+		../flexsea-system/inc/flexsea_cmd_data.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o release/.obj/shared.o src/shared.c
 
 release/.obj/demo.o: src/demo.c inc/main.h \
@@ -3686,7 +3696,8 @@ release/.obj/demo.o: src/demo.c inc/main.h \
 		../flexsea-system/inc/flexsea_cmd_control.h \
 		../flexsea-system/inc/flexsea_cmd_sensors.h \
 		../flexsea-system/inc/flexsea_cmd_external.h \
-		../flexsea-system/inc/flexsea_cmd_application.h
+		../flexsea-system/inc/flexsea_cmd_application.h \
+		../flexsea-system/inc/flexsea_cmd_data.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o release/.obj/demo.o src/demo.c
 
 release/.obj/user.o: src/user.c inc/main.h \
@@ -3707,7 +3718,8 @@ release/.obj/user.o: src/user.c inc/main.h \
 		../flexsea-system/inc/flexsea_cmd_control.h \
 		../flexsea-system/inc/flexsea_cmd_sensors.h \
 		../flexsea-system/inc/flexsea_cmd_external.h \
-		../flexsea-system/inc/flexsea_cmd_application.h
+		../flexsea-system/inc/flexsea_cmd_application.h \
+		../flexsea-system/inc/flexsea_cmd_data.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o release/.obj/user.o src/user.c
 
 release/.obj/iolib.o: src/iolib.c inc/iolib.h
@@ -3732,6 +3744,7 @@ release/.obj/mw_tab_config.o: src/mw_tab_config.cpp inc/main.h \
 		../flexsea-system/inc/flexsea_cmd_sensors.h \
 		../flexsea-system/inc/flexsea_cmd_external.h \
 		../flexsea-system/inc/flexsea_cmd_application.h \
+		../flexsea-system/inc/flexsea_cmd_data.h \
 		inc/mainwindow.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtWidgets/QMainWindow \
 		../../../../Qt5.5.1/5.5/gcc/include/QtWidgets/qmainwindow.h \
@@ -4251,6 +4264,7 @@ release/.obj/mw_tab_plot_1.o: src/mw_tab_plot_1.cpp inc/main.h \
 		../flexsea-system/inc/flexsea_cmd_sensors.h \
 		../flexsea-system/inc/flexsea_cmd_external.h \
 		../flexsea-system/inc/flexsea_cmd_application.h \
+		../flexsea-system/inc/flexsea_cmd_data.h \
 		inc/mainwindow.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtWidgets/QMainWindow \
 		../../../../Qt5.5.1/5.5/gcc/include/QtWidgets/qmainwindow.h \
@@ -4769,6 +4783,7 @@ release/.obj/mw_tab_stream_1.o: src/mw_tab_stream_1.cpp inc/main.h \
 		../flexsea-system/inc/flexsea_cmd_sensors.h \
 		../flexsea-system/inc/flexsea_cmd_external.h \
 		../flexsea-system/inc/flexsea_cmd_application.h \
+		../flexsea-system/inc/flexsea_cmd_data.h \
 		inc/mainwindow.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtWidgets/QMainWindow \
 		../../../../Qt5.5.1/5.5/gcc/include/QtWidgets/qmainwindow.h \
@@ -5287,6 +5302,7 @@ release/.obj/mw_tab_exp.o: src/mw_tab_exp.cpp inc/main.h \
 		../flexsea-system/inc/flexsea_cmd_sensors.h \
 		../flexsea-system/inc/flexsea_cmd_external.h \
 		../flexsea-system/inc/flexsea_cmd_application.h \
+		../flexsea-system/inc/flexsea_cmd_data.h \
 		inc/mainwindow.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtWidgets/QMainWindow \
 		../../../../Qt5.5.1/5.5/gcc/include/QtWidgets/qmainwindow.h \
@@ -5805,6 +5821,7 @@ release/.obj/mw_usbserial.o: src/mw_usbserial.cpp inc/main.h \
 		../flexsea-system/inc/flexsea_cmd_sensors.h \
 		../flexsea-system/inc/flexsea_cmd_external.h \
 		../flexsea-system/inc/flexsea_cmd_application.h \
+		../flexsea-system/inc/flexsea_cmd_data.h \
 		inc/mainwindow.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtWidgets/QMainWindow \
 		../../../../Qt5.5.1/5.5/gcc/include/QtWidgets/qmainwindow.h \
@@ -6313,6 +6330,7 @@ release/.obj/flexsea.o: ../flexsea-comm/src/flexsea.c ../flexsea-comm/inc/flexse
 		../flexsea-system/inc/flexsea_cmd_sensors.h \
 		../flexsea-system/inc/flexsea_cmd_external.h \
 		../flexsea-system/inc/flexsea_cmd_application.h \
+		../flexsea-system/inc/flexsea_cmd_data.h \
 		../flexsea-comm/inc/flexsea_comm.h \
 		../flexsea-comm/inc/flexsea_payload.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o release/.obj/flexsea.o ../flexsea-comm/src/flexsea.c
@@ -6325,6 +6343,7 @@ release/.obj/flexsea_buffers.o: ../flexsea-comm/src/flexsea_buffers.c ../flexsea
 		../flexsea-system/inc/flexsea_cmd_sensors.h \
 		../flexsea-system/inc/flexsea_cmd_external.h \
 		../flexsea-system/inc/flexsea_cmd_application.h \
+		../flexsea-system/inc/flexsea_cmd_data.h \
 		../flexsea-comm/inc/flexsea_comm.h \
 		../flexsea-comm/inc/flexsea_payload.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o release/.obj/flexsea_buffers.o ../flexsea-comm/src/flexsea_buffers.c
@@ -6337,6 +6356,7 @@ release/.obj/flexsea_comm.o: ../flexsea-comm/src/flexsea_comm.c ../flexsea-comm/
 		../flexsea-system/inc/flexsea_cmd_sensors.h \
 		../flexsea-system/inc/flexsea_cmd_external.h \
 		../flexsea-system/inc/flexsea_cmd_application.h \
+		../flexsea-system/inc/flexsea_cmd_data.h \
 		../flexsea-comm/inc/flexsea_comm.h \
 		../flexsea-comm/inc/flexsea_payload.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o release/.obj/flexsea_comm.o ../flexsea-comm/src/flexsea_comm.c
@@ -6349,6 +6369,7 @@ release/.obj/flexsea_payload.o: ../flexsea-comm/src/flexsea_payload.c ../flexsea
 		../flexsea-system/inc/flexsea_cmd_sensors.h \
 		../flexsea-system/inc/flexsea_cmd_external.h \
 		../flexsea-system/inc/flexsea_cmd_application.h \
+		../flexsea-system/inc/flexsea_cmd_data.h \
 		../flexsea-comm/inc/flexsea_comm.h \
 		../flexsea-comm/inc/flexsea_payload.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o release/.obj/flexsea_payload.o ../flexsea-comm/src/flexsea_payload.c
@@ -6371,20 +6392,12 @@ release/.obj/flexsea_cmd_application.o: ../flexsea-system/src/flexsea_cmd_applic
 		../flexsea-system/inc/flexsea_cmd_control.h \
 		../flexsea-system/inc/flexsea_cmd_sensors.h \
 		../flexsea-system/inc/flexsea_cmd_external.h \
-		../flexsea-system/inc/flexsea_cmd_application.h
+		../flexsea-system/inc/flexsea_cmd_application.h \
+		../flexsea-system/inc/flexsea_cmd_data.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o release/.obj/flexsea_cmd_application.o ../flexsea-system/src/flexsea_cmd_application.c
 
-release/.obj/flexsea_cmd_control.o: ../flexsea-system/src/flexsea_cmd_control.c inc/main.h \
-		inc/iolib.h \
-		inc/flexsea_console.h \
-		inc/flexsea_stream_log.h \
-		inc/plan_serial.h \
-		inc/user.h \
-		inc/shared.h \
-		inc/demo.h \
-		inc/test.h \
+release/.obj/flexsea_cmd_control.o: ../flexsea-system/src/flexsea_cmd_control.c ../flexsea-system/inc/flexsea_system.h \
 		inc/flexsea_board.h \
-		../flexsea-system/inc/flexsea_system.h \
 		../flexsea-comm/inc/flexsea.h \
 		../flexsea-comm/inc/flexsea_buffers.h \
 		../flexsea-comm/inc/flexsea_comm.h \
@@ -6392,7 +6405,17 @@ release/.obj/flexsea_cmd_control.o: ../flexsea-system/src/flexsea_cmd_control.c 
 		../flexsea-system/inc/flexsea_cmd_control.h \
 		../flexsea-system/inc/flexsea_cmd_sensors.h \
 		../flexsea-system/inc/flexsea_cmd_external.h \
-		../flexsea-system/inc/flexsea_cmd_application.h
+		../flexsea-system/inc/flexsea_cmd_application.h \
+		../flexsea-system/inc/flexsea_cmd_data.h \
+		inc/main.h \
+		inc/iolib.h \
+		inc/flexsea_console.h \
+		inc/flexsea_stream_log.h \
+		inc/plan_serial.h \
+		inc/user.h \
+		inc/shared.h \
+		inc/demo.h \
+		inc/test.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o release/.obj/flexsea_cmd_control.o ../flexsea-system/src/flexsea_cmd_control.c
 
 release/.obj/flexsea_cmd_external.o: ../flexsea-system/src/flexsea_cmd_external.c inc/main.h \
@@ -6413,20 +6436,12 @@ release/.obj/flexsea_cmd_external.o: ../flexsea-system/src/flexsea_cmd_external.
 		../flexsea-system/inc/flexsea_cmd_control.h \
 		../flexsea-system/inc/flexsea_cmd_sensors.h \
 		../flexsea-system/inc/flexsea_cmd_external.h \
-		../flexsea-system/inc/flexsea_cmd_application.h
+		../flexsea-system/inc/flexsea_cmd_application.h \
+		../flexsea-system/inc/flexsea_cmd_data.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o release/.obj/flexsea_cmd_external.o ../flexsea-system/src/flexsea_cmd_external.c
 
-release/.obj/flexsea_cmd_sensors.o: ../flexsea-system/src/flexsea_cmd_sensors.c inc/main.h \
-		inc/iolib.h \
-		inc/flexsea_console.h \
-		inc/flexsea_stream_log.h \
-		inc/plan_serial.h \
-		inc/user.h \
-		inc/shared.h \
-		inc/demo.h \
-		inc/test.h \
+release/.obj/flexsea_cmd_sensors.o: ../flexsea-system/src/flexsea_cmd_sensors.c ../flexsea-system/inc/flexsea_system.h \
 		inc/flexsea_board.h \
-		../flexsea-system/inc/flexsea_system.h \
 		../flexsea-comm/inc/flexsea.h \
 		../flexsea-comm/inc/flexsea_buffers.h \
 		../flexsea-comm/inc/flexsea_comm.h \
@@ -6434,7 +6449,17 @@ release/.obj/flexsea_cmd_sensors.o: ../flexsea-system/src/flexsea_cmd_sensors.c 
 		../flexsea-system/inc/flexsea_cmd_control.h \
 		../flexsea-system/inc/flexsea_cmd_sensors.h \
 		../flexsea-system/inc/flexsea_cmd_external.h \
-		../flexsea-system/inc/flexsea_cmd_application.h
+		../flexsea-system/inc/flexsea_cmd_application.h \
+		../flexsea-system/inc/flexsea_cmd_data.h \
+		inc/main.h \
+		inc/iolib.h \
+		inc/flexsea_console.h \
+		inc/flexsea_stream_log.h \
+		inc/plan_serial.h \
+		inc/user.h \
+		inc/shared.h \
+		inc/demo.h \
+		inc/test.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o release/.obj/flexsea_cmd_sensors.o ../flexsea-system/src/flexsea_cmd_sensors.c
 
 release/.obj/flexsea_system.o: ../flexsea-system/src/flexsea_system.c inc/main.h \
@@ -6455,7 +6480,8 @@ release/.obj/flexsea_system.o: ../flexsea-system/src/flexsea_system.c inc/main.h
 		../flexsea-system/inc/flexsea_cmd_control.h \
 		../flexsea-system/inc/flexsea_cmd_sensors.h \
 		../flexsea-system/inc/flexsea_cmd_external.h \
-		../flexsea-system/inc/flexsea_cmd_application.h
+		../flexsea-system/inc/flexsea_cmd_application.h \
+		../flexsea-system/inc/flexsea_cmd_data.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o release/.obj/flexsea_system.o ../flexsea-system/src/flexsea_system.c
 
 release/.obj/flexsea_board.o: src/flexsea_board.c inc/main.h \
@@ -6476,8 +6502,31 @@ release/.obj/flexsea_board.o: src/flexsea_board.c inc/main.h \
 		../flexsea-system/inc/flexsea_cmd_control.h \
 		../flexsea-system/inc/flexsea_cmd_sensors.h \
 		../flexsea-system/inc/flexsea_cmd_external.h \
-		../flexsea-system/inc/flexsea_cmd_application.h
+		../flexsea-system/inc/flexsea_cmd_application.h \
+		../flexsea-system/inc/flexsea_cmd_data.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o release/.obj/flexsea_board.o src/flexsea_board.c
+
+release/.obj/flexsea_cmd_data.o: ../flexsea-system/src/flexsea_cmd_data.c ../flexsea-system/inc/flexsea_system.h \
+		inc/flexsea_board.h \
+		../flexsea-comm/inc/flexsea.h \
+		../flexsea-comm/inc/flexsea_buffers.h \
+		../flexsea-comm/inc/flexsea_comm.h \
+		../flexsea-comm/inc/flexsea_payload.h \
+		../flexsea-system/inc/flexsea_cmd_control.h \
+		../flexsea-system/inc/flexsea_cmd_sensors.h \
+		../flexsea-system/inc/flexsea_cmd_external.h \
+		../flexsea-system/inc/flexsea_cmd_application.h \
+		../flexsea-system/inc/flexsea_cmd_data.h \
+		inc/main.h \
+		inc/iolib.h \
+		inc/flexsea_console.h \
+		inc/flexsea_stream_log.h \
+		inc/plan_serial.h \
+		inc/user.h \
+		inc/shared.h \
+		inc/demo.h \
+		inc/test.h
+	$(CC) -c $(CFLAGS) $(INCPATH) -o release/.obj/flexsea_cmd_data.o ../flexsea-system/src/flexsea_cmd_data.c
 
 release/.obj/moc_mainwindow.o: release/.moc/moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release/.obj/moc_mainwindow.o release/.moc/moc_mainwindow.cpp

@@ -60,7 +60,7 @@ void reset_manage(void);
 
 //Enabled the required FlexSEA Buffers for this board:
 #define ENABLE_FLEXSEA_BUF_1        //USB
-//#define ENABLE_FLEXSEA_BUF_2        //
+#define ENABLE_FLEXSEA_BUF_2        //SPI
 //#define ENABLE_FLEXSEA_BUF_3      //
 //#define ENABLE_FLEXSEA_BUF_4      //
 
@@ -71,6 +71,12 @@ void reset_manage(void);
 #define rx_command_usb				rx_command_1
 #define update_rx_buf_byte_usb		update_rx_buf_byte_1
 #define update_rx_buf_array_usb		update_rx_buf_array_1
+
+#define comm_str_spi				comm_str_2
+#define unpack_payload_spi			unpack_payload_2
+#define rx_command_spi				rx_command_2
+#define update_rx_buf_byte_spi		update_rx_buf_byte_2
+#define update_rx_buf_array_spi		update_rx_buf_array_2
 
 //===============
 //</FlexSEA User>

@@ -82,7 +82,7 @@ void test_upd(void)
 	while(1)
 	{
 		update_rx_buf_byte(array, &idx, byte);
-		update_rx_buf_2(UPDATE_BYTE, byte, array, 1);
+        update_rx_buf_1(UPDATE_BYTE, byte, array, 1);
 		byte++;
 	}
 }

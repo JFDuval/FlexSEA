@@ -87,6 +87,13 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->cBoxvar5->addItem(var_list.at(index));
         ui->cBoxvar6->addItem(var_list.at(index));
     }
+    //Color coded labels:
+    ui->label_t1->setStyleSheet("QLabel { background-color: red; color: black;}");
+    ui->label_t2->setStyleSheet("QLabel { background-color: magenta; color: black;}");
+    ui->label_t3->setStyleSheet("QLabel { background-color: blue; color: black;}");
+    ui->label_t4->setStyleSheet("QLabel { background-color: cyan; color: black;}");
+    ui->label_t5->setStyleSheet("QLabel { background-color: green; color: black;}");
+    ui->label_t6->setStyleSheet("QLabel { background-color: yellow; color: black;}");
 
     //Experiments:
     exp_pwm = 0;
