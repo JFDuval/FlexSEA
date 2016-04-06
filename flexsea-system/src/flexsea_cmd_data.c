@@ -230,8 +230,6 @@ uint32_t tx_cmd_data_read_all(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, 
 		bytes = P_DATA1 + 27;     //Bytes is always last+1
 		
 		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
-
-		bytes = P_DATA1 + 1;     //Bytes is always last+1
 	}
 	else
 	{
@@ -282,9 +280,14 @@ void rx_cmd_data_read_all(uint8_t *buf)
 		//Generate the reply:
 		numb = tx_cmd_data_read_all(buf[P_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN);
 		numb = comm_gen_str(tmp_payload_xmit, comm_str_485, numb);
+		numb = COMM_STR_BUF_LEN;	//Fixed length for now to accomodate the DMA
 
 		//Delayed response:
 		rs485_reply_ready(comm_str_485, (numb));
+		
+		#ifdef USE_USB
+		usb_puts(comm_str_485, (numb));
+		#endif
 
 		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
