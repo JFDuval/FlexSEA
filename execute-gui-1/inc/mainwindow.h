@@ -51,6 +51,7 @@
 #define INIT_PLOT_YMIN          0
 #define INIT_PLOT_YMAX          200
 #define VAR_NUM                 6
+#define PLOT_BUF_LEN            1000
 
 //Refresh:
 #define PLOT_DEFAULT_FREQ       25
@@ -74,9 +75,9 @@ public:
 
 private:
     int stream_status, fake_data;
-    int plot_buf[1000]; //ToDo!
-    int plot_buf_accx[1000], plot_buf_accy[1000], plot_buf_accz[1000];
-    int plot_buf_gyrx[1000], plot_buf_gyry[1000], plot_buf_gyrz[1000];
+
+    int plot_buf[PLOT_BUF_LEN]; //ToDo!
+
     unsigned char usb_rx[256];
     int exp_pwm;
 
@@ -85,31 +86,23 @@ private:
 
     //Plot:
 
+    //X array never changes after initialization
+    int graph_xarray[PLOT_BUF_LEN];
+    //We store the graph Y arrays in that variable. 1x 1D array per trace (NUM_VAR)
+    int graph_yarray[VAR_NUM][PLOT_BUF_LEN];
+
     void makePlot(void);
-    //void refreshPlot(QVector<double> x, QVector<double> y);
     void refreshPlot(int *x, int *y, int len, uint8_t plot_index);
-    void genTestData(uint8_t graph);
+    int gen_test_data(void);
     QCustomPlot customPlot;
     int plot_xmin, plot_ymin, plot_xmax, plot_ymax, plot_len;
 
+    void gen_graph_xarray(void);
+    void init_yarrays(void);
+    void update_graph_array(int graph, int new_data);
+
     void update_plot_buf(int new_data);
     void update_plot_buf_single(int *buf, int *idx, int new_data);
-
-    void update_plot_buf_accx(int new_data);
-    void update_plot_buf_accy(int new_data);
-    void update_plot_buf_accz(int new_data);
-    void update_plot_buf_gyrx(int new_data);
-    void update_plot_buf_gyry(int new_data);
-    void update_plot_buf_gyrz(int new_data);
-
-    void plotEncoder(uint8_t graph);
-    void plotAccX(uint8_t graph);
-    void plotAccY(uint8_t graph);
-    void plotAccZ(uint8_t graph);
-    void plotGyrX(uint8_t graph);
-    void plotGyrY(uint8_t graph);
-    void plotGyrZ(uint8_t graph);
-
 
     int OpenUSBSerialPort(QString name, int tries, int delay);
     void CloseUSBSerialPort(void);

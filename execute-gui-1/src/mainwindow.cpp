@@ -74,6 +74,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->plot_xmax_lineEdit->setText(QString::number(plot_xmax));
     ui->plot_ymin_lineEdit->setText(QString::number(plot_ymin));
     ui->plot_ymax_lineEdit->setText(QString::number(plot_ymax));
+    gen_graph_xarray();
+    init_yarrays();
     makePlot();
     //Variable option lists:
     QStringList var_list;
@@ -92,10 +94,10 @@ MainWindow::MainWindow(QWidget *parent) :
     //Color coded labels:
     ui->label_t1->setStyleSheet("QLabel { background-color: red; color: black;}");
     ui->label_t2->setStyleSheet("QLabel { background-color: magenta; color: black;}");
-    ui->label_t3->setStyleSheet("QLabel { background-color: blue; color: black;}");
+    ui->label_t3->setStyleSheet("QLabel { background-color: blue; color: white;}");
     ui->label_t4->setStyleSheet("QLabel { background-color: cyan; color: black;}");
-    ui->label_t5->setStyleSheet("QLabel { background-color: green; color: black;}");
-    ui->label_t6->setStyleSheet("QLabel { background-color: yellow; color: black;}");
+    ui->label_t5->setStyleSheet("QLabel { background-color: lime; color: black;}");
+    ui->label_t6->setStyleSheet("QLabel { background-color: black; color: white;}");
 
     //Experiments:
     exp_pwm = 0;
