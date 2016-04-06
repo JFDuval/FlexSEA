@@ -87,7 +87,8 @@ uint32_t tx_cmd_ctrl_special_4(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 
 //Data:
 #define rx_cmd_data_acqui	flexsea_payload_21
-//#define rx_cmd_data_mem		flexsea_payload_20
+//#define rx_cmd_data_mem	flexsea_payload_20
+#define rx_cmd_read_all		flexsea_payload_22
 
 //Application:
 #define rx_cmd_special_1	flexsea_payload_100
@@ -126,7 +127,7 @@ void flexsea_payload_19(uint8_t *buf);
 //20-29:
 //void flexsea_payload_20(uint8_t *buf);		//CMD_MEM
 //void flexsea_payload_21(uint8_t *buf);		//CMD_ACQUI
-void flexsea_payload_22(uint8_t *buf);
+//void flexsea_payload_22(uint8_t *buf);		//CMD_READ_ALL
 void flexsea_payload_23(uint8_t *buf);
 void flexsea_payload_24(uint8_t *buf);
 void flexsea_payload_25(uint8_t *buf);
@@ -274,6 +275,7 @@ void flexsea_payload_127(uint8_t *buf);
 
 #define CMD_MEM							20
 #define CMD_ACQUI						21
+#define CMD_READ_ALL					22
 
 //Sensor commands:
 
@@ -403,16 +405,19 @@ struct xyz_s
 
 struct execute_s
 {
-	struct xyz_s imu;	//ToDo Rename Gyro now that we support gyro + accel
+	struct xyz_s gyro;
 	struct xyz_s accel;
 
 	uint16_t strain;
 	uint16_t analog[8];
 	int16_t current;
 	int32_t encoder;
+	uint8_t volt_batt;	//+VB
+	uint8_t volt_int;	//+VG
+	uint8_t temp;
 	uint8_t clutch;
-	uint8_t active_ctrl;
-	int16_t pwm;
+	//uint8_t active_ctrl;
+	//int16_t pwm;
 	uint8_t status1;
 	uint8_t status2;
 

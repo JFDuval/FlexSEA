@@ -273,7 +273,7 @@ void rx_cmd_special_1(uint8_t *buf)
 					exec1.strain, exec1.analog[0]);
 			#endif
 
-			#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+			#endif	//((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
 
 			#ifdef BOARD_TYPE_FLEXSEA_PLAN
 
