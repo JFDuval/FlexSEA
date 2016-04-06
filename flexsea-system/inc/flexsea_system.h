@@ -98,6 +98,7 @@ uint32_t tx_cmd_ctrl_special_4(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 
 //Redefine weak functions from flexsea_payload:
 //=============================================
+//(These are the prototypes, do not forget to edit flexsea_system.c too!
 
 //0-9:
 void flexsea_payload_catchall(uint8_t *buf);
