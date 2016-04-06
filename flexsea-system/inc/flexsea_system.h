@@ -99,12 +99,12 @@ uint32_t tx_cmd_ctrl_special_4(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 
 //Redefine weak functions from flexsea_payload:
 //=============================================
-//(These are the prototypes, do not forget to edit flexsea_system.c too!
+//(These are the prototypes, do not forget to edit flexsea_system.c too!)
 
 //0-9:
 void flexsea_payload_catchall(uint8_t *buf);
-void flexsea_payload_0(uint8_t *buf);			//CMD_NULL
-//void flexsea_payload_1(uint8_t *buf);			//CMD_TEST
+void flexsea_payload_0(uint8_t *buf);		//CMD_NULL
+//void flexsea_payload_1(uint8_t *buf);		//CMD_TEST
 void flexsea_payload_2(uint8_t *buf);
 void flexsea_payload_3(uint8_t *buf);
 void flexsea_payload_4(uint8_t *buf);
@@ -115,10 +115,10 @@ void flexsea_payload_8(uint8_t *buf);
 void flexsea_payload_9(uint8_t *buf);
 
 //10-19:
-void flexsea_payload_10(uint8_t *buf);			//CMD_PING
-void flexsea_payload_11(uint8_t *buf);			//CMD_STATUS
-void flexsea_payload_12(uint8_t *buf);			//CMD_RESET
-void flexsea_payload_13(uint8_t *buf);			//CMD_ACK
+void flexsea_payload_10(uint8_t *buf);		//CMD_PING
+void flexsea_payload_11(uint8_t *buf);		//CMD_STATUS
+void flexsea_payload_12(uint8_t *buf);		//CMD_RESET
+void flexsea_payload_13(uint8_t *buf);		//CMD_ACK
 void flexsea_payload_14(uint8_t *buf);
 void flexsea_payload_15(uint8_t *buf);
 void flexsea_payload_16(uint8_t *buf);
@@ -127,9 +127,9 @@ void flexsea_payload_18(uint8_t *buf);
 void flexsea_payload_19(uint8_t *buf);
 
 //20-29:
-//void flexsea_payload_20(uint8_t *buf);		//CMD_MEM
-//void flexsea_payload_21(uint8_t *buf);		//CMD_ACQUI
-//void flexsea_payload_22(uint8_t *buf);		//CMD_READ_ALL
+//void flexsea_payload_20(uint8_t *buf);	//CMD_MEM
+//void flexsea_payload_21(uint8_t *buf);	//CMD_ACQUI
+//void flexsea_payload_22(uint8_t *buf);	//CMD_READ_ALL
 void flexsea_payload_23(uint8_t *buf);
 void flexsea_payload_24(uint8_t *buf);
 void flexsea_payload_25(uint8_t *buf);
@@ -151,14 +151,14 @@ void flexsea_payload_38(uint8_t *buf);
 void flexsea_payload_39(uint8_t *buf);
 
 //40-49:
-//void flexsea_payload_40(uint8_t *buf);		//CMD_TEMP
-//void flexsea_payload_41(uint8_t *buf);		//CMD_SWITCH
-//void flexsea_payload_42(uint8_t *buf);		//CMD_IMU
-//void flexsea_payload_43(uint8_t *buf);		//CMD_ENCODER
-//void flexsea_payload_44(uint8_t *buf);		//CMD_STRAIN
-//void flexsea_payload_45(uint8_t *buf);		//CMD_STRAIN_CONFIG
-//void flexsea_payload_46(uint8_t *buf);		//CMD_VOLT
-//void flexsea_payload_47(uint8_t *buf);		//CMD_BATT
+//void flexsea_payload_40(uint8_t *buf);	//CMD_TEMP
+//void flexsea_payload_41(uint8_t *buf);	//CMD_SWITCH
+//void flexsea_payload_42(uint8_t *buf);	//CMD_IMU
+//void flexsea_payload_43(uint8_t *buf);	//CMD_ENCODER
+//void flexsea_payload_44(uint8_t *buf);	//CMD_STRAIN
+//void flexsea_payload_45(uint8_t *buf);	//CMD_STRAIN_CONFIG
+//void flexsea_payload_46(uint8_t *buf);	//CMD_VOLT
+//void flexsea_payload_47(uint8_t *buf);	//CMD_BATT
 void flexsea_payload_48(uint8_t *buf);
 void flexsea_payload_49(uint8_t *buf);
 
@@ -175,13 +175,13 @@ void flexsea_payload_58(uint8_t *buf);
 void flexsea_payload_59(uint8_t *buf);
 
 //60-69: 
-//void flexsea_payload_60(uint8_t *buf);		//CMD_POWER_OUT
-//void flexsea_payload_61(uint8_t *buf);		//CMD_CLUTCH
-void flexsea_payload_62(uint8_t *buf);			//CMD_ADV_ANA_CONFIG
-void flexsea_payload_63(uint8_t *buf);			//CMD_ANALOG
-void flexsea_payload_64(uint8_t *buf);			//CMD_DIGITAL
-void flexsea_payload_65(uint8_t *buf);			//CMD_DIGITAL_CONFIG
-void flexsea_payload_66(uint8_t *buf);			//CMD_EXP_PERIPH_CONFIG
+//void flexsea_payload_60(uint8_t *buf);	//CMD_POWER_OUT
+//void flexsea_payload_61(uint8_t *buf);	//CMD_CLUTCH
+void flexsea_payload_62(uint8_t *buf);		//CMD_ADV_ANA_CONFIG
+void flexsea_payload_63(uint8_t *buf);		//CMD_ANALOG
+void flexsea_payload_64(uint8_t *buf);		//CMD_DIGITAL
+void flexsea_payload_65(uint8_t *buf);		//CMD_DIGITAL_CONFIG
+void flexsea_payload_66(uint8_t *buf);		//CMD_EXP_PERIPH_CONFIG
 void flexsea_payload_67(uint8_t *buf);
 void flexsea_payload_68(uint8_t *buf);
 void flexsea_payload_69(uint8_t *buf);
