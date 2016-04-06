@@ -252,9 +252,9 @@ void rx_cmd_special_1(uint8_t *buf)
 
 			//Store values:
 				
-			exec_s_ptr->imu.x = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+0], buf[P_DATA1+1]));
-			exec_s_ptr->imu.y = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+2], buf[P_DATA1+3]));
-			exec_s_ptr->imu.z = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+4], buf[P_DATA1+5]));
+			exec_s_ptr->gyro.x = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+0], buf[P_DATA1+1]));
+			exec_s_ptr->gyro.y = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+2], buf[P_DATA1+3]));
+			exec_s_ptr->gyro.z = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+4], buf[P_DATA1+5]));
 			
 			exec_s_ptr->strain = (BYTES_TO_UINT16(buf[P_DATA1+6], buf[P_DATA1+7]));
 			exec_s_ptr->analog[0] = (BYTES_TO_UINT16(buf[P_DATA1+8], buf[P_DATA1+9]));
@@ -269,7 +269,7 @@ void rx_cmd_special_1(uint8_t *buf)
 
 			#ifdef MULTIPLE_COMMANDS
 			//To interface with Python:
-			printf("[%i,%i,%i,%i,%i,%i,%i]\n", exec1.encoder, exec1.current, exec1.imu.x, exec1.imu.y, exec1.imu.z, \
+			printf("[%i,%i,%i,%i,%i,%i,%i]\n", exec1.encoder, exec1.current, exec1.gyro.x, exec1.gyro.y, exec1.gyro.z, \
 					exec1.strain, exec1.analog[0]);
 			#endif
 
@@ -539,9 +539,9 @@ void rx_cmd_special_2(uint8_t *buf)
 
 			//Store values:
 
-			exec_s_ptr->imu.x = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+0], buf[P_DATA1+1]));
-			exec_s_ptr->imu.y = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+2], buf[P_DATA1+3]));
-			exec_s_ptr->imu.z = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+4], buf[P_DATA1+5]));
+			exec_s_ptr->gyro.x = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+0], buf[P_DATA1+1]));
+			exec_s_ptr->gyro.y = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+2], buf[P_DATA1+3]));
+			exec_s_ptr->gyro.z = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+4], buf[P_DATA1+5]));
 
 			exec_s_ptr->analog[0] = (BYTES_TO_UINT16(buf[P_DATA1+6], buf[P_DATA1+7]));
 			//printf("A0: %i.\n", (BYTES_TO_UINT16(buf[P_DATA1+6], buf[P_DATA1+7])));	//ToDo remove (debug only)
@@ -868,13 +868,13 @@ uint32_t tx_cmd_ctrl_special_4(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 		//Arguments - Execute #1:
 		exec_s_ptr = &exec1;
 
-		uint16_to_bytes((uint16_t)exec_s_ptr->imu.x, &tmp0, &tmp1);
+		uint16_to_bytes((uint16_t)exec_s_ptr->gyro.x, &tmp0, &tmp1);
 		buf[P_DATA1] = tmp0;
 		buf[P_DATA1 + 1] = tmp1;
-		uint16_to_bytes((uint16_t)exec_s_ptr->imu.y, &tmp0, &tmp1);
+		uint16_to_bytes((uint16_t)exec_s_ptr->gyro.y, &tmp0, &tmp1);
 		buf[P_DATA1 + 2] = tmp0;
 		buf[P_DATA1 + 3] = tmp1;
-		uint16_to_bytes((uint16_t)exec_s_ptr->imu.z, &tmp0, &tmp1);
+		uint16_to_bytes((uint16_t)exec_s_ptr->gyro.z, &tmp0, &tmp1);
 		buf[P_DATA1 + 4] = tmp0;
 		buf[P_DATA1 + 5] = tmp1;
 
@@ -899,13 +899,13 @@ uint32_t tx_cmd_ctrl_special_4(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 		//Arguments - Execute #2:
 		exec_s_ptr = &exec2;
 
-		uint16_to_bytes((uint16_t)exec_s_ptr->imu.x, &tmp0, &tmp1);
+		uint16_to_bytes((uint16_t)exec_s_ptr->gyro.x, &tmp0, &tmp1);
 		buf[P_DATA1 + 16] = tmp0;
 		buf[P_DATA1 + 17] = tmp1;
-		uint16_to_bytes((uint16_t)exec_s_ptr->imu.y, &tmp0, &tmp1);
+		uint16_to_bytes((uint16_t)exec_s_ptr->gyro.y, &tmp0, &tmp1);
 		buf[P_DATA1 + 18] = tmp0;
 		buf[P_DATA1 + 19] = tmp1;
-		uint16_to_bytes((uint16_t)exec_s_ptr->imu.z, &tmp0, &tmp1);
+		uint16_to_bytes((uint16_t)exec_s_ptr->gyro.z, &tmp0, &tmp1);
 		buf[P_DATA1 + 20] = tmp0;
 		buf[P_DATA1 + 21] = tmp1;
 
@@ -1025,9 +1025,9 @@ void rx_cmd_special_4(uint8_t *buf)
 			//Store values:
 
 			exec_s_ptr = &exec1;
-			exec_s_ptr->imu.x = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+0], buf[P_DATA1+1]));
-			exec_s_ptr->imu.y = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+2], buf[P_DATA1+3]));
-			exec_s_ptr->imu.z = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+4], buf[P_DATA1+5]));
+			exec_s_ptr->gyro.x = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+0], buf[P_DATA1+1]));
+			exec_s_ptr->gyro.y = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+2], buf[P_DATA1+3]));
+			exec_s_ptr->gyro.z = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+4], buf[P_DATA1+5]));
 
 			exec_s_ptr->strain = (BYTES_TO_UINT16(buf[P_DATA1+6], buf[P_DATA1+7]));
 			exec_s_ptr->analog[0] = (BYTES_TO_UINT16(buf[P_DATA1+8], buf[P_DATA1+9]));
@@ -1038,9 +1038,9 @@ void rx_cmd_special_4(uint8_t *buf)
 			exec_s_ptr->current = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+14], buf[P_DATA1+15]));
 
 			exec_s_ptr = &exec2;
-			exec_s_ptr->imu.x = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+16], buf[P_DATA1+17]));
-			exec_s_ptr->imu.y = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+18], buf[P_DATA1+19]));
-			exec_s_ptr->imu.z = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+20], buf[P_DATA1+21]));
+			exec_s_ptr->gyro.x = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+16], buf[P_DATA1+17]));
+			exec_s_ptr->gyro.y = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+18], buf[P_DATA1+19]));
+			exec_s_ptr->gyro.z = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+20], buf[P_DATA1+21]));
 
 			exec_s_ptr->strain = (BYTES_TO_UINT16(buf[P_DATA1+22], buf[P_DATA1+23]));
 			exec_s_ptr->analog[0] = (BYTES_TO_UINT16(buf[P_DATA1+24], buf[P_DATA1+25]));
