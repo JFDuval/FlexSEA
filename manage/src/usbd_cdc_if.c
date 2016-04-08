@@ -32,6 +32,9 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_cdc_if.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 /* USER CODE BEGIN INCLUDE */
 /* USER CODE END INCLUDE */
 
@@ -59,8 +62,8 @@
 /* USER CODE BEGIN PRIVATE DEFINES  */
 /* Define size for the receive and transmit buffer over CDC */
 /* It's up to user to redefine and/or remove those define */
-#define APP_RX_DATA_SIZE  4
-#define APP_TX_DATA_SIZE  4
+#define APP_RX_DATA_SIZE  40
+#define APP_TX_DATA_SIZE  40
 /* USER CODE END PRIVATE DEFINES */
 /**
   * @}
@@ -269,13 +272,26 @@ static int8_t CDC_Receive_FS (uint8_t* Buf, uint32_t *Len)
   * @param  Len: Number of data to be send (in bytes)
   * @retval Result of the operation: USBD_OK if all operations are OK else USBD_FAIL or USBD_BUSY
   */
-uint8_t CDC_Transmit_FS(uint8_t* Buf, uint16_t Len)
+uint8_t CDC_Transmit_FSCOMMENTEDOUT(uint8_t* Buf, uint16_t Len)
 {
   uint8_t result = USBD_OK;
   /* USER CODE BEGIN 7 */ 
   USBD_CDC_SetTxBuffer(hUsbDevice_0, Buf, Len);   
   result = USBD_CDC_TransmitPacket(hUsbDevice_0);
   /* USER CODE END 7 */ 
+  return result;
+}
+
+uint8_t CDC_Transmit_FS(uint8_t* Buf, uint16_t Len)
+{
+  uint8_t result = USBD_OK;
+  //memcpy(UserTxBufferFS, Buf, sizeof(char) * Len);
+  UserTxBufferFS[0] = 'J';
+  UserTxBufferFS[1] = 'F';
+  UserTxBufferFS[2] = 'D';
+  UserTxBufferFS[3] = '\n';
+  USBD_CDC_SetTxBuffer(hUsbDevice_0, UserTxBufferFS, Len);
+  result = USBD_CDC_TransmitPacket(hUsbDevice_0);
   return result;
 }
 

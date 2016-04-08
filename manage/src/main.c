@@ -15,12 +15,14 @@
 
 #include "main.h"
 #include "usb_device.h"
+#include "usbd_cdc_if.h"
 
 //****************************************************************************
 // Variable(s)
 //****************************************************************************
 
 uint8_t autosampling = 0;
+uint8_t usb_test_string[40] = "[FlexSEA-Manage 0.1 USB]\n";
 
 //****************************************************************************
 // Function(s)
@@ -39,9 +41,6 @@ int main(void)
 
 	//Initialize all the peripherals
 	init_peripherals();
-
-	//USB test - todo move
-	MX_USB_DEVICE_Init();
 
 	//Start with an empty buffer
 	flexsea_clear_slave_read_buffer();
@@ -137,8 +136,6 @@ int main(void)
 				//Case 7:
 				case 7:
 
-
-
 					break;
 
 				//Case 8:
@@ -198,13 +195,51 @@ int main(void)
 			//Constant LED0 flashing while the code runs
 			toggle_led0 ^= 1;
 			LED0(toggle_led0);
+
+			usbtx();
+
 		}
 
 		//1000ms
 		if(systick_1000ms_flag)
 		{
 			systick_1000ms_flag = 0;
-
 		}
     }
+}
+
+int usbtx(void)
+{
+	static int delayed_start = 0;
+	static int toggle_led1 = 0;
+	static int status = 0;
+
+	if(delayed_start < 5)
+	{
+		delayed_start ++;
+		return -1;
+	}
+	else
+	{
+		//USB transmit test:
+		status = CDC_Transmit_FS(usb_test_string, 3);
+
+		if(status == USBD_BUSY)
+		{
+			toggle_led1 ^= 1;
+			LED1(toggle_led1);
+		}
+		else if(status == USBD_FAIL)
+		{
+			LED1(0);
+		}
+		else
+		{
+			LED1(1);
+		}
+
+		return status;
+	}
+
+	return -2;
 }

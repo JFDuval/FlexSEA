@@ -283,7 +283,7 @@ void HAL_Delay(__IO uint32_t Delay)
 {
   uint32_t timingdelay;
   
-  timingdelay = HAL_GetTick() + Delay;
+  timingdelay = HAL_GetTick() + Delay;	//*10;	//Added the x10 because fo the 10kHz SysTick
   while(HAL_GetTick() < timingdelay)
   {
   }

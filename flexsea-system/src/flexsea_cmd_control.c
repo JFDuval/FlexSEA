@@ -1,6 +1,6 @@
 //****************************************************************************
 // MIT Media Lab - Biomechatronics
-// Jean-François (Jeff) Duval
+// Jean-Franï¿½ois (Jeff) Duval
 // jfduval@media.mit.edu
 // 04/2016
 //****************************************************************************
@@ -348,7 +348,7 @@ void rx_cmd_ctrl_o(uint8_t *buf)
 			#ifdef BOARD_TYPE_FLEXSEA_MANAGE
 
 			//Store value:
-			exec1.pwm = tmp_open_spd;
+			exec1.ctrl.pwm = tmp_open_spd;
 
 			#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 

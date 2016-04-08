@@ -13,6 +13,7 @@
 
 #include "main.h"
 #include "fm_misc.h"
+#include "usb_device.h"
 
 //****************************************************************************
 // Variable(s)
@@ -27,8 +28,11 @@ unsigned char test_payload[PAYLOAD_BUF_LEN];
 //Initialize all the peripherals
 void init_peripherals(void)
 {
+	//Extra Power ON delay:
+	HAL_Delay(100);
+
 	//Hardware modules:
-	init_systick_timer();		//SysTick timer
+	init_systick_timer();		//SysTick timer (10kHz)
 	init_usart1(2000000);		//USART1 (RS-485 #1)
 	init_usart6(2000000);		//USART6 (RS-485 #2)
 	init_rs485_outputs();
@@ -43,6 +47,9 @@ void init_peripherals(void)
 	init_imu();
 	init_adva_fc_pins();
 	init_pwr_out();
+
+	//USB
+	MX_USB_DEVICE_Init();
 
 	//Software:
 	init_master_slave_comm();
