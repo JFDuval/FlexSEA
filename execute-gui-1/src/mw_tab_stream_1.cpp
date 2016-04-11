@@ -67,18 +67,30 @@ void MainWindow::timerStreamEvent(void)
         USBSerialPort_Read(usb_rx);
         decode_usb_rx(usb_rx);
 
-        //Display return status:
-        //qDebug() << "decode_usb_rx(): " << val;
+        //Raw values:
 
-        ui->disp_enc->setText(QString::number(exec1.encoder));
+        ui->disp_accx->setText(QString::number(exec1.accel.x));
+        ui->disp_accy->setText(QString::number(exec1.accel.y));
+        ui->disp_accz->setText(QString::number(exec1.accel.z));
         ui->disp_gyrox->setText(QString::number(exec1.gyro.x));
         ui->disp_gyroy->setText(QString::number(exec1.gyro.y));
         ui->disp_gyroz->setText(QString::number(exec1.gyro.z));
+
+        ui->disp_enc->setText(QString::number(exec1.encoder));
         ui->disp_strain->setText(QString::number(exec1.strain));
         ui->disp_ana->setText(QString::number(exec1.analog[0]));
+
         ui->disp_current->setText(QString::number(exec1.current));
+
+        ui->disp_vb->setText(QString::number(exec1.volt_batt));
+        ui->disp_vg->setText(QString::number(exec1.volt_int));
+        ui->disp_temp->setText(QString::number(exec1.temp));
+
         ui->disp_stat1->setText(QString::number(exec1.status1));
         ui->disp_stat2->setText(QString::number(exec1.status2));
+
+        //Decode some of them:
+        ui->disp_current_d->setText(QString::number((float)exec1.current*12.2));
 
         ui->tabWidget->repaint();
 

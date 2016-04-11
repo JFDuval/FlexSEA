@@ -1,6 +1,6 @@
 //****************************************************************************
 // MIT Media Lab - Biomechatronics
-// Jean-François (Jeff) Duval
+// Jean-Franï¿½ois (Jeff) Duval
 // jfduval@media.mit.edu
 // 03/2016
 //****************************************************************************
@@ -157,13 +157,13 @@ void flexsea_update_slave_read_buffer(unsigned char read_offset)
 	slave_read_buffer[0] = read_offset;
 
 	//IMU, 3x2 bytes:
-	uint16_to_bytes((uint16_t)exec1.imu.x, &b0, &b1);
+	uint16_to_bytes((uint16_t)exec1.gyro.x, &b0, &b1);
 	slave_read_buffer[1] = b0;
 	slave_read_buffer[2] = b1;
-	uint16_to_bytes((uint16_t)exec1.imu.y, &b0, &b1);
+	uint16_to_bytes((uint16_t)exec1.gyro.y, &b0, &b1);
 	slave_read_buffer[3] = b0;
 	slave_read_buffer[4] = b1;
-	uint16_to_bytes((uint16_t)exec1.imu.z, &b0, &b1);
+	uint16_to_bytes((uint16_t)exec1.gyro.z, &b0, &b1);
 	slave_read_buffer[5] = b0;
 	slave_read_buffer[6] = b1;
 

@@ -27,8 +27,11 @@ volatile uint8_t systick_1000ms_flag = 0;
 
 void init_systick_timer(void)
 {
-  // Use SysTick as reference for the delay loops.
-  SysTick_Config (SystemCoreClock / TIMER_FREQUENCY_HZ);
+  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);	//Theirs
+  //HAL_SYSTICK_Config(SystemCoreClock / TIMER_FREQUENCY_HZ);	//My 10kHz fct
+  HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
+  // SysTick_IRQn interrupt configuration
+  HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 }
 
 void timer_sleep (timer_ticks_t ticks)
@@ -40,7 +43,7 @@ void timer_sleep (timer_ticks_t ticks)
     ;
 }
 
-//System Timer: function called every 1ms
+//System Timer:
 void timer_tick (void)
 {
 	static unsigned int cnt_1ms = 0, cnt_10ms = 0;
@@ -94,7 +97,12 @@ void timer_tick (void)
 
 void SysTick_Handler (void)
 {
+	//FlexSEA timebase:
 	timer_tick ();
+
+	//For USB delays:
+	HAL_IncTick();
+	HAL_SYSTICK_IRQHandler();
 }
 
 // ----------------------------------------------------------------------------

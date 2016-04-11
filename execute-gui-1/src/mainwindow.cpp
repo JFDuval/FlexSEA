@@ -33,6 +33,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    QString str;
+
     ui->setupUi(this);    
 
     //Default settings:
@@ -72,11 +74,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->plot_xmax_lineEdit->setText(QString::number(plot_xmax));
     ui->plot_ymin_lineEdit->setText(QString::number(plot_ymin));
     ui->plot_ymax_lineEdit->setText(QString::number(plot_ymax));
+    gen_graph_xarray();
+    init_yarrays();
     makePlot();
     //Variable option lists:
     QStringList var_list;
     var_list << "**Unused**" << "Accel X" << "Accel Y" << "Accel Z" << "Gyro X" << "Gyro Y" << "Gyro Z" << "Encoder" \
-            << "Motor current" << "Analog[0]" << "Strain" << "Fake Data";
+            << "Motor current" << "Analog[0]" << "Strain" << "+VB" << "+VG" << "Temperature" << "Fake Data";
     for(int index = 0; index < var_list.count(); index++)
     {
         //All boxes have the same list:
@@ -90,14 +94,19 @@ MainWindow::MainWindow(QWidget *parent) :
     //Color coded labels:
     ui->label_t1->setStyleSheet("QLabel { background-color: red; color: black;}");
     ui->label_t2->setStyleSheet("QLabel { background-color: magenta; color: black;}");
-    ui->label_t3->setStyleSheet("QLabel { background-color: blue; color: black;}");
+    ui->label_t3->setStyleSheet("QLabel { background-color: blue; color: white;}");
     ui->label_t4->setStyleSheet("QLabel { background-color: cyan; color: black;}");
-    ui->label_t5->setStyleSheet("QLabel { background-color: green; color: black;}");
-    ui->label_t6->setStyleSheet("QLabel { background-color: yellow; color: black;}");
+    ui->label_t5->setStyleSheet("QLabel { background-color: lime; color: black;}");
+    ui->label_t6->setStyleSheet("QLabel { background-color: black; color: white;}");
 
     //Experiments:
     exp_pwm = 0;
     ui->disp_MotPWM->setText(QString::number(ui->hSlider_PWM->value()));
+
+    //About:
+    str.sprintf("Last full build: %s %s.\n", __DATE__, __TIME__);
+    ui->text_last_build->setText(str);
+    ui->text_last_build->repaint();
 
     //=================
     //Timers:
