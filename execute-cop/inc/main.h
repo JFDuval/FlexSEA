@@ -15,6 +15,7 @@
 //****************************************************************************
 
 #include <project.h>
+#include "isr_callbacks.h"
 #include "misc.h"
 #include "sensors.h"
 #include "safety.h"

@@ -20,6 +20,7 @@
 #include <CyLib.h>
 #include <I2C_1_SCB_IRQ.h>
 
+
 #if !defined(I2C_1_SCB_IRQ__REMOVED) /* Check for removal by optimization */
 
 /*******************************************************************************
@@ -157,6 +158,10 @@ void I2C_1_SCB_IRQ_Stop(void)
 *******************************************************************************/
 CY_ISR(I2C_1_SCB_IRQ_Interrupt)
 {
+    #ifdef I2C_1_SCB_IRQ_INTERRUPT_INTERRUPT_CALLBACK
+        I2C_1_SCB_IRQ_Interrupt_InterruptCallback();
+    #endif /* I2C_1_SCB_IRQ_INTERRUPT_INTERRUPT_CALLBACK */ 
+
     /*  Place your Interrupt code here. */
     /* `#START I2C_1_SCB_IRQ_Interrupt` */
 

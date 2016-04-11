@@ -20,6 +20,7 @@
 #include <CyLib.h>
 #include <isr_wdclk.h>
 
+
 #if !defined(isr_wdclk__REMOVED) /* Check for removal by optimization */
 
 /*******************************************************************************
@@ -159,6 +160,10 @@ void isr_wdclk_Stop(void)
 *******************************************************************************/
 CY_ISR(isr_wdclk_Interrupt)
 {
+    #ifdef isr_wdclk_INTERRUPT_INTERRUPT_CALLBACK
+        isr_wdclk_Interrupt_InterruptCallback();
+    #endif /* isr_wdclk_INTERRUPT_INTERRUPT_CALLBACK */ 
+
     /*  Place your Interrupt code here. */
     /* `#START isr_wdclk_Interrupt` */
 

@@ -32,12 +32,12 @@ void init_peripherals(void)
 {
 	//Sequencing ADC:
 	ADC_SAR_Seq_1_Start();
-	ADC_SAR_Seq_1_IRQ_Enable();
+	ADC_SAR_Seq_1_IRQ_StartEx(ADC_SAR_Seq_1_ISR_Callback);
 	ADC_SAR_Seq_1_StartConvert();
 	
 	//Timer 1 (1ms timebase):
 	Timer_1_Start();
-	isr_t1_Start();
+	isr_t1_StartEx(isr_t1_Interrupt_Callback);
 	
 	//EZI2C:	
 	I2C_1_EzI2CSetBuffer1(EZI2C_BUF_SIZE, EZI2C_WBUF_SIZE, ezI2Cbuf);
@@ -46,7 +46,7 @@ void init_peripherals(void)
 	
 	//WDCLK:
 	WDCLK_Pulse_Write(WDCLK_PULSE);
-	isr_wdclk_Start();
+	isr_wdclk_StartEx(isr_wdclk_Interrupt_Callback);
 	
 	//Safety code:
 	init_safety();
