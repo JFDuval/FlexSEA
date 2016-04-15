@@ -82,11 +82,13 @@ void assign_i2c_data(uint8 *newdata)
 		tmp = ((uint16)newdata[4] << 8) | ((uint16) newdata[5]);
 		imu.accel.z = (int16)tmp;		
 	}
+	/*
 	else if(i2c_last_request == I2C_RQ_SAFETY)
 	{
 		safety_cop.status1 = newdata[0];
 		safety_cop.status2 = newdata[1];
 	}
+	*/	//Legacy, ToDo remove
 }
 
 //Call this function in the 1kHz FSM. It will return 1 every second.
@@ -140,14 +142,14 @@ void timing_test_blocking(void)
 		CyDelayUs(SDELAY);
 		
 		//Motor current PID
-		EXP8_Write(1);
+		//EXP8_Write(1);
 		motor_current_pid(ctrl.current.setpoint_val, ctrl.current.actual_val);
-		EXP8_Write(0);
+		//EXP8_Write(0);
 		
 		//Motor current PID #2
-		EXP8_Write(1);
+		//EXP8_Write(1);
 		motor_current_pid_2(ctrl.current.setpoint_val, ctrl.current.actual_val);
-		EXP8_Write(0);
+		//EXP8_Write(0);
 		
 		//Exit sequence:
 		//EXP9_Write(0);

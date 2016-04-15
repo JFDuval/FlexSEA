@@ -50,52 +50,61 @@ void init_peripherals(void)
 	init_analog();
 	
 	//Clutch:
-	init_clutch();	
+	init_pwro();	
 	
 	//Enable Global Interrupts
     CyGlobalIntEnable; 
 	
-	//I2C1 (internal, potentiometers, Safety-CoP & IMU)
-	init_i2c1();
-	
-	//Peripherals that depend on I2C:
-	#ifdef USE_I2C_INT	
+	//I2C0 - 3V3, IMU & Expansion
+	#ifdef USE_I2C_0	
+		
+		init_i2c_0();
 		
 		//MPU-6500 IMU:
 		#ifdef USE_IMU
+			
 		init_imu();
 		CyDelay(25);
 		init_imu();
 		CyDelay(25);
 		init_imu();
 		CyDelay(25);
+		
 		#endif	//USE_IMU
+		
+		//External RGB LED:
+		#ifdef USE_MINM_RGB
+			
+		//Set RGB LED - Starts Green
+		i2c_write_minm_rgb(SET_RGB, 0, 255, 0);
+		
+		#endif 	//USE_MINM_RGB
+	
+	#endif	//USE_I2C_0
+	
+	//I2C1 - 5V, Safety-CoP & strain gauge pot
+	#ifdef USE_I2C_1	
+		
+		//I2C1 peripheral:
+		init_i2c_1();
 		
 		//Strain amplifier:
 		#ifdef USE_STRAIN
+			
 		init_strain();
+		
 		#endif	//USE_STRAIN
 		
-	#endif	//USE_I2C_INT	
+	#endif	//USE_I2C_1	
 	
-	//I2C2 (external)	
-	#ifdef USE_I2C_EXT
-	
-	//Enable pull-ups:
-	I2C_OPT_PU_Write(1);
-		
-	//I2C2 peripheral:
-	init_i2c2();
-	
-	//Set RGB LED - Starts Green
-	i2c_write_minm_rgb(SET_RGB, 0, 255, 0);
-	
-	#endif //USE_I2C_EXT
-	
+	#ifdef USE_SPI_COMMUT
+
 	//Magnetic encoder:
 	init_as5047();
 	
-	// First DieTemp reading is always inaccurate -- throw out the first one
+	#endif 	//USE_SPI_COMMUT
+	
+	//Die temperatuire measurement
 	#ifdef USE_DIETEMP	
 	DieTemp_1_GetTemp(&temp);
 	#endif
@@ -115,43 +124,37 @@ void init_tb_timers(void)
 	isr_t1_Start();
 }
 
-//Internal I2C: IMU, Safety-CoP, potentiometers
-void init_i2c1(void)
+//I2C0 - 3V3, IMU & Expansion.
+void init_i2c_0(void)
 {
-	#ifdef USE_I2C_INT	
-	I2C_1_EnableInt();
-	I2C_1_Start();	
-	#endif	//USE_I2C_INT
+	I2C_0_EnableInt();
+	I2C_0_Start();	
 }
 
-//External I2C: expansion connector
-void init_i2c2(void)
+//I2C1 - 5V, Safety-CoP & strain gauge pot
+void init_i2c_1(void)
 {
-	#ifdef USE_I2C_EXT
-	//I2C_2_Init();
-	//I2C_2_Enable();
-	I2C_2_EnableInt();
-	I2C_2_Start();
-	#endif	//USE_I2C_EXT	
+	I2C_1_EnableInt();
+	I2C_1_Start();
 }
 
 //Configuration for the clutch
-void init_clutch(void)
+void init_pwro(void)
 {
 	//PWM2: Clutch
 	PWM_2_Start();
 	PWM_2_WriteCompare(0);	//Start at 0%
 }
 
-//PWM output for the clutch
-void clutch_output(uint8 value)
+//PWM, power output
+void pwro_output(uint8 value)
 {
 	clutch_pwm = value;
 	PWM_2_WriteCompare(clutch_pwm);
 }
 
-//Returns the PWM value of the clutch
-uint8 read_clutch(void)
+//Returns the PWM value of the power output
+uint8 read_pwro(void)
 {
 	return clutch_pwm;
 }

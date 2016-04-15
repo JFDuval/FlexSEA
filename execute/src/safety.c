@@ -192,6 +192,68 @@ void overtemp_error(uint8 *eL1, uint8 *eL2)
 	}
 }
 
+//Simplified version of I2C_1_MasterWriteByte() (single master only) with timeouts
+//timeout is in us
+uint8 I2C_1_MasterWriteByteTimeOut(uint8 theByte, uint32 timeout)
+{
+    uint8 errStatus;
+	uint32 t = 0;	//For the timeout
+
+    errStatus = I2C_1_MSTR_NOT_READY;
+
+    /* Check if START condition was generated */
+    if(I2C_1_CHECK_MASTER_MODE(I2C_1_MCSR_REG))
+    {
+        I2C_1_DATA_REG = theByte;                        /* Write DATA register */
+		t = 0;
+		
+		
+        //I2C_1_TRANSMIT_DATA_MANUAL_TIMEOUT;                      /* Set transmit mode */
+		
+        I2C_1_TRANSMIT_DATA;								
+        while(I2C_1_CHECK_BYTE_COMPLETE(I2C_1_CSR_REG))		
+        {													
+            /* Wait when byte complete is cleared */		
+			t++;											
+			if(t > timeout)									
+				break;										
+			else											
+				CyDelayUs(1);								
+        }	
+		
+		
+        I2C_1_state = I2C_1_SM_MSTR_WR_DATA;  /* Set state WR_DATA */
+
+        /* Make sure the last byte has been transfered first */
+		t = 0;
+        while(I2C_1_WAIT_BYTE_COMPLETE(I2C_1_CSR_REG))
+        {
+			/*
+           //Wait for byte to be written
+			t++;
+			if(t > timeout)	
+				break;
+			else
+				CyDelayUs(1);
+			*/
+        }
+
+
+        if(I2C_1_CHECK_DATA_ACK(I2C_1_CSR_REG))
+        {
+            I2C_1_state = I2C_1_SM_MSTR_HALT;     /* Set state to HALT */
+            errStatus = I2C_1_MSTR_NO_ERROR;                 /* The LRB was ACKed */
+        }
+        else
+        {
+            I2C_1_state = I2C_1_SM_MSTR_HALT;     /* Set state to HALT */
+            errStatus = I2C_1_MSTR_ERR_LB_NAK;               /* The LRB was NACKed */
+        }
+    }
+
+    return(errStatus);
+}
+
 //****************************************************************************
 // Test Function(s) - Use with care!
 //****************************************************************************

@@ -112,7 +112,7 @@ int main(void)
 					i2c_time_share++;
 					i2c_time_share %= 4;
 				
-					#ifdef USE_I2C_INT
+					#ifdef USE_I2C_0
 				
 					//Subdivided in 4 slots.
 					switch(i2c_time_share)
@@ -138,18 +138,23 @@ int main(void)
 							break;
 						
 						//Case 0.2: Safety-Cop
+							//ToDo: Safety-Cop is on I2C1. Might want to remove it from this rotation.
 						case 2:
 							
-							safety_cop_get_status();
-							i2c_last_request = I2C_RQ_SAFETY;
+							#ifdef USE_I2C_1
+							//safety_cop_get_status();
+							#endif 	//USE_I2C_1
+
 							break;
 						
-						//Case 0.3: Free
+						//Case 0.3: 
 						case 3:
-							//I2C RGB LED
 							
+							//I2C RGB LED
+							#ifdef USE_MINM_RGB
 							//minm_test_code();
 							update_minm_rgb();		//ToDo: That's EXT_I2C, not INT
+							#endif 	//USE_MINM_RGB
 							
 							break;
 						

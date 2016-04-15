@@ -461,7 +461,7 @@ void rx_cmd_special_2(uint8_t *buf)
 		}
 
 		//Clutch:
-		clutch_output(buf[P_DATA1 + 7]);
+		pwro_output(buf[P_DATA1 + 7]);
 
 		//MinM RGB:
 		minm_rgb_color = buf[P_DATA1 + 6]; //ToDo set value that will be used in the next cycle

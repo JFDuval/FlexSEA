@@ -40,10 +40,10 @@ void i2c_write_minm_rgb(uint8 cmd, uint8 r, uint8 g, uint8 b)
 	minm_i2c_buf[2] = g;
 	minm_i2c_buf[3] = b;
 	
-	I2C_2_MasterClearStatus();
-	//I2C_2_MasterClearWriteBuf();
-    I2C_2_MasterWriteBuf(I2C_SLAVE_ADDR_MINM, (uint8 *) minm_i2c_buf,
-                             4, I2C_2_MODE_COMPLETE_XFER);
+	I2C_0_MasterClearStatus();
+	//I2C_0_MasterClearWriteBuf();
+    I2C_0_MasterWriteBuf(I2C_SLAVE_ADDR_MINM, (uint8 *) minm_i2c_buf,
+                             4, I2C_0_MODE_COMPLETE_XFER);
 
 	//ISR will take it from here...
 	
@@ -81,7 +81,7 @@ void update_minm_rgb(void)
 {
 	static uint8 r = 0, g = 0, b = 0;
 	
-	#ifdef USE_I2C_EXT
+	#ifdef USE_I2C_0
 	
 	if(minm_rgb_color != last_minm_rgb_color)
 	{
@@ -93,7 +93,7 @@ void update_minm_rgb(void)
 	
 	last_minm_rgb_color = minm_rgb_color;
 	
-	#endif	//USE_I2C_EXT
+	#endif	//USE_I2C_0
 }
 
 //Use this to test your RGB hardware

@@ -37,7 +37,7 @@ void init_imu()
 {
 	//Reset the IMU
 	reset_imu();
-	//while(I2C_1_MasterStatus() != I2C_1_MSTAT_WR_CMPLT);
+	//while(I2C_0_MasterStatus() != I2C_0_MSTAT_WR_CMPLT);
 	CyDelay(25);
 	//ToDo: add a timeout
 	
@@ -46,7 +46,7 @@ void init_imu()
 	
 	//Send the config sequence
 	imu_write(IMU_CONFIG, config, 4);
-	//while(I2C_1_MasterStatus() != I2C_1_MSTAT_WR_CMPLT);
+	//while(I2C_0_MasterStatus() != I2C_0_MSTAT_WR_CMPLT);
 	//ToDo: add a timeout
 }
 
@@ -146,9 +146,9 @@ int imu_write(uint8 internal_reg_addr, uint8* pData, uint16 length)
 	//Try to write it up to 5 times
 	for(i = 0; i < 5; i++)
 	{
-		stat = I2C_1_MasterWriteBuf(IMU_ADDR, (uint8 *) i2c_tmp_buf, length + 1, I2C_1_MODE_COMPLETE_XFER);
+		stat = I2C_0_MasterWriteBuf(IMU_ADDR, (uint8 *) i2c_tmp_buf, length + 1, I2C_0_MODE_COMPLETE_XFER);
 		
-		if(stat == I2C_1_MSTR_NO_ERROR)
+		if(stat == I2C_0_MSTR_NO_ERROR)
 		{
 			break;
 		}
@@ -156,7 +156,7 @@ int imu_write(uint8 internal_reg_addr, uint8* pData, uint16 length)
 		else
 		{
 			//Release bus:
-             I2C_1_BUS_RELEASE;
+             I2C_0_BUS_RELEASE;
 		}
 		*/
 		
@@ -183,49 +183,49 @@ int imu_read(uint8 internal_reg_addr, uint8 *pData, uint16 length)
 	assign_i2c_data(&i2c_r_buf);
 	
 	//Clear status:
-	//I2C_1_MasterClearStatus();
+	//I2C_0_MasterClearStatus();
 	
 	//Start, address, Write mode
-	status = I2C_1_MasterSendStart(IMU_ADDR, 0);		
-	if(status != I2C_1_MSTR_NO_ERROR)
+	status = I2C_0_MasterSendStart(IMU_ADDR, 0);		
+	if(status != I2C_0_MSTR_NO_ERROR)
 		return 1;
 	
 	//Write to register
-	status = I2C_1_MasterWriteByteTimeOut(internal_reg_addr, 500);
-	if(status != I2C_1_MSTR_NO_ERROR)
+	status = I2C_0_MasterWriteByteTimeOut(internal_reg_addr, 500);
+	if(status != I2C_0_MSTR_NO_ERROR)
 	{
 		//Release bus:
-		I2C_1_BUS_RELEASE;
+		I2C_0_BUS_RELEASE;
 		
 		return 2;
 	}
 
 	//Repeat start, read then stop (all by ISR):
-	I2C_1_MasterReadBuf(IMU_ADDR, (uint8 *)i2c_r_buf, length, (I2C_1_MODE_COMPLETE_XFER | I2C_1_MODE_REPEAT_START));
+	I2C_0_MasterReadBuf(IMU_ADDR, (uint8 *)i2c_r_buf, length, (I2C_0_MODE_COMPLETE_XFER | I2C_0_MODE_REPEAT_START));
 	
 	return 0;
 }
 
-//Simplified version of I2C_1_MasterWriteByte() (single master only) with timeouts
+//Simplified version of I2C_0_MasterWriteByte() (single master only) with timeouts
 //timeout is in us
-uint8 I2C_1_MasterWriteByteTimeOut(uint8 theByte, uint32 timeout)
+uint8 I2C_0_MasterWriteByteTimeOut(uint8 theByte, uint32 timeout)
 {
     uint8 errStatus;
 	uint32 t = 0;	//For the timeout
 
-    errStatus = I2C_1_MSTR_NOT_READY;
+    errStatus = I2C_0_MSTR_NOT_READY;
 
     /* Check if START condition was generated */
-    if(I2C_1_CHECK_MASTER_MODE(I2C_1_MCSR_REG))
+    if(I2C_0_CHECK_MASTER_MODE(I2C_0_MCSR_REG))
     {
-        I2C_1_DATA_REG = theByte;                        /* Write DATA register */
+        I2C_0_DATA_REG = theByte;                        /* Write DATA register */
 		t = 0;
 		
 		
-        //I2C_1_TRANSMIT_DATA_MANUAL_TIMEOUT;                      /* Set transmit mode */
+        //I2C_0_TRANSMIT_DATA_MANUAL_TIMEOUT;                      /* Set transmit mode */
 		
-        I2C_1_TRANSMIT_DATA;								
-        while(I2C_1_CHECK_BYTE_COMPLETE(I2C_1_CSR_REG))		
+        I2C_0_TRANSMIT_DATA;								
+        while(I2C_0_CHECK_BYTE_COMPLETE(I2C_0_CSR_REG))		
         {													
             /* Wait when byte complete is cleared */		
 			t++;											
@@ -236,11 +236,11 @@ uint8 I2C_1_MasterWriteByteTimeOut(uint8 theByte, uint32 timeout)
         }	
 		
 		
-        I2C_1_state = I2C_1_SM_MSTR_WR_DATA;  /* Set state WR_DATA */
+        I2C_0_state = I2C_0_SM_MSTR_WR_DATA;  /* Set state WR_DATA */
 
         /* Make sure the last byte has been transfered first */
 		t = 0;
-        while(I2C_1_WAIT_BYTE_COMPLETE(I2C_1_CSR_REG))
+        while(I2C_0_WAIT_BYTE_COMPLETE(I2C_0_CSR_REG))
         {
 			/*
            //Wait for byte to be written
@@ -253,15 +253,15 @@ uint8 I2C_1_MasterWriteByteTimeOut(uint8 theByte, uint32 timeout)
         }
 
 
-        if(I2C_1_CHECK_DATA_ACK(I2C_1_CSR_REG))
+        if(I2C_0_CHECK_DATA_ACK(I2C_0_CSR_REG))
         {
-            I2C_1_state = I2C_1_SM_MSTR_HALT;     /* Set state to HALT */
-            errStatus = I2C_1_MSTR_NO_ERROR;                 /* The LRB was ACKed */
+            I2C_0_state = I2C_0_SM_MSTR_HALT;     /* Set state to HALT */
+            errStatus = I2C_0_MSTR_NO_ERROR;                 /* The LRB was ACKed */
         }
         else
         {
-            I2C_1_state = I2C_1_SM_MSTR_HALT;     /* Set state to HALT */
-            errStatus = I2C_1_MSTR_ERR_LB_NAK;               /* The LRB was NACKed */
+            I2C_0_state = I2C_0_SM_MSTR_HALT;     /* Set state to HALT */
+            errStatus = I2C_0_MSTR_ERR_LB_NAK;               /* The LRB was NACKed */
         }
     }
 

@@ -30,7 +30,7 @@ extern volatile uint16 adc_delsig_dma_array[8];
 //****************************************************************************
 
 void init_strain(void);
-void strain_config(uint8 offs, uint8 gain, uint8 oref);
+void strain_config(uint8 offs, uint8 gain);
 uint16 strain_read(void);
 uint16 strain_filter(void);
 void strain_test_blocking(void);

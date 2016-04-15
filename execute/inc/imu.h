@@ -42,10 +42,10 @@ typedef enum {
 } imu_data_set;
 
 // I2C Comms Constants
-#define IMU_BLOCK_TIMEOUT 	10000 	//may want to reduce this?
+#define IMU_BLOCK_TIMEOUT 		10000 	//may want to reduce this?
 //#define IMU_ADDR 0x68 //0b1101000
-#define IMU_ADDR 			0x68 	//device address of the IMU, 7bits right justified
-#define IMU_MAX_BUF_SIZE 	100 	//(in bytes) (somewhat arbitrary)
+#define IMU_ADDR 				0x68 	//device address of the IMU, 7bits right justified
+#define IMU_MAX_BUF_SIZE 		100 	//(in bytes) (somewhat arbitrary)
 
 // IMU Register Addresses (names correspond to those in the datasheet)
 // These are internal to the imu.
@@ -105,10 +105,10 @@ typedef enum {
 
 //A lot of the I2C macros are blocking. Modified version:
 
-#define I2C_1_TRANSMIT_DATA_MANUAL_TIMEOUT													\
+#define I2C_0_TRANSMIT_DATA_MANUAL_TIMEOUT													\
                                     do{														\
-                                        I2C_1_TRANSMIT_DATA;								\
-                                        while(I2C_1_CHECK_BYTE_COMPLETE(I2C_1_CSR_REG))		\
+                                        I2C_0_TRANSMIT_DATA;								\
+                                        while(I2C_0_CHECK_BYTE_COMPLETE(I2C_0_CSR_REG))		\
                                         {													\
                                             /* Wait when byte complete is cleared */		\
 											t++;											\
@@ -141,7 +141,7 @@ void disable_imu(void);					//disable the IMU by shutting down clocks, etc.
 int imu_write(uint8 internal_reg_addr, uint8* pData, uint16 length); 
 int imu_read(uint8 internal_reg_addr, uint8 *pData, uint16 length);
 void imu_test_code_blocking(void);
-uint8 I2C_1_MasterWriteByteTimeOut(uint8 theByte, uint32 timeout);
+uint8 I2C_0_MasterWriteByteTimeOut(uint8 theByte, uint32 timeout);
 
 //****************************************************************************
 // Structure(s):

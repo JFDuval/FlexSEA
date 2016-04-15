@@ -22,11 +22,11 @@
 
 void init_peripherals(void);
 void init_tb_timers(void);
-void init_i2c1(void);
-void init_i2c2(void);
-void init_clutch(void);
-void clutch_output(uint8 value);
-uint8 read_clutch(void);
+void init_i2c_0(void);
+void init_i2c_1(void);
+void init_pwro(void);
+void pwro_output(uint8 value);
+uint8 read_pwro(void);
 
 //****************************************************************************
 // Shared Variable(s):
