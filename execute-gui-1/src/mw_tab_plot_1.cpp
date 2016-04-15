@@ -280,7 +280,7 @@ void MainWindow::timerPlotEvent(void)
                 update_graph_array(index, exec1.current);
                 break;
             case 9: //"Analog[0]"
-                update_graph_array(index, (int) exec1.analog);
+                update_graph_array(index, (int) exec1.analog[0]);
                 break;
             case 10: //"Strain"
                 update_graph_array(index, exec1.strain);

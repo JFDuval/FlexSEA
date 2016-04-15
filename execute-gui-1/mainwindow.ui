@@ -42,7 +42,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="config">
      <attribute name="title">
@@ -1146,7 +1146,7 @@
        <item row="8" column="4">
         <widget class="QLabel" name="label_37">
          <property name="text">
-          <string>(not decoded yet)</string>
+          <string>V</string>
          </property>
         </widget>
        </item>
@@ -1301,7 +1301,7 @@
         </widget>
        </item>
        <item row="12" column="3">
-        <widget class="QLabel" name="disp_vg_2">
+        <widget class="QLabel" name="disp_vg_d">
          <property name="autoFillBackground">
           <bool>false</bool>
          </property>
