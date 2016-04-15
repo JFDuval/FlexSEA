@@ -139,9 +139,9 @@ void motor_fixed_pwm_test_code_blocking(int spd)
 	
 	while(1)
 	{	
-		LED_R_Write(H1_Read());
-		LED_G_Write(H2_Read());
-		LED_B_Write(H3_Read());
+		LED_R_Write(EX1_Read());
+		LED_G_Write(EX2_Read());
+		LED_B_Write(EX3_Read());
 		
 		//WatchDog Clock (Safety-CoP)
 		toggle_wdclk ^= 1;

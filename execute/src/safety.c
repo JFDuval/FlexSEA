@@ -28,9 +28,9 @@ volatile uint8 i2c_r_buf[24];
 //Update the global variables from the array
 void decode_psoc4_values(uint8 *psoc4_data)
 {
-	safety_cop.v_vb = (psoc4_data[MEM_R_VB_SNS_MSB] << 8) + psoc4_data[MEM_R_VB_SNS_LSB];
-	safety_cop.v_vg = (psoc4_data[MEM_R_VG_SNS_MSB] << 8) + psoc4_data[MEM_R_VG_SNS_LSB];
-	safety_cop.v_3v3 = (psoc4_data[MEM_R_3V3_SNS_MSB] << 8) + psoc4_data[MEM_R_3V3_SNS_LSB];
+	safety_cop.v_vb = psoc4_data[MEM_R_VB_SNS];
+	safety_cop.v_vg = psoc4_data[MEM_R_VG_SNS];
+	safety_cop.v_3v3 = psoc4_data[MEM_R_3V3_SNS];
 	safety_cop.temperature = psoc4_data[MEM_R_TEMPERATURE];
 	safety_cop.status1 = psoc4_data[MEM_R_STATUS1];
 	safety_cop.status2 = psoc4_data[MEM_R_STATUS2];

@@ -67,7 +67,7 @@ int main(void)
 	//strain_test_blocking();
 	//safety_cop_comm_test_blocking();
 	//imu_test_code_blocking();
-	//motor_fixed_pwm_test_code_blocking(141);
+	//motor_fixed_pwm_test_code_blocking(200);
 	//wdclk_test_blocking();
 	//timing_test_blocking();
 	//test_current_tracking_blocking();
