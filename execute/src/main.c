@@ -86,6 +86,9 @@ int main(void)
 	//Starting at 0, GUI will change that when it wants.
 	
 	#endif	//USE_SPI_COMMUT	
+	
+	//motor_fixed_pwm_test_code_non_blocking(125);
+	
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=	
 	
 	//Special code for the ExoBoots:
@@ -107,7 +110,7 @@ int main(void)
 			//Timing FSM:
 			switch(t1_time_share)
 			{
-				//Case 0: I2C
+				//Case 0: I2C_0
 				case 0:
 					i2c_time_share++;
 					i2c_time_share %= 4;
@@ -137,14 +140,9 @@ int main(void)
 							
 							break;
 						
-						//Case 0.2: Safety-Cop
-							//ToDo: Safety-Cop is on I2C1. Might want to remove it from this rotation.
+						//Case 0.2:
 						case 2:
-							
-							#ifdef USE_I2C_1
-							//safety_cop_get_status();
-							#endif 	//USE_I2C_1
-
+							//...
 							break;
 						
 						//Case 0.3: 
@@ -172,8 +170,16 @@ int main(void)
 								
 					break;
 				
-				//Case 1:	
+				//Case 1: I2C_1
 				case 1:
+					
+					//Read from Safety Co-Processor
+					#ifdef USE_I2C_1
+						
+					safety_cop_read_all();
+					
+					#endif 	//USE_I2C_1
+					
 					break;
 				
 				//Case 2:	

@@ -19,7 +19,8 @@
 //****************************************************************************
 
 struct scop safety_cop;
-volatile uint8 i2c_r_buf[24];
+volatile uint8 i2c_1_r_buf[24];
+uint8 safety_cop_data[24] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 //****************************************************************************
 // Function(s)
@@ -80,11 +81,8 @@ int safety_cop_read(uint8 internal_reg_addr, uint8 *pData, uint16 length)
 	//For now I'll transfer the previous buffer.
 	for(i = 0; i < length; i++)
 	{
-		pData[i] = i2c_r_buf[i];
+		pData[i] = i2c_1_r_buf[i];
 	}
-	
-	//Store data:
-	assign_i2c_data(&i2c_r_buf);
 	
 	//Clear status:
 	//I2C_1_MasterClearStatus();
@@ -105,7 +103,7 @@ int safety_cop_read(uint8 internal_reg_addr, uint8 *pData, uint16 length)
 	}
 
 	//Repeat start, read then stop (all by ISR):
-	I2C_1_MasterReadBuf(SCOP_I2C_ADDR, (uint8 *)i2c_r_buf, length, (I2C_1_MODE_COMPLETE_XFER | I2C_1_MODE_REPEAT_START));
+	I2C_1_MasterReadBuf(SCOP_I2C_ADDR, (uint8 *)i2c_1_r_buf, length, (I2C_1_MODE_COMPLETE_XFER | I2C_1_MODE_REPEAT_START));
 	
 	return 0;
 }
@@ -115,6 +113,23 @@ void safety_cop_get_status(void)
 	uint8 tmp_buf[4] = {0,0,0,0};
 	
 	safety_cop_read(MEM_R_STATUS1, tmp_buf, 3);
+}
+
+//Reads the most important values, total of 7 bytes
+//MEM_R_STATUS1, MEM_R_STATUS2, MEM_R_VB_SNS, MEM_R_VG_SNS, MEM_R_5V_SNS, MEM_R_3V3_SNS & MEM_R_TEMPERATURE
+void safety_cop_read_all(void)
+{
+	uint8 tmp_buf[8] = {0,0,0,0,0,0,0,0};
+	uint8 i = 0;
+	
+	safety_cop_read(MEM_R_STATUS1, tmp_buf, 8);
+	
+	for(i = MEM_R_STATUS1; i < MEM_R_STATUS1 + 8; i++)
+	{
+		safety_cop_data[i] = tmp_buf[i - MEM_R_STATUS1];
+	}	
+	
+	decode_psoc4_values(safety_cop_data);
 }
 
 void status_error_codes(uint8 sts1, uint8 sts2, uint8 *l0, uint8 *l1, uint8 *l2)

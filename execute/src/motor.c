@@ -151,6 +151,16 @@ void motor_fixed_pwm_test_code_blocking(int spd)
 	}
 }
 
+//Sends a constant PWM. Non-Blocking.
+void motor_fixed_pwm_test_code_non_blocking(int spd)
+{
+	uint8 toggle_wdclk = 0;	
+	
+	ctrl.active_ctrl = CTRL_OPEN;	
+	Coast_Brake_Write(1);	//Brake
+	motor_open_speed_1(spd);	
+}
+
 //Use this to send PWM pulses in open speed mode
 void test_pwm_pulse_blocking(void)
 {

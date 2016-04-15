@@ -221,9 +221,9 @@ uint32_t tx_cmd_data_read_all(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, 
 		buf[P_DATA1 + 20] = tmp0;
 		buf[P_DATA1 + 21] = tmp1;
 
-		buf[P_DATA1 + 22] = 101;	//ToDo batt volt
-		buf[P_DATA1 + 23] = 102;	//ToDo vg
-		buf[P_DATA1 + 24] = 103;	//ToDo temp
+		buf[P_DATA1 + 22] = safety_cop.v_vb;
+		buf[P_DATA1 + 23] = safety_cop.v_vg;
+		buf[P_DATA1 + 24] = safety_cop.temperature;
 		buf[P_DATA1 + 25] = safety_cop.status1;
 		buf[P_DATA1 + 26] = safety_cop.status2;
 

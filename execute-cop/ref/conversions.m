@@ -93,10 +93,10 @@ encoded_3V3 = 218
 decoded_3V3 = (double(encoded_3V3)*50/8)/adc_max*adc_supply
 
 disp('[Test Temp]')
-real_temp = 80;
+real_temp = 33;
 vo = Tc.*real_temp + T0;
 adc = (vo/adc_supply)*adc_max;
 adc = uint16(adc);
-encoded_temp = (adc - 41).*8./21;
-encoded_temp = 113
-decoded_temp = ((((21/8*double(encoded_temp) + 41 )/adc_max)*adc_supply) - T0) / Tc
+encoded_temp = (adc - 41).*8./21
+encoded_temp = 114
+decoded_temp = (((((21/8)*double(encoded_temp) + 41 )/adc_max)*adc_supply) - T0) / Tc

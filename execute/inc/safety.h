@@ -36,6 +36,7 @@ void decode_psoc4_values(uint8 *psoc4_data);
 int16 dietemp_read(void);
 int safety_cop_read(uint8 internal_reg_addr, uint8 *pData, uint16 length);
 void safety_cop_get_status(void);
+void safety_cop_read_all(void);
 void status_error_codes(uint8 sts1, uint8 sts2, uint8 *l0, uint8 *l1, uint8 *l2);
 void overtemp_error(uint8 *eL1, uint8 *eL2);
 
