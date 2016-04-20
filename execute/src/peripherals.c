@@ -109,6 +109,9 @@ void init_peripherals(void)
 	DieTemp_1_GetTemp(&temp);
 	#endif
 	
+	//Special color when waiting for USB (Yellow):
+	set_led_rgb(1, 1, 0);
+	
 	//USB CDC
 	#ifdef USE_USB	
 	init_usb();

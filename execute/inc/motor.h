@@ -29,6 +29,7 @@ void motor_open_speed_1(int16 pwm_duty);
 void motor_open_speed_2(int16 pwm_duty, int sign);
 
 void motor_fixed_pwm_test_code_blocking(int spd);
+void motor_fixed_pwm_test_code_non_blocking(int spd);
 
 int8 serial_motor_speed(int8 letter);
 

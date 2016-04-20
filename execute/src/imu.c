@@ -19,7 +19,7 @@
 //****************************************************************************
 
 volatile uint8 i2c_tmp_buf[IMU_MAX_BUF_SIZE];
-volatile uint8 i2c_r_buf[16];
+volatile uint8 i2c_0_r_buf[16];
 struct imu_s imu;
 
 //****************************************************************************
@@ -176,11 +176,11 @@ int imu_read(uint8 internal_reg_addr, uint8 *pData, uint16 length)
 	//For now I'll transfer the previous buffer.
 	for(i = 0; i < length; i++)
 	{
-		pData[i] = i2c_r_buf[i];
+		pData[i] = i2c_0_r_buf[i];
 	}
 	
 	//Store data:
-	assign_i2c_data(&i2c_r_buf);
+	assign_i2c_data(&i2c_0_r_buf);
 	
 	//Clear status:
 	//I2C_0_MasterClearStatus();
@@ -201,7 +201,7 @@ int imu_read(uint8 internal_reg_addr, uint8 *pData, uint16 length)
 	}
 
 	//Repeat start, read then stop (all by ISR):
-	I2C_0_MasterReadBuf(IMU_ADDR, (uint8 *)i2c_r_buf, length, (I2C_0_MODE_COMPLETE_XFER | I2C_0_MODE_REPEAT_START));
+	I2C_0_MasterReadBuf(IMU_ADDR, (uint8 *)i2c_0_r_buf, length, (I2C_0_MODE_COMPLETE_XFER | I2C_0_MODE_REPEAT_START));
 	
 	return 0;
 }
