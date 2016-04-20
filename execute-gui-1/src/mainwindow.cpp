@@ -20,7 +20,8 @@
 #include <QPushButton>
 #include <QTimer>
 #include <QDebug>
-#include <QtSerialPort/QtSerialPort>
+//#include <QtSerialPort/QtSerialPort>
+#include <QSerialPort>
 #include <string>
 #include "qcustomplot.h"
 

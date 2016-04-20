@@ -4,8 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
-QT      += serialport
+QT  += core gui
+QT  += serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
@@ -67,11 +67,17 @@ HEADERS  += inc/mainwindow.h \
     inc/flexsea_board.h \
     ../flexsea-system/inc/flexsea_cmd_data.h
 
-DESTDIR = release
-OBJECTS_DIR = release/.obj
-MOC_DIR = release/.moc
-RCC_DIR = release/.rcc
-UI_DIR = release/.ui
+CONFIG(debug, debug|release) {
+    DESTDIR = build/debug
+}
+CONFIG(release, debug|release) {
+    DESTDIR = build/release
+}
+
+OBJECTS_DIR = $$DESTDIR/.obj
+MOC_DIR = $$DESTDIR/.moc
+RCC_DIR = $$DESTDIR/.qrc
+UI_DIR = $$DESTDIR/.u
 
 #QMAKE_LFLAGS += -Xlinker -Bstatic
 
