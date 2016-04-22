@@ -42,14 +42,17 @@ MainWindow::MainWindow(QWidget *parent) :
     //=================
 
     //System:
+    //=================
     ui->tabWidget->setCurrentIndex(0);  //Start at first tab
 
     //COM port:
+    //=================
     ui->comPortTxt->setText("/dev/ttyACM0");
     ui->comStatusTxt->setText("Type COM port and click 'Open COM'.");
     ui->closeComButton->setDisabled(1); //Will be enabled when COM is open
 
     //Stream/log:
+    //=================
     stream_status = 0;
     fake_data = 0;
     ui->streamONbutton->setDisabled(1);
@@ -62,6 +65,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->logRefreshStatusTxt->setText("Default setting.");
 
     //Plot:
+    //=================
     plot_len = INIT_PLOT_LEN;
     plot_xmin = INIT_PLOT_XMIN;
     plot_xmax = INIT_PLOT_XMAX;
@@ -101,13 +105,44 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->label_t6->setStyleSheet("QLabel { background-color: black; color: white;}");
 
     //Experiments:
+    //=================
     exp_pwm = 0;
     ui->disp_MotPWM->setText(QString::number(ui->hSlider_PWM->value()));
 
     //About:
+    //=================
     str.sprintf("Last full build: %s %s.\n", __DATE__, __TIME__);
     ui->text_last_build->setText(str);
     ui->text_last_build->repaint();
+
+    //Control:
+    //=================
+
+    //Setpoints:
+    ui->control_slider_min->setText("0");
+    ui->control_slider_max->setText("0");
+    ui->hSlider_Ctrl->setMinimum(ui->control_slider_min->text().toInt());
+    ui->hSlider_Ctrl->setMaximum(ui->control_slider_max->text().toInt());
+
+    //Variable option lists:
+    QStringList var_list_controllers;
+    var_list_controllers << "**Null**" << "Open" << "Position" << "Current" << "Impedance" << "Other/custom";
+    for(int index = 0; index < var_list_controllers.count(); index++)
+    {
+        ui->comboBox_ctrl_list->addItem(var_list_controllers.at(index));
+    }
+
+    //Gains:
+    ui->control_g0->setText("0");
+    ui->control_g1->setText("0");
+    ui->control_g2->setText("0");
+    ui->control_g3->setText("0");
+    ui->control_g4->setText("0");
+    ui->control_g5->setText("0");
+    str.sprintf("Gains = {%i,%i,%i,%i,%i,%i}", ui->control_g0->text().toInt(), ui->control_g1->text().toInt(), \
+                ui->control_g2->text().toInt(), ui->control_g3->text().toInt(), ui->control_g4->text().toInt(), \
+                ui->control_g5->text().toInt());
+    ui->textLabel_Gains->setText(str);
 
     //=================
     //Timers:

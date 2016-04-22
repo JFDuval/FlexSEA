@@ -19,6 +19,10 @@
 #include <QByteArray>
 #include <string>
 
+//****************************************************************************
+// Function(s)
+//****************************************************************************
+
 //Open COM port
 void MainWindow::on_openComButton_clicked()
 {

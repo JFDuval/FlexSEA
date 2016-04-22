@@ -110,6 +110,12 @@ private:
     void update_plot_buf(int new_data);
     void update_plot_buf_single(int *buf, int *idx, int new_data);
 
+    //Control:
+    int wanted_controller = 0, selected_controller = 0, active_controller = 0;
+    void controller_setpoint(int val);
+
+    //Serial driver:
+
     int OpenUSBSerialPort(QString name, int tries, int delay);
     void CloseUSBSerialPort(void);
     int USBSerialPort_Write(char bytes_to_send, unsigned char *serial_tx_data);
@@ -134,6 +140,19 @@ private slots:
     void on_closeComButton_clicked();
 
     void on_hSlider_PWM_valueChanged(int value);
+
+    void on_pushButton_SetController_clicked();
+
+    void on_pushButton_setp_a_go_clicked();
+
+    void on_pushButton_setp_b_go_clicked();
+
+
+    void on_pushButton_SetGains_clicked();
+
+    void on_pushButton_CtrlMinMax_clicked();
+
+    void on_hSlider_Ctrl_valueChanged(int value);
 
 private:
     Ui::MainWindow *ui;

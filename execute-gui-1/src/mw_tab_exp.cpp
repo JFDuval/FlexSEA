@@ -18,6 +18,10 @@
 #include <QDebug>
 #include <string>
 
+//****************************************************************************
+// Public Function(s)
+//****************************************************************************
+
 //Motor PWM slider:
 void MainWindow::on_hSlider_PWM_valueChanged(int value)
 {
