@@ -429,11 +429,25 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>591</width>
+        <width>721</width>
         <height>621</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
+       <item row="2" column="4">
+        <widget class="QLabel" name="label_imu_a_y">
+         <property name="text">
+          <string>g</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="4">
+        <widget class="QLabel" name="label_imu_a_x">
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;g&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
        <item row="12" column="4">
         <widget class="QLabel" name="label_42">
          <property name="text">
@@ -538,6 +552,13 @@
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="4">
+        <widget class="QLabel" name="label_imu_g_y">
+         <property name="text">
+          <string>degree/s</string>
          </property>
         </widget>
        </item>
@@ -875,6 +896,28 @@
          </property>
         </widget>
        </item>
+       <item row="15" column="2">
+        <widget class="QLabel" name="disp_stat2">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="lineWidth">
+          <number>1</number>
+         </property>
+         <property name="text">
+          <string>Default</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
        <item row="9" column="2">
         <widget class="QLabel" name="disp_current">
          <property name="autoFillBackground">
@@ -919,8 +962,8 @@
          </property>
         </widget>
        </item>
-       <item row="15" column="2">
-        <widget class="QLabel" name="disp_stat2">
+       <item row="2" column="3">
+        <widget class="QLabel" name="disp_accy_d">
          <property name="autoFillBackground">
           <bool>false</bool>
          </property>
@@ -951,28 +994,6 @@
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="3">
-        <widget class="QLabel" name="disp_accy_d">
-         <property name="autoFillBackground">
-          <bool>false</bool>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::Box</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <property name="lineWidth">
-          <number>1</number>
-         </property>
-         <property name="text">
-          <string>Default</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
@@ -1071,10 +1092,10 @@
          </property>
         </widget>
        </item>
-       <item row="5" column="4">
-        <widget class="QLabel" name="label_imu_g_y">
+       <item row="11" column="4">
+        <widget class="QLabel" name="label_41">
          <property name="text">
-          <string>degree/s</string>
+          <string>V</string>
          </property>
         </widget>
        </item>
@@ -1091,13 +1112,6 @@
          </property>
         </widget>
        </item>
-       <item row="11" column="4">
-        <widget class="QLabel" name="label_41">
-         <property name="text">
-          <string>V</string>
-         </property>
-        </widget>
-       </item>
        <item row="11" column="0" rowspan="2">
         <widget class="QLabel" name="label_38">
          <property name="layoutDirection">
@@ -1111,6 +1125,13 @@
          </property>
         </widget>
        </item>
+       <item row="4" column="4">
+        <widget class="QLabel" name="label_imu_g_x">
+         <property name="text">
+          <string>degree/s</string>
+         </property>
+        </widget>
+       </item>
        <item row="0" column="2">
         <widget class="QLabel" name="label_21">
          <property name="text">
@@ -1121,17 +1142,17 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="4">
-        <widget class="QLabel" name="label_imu_g_x">
-         <property name="text">
-          <string>degree/s</string>
-         </property>
-        </widget>
-       </item>
        <item row="8" column="4">
         <widget class="QLabel" name="label_37">
          <property name="text">
           <string>V</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="4">
+        <widget class="QLabel" name="label_imu_g_z">
+         <property name="text">
+          <string>degree/s</string>
          </property>
         </widget>
        </item>
@@ -1145,13 +1166,6 @@
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="4">
-        <widget class="QLabel" name="label_imu_g_z">
-         <property name="text">
-          <string>degree/s</string>
          </property>
         </widget>
        </item>
@@ -1199,6 +1213,13 @@
          </property>
         </widget>
        </item>
+       <item row="13" column="4">
+        <widget class="QLabel" name="label_44">
+         <property name="text">
+          <string>°C</string>
+         </property>
+        </widget>
+       </item>
        <item row="13" column="0">
         <widget class="QLabel" name="label_43">
          <property name="layoutDirection">
@@ -1209,13 +1230,6 @@
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="13" column="4">
-        <widget class="QLabel" name="label_44">
-         <property name="text">
-          <string>°C</string>
          </property>
         </widget>
        </item>
@@ -1263,6 +1277,28 @@
          </property>
         </widget>
        </item>
+       <item row="12" column="3">
+        <widget class="QLabel" name="disp_vg_d">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="lineWidth">
+          <number>1</number>
+         </property>
+         <property name="text">
+          <string>Default</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
        <item row="12" column="2">
         <widget class="QLabel" name="disp_vg">
          <property name="autoFillBackground">
@@ -1285,8 +1321,8 @@
          </property>
         </widget>
        </item>
-       <item row="12" column="3">
-        <widget class="QLabel" name="disp_vg_d">
+       <item row="13" column="3">
+        <widget class="QLabel" name="disp_temp_d">
          <property name="autoFillBackground">
           <bool>false</bool>
          </property>
@@ -1329,7 +1365,14 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="3" colspan="2">
+       <item row="3" column="4">
+        <widget class="QLabel" name="label_imu_a_z">
+         <property name="text">
+          <string>g</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
         <widget class="QLabel" name="label_28">
          <property name="text">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic; text-decoration: underline;&quot;&gt;Decoded&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1339,46 +1382,38 @@
          </property>
         </widget>
        </item>
-       <item row="13" column="3">
-        <widget class="QLabel" name="disp_temp_d">
-         <property name="autoFillBackground">
-          <bool>false</bool>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::Box</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <property name="lineWidth">
-          <number>1</number>
-         </property>
+       <item row="0" column="5">
+        <widget class="QLabel" name="label_30">
          <property name="text">
-          <string>Default</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic; text-decoration: underline;&quot;&gt;Modifier&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
-       <item row="1" column="4">
-        <widget class="QLabel" name="label_imu_a_x">
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;g&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <item row="9" column="5">
+        <widget class="QSlider" name="horizontalSlider_current_zero">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
          </property>
-        </widget>
-       </item>
-       <item row="3" column="4">
-        <widget class="QLabel" name="label_imu_a_z">
-         <property name="text">
-          <string>g</string>
+         <property name="minimumSize">
+          <size>
+           <width>150</width>
+           <height>0</height>
+          </size>
          </property>
-        </widget>
-       </item>
-       <item row="2" column="4">
-        <widget class="QLabel" name="label_imu_a_y">
-         <property name="text">
-          <string>g</string>
+         <property name="minimum">
+          <number>-125</number>
+         </property>
+         <property name="maximum">
+          <number>125</number>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </item>
@@ -1787,10 +1822,30 @@
         <x>9</x>
         <y>9</y>
         <width>831</width>
-        <height>599</height>
+        <height>655</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_8">
+       <item row="15" column="0">
+        <widget class="QLabel" name="label_62">
+         <property name="text">
+          <string>Time B (ms):</string>
+         </property>
+        </widget>
+       </item>
+       <item row="15" column="1">
+        <widget class="QLineEdit" name="control_toggle_delayB">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
        <item row="7" column="1">
         <widget class="QLineEdit" name="control_g3">
          <property name="sizePolicy">
@@ -1804,14 +1859,14 @@
          </property>
         </widget>
        </item>
-       <item row="17" column="0">
+       <item row="18" column="0">
         <widget class="QLabel" name="label_59">
          <property name="text">
           <string>Min:</string>
          </property>
         </widget>
        </item>
-       <item row="18" column="1">
+       <item row="19" column="1">
         <widget class="QLineEdit" name="control_slider_max">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -1844,7 +1899,7 @@
          </property>
         </widget>
        </item>
-       <item row="18" column="0">
+       <item row="19" column="0">
         <widget class="QLabel" name="label_60">
          <property name="text">
           <string>Max:</string>
@@ -1864,7 +1919,7 @@
          </property>
         </widget>
        </item>
-       <item row="19" column="0" colspan="2">
+       <item row="20" column="0" colspan="2">
         <widget class="QSlider" name="hSlider_Ctrl">
          <property name="minimum">
           <number>55</number>
@@ -1877,7 +1932,7 @@
          </property>
         </widget>
        </item>
-       <item row="18" column="2">
+       <item row="19" column="2">
         <widget class="QPushButton" name="pushButton_CtrlMinMax">
          <property name="text">
           <string>Update Min-Max</string>
@@ -1940,28 +1995,6 @@
          </property>
         </widget>
        </item>
-       <item row="15" column="1">
-        <widget class="QLabel" name="disp_meas_val">
-         <property name="autoFillBackground">
-          <bool>false</bool>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::Box</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <property name="lineWidth">
-          <number>1</number>
-         </property>
-         <property name="text">
-          <string>Default</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
        <item row="9" column="0">
         <widget class="QLabel" name="label_53">
          <property name="text">
@@ -1969,7 +2002,7 @@
          </property>
         </widget>
        </item>
-       <item row="20" column="2">
+       <item row="22" column="2">
         <spacer name="horizontalSpacer_2">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -1992,7 +2025,7 @@
          </property>
         </widget>
        </item>
-       <item row="16" column="0" colspan="2">
+       <item row="17" column="0" colspan="2">
         <widget class="QLabel" name="label_58">
          <property name="text">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Setpoint - manual slider:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -2030,13 +2063,6 @@
         <widget class="QLabel" name="label_46">
          <property name="text">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Controller:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="15" column="0">
-        <widget class="QLabel" name="label_57">
-         <property name="text">
-          <string>Measured:</string>
          </property>
         </widget>
        </item>
@@ -2090,7 +2116,7 @@
          </property>
         </widget>
        </item>
-       <item row="19" column="2">
+       <item row="20" column="2">
         <widget class="QLabel" name="disp_slider">
          <property name="autoFillBackground">
           <bool>false</bool>
@@ -2126,7 +2152,7 @@
          </property>
         </widget>
        </item>
-       <item row="20" column="0">
+       <item row="22" column="0">
         <spacer name="horizontalSpacer">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -2169,7 +2195,7 @@
          </property>
         </widget>
        </item>
-       <item row="17" column="1">
+       <item row="18" column="1">
         <widget class="QLineEdit" name="control_slider_min">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -2196,15 +2222,8 @@
          </property>
         </widget>
        </item>
-       <item row="14" column="0">
-        <widget class="QLabel" name="label_61">
-         <property name="text">
-          <string>Toggle delay (ms):</string>
-         </property>
-        </widget>
-       </item>
        <item row="14" column="1">
-        <widget class="QLineEdit" name="control_toggle_delay">
+        <widget class="QLineEdit" name="control_toggle_delayA">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -2216,17 +2235,46 @@
          </property>
         </widget>
        </item>
-       <item row="14" column="2">
+       <item row="14" column="0">
+        <widget class="QLabel" name="label_61">
+         <property name="text">
+          <string>Time A (ms):</string>
+         </property>
+        </widget>
+       </item>
+       <item row="15" column="2">
         <widget class="QPushButton" name="pushButton_toggle">
          <property name="text">
           <string>Toggle ON</string>
          </property>
         </widget>
        </item>
-       <item row="14" column="3">
-        <widget class="QLabel" name="textLabel_Gains_3">
+       <item row="21" column="0">
+        <widget class="QLabel" name="label_57">
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;50% duty cycle, x ms ON, x ms OFF.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>Measured:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="21" column="1">
+        <widget class="QLabel" name="disp_meas_val">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="lineWidth">
+          <number>1</number>
+         </property>
+         <property name="text">
+          <string>Default</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>

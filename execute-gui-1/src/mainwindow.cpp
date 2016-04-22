@@ -64,6 +64,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->logRefreshTxt->setText(QString::number(LOG_DEFAULT_FREQ));
     ui->logRefreshStatusTxt->setText("Default setting.");
 
+    ui->horizontalSlider_current_zero->setValue(0);
+
     //Plot:
     //=================
     plot_len = INIT_PLOT_LEN;
@@ -126,7 +128,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->hSlider_Ctrl->setMaximum(ui->control_slider_max->text().toInt());
     ui->control_setp_a->setText("0");
     ui->control_setp_b->setText("0");
-    ui->control_toggle_delay->setText("500");
+    ui->control_toggle_delayA->setText("100");
+    ui->control_toggle_delayB->setText("900");
 
     //Variable option lists:
     QStringList var_list_controllers;

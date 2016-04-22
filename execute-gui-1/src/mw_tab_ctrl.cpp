@@ -243,7 +243,7 @@ void MainWindow::on_pushButton_toggle_clicked()
         ui->control_setp_b->setEnabled(false);
 
         //Start timer:
-        timer_ctrl->start(ui->control_toggle_delay->text().toInt());
+        timer_ctrl->start(ui->control_toggle_delayA->text().toInt());
     }
 }
 
@@ -258,10 +258,12 @@ void MainWindow::timerCtrlEvent(void)
     if(toggle_output_state)
     {
         ctrl_setpoint = ui->control_setp_a->text().toInt();
+        timer_ctrl->setInterval(ui->control_toggle_delayA->text().toInt());
     }
     else
     {
         ctrl_setpoint = ui->control_setp_b->text().toInt();
+        timer_ctrl->setInterval(ui->control_toggle_delayB->text().toInt());
     }
 
     controller_setpoint(ctrl_setpoint);
