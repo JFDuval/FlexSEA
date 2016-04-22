@@ -85,7 +85,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //Variable option lists:
     QStringList var_list;
     var_list << "**Unused**" << "Accel X" << "Accel Y" << "Accel Z" << "Gyro X" << "Gyro Y" << "Gyro Z" << "Encoder" \
-            << "Motor current" << "Analog[0]" << "Strain" << "+VB" << "+VG" << "Temperature" << "Fake Data";
+            << "Motor current" << "Analog[0]" << "Strain" << "+VB" << "+VG" << "Temperature" << "Fake Data" << "Setpoint";
     for(int index = 0; index < var_list.count(); index++)
     {
         //All boxes have the same list:
@@ -108,6 +108,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //=================
     exp_pwm = 0;
     ui->disp_MotPWM->setText(QString::number(ui->hSlider_PWM->value()));
+    ui->tabWidget->setTabEnabled(3, false); //Disabled for now
 
     //About:
     //=================
@@ -123,6 +124,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->control_slider_max->setText("0");
     ui->hSlider_Ctrl->setMinimum(ui->control_slider_min->text().toInt());
     ui->hSlider_Ctrl->setMaximum(ui->control_slider_max->text().toInt());
+    ui->control_setp_a->setText("0");
+    ui->control_setp_b->setText("0");
+    ui->control_toggle_delay->setText("500");
 
     //Variable option lists:
     QStringList var_list_controllers;
@@ -157,6 +161,10 @@ MainWindow::MainWindow(QWidget *parent) :
     timer_plot = new QTimer(this);
     connect(timer_plot, SIGNAL(timeout()), this, SLOT(timerPlotEvent()));
     timer_plot->start(TIM_FREQ_TO_P(PLOT_DEFAULT_FREQ));
+
+    //Control:
+    timer_ctrl = new QTimer(this);
+    connect(timer_ctrl, SIGNAL(timeout()), this, SLOT(timerCtrlEvent()));
 }
 
 //MainWindow destructor

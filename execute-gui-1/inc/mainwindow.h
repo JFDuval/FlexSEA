@@ -35,17 +35,17 @@
 #define STREAM_DEFAULT_FREQ     25
 
 //PSoC 4 ADC conversions:
-#define P4_ADC_SUPPLY   5.0
-#define P4_ADC_MAX      2048
-#define P4_T0           0.5
-#define P4_TC           0.01
+#define P4_ADC_SUPPLY           5.0
+#define P4_ADC_MAX              2048
+#define P4_T0                   0.5
+#define P4_TC                   0.01
 
 //Log:
 //======
 
-#define LOG_MIN_FREQ         1
-#define LOG_MAX_FREQ         1000
-#define LOG_DEFAULT_FREQ     100
+#define LOG_MIN_FREQ            1
+#define LOG_MAX_FREQ            1000
+#define LOG_DEFAULT_FREQ        100
 
 //Plot:
 //=====
@@ -60,7 +60,7 @@
 #define PLOT_BUF_LEN            1000
 
 //Refresh:
-#define PLOT_DEFAULT_FREQ       25
+#define PLOT_DEFAULT_FREQ       35
 
 //****************************************************************************
 // Class(es)
@@ -87,7 +87,7 @@ private:
     unsigned char usb_rx[256];
     int exp_pwm;
 
-    QTimer *timer_stream, *timer_log, *timer_plot;
+    QTimer *timer_stream, *timer_log, *timer_plot, *timer_ctrl;
     QSerialPort USBSerialPort;
 
     //Plot:
@@ -112,6 +112,8 @@ private:
 
     //Control:
     int wanted_controller = 0, selected_controller = 0, active_controller = 0;
+    int ctrl_setpoint = 0;
+    int ctrl_toggle_state = 0;
     void controller_setpoint(int val);
 
     //Serial driver:
@@ -133,6 +135,8 @@ private slots:
 
     void timerPlotEvent();
 
+    void timerCtrlEvent(void);
+
     void on_updateRefreshButton_clicked();
 
     void on_UpdatePlotpushButton_clicked();
@@ -153,6 +157,8 @@ private slots:
     void on_pushButton_CtrlMinMax_clicked();
 
     void on_hSlider_Ctrl_valueChanged(int value);
+
+    void on_pushButton_toggle_clicked();
 
 private:
     Ui::MainWindow *ui;

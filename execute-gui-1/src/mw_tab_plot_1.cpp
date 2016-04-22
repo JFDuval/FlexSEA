@@ -297,6 +297,9 @@ void MainWindow::timerPlotEvent(void)
             case 14: //"Fake Data"
                 update_graph_array(index, gen_test_data());
                 break;
+            case 15: //"Setpoint"
+                update_graph_array(index, ctrl_setpoint);
+                break;
         }
 
         //Copy buffers and plot:

@@ -28,7 +28,7 @@ void MainWindow::on_openComButton_clicked()
 {
     QString str, comport;
     char *comport_char;
-    int com_open = 0, tries = 150;
+    int com_open = 0, tries = 100;
 
     //Opening statement, and name saving:
 
@@ -94,7 +94,7 @@ void MainWindow::on_closeComButton_clicked()
     ui->closeComButton->repaint();
 }
 
-//Change refresh rate for Stream & Log
+//Change refresh rate for Stream, Log and Plot
 void MainWindow::on_updateRefreshButton_clicked()
 {
     QString freq_txt, status;
@@ -125,5 +125,8 @@ void MainWindow::on_updateRefreshButton_clicked()
         status = "f = " + QString::number(freq) + "Hz, integer period = " + QString::number(period) + "ms.";
         ui->streamRefreshStatusTxt->setText(status);
         timer_stream->setInterval(period);
+
+        //Plot:
+        //timer_plot->setInterval(period);  //Disabled, bugs at 50+Hz
     }
 }

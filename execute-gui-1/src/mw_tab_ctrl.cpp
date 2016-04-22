@@ -70,6 +70,7 @@ void MainWindow::on_pushButton_setp_a_go_clicked()
 {
     int val = 0;
     val = ui->control_setp_a->text().toInt();
+    ctrl_setpoint = val;
     controller_setpoint(val);
 }
 
@@ -77,6 +78,7 @@ void MainWindow::on_pushButton_setp_b_go_clicked()
 {
     int val = 0;
     val = ui->control_setp_b->text().toInt();
+    ctrl_setpoint = val;
     controller_setpoint(val);
 }
 
@@ -160,6 +162,7 @@ void MainWindow::on_hSlider_Ctrl_valueChanged(int value)
 {
     uint val = 0;
     val = ui->hSlider_Ctrl->value();
+    ctrl_setpoint = val;
 
     controller_setpoint(val);
 
@@ -209,4 +212,57 @@ void MainWindow::controller_setpoint(int val)
         //USBSerialPort_Read(usb_rx);
         //decode_usb_rx(usb_rx);
     }
+}
+
+void MainWindow::on_pushButton_toggle_clicked()
+{
+    //Toggle:
+    ctrl_toggle_state ^= 1;
+
+    if(!ctrl_toggle_state)
+    {
+        //We are in Toggle OFF Mode.
+        ui->pushButton_toggle->setText("Toggle ON");
+        //Enable GO A & B:
+        ui->pushButton_setp_a_go->setEnabled(true);
+        ui->pushButton_setp_b_go->setEnabled(true);
+        ui->control_setp_a->setEnabled(true);
+        ui->control_setp_b->setEnabled(true);
+
+        //Stop timer:
+        timer_ctrl->stop();
+    }
+    else
+    {
+        //We are in Toggle ON Mode.
+        ui->pushButton_toggle->setText("Toggle OFF");
+        //Enable GO A & B:
+        ui->pushButton_setp_a_go->setEnabled(false);
+        ui->pushButton_setp_b_go->setEnabled(false);
+        ui->control_setp_a->setEnabled(false);
+        ui->control_setp_b->setEnabled(false);
+
+        //Start timer:
+        timer_ctrl->start(ui->control_toggle_delay->text().toInt());
+    }
+}
+
+void MainWindow::timerCtrlEvent(void)
+{
+    static uint8_t toggle_output_state = 0;
+
+    toggle_output_state ^= 1;
+
+    //qDebug() << "Control Toggle Timer Event, output = " << toggle_output_state;
+
+    if(toggle_output_state)
+    {
+        ctrl_setpoint = ui->control_setp_a->text().toInt();
+    }
+    else
+    {
+        ctrl_setpoint = ui->control_setp_b->text().toInt();
+    }
+
+    controller_setpoint(ctrl_setpoint);
 }

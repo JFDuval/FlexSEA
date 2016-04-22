@@ -90,11 +90,22 @@ void MainWindow::timerStreamEvent(void)
         ui->disp_stat2->setText(QString::number(exec1.status2));
 
         //Decode some of them:
+        //===================
+
         ui->disp_current_d->setText(QString::number((float)exec1.current*18.5, 'i',0));
         ui->disp_vb_d->setText(QString::number(P4_ADC_SUPPLY*((16*(float)exec1.volt_batt/3 + 302 )/P4_ADC_MAX) / 0.0738, 'f',2));
         ui->disp_vg_d->setText(QString::number(P4_ADC_SUPPLY*((26*(float)exec1.volt_int/3 + 440 )/P4_ADC_MAX) / 0.43, 'f',2));
         ui->disp_temp_d->setText(QString::number(((((2.625*(float)exec1.temp + 41)/P4_ADC_MAX)*P4_ADC_SUPPLY) - P4_T0) / P4_TC,'f',1));
         ui->disp_ana_d->setText(QString::number(((float)exec1.analog[0]/P4_ADC_MAX)*P4_ADC_SUPPLY,'f',2));
+
+        ui->disp_accx_d->setText(QString::number((double)exec1.accel.x/8192, 'f', 2));
+        ui->disp_accy_d->setText(QString::number((double)exec1.accel.y/8192, 'f', 2));
+        ui->disp_accz_d->setText(QString::number((double)exec1.accel.z/8192, 'f', 2));
+        ui->disp_gyrox_d->setText(QString::number((double)exec1.gyro.x/16.4, 'i', 0));
+        ui->disp_gyroy_d->setText(QString::number((double)exec1.gyro.y/16.4, 'i', 0));
+        ui->disp_gyroz_d->setText(QString::number((double)exec1.gyro.z/16.4, 'i', 0));
+
+        ui->disp_strain_d->setText(QString::number(((double)(exec1.strain-32768)/32768)*100, 'i', 0));
 
         ui->tabWidget->repaint();
 
