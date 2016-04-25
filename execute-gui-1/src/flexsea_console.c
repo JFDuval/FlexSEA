@@ -30,7 +30,7 @@ unsigned char slave_id[MAX_SLAVE] = 	{FLEXSEA_DEFAULT, FLEXSEA_MANAGE_1, FLEXSEA
 //Note: for the System and FlexSEA commands, _list contains the commands and _args
 // 		has the number of arguments required by the command. The slave name, command
 //		name and r/w do not count.As an example, "./plan info" has 0 arguments,
-//		"./plan ex1 w clutch 255" has 1 argument.
+//		"./plan ex1 w pwro 255" has 1 argument.
 
 //Console system command list and # of arguments:
 char sys_list[SYS_CMD][TXT_STR_LEN] = 	{"info", "stream", "log", "demo", "test", "user"};
@@ -42,7 +42,7 @@ char fcp_list[MAX_CMD][TXT_STR_LEN] = 	{"ping", "status", "reset", "ack", \
 										"mem", "acqui", "rs485_config", "usb_config", \
 										"usb_write", "temp", "switch", "imu", \
 										"encoder", "strain", "strain_config", "volt", \
-										"batt", "power_out", "clutch", "adv_ana_config", \
+                                        "batt", "power_out", "pwro", "adv_ana_config", \
 										"analog", "digital", "digital_config", "exp_periph_config", \
 										"ctrl_mode", "ctrl_i_g", "ctrl_p_g", "ctrl_z_g", \
 										"ctrl_o", "ctrl_i", "ctrl_p", "shorted_leads", \
@@ -51,7 +51,7 @@ char fcp_desc[MAX_CMD][TXT_STR_LEN] = 	{"Ping? Ping!", "Board Status", "Reset", 
 										"Memory", "Acquisition strategy", "RS485 Configuration", "USB Configuration", \
 										"USB Write", "Temperature", "Switch", "IMU", \
 										"Encoder", "Strain gauge/load cell", "Strain Gauge amplifier gain & offset", "Voltage measurements", \
-										"Battery status and values", "Power Output", "Clutch", "Advanced Analog Periph. Configuration", \
+                                        "Battery status and values", "Power Output", "Pwro", "Advanced Analog Periph. Configuration", \
 										"Analog Inputs", "Digital I/Os", "Digital I/Os Configuration", "Expansion Periph. Configuration", \
 										"Control Mode (0 = None, 1 = Open, 2 = Pos., 3 = Current, 4 = Z)", "Current (I) Controller Gains", "Position (P) Controller Gains", "Impedance (Z) Controller Gains", \
 										"Open (O) Loop Controller (PWM)", "Current (I) Controller", "Position (P) Controller", "Shorted Leads", \
@@ -426,11 +426,11 @@ static void parser_flexsea(int slave, int cmd, char rw, char *argv[])
 			_USE_PRINTF("Command isn't programmed yet.\n");
 		    break;
 
-		case 18: 	//'clutch'
+        case 18: 	//'pwro'
 			tmp0 = atoi(argv[4]);
-			_USE_PRINTF("[Clutch]: %i.\n", tmp0);
+            _USE_PRINTF("[Pwro]: %i.\n", tmp0);
 			//Prepare and send data:
-			numb = tx_cmd_exp_clutch(slave_id[slave], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, tmp0);
+            numb = tx_cmd_exp_pwro(slave_id[slave], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, tmp0);
             numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
 			break;
 

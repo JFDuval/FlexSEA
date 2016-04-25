@@ -247,7 +247,7 @@ void test_code_plan_2x_exec_comm(void)
     	//Execute #1:
 
     	//Prepare the command:
-    	numb = tx_cmd_exp_clutch(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 0xAA);
+        numb = tx_cmd_exp_pwro(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 0xAA);
         numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
 
     	//Communicate with the slave:
@@ -259,7 +259,7 @@ void test_code_plan_2x_exec_comm(void)
         //Execute #2:
 
     	//Prepare the command:
-        numb = tx_cmd_exp_clutch(FLEXSEA_EXECUTE_2, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 0xCC);
+        numb = tx_cmd_exp_pwro(FLEXSEA_EXECUTE_2, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 0xCC);
         numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
 
     	//Communicate with the slave:
@@ -273,7 +273,7 @@ void test_code_plan_2x_exec_comm(void)
 //Special Command #2 - CSEA Knee test
 void test_code_spc2_csea(void)
 {
-	int numb = 0, state = 0, rgb = 0, clutch = 0;
+    int numb = 0, state = 0, rgb = 0, pwro = 0;
 	int zk = 10, zi = 0;
 
     //Initial configuration:
@@ -327,13 +327,13 @@ void test_code_spc2_csea(void)
     		state = 0;
 
     	if(state == 0)
-    		clutch = 255;
+            pwro = 255;
     	else
-    		clutch = 0;
+            pwro = 0;
 
-    	clutch = 0;
+        pwro = 0;
     	numb = tx_cmd_ctrl_special_2(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
-    									zk, zi, 0, rgb, clutch,\
+                                        zk, zi, 0, rgb, pwro,\
     									KEEP, 0, 0, 0, 0);
 
         numb = comm_gen_str(payload_str, comm_str_usb, PAYLOAD_BUF_LEN);

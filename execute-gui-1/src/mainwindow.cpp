@@ -151,6 +151,11 @@ MainWindow::MainWindow(QWidget *parent) :
                 ui->control_g5->text().toInt());
     ui->textLabel_Gains->setText(str);
 
+    //External:
+    //=================
+    ui->pushButton_ext_pwro->setText("Turn ON (PWM)");
+    ui->ext_pwro_pwm->setText("0");
+
     //=================
     //Timers:
     //=================
