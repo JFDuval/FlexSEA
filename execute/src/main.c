@@ -89,8 +89,7 @@ int main(void)
 	#endif	//USE_SPI_COMMUT	
 	
 	//motor_fixed_pwm_test_code_non_blocking(125);
-	pwro_output(245);
-	
+	//pwro_output(245);	
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=	
 	
 	//Special code for the ExoBoots:
