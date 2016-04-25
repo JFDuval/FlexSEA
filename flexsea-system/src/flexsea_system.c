@@ -113,7 +113,7 @@ void flexsea_payload_59(uint8_t *buf){};
 
 //60-69: 
 //void flexsea_payload_60(uint8_t *buf){};		//CMD_POWER_OUT
-//void flexsea_payload_61(uint8_t *buf){};		//CMD_CLUTCH
+//void flexsea_payload_61(uint8_t *buf){};		//CMD_PWRO
 void flexsea_payload_62(uint8_t *buf){};		//CMD_ADV_ANA_CONFIG
 void flexsea_payload_63(uint8_t *buf){};		//CMD_ANALOG
 void flexsea_payload_64(uint8_t *buf){};		//CMD_DIGITAL

@@ -25,7 +25,7 @@
 //Redefine weak functions from flexsea_payload:
 //void rx_cmd_digital_in(uint8_t *buf);
 //void rx_cmd_analog_in(uint8_t *buf);
-void rx_cmd_exp_clutch(uint8_t *buf);
+void rx_cmd_exp_pwro(uint8_t *buf);
 
 //****************************************************************************
 // Definition(s):

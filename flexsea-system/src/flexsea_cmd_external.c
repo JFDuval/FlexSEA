@@ -253,9 +253,9 @@ void rx_cmd_analog_in(uint8_t *buf)
 }
 */
 
-//Transmission of a CLUTCH command
-uint32_t tx_cmd_exp_clutch(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
-								uint8_t clutch)
+//Transmission of a PWRO command
+uint32_t tx_cmd_exp_pwro(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
+								uint8_t pwro_pwm)
 {
 	uint32_t bytes = 0;
 
@@ -278,10 +278,10 @@ uint32_t tx_cmd_exp_clutch(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uin
 	{
 		//In that case Write is only used for the Reply
 
-		buf[P_CMD1] = CMD_W(CMD_CLUTCH);
+		buf[P_CMD1] = CMD_W(CMD_PWRO);
 
 		//Arguments:
-		buf[P_DATA1 + 0] = clutch;
+		buf[P_DATA1 + 0] = pwro_pwm;
 
 		bytes = P_DATA1 + 1;     //Bytes is always last+1
 	}
@@ -295,7 +295,7 @@ uint32_t tx_cmd_exp_clutch(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uin
 	return bytes;
 }
 
-//Reception of a CLUTCH command
+//Reception of a PWRO command
 void rx_cmd_exp_clutch(uint8_t *buf)
 {
 	uint32_t numb = 0;
@@ -326,8 +326,8 @@ void rx_cmd_exp_clutch(uint8_t *buf)
 		//Generate the reply:
 		//===================
 
-		numb = tx_cmd_exp_clutch(buf[P_XID], CMD_WRITE, tmp_payload_xmit, \
-									PAYLOAD_BUF_LEN, read_clutch());
+		numb = tx_cmd_exp_pwro(buf[P_XID], CMD_WRITE, tmp_payload_xmit, \
+									PAYLOAD_BUF_LEN, read_pwro());
 		numb = comm_gen_str(tmp_payload_xmit, comm_str_485, numb);
 		numb = COMM_STR_BUF_LEN;	//Fixed length for now to accomodate the DMA
 
@@ -366,7 +366,7 @@ void rx_cmd_exp_clutch(uint8_t *buf)
 
 			//Store values:
 
-			exec_s_ptr->clutch = buf[P_DATA1+0];
+			exec_s_ptr->pwro = buf[P_DATA1+0];
 
 			#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
@@ -380,7 +380,7 @@ void rx_cmd_exp_clutch(uint8_t *buf)
 
 			#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
-			clutch_output(buf[P_DATA1+0]);
+			pwro_output(buf[P_DATA1+0]);
 
 			#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 

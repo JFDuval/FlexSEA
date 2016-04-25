@@ -34,8 +34,8 @@
 //External:
 uint32_t tx_cmd_digital_in(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len);
 uint32_t tx_cmd_analog_in(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len);
-uint32_t tx_cmd_exp_clutch(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
-								uint8_t clutch);
+uint32_t tx_cmd_exp_pwro(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
+								uint8_t pwro_pwm);
 								
 //Control:
 uint32_t tx_cmd_ctrl_mode(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, int16_t ctrl);
@@ -75,6 +75,7 @@ uint32_t tx_cmd_ctrl_special_4(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 //External:
 #define rx_cmd_analog_in		flexsea_payload_63
 #define rx_cmd_digital_in		flexsea_payload_64	//ToDo: should be in&out
+#define rx_cmd_exp_pwro			flexsea_payload_61
 
 //Control:
 #define rx_cmd_ctrl_mode		flexsea_payload_80
@@ -89,7 +90,7 @@ uint32_t tx_cmd_ctrl_special_4(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 //Data:
 #define rx_cmd_data_acqui		flexsea_payload_21
 //#define rx_cmd_data_mem		flexsea_payload_20
-#define rx_cmd_data_read_all		flexsea_payload_22
+#define rx_cmd_data_read_all	flexsea_payload_22
 
 //Application:
 #define rx_cmd_special_1		flexsea_payload_100
@@ -176,7 +177,7 @@ void flexsea_payload_59(uint8_t *buf);
 
 //60-69: 
 //void flexsea_payload_60(uint8_t *buf);	//CMD_POWER_OUT
-//void flexsea_payload_61(uint8_t *buf);	//CMD_CLUTCH
+//void flexsea_payload_61(uint8_t *buf);	//CMD_PWRO
 void flexsea_payload_62(uint8_t *buf);		//CMD_ADV_ANA_CONFIG
 void flexsea_payload_63(uint8_t *buf);		//CMD_ANALOG
 void flexsea_payload_64(uint8_t *buf);		//CMD_DIGITAL
@@ -292,8 +293,8 @@ void flexsea_payload_127(uint8_t *buf);
 
 //Expansion/external commands:
 
-#define CMD_POWER_OUT					60
-#define CMD_CLUTCH						61
+#define CMD_POWER_OUT					60	//ToDo can we berge both?
+#define CMD_PWRO						61
 #define CMD_ADV_ANA_CONFIG				62
 #define CMD_ANALOG						63
 #define CMD_DIGITAL						64
@@ -417,7 +418,7 @@ struct execute_s
 	uint8_t volt_batt;	//+VB
 	uint8_t volt_int;	//+VG
 	uint8_t temp;
-	uint8_t clutch;
+	uint8_t pwro;
 	//uint8_t active_ctrl;
 	//int16_t pwm;
 	uint8_t status1;
