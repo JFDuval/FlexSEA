@@ -114,7 +114,7 @@ uint16 output_step(void)
 	
 	//Slow ramp-up
 	if(i < 785)
-		output = 420;	//1850;
+		output = 0;	//1850;
 
 	if(i >= 785 && i <= 7500)
 		output = 73;	//287;
@@ -122,7 +122,7 @@ uint16 output_step(void)
 	if(i > 7500)
 	{
 		i = 0;
-		output = 73;	//287;
+		output = 100;	//287;
 	}
 	
 	//Output on DAC:

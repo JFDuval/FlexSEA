@@ -48,9 +48,9 @@ void init_strain(void)
 	
 	strain.offset = STRAIN_DEFAULT_OFFSET;
 	strain.gain = STRAIN_DEFAULT_GAIN;
-	strain.oref = STRAIN_DEFAULT_OREF;	
+	//strain.oref = STRAIN_DEFAULT_OREF;	
 	strain.vo1 = 0;
-	strain.vo2 = 0;
+	//strain.vo2 = 0;
 	strain.filtered_strain = 0;
 	strain_config(strain.offset, strain.gain);
 }
@@ -145,7 +145,7 @@ void strain_test_blocking(void)
 	uint8 ledg_state = 0;
 	
 	i2c_test_wbuf[0] = STRAIN_OFFSET;
-	i2c_test_wbuf[1] = 120;	//Offset of ~ V/2
+	i2c_test_wbuf[1] = 127;	//Offset of ~ V/2
 	I2C_1_MasterWriteBuf(I2C_POT_ADDR, (uint8 *) i2c_test_wbuf, 2, I2C_1_MODE_COMPLETE_XFER);	
 	CyDelay(10);
 	i2c_test_wbuf[0] = STRAIN_GAIN;
@@ -162,7 +162,7 @@ void strain_test_blocking(void)
 		ledg_state ^= 1;
 		LED_G_Write(ledg_state);
 		
-		CyDelayUs(100);
+		CyDelayUs(1000);
 	}
 }
 

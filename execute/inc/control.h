@@ -48,7 +48,7 @@ void motor_cancel_damping_test_code_blocking(void);
 #define GAIN_D					0					//Idem
 	
 //Current controller
-#define CURRENT_ZERO			((int32)2048)		//Should be calibrated board by board
+#define CURRENT_ZERO			((int32)2100)		//Should be calibrated board by board
 #define CURRENT_SPAN			((int32)1850)		//Variation from zero (technically, that's SPAN/2)
 #define CURRENT_POS_LIMIT		CURRENT_SPAN
 #define CURRENT_NEG_LIMIT		(-CURRENT_SPAN)

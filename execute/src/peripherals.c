@@ -21,7 +21,6 @@
 // Variable(s)
 //****************************************************************************
 
-uint8 clutch_pwm = 0;
 uint8 uart_dma_rx_buf[96];	//ToDo #define
 uint8 uart_dma_tx_buf[96];
 uint8 DMA_4_Chan;
@@ -139,25 +138,4 @@ void init_i2c_1(void)
 {
 	I2C_1_EnableInt();
 	I2C_1_Start();
-}
-
-//Configuration for the clutch
-void init_pwro(void)
-{
-	//PWM2: Clutch
-	PWM_2_Start();
-	PWM_2_WriteCompare(0);	//Start at 0%
-}
-
-//PWM, power output
-void pwro_output(uint8 value)
-{
-	clutch_pwm = value;
-	PWM_2_WriteCompare(clutch_pwm);
-}
-
-//Returns the PWM value of the power output
-uint8 read_pwro(void)
-{
-	return clutch_pwm;
 }

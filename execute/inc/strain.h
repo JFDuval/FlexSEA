@@ -60,9 +60,8 @@ uint16 strain_filter_dma(void);
 #define STRAIN_GAIN				MCP4661_REG_RAM_W0
 
 //Default values (experimental, expected to change)
-#define STRAIN_DEFAULT_OREF		156
-#define STRAIN_DEFAULT_OFFSET	110
-#define STRAIN_DEFAULT_GAIN		10
+#define STRAIN_DEFAULT_OFFSET	127
+#define STRAIN_DEFAULT_GAIN		80
 
 //Strain filtering:
 #define STRAIN_BUF_LEN			6

@@ -33,6 +33,7 @@
 #include "control.h"
 #include "sensor_commut.h"
 #include "ext_input.h"
+#include "ext_output.h"
 #include "gen_waveform.h"
 #include "demo.h"
 #include "flexsea_board.h"
@@ -62,10 +63,10 @@ int main(void);
 #define USE_QEI1
 #define USE_TRAPEZ
 //#define USE_DIETEMP
-#define USE_I2C_0
-#define USE_I2C_1
+#define USE_I2C_0			//3V3, IMU & Expansion.
+#define USE_I2C_1			//5V, Safety-CoP & strain gauge pot.
 #define USE_IMU				//Requires USE_I2C_0
-//#define USE_STRAIN		//Requires USE_I2C_1
+#define USE_STRAIN			//Requires USE_I2C_1
 //#define USE_SPI_COMMUT
 //#define USE_MINM_RGB		//External RGB LED. Requires USE_I2C_0.
 

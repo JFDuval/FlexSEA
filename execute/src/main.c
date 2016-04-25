@@ -76,6 +76,7 @@ int main(void)
 	//motor_cancel_damping_test_code_blocking();
 	//csea_knee_up_down_test_demo();
 	//motor_stepper_test_blocking_1(80);
+	//test_pwro_output_blocking();
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 	//Non-Blocking Test code
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -88,6 +89,7 @@ int main(void)
 	#endif	//USE_SPI_COMMUT	
 	
 	//motor_fixed_pwm_test_code_non_blocking(125);
+	pwro_output(245);
 	
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=	
 	
