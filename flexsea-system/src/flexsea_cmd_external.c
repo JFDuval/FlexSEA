@@ -296,7 +296,7 @@ uint32_t tx_cmd_exp_pwro(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint3
 }
 
 //Reception of a PWRO command
-void rx_cmd_exp_clutch(uint8_t *buf)
+void rx_cmd_exp_pwro(uint8_t *buf)
 {
 	uint32_t numb = 0;
 
