@@ -22,36 +22,37 @@
 // Public Function(s)
 //****************************************************************************
 
-void MainWindow::on_pushButton_toggle_clicked()
+void MainWindow::on_pushButton_ext_pwro_clicked()
 {
-    //Toggle:
-    ctrl_toggle_state ^= 1;
+    static uint8_t pwro_button_state = 0;
+    uint8_t pwm = 0;
+    int numb = 0;
 
-    if(!ctrl_toggle_state)
+    //Toggle:
+    pwro_button_state ^= 1;
+
+    if(!pwro_button_state)
     {
         //We are in Toggle OFF Mode.
-        ui->pushButton_toggle->setText("Toggle ON");
-        //Enable GO A & B:
-        ui->pushButton_setp_a_go->setEnabled(true);
-        ui->pushButton_setp_b_go->setEnabled(true);
-        ui->control_setp_a->setEnabled(true);
-        ui->control_setp_b->setEnabled(true);
-
-        //Stop timer:
-        timer_ctrl->stop();
+        ui->pushButton_ext_pwro->setText("Turn ON (PWM)");
+        pwm = ui->ext_pwro_pwm->text().toInt();
     }
     else
     {
         //We are in Toggle ON Mode.
-        ui->pushButton_toggle->setText("Toggle OFF");
-        //Enable GO A & B:
-        ui->pushButton_setp_a_go->setEnabled(false);
-        ui->pushButton_setp_b_go->setEnabled(false);
-        ui->control_setp_a->setEnabled(false);
-        ui->control_setp_b->setEnabled(false);
-
-        //Start timer:
-        timer_ctrl->start(ui->control_toggle_delayA->text().toInt());
+        ui->pushButton_ext_pwro->setText("Turn OFF");
+        pwm = 0;
     }
-}
 
+   //TODO WRONG!!!
+    //Prepare and send command:
+    tx_cmd_ctrl_mode(FLEXSEA_EXECUTE_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, pwm);
+    numb = comm_gen_str(payload_str, comm_str_usb, PAYLOAD_BUF_LEN);
+    numb = COMM_STR_BUF_LEN;
+    USBSerialPort_Write(numb, comm_str_usb);
+
+    //Can we decode what we received?
+    //USBSerialPort_Read(usb_rx);
+    //decode_usb_rx(usb_rx);
+
+}

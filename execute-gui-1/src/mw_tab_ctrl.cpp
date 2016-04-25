@@ -2,9 +2,9 @@
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
 // jfduval@media.mit.edu
-// 02/2016
+// 04/2016
 //****************************************************************************
-// MainWindow: Qt GUI Main file - tab:Conterol
+// MainWindow: Qt GUI Main file - tab:Control
 //****************************************************************************
 
 //****************************************************************************

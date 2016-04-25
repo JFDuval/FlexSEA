@@ -160,6 +160,8 @@ private slots:
 
     void on_pushButton_toggle_clicked();
 
+    void on_pushButton_ext_pwro_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
