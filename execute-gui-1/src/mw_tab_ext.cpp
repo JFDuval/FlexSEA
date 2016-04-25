@@ -33,23 +33,23 @@ void MainWindow::on_pushButton_ext_pwro_clicked()
 
     if(!pwro_button_state)
     {
-        //We are in Toggle OFF Mode.
+        //We are in Output OFF Mode.
         ui->pushButton_ext_pwro->setText("Turn ON (PWM)");
-        pwm = ui->ext_pwro_pwm->text().toInt();
+        pwm = 0;
     }
     else
     {
-        //We are in Toggle ON Mode.
+        //We are in Output ON Mode.
         ui->pushButton_ext_pwro->setText("Turn OFF");
-        pwm = 0;
+        pwm = ui->ext_pwro_pwm->text().toInt();;
     }
 
-   //TODO WRONG!!!
     //Prepare and send command:
-    tx_cmd_ctrl_mode(FLEXSEA_EXECUTE_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, pwm);
+    tx_cmd_exp_pwro(FLEXSEA_EXECUTE_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, pwm);
     numb = comm_gen_str(payload_str, comm_str_usb, PAYLOAD_BUF_LEN);
     numb = COMM_STR_BUF_LEN;
     USBSerialPort_Write(numb, comm_str_usb);
+    qDebug() << "Sending PWRO a PWM = " << pwm << " value.";
 
     //Can we decode what we received?
     //USBSerialPort_Read(usb_rx);
