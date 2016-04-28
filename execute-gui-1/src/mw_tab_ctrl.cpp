@@ -184,7 +184,8 @@ void MainWindow::controller_setpoint(int val)
             numb = tx_cmd_ctrl_o(FLEXSEA_EXECUTE_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, val);
             break;
         case 2: //Position
-            valid = 0;
+            valid = 1;
+            numb = tx_cmd_ctrl_p(FLEXSEA_EXECUTE_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, val, val, val, 100, 100);
              break;
         case 3: //Current
             valid = 1;
