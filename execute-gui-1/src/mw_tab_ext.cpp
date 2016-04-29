@@ -45,7 +45,7 @@ void MainWindow::on_pushButton_ext_pwro_clicked()
     }
 
     //Prepare and send command:
-    tx_cmd_exp_pwro(FLEXSEA_EXECUTE_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, pwm);
+    tx_cmd_exp_pwro(active_slave_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, pwm);
     numb = comm_gen_str(payload_str, comm_str_usb, PAYLOAD_BUF_LEN);
     numb = COMM_STR_BUF_LEN;
     USBSerialPort_Write(numb, comm_str_usb);

@@ -45,6 +45,25 @@ MainWindow::MainWindow(QWidget *parent) :
     //=================
     ui->tabWidget->setCurrentIndex(0);  //Start at first tab
 
+    //Config:
+    //=================
+
+    //Variable option lists:
+    var_list_slaves << "Execute 1" << "Execute 2" << "Execute 3" << "Execute 4" << "Manage 1";
+    for(int index = 0; index < var_list_slaves.count(); index++)
+    {
+        ui->SlaveSelectComboBox->addItem(var_list_slaves.at(index));
+    }
+    //Lookup from list to actual slave number (FlexSEA convention):
+    list_to_slave[0] = FLEXSEA_EXECUTE_1;
+    list_to_slave[1] = FLEXSEA_EXECUTE_2;
+    list_to_slave[2] = FLEXSEA_EXECUTE_3;
+    list_to_slave[3] = FLEXSEA_EXECUTE_4;
+    list_to_slave[4] = FLEXSEA_MANAGE_1;
+    active_slave_1_index = ui->SlaveSelectComboBox->currentIndex();
+    active_slave_1 = list_to_slave[active_slave_1_index];
+    qDebug() << "Selected slave is" << var_list_slaves.at(active_slave_1_index);
+
     //COM port:
     //=================
     ui->comPortTxt->setText("/dev/ttyACM0");

@@ -130,3 +130,10 @@ void MainWindow::on_updateRefreshButton_clicked()
         //timer_plot->setInterval(period);  //Disabled, bugs at 50+Hz
     }
 }
+
+void MainWindow::on_SlaveSelectComboBox_currentIndexChanged(int index)
+{
+    active_slave_1_index = ui->SlaveSelectComboBox->currentIndex();
+    active_slave_1 = list_to_slave[active_slave_1_index];
+    qDebug() << "Selected slave is" << var_list_slaves.at(active_slave_1_index);
+}

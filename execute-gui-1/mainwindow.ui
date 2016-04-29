@@ -42,7 +42,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="config">
      <attribute name="title">
@@ -201,28 +201,8 @@
        <item row="1" column="1">
         <widget class="QComboBox" name="SlaveSelectComboBox">
          <property name="currentText">
-          <string>FlexSEA-Execute 1</string>
+          <string/>
          </property>
-         <item>
-          <property name="text">
-           <string>FlexSEA-Execute 1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>FlexSEA-Execute 2</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>FlexSEA-Execute 3</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>FlexSEA-Execute 4</string>
-          </property>
-         </item>
         </widget>
        </item>
        <item row="6" column="0" colspan="3">

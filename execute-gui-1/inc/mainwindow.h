@@ -90,6 +90,11 @@ private:
     QTimer *timer_stream, *timer_log, *timer_plot, *timer_ctrl;
     QSerialPort USBSerialPort;
 
+    int active_slave_1, active_slave_1_index;
+    //Lookup from list to actual slave number (FlexSEA convention):
+    uint8_t list_to_slave[10];
+    QStringList var_list_slaves;
+
     //Plot:
 
     //X array never changes after initialization
@@ -164,6 +169,8 @@ private slots:
     void on_pushButton_ext_pwro_clicked();
 
     void on_ctrl_encoder_zero_clicked();
+
+    void on_SlaveSelectComboBox_currentIndexChanged(int index);
 
 private:
     Ui::MainWindow *ui;

@@ -56,7 +56,7 @@ void MainWindow::on_pushButton_SetController_clicked()
     }
 
     //Prepare and send command:
-    tx_cmd_ctrl_mode(FLEXSEA_EXECUTE_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, ctrl);
+    tx_cmd_ctrl_mode(active_slave_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, ctrl);
     numb = comm_gen_str(payload_str, comm_str_usb, PAYLOAD_BUF_LEN);
     numb = COMM_STR_BUF_LEN;
     USBSerialPort_Write(numb, comm_str_usb);
@@ -131,17 +131,17 @@ void MainWindow::on_pushButton_SetGains_clicked()
             break;
         case 2: //Position
             valid = 1;
-            tx_cmd_ctrl_p_g(FLEXSEA_EXECUTE_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, \
+            tx_cmd_ctrl_p_g(active_slave_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, \
                                     gains[0], gains[1], gains[2]);
              break;
         case 3: //Current
             valid = 1;
-            numb = tx_cmd_ctrl_i_g(FLEXSEA_EXECUTE_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, \
+            numb = tx_cmd_ctrl_i_g(active_slave_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, \
                                 gains[0], gains[1], gains[2]);
             break;
         case 4: //Impedance
             valid = 1;
-            tx_cmd_ctrl_z_g(FLEXSEA_EXECUTE_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, \
+            tx_cmd_ctrl_z_g(active_slave_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, \
                                     gains[0], gains[1], gains[2]);
             break;
         case 5: //Custom/other
@@ -201,16 +201,16 @@ void MainWindow::controller_setpoint(int val)
             break;
         case 1: //Open
             valid = 1;
-            numb = tx_cmd_ctrl_o(FLEXSEA_EXECUTE_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, val);
+            numb = tx_cmd_ctrl_o(active_slave_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, val);
             break;
         case 2: //Position
             valid = 1;
-            numb = tx_cmd_ctrl_p(FLEXSEA_EXECUTE_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, trap_pos, trap_posi, trap_posf, trap_spd, trap_acc);
+            numb = tx_cmd_ctrl_p(active_slave_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, trap_pos, trap_posi, trap_posf, trap_spd, trap_acc);
             qDebug() << "posi = " << trap_posi << ", posf = " << trap_posf << ", spd = " << trap_spd << ", trap_acc = " << trap_acc;
              break;
         case 3: //Current
             valid = 1;
-            numb = tx_cmd_ctrl_i(FLEXSEA_EXECUTE_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, val, 0);
+            numb = tx_cmd_ctrl_i(active_slave_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, val, 0);
             break;
         case 4: //Impedance
             valid = 0;
@@ -308,7 +308,7 @@ void MainWindow::on_ctrl_encoder_zero_clicked()
 
     qDebug("Zeroing encoder... (No call made yet)");
 
-    //numb = tx_cmd_encoder(FLEXSEA_EXECUTE_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, 0);
+    //numb = tx_cmd_encoder(active_slave_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, 0);
 
     //Common for all gain functions:
     numb = comm_gen_str(payload_str, comm_str_usb, PAYLOAD_BUF_LEN);
