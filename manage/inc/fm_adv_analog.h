@@ -1,14 +1,16 @@
 //****************************************************************************
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
-// jfduval@mit.edu
-// 12/2014
+// jfduval@media.mit.edu
+// 05/2016
 //****************************************************************************
 // fm_adv_analog: Advanced analog functions
 //****************************************************************************
+// Licensing: Please refer to 'software_license.txt'
+//****************************************************************************
 
-#ifndef ADV_ANALOG_H_
-#define ADV_ANALOG_H_
+#ifndef INC_ADV_ANALOG_H
+#define INC_ADV_ANALOG_H
 
 //****************************************************************************
 // Include(s)
@@ -18,7 +20,13 @@
 #include "stm32f4xx_hal.h"
 
 //****************************************************************************
-// Prototype(s):
+// Shared variable(s)
+//****************************************************************************
+
+//...
+
+//****************************************************************************
+// Public Function Prototype(s):
 //****************************************************************************
 
 void init_adva_fc_pins(void);
@@ -26,7 +34,8 @@ void set_an0_fc(unsigned int fc);
 void set_an1_fc(unsigned int fc);
 void set_an2_fc(unsigned int fc);
 void set_an3_fc(unsigned int fc);
-HAL_StatusTypeDef mcp4661_write(uint8_t i2c_addr, uint8_t internal_reg_addr, uint8_t* pData, uint16_t Size);
+HAL_StatusTypeDef mcp4661_write(uint8_t i2c_addr, uint8_t internal_reg_addr, \
+				uint8_t* pData, uint16_t Size);
 unsigned int set_gain_ain2(uint8_t gain);
 unsigned int set_gain_ain3(uint8_t gain);
 unsigned int set_resistor_ain6(uint8_t res);
@@ -38,8 +47,8 @@ void set_default_analog(void);
 //****************************************************************************
 
 //Addresses:
-#define MCP4661_I2C_ADDR1	0x50
-#define MCP4661_I2C_ADDR2	0x54
+#define MCP4661_I2C_ADDR1		0x50
+#define MCP4661_I2C_ADDR2		0x54
 
 #define MCP_BLOCK_TIMEOUT 10000 //ToDo: may want to reduce this?
 
@@ -54,4 +63,5 @@ void set_default_analog(void);
 #define MCP4661_READ_CMD		0x0A
 #define MCP4661_CONFIG			0xFF //(POR default)
 
-#endif // ADC_H_
+#endif 	// INC_ADV_ANALOG_H
+

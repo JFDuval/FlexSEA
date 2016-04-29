@@ -21,8 +21,12 @@
 //****************************************************************************
 
 //****************************************************************************
-// Function(s)
-//****************************************************************************
+// Private Function Prototype(s):
+//****************************************************************************
+
+//****************************************************************************
+// Public Function(s)
+//****************************************************************************
 void init_leds(void)
 {
 	//LED0 - C1, LED1 - C0, LEDR - F4, LEDG - F3, LEDB - F5
@@ -68,7 +72,7 @@ void init_sw1()
 
 int read_sw1(void)
 {
-	return HAL_GPIO_ReadPin(GPIOE, 1<<3);
+	return HAL_GPIO_ReadPin(GPIOE, 1 << 3);
 }
 
 void init_switches(void)
@@ -86,9 +90,11 @@ void set_led_rgb(unsigned char r, unsigned char g, unsigned char b)
 }
 
 //Call this function every ms in main while()
-void rgb_led_ui(uint8_t err_l0, uint8_t err_l1, uint8_t err_l2, uint8_t new_comm)
+void rgb_led_ui(uint8_t err_l0, uint8_t err_l1, uint8_t err_l2,
+		uint8_t new_comm)
 {
-	static uint32_t cnt_comm = UI_COMM_TIMEOUT, cnt_err_l0 = 0, cnt_err_l1 = 0, cnt_flash = 0;
+	static uint32_t cnt_comm = UI_COMM_TIMEOUT, cnt_err_l0 = 0, cnt_err_l1 = 0,
+			cnt_flash = 0;
 	static uint8_t latch_err_l2 = 0, flash_red = 0, comm_blue = 0;
 	uint8_t r = 0, g = 0, b = 0;
 
@@ -134,7 +140,7 @@ void rgb_led_ui(uint8_t err_l0, uint8_t err_l1, uint8_t err_l2, uint8_t new_comm
 	{
 		//Major error => flashing red
 
-		latch_err_l2 = 1;	//Latching it, will require a reset to be normal again
+		latch_err_l2 = 1;    //Latching it, will require a reset to be normal again
 		r = flash_red;
 		g = 0;
 		b = 0;
@@ -194,12 +200,19 @@ void rgb_led_test_code_blocking(void)
 		cnt %= 8;
 
 		r = cnt & 0x01;
-		g = (cnt & 0x02)>>1;
-		b = (cnt & 0x04)>>2;
+		g = (cnt & 0x02) >> 1;
+		b = (cnt & 0x04) >> 2;
 
 		set_led_rgb(r, g, b);
 
 		//Waste some time:
-		for(delay = 0; delay < 75000000; delay++);
+		for(delay = 0; delay < 75000000; delay++)
+			;
 	}
 }
+
+//****************************************************************************
+// Private Function(s)
+//****************************************************************************
+
+//...

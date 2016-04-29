@@ -22,7 +22,6 @@
 //****************************************************************************
 
 uint8_t autosampling = 0;
-uint8_t usb_test_string[40] = "[FlexSEA-Manage 0.1 USB]\n";
 
 //****************************************************************************
 // Function(s)
@@ -56,8 +55,8 @@ int main(void)
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 	//Infinite loop
-	while (1)
-    {
+	while(1)
+	{
 		//Communication with our Master & Slave(s):
 		//=========================================
 
@@ -73,11 +72,11 @@ int main(void)
 		//Time bases: (rework in progress)
 		//===============================
 
-		if(systick_100us_flag == 1)
+		if(tb_100us_flag == 1)
 		{
-			systick_100us_flag = 0;
+			tb_100us_flag = 0;
 
-			switch(systick_100us_timeshare)
+			switch(tb_100us_timeshare)
 			{
 				//Case 0:
 				case 0:
@@ -87,67 +86,65 @@ int main(void)
 
 					break;
 
-				//Case 1:
+					//Case 1:
 				case 1:
 					break;
 
-				//Case 2:
+					//Case 2:
 				case 2:
 
 					//Test code 03/22/2016:
 
 					/*
-					xmit_toggle ^= 1;	//500Hz
-					if(xmit_toggle)
-					{
-						tx_byte = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, test_payload, PAYLOAD_BUF_LEN, 0, 0, 0, 0, 0, 0);
-						commstrlen = comm_gen_str(test_payload, comm_str_485_1, tx_byte);
-						commstrlen = COMM_STR_BUF_LEN;
-						flexsea_send_serial_slave(PORT_RS485_1, comm_str_485_1, commstrlen);
+					 xmit_toggle ^= 1;	//500Hz
+					 if(xmit_toggle)
+					 {
+					 tx_byte = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, test_payload, PAYLOAD_BUF_LEN, 0, 0, 0, 0, 0, 0);
+					 commstrlen = comm_gen_str(test_payload, comm_str_485_1, tx_byte);
+					 commstrlen = COMM_STR_BUF_LEN;
+					 flexsea_send_serial_slave(PORT_RS485_1, comm_str_485_1, commstrlen);
 
-						slaves_485_1.xmit.listen = 1;
-					}
-					*/
+					 slaves_485_1.xmit.listen = 1;
+					 }
+					 */
 					//test_comm_rw_master_v1();
-
 					break;
 
-				//Case 3:
+					//Case 3:
 				case 3:
 
 					break;
 
-				//Case 4:
+					//Case 4:
 				case 4:
 
 					break;
 
-				//Case 5:
+					//Case 5:
 				case 5:
 					slave_comm_trig = 2;
 					break;
 
-				//Case 6:
+					//Case 6:
 				case 6:
-
 
 					break;
 
-				//Case 7:
+					//Case 7:
 				case 7:
 
 					break;
 
-				//Case 8:
+					//Case 8:
 				case 8:
 
 					break;
 
-				//Case 9: User Interface
+					//Case 9: User Interface
 				case 9:
 
 					//UI RGB LED
-					rgb_led_ui(0, 0, 0, new_cmd_led);	//ToDo add error codes
+					rgb_led_ui(0, 0, 0, new_cmd_led);    //ToDo add error codes
 					if(new_cmd_led)
 					{
 						new_cmd_led = 0;
@@ -173,25 +170,25 @@ int main(void)
 		}
 
 		//1ms
-		if(systick_1ms_flag)
+		if(tb_1ms_flag)
 		{
-			systick_1ms_flag = 0;
+			tb_1ms_flag = 0;
 
 		}
 
 		//10ms
-		if(systick_10ms_flag)
+		if(tb_10ms_flag)
 		{
-			systick_10ms_flag = 0;
+			tb_10ms_flag = 0;
 
 			//...
 		}
 
 		//100ms
-		if(systick_100ms_flag)
+		if(tb_100ms_flag)
 		{
-			systick_100ms_flag = 0;
-			
+			tb_100ms_flag = 0;
+
 			//Constant LED0 flashing while the code runs
 			toggle_led0 ^= 1;
 			LED0(toggle_led0);
@@ -203,45 +200,9 @@ int main(void)
 		}
 
 		//1000ms
-		if(systick_1000ms_flag)
+		if(tb_1000ms_flag)
 		{
-			systick_1000ms_flag = 0;
+			tb_1000ms_flag = 0;
 		}
-    }
-}
-
-int usbtx(void)
-{
-	static int delayed_start = 0;
-	static int toggle_led1 = 0;
-	static int status = 0;
-
-	if(delayed_start < 100)
-	{
-		delayed_start ++;
-		return -1;
 	}
-	else
-	{
-		//USB transmit test:
-		status = CDC_Transmit_FS(usb_test_string, 3);
-
-		if(status == USBD_BUSY)
-		{
-			toggle_led1 ^= 1;
-			LED1(toggle_led1);
-		}
-		else if(status == USBD_FAIL)
-		{
-			LED1(0);
-		}
-		else
-		{
-			LED1(1);
-		}
-
-		return status;
-	}
-
-	return -2;
 }

@@ -1,113 +1,110 @@
-//
-// This file is part of the GNU ARM Eclipse Plug-ins project.
-// Copyright (c) 2014 Liviu Ionescu.
-//
+//****************************************************************************
+// MIT Media Lab - Biomechatronics
+// Jean-Francois (Jeff) Duval
+// jfduval@mit.edu
+// 05/2015
+//****************************************************************************
+// fm_timer: SysTick & Timer functions
+//****************************************************************************
+// Licensing: Please refer to 'software_license.txt'
+//****************************************************************************
+
+//****************************************************************************
+// Include(s)
+//****************************************************************************
 
 #include "fm_timer.h"
 #include "cortexm/ExceptionHandlers.h"
 #include "main.h"
 
-// ----------------------------------------------------------------------------
-
-// Forward declarations.
-
-void timer_tick (void);
-
-// ----------------------------------------------------------------------------
+//****************************************************************************
+// Variable(s)
+//****************************************************************************
 
 volatile timer_ticks_t timer_delayCount;
-volatile uint8_t systick_100us_flag = 0;
-volatile uint8_t systick_100us_timeshare = 0;
-volatile uint8_t systick_1ms_flag = 0;
-volatile uint8_t systick_10ms_flag = 0;
-volatile uint8_t systick_100ms_flag = 0;
-volatile uint8_t systick_1000ms_flag = 0;
+volatile uint8_t tb_100us_flag = 0;
+volatile uint8_t tb_100us_timeshare = 0;
+volatile uint8_t tb_1ms_flag = 0;
+volatile uint8_t tb_10ms_flag = 0;
+volatile uint8_t tb_100ms_flag = 0;
+volatile uint8_t tb_1000ms_flag = 0;
 
 TIM_HandleTypeDef htim7;
 
-//Private fct proto:
+//****************************************************************************
+// Private Function Prototype(s):
+//****************************************************************************
+
 void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base);
 void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base);
 
-// ----------------------------------------------------------------------------
+//****************************************************************************
+// Public Function Prototype(s):
+//****************************************************************************
 
+//Init SysTick timer, 1ms
 void init_systick_timer(void)
 {
-  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);	//Theirs
-  HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
-  // SysTick_IRQn interrupt configuration
-  HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
+	HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq() / 1000);
+	HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
+	// SysTick_IRQn interrupt configuration
+	HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 }
 
-void timer_sleep (timer_ticks_t ticks)
+void timer_sleep(timer_ticks_t ticks)
 {
-  timer_delayCount = ticks;
+	timer_delayCount = ticks;
 
-  // Busy wait until the SysTick decrements the counter to zero.
-  while (timer_delayCount != 0u);
+	// Busy wait until the SysTick decrements the counter to zero.
+	while (timer_delayCount != 0u);
 }
 
-//System Timer:
-void timer_tick (void)
+//Timebases for all the main functions:
+void timebases(void)
 {
 	static unsigned int cnt_1ms = 0, cnt_10ms = 0;
 	static unsigned int cnt_100ms = 0, cnt_1000ms = 0;
-	
+
 	//100us flag:
-	systick_100us_flag = 1;
-	systick_100us_timeshare++;
-	systick_100us_timeshare %= 10;
+	tb_100us_flag = 1;
+	tb_100us_timeshare++;
+	tb_100us_timeshare %= 10;
 
 	//1ms flag:
 	cnt_1ms++;
-	if(cnt_1ms >= 10)
+	if (cnt_1ms >= 10)
 	{
 		cnt_1ms = 0;
-		systick_1ms_flag = 1;
+		tb_1ms_flag = 1;
 	}
 
 	//10ms flag:
 	cnt_10ms++;
-	if(cnt_10ms >= 100)
+	if (cnt_10ms >= 100)
 	{
 		cnt_10ms = 0;
-		systick_10ms_flag = 1;
+		tb_10ms_flag = 1;
 	}
 
 	//100ms flag:
 	cnt_100ms++;
-	if(cnt_100ms >= 1000)
+	if (cnt_100ms >= 1000)
 	{
 		cnt_100ms = 0;
-		systick_100ms_flag = 1;
+		tb_100ms_flag = 1;
 	}
-	
+
 	//1s flag:
 	cnt_1000ms++;
-	if(cnt_1000ms >= 10000)
+	if (cnt_1000ms >= 10000)
 	{
 		cnt_1000ms = 0;
-		systick_1000ms_flag = 1;
-	}	
-
-
-}
-
-// ----- SysTick_Handler() ----------------------------------------------------
-
-//Move to IT ToDo**
-void SysTick_Handler (void)
-{
-  // Decrement to zero the counter used by the delay routine.
-	if(timer_delayCount != 0u)
-	{
-	  --timer_delayCount;
+		tb_1000ms_flag = 1;
 	}
 
-	//For USB delays:
-	HAL_IncTick();
-	HAL_SYSTICK_IRQHandler();
 }
+
+
 
 // ----------------------------------------------------------------------------
 
@@ -131,37 +128,37 @@ void init_timer_7(void)
 
 void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
 {
-  if(htim_base->Instance==TIM7)
-  {
-  /* USER CODE BEGIN TIM7_MspInit 0 */
+	if (htim_base->Instance == TIM7)
+	{
+		/* USER CODE BEGIN TIM7_MspInit 0 */
 
-  /* USER CODE END TIM7_MspInit 0 */
-    /* Peripheral clock enable */
-    __TIM7_CLK_ENABLE();
-  /* Peripheral interrupt init*/
-    HAL_NVIC_SetPriority(TIM7_IRQn, 2, 2);
-    HAL_NVIC_EnableIRQ(TIM7_IRQn);
-  /* USER CODE BEGIN TIM7_MspInit 1 */
+		/* USER CODE END TIM7_MspInit 0 */
+		/* Peripheral clock enable */
+		__TIM7_CLK_ENABLE();
+		/* Peripheral interrupt init*/
+		HAL_NVIC_SetPriority(TIM7_IRQn, 2, 2);
+		HAL_NVIC_EnableIRQ(TIM7_IRQn);
+		/* USER CODE BEGIN TIM7_MspInit 1 */
 
-  /* USER CODE END TIM7_MspInit 1 */
-  }
+		/* USER CODE END TIM7_MspInit 1 */
+	}
 
 }
 
 void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
 {
 
-  if(htim_base->Instance==TIM7)
-  {
-  /* USER CODE BEGIN TIM7_MspDeInit 0 */
+	if (htim_base->Instance == TIM7)
+	{
+		/* USER CODE BEGIN TIM7_MspDeInit 0 */
 
-  /* USER CODE END TIM7_MspDeInit 0 */
-    /* Peripheral clock disable */
-    __TIM7_CLK_DISABLE();
+		/* USER CODE END TIM7_MspDeInit 0 */
+		/* Peripheral clock disable */
+		__TIM7_CLK_DISABLE();
 
-    /* Peripheral interrupt DeInit*/
-    HAL_NVIC_DisableIRQ(TIM7_IRQn);
+		/* Peripheral interrupt DeInit*/
+		HAL_NVIC_DisableIRQ(TIM7_IRQn);
 
-  }
+	}
 
 }

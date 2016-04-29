@@ -1,10 +1,12 @@
 //****************************************************************************
 // MIT Media Lab - Biomechatronics
-// Jean-François (Jeff) Duval
+// Jean-Francois (Jeff) Duval
 // jfduval@media.mit.edu
-// 03/2016
+// 05/2016
 //****************************************************************************
 // flexsea_board: configuration and functions for this particular board
+//****************************************************************************
+// Licensing: Please refer to 'software_license.txt'
 //****************************************************************************
 
 #ifndef INC_FLEXSEA_BOARD_H
@@ -14,15 +16,16 @@
 // Include(s)
 //****************************************************************************
 
-#include <stdint.h>	
-//#include "../../flexsea-comm/inc/flexsea.h"
+#include <stdint.h>
 
 //****************************************************************************
 // Prototype(s):
 //****************************************************************************
 
-void flexsea_send_serial_slave(unsigned char port, unsigned char *str, unsigned char length);
-void flexsea_send_serial_master(unsigned char port, unsigned char *str, unsigned char length);
+void flexsea_send_serial_slave(unsigned char port, unsigned char *str,
+		unsigned char length);
+void flexsea_send_serial_master(unsigned char port, unsigned char *str,
+		unsigned char length);
 void flexsea_receive_from_master(void);
 void flexsea_start_receiving_from_master(void);
 void flexsea_receive_from_slave(void);
@@ -51,13 +54,13 @@ void flexsea_prepare_spi_tx_buffer(uint8_t base_addr);
 //Note: only Manage can have a value different than 0 or 1
 
 //Slave Read Buffer Size:
-#define SLAVE_READ_BUFFER_LEN		32	//ToDo TBD
+#define SLAVE_READ_BUFFER_LEN		32		//ToDo TBD
 
 //Enabled the required FlexSEA Buffers for this board:
-#define ENABLE_FLEXSEA_BUF_1	//RS-485 #1
-#define ENABLE_FLEXSEA_BUF_2	//RS-485 #2
-#define ENABLE_FLEXSEA_BUF_3	//SPI
-//#define ENABLE_FLEXSEA_BUF_4	//USB
+#define ENABLE_FLEXSEA_BUF_1				//RS-485 #1
+#define ENABLE_FLEXSEA_BUF_2				//RS-485 #2
+#define ENABLE_FLEXSEA_BUF_3				//SPI
+//#define ENABLE_FLEXSEA_BUF_4				//USB
 
 //Overload buffer & function names (for user convenience):
 
@@ -80,18 +83,18 @@ void flexsea_prepare_spi_tx_buffer(uint8_t base_addr);
 #define update_rx_buf_array_spi		update_rx_buf_array_3
 
 /*
-#define comm_str_usb				comm_str_4
-#define unpack_payload_usb			unpack_payload_4
-#define rx_command_usb				rx_command_4
-#define update_rx_buf_byte_usb		update_rx_buf_byte_4
-#define update_rx_buf_array_usb		update_rx_buf_array_4
-*/
+ #define comm_str_usb				comm_str_4
+ #define unpack_payload_usb			unpack_payload_4
+ #define rx_command_usb				rx_command_4
+ #define update_rx_buf_byte_usb		update_rx_buf_byte_4
+ #define update_rx_buf_array_usb	update_rx_buf_array_4
+ */
 
 //Communication ports:
-#define PORT_RS485_1					0
-#define PORT_RS485_2					1
-#define PORT_SPI						2
-#define PORT_USB						3
+#define PORT_RS485_1				0
+#define PORT_RS485_2				1
+#define PORT_SPI					2
+#define PORT_USB					3
 
 //===============
 //</FlexSEA User>
@@ -113,3 +116,4 @@ extern uint8_t bytes_ready_spi;
 extern uint8_t cmd_ready_spi;
 
 #endif	//INC_FLEXSEA_BOARD_H
+
