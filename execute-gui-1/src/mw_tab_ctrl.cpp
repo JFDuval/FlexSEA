@@ -70,7 +70,15 @@ void MainWindow::on_pushButton_setp_a_go_clicked()
 {
     int val = 0;
     val = ui->control_setp_a->text().toInt();
-    ctrl_setpoint = val;
+
+    ctrl_setpoint = ui->control_setp_a->text().toInt();
+    trap_posi = exec1.encoder;
+    trap_posf = ui->control_setp_a->text().toInt();
+    trap_pos = ctrl_setpoint;
+
+    trap_spd = ui->control_trapeze_spd->text().toInt();
+    trap_acc = ui->control_trapeze_acc->text().toInt();
+
     controller_setpoint(val);
 }
 
@@ -78,7 +86,15 @@ void MainWindow::on_pushButton_setp_b_go_clicked()
 {
     int val = 0;
     val = ui->control_setp_b->text().toInt();
-    ctrl_setpoint = val;
+
+    ctrl_setpoint = ui->control_setp_b->text().toInt();
+    trap_posi = exec1.encoder;
+    trap_posf = ui->control_setp_b->text().toInt();
+    trap_pos = ctrl_setpoint;
+
+    trap_spd = ui->control_trapeze_spd->text().toInt();
+    trap_acc = ui->control_trapeze_acc->text().toInt();
+
     controller_setpoint(val);
 }
 
@@ -164,6 +180,10 @@ void MainWindow::on_hSlider_Ctrl_valueChanged(int value)
     val = ui->hSlider_Ctrl->value();
     ctrl_setpoint = val;
 
+    //When we move the slider we do not use trapeze, we just "slip" the setpoint
+    trap_pos = val;
+    trap_posi = val;
+    trap_posf = val;
     controller_setpoint(val);
 
     //Wait 2ms to avoid sending a million packets when we move the slider
@@ -185,7 +205,8 @@ void MainWindow::controller_setpoint(int val)
             break;
         case 2: //Position
             valid = 1;
-            numb = tx_cmd_ctrl_p(FLEXSEA_EXECUTE_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, val, val, val, 100, 100);
+            numb = tx_cmd_ctrl_p(FLEXSEA_EXECUTE_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, trap_pos, trap_posi, trap_posf, trap_spd, trap_acc);
+            qDebug() << "posi = " << trap_posi << ", posf = " << trap_posf << ", spd = " << trap_spd << ", trap_acc = " << trap_acc;
              break;
         case 3: //Current
             valid = 1;
@@ -259,13 +280,42 @@ void MainWindow::timerCtrlEvent(void)
     if(toggle_output_state)
     {
         ctrl_setpoint = ui->control_setp_a->text().toInt();
+        trap_posi = ui->control_setp_b->text().toInt();
+        trap_posf = ui->control_setp_a->text().toInt();
+        trap_pos = ctrl_setpoint;
+
         timer_ctrl->setInterval(ui->control_toggle_delayA->text().toInt());
     }
     else
     {
         ctrl_setpoint = ui->control_setp_b->text().toInt();
+        trap_posi = ui->control_setp_a->text().toInt();
+        trap_posf = ui->control_setp_b->text().toInt();
+        trap_pos = ctrl_setpoint;
+
         timer_ctrl->setInterval(ui->control_toggle_delayB->text().toInt());
     }
 
+    trap_spd = ui->control_trapeze_spd->text().toInt();
+    trap_acc = ui->control_trapeze_acc->text().toInt();
+
     controller_setpoint(ctrl_setpoint);
+}
+
+void MainWindow::on_ctrl_encoder_zero_clicked()
+{
+    int numb = 0;
+
+    qDebug("Zeroing encoder... (No call made yet)");
+
+    //numb = tx_cmd_encoder(FLEXSEA_EXECUTE_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, 0);
+
+    //Common for all gain functions:
+    numb = comm_gen_str(payload_str, comm_str_usb, PAYLOAD_BUF_LEN);
+    numb = COMM_STR_BUF_LEN;
+    USBSerialPort_Write(numb, comm_str_usb);
+
+    //Can we decode what we received?
+    //USBSerialPort_Read(usb_rx);
+    //decode_usb_rx(usb_rx);
 }

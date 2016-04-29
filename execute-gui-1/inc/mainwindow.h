@@ -112,6 +112,7 @@ private:
 
     //Control:
     int wanted_controller = 0, selected_controller = 0, active_controller = 0;
+    int trap_pos = 0, trap_posi = 0, trap_posf = 0, trap_spd = 0, trap_acc = 0;
     int ctrl_setpoint = 0;
     int ctrl_toggle_state = 0;
     void controller_setpoint(int val);
@@ -161,6 +162,8 @@ private slots:
     void on_pushButton_toggle_clicked();
 
     void on_pushButton_ext_pwro_clicked();
+
+    void on_ctrl_encoder_zero_clicked();
 
 private:
     Ui::MainWindow *ui;
