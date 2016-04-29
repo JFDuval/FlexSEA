@@ -31,6 +31,9 @@ extern void init_systick_timer(void);
 
 extern void timer_sleep (timer_ticks_t ticks);
 
+void init_timer_7(void);
+void timer_tick (void);
+
 // ----------------------------------------------------------------------------
 
 #endif // TIMER_H_

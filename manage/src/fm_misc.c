@@ -32,7 +32,8 @@ void init_peripherals(void)
 	HAL_Delay(100);
 
 	//Hardware modules:
-	init_systick_timer();		//SysTick timer (10kHz)
+	init_systick_timer();		//SysTick timer (1kHz)
+	init_timer_7();				//10kHz timebase
 	init_usart1(2000000);		//USART1 (RS-485 #1)
 	init_usart6(2000000);		//USART6 (RS-485 #2)
 	init_rs485_outputs();
@@ -49,7 +50,9 @@ void init_peripherals(void)
 	init_pwr_out();
 
 	//USB
+	#ifdef USE_USB
 	MX_USB_DEVICE_Init();
+	#endif	//USE_USB
 
 	//Software:
 	init_master_slave_comm();

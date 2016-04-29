@@ -23,12 +23,17 @@ volatile uint8_t systick_10ms_flag = 0;
 volatile uint8_t systick_100ms_flag = 0;
 volatile uint8_t systick_1000ms_flag = 0;
 
+TIM_HandleTypeDef htim7;
+
+//Private fct proto:
+void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base);
+void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base);
+
 // ----------------------------------------------------------------------------
 
 void init_systick_timer(void)
 {
   HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);	//Theirs
-  //HAL_SYSTICK_Config(SystemCoreClock / TIMER_FREQUENCY_HZ);	//My 10kHz fct
   HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
   // SysTick_IRQn interrupt configuration
   HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
@@ -39,8 +44,7 @@ void timer_sleep (timer_ticks_t ticks)
   timer_delayCount = ticks;
 
   // Busy wait until the SysTick decrements the counter to zero.
-  while (timer_delayCount != 0u)
-    ;
+  while (timer_delayCount != 0u);
 }
 
 //System Timer:
@@ -86,19 +90,19 @@ void timer_tick (void)
 		systick_1000ms_flag = 1;
 	}	
 
-  // Decrement to zero the counter used by the delay routine.
-  if (timer_delayCount != 0u)
-    {
-      --timer_delayCount;
-    }
+
 }
 
 // ----- SysTick_Handler() ----------------------------------------------------
 
+//Move to IT ToDo**
 void SysTick_Handler (void)
 {
-	//FlexSEA timebase:
-	timer_tick ();
+  // Decrement to zero the counter used by the delay routine.
+	if(timer_delayCount != 0u)
+	{
+	  --timer_delayCount;
+	}
 
 	//For USB delays:
 	HAL_IncTick();
@@ -106,3 +110,58 @@ void SysTick_Handler (void)
 }
 
 // ----------------------------------------------------------------------------
+
+//Timer 7: 10kHz timebase
+void init_timer_7(void)
+{
+	TIM_MasterConfigTypeDef sMasterConfig;
+
+	htim7.Instance = TIM7;
+	htim7.Init.Prescaler = 0;
+	htim7.Init.CounterMode = TIM_COUNTERMODE_UP;
+	htim7.Init.Period = 4200;
+	HAL_TIM_Base_Init(&htim7);
+
+	sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+	sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+	HAL_TIMEx_MasterConfigSynchronization(&htim7, &sMasterConfig);
+
+	HAL_TIM_Base_Start_IT(&htim7);
+}
+
+void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* htim_base)
+{
+  if(htim_base->Instance==TIM7)
+  {
+  /* USER CODE BEGIN TIM7_MspInit 0 */
+
+  /* USER CODE END TIM7_MspInit 0 */
+    /* Peripheral clock enable */
+    __TIM7_CLK_ENABLE();
+  /* Peripheral interrupt init*/
+    HAL_NVIC_SetPriority(TIM7_IRQn, 2, 2);
+    HAL_NVIC_EnableIRQ(TIM7_IRQn);
+  /* USER CODE BEGIN TIM7_MspInit 1 */
+
+  /* USER CODE END TIM7_MspInit 1 */
+  }
+
+}
+
+void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* htim_base)
+{
+
+  if(htim_base->Instance==TIM7)
+  {
+  /* USER CODE BEGIN TIM7_MspDeInit 0 */
+
+  /* USER CODE END TIM7_MspDeInit 0 */
+    /* Peripheral clock disable */
+    __TIM7_CLK_DISABLE();
+
+    /* Peripheral interrupt DeInit*/
+    HAL_NVIC_DisableIRQ(TIM7_IRQn);
+
+  }
+
+}

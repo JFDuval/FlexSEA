@@ -24,6 +24,7 @@
 #include "stm32f4xx_hal_adc.h"
 #include "stm32f4xx_hal_dma.h"
 #include "stm32f4xx_hal_spi.h"
+#include "stm32f4xx_hal_tim.h"
 #include "fm_master_slave_comm.h"
 #include "fm_timer.h"
 #include "fm_misc.h"
@@ -52,5 +53,7 @@ int usbtx(void);
 // Definition(s):
 //****************************************************************************
 
+//Enable/disable sub-modules:
+#define	USE_USB
 
 #endif // MAIN_H_

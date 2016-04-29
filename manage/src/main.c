@@ -83,7 +83,7 @@ int main(void)
 				case 0:
 					slave_comm_trig = 1;
 
-					test_comm_rw_master_v2(systick_100us_timeshare);
+					//test_comm_rw_master_v2(systick_100us_timeshare);
 
 					break;
 
@@ -153,7 +153,7 @@ int main(void)
 						new_cmd_led = 0;
 					}
 
-					test_comm_rw_master_v2(systick_100us_timeshare);
+					//test_comm_rw_master_v2(systick_100us_timeshare);
 
 					break;
 
@@ -196,7 +196,9 @@ int main(void)
 			toggle_led0 ^= 1;
 			LED0(toggle_led0);
 
+			#ifdef USE_USB
 			usbtx();
+			#endif	//USE_USB
 
 		}
 
@@ -214,7 +216,7 @@ int usbtx(void)
 	static int toggle_led1 = 0;
 	static int status = 0;
 
-	if(delayed_start < 5)
+	if(delayed_start < 100)
 	{
 		delayed_start ++;
 		return -1;
