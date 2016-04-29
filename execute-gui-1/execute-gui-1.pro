@@ -44,7 +44,8 @@ SOURCES += src/main.cpp \
     src/flexsea_board.c \
     ../flexsea-system/src/flexsea_cmd_data.c \
     src/mw_tab_ctrl.cpp \
-    src/mw_tab_ext.cpp
+    src/mw_tab_ext.cpp \
+    tabwidget.cpp
 
 HEADERS  += inc/mainwindow.h \
     inc/qcustomplot.h \
@@ -67,7 +68,8 @@ HEADERS  += inc/mainwindow.h \
     ../flexsea-system/inc/flexsea_cmd_sensors.h \
     ../flexsea-system/inc/flexsea_system.h \
     inc/flexsea_board.h \
-    ../flexsea-system/inc/flexsea_cmd_data.h
+    ../flexsea-system/inc/flexsea_cmd_data.h \
+    tabwidget.h
 
 CONFIG(debug, debug|release) {
     DESTDIR = build/debug
@@ -83,4 +85,5 @@ UI_DIR = $$DESTDIR/.u
 
 #QMAKE_LFLAGS += -Xlinker -Bstatic
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    tabwidget.ui

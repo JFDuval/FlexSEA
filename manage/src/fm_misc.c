@@ -16,6 +16,7 @@
 #include "main.h"
 #include "fm_misc.h"
 #include "usb_device.h"
+#include "usbd_cdc_if.h"
 
 //****************************************************************************
 // Variable(s)
@@ -57,9 +58,9 @@ void init_peripherals(void)
 	init_pwr_out();
 
 	//USB
-#ifdef USE_USB
+	#ifdef USE_USB
 	MX_USB_DEVICE_Init();
-#endif	//USE_USB
+	#endif	//USE_USB
 
 	//Software:
 	init_master_slave_comm();
@@ -219,8 +220,9 @@ int usbtx(void)
 	static int delayed_start = 0;
 	static int toggle_led1 = 0;
 	static int status = 0;
+	uint8_t usb_bytes = 0;
 
-	if(delayed_start < 100)
+	if(delayed_start < 10)
 	{
 		delayed_start++;
 		return -1;
@@ -228,7 +230,7 @@ int usbtx(void)
 	else
 	{
 		//USB transmit test:
-		status = CDC_Transmit_FS(usb_test_string, 3);
+		status = CDC_Transmit_FS(usb_test_string, 25);
 
 		if(status == USBD_BUSY)
 		{
@@ -245,6 +247,20 @@ int usbtx(void)
 		}
 
 		return status;
+	}
+
+
+	//USB data available?
+	usb_bytes = usb_bytes_available();
+	if(usb_bytes > 10)
+	{
+		//Byte(s) ready, get it/them
+
+		LED1(1);
+	}
+	else
+	{
+		LED1(0);
 	}
 
 	return -2;

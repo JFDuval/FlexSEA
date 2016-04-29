@@ -37,6 +37,9 @@ int main(void)
 	uint8_t slave_comm_trig = 0;
 	uint8_t xmit_toggle = 0;
 	int delay = 0;
+	uint32_t usb_bytes = 0;
+	uint8_t test_rx[48];
+	uint32_t len = 1;
 
 	//Initialize all the peripherals
 	init_peripherals();
@@ -192,17 +195,21 @@ int main(void)
 			//Constant LED0 flashing while the code runs
 			toggle_led0 ^= 1;
 			LED0(toggle_led0);
-
-			#ifdef USE_USB
-			usbtx();
-			#endif	//USE_USB
-
 		}
 
 		//1000ms
 		if(tb_1000ms_flag)
 		{
 			tb_1000ms_flag = 0;
+
+			#ifdef USE_USB
+			usbtx();
+			#endif	//USE_USB
+
+
+
+			//CDC_Receive_FS(test_rx, &len);
+
 		}
 	}
 }

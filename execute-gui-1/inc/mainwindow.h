@@ -176,6 +176,23 @@ private:
     Ui::MainWindow *ui;
 };
 
+//Experimental: TabWidget class
+class MainWindowTabWidget : public QTabWidget
+{
+    Q_OBJECT
+
+public:
+    MainWindowTabWidget(QWidget *parent = 0);
+
+
+public slots:
+
+
+signals:
+
+private:
+
+};
 
 
 #endif // MAINWINDOW_H
