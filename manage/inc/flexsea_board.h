@@ -60,7 +60,7 @@ void flexsea_prepare_spi_tx_buffer(uint8_t base_addr);
 #define ENABLE_FLEXSEA_BUF_1				//RS-485 #1
 #define ENABLE_FLEXSEA_BUF_2				//RS-485 #2
 #define ENABLE_FLEXSEA_BUF_3				//SPI
-//#define ENABLE_FLEXSEA_BUF_4				//USB
+#define ENABLE_FLEXSEA_BUF_4				//USB
 
 //Overload buffer & function names (for user convenience):
 
@@ -82,13 +82,11 @@ void flexsea_prepare_spi_tx_buffer(uint8_t base_addr);
 #define update_rx_buf_byte_spi		update_rx_buf_byte_3
 #define update_rx_buf_array_spi		update_rx_buf_array_3
 
-/*
  #define comm_str_usb				comm_str_4
  #define unpack_payload_usb			unpack_payload_4
  #define rx_command_usb				rx_command_4
  #define update_rx_buf_byte_usb		update_rx_buf_byte_4
  #define update_rx_buf_array_usb	update_rx_buf_array_4
- */
 
 //Communication ports:
 #define PORT_RS485_1				0

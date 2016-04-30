@@ -250,7 +250,7 @@ static void update_rx_buf_3(uint8_t byte_array, uint8_t new_byte, uint8_t *new_a
 
 //Wraps update_rx_buf_byte()/update_rx_buf_array() for buffer #4. Keeps track of the index.
 //Do not use directly, call update_rx_buf_byte_4() or update_rx_buf_array_4()
-static void update_rx_buf_usb(uint8_t byte_array, uint8_t new_byte, uint8_t *new_array, uint32_t len)
+static void update_rx_buf_4(uint8_t byte_array, uint8_t new_byte, uint8_t *new_array, uint32_t len)
 {
 	static uint32_t idx_4 = 0;
 

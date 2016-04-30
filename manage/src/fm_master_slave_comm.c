@@ -25,7 +25,6 @@
 
 #include "main.h"
 #include "fm_master_slave_comm.h"
-#include "flexsea_comm.h"
 
 //****************************************************************************
 // Variable(s)

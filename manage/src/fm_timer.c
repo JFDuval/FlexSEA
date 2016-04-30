@@ -13,9 +13,8 @@
 // Include(s)
 //****************************************************************************
 
-#include "fm_timer.h"
-#include "cortexm/ExceptionHandlers.h"
 #include "main.h"
+#include "fm_timer.h"
 
 //****************************************************************************
 // Variable(s)

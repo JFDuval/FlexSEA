@@ -31,6 +31,7 @@ int main(void)
 {
 	//Variables:
 	unsigned char toggle_led0 = 0, toggle_led1 = 0;
+	uint8_t cmd_ready_usb = 0;
 	unsigned char test_payload[PAYLOAD_BUF_LEN];
 	int tx_byte = 0, commstrlen = 0;
 	uint8_t new_cmd_led = 0;
@@ -169,6 +170,21 @@ int main(void)
 			//Master-Slave communications
 			slave_comm(&slave_comm_trig);
 
+			//USB byte input
+			#ifdef USE_USB
+
+			//(Bytes received by ISR)
+
+			if(data_ready_usb)
+			{
+				data_ready_usb = 0;
+				//Got new data in, try to decode
+				cmd_ready_usb = unpack_payload_usb();
+			}
+
+			#endif	//USE_USB
+
+
 			//END - 10kHz Refresh
 		}
 
@@ -205,11 +221,6 @@ int main(void)
 			#ifdef USE_USB
 			usbtx();
 			#endif	//USE_USB
-
-
-
-			//CDC_Receive_FS(test_rx, &len);
-
 		}
 	}
 }

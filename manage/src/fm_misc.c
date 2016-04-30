@@ -15,8 +15,6 @@
 
 #include "main.h"
 #include "fm_misc.h"
-#include "usb_device.h"
-#include "usbd_cdc_if.h"
 
 //****************************************************************************
 // Variable(s)

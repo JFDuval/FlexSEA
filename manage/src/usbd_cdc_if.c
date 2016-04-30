@@ -32,12 +32,11 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_cdc_if.h"
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include "main.h"
 
 int usb_bytes_received = 0;
 uint8_t usb_user_rx_buf[100];
+volatile uint8_t data_ready_usb = 0;
 
 /* USER CODE BEGIN INCLUDE */
 /* USER CODE END INCLUDE */
@@ -269,6 +268,12 @@ static int8_t CDC_Receive_FS (uint8_t* Buf, uint32_t *Len)
 	USBD_CDC_SetRxBuffer(hUsbDevice_0, UserRxBufferFS);
 	USBD_CDC_ReceivePacket(hUsbDevice_0);
 
+	//Copy incoming bytes to FlexSEA reception buffer
+	usb_bytes_received = (*Len);
+	update_rx_buf_array_usb(UserRxBufferFS, usb_bytes_received);
+	data_ready_usb++;
+
+	/*
 	usb_bytes_received += (*Len);
 
 	for(i = 0; i < usb_bytes_received; i++)
@@ -279,6 +284,7 @@ static int8_t CDC_Receive_FS (uint8_t* Buf, uint32_t *Len)
 			usb_user_rx_buf[i] = UserRxBufferFS[i];
 		}
 	}
+	*/
 
   return (USBD_OK);
   /* USER CODE END 6 */ 
