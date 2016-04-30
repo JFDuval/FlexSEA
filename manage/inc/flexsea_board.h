@@ -112,6 +112,7 @@ extern uint8_t board_sub2_id[SLAVE_BUS_2_CNT];
 
 extern uint8_t bytes_ready_spi;
 extern uint8_t cmd_ready_spi;
+extern uint8_t cmd_ready_usb;
 
 #endif	//INC_FLEXSEA_BOARD_H
 

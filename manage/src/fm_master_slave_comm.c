@@ -31,6 +31,7 @@
 //****************************************************************************
 
 uint8_t tmp_rx_command_spi[PAYLOAD_BUF_LEN];
+uint8_t tmp_rx_command_usb[PAYLOAD_BUF_LEN];
 uint8_t tmp_rx_command_485_1[PAYLOAD_BUF_LEN];
 uint8_t tmp_rx_command_485_2[PAYLOAD_BUF_LEN];
 
@@ -105,6 +106,23 @@ void parse_master_slave_commands(uint8_t *new_cmd)
 		}
 		// parse the command and execute it
 		payload_parse_str(tmp_rx_command_spi);
+
+		//LED:
+		*new_cmd = 1;
+	}
+
+	//Valid communication from USB?
+	if(cmd_ready_usb != 0)
+	{
+		cmd_ready_usb = 0;
+
+		//Cheap trick to get first line	//ToDo: support more than 1
+		for(i = 0; i < PAYLOAD_BUF_LEN; i++)
+		{
+			tmp_rx_command_usb[i] = rx_command_usb[0][i];
+		}
+		// parse the command and execute it
+		payload_parse_str(tmp_rx_command_usb);
 
 		//LED:
 		*new_cmd = 1;
