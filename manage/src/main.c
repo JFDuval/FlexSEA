@@ -203,7 +203,8 @@ int main(void)
 			tb_1000ms_flag = 0;
 
 			#ifdef USE_USB
-			usbtx();
+			//Test code ToDo remove
+			//usbtx();
 			#endif	//USE_USB
 		}
 	}

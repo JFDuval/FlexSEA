@@ -73,7 +73,10 @@ void flexsea_send_serial_slave(unsigned char port, unsigned char *str, unsigned 
 
 void flexsea_send_serial_master(unsigned char port, unsigned char *str, unsigned char length)
 {
-	// Everything is done "automatically"
+	if(port == PORT_USB)
+	{
+		CDC_Transmit_FS(str, length);
+	}
 }
 
 //Fill the buffer with 0s

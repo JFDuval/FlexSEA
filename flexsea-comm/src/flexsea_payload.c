@@ -540,23 +540,18 @@ unsigned int payload_parse_str(unsigned char *cp_str)
     else if(id == ID_UP_MATCH)
     {
         //For my master:
-
-		//Nothing for now, as we have a flat network structure. Leaving the code below
-		//as an example for future systems:
 		
-		/*
 		#ifdef BOARD_TYPE_FLEXSEA_MANAGE
 
     	//Manage is the only board that can receive a package destined to his master
 
         //Repackages the payload. ToDo: would be more efficient to just resend the comm_str
-        numb = comm_gen_str(cp_str, comm_str_spi, PAYLOAD_BUF_LEN);
+        numb = comm_gen_str(cp_str, comm_str_usb, PAYLOAD_BUF_LEN);		//ToDo: shouldn't be fixed at spi or usb
         numb = COMM_STR_BUF_LEN;    //Fixed length for now
-        //flexsea_send_serial_master(0, comm_str, numb);
+        flexsea_send_serial_master(PORT_USB, comm_str_usb, numb);	//Same comment here - ToDo fix
         //(the SPI driver will grab comm_str_spi directly)
 
 		#endif	//BOARD_TYPE_FLEXSEA_MANAGE
-		*/
     }
     else
     {
@@ -570,9 +565,6 @@ unsigned int payload_parse_str(unsigned char *cp_str)
 //****************************************************************************
 // Private Function(s):
 //****************************************************************************
-
-//Nothing for now, as we have a flat network structure. Leaving the code below
-//as an example for future systems:
 
 //ToDo not the greatest function...
 static void route_to_slave(uint8_t port, uint8_t *buf, uint32_t len)
