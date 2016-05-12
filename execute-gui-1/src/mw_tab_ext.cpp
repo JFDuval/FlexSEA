@@ -56,3 +56,9 @@ void MainWindow::on_pushButton_ext_pwro_clicked()
     //decode_usb_rx(usb_rx);
 
 }
+
+//MinM RGB color list
+void MainWindow::on_comboBox_minm_rgb_currentIndexChanged(int index)
+{
+
+}

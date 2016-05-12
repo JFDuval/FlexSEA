@@ -183,6 +183,8 @@ private slots:
 
     void on_stream_SA_RefreshOffset_clicked();
 
+    void on_comboBox_minm_rgb_currentIndexChanged(int index);
+
 private:
     Ui::MainWindow *ui;
 };
