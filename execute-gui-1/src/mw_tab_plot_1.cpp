@@ -256,7 +256,10 @@ void MainWindow::timerPlotEvent(void)
                 update_graph_array(index, 0);
                 break;
             case 1: //"Accel X"
-                update_graph_array(index, exec1.accel.x);
+                if(active_slave_1 == FLEXSEA_STRAIN_1)  //ToDo dirty integration, fix!
+                    update_graph_array(index, strain[0].strain_filtered);
+                else
+                    update_graph_array(index, exec1.accel.x);
                 break;
             case 2: //"Accel Y"
                 update_graph_array(index, exec1.accel.y);

@@ -49,7 +49,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //=================
 
     //Variable option lists:
-    var_list_slaves << "Execute 1" << "Execute 2" << "Execute 3" << "Execute 4" << "Manage 1";
+    var_list_slaves << "Execute 1" << "Execute 2" << "Execute 3" << "Execute 4" << "Manage 1" << "Strain Amp 1";
     for(int index = 0; index < var_list_slaves.count(); index++)
     {
         ui->SlaveSelectComboBox->addItem(var_list_slaves.at(index));
@@ -60,6 +60,7 @@ MainWindow::MainWindow(QWidget *parent) :
     list_to_slave[2] = FLEXSEA_EXECUTE_3;
     list_to_slave[3] = FLEXSEA_EXECUTE_4;
     list_to_slave[4] = FLEXSEA_MANAGE_1;
+    list_to_slave[5] = FLEXSEA_STRAIN_1;
     active_slave_1_index = ui->SlaveSelectComboBox->currentIndex();
     active_slave_1 = list_to_slave[active_slave_1_index];
     qDebug() << "Selected slave is" << var_list_slaves.at(active_slave_1_index);

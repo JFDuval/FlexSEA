@@ -26,7 +26,7 @@ unsigned char manage_1_data[SLAVE_READ_BUFFER_LEN];
 
 struct execute_s exec1, exec2, exec3, exec4;
 struct manage_s manag1;
-struct strain_s strain[STRAIN_CHANNELS];
+struct strain_s strain[6];
 
 #endif	//BOARD_TYPE_FLEXSEA_MANAGE
 

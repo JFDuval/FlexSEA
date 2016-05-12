@@ -466,7 +466,7 @@ struct strain_s
 
 extern struct execute_s exec1, exec2, exec3, exec4;
 extern struct manage_s manag1;
-struct strain_s strain[STRAIN_CHANNELS];
+extern struct strain_s strain[6];
 
 #endif	//defined(BOARD_TYPE_FLEXSEA_MANAGE) || defined(BOARD_TYPE_FLEXSEA_PLAN)
 

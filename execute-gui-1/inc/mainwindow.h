@@ -32,7 +32,7 @@
 
 #define STREAM_MIN_FREQ         1
 #define STREAM_MAX_FREQ         1000
-#define STREAM_DEFAULT_FREQ     25
+#define STREAM_DEFAULT_FREQ     35
 
 //PSoC 4 ADC conversions:
 #define P4_ADC_SUPPLY           5.0

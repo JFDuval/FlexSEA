@@ -49,13 +49,15 @@ void MainWindow::timerStreamEvent(void)
 
         int numb = 0;
 
-        /*
-        //Special1 command to test the ShuoBot Exo
-
-        numb = tx_cmd_ctrl_special_1(active_slave_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
-                                        KEEP, 0, KEEP, 0, 0, exp_pwm);
-        */
-        numb = tx_cmd_data_read_all(active_slave_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN); //New Read All function
+        //ToDo: dirty integration of the strain amp. Re do!
+        if(active_slave_1 == FLEXSEA_STRAIN_1)
+        {
+            numb = tx_cmd_strain(active_slave_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN);
+        }
+        else
+        {
+            numb = tx_cmd_data_read_all(active_slave_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN); //New Read All function
+        }
 
         numb = comm_gen_str(payload_str, comm_str_usb, PAYLOAD_BUF_LEN);
         numb = COMM_STR_BUF_LEN;
@@ -69,12 +71,26 @@ void MainWindow::timerStreamEvent(void)
 
         //Raw values:
 
-        ui->disp_accx->setText(QString::number(exec1.accel.x));
-        ui->disp_accy->setText(QString::number(exec1.accel.y));
-        ui->disp_accz->setText(QString::number(exec1.accel.z));
-        ui->disp_gyrox->setText(QString::number(exec1.gyro.x));
-        ui->disp_gyroy->setText(QString::number(exec1.gyro.y));
-        ui->disp_gyroz->setText(QString::number(exec1.gyro.z));
+        //ToDo: dirty integration of the strain amp. Re do!
+        if(active_slave_1 == FLEXSEA_STRAIN_1)
+        {
+            //For now we overload these fields...
+            ui->disp_accx->setText(QString::number(strain[0].strain_filtered));
+            ui->disp_accy->setText(QString::number(strain[1].strain_filtered));
+            ui->disp_accz->setText(QString::number(strain[2].strain_filtered));
+            ui->disp_gyrox->setText(QString::number(strain[3].strain_filtered));
+            ui->disp_gyroy->setText(QString::number(strain[4].strain_filtered));
+            ui->disp_gyroz->setText(QString::number(strain[5].strain_filtered));
+        }
+        else
+        {
+            ui->disp_accx->setText(QString::number(exec1.accel.x));
+            ui->disp_accy->setText(QString::number(exec1.accel.y));
+            ui->disp_accz->setText(QString::number(exec1.accel.z));
+            ui->disp_gyrox->setText(QString::number(exec1.gyro.x));
+            ui->disp_gyroy->setText(QString::number(exec1.gyro.y));
+            ui->disp_gyroz->setText(QString::number(exec1.gyro.z));
+        }
 
         ui->disp_enc->setText(QString::number(exec1.encoder));
         ui->disp_meas_val->setText(QString::number(exec1.encoder)); //ToDo should be done in Ctrl, not here
