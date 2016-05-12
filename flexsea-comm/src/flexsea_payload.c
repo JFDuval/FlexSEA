@@ -571,6 +571,8 @@ static void route_to_slave(uint8_t port, uint8_t *buf, uint32_t len)
 {
 	uint32_t numb = 0, i = 0;
 	uint8_t *comm_str_ptr = slaves_485_1.xmit.str;
+	
+	#ifdef BOARD_TYPE_FLEXSEA_MANAGE
 
     //Repackages the payload. ToDo: would be more efficient to just resend the comm_str
     numb = comm_gen_str(buf, comm_str_tmp, len);
@@ -595,6 +597,8 @@ static void route_to_slave(uint8_t port, uint8_t *buf, uint32_t len)
     {
     	comm_str_ptr[i] = comm_str_tmp[i];
     }
+	
+	#endif 	//BOARD_TYPE_FLEXSEA_MANAGE
 }
 
 //Is it addressed to me? To a board "below" me? Or to my Master?

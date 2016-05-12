@@ -34,6 +34,11 @@ extern "C" {
 #include "main.h"
 #endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
+//Strain Amplifier boards only:
+#ifdef BOARD_TYPE_FLEXSEA_STRAIN_AMP
+#include "main.h"
+#endif	//BOARD_TYPE_FLEXSEA_STRAIN_AMP
+
 //****************************************************************************
 // Variable(s)
 //****************************************************************************
@@ -234,6 +239,142 @@ void rx_cmd_encoder(uint8_t *buf)
 			encoder_write(tmp);
 
 			#endif
+
+		}
+	}
+}
+
+//Transmission of a STRAIN command.
+//ToDo: add support for gains & offsets
+uint32_t tx_cmd_strain(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len)
+{
+	uint32_t bytes = 0;
+	uint8_t tmp0 = 0, tmp1 = 0, tmp2 = 0, tmp3 = 0;
+
+	//Fresh payload string:
+	prepare_empty_payload(board_id, receiver, buf, len);
+
+	//Command:
+	buf[P_CMDS] = 1;                     //1 command in string
+
+	if(cmd_type == CMD_READ)
+	{
+		buf[P_CMD1] = CMD_R(CMD_STRAIN);
+
+		//Arguments:
+		//(none)
+
+		bytes = P_CMD1 + 1;     //Bytes is always last+1
+	}
+	else if(cmd_type == CMD_WRITE)
+	{
+		buf[P_CMD1] = CMD_W(CMD_STRAIN);
+
+		//ToDo gains & offsets
+		
+		#ifdef BOARD_TYPE_FLEXSEA_STRAIN_AMP
+			
+		//Arguments:	
+		uint16_to_bytes((uint16_t)strain[0].strain_filtered, &tmp0, &tmp1);		
+		buf[P_DATA1 + 0] = tmp0;
+		buf[P_DATA1 + 1] = tmp1;
+		uint16_to_bytes((uint16_t)strain[1].strain_filtered, &tmp0, &tmp1);
+		buf[P_DATA1 + 2] = tmp0;
+		buf[P_DATA1 + 3] = tmp1;
+		uint16_to_bytes((uint16_t)strain[2].strain_filtered, &tmp0, &tmp1);
+		buf[P_DATA1 + 4] = tmp0;
+		buf[P_DATA1 + 5] = tmp1;
+		uint16_to_bytes((uint16_t)strain[3].strain_filtered, &tmp0, &tmp1);
+		buf[P_DATA1 + 6] = tmp0;
+		buf[P_DATA1 + 7] = tmp1;
+		uint16_to_bytes((uint16_t)strain[4].strain_filtered, &tmp0, &tmp1);
+		buf[P_DATA1 + 8] = tmp0;
+		buf[P_DATA1 + 9] = tmp1;
+		uint16_to_bytes((uint16_t)strain[5].strain_filtered, &tmp0, &tmp1);
+		buf[P_DATA1 + 10] = tmp0;
+		buf[P_DATA1 + 11] = tmp1;
+		
+		#endif 	//BOARD_TYPE_FLEXSEA_STRAIN_AMP
+
+		bytes = P_DATA1 + 12;     //Bytes is always last+1
+	}
+	else
+	{
+		//Invalid
+		flexsea_error(SE_INVALID_READ_TYPE);
+		bytes = 0;
+	}
+
+	return bytes;
+}
+
+//Reception of a STRAIN command
+void rx_cmd_strain(uint8_t *buf)
+{
+	uint32_t numb = 0;
+	int32_t tmp = 0;
+
+	if(IS_CMD_RW(buf[P_CMD1]) == READ)
+	{
+		//Received a Read command from our master.
+
+		#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+
+		//Generate the reply:
+		//===================
+
+		//ToDo...
+
+		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+		
+		#ifdef BOARD_TYPE_FLEXSEA_STRAIN_AMP
+			
+		//Generate the reply:
+		//===================
+
+		numb = tx_cmd_strain(buf[P_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN);
+		numb = comm_gen_str(tmp_payload_xmit, comm_str_485, numb);
+		numb = COMM_STR_BUF_LEN;    //Fixed length for now
+		//rs485_puts(comm_str_485, numb);	
+		
+		#ifdef USE_USB
+		usb_puts(comm_str_485, (numb));	
+		#endif
+			
+		#endif 	//BOARD_TYPE_FLEXSEA_STRAIN_AMP
+	}
+	else if(IS_CMD_RW(buf[P_CMD1]) == WRITE)
+	{
+		//Two options: from Master of from slave (a read reply)
+
+		if(sent_from_a_slave(buf))
+		{
+			//We received a reply to our read request
+
+			tmp = (int32_t)BYTES_TO_UINT16(buf[P_DATA1], buf[P_DATA1+1]);	//First value
+			//ToDo get all channels, and do something
+
+			#ifdef BOARD_TYPE_FLEXSEA_PLAN
+
+			_USE_PRINTF("Encoder = %i.\n", tmp);
+
+			#endif	//BOARD_TYPE_FLEXSEA_PLAN
+		}
+		else
+		{
+			//Master is writing a value to this board
+
+			#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+
+			encoder_write(tmp);
+
+			#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+			
+			#ifdef BOARD_TYPE_FLEXSEA_STRAIN_AMP
+
+			//ToDo
+
+			#endif	//BOARD_TYPE_FLEXSEA_STRAIN_AMP
 
 		}
 	}

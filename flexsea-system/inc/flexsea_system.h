@@ -68,6 +68,10 @@ uint32_t tx_cmd_ctrl_special_4(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 								int16_t current1, int16_t open_spd1, \
 								uint8_t controller_w2, uint8_t controller2, uint8_t encoder_w2, int32_t encoder2, \
 								int16_t current2, int16_t open_spd2);
+
+//Sensors:
+uint32_t tx_cmd_encoder(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, int32_t enc);
+uint32_t tx_cmd_strain(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len);
 								
 //Overload default function names for this specific system:
 //=========================================================
@@ -97,6 +101,10 @@ uint32_t tx_cmd_ctrl_special_4(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 #define rx_cmd_special_2		flexsea_payload_101
 #define rx_cmd_special_3		flexsea_payload_102
 #define rx_cmd_special_4		flexsea_payload_120
+
+//Sensors:
+#define rx_cmd_encoder			flexsea_payload_43	
+#define rx_cmd_strain			flexsea_payload_44
 
 //Redefine weak functions from flexsea_payload:
 //=============================================
@@ -311,7 +319,7 @@ void flexsea_payload_127(uint8_t *buf);
 #define CMD_CTRL_O						85
 #define CMD_CTRL_I						86
 #define CMD_CTRL_P						87
-#define ShORTED_LEADS					88
+#define SHORTED_LEADS					88
 
 //Special commands:
 
@@ -327,6 +335,7 @@ void flexsea_payload_127(uint8_t *buf);
 #define FLEXSEA_MANAGE              	2
 #define FLEXSEA_EXECUTE             	3
 #define FLEXSEA_BATTERY					4
+#define FLEXSEA_STRAIN					5
 
 //Board addresses:
 #define FLEXSEA_DEFAULT             	0
@@ -340,8 +349,10 @@ void flexsea_payload_127(uint8_t *buf);
 #define FLEXSEA_EXECUTE_2           	(FLEXSEA_EXECUTE_BASE + 1)
 #define FLEXSEA_EXECUTE_3           	(FLEXSEA_EXECUTE_BASE + 2)
 #define FLEXSEA_EXECUTE_4           	(FLEXSEA_EXECUTE_BASE + 3)
-#define FLEXSEA_BATTERY_BASE          	60						//Execute: from 60 to 255
+#define FLEXSEA_BATTERY_BASE          	60						//Battery: from 60 to 69
 #define FLEXSEA_BATTERY_1				(FLEXSEA_BATTERY_BASE + 0)
+#define FLEXSEA_STRAIN_BASE          	70						//Strain: from 70 to 255
+#define FLEXSEA_STRAIN_1				(FLEXSEA_STRAIN_BASE + 0)
 
 //Software error (SE) codes. Values will be ORed
 #define SE_DEFAULT						0
@@ -433,6 +444,20 @@ struct manage_s
 	uint8_t sampling;
 };
 
+
+//Strain gauge amplifier:
+struct strain_s
+{
+	//Config:     
+    uint8_t offset;
+	
+    //Raw ADC values:
+    uint16_t strain_raw[4];
+	 
+	//Filtered value:
+	uint16_t strain_filtered;
+};
+
 //****************************************************************************
 // Shared variable(s)
 //****************************************************************************
@@ -441,6 +466,7 @@ struct manage_s
 
 extern struct execute_s exec1, exec2, exec3, exec4;
 extern struct manage_s manag1;
+struct strain_s strain[STRAIN_CHANNELS];
 
 #endif	//defined(BOARD_TYPE_FLEXSEA_MANAGE) || defined(BOARD_TYPE_FLEXSEA_PLAN)
 
