@@ -5,10 +5,7 @@
 
 // ----------------------------------------------------------------------------
 
-#include "stm32f4xx.h"
-#include "stm32f4xx_hal.h"
-#include "stm32f4xx_hal_cortex.h"
-
+#include "main.h"
 // ----------------------------------------------------------------------------
 
 // The external clock frequency is specified as a preprocessor definition

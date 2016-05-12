@@ -13,7 +13,6 @@
 
 #include "main.h"
 #include "fm_spi.h"
-//#include "../../common/inc/flexsea.h"
 
 //****************************************************************************
 // Variable(s)
@@ -47,10 +46,10 @@ void init_spi4(void)
 	spi4_handle.Init.Direction = SPI_DIRECTION_2LINES; 				// Full duplex
 	spi4_handle.Init.Mode = SPI_MODE_SLAVE;     					// Slave to the Plan board
 	spi4_handle.Init.DataSize = SPI_DATASIZE_8BIT; 					// 8bits words
-	spi4_handle.Init.CLKPolarity = SPI_POLARITY_LOW;        		// clock is low when idle (CPOL = 0)
-	spi4_handle.Init.CLKPhase = SPI_PHASE_1EDGE;      				// data sampled at first (rising) edge (CPHA = 0)
+	spi4_handle.Init.CLKPolarity = SPI_POLARITY_LOW;    			// clock is low when idle (CPOL = 0)
+	spi4_handle.Init.CLKPhase = SPI_PHASE_1EDGE;    				// data sampled at first (rising) edge (CPHA = 0)
 	spi4_handle.Init.NSS = SPI_NSS_SOFT; 							// uses software slave select
-	spi4_handle.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4; 	// SPI frequency is APB2 frequency / 4	ToDo Adjust!
+	spi4_handle.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;   // SPI frequency is APB2 frequency / 4	ToDo Adjust!
 	spi4_handle.Init.FirstBit = SPI_FIRSTBIT_MSB;					// data is transmitted MSB first
 	spi4_handle.Init.TIMode = SPI_TIMODE_DISABLED;					//
 	spi4_handle.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLED;
@@ -74,10 +73,10 @@ void init_spi5(void)
 	spi5_handle.Init.Direction = SPI_DIRECTION_2LINES; 				// Full duplex
 	spi5_handle.Init.Mode = SPI_MODE_MASTER;     					// Master
 	spi5_handle.Init.DataSize = SPI_DATASIZE_8BIT; 					// 8bits words
-	spi5_handle.Init.CLKPolarity = SPI_POLARITY_LOW;        		// clock is low when idle (CPOL = 0)
-	spi5_handle.Init.CLKPhase = SPI_PHASE_1EDGE;      				// data sampled at first (rising) edge (CPHA = 0)
+	spi5_handle.Init.CLKPolarity = SPI_POLARITY_LOW;    			// clock is low when idle (CPOL = 0)
+	spi5_handle.Init.CLKPhase = SPI_PHASE_1EDGE;    				// data sampled at first (rising) edge (CPHA = 0)
 	spi5_handle.Init.NSS = SPI_NSS_HARD_OUTPUT; 					// uses hardware slave select
-	spi5_handle.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4; 	// SPI frequency is APB2 frequency / 4	****ToDo Adjust!
+	spi5_handle.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;   // SPI frequency is APB2 frequency / 4	****ToDo Adjust!
 	spi5_handle.Init.FirstBit = SPI_FIRSTBIT_MSB;					// data is transmitted MSB first
 	spi5_handle.Init.TIMode = SPI_TIMODE_DISABLED;					//
 	spi5_handle.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLED;
@@ -101,10 +100,10 @@ void init_spi6(void)
 	spi6_handle.Init.Direction = SPI_DIRECTION_2LINES; 				// Full duplex
 	spi6_handle.Init.Mode = SPI_MODE_MASTER;     					// Master
 	spi6_handle.Init.DataSize = SPI_DATASIZE_8BIT; 					// 8bits words
-	spi6_handle.Init.CLKPolarity = SPI_POLARITY_LOW;        		// clock is low when idle (CPOL = 0)
-	spi6_handle.Init.CLKPhase = SPI_PHASE_1EDGE;      				// data sampled at first (rising) edge (CPHA = 0)
+	spi6_handle.Init.CLKPolarity = SPI_POLARITY_LOW;    			// clock is low when idle (CPOL = 0)
+	spi6_handle.Init.CLKPhase = SPI_PHASE_1EDGE;    				// data sampled at first (rising) edge (CPHA = 0)
 	spi6_handle.Init.NSS = SPI_NSS_HARD_OUTPUT; 					// uses hardware slave select
-	spi6_handle.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4; 	// SPI frequency is APB2 frequency / 4	****ToDo Adjust!
+	spi6_handle.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;   // SPI frequency is APB2 frequency / 4	****ToDo Adjust!
 	spi6_handle.Init.FirstBit = SPI_FIRSTBIT_MSB;					// data is transmitted MSB first
 	spi6_handle.Init.TIMode = SPI_TIMODE_DISABLED;					//
 	spi6_handle.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLED;
@@ -116,43 +115,37 @@ void init_spi6(void)
 	}
 }
 
-/**
- * @brief EXTI line detection callbacks
- * @param GPIO_Pin: Specifies the pins connected EXTI line
- * @retval None
- */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
 	if(GPIO_Pin == GPIO_PIN_4)
 	{
 		// transfer over the buffer
 		// Todo: transfer over the number of bytes that have been received instead of COMM_STR_BUF_LEN every time
-		for (unsigned char i = 0; i < COMM_STR_BUF_LEN; i++)
+		for(unsigned char i = 0; i < COMM_STR_BUF_LEN; i++)
 		{
 			update_rx_buf_byte_spi(aRxBuffer[i]);
 			//ToDo update to array
 		}
 		// clear the SPI buffer
-		for (unsigned char i = 0; i < COMM_STR_BUF_LEN; i++)
+		for(unsigned char i = 0; i < COMM_STR_BUF_LEN; i++)
 		{
 			aRxBuffer[i] = 0;
 		}
 		// reset the SPI pointer and counter
 		spi4_handle.RxXferCount = COMM_STR_BUF_LEN;
 		spi4_handle.pRxBuffPtr = aRxBuffer;
-		spi4_handle.pTxBuffPtr = aTxBuffer;	//Test
+		spi4_handle.pTxBuffPtr = aTxBuffer;    //Test
 
 		//Data for the next cycle:
 		//comm_str was already generated, now we place it in the buffer:
 		comm_str_to_txbuffer();
 
-
-		if(HAL_SPI_TransmitReceive_IT(&spi4_handle, (uint8_t *)aTxBuffer, (uint8_t *)aRxBuffer, COMM_STR_BUF_LEN) != HAL_OK)
+		if(HAL_SPI_TransmitReceive_IT(&spi4_handle, (uint8_t *) aTxBuffer,
+				(uint8_t *) aRxBuffer, COMM_STR_BUF_LEN) != HAL_OK)
 		{
 			// Transfer error in transmission process
 			flexsea_error(SE_SEND_SERIAL_MASTER);
 		}
-
 
 		// handle the new data however this device wants to
 		SPI_new_data_Callback();
@@ -173,7 +166,7 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi)
 {
 	GPIO_InitTypeDef GPIO_InitStruct;
 
-	if(hspi->Instance == SPI4)	//Plan board, SPI Slave
+	if(hspi->Instance == SPI4)    //Plan board, SPI Slave
 	{
 		//Enable GPIO clock
 		__GPIOE_CLK_ENABLE();
@@ -188,7 +181,7 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi)
 		//SCK4: 	PE2
 
 		//All but NSS:
-		GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_5|GPIO_PIN_6;
+		GPIO_InitStruct.Pin = GPIO_PIN_2 | GPIO_PIN_5 | GPIO_PIN_6;
 		GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
 		GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
 		GPIO_InitStruct.Pull = GPIO_PULLUP;
@@ -208,7 +201,7 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi)
 		HAL_NVIC_SetPriority(EXTI4_IRQn, EXT4_IRQ_CHANNEL, EXT4_IRQ_SUBCHANNEL);
 		HAL_NVIC_EnableIRQ(EXTI4_IRQn);
 	}
-	else if(hspi->Instance == SPI5)	//FLASH, SPI Master
+	else if(hspi->Instance == SPI5)    //FLASH, SPI Master
 	{
 		//Enable GPIO clock
 		__GPIOF_CLK_ENABLE();
@@ -223,7 +216,7 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi)
 		//SCK5: 	PF7
 
 		//All but NSS:
-		GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9;
+		GPIO_InitStruct.Pin = GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9;
 		GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
 		GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
 		GPIO_InitStruct.Pull = GPIO_PULLUP;
@@ -234,7 +227,7 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi)
 		HAL_NVIC_SetPriority(SPI5_IRQn, 7, 7);
 		HAL_NVIC_EnableIRQ(SPI5_IRQn);
 	}
-	else if(hspi->Instance == SPI6)	//Expansion connector, SPI Master
+	else if(hspi->Instance == SPI6)    //Expansion connector, SPI Master
 	{
 		//Enable GPIO clock
 		__GPIOG_CLK_ENABLE();
@@ -249,7 +242,8 @@ void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi)
 		//SCK6: 	PG13
 
 		//All but NSS:
-		GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14;
+		GPIO_InitStruct.Pin = GPIO_PIN_8 | GPIO_PIN_12 | GPIO_PIN_13
+				| GPIO_PIN_14;
 		GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
 		GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
 		GPIO_InitStruct.Pull = GPIO_PULLUP;

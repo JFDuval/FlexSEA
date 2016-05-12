@@ -47,6 +47,7 @@ unsigned char slave_read_buffer[SLAVE_READ_BUFFER_LEN];
 
 uint8_t bytes_ready_spi = 0;
 uint8_t cmd_ready_spi = 0;
+uint8_t cmd_ready_usb = 0;
 
 //****************************************************************************
 // Function(s)
@@ -72,7 +73,10 @@ void flexsea_send_serial_slave(unsigned char port, unsigned char *str, unsigned 
 
 void flexsea_send_serial_master(unsigned char port, unsigned char *str, unsigned char length)
 {
-	// Everything is done "automatically"
+	if(port == PORT_USB)
+	{
+		CDC_Transmit_FS(str, length);
+	}
 }
 
 //Fill the buffer with 0s
@@ -93,6 +97,20 @@ void flexsea_receive_from_master(void)
 		bytes_ready_spi = 0;
 		cmd_ready_spi = unpack_payload_spi();
 	}
+
+	//USB byte input
+	#ifdef USE_USB
+
+	//(Bytes received by ISR)
+
+	if(data_ready_usb != 0)
+	{
+		data_ready_usb = 0;
+		//Got new data in, try to decode
+		cmd_ready_usb = unpack_payload_usb();
+	}
+
+	#endif	//USE_USB
 }
 
 void flexsea_start_receiving_from_master(void)

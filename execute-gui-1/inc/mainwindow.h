@@ -90,6 +90,11 @@ private:
     QTimer *timer_stream, *timer_log, *timer_plot, *timer_ctrl;
     QSerialPort USBSerialPort;
 
+    int active_slave_1, active_slave_1_index;
+    //Lookup from list to actual slave number (FlexSEA convention):
+    uint8_t list_to_slave[10];
+    QStringList var_list_slaves;
+
     //Plot:
 
     //X array never changes after initialization
@@ -112,6 +117,7 @@ private:
 
     //Control:
     int wanted_controller = 0, selected_controller = 0, active_controller = 0;
+    int trap_pos = 0, trap_posi = 0, trap_posf = 0, trap_spd = 0, trap_acc = 0;
     int ctrl_setpoint = 0;
     int ctrl_toggle_state = 0;
     void controller_setpoint(int val);
@@ -162,10 +168,31 @@ private slots:
 
     void on_pushButton_ext_pwro_clicked();
 
+    void on_ctrl_encoder_zero_clicked();
+
+    void on_SlaveSelectComboBox_currentIndexChanged(int index);
+
 private:
     Ui::MainWindow *ui;
 };
 
+//Experimental: TabWidget class
+class MainWindowTabWidget : public QTabWidget
+{
+    Q_OBJECT
+
+public:
+    MainWindowTabWidget(QWidget *parent = 0);
+
+
+public slots:
+
+
+signals:
+
+private:
+
+};
 
 
 #endif // MAINWINDOW_H

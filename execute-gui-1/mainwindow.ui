@@ -42,7 +42,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>5</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="config">
      <attribute name="title">
@@ -201,28 +201,8 @@
        <item row="1" column="1">
         <widget class="QComboBox" name="SlaveSelectComboBox">
          <property name="currentText">
-          <string>FlexSEA-Execute 1</string>
+          <string/>
          </property>
-         <item>
-          <property name="text">
-           <string>FlexSEA-Execute 1</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>FlexSEA-Execute 2</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>FlexSEA-Execute 3</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>FlexSEA-Execute 4</string>
-          </property>
-         </item>
         </widget>
        </item>
        <item row="6" column="0" colspan="3">
@@ -1821,11 +1801,52 @@
        <rect>
         <x>9</x>
         <y>9</y>
-        <width>831</width>
+        <width>844</width>
         <height>655</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_8">
+       <item row="13" column="3">
+        <widget class="QLabel" name="label_66">
+         <property name="text">
+          <string>Acceleration:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="4">
+        <widget class="QLineEdit" name="control_trapeze_spd">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="3">
+        <widget class="QLabel" name="label_65">
+         <property name="text">
+          <string>Speed:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="18" column="0">
+        <widget class="QLabel" name="label_59">
+         <property name="text">
+          <string>Min:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2" colspan="2">
+        <widget class="QLabel" name="textLabel_Gains_2">
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;(Value returned from Execute, ToDo)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
        <item row="15" column="0">
         <widget class="QLabel" name="label_62">
          <property name="text">
@@ -1856,13 +1877,6 @@
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="18" column="0">
-        <widget class="QLabel" name="label_59">
-         <property name="text">
-          <string>Min:</string>
          </property>
         </widget>
        </item>
@@ -1906,19 +1920,6 @@
          </property>
         </widget>
        </item>
-       <item row="6" column="1">
-        <widget class="QLineEdit" name="control_g2">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
        <item row="20" column="0" colspan="2">
         <widget class="QSlider" name="hSlider_Ctrl">
          <property name="minimum">
@@ -1932,10 +1933,16 @@
          </property>
         </widget>
        </item>
-       <item row="19" column="2">
-        <widget class="QPushButton" name="pushButton_CtrlMinMax">
-         <property name="text">
-          <string>Update Min-Max</string>
+       <item row="6" column="1">
+        <widget class="QLineEdit" name="control_g2">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
@@ -1949,6 +1956,13 @@
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="19" column="2">
+        <widget class="QPushButton" name="pushButton_CtrlMinMax">
+         <property name="text">
+          <string>Update Min-Max</string>
          </property>
         </widget>
        </item>
@@ -2102,20 +2116,6 @@
          </property>
         </widget>
        </item>
-       <item row="6" column="0">
-        <widget class="QLabel" name="label_50">
-         <property name="text">
-          <string>Gain 2 (kd/I/...):</string>
-         </property>
-        </widget>
-       </item>
-       <item row="12" column="2">
-        <widget class="QPushButton" name="pushButton_setp_a_go">
-         <property name="text">
-          <string>Go</string>
-         </property>
-        </widget>
-       </item>
        <item row="20" column="2">
         <widget class="QLabel" name="disp_slider">
          <property name="autoFillBackground">
@@ -2138,6 +2138,20 @@
          </property>
         </widget>
        </item>
+       <item row="12" column="2">
+        <widget class="QPushButton" name="pushButton_setp_a_go">
+         <property name="text">
+          <string>Go</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="label_50">
+         <property name="text">
+          <string>Gain 2 (kd/I/...):</string>
+         </property>
+        </widget>
+       </item>
        <item row="12" column="0">
         <widget class="QLabel" name="label_55">
          <property name="text">
@@ -2151,22 +2165,6 @@
           <string>Active controller:</string>
          </property>
         </widget>
-       </item>
-       <item row="22" column="0">
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Fixed</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>150</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
        </item>
        <item row="13" column="2">
         <widget class="QPushButton" name="pushButton_setp_b_go">
@@ -2188,6 +2186,22 @@
          </property>
         </widget>
        </item>
+       <item row="22" column="0">
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>150</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
        <item row="1" column="2">
         <widget class="QPushButton" name="pushButton_SetController">
          <property name="text">
@@ -2197,33 +2211,6 @@
        </item>
        <item row="18" column="1">
         <widget class="QLineEdit" name="control_slider_min">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="9" column="3">
-        <widget class="QLabel" name="textLabel_Gains">
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="3">
-        <widget class="QLabel" name="textLabel_Gains_2">
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;(Value returned from Execute)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="14" column="1">
-        <widget class="QLineEdit" name="control_toggle_delayA">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -2246,6 +2233,19 @@
         <widget class="QPushButton" name="pushButton_toggle">
          <property name="text">
           <string>Toggle ON</string>
+         </property>
+        </widget>
+       </item>
+       <item row="14" column="1">
+        <widget class="QLineEdit" name="control_toggle_delayA">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
@@ -2275,6 +2275,40 @@
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="13" column="4">
+        <widget class="QLineEdit" name="control_trapeze_acc">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="3">
+        <widget class="QLabel" name="textLabel_Gains">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="21" column="2" colspan="3">
+        <widget class="QLabel" name="textLabel_Gains_3">
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;'Encoder' field  (requires Stream)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="22" column="1">
+        <widget class="QPushButton" name="ctrl_encoder_zero">
+         <property name="text">
+          <string>Zero</string>
          </property>
         </widget>
        </item>

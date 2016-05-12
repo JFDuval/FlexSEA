@@ -42,6 +42,11 @@
 /* USER CODE BEGIN INCLUDE */
 /* USER CODE END INCLUDE */
 
+ extern volatile uint8_t data_ready_usb;
+
+ uint32_t usb_bytes_available(void);
+//int8_t CDC_Receive_FS  (uint8_t* pbuf, uint32_t *Len);
+
 /** @addtogroup STM32_USB_OTG_DEVICE_LIBRARY
   * @{
   */

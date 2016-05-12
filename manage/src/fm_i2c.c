@@ -1,10 +1,12 @@
 //****************************************************************************
 // MIT Media Lab - Biomechatronics
-// Erin Main
-// ermain@mit.edu
-// 10/2014
+// Erin Main + Jean-Francois (Jeff) Duval
+// ermain@mit.edu, jfduval@media.mit.edu
+// 05/2016
 //****************************************************************************
-// fm_i2c: I2C communication: IMU & Digital Potentiometers
+// fm_i2c: i2c comms
+//****************************************************************************
+// Licensing: Please refer to 'software_license.txt'
 //****************************************************************************
 
 //****************************************************************************
@@ -25,7 +27,7 @@ I2C_HandleTypeDef hi2c1;
 //****************************************************************************
 
 void HAL_I2C_MspInit(I2C_HandleTypeDef *hi2c);
-void HAL_I2C_MspDeInit(I2C_HandleTypeDef *hi2c) ;
+void HAL_I2C_MspDeInit(I2C_HandleTypeDef *hi2c);
 
 //****************************************************************************
 // Public Function(s)
@@ -37,14 +39,14 @@ void init_i2c1(void)
 	//I2C_HandleTypeDef *hi2c1 contains our handle information
 	//set config for the initial state of the i2c.
 	hi2c1.Instance = I2C1;
-	hi2c1.Init.ClockSpeed = I2C_CLOCK_RATE;  //clock frequency; less than 400kHz
-	hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2; //for fast mode (doesn't matter now)
-	hi2c1.Init.OwnAddress1 = 0x0; //device address of the STM32 (doesn't matter)
-	hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;//using 7 bit addresses
-	hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLED;//disable dual address
-	hi2c1.Init.OwnAddress2 = 0x0;	//second device addr (doesn't matter)
-	hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLED; 	//don't use 0x0 addr
-	hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLED; //allow slave to stretch SCL
+	hi2c1.Init.ClockSpeed = I2C_CLOCK_RATE;  				//clock frequency; less than 400kHz
+	hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2; 				//for fast mode (doesn't matter now)
+	hi2c1.Init.OwnAddress1 = 0x0; 							//device address of the STM32 (doesn't matter)
+	hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;	//using 7 bit addresses
+	hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLED;  //disable dual address
+	hi2c1.Init.OwnAddress2 = 0x0;							//second device addr (doesn't matter)
+	hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLED;  //don't use 0x0 addr
+	hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLED; 		//allow slave to stretch SCL
 	hi2c1.State = HAL_I2C_STATE_RESET;
 	HAL_I2C_Init(&hi2c1);
 }
@@ -61,7 +63,7 @@ void disable_i2c(void)
 //****************************************************************************
 
 // Implement I2C MSP Init, as called for in the stm32f4xx_hal_i2c.c file
-void HAL_I2C_MspInit(I2C_HandleTypeDef *hi2c) 
+void HAL_I2C_MspInit(I2C_HandleTypeDef *hi2c)
 {
 	///// SET UP GPIO /////
 	//GPIO initialization constants
@@ -99,16 +101,16 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef *hi2c)
 	HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 	///// SET UP NVIC ///// (interrupts!)
-#if I2C_USE_INT == 1
-	HAL_NVIC_SetPriority(I2C1_EV_IRQn, 0, 1); //event interrupt
+	#if I2C_USE_INT == 1
+	HAL_NVIC_SetPriority(I2C1_EV_IRQn, 0, 1);    //event interrupt
 	HAL_NVIC_EnableIRQ(I2C1_EV_IRQn);
 	HAL_NVIC_SetPriority(I2C1_ER_IRQn, 0, 1);//error interrupt
 	HAL_NVIC_EnableIRQ(I2C1_ER_IRQn);
-#endif
+	#endif
 }
 
 // Implement I2C MSP DeInit
-void HAL_I2C_MspDeInit(I2C_HandleTypeDef *hi2c) 
+void HAL_I2C_MspDeInit(I2C_HandleTypeDef *hi2c)
 {
 	__I2C1_CLK_DISABLE();
 	//uhh should be careful about this since SPI is on the same bus!

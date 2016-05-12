@@ -52,10 +52,10 @@ void MainWindow::timerStreamEvent(void)
         /*
         //Special1 command to test the ShuoBot Exo
 
-        numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
+        numb = tx_cmd_ctrl_special_1(active_slave_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
                                         KEEP, 0, KEEP, 0, 0, exp_pwm);
         */
-        numb = tx_cmd_data_read_all(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN); //New Read All function
+        numb = tx_cmd_data_read_all(active_slave_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN); //New Read All function
 
         numb = comm_gen_str(payload_str, comm_str_usb, PAYLOAD_BUF_LEN);
         numb = COMM_STR_BUF_LEN;
@@ -77,6 +77,8 @@ void MainWindow::timerStreamEvent(void)
         ui->disp_gyroz->setText(QString::number(exec1.gyro.z));
 
         ui->disp_enc->setText(QString::number(exec1.encoder));
+        ui->disp_meas_val->setText(QString::number(exec1.encoder)); //ToDo should be done in Ctrl, not here
+
         ui->disp_strain->setText(QString::number(exec1.strain));
         ui->disp_ana->setText(QString::number(exec1.analog[0]));
 

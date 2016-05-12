@@ -1,14 +1,16 @@
 //****************************************************************************
 // MIT Media Lab - Biomechatronics
-// Erin Main
-// ermain@mit.edu
-// 10/2014
+// Erin Main + Jean-Francois (Jeff) Duval
+// ermain@mit.edu, jfduval@media.mit.edu
+// 05/2016
 //****************************************************************************
 // fm_i2c: IMU configuration
 //****************************************************************************
+// Licensing: Please refer to 'software_license.txt'
+//****************************************************************************
 
-#ifndef _FM_IMU_H_
-#define _FM_IMU_H_
+#ifndef INC_FM_IMU_H
+#define INC_FM_IMU_H
 
 //****************************************************************************
 // Include(s)
@@ -19,15 +21,11 @@
 #include "stm32f4xx_hal.h"
 
 //****************************************************************************
-// Define Flag(s):
+// Definition(s):
 //****************************************************************************
 
 //set to 1 if we want to use blocking read/write
 #define IMU_BLOCKING 	1
-
-//****************************************************************************
-// Definition(s):
-//****************************************************************************
 
 // For choosing what subset of the data we want from the IMU
 typedef enum {
@@ -45,7 +43,7 @@ typedef enum {
 // IMU Register Addresses (names correspond to those in the datasheet)
 // These are internal to the imu.
 /// Config Regs
-#define IMU_CONFIG 			26
+#define IMU_CONFIG 		26
 #define IMU_GYRO_CONFIG 	27
 #define IMU_ACCEL_CONFIG	28
 #define IMU_ACCEL_CONFIG2	29
@@ -106,4 +104,5 @@ uint16_t get_gyro_z(void);		//Zgyro data
 void reset_imu(void);			//reset IMU registers to default
 void disable_imu(void);			//disable the IMU by shutting down clocks, etc.
 
-#endif //_FM_I2C_H_ 
+#endif //INC_FM_IMU_H
+

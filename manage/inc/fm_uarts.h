@@ -1,14 +1,16 @@
 //****************************************************************************
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
-// jfduval@mit.edu
-// 02/2015
+// jfduval@media.mit.edu
+// 05/2015
 //****************************************************************************
 // fm_uarts: Deals with the 3 USARTs
 //****************************************************************************
+// Licensing: Please refer to 'software_license.txt'
+//****************************************************************************
 
-#ifndef UARTS_H_
-#define UARTS_H_
+#ifndef INC_UARTS_H
+#define INC_UARTS_H
 
 //****************************************************************************
 // Include(s)
@@ -21,9 +23,9 @@
 // Shared Variable(s)
 //****************************************************************************
 
-extern USART_HandleTypeDef husart1;			//RS-485 #1
-extern USART_HandleTypeDef husart6;			//RS-485 #2
-extern USART_HandleTypeDef husart3;			//Expansion port
+extern USART_HandleTypeDef husart1;		//RS-485 #1
+extern USART_HandleTypeDef husart6;		//RS-485 #2
+extern USART_HandleTypeDef husart3;		//Expansion port
 extern DMA_HandleTypeDef hdma2_str2_ch4;	//DMA for RS-485 #1 RX
 extern DMA_HandleTypeDef hdma2_str7_ch4;	//DMA for RS-485 #1 TX
 extern DMA_HandleTypeDef hdma2_str1_ch5;	//DMA for RS-485 #2 RX
@@ -62,7 +64,7 @@ void init_usart3(uint32_t baudrate);
 // Definition(s):
 //****************************************************************************
 
-#define UART_TIMEOUT	5000	//ms?
+#define UART_TIMEOUT		5000	//ms?
 
 //Baud = fck/(8*(2-OVER8)*USARTDIV) and OVER8 = 1 so Baud = fck/(8*USARTDIV)
 //USARTDIV = fck / (8*Baud)
@@ -83,19 +85,19 @@ void init_usart3(uint32_t baudrate);
 //DE4:		PE10
 
 //Common define
-#define RS485_STANDBY		0x00
+#define RS485_STANDBY			0x00
 #define RS485_RX			0x01
 #define RS485_TX			0x02
 #define RS485_RX_TX			0x03
 
 //Interrupt priorities (lower number = higher priority)
-#define UART1_IRQ_CHANNEL			6
+#define UART1_IRQ_CHANNEL		6
 #define UART1_IRQ_SUBCHANNEL		0
 
-#define UART6_IRQ_CHANNEL			UART1_IRQ_CHANNEL
+#define UART6_IRQ_CHANNEL		UART1_IRQ_CHANNEL
 #define UART6_IRQ_SUBCHANNEL		1
 
-#define UART3_IRQ_CHANNEL			8
+#define UART3_IRQ_CHANNEL		8
 #define UART3_IRQ_SUBCHANNEL		0
 
 #define DMA_STR2_IRQ_CHANNEL		5	//UART1 RX
@@ -110,4 +112,5 @@ void init_usart3(uint32_t baudrate);
 #define DMA_STR6_IRQ_CHANNEL		7	//UART6 TX
 #define DMA_STR6_IRQ_SUBCHANNEL		1
 
-#endif // UARTS_H_
+#endif // INC_UARTS_H
+

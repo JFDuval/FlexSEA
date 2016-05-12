@@ -76,8 +76,10 @@ SOURCES       = src/main.cpp \
 		src/flexsea_board.c \
 		../flexsea-system/src/flexsea_cmd_data.c \
 		src/mw_tab_ctrl.cpp \
-		src/mw_tab_ext.cpp build/release/.moc/moc_mainwindow.cpp \
-		build/release/.moc/moc_qcustomplot.cpp
+		src/mw_tab_ext.cpp \
+		tabwidget.cpp build/release/.moc/moc_mainwindow.cpp \
+		build/release/.moc/moc_qcustomplot.cpp \
+		build/release/.moc/moc_tabwidget.cpp
 OBJECTS       = build/release/.obj/main.o \
 		build/release/.obj/mainwindow.o \
 		build/release/.obj/qcustomplot.o \
@@ -107,8 +109,10 @@ OBJECTS       = build/release/.obj/main.o \
 		build/release/.obj/flexsea_cmd_data.o \
 		build/release/.obj/mw_tab_ctrl.o \
 		build/release/.obj/mw_tab_ext.o \
+		build/release/.obj/tabwidget.o \
 		build/release/.obj/moc_mainwindow.o \
-		build/release/.obj/moc_qcustomplot.o
+		build/release/.obj/moc_qcustomplot.o \
+		build/release/.obj/moc_tabwidget.o
 DIST          = ../../../../Qt5.5.1/5.5/gcc/mkspecs/features/spec_pre.prf \
 		../../../../Qt5.5.1/5.5/gcc/mkspecs/common/unix.conf \
 		../../../../Qt5.5.1/5.5/gcc/mkspecs/common/linux.conf \
@@ -264,7 +268,8 @@ DIST          = ../../../../Qt5.5.1/5.5/gcc/mkspecs/features/spec_pre.prf \
 		../flexsea-system/inc/flexsea_cmd_sensors.h \
 		../flexsea-system/inc/flexsea_system.h \
 		inc/flexsea_board.h \
-		../flexsea-system/inc/flexsea_cmd_data.h src/main.cpp \
+		../flexsea-system/inc/flexsea_cmd_data.h \
+		tabwidget.h src/main.cpp \
 		src/mainwindow.cpp \
 		src/qcustomplot.cpp \
 		src/plan_serial.c \
@@ -292,7 +297,8 @@ DIST          = ../../../../Qt5.5.1/5.5/gcc/mkspecs/features/spec_pre.prf \
 		src/flexsea_board.c \
 		../flexsea-system/src/flexsea_cmd_data.c \
 		src/mw_tab_ctrl.cpp \
-		src/mw_tab_ext.cpp
+		src/mw_tab_ext.cpp \
+		tabwidget.cpp
 QMAKE_TARGET  = execute-gui-1
 DESTDIR       = build/release/#avoid trailing-slash linebreak
 TARGET        = build/release/execute-gui-1
@@ -320,7 +326,7 @@ first: all
 
 ####### Build rules
 
-$(TARGET): build/release/.u/ui_mainwindow.h $(OBJECTS)  
+$(TARGET): build/release/.u/ui_mainwindow.h build/release/.u/ui_tabwidget.h $(OBJECTS)  
 	@test -d build/release/ || mkdir -p build/release/
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
@@ -619,9 +625,9 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents inc/mainwindow.h inc/qcustomplot.h inc/test.h inc/flexsea_stream_log.h inc/plan_serial.h inc/main.h inc/flexsea_console.h inc/user.h inc/iolib.h inc/shared.h inc/demo.h ../flexsea-comm/inc/flexsea.h ../flexsea-comm/inc/flexsea_buffers.h ../flexsea-comm/inc/flexsea_comm.h ../flexsea-comm/inc/flexsea_payload.h ../flexsea-system/inc/flexsea_cmd_application.h ../flexsea-system/inc/flexsea_cmd_control.h ../flexsea-system/inc/flexsea_cmd_external.h ../flexsea-system/inc/flexsea_cmd_sensors.h ../flexsea-system/inc/flexsea_system.h inc/flexsea_board.h ../flexsea-system/inc/flexsea_cmd_data.h $(DISTDIR)/
-	$(COPY_FILE) --parents src/main.cpp src/mainwindow.cpp src/qcustomplot.cpp src/plan_serial.c src/flexsea_stream_log.c src/test.c src/flexsea_console.c src/shared.c src/demo.c src/user.c src/iolib.c src/mw_tab_config.cpp src/mw_tab_plot_1.cpp src/mw_tab_stream_1.cpp src/mw_tab_exp.cpp src/mw_usbserial.cpp ../flexsea-comm/src/flexsea.c ../flexsea-comm/src/flexsea_buffers.c ../flexsea-comm/src/flexsea_comm.c ../flexsea-comm/src/flexsea_payload.c ../flexsea-system/src/flexsea_cmd_application.c ../flexsea-system/src/flexsea_cmd_control.c ../flexsea-system/src/flexsea_cmd_external.c ../flexsea-system/src/flexsea_cmd_sensors.c ../flexsea-system/src/flexsea_system.c src/flexsea_board.c ../flexsea-system/src/flexsea_cmd_data.c src/mw_tab_ctrl.cpp src/mw_tab_ext.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.ui $(DISTDIR)/
+	$(COPY_FILE) --parents inc/mainwindow.h inc/qcustomplot.h inc/test.h inc/flexsea_stream_log.h inc/plan_serial.h inc/main.h inc/flexsea_console.h inc/user.h inc/iolib.h inc/shared.h inc/demo.h ../flexsea-comm/inc/flexsea.h ../flexsea-comm/inc/flexsea_buffers.h ../flexsea-comm/inc/flexsea_comm.h ../flexsea-comm/inc/flexsea_payload.h ../flexsea-system/inc/flexsea_cmd_application.h ../flexsea-system/inc/flexsea_cmd_control.h ../flexsea-system/inc/flexsea_cmd_external.h ../flexsea-system/inc/flexsea_cmd_sensors.h ../flexsea-system/inc/flexsea_system.h inc/flexsea_board.h ../flexsea-system/inc/flexsea_cmd_data.h tabwidget.h $(DISTDIR)/
+	$(COPY_FILE) --parents src/main.cpp src/mainwindow.cpp src/qcustomplot.cpp src/plan_serial.c src/flexsea_stream_log.c src/test.c src/flexsea_console.c src/shared.c src/demo.c src/user.c src/iolib.c src/mw_tab_config.cpp src/mw_tab_plot_1.cpp src/mw_tab_stream_1.cpp src/mw_tab_exp.cpp src/mw_usbserial.cpp ../flexsea-comm/src/flexsea.c ../flexsea-comm/src/flexsea_buffers.c ../flexsea-comm/src/flexsea_comm.c ../flexsea-comm/src/flexsea_payload.c ../flexsea-system/src/flexsea_cmd_application.c ../flexsea-system/src/flexsea_cmd_control.c ../flexsea-system/src/flexsea_cmd_external.c ../flexsea-system/src/flexsea_cmd_sensors.c ../flexsea-system/src/flexsea_system.c src/flexsea_board.c ../flexsea-system/src/flexsea_cmd_data.c src/mw_tab_ctrl.cpp src/mw_tab_ext.cpp tabwidget.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.ui tabwidget.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -644,9 +650,9 @@ check: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: build/release/.moc/moc_mainwindow.cpp build/release/.moc/moc_qcustomplot.cpp
+compiler_moc_header_make_all: build/release/.moc/moc_mainwindow.cpp build/release/.moc/moc_qcustomplot.cpp build/release/.moc/moc_tabwidget.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) build/release/.moc/moc_mainwindow.cpp build/release/.moc/moc_qcustomplot.cpp
+	-$(DEL_FILE) build/release/.moc/moc_mainwindow.cpp build/release/.moc/moc_qcustomplot.cpp build/release/.moc/moc_tabwidget.cpp
 build/release/.moc/moc_mainwindow.cpp: ../../../../Qt5.5.1/5.5/gcc/include/QtWidgets/QMainWindow \
 		../../../../Qt5.5.1/5.5/gcc/include/QtWidgets/qmainwindow.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtWidgets/qwidget.h \
@@ -1602,11 +1608,118 @@ build/release/.moc/moc_qcustomplot.cpp: ../../../../Qt5.5.1/5.5/gcc/include/QtCo
 		inc/qcustomplot.h
 	/home/jfduval/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/home/jfduval/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/home/jfduval/Documents/FlexSEA-Git-Exp/FlexSEA/execute-gui-1 -I/home/jfduval/Documents/FlexSEA-Git-Exp/FlexSEA/execute-gui-1/inc -I/home/jfduval/Documents/FlexSEA-Git-Exp/FlexSEA/flexsea-comm/inc -I/home/jfduval/Documents/FlexSEA-Git-Exp/FlexSEA/flexsea-system/inc -I/home/jfduval/Qt5.5.1/5.5/gcc/include -I/home/jfduval/Qt5.5.1/5.5/gcc/include/QtPrintSupport -I/home/jfduval/Qt5.5.1/5.5/gcc/include/QtWidgets -I/home/jfduval/Qt5.5.1/5.5/gcc/include/QtGui -I/home/jfduval/Qt5.5.1/5.5/gcc/include/QtSerialPort -I/home/jfduval/Qt5.5.1/5.5/gcc/include/QtCore inc/qcustomplot.h -o build/release/.moc/moc_qcustomplot.cpp
 
+build/release/.moc/moc_tabwidget.cpp: ../../../../Qt5.5.1/5.5/gcc/include/QtWidgets/QTabWidget \
+		../../../../Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtWidgets/qwidget.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qwindowdefs.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qglobal.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qconfig.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qfeatures.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qsystemdetection.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qprocessordetection.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qcompilerdetection.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qtypeinfo.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qtypetraits.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qsysinfo.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qlogging.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qflags.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qatomic.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qbasicatomic.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qatomic_bootstrap.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qgenericatomic.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qatomic_cxx11.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qatomic_gcc.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qatomic_msvc.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qatomic_armv7.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qatomic_armv6.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qatomic_armv5.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qatomic_ia64.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qatomic_mips.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qatomic_x86.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qatomic_unix.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qglobalstatic.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qmutex.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qnumeric.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qobjectdefs.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qnamespace.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qobjectdefs_impl.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qwindowdefs_win.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qobject.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qstring.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qchar.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qbytearray.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qrefcount.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qarraydata.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qstringbuilder.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qlist.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qalgorithms.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qiterator.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qbytearraylist.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qstringlist.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qregexp.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qstringmatcher.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qcoreevent.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qscopedpointer.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qmetatype.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qvarlengtharray.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qcontainerfwd.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qisenum.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qobject_impl.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qmargins.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qpaintdevice.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qrect.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qsize.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qpoint.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qpalette.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qcolor.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qrgb.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qbrush.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qpair.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qvector.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qmatrix.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qpolygon.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qregion.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qdatastream.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qiodevice.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qline.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qtransform.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qpainterpath.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qimage.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qpixelformat.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qpixmap.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qsharedpointer.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qshareddata.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qhash.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qsharedpointer_impl.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qfont.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qfontmetrics.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qfontinfo.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtWidgets/qsizepolicy.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qcursor.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qkeysequence.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qevent.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qvariant.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qmap.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qdebug.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qtextstream.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qlocale.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qset.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qcontiguouscache.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qurl.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qurlquery.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qfile.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qfiledevice.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
+		tabwidget.h
+	/home/jfduval/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/home/jfduval/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/home/jfduval/Documents/FlexSEA-Git-Exp/FlexSEA/execute-gui-1 -I/home/jfduval/Documents/FlexSEA-Git-Exp/FlexSEA/execute-gui-1/inc -I/home/jfduval/Documents/FlexSEA-Git-Exp/FlexSEA/flexsea-comm/inc -I/home/jfduval/Documents/FlexSEA-Git-Exp/FlexSEA/flexsea-system/inc -I/home/jfduval/Qt5.5.1/5.5/gcc/include -I/home/jfduval/Qt5.5.1/5.5/gcc/include/QtPrintSupport -I/home/jfduval/Qt5.5.1/5.5/gcc/include/QtWidgets -I/home/jfduval/Qt5.5.1/5.5/gcc/include/QtGui -I/home/jfduval/Qt5.5.1/5.5/gcc/include/QtSerialPort -I/home/jfduval/Qt5.5.1/5.5/gcc/include/QtCore tabwidget.h -o build/release/.moc/moc_tabwidget.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: build/release/.u/ui_mainwindow.h
+compiler_uic_make_all: build/release/.u/ui_mainwindow.h build/release/.u/ui_tabwidget.h
 compiler_uic_clean:
-	-$(DEL_FILE) build/release/.u/ui_mainwindow.h
+	-$(DEL_FILE) build/release/.u/ui_mainwindow.h build/release/.u/ui_tabwidget.h
 build/release/.u/ui_mainwindow.h: mainwindow.ui \
 		inc/qcustomplot.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QObject \
@@ -2082,6 +2195,9 @@ build/release/.u/ui_mainwindow.h: mainwindow.ui \
 		../../../../Qt5.5.1/5.5/gcc/include/QtPrintSupport/qprintpreviewwidget.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtPrintSupport/qtprintsupportversion.h
 	/home/jfduval/Qt5.5.1/5.5/gcc/bin/uic mainwindow.ui -o build/release/.u/ui_mainwindow.h
+
+build/release/.u/ui_tabwidget.h: tabwidget.ui
+	/home/jfduval/Qt5.5.1/5.5/gcc/bin/uic tabwidget.ui -o build/release/.u/ui_tabwidget.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -7568,11 +7684,122 @@ build/release/.obj/mw_tab_ext.o: src/mw_tab_ext.cpp inc/main.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtWidgets/QTextBrowser
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/release/.obj/mw_tab_ext.o src/mw_tab_ext.cpp
 
+build/release/.obj/tabwidget.o: tabwidget.cpp tabwidget.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtWidgets/QTabWidget \
+		../../../../Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtWidgets/qwidget.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qwindowdefs.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qglobal.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qconfig.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qfeatures.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qsystemdetection.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qprocessordetection.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qcompilerdetection.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qtypeinfo.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qtypetraits.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qsysinfo.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qlogging.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qflags.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qatomic.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qbasicatomic.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qatomic_bootstrap.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qgenericatomic.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qatomic_cxx11.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qatomic_gcc.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qatomic_msvc.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qatomic_armv7.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qatomic_armv6.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qatomic_armv5.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qatomic_ia64.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qatomic_mips.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qatomic_x86.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qatomic_unix.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qglobalstatic.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qmutex.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qnumeric.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qobjectdefs.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qnamespace.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qobjectdefs_impl.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qwindowdefs_win.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qobject.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qstring.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qchar.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qbytearray.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qrefcount.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qarraydata.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qstringbuilder.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qlist.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qalgorithms.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qiterator.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qbytearraylist.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qstringlist.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qregexp.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qstringmatcher.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qcoreevent.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qscopedpointer.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qmetatype.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qvarlengtharray.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qcontainerfwd.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qisenum.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qobject_impl.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qmargins.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qpaintdevice.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qrect.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qsize.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qpoint.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qpalette.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qcolor.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qrgb.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qbrush.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qpair.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qvector.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qmatrix.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qpolygon.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qregion.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qdatastream.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qiodevice.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qline.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qtransform.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qpainterpath.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qimage.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qpixelformat.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qpixmap.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qsharedpointer.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qshareddata.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qhash.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qsharedpointer_impl.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qfont.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qfontmetrics.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qfontinfo.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtWidgets/qsizepolicy.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qcursor.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qkeysequence.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qevent.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qvariant.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qmap.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qdebug.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qtextstream.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qlocale.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qset.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qcontiguouscache.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qurl.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qurlquery.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qfile.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/qfiledevice.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
+		build/release/.u/ui_tabwidget.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/release/.obj/tabwidget.o tabwidget.cpp
+
 build/release/.obj/moc_mainwindow.o: build/release/.moc/moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/release/.obj/moc_mainwindow.o build/release/.moc/moc_mainwindow.cpp
 
 build/release/.obj/moc_qcustomplot.o: build/release/.moc/moc_qcustomplot.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/release/.obj/moc_qcustomplot.o build/release/.moc/moc_qcustomplot.cpp
+
+build/release/.obj/moc_tabwidget.o: build/release/.moc/moc_tabwidget.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/release/.obj/moc_tabwidget.o build/release/.moc/moc_tabwidget.cpp
 
 ####### Install
 

@@ -1,14 +1,16 @@
 //****************************************************************************
 // MIT Media Lab - Biomechatronics
-// Erin Main
-// ermain@mit.edu
-// 10/2014
+// Erin Main + Jean-Francois (Jeff) Duval
+// ermain@mit.edu, jfduval@media.mit.edu
+// 05/2016
 //****************************************************************************
 // fm_i2c: i2c comms
 //****************************************************************************
+// Licensing: Please refer to 'software_license.txt'
+//****************************************************************************
 
-#ifndef _FM_I2C_H_
-#define _FM_I2C_H_
+#ifndef INC_FM_I2C_H
+#define INC_FM_I2C_H
 
 //****************************************************************************
 // Include(s)
@@ -26,23 +28,19 @@
 extern I2C_HandleTypeDef hi2c1;
 
 //****************************************************************************
-// Define Flag(s):
-//****************************************************************************
-
-//set to 1 if we want to use interrupt driven I2C.
-#define I2C_USE_INT 0
-#define I2C_CLOCK_RATE 100000 //in Hz, corresponds to "Regular Speed" I2C
-
-//****************************************************************************
-// Definition(s):
-//****************************************************************************
-
-
-//****************************************************************************
 // Public Function Prototype(s):
 //****************************************************************************
 
 void init_i2c1(void);
 void disable_i2c(void);
 
-#endif //_FM_I2C_H_ 
+//****************************************************************************
+// Definition(s):
+//****************************************************************************
+
+//set to 1 if we want to use interrupt driven I2C.
+#define I2C_USE_INT 0
+#define I2C_CLOCK_RATE 100000 //in Hz, corresponds to "Regular Speed" I2C
+
+#endif //INC_FM_I2C_H
+

@@ -1,10 +1,12 @@
 //****************************************************************************
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
-// jfduval@mit.edu
-// 02/2015
+// jfduval@media.mit.edu
+// 05/2015
 //****************************************************************************
 // fm_misc: when it doesn't belong in any another file, it ends up here...
+//****************************************************************************
+// Licensing: Please refer to 'software_license.txt'
 //****************************************************************************
 
 //****************************************************************************
@@ -13,16 +15,20 @@
 
 #include "main.h"
 #include "fm_misc.h"
-#include "usb_device.h"
 
 //****************************************************************************
 // Variable(s)
 //****************************************************************************
 
 unsigned char test_payload[PAYLOAD_BUF_LEN];
+uint8_t usb_test_string[40] = "[FlexSEA-Manage 0.1 USB]\n";
 
 //****************************************************************************
-// Function(s)
+// Private Function Prototype(s):
+//****************************************************************************
+
+//****************************************************************************
+// Public Function(s)
 //****************************************************************************
 
 //Initialize all the peripherals
@@ -32,7 +38,8 @@ void init_peripherals(void)
 	HAL_Delay(100);
 
 	//Hardware modules:
-	init_systick_timer();		//SysTick timer (10kHz)
+	init_systick_timer();		//SysTick timer (1kHz)
+	init_timer_7();				//10kHz timebase
 	init_usart1(2000000);		//USART1 (RS-485 #1)
 	init_usart6(2000000);		//USART6 (RS-485 #2)
 	init_rs485_outputs();
@@ -49,13 +56,17 @@ void init_peripherals(void)
 	init_pwr_out();
 
 	//USB
+	#ifdef USE_USB
 	MX_USB_DEVICE_Init();
+	#endif	//USE_USB
 
 	//Software:
 	init_master_slave_comm();
 
 	//All RGB LEDs OFF
-	LEDR(0); LEDG(0); LEDB(0);
+	LEDR(0);
+	LEDG(0);
+	LEDB(0);
 
 	//Default analog input states:
 	set_default_analog();
@@ -71,7 +82,7 @@ void test_comm_rw_master_v1(void)
 	int tx_byte = 0, commstrlen = 0;
 	static uint32_t packet_sent = 0, valid_replies = 0;
 
-	xmit_toggle ^= 1;	//Divide by two to get 500Hz
+	xmit_toggle ^= 1;    //Divide by two to get 500Hz
 	if(xmit_toggle)
 	{
 		//Packet transmission:
@@ -82,9 +93,10 @@ void test_comm_rw_master_v1(void)
 		user_val2 += 3;
 
 		//Prepare and send a packet:
-		tx_byte = tx_cmd_test(FLEXSEA_EXECUTE_2, CMD_READ, test_payload, PAYLOAD_BUF_LEN, user_val1, user_val2);
+		tx_byte = tx_cmd_test(FLEXSEA_EXECUTE_2, CMD_READ, test_payload,
+		PAYLOAD_BUF_LEN, user_val1, user_val2);
 		commstrlen = comm_gen_str(test_payload, comm_str_485_1, tx_byte);
-		commstrlen = COMM_STR_BUF_LEN;	//Fixed length
+		commstrlen = COMM_STR_BUF_LEN;    //Fixed length
 		flexsea_send_serial_slave(PORT_RS485_1, comm_str_485_1, commstrlen);
 		packet_sent++;
 
@@ -144,7 +156,8 @@ void test_comm_rw_master_v2(uint8_t fsm_state)
 			user_val2_1 += 3;
 
 			//Prepare and send a packet:
-			tx_byte = tx_cmd_test(FLEXSEA_EXECUTE_1, CMD_READ, test_payload, PAYLOAD_BUF_LEN, user_val1_1, user_val2_1);
+			tx_byte = tx_cmd_test(FLEXSEA_EXECUTE_1, CMD_READ, test_payload,
+			PAYLOAD_BUF_LEN, user_val1_1, user_val2_1);
 
 			packet_sent_1++;
 		}
@@ -155,13 +168,14 @@ void test_comm_rw_master_v2(uint8_t fsm_state)
 			user_val2_2 += 3;
 
 			//Prepare and send a packet:
-			tx_byte = tx_cmd_test(FLEXSEA_EXECUTE_2, CMD_READ, test_payload, PAYLOAD_BUF_LEN, user_val1_2, user_val2_2);
+			tx_byte = tx_cmd_test(FLEXSEA_EXECUTE_2, CMD_READ, test_payload,
+			PAYLOAD_BUF_LEN, user_val1_2, user_val2_2);
 
 			packet_sent_2++;
 		}
 
 		commstrlen = comm_gen_str(test_payload, comm_str_485_1, tx_byte);
-		commstrlen = COMM_STR_BUF_LEN;	//Fixed length
+		commstrlen = COMM_STR_BUF_LEN;    //Fixed length
 		flexsea_send_serial_slave(PORT_RS485_1, comm_str_485_1, commstrlen);
 
 		//Will start listening for a reply:
@@ -198,3 +212,60 @@ void test_comm_rw_master_v2(uint8_t fsm_state)
 		}
 	}
 }
+
+int usbtx(void)
+{
+	static int delayed_start = 0;
+	static int toggle_led1 = 0;
+	static int status = 0;
+	uint8_t usb_bytes = 0;
+
+	if(delayed_start < 10)
+	{
+		delayed_start++;
+		return -1;
+	}
+	else
+	{
+		//USB transmit test:
+		status = CDC_Transmit_FS(usb_test_string, 25);
+
+		if(status == USBD_BUSY)
+		{
+			toggle_led1 ^= 1;
+			LED1(toggle_led1);
+		}
+		else if(status == USBD_FAIL)
+		{
+			LED1(0);
+		}
+		else
+		{
+			LED1(1);
+		}
+
+		return status;
+	}
+
+
+	//USB data available?
+	usb_bytes = usb_bytes_available();
+	if(usb_bytes > 10)
+	{
+		//Byte(s) ready, get it/them
+
+		LED1(1);
+	}
+	else
+	{
+		LED1(0);
+	}
+
+	return -2;
+}
+
+//****************************************************************************
+// Private Function(s)
+//****************************************************************************
+
+//...

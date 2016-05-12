@@ -1,16 +1,19 @@
 //****************************************************************************
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
-// jfduval@mit.edu
-// 03/2015
+// jfduval@media.mit.edu
+// 05/2015
 //****************************************************************************
-// fm_misc: Slave R/W
+// fm_slave_comm: Slave R/W
+//****************************************************************************
+// Licensing: Please refer to 'software_license.txt'
 //****************************************************************************
 
 //****************************************************************************
 // Include(s)
 //****************************************************************************
 
+//ToDo Update this block of comments
 //Manage can be in slave_comm_mode = TRANSPARENT or slave_comm_mode = AUTOSAMPLING
 //TRANSPARENT: Manage routes communication between the Master and the Slaves. All
 //	the timings come from the Master (Manage routes as fast as possible)
@@ -22,13 +25,13 @@
 
 #include "main.h"
 #include "fm_master_slave_comm.h"
-#include "flexsea_comm.h"
 
 //****************************************************************************
 // Variable(s)
 //****************************************************************************
 
 uint8_t tmp_rx_command_spi[PAYLOAD_BUF_LEN];
+uint8_t tmp_rx_command_usb[PAYLOAD_BUF_LEN];
 uint8_t tmp_rx_command_485_1[PAYLOAD_BUF_LEN];
 uint8_t tmp_rx_command_485_2[PAYLOAD_BUF_LEN];
 
@@ -108,6 +111,23 @@ void parse_master_slave_commands(uint8_t *new_cmd)
 		*new_cmd = 1;
 	}
 
+	//Valid communication from USB?
+	if(cmd_ready_usb != 0)
+	{
+		cmd_ready_usb = 0;
+
+		//Cheap trick to get first line	//ToDo: support more than 1
+		for(i = 0; i < PAYLOAD_BUF_LEN; i++)
+		{
+			tmp_rx_command_usb[i] = rx_command_usb[0][i];
+		}
+		// parse the command and execute it
+		payload_parse_str(tmp_rx_command_usb);
+
+		//LED:
+		*new_cmd = 1;
+	}
+
 	//Valid communication from RS-485 #1?
 	if(slaves_485_1.cmd_ready != 0)
 	{
@@ -144,7 +164,7 @@ void write_test_cmd_execute(uint8_t port, uint8_t slave, uint8_t value)
 
 	//bytes = tx_cmd_clutch_write(FLEXSEA_EXECUTE_1, value);
 	bytes = tx_cmd_encoder_read(slave);
-	bytes2 = comm_gen_str(payload_str, comm_str_485_1, bytes + 1);	//Might not need the +1, TBD
+	bytes2 = comm_gen_str(payload_str, comm_str_485_1, bytes + 1);    //Might not need the +1, TBD
 
 	flexsea_send_serial_slave(port, comm_str_485_1, bytes2 + 1);
 }
@@ -159,10 +179,10 @@ void write_test_cmd_execute2(uint8_t port, uint8_t slave, uint8_t value)
 	//encoder_w (Write New Encoder value): KEEP/CHANGE
 	//encoder_cnt (New encoder count): ignored if encoder_w == KEEP
 	//current: current controller setpoint
-	bytes = tx_cmd_ctrl_special_1(slave, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
-									KEEP, 0, KEEP, 0, value, 0);
+	bytes = tx_cmd_ctrl_special_1(slave, CMD_READ, payload_str, PAYLOAD_BUF_LEN,
+	KEEP, 0, KEEP, 0, value, 0);
 
-	bytes2 = comm_gen_str(payload_str, comm_str_485_1, bytes + 1);	//Might not need the +1, TBD
+	bytes2 = comm_gen_str(payload_str, comm_str_485_1, bytes + 1);    //Might not need the +1, TBD
 
 	flexsea_send_serial_slave(port, comm_str_485_1, bytes2 + 1);
 }
@@ -184,7 +204,7 @@ static void slave_comm_single(struct slave_comm_s *slave, uint8_t *trig)
 			//Transmit data:
 			write_to_slave_xmit(slave);
 
-	        //We are done, lower the flag
+			//We are done, lower the flag
 			slave->xmit.flag = 0;
 		}
 	}
@@ -198,7 +218,7 @@ static void slave_comm_single(struct slave_comm_s *slave, uint8_t *trig)
 			//Transmit data:
 			write_to_slave_xmit(slave);
 
-	        //We are done, lower the flag
+			//We are done, lower the flag
 			slave->xmit.flag = 0;
 		}
 		else
@@ -230,25 +250,26 @@ static void write_to_slave_xmit(struct slave_comm_s *slave)
 	flexsea_send_serial_slave(slave->port, slave->xmit.str, slave->xmit.length);
 
 	//Are we trying to read?
-    if(IS_CMD_RW(slave->xmit.cmd) == READ)
-    {
-        //We expect an answer, start listening:
-    	slave->xmit.listen = 1;
-    }
+	if(IS_CMD_RW(slave->xmit.cmd) == READ)
+	{
+		//We expect an answer, start listening:
+		slave->xmit.listen = 1;
+	}
 }
 
 //Sends a packet to RS-485, autosample mode. Sets the Listen flag if needed.
 static void write_to_slave_autosample(struct slave_comm_s *slave)
 {
 	//Transmit data:
-	flexsea_send_serial_slave(slave->port, slave->autosample.str, slave->autosample.length);
+	flexsea_send_serial_slave(slave->port, slave->autosample.str,
+			slave->autosample.length);
 
 	//Are we trying to read?
-    if(IS_CMD_RW(slave->autosample.cmd) == READ)
-    {
-        //We expect an answer, start listening:
-    	slave->autosample.listen = 1;
-    }
+	if(IS_CMD_RW(slave->autosample.cmd) == READ)
+	{
+		//We expect an answer, start listening:
+		slave->autosample.listen = 1;
+	}
 }
 
 //State-machine for the autosampling on bus #1
@@ -258,9 +279,9 @@ static void slaves_485_1_autosample(void)
 
 	//Experiment #1: Send Special1
 
-	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
-				spc4_ex1.ctrl_w, spc4_ex1.ctrl, spc4_ex1.encoder_w, spc4_ex1.encoder, \
-				spc4_ex1.current, spc4_ex1.open_spd);
+	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str,
+			PAYLOAD_BUF_LEN, spc4_ex1.ctrl_w, spc4_ex1.ctrl, spc4_ex1.encoder_w,
+			spc4_ex1.encoder, spc4_ex1.current, spc4_ex1.open_spd);
 	numb = comm_gen_str(payload_str, comm_str_485_1, PAYLOAD_BUF_LEN);
 	numb = COMM_STR_BUF_LEN;
 
@@ -275,9 +296,9 @@ static void slaves_485_2_autosample(void)
 
 	//Experiment #1: Send Special1
 
-	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_2, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
-				spc4_ex2.ctrl_w, spc4_ex2.ctrl, spc4_ex2.encoder_w, spc4_ex2.encoder, \
-				spc4_ex2.current, spc4_ex2.open_spd);
+	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_2, CMD_READ, payload_str,
+			PAYLOAD_BUF_LEN, spc4_ex2.ctrl_w, spc4_ex2.ctrl, spc4_ex2.encoder_w,
+			spc4_ex2.encoder, spc4_ex2.current, spc4_ex2.open_spd);
 	numb = comm_gen_str(payload_str, comm_str_485_2, PAYLOAD_BUF_LEN);
 	numb = COMM_STR_BUF_LEN;
 
@@ -286,67 +307,67 @@ static void slaves_485_2_autosample(void)
 }
 
 /*
-//Sequentially acquire data from a slave
-//Will request a new read every time it's called
-//Should we include a mechanism to insert Slave commands here? I think so
-uint16_t slave_comm(uint8_t slave, uint8_t port, uint8_t autosample)
-{
-	static uint16_t cnt = 0;
-	uint8_t bytes = 0, bytes2 = 0;
+ //Sequentially acquire data from a slave
+ //Will request a new read every time it's called
+ //Should we include a mechanism to insert Slave commands here? I think so
+ uint16_t slave_comm(uint8_t slave, uint8_t port, uint8_t autosample)
+ {
+ static uint16_t cnt = 0;
+ uint8_t bytes = 0, bytes2 = 0;
 
-	if(!xmit_flag)
-	{
-		if(autosample)
-		{
-			//We start by generating 1 read request:
-			switch(cnt)
-			{
-				case 0:
-					bytes = tx_cmd_strain_read(slave);
-					cnt++;
-					break;
-				case 1:
-					bytes = tx_cmd_encoder_read(slave);
-					cnt++;
-					break;
-				case 2:
-					bytes = tx_cmd_imu_read(slave, 0, 3);
-					cnt++;
-					break;
-				case 3:
-					bytes = tx_cmd_analog_read(slave, 0, 1);
-					cnt++;
-					break;
-				case 4:
-					bytes = tx_cmd_ctrl_i_read(slave);
-					cnt = 0;	//Last command resets the counter
-					break;
-			}
+ if(!xmit_flag)
+ {
+ if(autosample)
+ {
+ //We start by generating 1 read request:
+ switch(cnt)
+ {
+ case 0:
+ bytes = tx_cmd_strain_read(slave);
+ cnt++;
+ break;
+ case 1:
+ bytes = tx_cmd_encoder_read(slave);
+ cnt++;
+ break;
+ case 2:
+ bytes = tx_cmd_imu_read(slave, 0, 3);
+ cnt++;
+ break;
+ case 3:
+ bytes = tx_cmd_analog_read(slave, 0, 1);
+ cnt++;
+ break;
+ case 4:
+ bytes = tx_cmd_ctrl_i_read(slave);
+ cnt = 0;	//Last command resets the counter
+ break;
+ }
 
-			//Then we package and send it out:
-			bytes2 = comm_gen_str(payload_str, bytes + 1);	//Might not need the +1, TBD
-			flexsea_send_serial_slave(port, comm_str, bytes2 + 1);
-			start_listening_flag = 1;
-		}
-	}
-	else
-	{
-		//xmit flag is high, we skip refreshing the sensors to send one packet
+ //Then we package and send it out:
+ bytes2 = comm_gen_str(payload_str, bytes + 1);	//Might not need the +1, TBD
+ flexsea_send_serial_slave(port, comm_str, bytes2 + 1);
+ start_listening_flag = 1;
+ }
+ }
+ else
+ {
+ //xmit flag is high, we skip refreshing the sensors to send one packet
 
-		flexsea_send_serial_slave(port, comm_str_xmit, COMM_STR_BUF_LEN-5);	//ToDo: this will always send the max length, not what we want.
+ flexsea_send_serial_slave(port, comm_str_xmit, COMM_STR_BUF_LEN-5);	//ToDo: this will always send the max length, not what we want.
 
-		//ToDo: this is ugly, I need a better solution. Table with [CMD Code][R/W][Arguments]?
-		//The new R/W commands will fix that
-        if((cmd_xmit == CMD_IMU_READ) || (cmd_xmit == CMD_ENCODER_READ) || (cmd_xmit == CMD_STRAIN_READ) || (cmd_xmit == CMD_ANALOG_READ) || (cmd_xmit == CMD_CTRL_I_READ))
-        {
-            //Place code here to deal with slave answering
-            start_listening_flag = 1;
-        }
+ //ToDo: this is ugly, I need a better solution. Table with [CMD Code][R/W][Arguments]?
+ //The new R/W commands will fix that
+ if((cmd_xmit == CMD_IMU_READ) || (cmd_xmit == CMD_ENCODER_READ) || (cmd_xmit == CMD_STRAIN_READ) || (cmd_xmit == CMD_ANALOG_READ) || (cmd_xmit == CMD_CTRL_I_READ))
+ {
+ //Place code here to deal with slave answering
+ start_listening_flag = 1;
+ }
 
-        //Lowers the flag
-        xmit_flag = 0;
-	}
+ //Lowers the flag
+ xmit_flag = 0;
+ }
 
-	return cnt;
-}
-*/
+ return cnt;
+ }
+ */

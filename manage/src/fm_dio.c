@@ -1,10 +1,12 @@
 //****************************************************************************
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
-// jfduval@mit.edu
-// 02/2015
+// jfduval@media.mit.edu
+// 05/2016
 //****************************************************************************
 // fm_dio: Deals with the 9 digital IOs
+//****************************************************************************
+// Licensing: Please refer to 'software_license.txt'
 //****************************************************************************
 
 //GPIO only for now (no I2C, SPI or Serial)
@@ -25,7 +27,13 @@
 // Variable(s)
 //****************************************************************************
 
-unsigned int dio_direction = 0x00;	//0 = output, 1 = input;
+unsigned int dio_direction = 0x00;    //0 = output, 1 = input;
+
+//****************************************************************************
+// Private Function Prototype(s):
+//****************************************************************************
+
+//...
 
 //****************************************************************************
 // Function(s)
@@ -47,14 +55,15 @@ void init_dio(void)
 	GPIO_InitStructure.Speed = GPIO_SPEED_LOW;
 	GPIO_InitStructure.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(GPIOD, &GPIO_InitStructure);
-	
+
 	GPIO_InitStructure.Pin = GPIO_PIN_0 | GPIO_PIN_1;
 	GPIO_InitStructure.Mode = GPIO_MODE_INPUT;
 	GPIO_InitStructure.Speed = GPIO_SPEED_LOW;
 	GPIO_InitStructure.Pull = GPIO_NOPULL;
 	HAL_GPIO_Init(GPIOF, &GPIO_InitStructure);
 
-	GPIO_InitStructure.Pin = GPIO_PIN_8 | GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14;
+	GPIO_InitStructure.Pin = GPIO_PIN_8 | GPIO_PIN_12 | GPIO_PIN_13
+			| GPIO_PIN_14;
 	GPIO_InitStructure.Mode = GPIO_MODE_INPUT;
 	GPIO_InitStructure.Speed = GPIO_SPEED_LOW;
 	GPIO_InitStructure.Pull = GPIO_NOPULL;
@@ -70,14 +79,14 @@ unsigned int dio_port_read(void)
 	unsigned int buffer = 0;
 
 	//Read all the inputs
-	buffer |=  (HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_0) << 0);
-	buffer |=  (HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_1) << 1);
-	buffer |=  (HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_8) << 2);
-	buffer |=  (HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_9) << 3);
-	buffer |=  (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_8) << 4);
-	buffer |=  (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_13) << 5);
-	buffer |=  (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_12) << 6);
-	buffer |=  (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_14) << 7);
+	buffer |= (HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_0) << 0);
+	buffer |= (HAL_GPIO_ReadPin(GPIOF, GPIO_PIN_1) << 1);
+	buffer |= (HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_8) << 2);
+	buffer |= (HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_9) << 3);
+	buffer |= (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_8) << 4);
+	buffer |= (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_13) << 5);
+	buffer |= (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_12) << 6);
+	buffer |= (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_14) << 7);
 	//buffer |=  (HAL_GPIO_ReadPin(GPIOG, GPIO_PIN_14) << 7); ToDo DIO8
 
 	//Some pins might be outputs, force them to 0:
@@ -114,7 +123,7 @@ void dio_set_pin_direction(unsigned int pin, unsigned int dir)
 	GPIO_InitStructure.Mode = direction;
 	GPIO_InitStructure.Speed = GPIO_SPEED_LOW;
 	GPIO_InitStructure.Pull = GPIO_NOPULL;
-	HAL_GPIO_Init((GPIO_TypeDef *)port.MODER, &GPIO_InitStructure);
+	HAL_GPIO_Init((GPIO_TypeDef *) port.MODER, &GPIO_InitStructure);
 
 	//Update the status word:
 	dio_direction &= (dir << pin);
@@ -151,11 +160,11 @@ void dio_set_port_direction(unsigned int dir)
 		GPIO_InitStructure.Mode = direction;
 		GPIO_InitStructure.Speed = GPIO_SPEED_LOW;
 		GPIO_InitStructure.Pull = GPIO_NOPULL;
-		HAL_GPIO_Init((GPIO_TypeDef *)port.MODER, &GPIO_InitStructure);
+		HAL_GPIO_Init((GPIO_TypeDef *) port.MODER, &GPIO_InitStructure);
 	}
 
 	//Update the status word:
-	dio_direction = dir; //(we just forced all of them)
+	dio_direction = dir;    //(we just forced all of them)
 
 }
 
@@ -173,7 +182,7 @@ void dio_pin_write(unsigned int pin, unsigned int value)
 	//Write to the output (ignore if it's an input)
 	if(!((dio_direction >> pin) & 0x01))
 	{
-		HAL_GPIO_WritePin((GPIO_TypeDef *)port.MODER, pin, value);
+		HAL_GPIO_WritePin((GPIO_TypeDef *) port.MODER, pin, value);
 	}
 }
 
@@ -195,7 +204,8 @@ void dio_port_write(unsigned int value)
 		//Write to the output (ignore if it's an input)
 		if(!((dio_direction >> i) & 0x01))
 		{
-			HAL_GPIO_WritePin((GPIO_TypeDef *)port.MODER, gpio, ((value >> i) & 0x01));
+			HAL_GPIO_WritePin((GPIO_TypeDef *) port.MODER, gpio,
+					((value >> i) & 0x01));
 		}
 	}
 }
@@ -268,15 +278,14 @@ void dio_map_pin_port(unsigned int pin, GPIO_TypeDef *port, uint16_t *gpio)
 			port = GPIOG;
 			*gpio = GPIO_PIN_14;
 			break;
-/* ToDo
-		case 8:
-			port = GPIOF;
-			*gpio = GPIO_PIN_1;
-			break;
-*/
+			/* ToDo
+			 case 8:
+			 port = GPIOF;
+			 *gpio = GPIO_PIN_1;
+			 break;
+			 */
 		default:
 			port = GPIOA;
 			*gpio = GPIO_PIN_0;
 	}
 }
-
