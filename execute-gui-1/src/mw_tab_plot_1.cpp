@@ -256,10 +256,7 @@ void MainWindow::timerPlotEvent(void)
                 update_graph_array(index, 0);
                 break;
             case 1: //"Accel X"
-                if(active_slave_1 == FLEXSEA_STRAIN_1)  //ToDo dirty integration, fix!
-                    update_graph_array(index, strain[0].strain_filtered);
-                else
-                    update_graph_array(index, exec1.accel.x);
+                update_graph_array(index, exec1.accel.x);
                 break;
             case 2: //"Accel Y"
                 update_graph_array(index, exec1.accel.y);
@@ -302,6 +299,24 @@ void MainWindow::timerPlotEvent(void)
                 break;
             case 15: //"Setpoint"
                 update_graph_array(index, ctrl_setpoint);
+                break;
+            case 16: //"Strain ch1"
+                update_graph_array(index, strain[0].strain_filtered);
+                break;
+            case 17: //"Strain ch2"
+                update_graph_array(index, strain[1].strain_filtered);
+                break;
+            case 18: //"Strain ch3"
+                update_graph_array(index, strain[2].strain_filtered);
+                break;
+            case 19: //"Strain ch4"
+                update_graph_array(index, strain[3].strain_filtered);
+                break;
+            case 20: //"Strain ch5"
+                update_graph_array(index, strain[4].strain_filtered);
+                break;
+            case 21: //"Strain ch6"
+                update_graph_array(index, strain[5].strain_filtered);
                 break;
         }
 

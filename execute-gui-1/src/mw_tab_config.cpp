@@ -51,8 +51,9 @@ void MainWindow::on_openComButton_clicked()
         qDebug("Successfully opened COM port.");
         str += QString(" Success!");
 
-        //Activate Stream & Clsoe COM buttons:
+        //Activate Stream & Close COM buttons:
         ui->streamONbutton->setEnabled(1);
+        ui->stream_SA_ONbutto->setEnabled(1);
         ui->closeComButton->setEnabled(1);
     }
     else if(com_open == 1)

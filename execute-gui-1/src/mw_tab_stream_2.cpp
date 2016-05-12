@@ -2,9 +2,9 @@
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
 // jfduval@media.mit.edu
-// 02/2016
+// 05/2016
 //****************************************************************************
-// MainWindow: Qt GUI Main file - tab:Stream 1 (Execute)
+// MainWindow: Qt GUI Main file - tab:Stream 2 (Manage)
 //****************************************************************************
 
 //****************************************************************************
@@ -18,6 +18,7 @@
 #include <QDebug>
 #include <string>
 
+/* Update when developing Manage Stream tab
 void MainWindow::on_streamONbutton_clicked()
 {
     ui->streamONbutton->setDisabled(1);
@@ -40,6 +41,7 @@ void MainWindow::on_streamOFFbutton_clicked()
     stream_status = 0;
 }
 
+
 void MainWindow::timerStreamEvent(void)
 {
     if(stream_status)
@@ -61,13 +63,12 @@ void MainWindow::timerStreamEvent(void)
         decode_usb_rx(usb_rx);
 
         //Raw values:
-
-        ui->disp_accx->setText(QString::number(exec1.accel.x));
-        ui->disp_accy->setText(QString::number(exec1.accel.y));
-        ui->disp_accz->setText(QString::number(exec1.accel.z));
-        ui->disp_gyrox->setText(QString::number(exec1.gyro.x));
-        ui->disp_gyroy->setText(QString::number(exec1.gyro.y));
-        ui->disp_gyroz->setText(QString::number(exec1.gyro.z));
+	ui->disp_accx->setText(QString::number(exec1.accel.x));
+	ui->disp_accy->setText(QString::number(exec1.accel.y));
+	ui->disp_accz->setText(QString::number(exec1.accel.z));
+	ui->disp_gyrox->setText(QString::number(exec1.gyro.x));
+	ui->disp_gyroy->setText(QString::number(exec1.gyro.y));
+	ui->disp_gyroz->setText(QString::number(exec1.gyro.z));
 
         ui->disp_enc->setText(QString::number(exec1.encoder));
         ui->disp_meas_val->setText(QString::number(exec1.encoder)); //ToDo should be done in Ctrl, not here
@@ -107,3 +108,5 @@ void MainWindow::timerStreamEvent(void)
         //==========
     }
 }
+*/
+

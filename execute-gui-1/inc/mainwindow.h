@@ -80,14 +80,14 @@ public:
     void array_minmax(int *arr, int len, int *min, int *max);
 
 private:
-    int stream_status, fake_data;
+    int stream_status, stream_sa_status, fake_data;
 
     int plot_buf[PLOT_BUF_LEN]; //ToDo!
 
     unsigned char usb_rx[256];
     int exp_pwm;
 
-    QTimer *timer_stream, *timer_log, *timer_plot, *timer_ctrl;
+    QTimer *timer_stream, *timer_stream_sa, *timer_log, *timer_plot, *timer_ctrl;
     QSerialPort USBSerialPort;
 
     int active_slave_1, active_slave_1_index;
@@ -122,6 +122,9 @@ private:
     int ctrl_toggle_state = 0;
     void controller_setpoint(int val);
 
+    //Stream SA:
+    uint8_t bound_number(int num, int min, int max);
+
     //Serial driver:
 
     int OpenUSBSerialPort(QString name, int tries, int delay);
@@ -138,6 +141,8 @@ private slots:
     void on_streamOFFbutton_clicked();
 
     void timerStreamEvent();
+
+    void timerStream_SA_Event();
 
     void timerPlotEvent();
 
@@ -171,6 +176,12 @@ private slots:
     void on_ctrl_encoder_zero_clicked();
 
     void on_SlaveSelectComboBox_currentIndexChanged(int index);
+
+    void on_stream_SA_ONbutto_clicked();
+
+    void on_stream_SA_OFFbutton_clicked();
+
+    void on_stream_SA_RefreshOffset_clicked();
 
 private:
     Ui::MainWindow *ui;

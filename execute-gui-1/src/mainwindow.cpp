@@ -107,7 +107,8 @@ MainWindow::MainWindow(QWidget *parent) :
     //Variable option lists:
     QStringList var_list;
     var_list << "**Unused**" << "Accel X" << "Accel Y" << "Accel Z" << "Gyro X" << "Gyro Y" << "Gyro Z" << "Encoder" \
-            << "Motor current" << "Analog[0]" << "Strain" << "+VB" << "+VG" << "Temperature" << "Fake Data" << "Setpoint";
+            << "Motor current" << "Analog[0]" << "Strain" << "+VB" << "+VG" << "Temperature" << "Fake Data" << "Setpoint" \
+            << "Strain ch1" << "Strain ch2" << "Strain ch3" << "Strain ch4" << "Strain ch5" << "Strain ch6";
     for(int index = 0; index < var_list.count(); index++)
     {
         //All boxes have the same list:
@@ -130,7 +131,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //=================
     exp_pwm = 0;
     ui->disp_MotPWM->setText(QString::number(ui->hSlider_PWM->value()));
-    ui->tabWidget->setTabEnabled(3, false); //Disabled for now
+    ui->tabWidget->setTabEnabled(5, false); //Disabled for now
 
     //About:
     //=================
@@ -171,6 +172,11 @@ MainWindow::MainWindow(QWidget *parent) :
                 ui->control_g5->text().toInt());
     ui->textLabel_Gains->setText(str);
 
+    //Strain:
+    //=================
+    ui->stream_SA_ONbutto->setDisabled(1);
+    ui->stream_SA_OFFbutton->setDisabled(1);
+
     //External:
     //=================
     ui->pushButton_ext_pwro->setText("Turn ON (PWM)");
@@ -180,10 +186,15 @@ MainWindow::MainWindow(QWidget *parent) :
     //Timers:
     //=================
 
-    //Stream:
+    //Stream 1 (Execute):
     timer_stream = new QTimer(this);
     connect(timer_stream, SIGNAL(timeout()), this, SLOT(timerStreamEvent()));
     timer_stream->start(TIM_FREQ_TO_P(STREAM_DEFAULT_FREQ));
+
+    //Stream 3 (Strain):
+    timer_stream_sa = new QTimer(this);
+    connect(timer_stream_sa, SIGNAL(timeout()), this, SLOT(timerStream_SA_Event()));
+    timer_stream_sa->start(TIM_FREQ_TO_P(STREAM_DEFAULT_FREQ));
 
     //Plot:
     timer_plot = new QTimer(this);
