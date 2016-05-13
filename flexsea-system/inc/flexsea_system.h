@@ -446,16 +446,22 @@ struct manage_s
 
 
 //Strain gauge amplifier:
+//(structure supports both single and 6-ch amp)
 struct strain_s
 {
 	//Config:     
     uint8_t offset;
+	uint8_t gain;
+    uint8_t oref;	
 	
     //Raw ADC values:
     uint16_t strain_raw[4];
+	uint16_t vo1;
+    uint16_t vo2;
 	 
 	//Filtered value:
 	uint16_t strain_filtered;
+	uint16_t filtered_strain;
 };
 
 //****************************************************************************

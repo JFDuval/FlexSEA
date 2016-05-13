@@ -75,6 +75,7 @@ uint16 strain_filter_dma(void);
 // Structure(s):
 //****************************************************************************
 
+/*
 //Strain gauge amplifier:
 struct strain_s
 {
@@ -90,6 +91,7 @@ struct strain_s
 	//Filtering:
 	uint16 filtered_strain;
 };
+*/
 
 #endif	//INC_STRAINGAUGE_H
 	

@@ -28,6 +28,11 @@ uint16 spidata_mosi2[WORDS_IN_FRAME];
 uint8 spistatus = 0;
 uint16 angleunc = 0;
 
+//6-ch Strain Amplifier:
+uint16 ext_strain[6] = {0,0,0,0,0,0};
+uint8 ext_strain_bytes[12];
+volatile uint8 i2c_0_r_buf[24];
+
 //****************************************************************************
 // Private Function Prototype(s):
 //****************************************************************************	
@@ -102,6 +107,54 @@ uint16 as5047_read_single(uint16 reg)
 	return last_as5047_word;
 }
 
+//Manual I2C [Write - Restart - Read n bytes] function
+//Takes around xus (400kHz) to run, then the ISR takes care of everything.
+int strain_6ch_read(uint8 internal_reg_addr, uint8 *pData, uint16 length)
+{
+	uint8 status = 0, i = 0;
+	
+	//Currently having trouble detecting the flags to know when data is ready.
+	//For now I'll transfer the previous buffer.
+	for(i = 0; i < length; i++)
+	{
+		pData[i] = i2c_0_r_buf[i];
+	}
+	
+	//Clear status:
+	//I2C_1_MasterClearStatus();
+	
+	//Start, address, Write mode
+	status = I2C_0_MasterSendStart(I2C_SLAVE_ADDR_6CH, 0);		
+	if(status != I2C_0_MSTR_NO_ERROR)
+		return 1;
+	
+	//Write to register
+	status = I2C_0_MasterWriteByteTimeOut(internal_reg_addr, 500);
+	if(status != I2C_0_MSTR_NO_ERROR)
+	{
+		//Release bus:
+		I2C_0_BUS_RELEASE;
+		
+		return 2;
+	}
+
+	//Repeat start, read then stop (all by ISR):
+	I2C_0_MasterReadBuf(I2C_SLAVE_ADDR_6CH, (uint8 *)i2c_0_r_buf, length, (I2C_0_MODE_COMPLETE_XFER | I2C_0_MODE_REPEAT_START));
+	
+	return 0;
+}
+
+//Reassembles the bytes we read in words
+void strain_6ch_bytes_to_words(void)
+{
+	ext_strain[0] = ((((uint16)ext_strain_bytes[0] << 8) & 0xFF00) | (uint16)ext_strain_bytes[1]);
+	ext_strain[1] = ((((uint16)ext_strain_bytes[2] << 8) & 0xFF00) | (uint16)ext_strain_bytes[3]);
+	ext_strain[2] = ((((uint16)ext_strain_bytes[4] << 8) & 0xFF00) | (uint16)ext_strain_bytes[5]);
+	ext_strain[3] = ((((uint16)ext_strain_bytes[6] << 8) & 0xFF00) | (uint16)ext_strain_bytes[7]);
+	ext_strain[4] = ((((uint16)ext_strain_bytes[8] << 8) & 0xFF00) | (uint16)ext_strain_bytes[9]);
+	ext_strain[5] = ((((uint16)ext_strain_bytes[10] << 8) & 0xFF00) | (uint16)ext_strain_bytes[11]);
+}
+
 //****************************************************************************
 // Private Function(s)
 //****************************************************************************
@@ -174,3 +227,12 @@ void as5047_test_code_blocking(void)
     }
 }
 
+void strain_amp_6ch_test_code_blocking(void)
+{
+	while(1)
+	{
+		strain_6ch_read(MEM_R_CH1_H, ext_strain_bytes, 12);
+		strain_6ch_bytes_to_words();
+		CyDelay(100);
+	}
+}

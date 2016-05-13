@@ -351,15 +351,14 @@ void rx_cmd_strain(uint8_t *buf)
 		{
 			//We received a reply to our read request
 
+			#ifdef BOARD_TYPE_FLEXSEA_PLAN
+				
 			strain[0].strain_filtered = (uint16_t)BYTES_TO_UINT16(buf[P_DATA1], buf[P_DATA1+1]);
 			strain[1].strain_filtered = (uint16_t)BYTES_TO_UINT16(buf[P_DATA1+2], buf[P_DATA1+3]);
 			strain[2].strain_filtered = (uint16_t)BYTES_TO_UINT16(buf[P_DATA1+4], buf[P_DATA1+5]);
 			strain[3].strain_filtered = (uint16_t)BYTES_TO_UINT16(buf[P_DATA1+6], buf[P_DATA1+7]);
 			strain[4].strain_filtered = (uint16_t)BYTES_TO_UINT16(buf[P_DATA1+8], buf[P_DATA1+9]);
-			strain[5].strain_filtered = (uint16_t)BYTES_TO_UINT16(buf[P_DATA1+10], buf[P_DATA1+11]);
-			//ToDo get all channels, and do something
-
-			#ifdef BOARD_TYPE_FLEXSEA_PLAN
+			strain[5].strain_filtered = (uint16_t)BYTES_TO_UINT16(buf[P_DATA1+10], buf[P_DATA1+11]);	
 
 			_USE_PRINTF("Strain[0] = %i.\n", strain[0].strain_filtered);
 

@@ -31,6 +31,30 @@ uint8 minm_i2c_buf[MINM_BUF_SIZE];
 // Public Function(s)
 //****************************************************************************
 
+void i2c_init_minm(uint8 color)
+{
+	uint8 r = 0, g = 0, b = 0;
+	
+	minm_i2c_buf[0] = MINM_STOP_SCRIPT;
+	minm_i2c_buf[1] = 0;
+	
+	//Stop script:
+	I2C_0_MasterClearStatus();
+	//I2C_0_MasterClearWriteBuf();
+    I2C_0_MasterWriteBuf(I2C_SLAVE_ADDR_MINM, (uint8 *) minm_i2c_buf,
+                             4, I2C_0_MODE_COMPLETE_XFER);
+	
+	CyDelay(50);
+	
+	//Set color:
+	minm_byte_to_rgb(color, &r, &g, &b);
+	i2c_write_minm_rgb(SET_RGB, r, g, b);	
+	minm_rgb_color = color;
+	
+	CyDelay(25);
+}
+
+
 //Write to MinM RGB LED
 void i2c_write_minm_rgb(uint8 cmd, uint8 r, uint8 g, uint8 b)
 {	

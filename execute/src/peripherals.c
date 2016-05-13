@@ -75,7 +75,7 @@ void init_peripherals(void)
 		#ifdef USE_MINM_RGB
 			
 		//Set RGB LED - Starts Green
-		i2c_write_minm_rgb(SET_RGB, 0, 255, 0);
+		i2c_init_minm(MINM_GREEN);
 		
 		#endif 	//USE_MINM_RGB
 	

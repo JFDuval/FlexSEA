@@ -77,6 +77,7 @@ int main(void)
 	//csea_knee_up_down_test_demo();
 	//motor_stepper_test_blocking_1(80);
 	//test_pwro_output_blocking();
+	//strain_amp_6ch_test_code_blocking();
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 	//Non-Blocking Test code
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -96,6 +97,9 @@ int main(void)
 	#ifdef PROJECT_EXOCUTE
 	init_exo();
 	#endif
+	
+	//minm_rgb_color = MINM_GREEN;
+	//update_minm_rgb();
 
 	//Main loop
 	while(1)
@@ -151,8 +155,8 @@ int main(void)
 							
 							//I2C RGB LED
 							#ifdef USE_MINM_RGB
-							//minm_test_code();
-							update_minm_rgb();		//ToDo: That's EXT_I2C, not INT
+							minm_test_code();
+							//update_minm_rgb();		//ToDo: That's EXT_I2C, not INT
 							#endif 	//USE_MINM_RGB
 							
 							break;
