@@ -78,6 +78,7 @@ int main(void)
 	//motor_stepper_test_blocking_1(80);
 	//test_pwro_output_blocking();
 	//strain_amp_6ch_test_code_blocking();
+	//as5048b_test_code_blocking();
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 	//Non-Blocking Test code
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
