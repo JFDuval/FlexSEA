@@ -82,6 +82,14 @@ void assign_i2c_data(uint8 *newdata)
 		tmp = ((uint16)newdata[4] << 8) | ((uint16) newdata[5]);
 		imu.accel.z = (int16)tmp;		
 	}
+	else if(i2c_last_request == I2C_RQ_AS5048B)
+	{
+			as5048b_angle = (newdata[0]<<6) + (newdata[1]&0x3F);
+	}
+	else if(i2c_last_request == I2C_RQ_EXT_STRAIN)
+	{
+		strain_6ch_bytes_to_words(newdata);
+	}	
 }
 
 //Call this function in the 1kHz FSM. It will return 1 every second.

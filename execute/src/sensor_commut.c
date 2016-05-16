@@ -81,7 +81,7 @@ void motor_stepper_test_runtime(int div)
 		hall_code_0 %= 6;
 		hall_code = hall_conv[hall_code_0];
 		
-		Hall_Write(hall_code);		
+		//Hall_Write(hall_code);	//ToDo Enable
 	}	
 }
 

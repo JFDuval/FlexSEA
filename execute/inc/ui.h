@@ -29,7 +29,7 @@ extern uint8 minm_rgb_color;
 void i2c_init_minm(uint8 color);
 void i2c_write_minm_rgb(uint8 cmd, uint8 r, uint8 g, uint8 b);
 void minm_byte_to_rgb(uint8 byte, uint8 *r, uint8 *g, uint8 *b);
-void update_minm_rgb(void);
+uint8 update_minm_rgb(void);
 void minm_test_code(void);
 void alive_led(void);
 void power_on(void);

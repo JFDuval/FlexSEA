@@ -43,6 +43,7 @@ int main(void)
 {
 	//Local variables:
 	uint8 i = 0;
+	uint8 minm_i2c = 0;
 	unsigned char result = 0;
 	uint8 toggle_wdclk = 0;	
 	uint8 cmd_ready_485 = 0, cmd_ready_usb = 0;
@@ -78,13 +79,14 @@ int main(void)
 	//motor_stepper_test_blocking_1(80);
 	//test_pwro_output_blocking();
 	//strain_amp_6ch_test_code_blocking();
+	//as5047_test_code_blocking();
 	//as5048b_test_code_blocking();
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 	//Non-Blocking Test code
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 	#ifdef USE_SPI_COMMUT
 		
-	motor_stepper_test_init(0);
+	//motor_stepper_test_init(0);
 	//Note: deadtime is 55, small PWM values won't make it move.
 	//Starting at 0, GUI will change that when it wants.
 	
@@ -146,19 +148,32 @@ int main(void)
 							
 							break;
 						
-						//Case 0.2:
+						//Case 0.2: AS5048B position sensor
 						case 2:
-							//...
+							get_as5048b_position();
+							i2c_last_request = I2C_RQ_AS5048B;							
 							break;
 						
-						//Case 0.3: 
+						//Case 0.3: MinM RGB LED & external strain amplifier
 						case 3:
 							
 							//I2C RGB LED
 							#ifdef USE_MINM_RGB
-							minm_test_code();
-							//update_minm_rgb();		//ToDo: That's EXT_I2C, not INT
+							//minm_test_code();	
+							minm_i2c = update_minm_rgb();
+							#else
+							minm_i2c = 0;	
 							#endif 	//USE_MINM_RGB
+							
+							//External strain gauge amplifier
+							#ifdef USE_EXT_I2C_STRAIN
+							if(!minm_i2c)
+							{
+								//If the MinM was refreshed we skip one measurements.
+								get_6ch_strain();
+								i2c_last_request = I2C_RQ_EXT_STRAIN;
+							}
+							#endif //USE_EXT_I2C_STRAIN
 							
 							break;
 						

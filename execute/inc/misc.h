@@ -48,10 +48,11 @@ void timing_test_blocking(void);
 // Definition(s):
 //****************************************************************************
 
-//ISR reading of the IMU & Safety-CoP:									
+//ISR reading of I2C0 sensors (IMU, Strain Gauge, AS5048B, etc.):									
 #define I2C_RQ_GYRO				1	
 #define I2C_RQ_ACCEL			2
-#define I2C_RQ_SAFETY			3		
+#define I2C_RQ_AS5048B			3
+#define I2C_RQ_EXT_STRAIN		4
 
 #define SDELAY	5
 	

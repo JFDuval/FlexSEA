@@ -125,6 +125,9 @@ int strain_6ch_read(uint8 internal_reg_addr, uint8 *pData, uint16 length)
 		pData[i] = i2c_0_r_buf[i];
 	}
 	
+	//Store data:
+	assign_i2c_data(&i2c_0_r_buf);
+	
 	//Clear status:
 	//I2C_1_MasterClearStatus();
 	
@@ -162,6 +165,9 @@ int as5048b_read(uint8 internal_reg_addr, uint8 *pData, uint16 length)
 		pData[i] = i2c_0_r_buf[i];
 	}
 	
+	//Store data:
+	assign_i2c_data(&i2c_0_r_buf);
+	
 	//Clear status:
 	//I2C_1_MasterClearStatus();
 	
@@ -187,14 +193,27 @@ int as5048b_read(uint8 internal_reg_addr, uint8 *pData, uint16 length)
 }
 
 //Reassembles the bytes we read in words
-void strain_6ch_bytes_to_words(void)
+void strain_6ch_bytes_to_words(uint8 *buf)
 {
-	ext_strain[0] = ((((uint16)ext_strain_bytes[0] << 8) & 0xFF00) | (uint16)ext_strain_bytes[1]);
-	ext_strain[1] = ((((uint16)ext_strain_bytes[2] << 8) & 0xFF00) | (uint16)ext_strain_bytes[3]);
-	ext_strain[2] = ((((uint16)ext_strain_bytes[4] << 8) & 0xFF00) | (uint16)ext_strain_bytes[5]);
-	ext_strain[3] = ((((uint16)ext_strain_bytes[6] << 8) & 0xFF00) | (uint16)ext_strain_bytes[7]);
-	ext_strain[4] = ((((uint16)ext_strain_bytes[8] << 8) & 0xFF00) | (uint16)ext_strain_bytes[9]);
-	ext_strain[5] = ((((uint16)ext_strain_bytes[10] << 8) & 0xFF00) | (uint16)ext_strain_bytes[11]);
+	ext_strain[0] = ((((uint16)buf[0] << 8) & 0xFF00) | (uint16)buf[1]);
+	ext_strain[1] = ((((uint16)buf[2] << 8) & 0xFF00) | (uint16)buf[3]);
+	ext_strain[2] = ((((uint16)buf[4] << 8) & 0xFF00) | (uint16)buf[5]);
+	ext_strain[3] = ((((uint16)buf[6] << 8) & 0xFF00) | (uint16)buf[7]);
+	ext_strain[4] = ((((uint16)buf[8] << 8) & 0xFF00) | (uint16)buf[9]);
+	ext_strain[5] = ((((uint16)buf[10] << 8) & 0xFF00) | (uint16)buf[11]);
+}
+
+//Get latest readings from the 6-ch strain sensor
+void get_6ch_strain(void) 
+{
+	strain_6ch_read(MEM_R_CH1_H, ext_strain_bytes, 12);
+	//strain_6ch_bytes_to_words();
+}
+
+//Get latest readings from the AS5048B position sensor
+void get_as5048b_position(void) 
+{
+	as5048b_read(AD5048B_REG_ANGLE_H, as5048b_bytes, 2);
 }
 
 //****************************************************************************
@@ -274,7 +293,7 @@ void strain_amp_6ch_test_code_blocking(void)
 	while(1)
 	{
 		strain_6ch_read(MEM_R_CH1_H, ext_strain_bytes, 12);
-		strain_6ch_bytes_to_words();
+		strain_6ch_bytes_to_words(ext_strain_bytes);
 		CyDelay(100);
 	}
 }

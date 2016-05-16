@@ -100,9 +100,11 @@ void minm_byte_to_rgb(uint8 byte, uint8 *r, uint8 *g, uint8 *b)
 	}
 }
 
-//Updates the MinM LED if the color changed, otherwise does noting
-void update_minm_rgb(void)
+//Updates the MinM LED if the color changed, otherwise does noting.
+//Returns 0 when nothing changed (no I2C transfer), 1 when it's using the bus
+uint8 update_minm_rgb(void)
 {
+	uint8 retval = 0;
 	static uint8 r = 0, g = 0, b = 0;
 	
 	#ifdef USE_I2C_0
@@ -113,11 +115,14 @@ void update_minm_rgb(void)
 		
 		minm_byte_to_rgb(minm_rgb_color, &r, &g, &b);
 		i2c_write_minm_rgb(SET_RGB, r, g, b);
+		retval = 1;
 	}
 	
 	last_minm_rgb_color = minm_rgb_color;
 	
 	#endif	//USE_I2C_0
+	
+	return retval;
 }
 
 //Use this to test your RGB hardware
