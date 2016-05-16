@@ -80,14 +80,15 @@ public:
     void array_minmax(int *arr, int len, int *min, int *max);
 
 private:
-    int stream_status, stream_sa_status, fake_data;
+    int stream_status, stream_sa_status, stream_ricnu_status;
+    int fake_data;
 
     int plot_buf[PLOT_BUF_LEN]; //ToDo!
 
     unsigned char usb_rx[256];
     int exp_pwm;
 
-    QTimer *timer_stream, *timer_stream_sa, *timer_log, *timer_plot, *timer_ctrl;
+    QTimer *timer_stream, *timer_stream_sa, *timer_stream_ricnu, *timer_log, *timer_plot, *timer_ctrl;
     QSerialPort USBSerialPort;
 
     int active_slave_1, active_slave_1_index;
@@ -144,6 +145,8 @@ private slots:
 
     void timerStream_SA_Event();
 
+    void timerStream_RICNU_Event(void);
+
     void timerPlotEvent();
 
     void timerCtrlEvent(void);
@@ -184,6 +187,10 @@ private slots:
     void on_stream_SA_RefreshOffset_clicked();
 
     void on_comboBox_minm_rgb_currentIndexChanged(int index);
+
+    void on_stream_RICNU_ONbutton_clicked();
+
+    void on_stream_RICNU_OFFbutton_clicked();
 
 private:
     Ui::MainWindow *ui;

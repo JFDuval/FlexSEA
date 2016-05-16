@@ -26,7 +26,9 @@ void MainWindow::on_stream_SA_ONbutto_clicked()
 	ui->stream_SA_ONbutto->repaint();
 	ui->stream_SA_OFFbutton->repaint();
 
-	stream_status = 0;	//Can't have 2 stream at the same time
+	//Can't have 2 stream at the same time
+	stream_status = 0;
+	stream_ricnu_status = 0;
 	stream_sa_status = 1;
 }
 
@@ -38,8 +40,10 @@ void MainWindow::on_stream_SA_OFFbutton_clicked()
 	ui->stream_SA_ONbutto->repaint();
 	ui->stream_SA_OFFbutton->repaint();
 
-	stream_status = 0;	//Can't have 2 stream at the same time
-    stream_sa_status = 0;
+	//Can't have 2 stream at the same time
+	stream_status = 0;
+	stream_ricnu_status = 0;
+	stream_sa_status = 0;
 }
 
 void MainWindow::on_stream_SA_RefreshOffset_clicked()

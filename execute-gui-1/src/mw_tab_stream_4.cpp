@@ -4,7 +4,7 @@
 // jfduval@media.mit.edu
 // 02/2016
 //****************************************************************************
-// MainWindow: Qt GUI Main file - tab:Stream 1 (Execute)
+// MainWindow: Qt GUI Main file - tab:Stream 4 (RIC/NU Knee)
 //****************************************************************************
 
 //****************************************************************************
@@ -18,27 +18,27 @@
 #include <QDebug>
 #include <string>
 
-void MainWindow::on_streamONbutton_clicked()
+void MainWindow::on_stream_RICNU_ONbutton_clicked()
 {
-    ui->streamONbutton->setDisabled(1);
-    ui->streamOFFbutton->setEnabled(1);
+    ui->stream_RICNU_ONbutton->setDisabled(1);
+    ui->stream_RICNU_OFFbutton->setEnabled(1);
 
-    ui->streamONbutton->repaint();
-    ui->streamOFFbutton->repaint();
+    ui->stream_RICNU_ONbutton->repaint();
+    ui->stream_RICNU_OFFbutton->repaint();
 
 	//Can't have 2 stream at the same time
-	stream_status = 1;
-	stream_ricnu_status = 0;
+	stream_status = 0;
+	stream_ricnu_status = 1;
 	stream_sa_status = 0;
 }
 
-void MainWindow::on_streamOFFbutton_clicked()
+void MainWindow::on_stream_RICNU_OFFbutton_clicked()
 {
-    ui->streamONbutton->setEnabled(1);
-    ui->streamOFFbutton->setDisabled(1);
+	ui->stream_RICNU_ONbutton->setEnabled(1);
+	ui->stream_RICNU_OFFbutton->setDisabled(1);
 
-    ui->streamONbutton->repaint();
-    ui->streamOFFbutton->repaint();
+	ui->stream_RICNU_ONbutton->repaint();
+	ui->stream_RICNU_OFFbutton->repaint();
 
 	//Can't have 2 stream at the same time
 	stream_status = 0;
@@ -46,9 +46,9 @@ void MainWindow::on_streamOFFbutton_clicked()
 	stream_sa_status = 0;
 }
 
-void MainWindow::timerStreamEvent(void)
+void MainWindow::timerStream_RICNU_Event(void)
 {
-    if(stream_status)
+    if(stream_ricnu_status)
     {
         //==========
         //Test: call Stream 1
@@ -68,28 +68,21 @@ void MainWindow::timerStreamEvent(void)
 
         //Raw values:
 
-        ui->disp_accx->setText(QString::number(exec1.accel.x));
-        ui->disp_accy->setText(QString::number(exec1.accel.y));
-        ui->disp_accz->setText(QString::number(exec1.accel.z));
-        ui->disp_gyrox->setText(QString::number(exec1.gyro.x));
-        ui->disp_gyroy->setText(QString::number(exec1.gyro.y));
-        ui->disp_gyroz->setText(QString::number(exec1.gyro.z));
+        //*** Work in progress ***
+        ui->ricnu_accx->setText(QString::number(exec1.accel.x));
+        ui->ricnu_accy->setText(QString::number(exec1.accel.y));
+        ui->ricnu_accz->setText(QString::number(exec1.accel.z));
+        ui->ricnu_gyrox->setText(QString::number(exec1.gyro.x));
+        ui->ricnu_gyroy->setText(QString::number(exec1.gyro.y));
+        ui->ricnu_gyroz->setText(QString::number(exec1.gyro.z));
 
-        ui->disp_enc->setText(QString::number(exec1.encoder));
-        ui->disp_meas_val->setText(QString::number(exec1.encoder)); //ToDo should be done in Ctrl, not here
+        ui->ricnu_enc_mot->setText(QString::number(exec1.encoder));
 
-        ui->disp_strain->setText(QString::number(exec1.strain));
-        ui->disp_ana->setText(QString::number(exec1.analog[0]));
+        ui->ricnu_current->setText(QString::number(exec1.current));
 
-        ui->disp_current->setText(QString::number(exec1.current));
+        ui->ricnu_vb->setText(QString::number(exec1.volt_batt));
 
-        ui->disp_vb->setText(QString::number(exec1.volt_batt));
-        ui->disp_vg->setText(QString::number(exec1.volt_int));
-        ui->disp_temp->setText(QString::number(exec1.temp));
-
-        ui->disp_stat1->setText(QString::number(exec1.status1));
-        ui->disp_stat2->setText(QString::number(exec1.status2));
-
+        /*
         //Decode some of them:
         //===================
 
@@ -107,6 +100,7 @@ void MainWindow::timerStreamEvent(void)
         ui->disp_gyroz_d->setText(QString::number((double)exec1.gyro.z/16.4, 'i', 0));
 
         ui->disp_strain_d->setText(QString::number(((double)(exec1.strain-32768)/32768)*100, 'i', 0));
+        */
 
         ui->tabWidget->repaint();
 

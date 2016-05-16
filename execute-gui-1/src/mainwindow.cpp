@@ -205,6 +205,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(timer_stream_sa, SIGNAL(timeout()), this, SLOT(timerStream_SA_Event()));
     timer_stream_sa->start(TIM_FREQ_TO_P(STREAM_DEFAULT_FREQ));
 
+    //Stream 4 (RIC/NU Knee):
+    timer_stream_ricnu = new QTimer(this);
+    connect(timer_stream_ricnu, SIGNAL(timeout()), this, SLOT(timerStream_RICNU_Event()));
+    timer_stream_ricnu->start(TIM_FREQ_TO_P(STREAM_DEFAULT_FREQ));
+
     //Plot:
     timer_plot = new QTimer(this);
     connect(timer_plot, SIGNAL(timeout()), this, SLOT(timerPlotEvent()));
