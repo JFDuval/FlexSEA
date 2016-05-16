@@ -139,9 +139,7 @@ void disable_imu(void);					//disable the IMU by shutting down clocks, etc.
 
 // low level functions; probably don't have to call them in main.c
 int imu_write(uint8 internal_reg_addr, uint8* pData, uint16 length); 
-int imu_read(uint8 internal_reg_addr, uint8 *pData, uint16 length);
 void imu_test_code_blocking(void);
-uint8 I2C_0_MasterWriteByteTimeOut(uint8 theByte, uint32 timeout);
 
 //****************************************************************************
 // Structure(s):

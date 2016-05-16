@@ -19,6 +19,7 @@
 #include <math.h>
 #include "stdio.h"
 #include "serial.h"
+#include "i2c.h"
 #include "motor.h"
 #include "misc.h"
 #include "ui.h"

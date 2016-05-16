@@ -20,8 +20,6 @@
 // Variable(s)
 //****************************************************************************
 
-uint8 i2c_last_request = 0;
-
 //Timers:
 volatile uint8 t1_100us_flag = 0;
 volatile uint8 t1_time_share = 0, t1_new_value = 0;
@@ -47,50 +45,6 @@ uint16 last_as5047_word = 0;
 //****************************************************************************
 // Public Function(s)
 //****************************************************************************
-
-//Associate data with the right structure. We need that because of the way the ISR-based
-//I2C works (we always get data from the last request)
-void assign_i2c_data(uint8 *newdata)
-{
-	uint16 tmp = 0;
-	
-	if(i2c_last_request == I2C_RQ_GYRO)
-	{
-		//Gyro X:
-		tmp = ((uint16)newdata[0] << 8) | ((uint16) newdata[1]);
-		imu.gyro.x = (int16)tmp;
-		
-		//Gyro Y:
-		tmp = ((uint16)newdata[2] << 8) | ((uint16) newdata[3]);
-		imu.gyro.y = (int16)tmp;
-		
-		//Gyro Z:
-		tmp = ((uint16)newdata[4] << 8) | ((uint16) newdata[5]);
-		imu.gyro.z = (int16)tmp;		
-	}
-	else if(i2c_last_request == I2C_RQ_ACCEL)
-	{
-		//Accel X:
-		tmp = ((uint16)newdata[0] << 8) | ((uint16) newdata[1]);
-		imu.accel.x = (int16)tmp;
-		
-		//Accel Y:
-		tmp = ((uint16)newdata[2] << 8) | ((uint16) newdata[3]);
-		imu.accel.y = (int16)tmp;
-		
-		//Accel Z:
-		tmp = ((uint16)newdata[4] << 8) | ((uint16) newdata[5]);
-		imu.accel.z = (int16)tmp;		
-	}
-	else if(i2c_last_request == I2C_RQ_AS5048B)
-	{
-			as5048b_angle = (newdata[0]<<6) + (newdata[1]&0x3F);
-	}
-	else if(i2c_last_request == I2C_RQ_EXT_STRAIN)
-	{
-		strain_6ch_bytes_to_words(newdata);
-	}	
-}
 
 //Call this function in the 1kHz FSM. It will return 1 every second.
 uint8 timebase_1s(void)

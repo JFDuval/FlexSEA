@@ -19,7 +19,7 @@
 //****************************************************************************
 
 volatile uint8 i2c_tmp_buf[IMU_MAX_BUF_SIZE];
-volatile uint8 i2c_0_r_buf[16];
+//volatile uint8 i2c_0_r_buf[16];
 struct imu_s imu;
 
 //****************************************************************************
@@ -54,14 +54,14 @@ void init_imu()
 int16 get_accel_x(void) 
 {
 	uint8 data[2] = { 0, 0 };
-	imu_read(IMU_ACCEL_XOUT_H, data, 2);
+	i2c0_read(IMU_ADDR, IMU_ACCEL_XOUT_H, data, 2);
 	return (int16)((uint16) data[0] << 8) | (data[1]);
 }
 // Get accel Y
 int16 get_accel_y(void)
 {
 	uint8 data[2];
-	imu_read(IMU_ACCEL_YOUT_H, data, 2);
+	i2c0_read(IMU_ADDR, IMU_ACCEL_YOUT_H, data, 2);
 	return (int16)((uint16) data[0] << 8) | (data[1]);
 }
 
@@ -69,7 +69,7 @@ int16 get_accel_y(void)
 int16 get_accel_z(void)
 {
 	uint8 data[2];
-	imu_read(IMU_ACCEL_ZOUT_H, data, 2);
+	i2c0_read(IMU_ADDR, IMU_ACCEL_ZOUT_H, data, 2);
 	return (int16)((uint16) data[0] << 8) | (data[1]);
 }
 
@@ -79,14 +79,14 @@ void get_accel_xyz(void)
 	uint8 tmp_data[7] = {0,0,0,0,0,0};	
 	
 	//According to the documentation it's X_H, X_L, Y_H, ...
-	imu_read(IMU_ACCEL_XOUT_H, tmp_data, 7);	
+	i2c0_read(IMU_ADDR, IMU_ACCEL_XOUT_H, tmp_data, 7);	
 }
 
 // Get gyro X
 int16 get_gyro_x(void)
 {
 	uint8 data[2];
-	imu_read(IMU_GYRO_XOUT_H, data, 2);
+	i2c0_read(IMU_ADDR, IMU_GYRO_XOUT_H, data, 2);
 	return (int16)((uint16) data[0] << 8) | (data[1]);
 }
 
@@ -94,7 +94,7 @@ int16 get_gyro_x(void)
 int16 get_gyro_y(void)
 {
 	uint8 data[2];
-	imu_read(IMU_GYRO_YOUT_H, data, 2);
+	i2c0_read(IMU_ADDR, IMU_GYRO_YOUT_H, data, 2);
 	return (int16)((uint16) data[0] << 8) | (data[1]);
 }
 
@@ -102,7 +102,7 @@ int16 get_gyro_y(void)
 int16 get_gyro_z(void)
 {
 	uint8 data[2];
-	imu_read(IMU_GYRO_ZOUT_H, data, 2);
+	i2c0_read(IMU_ADDR, IMU_GYRO_ZOUT_H, data, 2);
 	return (int16)((uint16) data[0] << 8) | (data[1]);
 }
 
@@ -112,7 +112,7 @@ void get_gyro_xyz(void)
 	uint8 tmp_data[7] = {0,0,0,0,0,0,0};
 	
 	//According to the documentation it's X_H, X_L, Y_H, ...
-	imu_read(IMU_GYRO_XOUT_H, tmp_data, 6);
+	i2c0_read(IMU_ADDR, IMU_GYRO_XOUT_H, tmp_data, 6);
 	//Note: reading 6 bytes causes a bad reading on Z ([6] always 0).	
 }
 
@@ -132,6 +132,7 @@ void reset_imu(void)
 // uint8_t* pData: pointer to the data we want to send to that address
 // uint16_t Size: amount of bytes of data pointed to by pData
 
+//ToDo: might wanna move this to the new i2c.c/h files
 int imu_write(uint8 internal_reg_addr, uint8* pData, uint16 length) 
 {
 	int i = 0;
@@ -164,108 +165,6 @@ int imu_write(uint8 internal_reg_addr, uint8* pData, uint16 length)
 	}
 
 	return 0;
-}
-
-//Manual I2C [Write - Restart - Read n bytes] function
-//Takes around 90us (400kHz) to run, then the ISR takes care of everything.
-int imu_read(uint8 internal_reg_addr, uint8 *pData, uint16 length)
-{
-	uint8 status = 0, i = 0;
-	
-	//Currently having trouble detecting the flags to know when data is ready.
-	//For now I'll transfer the previous buffer.
-	for(i = 0; i < length; i++)
-	{
-		pData[i] = i2c_0_r_buf[i];
-	}
-	
-	//Store data:
-	assign_i2c_data(&i2c_0_r_buf);
-	
-	//Clear status:
-	//I2C_0_MasterClearStatus();
-	
-	//Start, address, Write mode
-	status = I2C_0_MasterSendStart(IMU_ADDR, 0);		
-	if(status != I2C_0_MSTR_NO_ERROR)
-		return 1;
-	
-	//Write to register
-	status = I2C_0_MasterWriteByteTimeOut(internal_reg_addr, 500);
-	if(status != I2C_0_MSTR_NO_ERROR)
-	{
-		//Release bus:
-		I2C_0_BUS_RELEASE;
-		
-		return 2;
-	}
-
-	//Repeat start, read then stop (all by ISR):
-	I2C_0_MasterReadBuf(IMU_ADDR, (uint8 *)i2c_0_r_buf, length, (I2C_0_MODE_COMPLETE_XFER | I2C_0_MODE_REPEAT_START));
-	
-	return 0;
-}
-
-//Simplified version of I2C_0_MasterWriteByte() (single master only) with timeouts
-//timeout is in us
-uint8 I2C_0_MasterWriteByteTimeOut(uint8 theByte, uint32 timeout)
-{
-    uint8 errStatus;
-	uint32 t = 0;	//For the timeout
-
-    errStatus = I2C_0_MSTR_NOT_READY;
-
-    /* Check if START condition was generated */
-    if(I2C_0_CHECK_MASTER_MODE(I2C_0_MCSR_REG))
-    {
-        I2C_0_DATA_REG = theByte;                        /* Write DATA register */
-		t = 0;
-		
-		
-        //I2C_0_TRANSMIT_DATA_MANUAL_TIMEOUT;                      /* Set transmit mode */
-		
-        I2C_0_TRANSMIT_DATA;								
-        while(I2C_0_CHECK_BYTE_COMPLETE(I2C_0_CSR_REG))		
-        {													
-            /* Wait when byte complete is cleared */		
-			t++;											
-			if(t > timeout)									
-				break;										
-			else											
-				CyDelayUs(1);								
-        }	
-		
-		
-        I2C_0_state = I2C_0_SM_MSTR_WR_DATA;  /* Set state WR_DATA */
-
-        /* Make sure the last byte has been transfered first */
-		t = 0;
-        while(I2C_0_WAIT_BYTE_COMPLETE(I2C_0_CSR_REG))
-        {
-			/*
-           //Wait for byte to be written
-			t++;
-			if(t > timeout)	
-				break;
-			else
-				CyDelayUs(1);
-			*/
-        }
-
-
-        if(I2C_0_CHECK_DATA_ACK(I2C_0_CSR_REG))
-        {
-            I2C_0_state = I2C_0_SM_MSTR_HALT;     /* Set state to HALT */
-            errStatus = I2C_0_MSTR_NO_ERROR;                 /* The LRB was ACKed */
-        }
-        else
-        {
-            I2C_0_state = I2C_0_SM_MSTR_HALT;     /* Set state to HALT */
-            errStatus = I2C_0_MSTR_ERR_LB_NAK;               /* The LRB was NACKed */
-        }
-    }
-
-    return(errStatus);
 }
 
 //****************************************************************************

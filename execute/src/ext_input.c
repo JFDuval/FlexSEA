@@ -36,7 +36,7 @@ uint16 as5048b_mag = 0, as5048b_angle = 0;
 //6-ch Strain Amplifier:
 uint16 ext_strain[6] = {0,0,0,0,0,0};
 uint8 ext_strain_bytes[12];
-volatile uint8 i2c_0_r_buf[24];
+//volatile uint8 i2c_0_r_buf[24];
 
 //****************************************************************************
 // Private Function Prototype(s):
@@ -112,86 +112,6 @@ uint16 as5047_read_single(uint16 reg)
 	return last_as5047_word;
 }
 
-//Manual I2C [Write - Restart - Read n bytes] function
-//Takes around xus (400kHz) to run, then the ISR takes care of everything.
-int strain_6ch_read(uint8 internal_reg_addr, uint8 *pData, uint16 length)
-{
-	uint8 status = 0, i = 0;
-	
-	//Currently having trouble detecting the flags to know when data is ready.
-	//For now I'll transfer the previous buffer.
-	for(i = 0; i < length; i++)
-	{
-		pData[i] = i2c_0_r_buf[i];
-	}
-	
-	//Store data:
-	assign_i2c_data(&i2c_0_r_buf);
-	
-	//Clear status:
-	//I2C_1_MasterClearStatus();
-	
-	//Start, address, Write mode
-	status = I2C_0_MasterSendStart(I2C_SLAVE_ADDR_6CH, 0);		
-	if(status != I2C_0_MSTR_NO_ERROR)
-		return 1;
-	
-	//Write to register
-	status = I2C_0_MasterWriteByteTimeOut(internal_reg_addr, 500);
-	if(status != I2C_0_MSTR_NO_ERROR)
-	{
-		//Release bus:
-		I2C_0_BUS_RELEASE;
-		
-		return 2;
-	}
-
-	//Repeat start, read then stop (all by ISR):
-	I2C_0_MasterReadBuf(I2C_SLAVE_ADDR_6CH, (uint8 *)i2c_0_r_buf, length, (I2C_0_MODE_COMPLETE_XFER | I2C_0_MODE_REPEAT_START));
-	
-	return 0;
-}
-
-//Manual I2C [Write - Restart - Read n bytes] function
-//Takes around xus (400kHz) to run, then the ISR takes care of everything.
-int as5048b_read(uint8 internal_reg_addr, uint8 *pData, uint16 length)
-{
-	uint8 status = 0, i = 0;
-	
-	//Currently having trouble detecting the flags to know when data is ready.
-	//For now I'll transfer the previous buffer.
-	for(i = 0; i < length; i++)
-	{
-		pData[i] = i2c_0_r_buf[i];
-	}
-	
-	//Store data:
-	assign_i2c_data(&i2c_0_r_buf);
-	
-	//Clear status:
-	//I2C_1_MasterClearStatus();
-	
-	//Start, address, Write mode
-	status = I2C_0_MasterSendStart(I2C_ADDR_AS5048B, 0);		
-	if(status != I2C_0_MSTR_NO_ERROR)
-		return 1;
-	
-	//Write to register
-	status = I2C_0_MasterWriteByteTimeOut(internal_reg_addr, 500);
-	if(status != I2C_0_MSTR_NO_ERROR)
-	{
-		//Release bus:
-		I2C_0_BUS_RELEASE;
-		
-		return 2;
-	}
-
-	//Repeat start, read then stop (all by ISR):
-	I2C_0_MasterReadBuf(I2C_ADDR_AS5048B, (uint8 *)i2c_0_r_buf, length, (I2C_0_MODE_COMPLETE_XFER | I2C_0_MODE_REPEAT_START));
-	
-	return 0;
-}
-
 //Reassembles the bytes we read in words
 void strain_6ch_bytes_to_words(uint8 *buf)
 {
@@ -206,14 +126,14 @@ void strain_6ch_bytes_to_words(uint8 *buf)
 //Get latest readings from the 6-ch strain sensor
 void get_6ch_strain(void) 
 {
-	strain_6ch_read(MEM_R_CH1_H, ext_strain_bytes, 12);
+	i2c0_read(I2C_SLAVE_ADDR_6CH, MEM_R_CH1_H, ext_strain_bytes, 12);
 	//strain_6ch_bytes_to_words();
 }
 
 //Get latest readings from the AS5048B position sensor
 void get_as5048b_position(void) 
 {
-	as5048b_read(AD5048B_REG_ANGLE_H, as5048b_bytes, 2);
+	i2c0_read(I2C_ADDR_AS5048B, AD5048B_REG_ANGLE_H, as5048b_bytes, 2);
 }
 
 //****************************************************************************
@@ -292,7 +212,7 @@ void strain_amp_6ch_test_code_blocking(void)
 {
 	while(1)
 	{
-		strain_6ch_read(MEM_R_CH1_H, ext_strain_bytes, 12);
+		i2c0_read(I2C_SLAVE_ADDR_6CH, MEM_R_CH1_H, ext_strain_bytes, 12);
 		strain_6ch_bytes_to_words(ext_strain_bytes);
 		CyDelay(100);
 	}
@@ -302,7 +222,7 @@ void as5048b_test_code_blocking(void)
 {
 	while(1)
 	{
-		as5048b_read(AD5048B_REG_AGC, as5048b_bytes, 6);
+		i2c0_read(I2C_ADDR_AS5048B, AD5048B_REG_AGC, as5048b_bytes, 6);
 		
 		as5048b_agc = as5048b_bytes[0];
 		as5048b_diag = as5048b_bytes[1] & 0x0F;
