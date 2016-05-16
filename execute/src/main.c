@@ -84,14 +84,11 @@ int main(void)
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 	//Non-Blocking Test code
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-	#ifdef USE_SPI_COMMUT
-		
+	#ifdef USE_SPI_COMMUT		
 	//motor_stepper_test_init(0);
 	//Note: deadtime is 55, small PWM values won't make it move.
-	//Starting at 0, GUI will change that when it wants.
-	
+	//Starting at 0, GUI will change that when it wants.	
 	#endif	//USE_SPI_COMMUT	
-	
 	//motor_fixed_pwm_test_code_non_blocking(125);
 	//pwro_output(245);	
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=	
@@ -125,7 +122,7 @@ int main(void)
 				
 					#ifdef USE_I2C_0
 				
-					//Subdivided in 4 slots.
+					//Subdivided in 4 slots (250Hz)
 					switch(i2c_time_share)
 					{
 						//Case 0.0: Accelerometer
@@ -150,8 +147,10 @@ int main(void)
 						
 						//Case 0.2: AS5048B position sensor
 						case 2:
+							#ifdef USE_AS5048B
 							get_as5048b_position();
-							i2c_last_request = I2C_RQ_AS5048B;							
+							i2c_last_request = I2C_RQ_AS5048B;		
+							#endif //USE_AS5048B
 							break;
 						
 						//Case 0.3: MinM RGB LED & external strain amplifier
@@ -169,7 +168,7 @@ int main(void)
 							#ifdef USE_EXT_I2C_STRAIN
 							if(!minm_i2c)
 							{
-								//If the MinM was refreshed we skip one measurements.
+								//If the MinM was refreshed we skip one measurement.
 								get_6ch_strain();
 								i2c_last_request = I2C_RQ_EXT_STRAIN;
 							}
@@ -186,6 +185,7 @@ int main(void)
 					#ifdef USE_SPI_COMMUT
 						
 					angle = as5047_read_single(AS5047_REG_ANGLEUNC);
+					
 					
 					#endif	//USE_SPI_COMMUT
 								
@@ -295,12 +295,7 @@ int main(void)
 				
 				case 7:
 					
-					#ifdef USE_SPI_COMMUT
-						
-					//Stepper test code:
-					motor_stepper_test_runtime(10);
-					
-					#endif	//USE_SPI_COMMUT					
+					//...
 					
 					break;
 				
@@ -431,7 +426,6 @@ int main(void)
 					new_cmd_led = 1;
 				}
 			}
-
 			
 			#endif	//USE_COMM	
 			

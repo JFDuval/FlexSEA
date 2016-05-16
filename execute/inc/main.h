@@ -46,6 +46,7 @@
 //****************************************************************************
 	
 extern int steps;
+extern uint16 angle;
 
 //****************************************************************************
 // Prototype(s):
@@ -61,7 +62,7 @@ int main(void);
 #define USE_RS485
 #define USE_USB
 #define USE_COMM			//Requires USE_RS485 and/or USE_USB
-#define USE_QEI1
+//#define USE_QEI1
 #define USE_TRAPEZ
 //#define USE_DIETEMP
 #define USE_I2C_0			//3V3, IMU & Expansion.
@@ -69,8 +70,9 @@ int main(void);
 #define USE_IMU				//Requires USE_I2C_0
 #define USE_STRAIN			//Requires USE_I2C_1
 #define USE_SPI_COMMUT
-#define USE_MINM_RGB		//External RGB LED. Requires USE_I2C_0.
-#define USE_EXT_I2C_STRAIN	//External (I2C) Strain Amplifier
+//#define USE_MINM_RGB		//External RGB LED. Requires USE_I2C_0.
+//#define USE_EXT_I2C_STRAIN	//External Strain Amplifier, on I2C0
+//#define USE_AS5048B			//14-bit Position Sensor, on I2C0
 
 //Project specific code:
 //#define PROJECT_EXOCUTE				//ExoBoot, everything running on Execute
