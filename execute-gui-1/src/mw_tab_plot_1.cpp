@@ -318,6 +318,12 @@ void MainWindow::timerPlotEvent(void)
             case 21: //"Strain ch6"
                 update_graph_array(index, strain[5].strain_filtered);
                 break;
+            case 22: //"AS5047 (Mot.)"
+                update_graph_array(index, ricnu_1.enc_mot);
+                break;
+            case 23: //"AS5048 (Joint)"
+                update_graph_array(index, ricnu_1.enc_joint);
+                break;
         }
 
         //Copy buffers and plot:
