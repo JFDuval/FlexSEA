@@ -422,7 +422,6 @@ uint32_t tx_cmd_data_read_all_ricnu(uint8_t receiver, uint8_t cmd_type, uint8_t 
 
 		buf[P_DATA1 + 18] = safety_cop.v_vb;
 		
-		/*
 		uint16_to_bytes((uint16_t)ext_strain[0], &tmp0, &tmp1);
 		buf[P_DATA1 + 19] = tmp0;
 		buf[P_DATA1 + 20] = tmp1;
@@ -441,11 +440,10 @@ uint32_t tx_cmd_data_read_all_ricnu(uint8_t receiver, uint8_t cmd_type, uint8_t 
 		uint16_to_bytes((uint16_t)ext_strain[5], &tmp0, &tmp1);
 		buf[P_DATA1 + 29] = tmp0;
 		buf[P_DATA1 + 30] = tmp1;
-		*/
 		
 		//ToDo add user variables
 		
-		bytes = P_DATA1 + 19;     //Bytes is always last+1
+		bytes = P_DATA1 + 31;     //Bytes is always last+1
 		
 		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 	}
@@ -528,14 +526,12 @@ void rx_cmd_data_read_all_ricnu(uint8_t *buf)
 			ricnu_s_ptr->ex.current = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+16], buf[P_DATA1+17]));
 			ricnu_s_ptr->ex.volt_batt = buf[P_DATA1+18];
 			
-			/*
 			ricnu_s_ptr->ext_strain[0] = (BYTES_TO_UINT16(buf[P_DATA1+19], buf[P_DATA1+20]));
 			ricnu_s_ptr->ext_strain[1] = (BYTES_TO_UINT16(buf[P_DATA1+21], buf[P_DATA1+22]));
 			ricnu_s_ptr->ext_strain[2] = (BYTES_TO_UINT16(buf[P_DATA1+23], buf[P_DATA1+24]));
 			ricnu_s_ptr->ext_strain[3] = (BYTES_TO_UINT16(buf[P_DATA1+25], buf[P_DATA1+26]));
 			ricnu_s_ptr->ext_strain[4] = (BYTES_TO_UINT16(buf[P_DATA1+27], buf[P_DATA1+28]));
 			ricnu_s_ptr->ext_strain[5] = (BYTES_TO_UINT16(buf[P_DATA1+29], buf[P_DATA1+30]));
-			*/			
 		
 			#endif	//((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
 		}
