@@ -55,7 +55,7 @@ void MainWindow::timerStream_RICNU_Event(void)
 
         int numb = 0;
 
-        numb = tx_cmd_data_read_all(active_slave_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN); //New Read All function
+        numb = tx_cmd_data_read_all_ricnu(active_slave_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN); //New Read All function
         numb = comm_gen_str(payload_str, comm_str_usb, PAYLOAD_BUF_LEN);
         numb = COMM_STR_BUF_LEN;
 
@@ -69,18 +69,19 @@ void MainWindow::timerStream_RICNU_Event(void)
         //Raw values:
 
         //*** Work in progress ***
-        ui->ricnu_accx->setText(QString::number(exec1.accel.x));
-        ui->ricnu_accy->setText(QString::number(exec1.accel.y));
-        ui->ricnu_accz->setText(QString::number(exec1.accel.z));
-        ui->ricnu_gyrox->setText(QString::number(exec1.gyro.x));
-        ui->ricnu_gyroy->setText(QString::number(exec1.gyro.y));
-        ui->ricnu_gyroz->setText(QString::number(exec1.gyro.z));
+        ui->ricnu_accx->setText(QString::number(ricnu_1.ex.accel.x));
+        ui->ricnu_accy->setText(QString::number(ricnu_1.ex.accel.y));
+        ui->ricnu_accz->setText(QString::number(ricnu_1.ex.accel.z));
+        ui->ricnu_gyrox->setText(QString::number(ricnu_1.ex.gyro.x));
+        ui->ricnu_gyroy->setText(QString::number(ricnu_1.ex.gyro.y));
+        ui->ricnu_gyroz->setText(QString::number(ricnu_1.ex.gyro.z));
 
-        ui->ricnu_enc_mot->setText(QString::number(exec1.encoder));
+        ui->ricnu_enc_mot->setText(QString::number(ricnu_1.enc_mot));
+        ui->ricnu_enc_joint->setText(QString::number(ricnu_1.enc_joint));
 
-        ui->ricnu_current->setText(QString::number(exec1.current));
+        ui->ricnu_current->setText(QString::number(ricnu_1.ex.current));
 
-        ui->ricnu_vb->setText(QString::number(exec1.volt_batt));
+        ui->ricnu_vb->setText(QString::number(ricnu_1.ex.volt_batt));
 
         /*
         //Decode some of them:

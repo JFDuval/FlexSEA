@@ -131,7 +131,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //=================
     exp_pwm = 0;
     ui->disp_MotPWM->setText(QString::number(ui->hSlider_PWM->value()));
-    ui->tabWidget->setTabEnabled(5, false); //Disabled for now
+    ui->tabWidget->setTabEnabled(6, false); //Disabled for now
 
     //About:
     //=================

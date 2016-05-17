@@ -485,6 +485,7 @@ struct ricnu_s
 #if defined(BOARD_TYPE_FLEXSEA_MANAGE) || defined(BOARD_TYPE_FLEXSEA_PLAN)
 
 extern struct execute_s exec1, exec2, exec3, exec4;
+extern struct ricnu_s ricnu_1;
 extern struct manage_s manag1;
 extern struct strain_s strain[6];
 
