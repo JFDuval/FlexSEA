@@ -108,7 +108,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QStringList var_list;
     var_list << "**Unused**" << "Accel X" << "Accel Y" << "Accel Z" << "Gyro X" << "Gyro Y" << "Gyro Z" << "Encoder" \
             << "Motor current" << "Analog[0]" << "Strain" << "+VB" << "+VG" << "Temperature" << "Fake Data" << "Setpoint" \
-            << "Strain ch1" << "Strain ch2" << "Strain ch3" << "Strain ch4" << "Strain ch5" << "Strain ch6";
+            << "Strain ch1" << "Strain ch2" << "Strain ch3" << "Strain ch4" << "Strain ch5" << "Strain ch6" \
+            << "AS5047 (Mot.)" << "AS5048B (Joint)";
     for(int index = 0; index < var_list.count(); index++)
     {
         //All boxes have the same list:
