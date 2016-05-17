@@ -68,7 +68,6 @@ void MainWindow::timerStream_RICNU_Event(void)
 
         //Raw values:
 
-        //*** Work in progress ***
         ui->ricnu_accx->setText(QString::number(ricnu_1.ex.accel.x));
         ui->ricnu_accy->setText(QString::number(ricnu_1.ex.accel.y));
         ui->ricnu_accz->setText(QString::number(ricnu_1.ex.accel.z));
@@ -80,8 +79,22 @@ void MainWindow::timerStream_RICNU_Event(void)
         ui->ricnu_enc_joint->setText(QString::number(ricnu_1.enc_joint));
 
         ui->ricnu_current->setText(QString::number(ricnu_1.ex.current));
-
         ui->ricnu_vb->setText(QString::number(ricnu_1.ex.volt_batt));
+
+        ui->ricnu_strain_ch1->setText(QString::number(ricnu_1.ext_strain[0]));
+        ui->ricnu_strain_ch2->setText(QString::number(ricnu_1.ext_strain[1]));
+        ui->ricnu_strain_ch3->setText(QString::number(ricnu_1.ext_strain[2]));
+        ui->ricnu_strain_ch4->setText(QString::number(ricnu_1.ext_strain[3]));
+        ui->ricnu_strain_ch5->setText(QString::number(ricnu_1.ext_strain[4]));
+        ui->ricnu_strain_ch6->setText(QString::number(ricnu_1.ext_strain[5]));
+
+        //To plot strain, we store in other structure:
+        strain[0].strain_filtered = ricnu_1.ext_strain[0];
+        strain[1].strain_filtered = ricnu_1.ext_strain[1];
+        strain[2].strain_filtered = ricnu_1.ext_strain[2];
+        strain[3].strain_filtered = ricnu_1.ext_strain[3];
+        strain[4].strain_filtered = ricnu_1.ext_strain[4];
+        strain[5].strain_filtered = ricnu_1.ext_strain[5];
 
         //Decode some of them:
         //===================
@@ -95,6 +108,13 @@ void MainWindow::timerStream_RICNU_Event(void)
         ui->ricnu_gyrox_d->setText(QString::number((double)ricnu_1.ex.gyro.x/16.4, 'i', 0));
         ui->ricnu_gyroy_d->setText(QString::number((double)ricnu_1.ex.gyro.y/16.4, 'i', 0));
         ui->ricnu_gyroz_d->setText(QString::number((double)ricnu_1.ex.gyro.z/16.4, 'i', 0));
+
+        ui->ricnu_strain_ch1_d->setText(QString::number(((double)(ricnu_1.ext_strain[0]-32768)/32768)*100, 'i', 0));
+        ui->ricnu_strain_ch2_d->setText(QString::number(((double)(ricnu_1.ext_strain[1]-32768)/32768)*100, 'i', 0));
+        ui->ricnu_strain_ch3_d->setText(QString::number(((double)(ricnu_1.ext_strain[2]-32768)/32768)*100, 'i', 0));
+        ui->ricnu_strain_ch4_d->setText(QString::number(((double)(ricnu_1.ext_strain[3]-32768)/32768)*100, 'i', 0));
+        ui->ricnu_strain_ch5_d->setText(QString::number(((double)(ricnu_1.ext_strain[4]-32768)/32768)*100, 'i', 0));;
+        ui->ricnu_strain_ch6_d->setText(QString::number(((double)(ricnu_1.ext_strain[5]-32768)/32768)*100, 'i', 0));
 
         ui->tabWidget->repaint();
 
