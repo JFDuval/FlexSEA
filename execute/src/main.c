@@ -182,11 +182,13 @@ int main(void)
 					
 					#endif //USE_I2C_INT
 					
-					#ifdef USE_SPI_COMMUT
+					//Read AS5047 sensor (only if it's not already read by USE_SPI_COMMUT)
+					#ifndef USE_SPI_COMMUT
+					#ifdef USE_AS5047
 						
-					angle = as5047_read_single(AS5047_REG_ANGLEUNC);
+					angle = as5047_read_single(AS5047_REG_ANGLEUNC);		
 					
-					
+					#endif	//USE_AS5047
 					#endif	//USE_SPI_COMMUT
 								
 					break;

@@ -96,11 +96,15 @@ void init_peripherals(void)
 		
 	#endif	//USE_I2C_1	
 	
-	#ifdef USE_SPI_COMMUT
-
 	//Magnetic encoder:
+	#ifdef USE_AS5047		
+	
 	init_as5047();
 	
+	#endif //USE_AS5047
+	
+	#ifdef USE_SPI_COMMUT
+	//...	
 	#endif 	//USE_SPI_COMMUT
 	
 	//Die temperatuire measurement

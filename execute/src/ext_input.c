@@ -27,6 +27,7 @@ uint16 spidata_miso[WORDS_IN_FRAME] = {0,0,0,0,0,0,0};
 uint16 spidata_mosi2[WORDS_IN_FRAME];
 uint8 spistatus = 0;
 uint16 angleunc = 0;
+uint16 as5047_angle = 0;
 
 //Magnetic encoder, AS5048B:
 uint8 as5048b_bytes[10] = {0,0,0,0,0,0,0,0,0,0};
@@ -109,6 +110,7 @@ uint16 as5047_read_single(uint16 reg)
 	//ToDo: ignore word if wrong parity
 
 	last_as5047_word = (spidata_miso[1] & 0x3FFF);
+	as5047_angle = last_as5047_word;
 	return last_as5047_word;
 }
 

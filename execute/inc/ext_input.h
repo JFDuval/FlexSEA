@@ -23,6 +23,7 @@
 extern struct enc_s encoder;	
 extern uint16 ext_strain[6];
 extern uint16 as5048b_angle;
+extern uint16 as5047_angle;
 	
 //****************************************************************************
 // Public Function Prototype(s):
