@@ -361,6 +361,203 @@ void rx_cmd_data_read_all(uint8_t *buf)
 	}
 }
 
+//Transmission of a READ_ALL_RICNU command
+uint32_t tx_cmd_data_read_all_ricnu(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len)
+{
+	uint8_t tmp0 = 0, tmp1 = 0, tmp2 = 0, tmp3 = 0;
+	uint32_t bytes = 0;
+
+	//Fresh payload string:
+	prepare_empty_payload(board_id, receiver, buf, len);
+
+	//Command:
+	buf[P_CMDS] = 1;                     //1 command in string
+
+	if(cmd_type == CMD_READ)
+	{
+		buf[P_CMD1] = CMD_R(CMD_READ_ALL_RICNU);
+
+		bytes = P_CMD1 + 1;     //Bytes is always last+1
+	}
+	else if(cmd_type == CMD_WRITE)
+	{
+		//In that case Write is only used for the Reply
+		
+		buf[P_CMD1] = CMD_W(CMD_READ_ALL_RICNU);
+		
+		#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+
+		//Arguments:
+		uint16_to_bytes((uint16_t)imu.gyro.x, &tmp0, &tmp1);
+		buf[P_DATA1 + 0] = tmp0;
+		buf[P_DATA1 + 1] = tmp1;
+		uint16_to_bytes((uint16_t)imu.gyro.y, &tmp0, &tmp1);
+		buf[P_DATA1 + 2] = tmp0;
+		buf[P_DATA1 + 3] = tmp1;
+		uint16_to_bytes((uint16_t)imu.gyro.z, &tmp0, &tmp1);
+		buf[P_DATA1 + 4] = tmp0;
+		buf[P_DATA1 + 5] = tmp1;
+		
+		uint16_to_bytes((uint16_t)imu.accel.x, &tmp0, &tmp1);
+		buf[P_DATA1 + 6] = tmp0;
+		buf[P_DATA1 + 7] = tmp1;
+		uint16_to_bytes((uint16_t)imu.accel.y, &tmp0, &tmp1);
+		buf[P_DATA1 + 8] = tmp0;
+		buf[P_DATA1 + 9] = tmp1;
+		uint16_to_bytes((uint16_t)imu.accel.z, &tmp0, &tmp1);
+		buf[P_DATA1 + 10] = tmp0;
+		buf[P_DATA1 + 11] = tmp1;		
+		
+		uint16_to_bytes((uint16_t)angle, &tmp0, &tmp1);		//ToDo use better name than 'angle'
+		buf[P_DATA1 + 12] = tmp0;
+		buf[P_DATA1 + 13] = tmp1;
+		
+		uint16_to_bytes((uint16_t)1234, &tmp0, &tmp1);		//***ToDo***
+		buf[P_DATA1 + 14] = tmp0;
+		buf[P_DATA1 + 15] = tmp1;
+
+		uint16_to_bytes((uint16_t)ctrl.current.actual_val, &tmp0, &tmp1);
+		buf[P_DATA1 + 16] = tmp0;
+		buf[P_DATA1 + 17] = tmp1;
+
+		buf[P_DATA1 + 18] = safety_cop.v_vb;
+		
+		/*
+		uint16_to_bytes((uint16_t)ext_strain[0], &tmp0, &tmp1);
+		buf[P_DATA1 + 19] = tmp0;
+		buf[P_DATA1 + 20] = tmp1;
+		uint16_to_bytes((uint16_t)ext_strain[1], &tmp0, &tmp1);
+		buf[P_DATA1 + 21] = tmp0;
+		buf[P_DATA1 + 22] = tmp1;
+		uint16_to_bytes((uint16_t)ext_strain[2], &tmp0, &tmp1);
+		buf[P_DATA1 + 23] = tmp0;
+		buf[P_DATA1 + 24] = tmp1;
+		uint16_to_bytes((uint16_t)ext_strain[3], &tmp0, &tmp1);
+		buf[P_DATA1 + 25] = tmp0;
+		buf[P_DATA1 + 26] = tmp1;
+		uint16_to_bytes((uint16_t)ext_strain[4], &tmp0, &tmp1);
+		buf[P_DATA1 + 27] = tmp0;
+		buf[P_DATA1 + 28] = tmp1;
+		uint16_to_bytes((uint16_t)ext_strain[5], &tmp0, &tmp1);
+		buf[P_DATA1 + 29] = tmp0;
+		buf[P_DATA1 + 30] = tmp1;
+		*/
+		
+		//ToDo add user variables
+		
+		bytes = P_DATA1 + 19;     //Bytes is always last+1
+		
+		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+	}
+	else
+	{
+		//Invalid
+		flexsea_error(SE_INVALID_READ_TYPE);
+		bytes = 0;
+	}
+
+	return bytes;
+}
+
+//Reception of a READ_ALL_RICNU command
+void rx_cmd_data_read_all_ricnu(uint8_t *buf)
+{
+	uint8_t numb = 0, sampling = 0;
+
+	#if((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
+
+	//Structure pointer. Points to ricnu_1 by default.
+	//struct execute_s *exec_s_ptr;
+	struct ricnu_s *ricnu_s_ptr = ricnu_1;
+
+
+	#endif	//((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
+	
+	if(IS_CMD_RW(buf[P_CMD1]) == READ)
+	{
+		//Received a Read command from our master, prepare a reply:
+
+		#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+
+		//Generate the reply:
+		numb = tx_cmd_data_read_all_ricnu(buf[P_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN);
+		numb = comm_gen_str(tmp_payload_xmit, comm_str_485, numb);
+		numb = COMM_STR_BUF_LEN;	//Fixed length for now to accomodate the DMA
+
+		//Delayed response:
+		rs485_reply_ready(comm_str_485, (numb));
+		
+		#ifdef USE_USB
+		usb_puts(comm_str_485, (numb));
+		#endif
+
+		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+		#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+
+		//ToDo
+
+		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+	}
+	else if(IS_CMD_RW(buf[P_CMD1]) == WRITE)
+	{
+		//Two options: from Master of from slave (a read reply)
+
+		//Decode data:
+		//...
+
+		if(sent_from_a_slave(buf))
+		{
+			//We received a reply to our read request
+
+			#if((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
+
+			//Store values:
+				
+			ricnu_s_ptr->ex->gyro.x = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+0], buf[P_DATA1+1]));
+			ricnu_s_ptr->ex->gyro.y = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+2], buf[P_DATA1+3]));
+			ricnu_s_ptr->ex->gyro.z = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+4], buf[P_DATA1+5]));
+			
+			ricnu_s_ptr->ex->accel.x = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+6], buf[P_DATA1+7]));
+			ricnu_s_ptr->ex->accel.y = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+8], buf[P_DATA1+9]));
+			ricnu_s_ptr->ex->accel.z = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+10], buf[P_DATA1+11]));
+			
+			ricnu_s_ptr->enc_mot = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+12], buf[P_DATA1+13]);
+			ricnu_s_ptr->enc_joint = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+14], buf[P_DATA1+15]);
+			
+			exec_s_ptr->ex->current = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+16], buf[P_DATA1+17]));
+			exec_s_ptr->ex->volt_batt = buf[P_DATA1+18];
+			
+			/*
+			exec_s_ptr->ex->ext_strain[0] = (BYTES_TO_UINT16(buf[P_DATA1+19], buf[P_DATA1+20]));
+			exec_s_ptr->ex->ext_strain[1] = (BYTES_TO_UINT16(buf[P_DATA1+21], buf[P_DATA1+22]));
+			exec_s_ptr->ex->ext_strain[2] = (BYTES_TO_UINT16(buf[P_DATA1+23], buf[P_DATA1+24]));
+			exec_s_ptr->ex->ext_strain[3] = (BYTES_TO_UINT16(buf[P_DATA1+25], buf[P_DATA1+26]));
+			exec_s_ptr->ex->ext_strain[4] = (BYTES_TO_UINT16(buf[P_DATA1+27], buf[P_DATA1+28]));
+			exec_s_ptr->ex->ext_strain[5] = (BYTES_TO_UINT16(buf[P_DATA1+29], buf[P_DATA1+30]));
+			*/			
+		
+			#endif	//((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
+		}
+		else
+		{
+			//Master is writing a value to this board
+
+			#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+
+			//Nothing to do for now
+
+			#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+			#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+
+			//Nothing to do for now
+
+			#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+		}
+	}
+}
+
 #ifdef __cplusplus
 }
 #endif

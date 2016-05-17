@@ -25,6 +25,7 @@
 //Redefine weak functions from flexsea_payload:
 void rx_cmd_data_acqui(uint8_t *buf);
 void rx_cmd_data_read_all(uint8_t *buf);
+void rx_cmd_data_read_all_ricnu(uint8_t *buf);
 
 //****************************************************************************
 // Definition(s):

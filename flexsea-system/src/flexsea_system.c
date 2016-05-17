@@ -161,12 +161,12 @@ void flexsea_payload_98(uint8_t *buf){};
 void flexsea_payload_99(uint8_t *buf){};
 
 //100-109: 
-//void flexsea_payload_100(uint8_t *buf){};	//ShuoBot Exo
-//void flexsea_payload_101(uint8_t *buf){};	//CSEA Knee
-//void flexsea_payload_102(uint8_t *buf){};	//Current controller tuning
+//void flexsea_payload_100(uint8_t *buf){};		//ShuoBot Exo
+//void flexsea_payload_101(uint8_t *buf){};		//CSEA Knee
+//void flexsea_payload_102(uint8_t *buf){};		//Current controller tuning
 void flexsea_payload_103(uint8_t *buf){};
 void flexsea_payload_104(uint8_t *buf){};
-void flexsea_payload_105(uint8_t *buf){};
+//void flexsea_payload_105(uint8_t *buf){};		//CMD_READ_ALL_RICNU
 void flexsea_payload_106(uint8_t *buf){};
 void flexsea_payload_107(uint8_t *buf){};
 void flexsea_payload_108(uint8_t *buf){};

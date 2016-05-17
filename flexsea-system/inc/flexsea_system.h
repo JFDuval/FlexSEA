@@ -53,6 +53,7 @@ uint32_t tx_cmd_ctrl_z_g(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint3
 //Data:
 uint32_t tx_cmd_data_acqui(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, int16_t acqui);
 uint32_t tx_cmd_data_read_all(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len);
+uint32_t tx_cmd_data_read_all_ricnu(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len);
 
 //Application:
 uint32_t tx_cmd_ctrl_special_1(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
@@ -77,34 +78,35 @@ uint32_t tx_cmd_strain(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_
 //=========================================================
 
 //External:
-#define rx_cmd_analog_in		flexsea_payload_63
-#define rx_cmd_digital_in		flexsea_payload_64	//ToDo: should be in&out
-#define rx_cmd_exp_pwro			flexsea_payload_61
+#define rx_cmd_analog_in			flexsea_payload_63
+#define rx_cmd_digital_in			flexsea_payload_64	//ToDo: should be in&out
+#define rx_cmd_exp_pwro				flexsea_payload_61
 
 //Control:
-#define rx_cmd_ctrl_mode		flexsea_payload_80
-#define rx_cmd_ctrl_x_g			flexsea_payload_81
-#define rx_cmd_ctrl_i_g			flexsea_payload_82
-#define rx_cmd_ctrl_p_g			flexsea_payload_83
-#define rx_cmd_ctrl_z_g			flexsea_payload_84
-#define rx_cmd_ctrl_o			flexsea_payload_85
-#define rx_cmd_ctrl_i			flexsea_payload_86
-#define rx_cmd_ctrl_p			flexsea_payload_87
+#define rx_cmd_ctrl_mode			flexsea_payload_80
+#define rx_cmd_ctrl_x_g				flexsea_payload_81
+#define rx_cmd_ctrl_i_g				flexsea_payload_82
+#define rx_cmd_ctrl_p_g				flexsea_payload_83
+#define rx_cmd_ctrl_z_g				flexsea_payload_84
+#define rx_cmd_ctrl_o				flexsea_payload_85
+#define rx_cmd_ctrl_i				flexsea_payload_86
+#define rx_cmd_ctrl_p				flexsea_payload_87
 
 //Data:
-#define rx_cmd_data_acqui		flexsea_payload_21
-//#define rx_cmd_data_mem		flexsea_payload_20
-#define rx_cmd_data_read_all	flexsea_payload_22
+#define rx_cmd_data_acqui			flexsea_payload_21
+//#define rx_cmd_data_mem			flexsea_payload_20
+#define rx_cmd_data_read_all		flexsea_payload_22
+#define rx_cmd_data_read_all_ricnu	flexsea_payload_105
 
 //Application:
-#define rx_cmd_special_1		flexsea_payload_100
-#define rx_cmd_special_2		flexsea_payload_101
-#define rx_cmd_special_3		flexsea_payload_102
-#define rx_cmd_special_4		flexsea_payload_120
+#define rx_cmd_special_1			flexsea_payload_100
+#define rx_cmd_special_2			flexsea_payload_101
+#define rx_cmd_special_3			flexsea_payload_102
+#define rx_cmd_special_4			flexsea_payload_120
 
 //Sensors:
-#define rx_cmd_encoder			flexsea_payload_43	
-#define rx_cmd_strain			flexsea_payload_44
+#define rx_cmd_encoder				flexsea_payload_43	
+#define rx_cmd_strain				flexsea_payload_44
 
 //Redefine weak functions from flexsea_payload:
 //=============================================
@@ -237,7 +239,7 @@ void flexsea_payload_99(uint8_t *buf);
 //void flexsea_payload_102(uint8_t *buf);	//Current controller tuning
 void flexsea_payload_103(uint8_t *buf);
 void flexsea_payload_104(uint8_t *buf);
-void flexsea_payload_105(uint8_t *buf);
+//void flexsea_payload_105(uint8_t *buf);	//CMD_READ_ALL_RICNU
 void flexsea_payload_106(uint8_t *buf);
 void flexsea_payload_107(uint8_t *buf);
 void flexsea_payload_108(uint8_t *buf);
@@ -326,6 +328,7 @@ void flexsea_payload_127(uint8_t *buf);
 #define CMD_SPC1						100     //ShuoBot Exo
 #define CMD_SPC2						101		//CSEA Knee
 #define CMD_SPC3						102		//Current controller tuning
+#define CMD_READ_ALL_RICNU				105		//RIC/NU Knee, Read All function
 #define CMD_SPC4						120		//Dual ShuoBot
 
 //===================
@@ -444,7 +447,6 @@ struct manage_s
 	uint8_t sampling;
 };
 
-
 //Strain gauge amplifier:
 //(structure supports both single and 6-ch amp)
 struct strain_s
@@ -462,6 +464,18 @@ struct strain_s
 	//Filtered value:
 	uint16_t strain_filtered;
 	uint16_t filtered_strain;
+};
+
+//Special structure for the RIC/NU Knee. 'execute_s' + extra sensors.
+struct ricnu_s
+{
+	//Execute:
+	struct execute_s ex;
+	
+	//Extra sensors:
+	uint16_t enc_mot;
+	uint16_t enc_joint;
+	uint16_t ext_strain[6];	
 };
 
 //****************************************************************************
