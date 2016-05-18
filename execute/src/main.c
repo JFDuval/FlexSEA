@@ -35,6 +35,10 @@ uint8_t tmp_rx_command_usb[PAYLOAD_BUF_LEN];
 uint8 eL0 = 0, eL1 = 0, eL2 = 0;
 uint16 angle = 0;
 
+int16 mot_enc_angle = 0;
+int32 mot_cont_angle = 0;
+int16 mot_spins = 0;
+
 //****************************************************************************
 // Function(s)
 //****************************************************************************
@@ -85,7 +89,7 @@ int main(void)
 	//Non-Blocking Test code
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 	#ifdef USE_SPI_COMMUT		
-	//motor_stepper_test_init(0);
+	motor_stepper_test_init(0);
 	//Note: deadtime is 55, small PWM values won't make it move.
 	//Starting at 0, GUI will change that when it wants.	
 	#endif	//USE_SPI_COMMUT	
@@ -120,7 +124,7 @@ int main(void)
 					i2c_time_share++;
 					i2c_time_share %= 4;
 				
-					#ifdef USE_I2C_0
+					#ifdef USE_I2C_0 
 				
 					//Subdivided in 4 slots (250Hz)
 					switch(i2c_time_share)
@@ -277,12 +281,24 @@ int main(void)
 					
 					if(ctrl.active_ctrl == CTRL_POSITION)
 					{
-						motor_position_pid(ctrl.position.setp, ctrl.position.pos);
+						#ifdef USE_QEI1
+						motor_position_pid(ctrl.position.setp, ctrl.position.pos);	//QEI
+						#endif
+						
+						#ifdef USE_AS5047
+						motor_position_pid(ctrl.position.setp, mot_cont_angle);		//SPI only
+						#endif
 					}
 					else if(ctrl.active_ctrl == CTRL_IMPEDANCE)
 					{
 						//Impedance controller
+						#ifdef USE_QEI1
 						motor_impedance_encoder(ctrl.impedance.setpoint_val, ctrl.impedance.actual_val);
+						#endif
+						
+						#ifdef USE_AS5047
+						motor_impedance_encoder(ctrl.impedance.setpoint_val, mot_cont_angle);
+						#endif
 					}
 					
 					#endif	//USE_TRAPEZ
@@ -313,7 +329,7 @@ int main(void)
 					
 					//ExoBoot code - 1kHz
 					#ifdef PROJECT_EXOCUTE
-						
+					                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
 					exo_fsm();	
 						
 					#endif
@@ -333,6 +349,7 @@ int main(void)
 			
 			//The code below is executed every 100us, after the previous slot. 
 			//Keep it short!
+			
 			
 			//BEGIN - 10kHz Refresh
 			
@@ -429,9 +446,29 @@ int main(void)
 				}
 			}
 			
-			#endif	//USE_COMM	
+			#endif	//USE_COMM
 			
-			//END - 10kHz Refresh
+			#ifdef USE_SPI_COMMUT
+                int32 tempangle;
+                tempangle = (as5047_read_single(AS5047_REG_ANGLECOM));//%16384;
+                if (tempangle<1000 && mot_enc_angle>15000)
+                {
+                    mot_spins++;  
+                }
+                else if ((tempangle>15000 && mot_enc_angle<1000))
+                {
+                    mot_spins--;
+                }
+                mot_cont_angle = mot_spins*16384+tempangle;
+                mot_enc_angle = tempangle;
+
+                motor_spi_block_commutation(mot_enc_angle);
+                
+				//motor_spi_block_commutation_triangletest();
+                //motor_open_speed_1(300);
+                //motor_spi_findpoles(mot_enc_angle);
+            #endif
+			
 		}
 		else
 		{

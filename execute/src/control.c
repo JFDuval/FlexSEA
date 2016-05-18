@@ -165,7 +165,7 @@ int32 motor_position_pid(int32 wanted_pos, int32 actual_pos)
 	return ctrl.position.error;
 }
 
-//Motor position controller - non blocking. PID + Feed FOrward (FF)
+//Motor position controller - non blocking. PID + Feed Forward (FF)
 //The FF term comes from the calling function, it's added to the output.
 int32 motor_position_pid_ff_1(int32 wanted_pos, int32 actual_pos, int32 ff)
 {
@@ -399,7 +399,7 @@ int motor_impedance_encoder(int wanted_pos, int new_enc_count)
 	ctrl.impedance.error = new_enc_count - wanted_pos;		//Actual error
 	
 	//Current for stiffness term
-	i_k = ctrl.impedance.gain.Z_K * (ctrl.impedance.error >> 12);	//The /50 places the k gain in a good integer range
+	i_k = ctrl.impedance.gain.Z_K * (ctrl.impedance.error >> 8);	//The /50 places the k gain in a good integer range
 	
 	//Velocity measured on n cycles:
 	enc_tm9 = enc_tm8; enc_tm8 = enc_tm7; enc_tm7 = enc_tm6; enc_tm6 = enc_tm5; enc_tm5 = enc_tm4; enc_tm4 = enc_tm3; enc_tm3 = enc_tm2; enc_tm2 = enc_tm1; enc_tm1 = enc_t0;
