@@ -204,6 +204,7 @@ void MainWindow::controller_setpoint(int val)
             numb = tx_cmd_ctrl_o(active_slave_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, val);
             break;
         case 2: //Position
+        case 4: //Impedance
             valid = 1;
             numb = tx_cmd_ctrl_p(active_slave_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, trap_pos, trap_posi, trap_posf, trap_spd, trap_acc);
             qDebug() << "posi = " << trap_posi << ", posf = " << trap_posf << ", spd = " << trap_spd << ", trap_acc = " << trap_acc;
@@ -212,9 +213,9 @@ void MainWindow::controller_setpoint(int val)
             valid = 1;
             numb = tx_cmd_ctrl_i(active_slave_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, val, 0);
             break;
-        case 4: //Impedance
-            valid = 0;
-            break;
+        //case 4: //Impedance
+            //valid = 0;
+            //break;
         case 5: //Custom/other
             valid = 0;
             break;
