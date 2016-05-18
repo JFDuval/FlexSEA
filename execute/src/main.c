@@ -124,7 +124,7 @@ int main(void)
 					i2c_time_share++;
 					i2c_time_share %= 4;
 				
-					#ifdef USE_I2C_0
+					#ifdef USE_I2C_0 
 				
 					//Subdivided in 4 slots (250Hz)
 					switch(i2c_time_share)
@@ -281,12 +281,24 @@ int main(void)
 					
 					if(ctrl.active_ctrl == CTRL_POSITION)
 					{
-						motor_position_pid(ctrl.position.setp, mot_cont_angle);
+						#ifdef USE_QEI1
+						motor_position_pid(ctrl.position.setp, ctrl.position.pos);	//QEI
+						#endif
+						
+						#ifdef USE_AS5047
+						motor_position_pid(ctrl.position.setp, mot_cont_angle);		//SPI only
+						#endif
 					}
 					else if(ctrl.active_ctrl == CTRL_IMPEDANCE)
 					{
 						//Impedance controller
+						#ifdef USE_QEI1
 						motor_impedance_encoder(ctrl.impedance.setpoint_val, ctrl.impedance.actual_val);
+						#endif
+						
+						#ifdef USE_AS5047
+						motor_impedance_encoder(ctrl.impedance.setpoint_val, mot_cont_angle);
+						#endif
 					}
 					
 					#endif	//USE_TRAPEZ
@@ -317,7 +329,7 @@ int main(void)
 					
 					//ExoBoot code - 1kHz
 					#ifdef PROJECT_EXOCUTE
-						
+					                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
 					exo_fsm();	
 						
 					#endif
@@ -337,6 +349,7 @@ int main(void)
 			
 			//The code below is executed every 100us, after the previous slot. 
 			//Keep it short!
+			
 			
 			//BEGIN - 10kHz Refresh
 			

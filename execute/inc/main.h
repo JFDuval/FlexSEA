@@ -74,8 +74,8 @@ int main(void);
 #define USE_AS5047			//16-bit Position Sensor, SPI
 #define USE_SPI_COMMUT		//
 //#define USE_MINM_RGB		//External RGB LED. Requires USE_I2C_0.
-//#define USE_EXT_I2C_STRAIN	//External Strain Amplifier, on I2C0
-//#define USE_AS5048B			//14-bit Position Sensor, on I2C0
+#define USE_EXT_I2C_STRAIN	//External Strain Amplifier, on I2C0
+#define USE_AS5048B			//14-bit Position Sensor, on I2C0
 
 //Project specific code:
 //#define PROJECT_EXOCUTE				//ExoBoot, everything running on Execute
