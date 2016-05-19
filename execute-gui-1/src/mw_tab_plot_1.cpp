@@ -63,7 +63,6 @@ void MainWindow::makePlot()
 void MainWindow::refreshPlot(int *x, int *y, int len, uint8_t plot_index)
 {
     static int graph_ylim[2*VAR_NUM] = {0,0,0,0,0,0,0,0,0,0,0,0};
-    //static int graph_ymin[VAR_NUM] = {0,0,0,0,0,0};
 
     //From array to QVector:
     QVector<double> xdata(len), ydata(len);
@@ -90,12 +89,50 @@ void MainWindow::refreshPlot(int *x, int *y, int len, uint8_t plot_index)
 
     if(ui->radioButtonYAuto->isChecked())
     {
-        //Maximum for this graph:
-        array_minmax(y, len, &plot_ymin, &plot_ymax);
+        //Unusued channels (index == 0) aren't used for the automatic gain
+        if(data_to_plot[plot_index] == 0)
+        {
+            //qDebug() << "Ch[" << plot_index << "] is Unused.";
+
+            //Unused channel. We take the min & max from used channels.
+            int u = 0;
+            for(int k= 0; k < VAR_NUM; k++)
+            {
+                //Grab min & max from any used channel
+                if(data_to_plot[k] != 0)
+                {
+                    plot_ymin = graph_ylim[k];
+                    plot_ymax = graph_ylim[k+VAR_NUM];
+                }
+                else
+                {
+                    u++;
+                }
+            }
+
+            if(u == VAR_NUM)
+            {
+                //All unused, force to 0:
+                plot_ymin = -10;
+                plot_ymax = 10;
+            }
+            //qDebug() << "Min/Max =" << plot_ymin << "," << plot_ymax;
+        }
+        else
+        {
+            //Limits for this graph:
+            array_minmax(y, len, &plot_ymin, &plot_ymax);
+            //qDebug() << "Ch[" << plot_index << "] is used.";
+        }
+
         //Compare to all others and get max(max(())
         graph_ylim[plot_index] = plot_ymin;
         graph_ylim[plot_index+VAR_NUM] = plot_ymax;
+
+        //qDebug() << "Min/Max =" << plot_ymin << "," << plot_ymax;
+
         array_minmax(graph_ylim, 2*VAR_NUM, &plot_ymin, &plot_ymax);
+
         //Add 5%:
         plot_ymin = (plot_ymin-(abs(plot_ymin)/20));
         plot_ymax = (plot_ymax+(abs(plot_ymax)/20));
@@ -105,6 +142,8 @@ void MainWindow::refreshPlot(int *x, int *y, int len, uint8_t plot_index)
         ui->plot_ymin_lineEdit->setText(QString::number(plot_ymin));
         ui->plot_ymax_lineEdit->setText(QString::number(plot_ymax));
     }
+    //qDebug() << "Final Min/Max =" << plot_ymin << "," << plot_ymax;
+    //qDebug() << "";
 
     ui->customPlot->replot();
 }
@@ -234,7 +273,6 @@ void MainWindow::on_UpdatePlotpushButton_clicked()
 
 void MainWindow::timerPlotEvent(void)
 {
-    uint8_t data_to_plot[VAR_NUM] = {0,0,0,0,0,0};
     uint8_t index = 0;
     int y[PLOT_BUF_LEN];
 

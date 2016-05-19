@@ -101,6 +101,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->plot_xmax_lineEdit->setText(QString::number(plot_xmax));
     ui->plot_ymin_lineEdit->setText(QString::number(plot_ymin));
     ui->plot_ymax_lineEdit->setText(QString::number(plot_ymax));
+    for(int h = 0; h < VAR_NUM; h++)
+    {
+        data_to_plot[h] = 0;
+    }
     gen_graph_xarray();
     init_yarrays();
     makePlot();

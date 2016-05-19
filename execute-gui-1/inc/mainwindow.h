@@ -108,6 +108,7 @@ private:
     int gen_test_data(void);
     QCustomPlot customPlot;
     int plot_xmin, plot_ymin, plot_xmax, plot_ymax, plot_len;
+    uint8_t data_to_plot[VAR_NUM];
 
     void gen_graph_xarray(void);
     void init_yarrays(void);
