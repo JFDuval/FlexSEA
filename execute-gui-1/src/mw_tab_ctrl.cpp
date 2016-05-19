@@ -22,6 +22,31 @@
 // Public Function(s)
 //****************************************************************************
 
+#define CONTROLLERS 6
+#define GAIN_FIELDS 6
+
+void MainWindow::init_ctrl_gains(void)
+{
+    int i = 0, j = 0;
+    for(i = 0; i < CONTROLLERS; i++)
+    {
+        for(j = 0; j < GAIN_FIELDS; j++)
+        {
+            //All gains = 0:
+            ctrl_gains[i][j] = 0;
+        }
+    }
+}
+
+void MainWindow::save_ctrl_gains(int controller, int16_t *gains)
+{
+    int i = 0;
+    for(i = 0; i < GAIN_FIELDS; i++)
+    {
+        ctrl_gains[controller][i] = gains[i];
+    }
+}
+
 void MainWindow::on_pushButton_SetController_clicked()
 {
     int numb = 0;
@@ -104,18 +129,13 @@ void MainWindow::on_pushButton_SetGains_clicked()
     int16_t gains[6] = {0,0,0,0,0,0};
     int numb = 0, valid = 0;
 
-    //Save gains in variables:
+    //Save gains in temp variables:
     gains[0] = ui->control_g0->text().toInt();
     gains[1] = ui->control_g1->text().toInt();
     gains[2] = ui->control_g2->text().toInt();
     gains[3] = ui->control_g3->text().toInt();
     gains[4] = ui->control_g4->text().toInt();
     gains[5] = ui->control_g5->text().toInt();
-
-    //Update display:
-    str.sprintf("Gains = {%i,%i,%i,%i,%i,%i}", gains[0],gains[1],gains[2], \
-                                                gains[3],gains[4],gains[5]);
-    ui->textLabel_Gains->setText(str);
 
     //Send command to hardware:
 
@@ -131,16 +151,28 @@ void MainWindow::on_pushButton_SetGains_clicked()
             break;
         case 2: //Position
             valid = 1;
+            save_ctrl_gains(selected_controller, gains);
+            str.sprintf("Position gains = {%i,%i,%i,%i,%i,%i}", gains[0],gains[1],gains[2], \
+                                                        gains[3],gains[4],gains[5]);
+            ui->textLabel_Gains_p->setText(str);
             tx_cmd_ctrl_p_g(active_slave_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, \
                                     gains[0], gains[1], gains[2]);
              break;
         case 3: //Current
             valid = 1;
+            save_ctrl_gains(selected_controller, gains);
+            str.sprintf("Current gains = {%i,%i,%i,%i,%i,%i}", gains[0],gains[1],gains[2], \
+                                                        gains[3],gains[4],gains[5]);
+            ui->textLabel_Gains_i->setText(str);
             numb = tx_cmd_ctrl_i_g(active_slave_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, \
                                 gains[0], gains[1], gains[2]);
             break;
         case 4: //Impedance
             valid = 1;
+            save_ctrl_gains(selected_controller, gains);
+            str.sprintf("Impedance gains = {%i,%i,%i,%i,%i,%i}", gains[0],gains[1],gains[2], \
+                                                        gains[3],gains[4],gains[5]);
+            ui->textLabel_Gains_z->setText(str);
             tx_cmd_ctrl_z_g(active_slave_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, \
                                     gains[0], gains[1], gains[2]);
             break;
@@ -319,4 +351,113 @@ void MainWindow::on_ctrl_encoder_zero_clicked()
     //Can we decode what we received?
     //USBSerialPort_Read(usb_rx);
     //decode_usb_rx(usb_rx);
+}
+
+//Selected controller was changed
+void MainWindow::on_comboBox_ctrl_list_currentIndexChanged(int index)
+{
+    selected_controller = ui->comboBox_ctrl_list->currentIndex();
+
+    switch(selected_controller)
+    {
+        case 0: //Null
+            ui->control_g0->setText("0");
+            ui->control_g1->setText("0");
+            ui->control_g2->setText("0");
+            ui->control_g3->setText("0");
+            ui->control_g4->setText("0");
+            ui->control_g5->setText("0");
+            ui->control_g0->setDisabled(1);
+            ui->control_g1->setDisabled(1);
+            ui->control_g2->setDisabled(1);
+            ui->control_g3->setDisabled(1);
+            ui->control_g4->setDisabled(1);
+            ui->control_g5->setDisabled(1);
+            break;
+        case 1: //Open
+            ui->control_g0->setText("0");
+            ui->control_g1->setText("0");
+            ui->control_g2->setText("0");
+            ui->control_g3->setText("0");
+            ui->control_g4->setText("0");
+            ui->control_g5->setText("0");
+            ui->control_g0->setDisabled(1);
+            ui->control_g1->setDisabled(1);
+            ui->control_g2->setDisabled(1);
+            ui->control_g3->setDisabled(1);
+            ui->control_g4->setDisabled(1);
+            ui->control_g5->setDisabled(1);
+            break;
+        case 2: //Position
+            ui->control_g0->setText(QString::number(ctrl_gains[selected_controller][0]));
+            ui->control_g1->setText(QString::number(ctrl_gains[selected_controller][1]));
+            ui->control_g2->setText(QString::number(ctrl_gains[selected_controller][2]));
+            ui->control_g3->setText(QString::number(ctrl_gains[selected_controller][3]));
+            ui->control_g4->setText(QString::number(ctrl_gains[selected_controller][4]));
+            ui->control_g5->setText(QString::number(ctrl_gains[selected_controller][5]));
+            ui->control_g0->setEnabled(1);
+            ui->control_g1->setEnabled(1);
+            ui->control_g2->setEnabled(1);
+            ui->control_g3->setDisabled(1);
+            ui->control_g4->setDisabled(1);
+            ui->control_g5->setDisabled(1);
+            break;
+
+        case 3: //Current
+            ui->control_g0->setText(QString::number(ctrl_gains[selected_controller][0]));
+            ui->control_g1->setText(QString::number(ctrl_gains[selected_controller][1]));
+            ui->control_g2->setText(QString::number(ctrl_gains[selected_controller][2]));
+            ui->control_g3->setText(QString::number(ctrl_gains[selected_controller][3]));
+            ui->control_g4->setText(QString::number(ctrl_gains[selected_controller][4]));
+            ui->control_g5->setText(QString::number(ctrl_gains[selected_controller][5]));
+            ui->control_g0->setEnabled(1);
+            ui->control_g1->setEnabled(1);
+            ui->control_g2->setEnabled(1);
+            ui->control_g3->setDisabled(1);
+            ui->control_g4->setDisabled(1);
+            ui->control_g5->setDisabled(1);
+            break;
+        case 4: //Impedance
+            ui->control_g0->setText(QString::number(ctrl_gains[selected_controller][0]));
+            ui->control_g1->setText(QString::number(ctrl_gains[selected_controller][1]));
+            ui->control_g2->setText(QString::number(ctrl_gains[selected_controller][2]));
+            ui->control_g3->setText(QString::number(ctrl_gains[selected_controller][3]));
+            ui->control_g4->setText(QString::number(ctrl_gains[selected_controller][4]));
+            ui->control_g5->setText(QString::number(ctrl_gains[selected_controller][5]));
+            ui->control_g0->setEnabled(1);
+            ui->control_g1->setEnabled(1);
+            ui->control_g2->setEnabled(1);
+            ui->control_g3->setDisabled(1);
+            ui->control_g4->setDisabled(1);
+            ui->control_g5->setDisabled(1);
+            break;
+        case 5: //Custom/other
+            ui->control_g0->setText("0");
+            ui->control_g1->setText("0");
+            ui->control_g2->setText("0");
+            ui->control_g3->setText("0");
+            ui->control_g4->setText("0");
+            ui->control_g5->setText("0");
+            ui->control_g0->setDisabled(1);
+            ui->control_g1->setDisabled(1);
+            ui->control_g2->setDisabled(1);
+            ui->control_g3->setDisabled(1);
+            ui->control_g4->setDisabled(1);
+            ui->control_g5->setDisabled(1);
+            break;
+        default:
+            ui->control_g0->setText("0");
+            ui->control_g1->setText("0");
+            ui->control_g2->setText("0");
+            ui->control_g3->setText("0");
+            ui->control_g4->setText("0");
+            ui->control_g5->setText("0");
+            ui->control_g0->setDisabled(1);
+            ui->control_g1->setDisabled(1);
+            ui->control_g2->setDisabled(1);
+            ui->control_g3->setDisabled(1);
+            ui->control_g4->setDisabled(1);
+            ui->control_g5->setDisabled(1);
+            break;
+    }
 }

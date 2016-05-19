@@ -3975,13 +3975,6 @@
          </property>
         </widget>
        </item>
-       <item row="9" column="3">
-        <widget class="QLabel" name="textLabel_Gains">
-         <property name="text">
-          <string>TextLabel</string>
-         </property>
-        </widget>
-       </item>
        <item row="21" column="2" colspan="3">
         <widget class="QLabel" name="textLabel_Gains_3">
          <property name="text">
@@ -3993,6 +3986,27 @@
         <widget class="QPushButton" name="ctrl_encoder_zero">
          <property name="text">
           <string>Zero</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="3" colspan="2">
+        <widget class="QLabel" name="textLabel_Gains_i">
+         <property name="text">
+          <string>Current gains</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="3" colspan="2">
+        <widget class="QLabel" name="textLabel_Gains_p">
+         <property name="text">
+          <string>Current gains</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="3" colspan="2">
+        <widget class="QLabel" name="textLabel_Gains_z">
+         <property name="text">
+          <string>Current gains</string>
          </property>
         </widget>
        </item>

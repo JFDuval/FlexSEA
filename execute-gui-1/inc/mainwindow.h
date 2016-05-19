@@ -123,6 +123,9 @@ private:
     int ctrl_setpoint = 0;
     int ctrl_toggle_state = 0;
     void controller_setpoint(int val);
+    int ctrl_gains[6][6];
+    void init_ctrl_gains(void);
+    void save_ctrl_gains(int controller, int16_t *gains);
 
     //Stream SA:
     uint8_t bound_number(int num, int min, int max);
@@ -192,6 +195,8 @@ private slots:
     void on_stream_RICNU_ONbutton_clicked();
 
     void on_stream_RICNU_OFFbutton_clicked();
+
+    void on_comboBox_ctrl_list_currentIndexChanged(int index);
 
 private:
     Ui::MainWindow *ui;

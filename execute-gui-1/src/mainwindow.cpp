@@ -166,16 +166,19 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
     //Gains:
+    init_ctrl_gains();  //All 0 when we start
     ui->control_g0->setText("0");
     ui->control_g1->setText("0");
     ui->control_g2->setText("0");
     ui->control_g3->setText("0");
     ui->control_g4->setText("0");
     ui->control_g5->setText("0");
-    str.sprintf("Gains = {%i,%i,%i,%i,%i,%i}", ui->control_g0->text().toInt(), ui->control_g1->text().toInt(), \
-                ui->control_g2->text().toInt(), ui->control_g3->text().toInt(), ui->control_g4->text().toInt(), \
-                ui->control_g5->text().toInt());
-    ui->textLabel_Gains->setText(str);
+    str.sprintf("Current gains = {0,0,0,0,0,0}");
+    ui->textLabel_Gains_i->setText(str);
+    str.sprintf("Position gains = {0,0,0,0,0,0}");
+    ui->textLabel_Gains_p->setText(str);
+    str.sprintf("Impedance gains = {0,0,0,0,0,0}");
+    ui->textLabel_Gains_z->setText(str);
 
     //Strain:
     //=================
