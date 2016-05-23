@@ -461,3 +461,17 @@ void MainWindow::on_comboBox_ctrl_list_currentIndexChanged(int index)
             break;
     }
 }
+
+void MainWindow::timerCtrlDispRefreshEvent(void)
+{
+    if(stream_status)
+    {
+        ui->disp_meas_val->setText(QString::number(exec1.encoder));
+    }
+
+    if(stream_ricnu_status)
+    {
+        ui->disp_meas_val->setText(QString::number(ricnu_1.enc_joint));
+    }
+}
+

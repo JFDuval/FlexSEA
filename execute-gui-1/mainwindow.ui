@@ -3975,13 +3975,6 @@
          </property>
         </widget>
        </item>
-       <item row="21" column="2" colspan="3">
-        <widget class="QLabel" name="textLabel_Gains_3">
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;'Encoder' field (requires Execute ***ToDo make generic***)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
        <item row="22" column="1">
         <widget class="QPushButton" name="ctrl_encoder_zero">
          <property name="text">
