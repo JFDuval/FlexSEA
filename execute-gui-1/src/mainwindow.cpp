@@ -237,10 +237,17 @@ MainWindow::MainWindow(QWidget *parent) :
 //MainWindow destructor
 MainWindow::~MainWindow()
 {
+    qDebug("Stopping any pending Stream, and 1s delay...");
+    //Turn all Stream OFF
+    stream_status = 0;
+    stream_ricnu_status = 0;
+    stream_sa_status = 0;
+    sleep(1);
+
     //Close Serial port and delete object:
     qDebug("Closing serial port...");
     CloseUSBSerialPort();
 
-    qDebug("Closing main program...");
+    qDebug("Closing main program... Done!");
     delete ui;
 }
