@@ -21,17 +21,20 @@
 //****************************************************************************
 
 extern struct enc_s encoder;	
+extern struct as504x_s as5047, as5048b;
 extern uint16 ext_strain[6];
-extern uint16 as5048b_angle;
-extern uint16 as5047_angle;
 	
 //****************************************************************************
 // Public Function Prototype(s):
 //****************************************************************************	
 
 void init_qei(void);
-int32 encoder_read(void);
-void encoder_write(int32 enc);
+//int32 encoder_read(void);
+//void encoder_write(int32 enc);
+void qei_write(int32 enc);
+int32 qei_read(void);
+int32 refresh_enc_control(void);
+int32 refresh_enc_display(void);
 void init_as5047(void);
 uint16 as5047_read_single(uint16 reg);
 
@@ -51,6 +54,10 @@ void get_as5048b_position(void);
 //****************************************************************************	
 
 #define QUAD1_INIT				0	//Initial value, quadrature encoder
+
+//Sensor commutation
+#define HALL_PHYSICAL			0
+#define HALL_VIRTUAL			1
 
 //AS5047 Magnetic encoder (SPI):
 
@@ -116,6 +123,13 @@ void get_as5048b_position(void);
 // Structure(s)
 //****************************************************************************	
 
+//AS504x Magnetic encoders:
+struct as504x_s
+{
+	uint16_t angle;
+	uint16_t angle_comp;
+	int64_t angle_cont;
+};
 	
 #endif	//INC_EXT_IN_H
 	

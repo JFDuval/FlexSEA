@@ -30,6 +30,7 @@ void motor_stepper_test_runtime(int div);
 void motor_spi_block_commutation(int angle);
 void motor_spi_block_commutation_triangletest();
 void motor_spi_findpoles();
+void sensor_commut_1(void);
 
 //****************************************************************************
 // Definition(s):

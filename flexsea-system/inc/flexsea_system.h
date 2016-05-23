@@ -428,13 +428,14 @@ struct execute_s
 	uint16_t strain;
 	uint16_t analog[8];
 	int16_t current;
-	int32_t encoder;
+	//int32_t encoder;
+	int32_t enc_display;
+	int32_t enc_control;
+	int32_t enc_commut;
 	uint8_t volt_batt;	//+VB
 	uint8_t volt_int;	//+VG
 	uint8_t temp;
 	uint8_t pwro;
-	//uint8_t active_ctrl;
-	//int16_t pwm;
 	uint8_t status1;
 	uint8_t status2;
 
@@ -473,8 +474,8 @@ struct ricnu_s
 	struct execute_s ex;
 	
 	//Extra sensors:
-	uint16_t enc_mot;
-	uint16_t enc_joint;
+	//uint16_t enc_mot;
+	//uint16_t enc_joint;
 	uint16_t ext_strain[6];	
 };
 

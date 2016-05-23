@@ -27,6 +27,8 @@ extern volatile uint8 i2c_0_r_buf[24];
 // Public Function Prototype(s):
 //****************************************************************************	
 
+void init_i2c_0(void);
+void init_i2c_1(void);
 int i2c0_read(uint8 slave_addr, uint8 reg_addr, uint8 *pdata, uint16 length);
 uint8 I2C_0_MasterWriteByteTimeOut(uint8 theByte, uint32 timeout);
 void assign_i2c_data(uint8 *newdata);

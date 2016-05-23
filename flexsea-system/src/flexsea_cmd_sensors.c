@@ -11,6 +11,8 @@
 extern "C" {
 #endif
 
+//ToDo: the ENCODER command is too "QEI" centric. Generalize.
+
 //****************************************************************************
 // Include(s)
 //****************************************************************************
@@ -206,7 +208,7 @@ void rx_cmd_encoder(uint8_t *buf)
 		//Generate the reply:
 		//===================
 
-		numb = tx_cmd_encoder(buf[P_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, encoder_read());
+		numb = tx_cmd_encoder(buf[P_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, qei_read());
 		numb = comm_gen_str(tmp_payload_xmit, comm_str_485, numb);
 		numb = COMM_STR_BUF_LEN;    //Fixed length for now
 		rs485_puts(comm_str_485, numb);
@@ -217,12 +219,11 @@ void rx_cmd_encoder(uint8_t *buf)
 	else if(IS_CMD_RW(buf[P_CMD1]) == WRITE)
 	{
 		//Two options: from Master of from slave (a read reply)
+		tmp = (int32_t)BYTES_TO_UINT32(buf[P_DATA1], buf[P_DATA1+1], buf[P_DATA1+2], buf[P_DATA1+3]);
 
 		if(sent_from_a_slave(buf))
 		{
 			//We received a reply to our read request
-
-			tmp = (int32_t)BYTES_TO_UINT32(buf[P_DATA1], buf[P_DATA1+1], buf[P_DATA1+2], buf[P_DATA1+3]);
 
 			#ifdef BOARD_TYPE_FLEXSEA_PLAN
 
@@ -236,7 +237,7 @@ void rx_cmd_encoder(uint8_t *buf)
 
 			#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
-			encoder_write(tmp);
+			qei_write(tmp);
 
 			#endif
 
@@ -370,7 +371,7 @@ void rx_cmd_strain(uint8_t *buf)
 
 			#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
-			encoder_write(tmp);
+			qei_write(tmp);
 
 			#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 			

@@ -51,6 +51,9 @@ void i2c_init_minm(uint8 color)
 	i2c_write_minm_rgb(SET_RGB, r, g, b);	
 	minm_rgb_color = color;
 	
+	minm_rgb_color = MINM_GREEN;
+	update_minm_rgb();
+	
 	CyDelay(25);
 }
 

@@ -30,6 +30,20 @@ volatile uint8 i2c_0_r_buf[24];
 // Public Function(s)
 //****************************************************************************
 
+//I2C0 - 3V3, IMU & Expansion.
+void init_i2c_0(void)
+{
+	I2C_0_EnableInt();
+	I2C_0_Start();	
+}
+
+//I2C1 - 5V, Safety-CoP & strain gauge pot
+void init_i2c_1(void)
+{
+	I2C_1_EnableInt();
+	I2C_1_Start();
+}
+
 //Manual I2C [Write - Restart - Read n bytes] function
 //Takes around xus (400kHz) to run, then the ISR takes care of everything.
 int i2c0_read(uint8 slave_addr, uint8 reg_addr, uint8 *pdata, uint16 length)
@@ -168,7 +182,7 @@ void assign_i2c_data(uint8 *newdata)
 	}
 	else if(i2c_last_request == I2C_RQ_AS5048B)
 	{
-			as5048b_angle = (newdata[0]<<6) + (newdata[1]&0x3F);
+			as5048b.angle = (newdata[0]<<6) + (newdata[1]&0x3F);
 	}
 	else if(i2c_last_request == I2C_RQ_EXT_STRAIN)
 	{

@@ -203,7 +203,7 @@ void rx_cmd_special_1(uint8_t *buf)
 			//User wants to overwrite the encoder:
 			int32 tmp_enc = (int32)BYTES_TO_UINT32(buf[P_DATA1 + 5], buf[P_DATA1 + 6], \
 													buf[P_DATA1 + 7], buf[P_DATA1 + 8]);	
-			encoder_write(tmp_enc);	
+			qei_write(tmp_enc);	
 		}
 
 		//Generate the reply:
@@ -388,7 +388,7 @@ uint32_t tx_cmd_ctrl_special_2(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 		buf[P_DATA1 + 8] = tmp0;
 		buf[P_DATA1 + 9] = tmp1;
 
-		uint32_to_bytes((uint32_t)encoder_read(), &tmp0, &tmp1, &tmp2, &tmp3);
+		uint32_to_bytes((uint32_t)qei_read(), &tmp0, &tmp1, &tmp2, &tmp3);
 		buf[P_DATA1 + 10] = tmp0;
 		buf[P_DATA1 + 11] = tmp1;
 		buf[P_DATA1 + 12] = tmp2;

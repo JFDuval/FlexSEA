@@ -1,6 +1,6 @@
 //****************************************************************************
 // MIT Media Lab - Biomechatronics
-// Jean-Francois (Jeff) Duval, Luke & Jake Mooney
+// Jean-Francois (Jeff) Duval, Luke Mooney & Jake Mooney
 // jfduval@media.mit.edu, lmooney@mit.edu, mooneyj@mit.edu
 // 05/2016
 //****************************************************************************
@@ -52,7 +52,7 @@ void motor_stepper_test_blocking_1(int spd)
 		hall_code_0 %= 6;
 		hall_code = hall_conv[hall_code_0];
 		
-		Hall_Write(hall_code);
+		Virtual_Hall_Write(hall_code);
 
 		
 		LED_R_Write(hall_code & 0x01);
@@ -232,7 +232,7 @@ void motor_spi_block_commutation(int angle)
         
         
     if (findingpoles == 0)
-    {Hall_Write(hallmap_map2[comindx%6]);}
+    {Virtual_Hall_Write(hallmap_map2[comindx%6]);}
     
     lastangle = angle; 
     lastcomindx = comindx;
@@ -268,7 +268,7 @@ void motor_spi_findpoles(int angle){
     {
         findingpoles = 1;
         motor_open_speed_1(100);
-        Hall_Write(hallmap_map[polecounter%6]);
+        Virtual_Hall_Write(hallmap_map[polecounter%6]);
         if (offsetcount%stepperiod == 0)
         {
             if (hsamp == 0 || lsamp || 0)
@@ -346,6 +346,30 @@ void motor_spi_findpoles(int angle){
     
     
     offsetcount++;
+}
+
+//Call this function at 10kHz, in the main FSM:
+void sensor_commut_1(void)
+{
+	static int16 mot_spins = 0;
+	int32 tempangle;
+	tempangle = (as5047_read_single(AS5047_REG_ANGLECOM));//%16384;
+	if (tempangle<1000 && as5047.angle>15000)
+	{
+	    mot_spins++;  
+	}
+	else if ((tempangle>15000 && as5047.angle<1000))
+	{
+	    mot_spins--;
+	}
+	as5047.angle_cont = mot_spins*16384+tempangle;
+	as5047.angle = tempangle;
+
+	motor_spi_block_commutation(as5047.angle);
+
+	//motor_spi_block_commutation_triangletest();
+	//motor_open_speed_1(300);
+	//motor_spi_findpoles(mot_enc_angle);
 }
 
 //****************************************************************************

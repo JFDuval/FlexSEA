@@ -49,9 +49,9 @@ void init_motor(void)
 	Opamp_1_Start();
 	
 	//Quadrature 1: Motor shaft encoder
-	#ifdef USE_QEI1
+	#ifdef USE_QEI
 	init_qei();
-	#endif	//USE_QEI1	
+	#endif	//USE_QEI	
 }
 
 //Controls motor PWM duty cycle

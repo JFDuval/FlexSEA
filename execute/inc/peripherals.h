@@ -22,8 +22,6 @@
 
 void init_peripherals(void);
 void init_tb_timers(void);
-void init_i2c_0(void);
-void init_i2c_1(void);
 
 //****************************************************************************
 // Shared Variable(s):

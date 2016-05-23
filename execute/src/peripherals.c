@@ -49,7 +49,14 @@ void init_peripherals(void)
 	init_analog();
 	
 	//Clutch:
-	init_pwro();	
+	init_pwro();
+	
+	//Hall sensor for commutation?
+	#if(ENC_COMMUT == ENC_HALL)
+		Use_Hall_Write(HALL_PHYSICAL);	//Use Hall sensors (Expansion connector)
+	#else
+		Use_Hall_Write(HALL_VIRTUAL);	//Do not use, or use software version
+	#endif
 	
 	//Enable Global Interrupts
     CyGlobalIntEnable; 
@@ -128,18 +135,4 @@ void init_tb_timers(void)
 	Timer_1_Init();
 	Timer_1_Start();
 	isr_t1_Start();
-}
-
-//I2C0 - 3V3, IMU & Expansion.
-void init_i2c_0(void)
-{
-	I2C_0_EnableInt();
-	I2C_0_Start();	
-}
-
-//I2C1 - 5V, Safety-CoP & strain gauge pot
-void init_i2c_1(void)
-{
-	I2C_1_EnableInt();
-	I2C_1_Start();
 }

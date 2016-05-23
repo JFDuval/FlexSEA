@@ -35,10 +35,6 @@ uint8_t tmp_rx_command_usb[PAYLOAD_BUF_LEN];
 uint8 eL0 = 0, eL1 = 0, eL2 = 0;
 uint16 angle = 0;
 
-int16 mot_enc_angle = 0;
-int32 mot_cont_angle = 0;
-int16 mot_spins = 0;
-
 //****************************************************************************
 // Function(s)
 //****************************************************************************
@@ -54,7 +50,6 @@ int main(void)
 	static uint8 new_cmd_led = 0;
 	uint16 safety_delay = 0;
 	uint8 i2c_time_share = 0;
-	//uint8 toggle_led = 0;
 	
 	//Power on delay with LEDs
 	power_on();	     
@@ -97,13 +92,21 @@ int main(void)
 	//pwro_output(245);	
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=	
 	
-	//Special code for the ExoBoots:
-	#ifdef PROJECT_EXOCUTE
-	init_exo();
-	#endif
+	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+	//Project specific initialization code
+	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 	
-	//minm_rgb_color = MINM_GREEN;
-	//update_minm_rgb();
+	//ExoBoots:
+	#if(ACTIVE_PROJECT == PROJECT_EXOCUTE)
+	init_exo();
+	#endif	//PROJECT_EXOCUTE
+	
+	//RIC/NU Knee:
+	#if(ACTIVE_PROJECT == PROJECT_RICNU_KNEE)
+	init_knee();
+	#endif	//PROJECT_EXOCUTE
+	
+	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=	
 
 	//Main loop
 	while(1)
@@ -185,15 +188,6 @@ int main(void)
 					}
 					
 					#endif //USE_I2C_INT
-					
-					//Read AS5047 sensor (only if it's not already read by USE_SPI_COMMUT)
-					#ifndef USE_SPI_COMMUT
-					#ifdef USE_AS5047
-						
-					angle = as5047_read_single(AS5047_REG_ANGLEUNC);		
-					
-					#endif	//USE_AS5047
-					#endif	//USE_SPI_COMMUT
 								
 					break;
 				
@@ -251,21 +245,24 @@ int main(void)
 					
 					break;
 				
-				//Case 5: Quadrature encoder & Position setpoint
+				//Case 5: Position sensors & Position setpoint
 				case 5:
 					
-					#ifdef USE_QEI1
-				
-					//Refresh encoder readings
-					encoder_read();
-						
-					#endif	//USE_QEI1		
+					//Read AS5047 sensor (only if it's not already read by USE_SPI_COMMUT)
+					#ifndef USE_SPI_COMMUT
+						#ifdef USE_AS5047						
+						as5047.angle = as5047_read_single(AS5047_REG_ANGLEUNC);
+						#endif	//USE_AS5047
+					#endif	//USE_SPI_COMMUT
+					
+					//Refresh encoder readings (ENC_CONTROL only)
+					refresh_enc_control();
 					
 					#ifdef USE_TRAPEZ	
 				
+					//Trapezoidal trajectories (can be used for both Position & Impedance)	
 					if((ctrl.active_ctrl == CTRL_POSITION) || (ctrl.active_ctrl == CTRL_IMPEDANCE))
-					{	
-						//Trapezoidal trajectories (can be used for both Position & Impedance)				
+					{									
 						ctrl.position.setp = trapez_get_pos(steps);	//New setpoint
 						ctrl.impedance.setpoint_val = trapez_get_pos(steps);	//New setpoint
 					}
@@ -281,24 +278,11 @@ int main(void)
 					
 					if(ctrl.active_ctrl == CTRL_POSITION)
 					{
-						#ifdef USE_QEI1
-						motor_position_pid(ctrl.position.setp, ctrl.position.pos);	//QEI
-						#endif
-						
-						#ifdef USE_AS5047
-						motor_position_pid(ctrl.position.setp, mot_cont_angle);		//SPI only
-						#endif
+						motor_position_pid(ctrl.position.setp, ctrl.position.pos);
 					}
 					else if(ctrl.active_ctrl == CTRL_IMPEDANCE)
 					{
-						//Impedance controller
-						#ifdef USE_QEI1
 						motor_impedance_encoder(ctrl.impedance.setpoint_val, ctrl.impedance.actual_val);
-						#endif
-						
-						#ifdef USE_AS5047
-						motor_impedance_encoder(ctrl.impedance.setpoint_val, mot_cont_angle);
-						#endif
 					}
 					
 					#endif	//USE_TRAPEZ
@@ -328,11 +312,14 @@ int main(void)
 				case 9:
 					
 					//ExoBoot code - 1kHz
-					#ifdef PROJECT_EXOCUTE
-					                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-					exo_fsm();	
-						
-					#endif
+					#if(ACTIVE_PROJECT == PROJECT_EXOCUTE)				                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+					exo_fsm();							
+					#endif	//PROJECT_EXOCUTE
+					
+					//RIC/NU Knee code - 1kHz
+					#if(ACTIVE_PROJECT == PROJECT_RICNU_KNEE)				                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+					knee_fsm();						
+					#endif	//PROJECT_RICNU_KNEE
 					
 					//1s timebase:
 					if(timebase_1s())
@@ -449,24 +436,11 @@ int main(void)
 			#endif	//USE_COMM
 			
 			#ifdef USE_SPI_COMMUT
-                int32 tempangle;
-                tempangle = (as5047_read_single(AS5047_REG_ANGLECOM));//%16384;
-                if (tempangle<1000 && mot_enc_angle>15000)
-                {
-                    mot_spins++;  
-                }
-                else if ((tempangle>15000 && mot_enc_angle<1000))
-                {
-                    mot_spins--;
-                }
-                mot_cont_angle = mot_spins*16384+tempangle;
-                mot_enc_angle = tempangle;
-
-                motor_spi_block_commutation(mot_enc_angle);
-                
-				//motor_spi_block_commutation_triangletest();
-                //motor_open_speed_1(300);
-                //motor_spi_findpoles(mot_enc_angle);
+			
+				#if(ENC_COMMUT == ENC_AS5047)
+					sensor_commut_1();
+				#endif //ENC_AS5047
+				
             #endif
 			
 		}

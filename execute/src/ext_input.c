@@ -18,8 +18,9 @@
 // Variable(s)
 //****************************************************************************
 
-//Encoder:
+//Encoders:
 struct enc_s encoder;
+struct as504x_s as5047, as5048b;
 
 //Magnetic encoder, AS5047:
 uint16 spidata_mosi[WORDS_IN_FRAME] = {0,0,0,0,0,0,0};
@@ -37,7 +38,6 @@ uint16 as5048b_mag = 0, as5048b_angle = 0;
 //6-ch Strain Amplifier:
 uint16 ext_strain[6] = {0,0,0,0,0,0};
 uint8 ext_strain_bytes[12];
-//volatile uint8 i2c_0_r_buf[24];
 
 //****************************************************************************
 // Private Function Prototype(s):
@@ -57,6 +57,7 @@ void init_qei(void)
 	QuadDec_1_SetCounter(QUAD1_INIT);
 }
 
+/* Deprecated
 //Updates the structure with the latest encoder value
 int32 encoder_read(void)
 {
@@ -72,12 +73,70 @@ int32 encoder_read(void)
 	return encoder.count;
 }
 //Warning: encoder.count seems to be interpreted as a uint... casting (int32) before using it works.
+*/
 
-//Updates the structure with the desired value and write it to the encoder
-void encoder_write(int32 enc)
+//Updates the structure with the latest encoder value
+//Only deals with the Controller encoder (no commutation)
+int32 refresh_enc_control(void)
 {
-	encoder.count = enc;
+	//Count: actual, last, difference
+	encoder.count_last = encoder.count;
+	
+	#if(ENC_CONTROL == ENC_QUADRATURE)
+		encoder.count = QuadDec_1_GetCounter();
+	#elif(ENC_CONTROL == ENC_ANALOG)
+		encoder.count = 0;	//ToDo implement if needed		
+	#elif(ENC_CONTROL == ENC_AS5047)
+		encoder.count = as5047.angle_cont;
+	#elif(ENC_CONTROL == ENC_AS5048B)
+		encoder.count = as5048b.angle;
+	#endif
+		
+	encoder.count_dif = encoder.count - encoder.count_last;
+	
+	//For the position & impedance controllers we use the last count
+	ctrl.position.pos = encoder.count;
+	ctrl.impedance.actual_val = encoder.count;
+	
+	return encoder.count;
+}
+//Warning: encoder.count seems to be interpreted as a uint... casting (int32) before using it works.
+
+//Encoder displayed in the GUI
+int32 refresh_enc_display(void)
+{
+	int32 tmp_enc = 0;
+	
+	#if(ENC_DISPLAY == ENC_QUADRATURE)
+		tmp_enc = QuadDec_1_GetCounter();
+	#elif(ENC_DISPLAY == ENC_ANALOG)
+		tmp_enc = 0;	//ToDo implement if needed		
+	#elif(ENC_DISPLAY == ENC_AS5047)
+		tmp_enc = as5047.angle_cont;
+	#elif(ENC_DISPLAY == ENC_AS5048B)
+		tmp_enc = as5048b.angle;
+	#endif
+	
+	return tmp_enc;
+}
+
+void qei_write(int32 enc)
+{
+	#ifdef USE_QEI
+	//encoder.count = enc;
 	QuadDec_1_SetCounter(enc);
+	#endif
+}
+
+int32 qei_read(void)
+{
+	int32 retval = 0;
+	
+	#ifdef USE_QEI
+	retval = QuadDec_1_GetCounter();
+	#endif
+	
+	return retval;
 }
 
 void init_as5047(void)
