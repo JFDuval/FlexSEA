@@ -154,8 +154,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->hSlider_Ctrl->setMaximum(ui->control_slider_max->text().toInt());
     ui->control_setp_a->setText("0");
     ui->control_setp_b->setText("0");
-    ui->control_toggle_delayA->setText("100");
-    ui->control_toggle_delayB->setText("900");
+    ui->control_toggle_delayA->setText("1000");
+    ui->control_toggle_delayB->setText("1000");
+    ui->control_trapeze_spd->setText("10000");
+    ui->control_trapeze_acc->setText("10000");
 
     //Variable option lists:
     QStringList var_list_controllers;
@@ -189,6 +191,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //=================
     ui->pushButton_ext_pwro->setText("Turn ON (PWM)");
     ui->ext_pwro_pwm->setText("0");
+    ui->quad_write_val->setText("0");
 
     //Variable option lists:
     QStringList var_list_colors;
@@ -234,10 +237,17 @@ MainWindow::MainWindow(QWidget *parent) :
 //MainWindow destructor
 MainWindow::~MainWindow()
 {
+    qDebug("Stopping any pending Stream, and 1s delay...");
+    //Turn all Stream OFF
+    stream_status = 0;
+    stream_ricnu_status = 0;
+    stream_sa_status = 0;
+    sleep(1);
+
     //Close Serial port and delete object:
     qDebug("Closing serial port...");
     CloseUSBSerialPort();
 
-    qDebug("Closing main program...");
+    qDebug("Closing main program... Done!");
     delete ui;
 }

@@ -42,7 +42,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>7</number>
+     <number>8</number>
     </property>
     <widget class="QWidget" name="config">
      <attribute name="title">
@@ -3975,13 +3975,6 @@
          </property>
         </widget>
        </item>
-       <item row="22" column="1">
-        <widget class="QPushButton" name="ctrl_encoder_zero">
-         <property name="text">
-          <string>Zero</string>
-         </property>
-        </widget>
-       </item>
        <item row="4" column="3" colspan="2">
         <widget class="QLabel" name="textLabel_Gains_i">
          <property name="text">
@@ -4015,8 +4008,8 @@
        <rect>
         <x>9</x>
         <y>9</y>
-        <width>355</width>
-        <height>108</height>
+        <width>396</width>
+        <height>174</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_9">
@@ -4061,6 +4054,13 @@
          </property>
         </widget>
        </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_105">
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Quadrature:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
        <item row="3" column="0">
         <widget class="QLabel" name="label_72">
          <property name="text">
@@ -4070,6 +4070,33 @@
        </item>
        <item row="3" column="1">
         <widget class="QComboBox" name="comboBox_minm_rgb"/>
+       </item>
+       <item row="5" column="2">
+        <widget class="QPushButton" name="quadrature_write">
+         <property name="text">
+          <string>Write</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QLineEdit" name="quad_write_val">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="label_106">
+         <property name="text">
+          <string>New value:</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>

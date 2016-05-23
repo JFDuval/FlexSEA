@@ -60,5 +60,26 @@ void MainWindow::on_pushButton_ext_pwro_clicked()
 //MinM RGB color list
 void MainWindow::on_comboBox_minm_rgb_currentIndexChanged(int index)
 {
+    //ToDo
+}
 
+void MainWindow::on_quadrature_write_clicked()
+{
+    int numb = 0;
+    int new_enc_val = 0;
+
+    new_enc_val = ui->quad_write_val->text().toInt();
+
+    //qDebug() << "Quadrature encoder: write" << new_enc_val;
+
+    numb = tx_cmd_encoder(active_slave_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, new_enc_val);
+
+    //Common for all gain functions:
+    numb = comm_gen_str(payload_str, comm_str_usb, PAYLOAD_BUF_LEN);
+    numb = COMM_STR_BUF_LEN;
+    USBSerialPort_Write(numb, comm_str_usb);
+
+    //Can we decode what we received?
+    //USBSerialPort_Read(usb_rx);
+    //decode_usb_rx(usb_rx);
 }
