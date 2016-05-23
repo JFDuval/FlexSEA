@@ -322,7 +322,7 @@ void rx_cmd_data_read_all(uint8_t *buf)
 			exec_s_ptr->strain = (BYTES_TO_UINT16(buf[P_DATA1+12], buf[P_DATA1+13]));
 			exec_s_ptr->analog[0] = (BYTES_TO_UINT16(buf[P_DATA1+14], buf[P_DATA1+15]));
 	
-			exec_s_ptr->encoder = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1+16], buf[P_DATA1+17], \
+			exec_s_ptr->enc_display = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1+16], buf[P_DATA1+17], \
 										buf[P_DATA1+18], buf[P_DATA1+19]));
 			
 			exec_s_ptr->current = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+20], buf[P_DATA1+21]));
@@ -519,8 +519,8 @@ void rx_cmd_data_read_all_ricnu(uint8_t *buf)
 			ricnu_s_ptr->ex.accel.y = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+8], buf[P_DATA1+9]));
 			ricnu_s_ptr->ex.accel.z = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+10], buf[P_DATA1+11]));
 			
-			ricnu_s_ptr->enc_mot = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+12], buf[P_DATA1+13]));
-			ricnu_s_ptr->enc_joint = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+14], buf[P_DATA1+15]));
+			ricnu_s_ptr->ex.enc_commut = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+12], buf[P_DATA1+13]));
+			ricnu_s_ptr->ex.enc_control = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+14], buf[P_DATA1+15]));
 			
 			ricnu_s_ptr->ex.current = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+16], buf[P_DATA1+17]));
 			ricnu_s_ptr->ex.volt_batt = buf[P_DATA1+18];

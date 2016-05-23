@@ -97,7 +97,7 @@ void MainWindow::on_pushButton_setp_a_go_clicked()
     val = ui->control_setp_a->text().toInt();
 
     ctrl_setpoint = ui->control_setp_a->text().toInt();
-    trap_posi = exec1.encoder;
+    trap_posi = exec1.enc_display;
     trap_posf = ui->control_setp_a->text().toInt();
     trap_pos = ctrl_setpoint;
 
@@ -113,7 +113,7 @@ void MainWindow::on_pushButton_setp_b_go_clicked()
     val = ui->control_setp_b->text().toInt();
 
     ctrl_setpoint = ui->control_setp_b->text().toInt();
-    trap_posi = exec1.encoder;
+    trap_posi = exec1.enc_display;
     trap_posf = ui->control_setp_b->text().toInt();
     trap_pos = ctrl_setpoint;
 
@@ -448,12 +448,12 @@ void MainWindow::timerCtrlDispRefreshEvent(void)
 {
     if(stream_status)
     {
-        ui->disp_meas_val->setText(QString::number(exec1.encoder));
+        ui->disp_meas_val->setText(QString::number(exec1.enc_display));
     }
 
     if(stream_ricnu_status)
     {
-        ui->disp_meas_val->setText(QString::number(ricnu_1.enc_joint));
+        ui->disp_meas_val->setText(QString::number(ricnu_1.ex.enc_control));
     }
 }
 

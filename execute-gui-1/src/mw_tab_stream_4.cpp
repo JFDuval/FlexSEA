@@ -75,8 +75,8 @@ void MainWindow::timerStream_RICNU_Event(void)
         ui->ricnu_gyroy->setText(QString::number(ricnu_1.ex.gyro.y));
         ui->ricnu_gyroz->setText(QString::number(ricnu_1.ex.gyro.z));
 
-        ui->ricnu_enc_mot->setText(QString::number(ricnu_1.enc_mot));
-        ui->ricnu_enc_joint->setText(QString::number(ricnu_1.enc_joint));
+        ui->ricnu_enc_mot->setText(QString::number(ricnu_1.ex.enc_commut));
+        ui->ricnu_enc_joint->setText(QString::number(ricnu_1.ex.enc_control));
 
         ui->ricnu_current->setText(QString::number(ricnu_1.ex.current));
         ui->ricnu_vb->setText(QString::number(ricnu_1.ex.volt_batt));

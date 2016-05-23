@@ -312,7 +312,7 @@ void MainWindow::timerPlotEvent(void)
                 update_graph_array(index, exec1.gyro.z);
                 break;
             case 7: //"Encoder"
-                update_graph_array(index, exec1.encoder);
+                update_graph_array(index, exec1.enc_display);
                 break;
             case 8: //"Motor current"
                 update_graph_array(index, exec1.current);
@@ -357,10 +357,10 @@ void MainWindow::timerPlotEvent(void)
                 update_graph_array(index, strain[5].strain_filtered);
                 break;
             case 22: //"AS5047 (Mot.)"
-                update_graph_array(index, ricnu_1.enc_mot);
+                update_graph_array(index, ricnu_1.ex.enc_commut);
                 break;
             case 23: //"AS5048 (Joint)"
-                update_graph_array(index, ricnu_1.enc_joint);
+                update_graph_array(index, ricnu_1.ex.enc_control);
                 break;
         }
 

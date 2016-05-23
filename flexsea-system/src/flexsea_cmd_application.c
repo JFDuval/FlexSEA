@@ -259,7 +259,7 @@ void rx_cmd_special_1(uint8_t *buf)
 			exec_s_ptr->strain = (BYTES_TO_UINT16(buf[P_DATA1+6], buf[P_DATA1+7]));
 			exec_s_ptr->analog[0] = (BYTES_TO_UINT16(buf[P_DATA1+8], buf[P_DATA1+9]));
 	
-			exec_s_ptr->encoder = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1+10], buf[P_DATA1+11], \
+			exec_s_ptr->enc_display = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1+10], buf[P_DATA1+11], \
 										buf[P_DATA1+12], buf[P_DATA1+13]));
 			
 			exec_s_ptr->current = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+14], buf[P_DATA1+15]));
@@ -548,7 +548,7 @@ void rx_cmd_special_2(uint8_t *buf)
 			exec_s_ptr->analog[1] = (BYTES_TO_UINT16(buf[P_DATA1+8], buf[P_DATA1+9]));
 			//printf("A1: %i.\n", (BYTES_TO_UINT16(buf[P_DATA1+8], buf[P_DATA1+9])));		//ToDo remove (debug only)
 
-			exec_s_ptr->encoder = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1+10], buf[P_DATA1+11], \
+			exec_s_ptr->enc_display = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1+10], buf[P_DATA1+11], \
 										buf[P_DATA1+12], buf[P_DATA1+13]));
 
 			exec_s_ptr->current = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+14], buf[P_DATA1+15]));
@@ -1032,7 +1032,7 @@ void rx_cmd_special_4(uint8_t *buf)
 			exec_s_ptr->strain = (BYTES_TO_UINT16(buf[P_DATA1+6], buf[P_DATA1+7]));
 			exec_s_ptr->analog[0] = (BYTES_TO_UINT16(buf[P_DATA1+8], buf[P_DATA1+9]));
 
-			exec_s_ptr->encoder = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1+10], buf[P_DATA1+11], \
+			exec_s_ptr->enc_display = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1+10], buf[P_DATA1+11], \
 										buf[P_DATA1+12], buf[P_DATA1+13]));
 
 			exec_s_ptr->current = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+14], buf[P_DATA1+15]));
@@ -1045,7 +1045,7 @@ void rx_cmd_special_4(uint8_t *buf)
 			exec_s_ptr->strain = (BYTES_TO_UINT16(buf[P_DATA1+22], buf[P_DATA1+23]));
 			exec_s_ptr->analog[0] = (BYTES_TO_UINT16(buf[P_DATA1+24], buf[P_DATA1+25]));
 
-			exec_s_ptr->encoder = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1+26], buf[P_DATA1+27], \
+			exec_s_ptr->enc_display = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1+26], buf[P_DATA1+27], \
 										buf[P_DATA1+28], buf[P_DATA1+29]));
 
 			exec_s_ptr->current = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+30], buf[P_DATA1+31]));

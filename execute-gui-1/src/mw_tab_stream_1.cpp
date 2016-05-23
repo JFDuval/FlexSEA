@@ -75,7 +75,7 @@ void MainWindow::timerStreamEvent(void)
         ui->disp_gyroy->setText(QString::number(exec1.gyro.y));
         ui->disp_gyroz->setText(QString::number(exec1.gyro.z));
 
-        ui->disp_enc->setText(QString::number(exec1.encoder));
+        ui->disp_enc->setText(QString::number(exec1.enc_display));
         //ui->disp_meas_val->setText(QString::number(exec1.encoder)); //ToDo should be done in Ctrl, not here
 
         ui->disp_strain->setText(QString::number(exec1.strain));
