@@ -88,7 +88,7 @@ private:
     unsigned char usb_rx[256];
     int exp_pwm;
 
-    QTimer *timer_stream, *timer_stream_sa, *timer_stream_ricnu, *timer_log, *timer_plot, *timer_ctrl;
+    QTimer *timer_stream, *timer_stream_sa, *timer_stream_ricnu, *timer_log, *timer_plot, *timer_ctrl, *timer_ctrl_disp_refresh;
     QSerialPort USBSerialPort;
 
     int active_slave_1, active_slave_1_index;
@@ -155,6 +155,8 @@ private slots:
 
     void timerCtrlEvent(void);
 
+    void timerCtrlDispRefreshEvent(void);
+
     void on_updateRefreshButton_clicked();
 
     void on_UpdatePlotpushButton_clicked();
@@ -168,7 +170,6 @@ private slots:
     void on_pushButton_setp_a_go_clicked();
 
     void on_pushButton_setp_b_go_clicked();
-
 
     void on_pushButton_SetGains_clicked();
 

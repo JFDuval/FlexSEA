@@ -226,6 +226,9 @@ MainWindow::MainWindow(QWidget *parent) :
     //Control:
     timer_ctrl = new QTimer(this);
     connect(timer_ctrl, SIGNAL(timeout()), this, SLOT(timerCtrlEvent()));
+    timer_ctrl_disp_refresh = new QTimer(this);
+    connect(timer_ctrl_disp_refresh, SIGNAL(timeout()), this, SLOT(timerCtrlDispRefreshEvent()));
+    timer_ctrl_disp_refresh->start(TIM_FREQ_TO_P(PLOT_DEFAULT_FREQ));
 }
 
 //MainWindow destructor
