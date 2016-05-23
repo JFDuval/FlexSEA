@@ -335,24 +335,6 @@ void MainWindow::timerCtrlEvent(void)
     controller_setpoint(ctrl_setpoint);
 }
 
-void MainWindow::on_ctrl_encoder_zero_clicked()
-{
-    int numb = 0;
-
-    qDebug("Zeroing encoder... (No call made yet)");
-
-    //numb = tx_cmd_encoder(active_slave_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, 0);
-
-    //Common for all gain functions:
-    numb = comm_gen_str(payload_str, comm_str_usb, PAYLOAD_BUF_LEN);
-    numb = COMM_STR_BUF_LEN;
-    USBSerialPort_Write(numb, comm_str_usb);
-
-    //Can we decode what we received?
-    //USBSerialPort_Read(usb_rx);
-    //decode_usb_rx(usb_rx);
-}
-
 //Selected controller was changed
 void MainWindow::on_comboBox_ctrl_list_currentIndexChanged(int index)
 {

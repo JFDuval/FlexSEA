@@ -191,6 +191,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //=================
     ui->pushButton_ext_pwro->setText("Turn ON (PWM)");
     ui->ext_pwro_pwm->setText("0");
+    ui->quad_write_val->setText("0");
 
     //Variable option lists:
     QStringList var_list_colors;

@@ -181,8 +181,6 @@ private slots:
 
     void on_pushButton_ext_pwro_clicked();
 
-    void on_ctrl_encoder_zero_clicked();
-
     void on_SlaveSelectComboBox_currentIndexChanged(int index);
 
     void on_stream_SA_ONbutto_clicked();
@@ -198,6 +196,8 @@ private slots:
     void on_stream_RICNU_OFFbutton_clicked();
 
     void on_comboBox_ctrl_list_currentIndexChanged(int index);
+
+    void on_quadrature_write_clicked();
 
 private:
     Ui::MainWindow *ui;
