@@ -36,6 +36,7 @@ extern "C" {
 #include "shared.h"
 #include "demo.h"
 #include "test.h"
+#include "trapez.h"
 #include "flexsea_board.h"
 #include "../../flexsea-system/inc/flexsea_system.h"
 #include "../../flexsea-comm/inc/flexsea.h"

@@ -111,8 +111,8 @@ MainWindow::MainWindow(QWidget *parent) :
     //Variable option lists:
     QStringList var_list;
     var_list << "**Unused**" << "Accel X" << "Accel Y" << "Accel Z" << "Gyro X" << "Gyro Y" << "Gyro Z" << "Encoder" \
-            << "Motor current" << "Analog[0]" << "Strain" << "+VB" << "+VG" << "Temperature" << "Fake Data" << "Setpoint" \
-            << "Strain ch1" << "Strain ch2" << "Strain ch3" << "Strain ch4" << "Strain ch5" << "Strain ch6" \
+            << "Motor current" << "Analog[0]" << "Strain" << "+VB" << "+VG" << "Temperature" << "Fake Data" << "Setpoint (square)" \
+            << "Setpoint (trapezoidal)" << "Strain ch1" << "Strain ch2" << "Strain ch3" << "Strain ch4" << "Strain ch5" << "Strain ch6" \
             << "AS5047 (Mot.)" << "AS5048B (Joint)";
     for(int index = 0; index < var_list.count(); index++)
     {
@@ -232,6 +232,10 @@ MainWindow::MainWindow(QWidget *parent) :
     timer_ctrl_disp_refresh = new QTimer(this);
     connect(timer_ctrl_disp_refresh, SIGNAL(timeout()), this, SLOT(timerCtrlDispRefreshEvent()));
     timer_ctrl_disp_refresh->start(TIM_FREQ_TO_P(PLOT_DEFAULT_FREQ));
+
+    timer_trap = new QTimer(this);
+    connect(timer_trap, SIGNAL(timeout()), this, SLOT(timerTrapEvent()));
+    timer_trap->start(28);
 }
 
 //MainWindow destructor

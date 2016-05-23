@@ -89,6 +89,7 @@ private:
     int exp_pwm;
 
     QTimer *timer_stream, *timer_stream_sa, *timer_stream_ricnu, *timer_log, *timer_plot, *timer_ctrl, *timer_ctrl_disp_refresh;
+    QTimer *timer_trap;
     QSerialPort USBSerialPort;
 
     int active_slave_1, active_slave_1_index;
@@ -120,12 +121,13 @@ private:
     //Control:
     int wanted_controller = 0, selected_controller = 0, active_controller = 0;
     int trap_pos = 0, trap_posi = 0, trap_posf = 0, trap_spd = 0, trap_acc = 0;
-    int ctrl_setpoint = 0;
+    int ctrl_setpoint = 0, ctrl_setpoint_trap = 0;
     int ctrl_toggle_state = 0;
     void controller_setpoint(int val);
     int ctrl_gains[6][6];
     void init_ctrl_gains(void);
     void save_ctrl_gains(int controller, int16_t *gains);
+    int trapez_steps = 0;
 
     //Stream SA:
     uint8_t bound_number(int num, int min, int max);
@@ -156,6 +158,8 @@ private slots:
     void timerCtrlEvent(void);
 
     void timerCtrlDispRefreshEvent(void);
+
+    void timerTrapEvent(void);
 
     void on_updateRefreshButton_clicked();
 

@@ -239,6 +239,7 @@ void MainWindow::controller_setpoint(int val)
         case 4: //Impedance
             valid = 1;
             numb = tx_cmd_ctrl_p(active_slave_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, trap_pos, trap_posi, trap_posf, trap_spd, trap_acc);
+            trapez_steps = trapez_gen_motion_1(trap_posi, trap_posf, trap_spd, trap_acc);
             qDebug() << "posi = " << trap_posi << ", posf = " << trap_posf << ", spd = " << trap_spd << ", trap_acc = " << trap_acc;
              break;
         case 3: //Current
@@ -457,3 +458,14 @@ void MainWindow::timerCtrlDispRefreshEvent(void)
     }
 }
 
+void MainWindow::timerTrapEvent(void)
+{
+    int i = 0;
+
+    //Ugly trick to match the 1ms function and the plot refresh...
+    for(i = 0; i < 27; i++)
+    {
+        trapez_get_pos(trapez_steps);
+    }
+    ctrl_setpoint_trap = trapez_get_pos(trapez_steps);
+}

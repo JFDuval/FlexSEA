@@ -335,31 +335,34 @@ void MainWindow::timerPlotEvent(void)
             case 14: //"Fake Data"
                 update_graph_array(index, gen_test_data());
                 break;
-            case 15: //"Setpoint"
+            case 15: //"Setpoint (square)"
                 update_graph_array(index, ctrl_setpoint);
                 break;
-            case 16: //"Strain ch1"
+            case 16: //"Setpoint (trap)"
+                update_graph_array(index, ctrl_setpoint_trap);
+                break;
+            case 17: //"Strain ch1"
                 update_graph_array(index, strain[0].strain_filtered);
                 break;
-            case 17: //"Strain ch2"
+            case 18: //"Strain ch2"
                 update_graph_array(index, strain[1].strain_filtered);
                 break;
-            case 18: //"Strain ch3"
+            case 19: //"Strain ch3"
                 update_graph_array(index, strain[2].strain_filtered);
                 break;
-            case 19: //"Strain ch4"
+            case 20: //"Strain ch4"
                 update_graph_array(index, strain[3].strain_filtered);
                 break;
-            case 20: //"Strain ch5"
+            case 21: //"Strain ch5"
                 update_graph_array(index, strain[4].strain_filtered);
                 break;
-            case 21: //"Strain ch6"
+            case 22: //"Strain ch6"
                 update_graph_array(index, strain[5].strain_filtered);
                 break;
-            case 22: //"AS5047 (Mot.)"
+            case 23: //"AS5047 (Mot.)"
                 update_graph_array(index, ricnu_1.ex.enc_commut);
                 break;
-            case 23: //"AS5048 (Joint)"
+            case 24: //"AS5048 (Joint)"
                 update_graph_array(index, ricnu_1.ex.enc_control);
                 break;
         }
