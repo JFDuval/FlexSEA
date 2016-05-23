@@ -154,8 +154,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->hSlider_Ctrl->setMaximum(ui->control_slider_max->text().toInt());
     ui->control_setp_a->setText("0");
     ui->control_setp_b->setText("0");
-    ui->control_toggle_delayA->setText("100");
-    ui->control_toggle_delayB->setText("900");
+    ui->control_toggle_delayA->setText("1000");
+    ui->control_toggle_delayB->setText("1000");
+    ui->control_trapeze_spd->setText("10000");
+    ui->control_trapeze_acc->setText("10000");
 
     //Variable option lists:
     QStringList var_list_controllers;
