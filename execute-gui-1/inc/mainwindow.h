@@ -40,6 +40,10 @@
 #define P4_T0                   0.5
 #define P4_TC                   0.01
 
+//PSoC 5 ADC conversions:
+#define P5_ADC_SUPPLY           5.0
+#define P5_ADC_MAX              4096
+
 //Log:
 //======
 
