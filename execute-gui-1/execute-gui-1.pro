@@ -47,7 +47,8 @@ SOURCES += src/main.cpp \
     src/mw_tab_ext.cpp \
     src/mw_tab_stream_3.cpp \
     src/mw_tab_stream_2.cpp \
-    src/mw_tab_stream_4.cpp
+    src/mw_tab_stream_4.cpp \
+    src/trapez.c
 
 HEADERS  += inc/mainwindow.h \
     inc/qcustomplot.h \
@@ -70,7 +71,8 @@ HEADERS  += inc/mainwindow.h \
     ../flexsea-system/inc/flexsea_cmd_sensors.h \
     ../flexsea-system/inc/flexsea_system.h \
     inc/flexsea_board.h \
-    ../flexsea-system/inc/flexsea_cmd_data.h
+    ../flexsea-system/inc/flexsea_cmd_data.h \
+    inc/trapez.h
 
 CONFIG(debug, debug|release) {
     DESTDIR = build/debug
