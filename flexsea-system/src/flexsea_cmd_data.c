@@ -210,23 +210,27 @@ uint32_t tx_cmd_data_read_all(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, 
 		buf[P_DATA1 + 14] = tmp0;
 		buf[P_DATA1 + 15] = tmp1;
 		
-		uint32_to_bytes((uint32_t)refresh_enc_display(), &tmp0, &tmp1, &tmp2, &tmp3);
+		uint16_to_bytes(read_analog(1), &tmp0, &tmp1);
 		buf[P_DATA1 + 16] = tmp0;
 		buf[P_DATA1 + 17] = tmp1;
-		buf[P_DATA1 + 18] = tmp2;
-		buf[P_DATA1 + 19] = tmp3;
+		
+		uint32_to_bytes((uint32_t)refresh_enc_display(), &tmp0, &tmp1, &tmp2, &tmp3);
+		buf[P_DATA1 + 18] = tmp0;
+		buf[P_DATA1 + 19] = tmp1;
+		buf[P_DATA1 + 20] = tmp2;
+		buf[P_DATA1 + 21] = tmp3;
 		
 		uint16_to_bytes((uint16_t)ctrl.current.actual_val, &tmp0, &tmp1);
-		buf[P_DATA1 + 20] = tmp0;
-		buf[P_DATA1 + 21] = tmp1;
+		buf[P_DATA1 + 22] = tmp0;
+		buf[P_DATA1 + 23] = tmp1;
 
-		buf[P_DATA1 + 22] = safety_cop.v_vb;
-		buf[P_DATA1 + 23] = safety_cop.v_vg;
-		buf[P_DATA1 + 24] = safety_cop.temperature;
-		buf[P_DATA1 + 25] = safety_cop.status1;
-		buf[P_DATA1 + 26] = safety_cop.status2;
+		buf[P_DATA1 + 24] = safety_cop.v_vb;
+		buf[P_DATA1 + 25] = safety_cop.v_vg;
+		buf[P_DATA1 + 26] = safety_cop.temperature;
+		buf[P_DATA1 + 27] = safety_cop.status1;
+		buf[P_DATA1 + 28] = safety_cop.status2;
 
-		bytes = P_DATA1 + 27;     //Bytes is always last+1
+		bytes = P_DATA1 + 29;     //Bytes is always last+1
 		
 		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 	}
@@ -321,17 +325,18 @@ void rx_cmd_data_read_all(uint8_t *buf)
 			
 			exec_s_ptr->strain = (BYTES_TO_UINT16(buf[P_DATA1+12], buf[P_DATA1+13]));
 			exec_s_ptr->analog[0] = (BYTES_TO_UINT16(buf[P_DATA1+14], buf[P_DATA1+15]));
+			exec_s_ptr->analog[1] = (BYTES_TO_UINT16(buf[P_DATA1+16], buf[P_DATA1+17]));
 	
-			exec_s_ptr->enc_display = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1+16], buf[P_DATA1+17], \
-										buf[P_DATA1+18], buf[P_DATA1+19]));
+			exec_s_ptr->enc_display = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1+18], buf[P_DATA1+19], \
+										buf[P_DATA1+20], buf[P_DATA1+21]));
 			
-			exec_s_ptr->current = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+20], buf[P_DATA1+21]));
+			exec_s_ptr->current = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+22], buf[P_DATA1+23]));
 
-			exec_s_ptr->volt_batt = buf[P_DATA1+22];
-			exec_s_ptr->volt_int = buf[P_DATA1+23];
-			exec_s_ptr->temp = buf[P_DATA1+24];
-			exec_s_ptr->status1 = buf[P_DATA1+25];
-			exec_s_ptr->status2 = buf[P_DATA1+26];
+			exec_s_ptr->volt_batt = buf[P_DATA1+24];
+			exec_s_ptr->volt_int = buf[P_DATA1+25];
+			exec_s_ptr->temp = buf[P_DATA1+26];
+			exec_s_ptr->status1 = buf[P_DATA1+27];
+			exec_s_ptr->status2 = buf[P_DATA1+28];
 
 			#ifdef MULTIPLE_COMMANDS
 			//To interface with Python:

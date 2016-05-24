@@ -386,7 +386,8 @@ inline int32 motor_current_pid_2(int32 wanted_curr, int32 measured_curr)
 
 // Impedance controller -- EJ Rouse, 8/11/14
 // There will be filter transients for first few iterations -- maybe turn loops off for 100 ms?
-// Variables created: stiffness, damping, prev_enc_count, 
+// Variables created: stiffness, damping, prev_enc_count
+// Modified 05/24/16 by JFDuval: Hall effect table damping compensation
 int motor_impedance_encoder(int wanted_pos, int new_enc_count)
 {
 	// Initialize vars
@@ -395,6 +396,21 @@ int motor_impedance_encoder(int wanted_pos, int new_enc_count)
 	static long long prev_filt1 = 0, prev_filt2 = 0, prev_filt3 = 0; 
 	long long current_vel = 0, filt_vel = 0, current_val = 0;
 	static int enc_t0 = 0, enc_tm1 = 0, enc_tm2 = 0, enc_tm3 = 0, enc_tm4 = 0, enc_tm5 = 0, enc_tm6 = 0, enc_tm7 = 0, enc_tm8 = 0, enc_tm9 = 0;
+	long long motor_direction = new_enc_count - prev_enc_count;
+	int modifier = 0;
+	
+	//Test code:
+	if(motor_direction <= 0)
+	{
+		//MotorDirection_Write(0);
+		//modifier = 50;
+	}
+	else
+	{
+		//MotorDirection_Write(1);
+		modifier = 0;
+	}
+	//End of test code
 
 	ctrl.impedance.error = new_enc_count - wanted_pos;		//Actual error
 	
@@ -414,6 +430,7 @@ int motor_impedance_encoder(int wanted_pos, int new_enc_count)
  	debug_var = filt_vel;
 	
  	i_b = ctrl.impedance.gain.Z_B * (filt_vel >> 5);
+	i_b += modifier;
 
 	//Output
 	current_val = (i_k + i_b);		// Impedance command, motor current in terms of effort (A)
