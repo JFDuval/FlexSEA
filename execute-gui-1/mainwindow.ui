@@ -70,7 +70,7 @@
           </size>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#333333;&quot;&gt;ComStatus&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#797979;&quot;&gt;ComStatus&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
@@ -239,7 +239,7 @@
           </size>
          </property>
          <property name="text">
-          <string>StreamStatus</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#797979;&quot;&gt;StreamStatus&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
@@ -346,19 +346,14 @@
           </size>
          </property>
          <property name="text">
-          <string>LogStatus</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#797979;&quot;&gt;LogStatus&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
       </layout>
      </widget>
-     <zorder>gridLayoutWidget</zorder>
-     <zorder>stdelaytxt_2</zorder>
-     <zorder>logRefreshTxt</zorder>
-     <zorder>stdelaytxt</zorder>
-     <zorder>streamRefreshTxt</zorder>
     </widget>
-    <widget class="QWidget" name="stream_min">
+    <widget class="QWidget" name="stream_ex">
      <attribute name="title">
       <string>Execute</string>
      </attribute>
@@ -386,6 +381,13 @@
         <widget class="QLabel" name="label_imu_g_x">
          <property name="text">
           <string>degree/s</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="4">
+        <widget class="QLabel" name="label_imu_a_y">
+         <property name="text">
+          <string>g</string>
          </property>
         </widget>
        </item>
@@ -768,6 +770,13 @@
          </property>
         </widget>
        </item>
+       <item row="12" column="4">
+        <widget class="QLabel" name="label_41">
+         <property name="text">
+          <string>V</string>
+         </property>
+        </widget>
+       </item>
        <item row="4" column="1">
         <widget class="QLabel" name="label_8">
          <property name="text">
@@ -797,13 +806,6 @@
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="12" column="4">
-        <widget class="QLabel" name="label_41">
-         <property name="text">
-          <string>V</string>
          </property>
         </widget>
        </item>
@@ -876,26 +878,6 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="0" rowspan="3">
-        <widget class="QLabel" name="label">
-         <property name="layoutDirection">
-          <enum>Qt::LeftToRight</enum>
-         </property>
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Accelerometer&lt;/p&gt;&lt;p&gt;(±4g)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="4">
-        <widget class="QLabel" name="label_imu_a_y">
-         <property name="text">
-          <string>g</string>
-         </property>
-        </widget>
-       </item>
        <item row="16" column="1">
         <widget class="QLabel" name="label_17">
          <property name="text">
@@ -906,13 +888,13 @@
          </property>
         </widget>
        </item>
-       <item row="11" column="0">
-        <widget class="QLabel" name="label_14">
+       <item row="1" column="0" rowspan="3">
+        <widget class="QLabel" name="label">
          <property name="layoutDirection">
           <enum>Qt::LeftToRight</enum>
          </property>
          <property name="text">
-          <string>Encoder</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Accelerometer&lt;/p&gt;&lt;p&gt;(±4g)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -938,6 +920,19 @@
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="0">
+        <widget class="QLabel" name="label_14">
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="text">
+          <string>Encoder</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
@@ -1061,13 +1056,6 @@
          </property>
         </widget>
        </item>
-       <item row="18" column="0">
-        <widget class="QPushButton" name="streamOFFbutton">
-         <property name="text">
-          <string>Stream OFF</string>
-         </property>
-        </widget>
-       </item>
        <item row="11" column="2">
         <widget class="QLabel" name="disp_enc">
          <property name="autoFillBackground">
@@ -1087,6 +1075,13 @@
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="4">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>mA</string>
          </property>
         </widget>
        </item>
@@ -1113,13 +1108,6 @@
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="10" column="4">
-        <widget class="QLabel" name="label_4">
-         <property name="text">
-          <string>mA</string>
          </property>
         </widget>
        </item>
@@ -1167,19 +1155,6 @@
          </property>
         </widget>
        </item>
-       <item row="15" column="0" rowspan="2">
-        <widget class="QLabel" name="label_15">
-         <property name="layoutDirection">
-          <enum>Qt::LeftToRight</enum>
-         </property>
-         <property name="text">
-          <string>Status</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
        <item row="3" column="2">
         <widget class="QLabel" name="disp_accz">
          <property name="autoFillBackground">
@@ -1199,6 +1174,19 @@
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="15" column="0" rowspan="2">
+        <widget class="QLabel" name="label_15">
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="text">
+          <string>Status</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
@@ -1254,20 +1242,6 @@
          </property>
         </widget>
        </item>
-       <item row="17" column="0">
-        <widget class="QPushButton" name="streamONbutton">
-         <property name="text">
-          <string>Stream ON</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="4">
-        <widget class="QLabel" name="label_imu_a_x">
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;g&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
        <item row="13" column="4">
         <widget class="QLabel" name="label_42">
          <property name="text">
@@ -1275,16 +1249,10 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="0" rowspan="3">
-        <widget class="QLabel" name="label_10">
-         <property name="layoutDirection">
-          <enum>Qt::LeftToRight</enum>
-         </property>
+       <item row="1" column="4">
+        <widget class="QLabel" name="label_imu_a_x">
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gyroscope &lt;/p&gt;&lt;p&gt;(±1000DPS)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;g&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
@@ -1317,6 +1285,19 @@
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0" rowspan="3">
+        <widget class="QLabel" name="label_10">
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gyroscope &lt;/p&gt;&lt;p&gt;(±1000DPS)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
@@ -1422,12 +1403,12 @@
       </layout>
      </widget>
     </widget>
-    <widget class="QWidget" name="tab_2">
+    <widget class="QWidget" name="stream_manage">
      <attribute name="title">
       <string>Manage</string>
      </attribute>
     </widget>
-    <widget class="QWidget" name="tab">
+    <widget class="QWidget" name="stream_strain">
      <attribute name="title">
       <string>Strain Amp</string>
      </attribute>
@@ -1441,6 +1422,32 @@
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_10">
+       <item row="6" column="4">
+        <widget class="QLineEdit" name="strain_offs_ch6">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="4">
+        <widget class="QLineEdit" name="strain_offs_ch5">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
        <item row="5" column="0">
         <widget class="QLabel" name="label_67">
          <property name="layoutDirection">
@@ -1483,13 +1490,6 @@
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="0">
-        <widget class="QPushButton" name="stream_SA_ONbutto">
-         <property name="text">
-          <string>Stream ON</string>
          </property>
         </widget>
        </item>
@@ -1556,13 +1556,6 @@
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="0">
-        <widget class="QPushButton" name="stream_SA_OFFbutton">
-         <property name="text">
-          <string>Stream OFF</string>
          </property>
         </widget>
        </item>
@@ -1837,7 +1830,7 @@
          </property>
         </widget>
        </item>
-       <item row="9" column="4">
+       <item row="8" column="4">
         <spacer name="horizontalSpacer_7">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -1853,7 +1846,7 @@
          </property>
         </spacer>
        </item>
-       <item row="9" column="1">
+       <item row="8" column="1">
         <spacer name="horizontalSpacer_5">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -1869,7 +1862,7 @@
          </property>
         </spacer>
        </item>
-       <item row="9" column="2">
+       <item row="8" column="2">
         <spacer name="horizontalSpacer_4">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -1885,7 +1878,7 @@
          </property>
         </spacer>
        </item>
-       <item row="9" column="3">
+       <item row="8" column="3">
         <spacer name="horizontalSpacer_6">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -1905,6 +1898,19 @@
         <widget class="QPushButton" name="stream_SA_RefreshOffset">
          <property name="text">
           <string>Change Offset</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="4">
+        <widget class="QLineEdit" name="strain_offs_ch3">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
@@ -1952,47 +1958,8 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="4">
-        <widget class="QLineEdit" name="strain_offs_ch3">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
        <item row="4" column="4">
         <widget class="QLineEdit" name="strain_offs_ch4">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="4">
-        <widget class="QLineEdit" name="strain_offs_ch5">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="4">
-        <widget class="QLineEdit" name="strain_offs_ch6">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -2007,7 +1974,7 @@
       </layout>
      </widget>
     </widget>
-    <widget class="QWidget" name="tab_3">
+    <widget class="QWidget" name="stream_ricnu">
      <attribute name="title">
       <string>RIC/NU Knee</string>
      </attribute>
@@ -2196,20 +2163,6 @@
          </property>
         </widget>
        </item>
-       <item row="17" column="0">
-        <widget class="QPushButton" name="stream_RICNU_ONbutton">
-         <property name="text">
-          <string>Stream ON</string>
-         </property>
-        </widget>
-       </item>
-       <item row="18" column="0">
-        <widget class="QPushButton" name="stream_RICNU_OFFbutton">
-         <property name="text">
-          <string>Stream OFF</string>
-         </property>
-        </widget>
-       </item>
        <item row="8" column="2">
         <widget class="QLabel" name="ricnu_enc_mot">
          <property name="autoFillBackground">
@@ -2364,6 +2317,28 @@
          </property>
         </widget>
        </item>
+       <item row="7" column="2">
+        <widget class="QLabel" name="ricnu_current">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="lineWidth">
+          <number>1</number>
+         </property>
+         <property name="text">
+          <string>Default</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
        <item row="6" column="2">
         <widget class="QLabel" name="ricnu_gyroz">
          <property name="autoFillBackground">
@@ -2408,8 +2383,8 @@
          </property>
         </widget>
        </item>
-       <item row="7" column="2">
-        <widget class="QLabel" name="ricnu_current">
+       <item row="2" column="3">
+        <widget class="QLabel" name="ricnu_accy_d">
          <property name="autoFillBackground">
           <bool>false</bool>
          </property>
@@ -2430,25 +2405,10 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="3">
-        <widget class="QLabel" name="ricnu_accy_d">
-         <property name="autoFillBackground">
-          <bool>false</bool>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::Box</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <property name="lineWidth">
-          <number>1</number>
-         </property>
+       <item row="10" column="4">
+        <widget class="QLabel" name="label_91">
          <property name="text">
-          <string>Default</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          <string>V</string>
          </property>
         </widget>
        </item>
@@ -2496,10 +2456,17 @@
          </property>
         </widget>
        </item>
-       <item row="10" column="4">
-        <widget class="QLabel" name="label_91">
+       <item row="4" column="4">
+        <widget class="QLabel" name="label_imu_g_x_2">
          <property name="text">
-          <string>V</string>
+          <string>degree/s</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="4">
+        <widget class="QLabel" name="label_imu_g_z_2">
+         <property name="text">
+          <string>degree/s</string>
          </property>
         </widget>
        </item>
@@ -2525,43 +2492,6 @@
          </property>
         </widget>
        </item>
-       <item row="4" column="4">
-        <widget class="QLabel" name="label_imu_g_x_2">
-         <property name="text">
-          <string>degree/s</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="4">
-        <widget class="QLabel" name="label_imu_g_z_2">
-         <property name="text">
-          <string>degree/s</string>
-         </property>
-        </widget>
-       </item>
-       <item row="10" column="1">
-        <widget class="QLabel" name="label_92">
-         <property name="layoutDirection">
-          <enum>Qt::LeftToRight</enum>
-         </property>
-         <property name="text">
-          <string>+VB</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QLabel" name="label_94">
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic; text-decoration: underline;&quot;&gt;Raw&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
        <item row="5" column="3">
         <widget class="QLabel" name="ricnu_gyroy_d">
          <property name="autoFillBackground">
@@ -2584,10 +2514,33 @@
          </property>
         </widget>
        </item>
+       <item row="10" column="1">
+        <widget class="QLabel" name="label_92">
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="text">
+          <string>+VB</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
        <item row="3" column="4">
         <widget class="QLabel" name="label_imu_a_z_2">
          <property name="text">
           <string>g</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLabel" name="label_94">
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic; text-decoration: underline;&quot;&gt;Raw&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
@@ -2784,19 +2737,6 @@
          </property>
         </widget>
        </item>
-       <item row="11" column="0" rowspan="6">
-        <widget class="QLabel" name="label_97">
-         <property name="layoutDirection">
-          <enum>Qt::LeftToRight</enum>
-         </property>
-         <property name="text">
-          <string>Strain</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
        <item row="11" column="2">
         <widget class="QLabel" name="ricnu_strain_ch1">
          <property name="autoFillBackground">
@@ -2816,6 +2756,19 @@
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="0" rowspan="6">
+        <widget class="QLabel" name="label_97">
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="text">
+          <string>Strain</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
@@ -2907,8 +2860,8 @@
          </property>
         </widget>
        </item>
-       <item row="13" column="3">
-        <widget class="QLabel" name="ricnu_strain_ch3_d">
+       <item row="14" column="2">
+        <widget class="QLabel" name="ricnu_strain_ch4">
          <property name="autoFillBackground">
           <bool>false</bool>
          </property>
@@ -2929,8 +2882,8 @@
          </property>
         </widget>
        </item>
-       <item row="14" column="2">
-        <widget class="QLabel" name="ricnu_strain_ch4">
+       <item row="13" column="3">
+        <widget class="QLabel" name="ricnu_strain_ch3_d">
          <property name="autoFillBackground">
           <bool>false</bool>
          </property>
@@ -2995,52 +2948,30 @@
          </property>
         </widget>
        </item>
-       <item row="15" column="3">
-        <widget class="QLabel" name="ricnu_strain_ch5_d">
-         <property name="autoFillBackground">
-          <bool>false</bool>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::Box</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <property name="lineWidth">
-          <number>1</number>
-         </property>
-         <property name="text">
-          <string>Default</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="16" column="2">
-        <widget class="QLabel" name="ricnu_strain_ch6">
-         <property name="autoFillBackground">
-          <bool>false</bool>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::Box</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <property name="lineWidth">
-          <number>1</number>
-         </property>
-         <property name="text">
-          <string>Default</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
        <item row="16" column="3">
         <widget class="QLabel" name="ricnu_strain_ch6_d">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="lineWidth">
+          <number>1</number>
+         </property>
+         <property name="text">
+          <string>Default</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="15" column="3">
+        <widget class="QLabel" name="ricnu_strain_ch5_d">
          <property name="autoFillBackground">
           <bool>false</bool>
          </property>
@@ -3065,6 +2996,28 @@
         <widget class="QLabel" name="label_90">
          <property name="text">
           <string>±100%</string>
+         </property>
+        </widget>
+       </item>
+       <item row="16" column="2">
+        <widget class="QLabel" name="ricnu_strain_ch6">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="lineWidth">
+          <number>1</number>
+         </property>
+         <property name="text">
+          <string>Default</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
@@ -3436,67 +3389,6 @@
      <attribute name="title">
       <string>Experiments</string>
      </attribute>
-     <widget class="QWidget" name="gridLayoutWidget_6">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>515</width>
-        <height>106</height>
-       </rect>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_6">
-       <item row="1" column="1">
-        <widget class="QLabel" name="disp_MotPWM">
-         <property name="autoFillBackground">
-          <bool>false</bool>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::Box</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <property name="lineWidth">
-          <number>1</number>
-         </property>
-         <property name="text">
-          <string>Default</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QSlider" name="hSlider_PWM">
-         <property name="minimum">
-          <number>55</number>
-         </property>
-         <property name="maximum">
-          <number>155</number>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_26">
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic; text-decoration: underline;&quot;&gt;Motor PWM:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0" colspan="2">
-        <widget class="QLabel" name="label_27">
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;(Currently limited to 55 &amp;lt; PWM Duty Cycle &amp;lt; 155 for safety reasons)&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Note: 55 is the deadtime.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
     </widget>
     <widget class="QWidget" name="control">
      <attribute name="title">
@@ -4021,6 +3913,486 @@
       </layout>
      </widget>
     </widget>
+    <widget class="QWidget" name="in_control">
+     <attribute name="title">
+      <string>In Control</string>
+     </attribute>
+     <widget class="QWidget" name="gridLayoutWidget_6">
+      <property name="geometry">
+       <rect>
+        <x>9</x>
+        <y>9</y>
+        <width>581</width>
+        <height>581</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_6">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_109">
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Common:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="2">
+        <widget class="QLabel" name="disp_inctrl_current_d">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="lineWidth">
+          <number>1</number>
+         </property>
+         <property name="text">
+          <string>Default</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="0">
+        <widget class="QLabel" name="label_26">
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="text">
+          <string>Current</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="1">
+        <widget class="QLabel" name="disp_inctrl_current">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="lineWidth">
+          <number>1</number>
+         </property>
+         <property name="text">
+          <string>Default</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="0">
+        <widget class="QLabel" name="label_117">
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="text">
+          <string>InControl[0]:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="label_113">
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="text">
+          <string>PWM:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="3">
+        <widget class="QLabel" name="label_19">
+         <property name="text">
+          <string>mA</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_27">
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="text">
+          <string>Selected controller:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_111">
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="text">
+          <string>Actual value:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="label_115">
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controller output:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0">
+        <widget class="QLabel" name="label_114">
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="text">
+          <string>Motor direction:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_112">
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Error:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_110">
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Setpoint:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="0">
+        <widget class="QLabel" name="label_116">
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;User specifc:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="0">
+        <widget class="QLabel" name="label_119">
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="text">
+          <string>InControl[2]:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="0">
+        <widget class="QLabel" name="label_118">
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="text">
+          <string>InControl[1]:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="13" column="0">
+        <widget class="QLabel" name="label_120">
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="text">
+          <string>InControl[3]:</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="disp_inctrl_active_controller">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="lineWidth">
+          <number>1</number>
+         </property>
+         <property name="text">
+          <string>Default</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="disp_inctrl_setp">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="lineWidth">
+          <number>1</number>
+         </property>
+         <property name="text">
+          <string>Default</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLabel" name="disp_inctrl_actual_val">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="lineWidth">
+          <number>1</number>
+         </property>
+         <property name="text">
+          <string>Default</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLabel" name="disp_inctrl_error">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="lineWidth">
+          <number>1</number>
+         </property>
+         <property name="text">
+          <string>Default</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QLabel" name="disp_inctrl_output">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="lineWidth">
+          <number>1</number>
+         </property>
+         <property name="text">
+          <string>Default</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="1">
+        <widget class="QLabel" name="disp_inctrl_dir">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="lineWidth">
+          <number>1</number>
+         </property>
+         <property name="text">
+          <string>Default</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="QLabel" name="disp_inctrl_pwm">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="lineWidth">
+          <number>1</number>
+         </property>
+         <property name="text">
+          <string>Default</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="1">
+        <widget class="QLabel" name="disp_inctrl_0">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="lineWidth">
+          <number>1</number>
+         </property>
+         <property name="text">
+          <string>Default</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="1">
+        <widget class="QLabel" name="disp_inctrl_1">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="lineWidth">
+          <number>1</number>
+         </property>
+         <property name="text">
+          <string>Default</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="1">
+        <widget class="QLabel" name="disp_inctrl_2">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="lineWidth">
+          <number>1</number>
+         </property>
+         <property name="text">
+          <string>Default</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="13" column="1">
+        <widget class="QLabel" name="disp_inctrl_3">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Box</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <property name="lineWidth">
+          <number>1</number>
+         </property>
+         <property name="text">
+          <string>Default</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
     <widget class="QWidget" name="external">
      <attribute name="title">
       <string>External</string>
@@ -4196,6 +4568,74 @@ p, li { white-space: pre-wrap; }
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>control_g0</tabstop>
+  <tabstop>control_g1</tabstop>
+  <tabstop>control_g2</tabstop>
+  <tabstop>control_g3</tabstop>
+  <tabstop>control_g4</tabstop>
+  <tabstop>control_g5</tabstop>
+  <tabstop>updateRefreshButton</tabstop>
+  <tabstop>comPortTxt</tabstop>
+  <tabstop>logOFF_master_button</tabstop>
+  <tabstop>logRefreshTxt</tabstop>
+  <tabstop>logON_master_button</tabstop>
+  <tabstop>logFileTxt</tabstop>
+  <tabstop>streamON_master_button</tabstop>
+  <tabstop>streamRefreshTxt</tabstop>
+  <tabstop>horizontalSlider_current_zero</tabstop>
+  <tabstop>stream_SA_RefreshOffset</tabstop>
+  <tabstop>strain_offs_ch1</tabstop>
+  <tabstop>strain_offs_ch2</tabstop>
+  <tabstop>strain_offs_ch3</tabstop>
+  <tabstop>strain_offs_ch4</tabstop>
+  <tabstop>strain_offs_ch5</tabstop>
+  <tabstop>strain_offs_ch6</tabstop>
+  <tabstop>horizontalSlider_current_zero_2</tabstop>
+  <tabstop>plot_xmin_lineEdit</tabstop>
+  <tabstop>radioButtonXManual</tabstop>
+  <tabstop>plot_xmax_lineEdit</tabstop>
+  <tabstop>radioButtonXAuto</tabstop>
+  <tabstop>UpdatePlotpushButton</tabstop>
+  <tabstop>radioButtonYManual</tabstop>
+  <tabstop>plot_ymax_lineEdit</tabstop>
+  <tabstop>radioButtonYAuto</tabstop>
+  <tabstop>plot_ymin_lineEdit</tabstop>
+  <tabstop>cBoxvar1</tabstop>
+  <tabstop>cBoxvar4</tabstop>
+  <tabstop>cBoxvar6</tabstop>
+  <tabstop>cBoxvar5</tabstop>
+  <tabstop>cBoxvar2</tabstop>
+  <tabstop>cBoxvar3</tabstop>
+  <tabstop>control_trapeze_spd</tabstop>
+  <tabstop>control_toggle_delayB</tabstop>
+  <tabstop>closeComButton</tabstop>
+  <tabstop>control_slider_max</tabstop>
+  <tabstop>control_setp_b</tabstop>
+  <tabstop>pushButton_SetGains</tabstop>
+  <tabstop>hSlider_Ctrl</tabstop>
+  <tabstop>streamOFF_master_button</tabstop>
+  <tabstop>SlaveSelectComboBox</tabstop>
+  <tabstop>pushButton_CtrlMinMax</tabstop>
+  <tabstop>StreamSelectComboBox</tabstop>
+  <tabstop>control_setp_a</tabstop>
+  <tabstop>comboBox_ctrl_list</tabstop>
+  <tabstop>openComButton</tabstop>
+  <tabstop>pushButton_setp_a_go</tabstop>
+  <tabstop>pushButton_setp_b_go</tabstop>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>pushButton_SetController</tabstop>
+  <tabstop>control_slider_min</tabstop>
+  <tabstop>pushButton_toggle</tabstop>
+  <tabstop>control_toggle_delayA</tabstop>
+  <tabstop>control_trapeze_acc</tabstop>
+  <tabstop>ext_pwro_pwm</tabstop>
+  <tabstop>pushButton_ext_pwro</tabstop>
+  <tabstop>comboBox_minm_rgb</tabstop>
+  <tabstop>quadrature_write</tabstop>
+  <tabstop>quad_write_val</tabstop>
+  <tabstop>textBrowser</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

@@ -22,6 +22,60 @@
 // Public Function(s)
 //****************************************************************************
 
+void MainWindow::init_tab_plot_1(void)
+{
+    //Axis, limits, etc.:
+    //=====================
+
+    plot_len = INIT_PLOT_LEN;
+    plot_xmin = INIT_PLOT_XMIN;
+    plot_xmax = INIT_PLOT_XMAX;
+    plot_ymin = INIT_PLOT_YMIN;
+    plot_ymax = INIT_PLOT_YMAX;
+    ui->radioButtonXAuto->setChecked(1);
+    ui->radioButtonXManual->setChecked(0);
+    ui->radioButtonYAuto->setChecked(1);
+    ui->radioButtonYManual->setChecked(0);
+    ui->plot_xmin_lineEdit->setText(QString::number(plot_xmin));
+    ui->plot_xmax_lineEdit->setText(QString::number(plot_xmax));
+    ui->plot_ymin_lineEdit->setText(QString::number(plot_ymin));
+    ui->plot_ymax_lineEdit->setText(QString::number(plot_ymax));
+    for(int h = 0; h < VAR_NUM; h++)
+    {
+        data_to_plot[h] = 0;
+    }
+
+    //Data fields and variables:
+    //==========================
+
+    gen_graph_xarray();
+    init_yarrays();
+    makePlot();
+    //Variable option lists:
+    QStringList var_list;
+    var_list << "**Unused**" << "Accel X" << "Accel Y" << "Accel Z" << "Gyro X" << "Gyro Y" << "Gyro Z" << "Encoder" \
+            << "Motor current" << "Analog[0]" << "Strain" << "+VB" << "+VG" << "Temperature" << "Fake Data" << "Setpoint (square)" \
+            << "Setpoint (trapezoidal)" << "Strain ch1" << "Strain ch2" << "Strain ch3" << "Strain ch4" << "Strain ch5" << "Strain ch6" \
+            << "AS5047 (Mot.)" << "AS5048B (Joint)";
+    for(int index = 0; index < var_list.count(); index++)
+    {
+        //All boxes have the same list:
+        ui->cBoxvar1->addItem(var_list.at(index));
+        ui->cBoxvar2->addItem(var_list.at(index));
+        ui->cBoxvar3->addItem(var_list.at(index));
+        ui->cBoxvar4->addItem(var_list.at(index));
+        ui->cBoxvar5->addItem(var_list.at(index));
+        ui->cBoxvar6->addItem(var_list.at(index));
+    }
+    //Color coded labels:
+    ui->label_t1->setStyleSheet("QLabel { background-color: red; color: black;}");
+    ui->label_t2->setStyleSheet("QLabel { background-color: magenta; color: black;}");
+    ui->label_t3->setStyleSheet("QLabel { background-color: blue; color: white;}");
+    ui->label_t4->setStyleSheet("QLabel { background-color: cyan; color: black;}");
+    ui->label_t5->setStyleSheet("QLabel { background-color: lime; color: black;}");
+    ui->label_t6->setStyleSheet("QLabel { background-color: black; color: white;}");
+}
+
 void MainWindow::makePlot()
 {
     QPen pen;

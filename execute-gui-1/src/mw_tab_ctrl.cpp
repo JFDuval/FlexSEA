@@ -22,6 +22,46 @@
 // Public Function(s)
 //****************************************************************************
 
+void MainWindow::init_tab_ctrl(void)
+{
+    QString str;
+
+    //Setpoints:
+    ui->control_slider_min->setText("0");
+    ui->control_slider_max->setText("0");
+    ui->hSlider_Ctrl->setMinimum(ui->control_slider_min->text().toInt());
+    ui->hSlider_Ctrl->setMaximum(ui->control_slider_max->text().toInt());
+    ui->control_setp_a->setText("0");
+    ui->control_setp_b->setText("0");
+    ui->control_toggle_delayA->setText("1000");
+    ui->control_toggle_delayB->setText("1000");
+    ui->control_trapeze_spd->setText("10000");
+    ui->control_trapeze_acc->setText("10000");
+
+    //Variable option lists:
+    QStringList var_list_controllers;
+    var_list_controllers << "**Null**" << "Open" << "Position" << "Current" << "Impedance" << "Other/custom";
+    for(int index = 0; index < var_list_controllers.count(); index++)
+    {
+        ui->comboBox_ctrl_list->addItem(var_list_controllers.at(index));
+    }
+
+    //Gains:
+    init_ctrl_gains();  //All 0 when we start
+    ui->control_g0->setText("0");
+    ui->control_g1->setText("0");
+    ui->control_g2->setText("0");
+    ui->control_g3->setText("0");
+    ui->control_g4->setText("0");
+    ui->control_g5->setText("0");
+    str.sprintf("Current gains = {0,0,0,0,0,0}");
+    ui->textLabel_Gains_i->setText(str);
+    str.sprintf("Position gains = {0,0,0,0,0,0}");
+    ui->textLabel_Gains_p->setText(str);
+    str.sprintf("Impedance gains = {0,0,0,0,0,0}");
+    ui->textLabel_Gains_z->setText(str);
+}
+
 #define CONTROLLERS 6
 #define GAIN_FIELDS 6
 
@@ -445,20 +485,20 @@ void MainWindow::on_comboBox_ctrl_list_currentIndexChanged(int index)
     }
 }
 
-void MainWindow::timerCtrlDispRefreshEvent(void)
+void MainWindow::stream_ctrl(void)
 {
-    if(stream_status)
+    //ToDo make more generic
+    if(selected_controller == 0)    //Execute
     {
         ui->disp_meas_val->setText(QString::number(exec1.enc_display));
     }
-
-    if(stream_ricnu_status)
+    else if(selected_controller == 4)   //RIC/NU
     {
         ui->disp_meas_val->setText(QString::number(ricnu_1.ex.enc_control));
     }
 }
 
-void MainWindow::timerTrapEvent(void)
+void MainWindow::control_trapeze(void)
 {
     int i = 0;
 

@@ -18,40 +18,10 @@
 #include <QDebug>
 #include <string>
 
-void MainWindow::on_streamONbutton_clicked()
+void MainWindow::init_tab_stream_execute(void)
 {
-    ui->streamONbutton->setDisabled(1);
-    ui->streamOFFbutton->setEnabled(1);
-
-    ui->streamONbutton->repaint();
-    ui->streamOFFbutton->repaint();
-
-	//Can't have 2 stream at the same time
-	stream_status = 1;
-	stream_ricnu_status = 0;
-	stream_sa_status = 0;
-}
-
-void MainWindow::on_streamOFFbutton_clicked()
-{
-    ui->streamONbutton->setEnabled(1);
-    ui->streamOFFbutton->setDisabled(1);
-
-    ui->streamONbutton->repaint();
-    ui->streamOFFbutton->repaint();
-
-	//Can't have 2 stream at the same time
-	stream_status = 0;
-	stream_ricnu_status = 0;
-	stream_sa_status = 0;
-}
-
-void MainWindow::timerStreamEvent(void)
-{
-    if(stream_status)
-    {
-        stream_execute();
-    }
+    fake_data = 0;
+    ui->horizontalSlider_current_zero->setValue(0);
 }
 
 void MainWindow::stream_execute(void)

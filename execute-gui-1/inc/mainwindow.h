@@ -84,22 +84,26 @@ public:
     void array_minmax(int *arr, int len, int *min, int *max);
 
 private:
+
+    int selected_experiment;
+    void (MainWindow::*stream_fct_ptr)();
+    //void (*stream_fct_ptr)(void);
+
+    int active_slave_1, active_slave_1_index;
+    //Lookup from list to actual slave number (FlexSEA convention):
+    uint8_t list_to_slave[10];
+    QStringList var_list_slaves, var_list_stream;
+
     int stream_status, stream_sa_status, stream_ricnu_status;
     int fake_data;
 
     int plot_buf[PLOT_BUF_LEN]; //ToDo!
 
     unsigned char usb_rx[256];
-    int exp_pwm;
+    //int exp_pwm;
 
-    QTimer *timer_stream, *timer_stream_sa, *timer_stream_ricnu, *timer_log, *timer_plot, *timer_ctrl, *timer_ctrl_disp_refresh;
-    QTimer *timer_trap;
+    QTimer *timer_stream, *timer_log, *timer_plot, *timer_ctrl;
     QSerialPort USBSerialPort;
-
-    int active_slave_1, active_slave_1_index;
-    //Lookup from list to actual slave number (FlexSEA convention):
-    uint8_t list_to_slave[10];
-    QStringList var_list_slaves, var_list_stream;
 
     //Plot:
 
@@ -147,31 +151,17 @@ private slots:
 
     void on_openComButton_clicked();
 
-    void on_streamONbutton_clicked();
-
-    void on_streamOFFbutton_clicked();
-
     void timerStreamEvent();
-
-    void timerStream_SA_Event();
-
-    void timerStream_RICNU_Event(void);
 
     void timerPlotEvent();
 
     void timerCtrlEvent(void);
-
-    void timerCtrlDispRefreshEvent(void);
-
-    void timerTrapEvent(void);
 
     void on_updateRefreshButton_clicked();
 
     void on_UpdatePlotpushButton_clicked();
 
     void on_closeComButton_clicked();
-
-    void on_hSlider_PWM_valueChanged(int value);
 
     void on_pushButton_SetController_clicked();
 
@@ -191,23 +181,23 @@ private slots:
 
     void on_SlaveSelectComboBox_currentIndexChanged(int index);
 
-    void on_stream_SA_ONbutto_clicked();
-
-    void on_stream_SA_OFFbutton_clicked();
-
     void on_stream_SA_RefreshOffset_clicked();
 
     void on_comboBox_minm_rgb_currentIndexChanged(int index);
-
-    void on_stream_RICNU_ONbutton_clicked();
-
-    void on_stream_RICNU_OFFbutton_clicked();
 
     void on_comboBox_ctrl_list_currentIndexChanged(int index);
 
     void on_quadrature_write_clicked();
 
     void stream_execute(void);
+
+    void stream_strain_amp(void);
+
+    void stream_ricnu_knee(void);
+
+    void stream_ctrl(void);
+
+    void stream_in_ctrl(void);
 
     void on_StreamSelectComboBox_currentIndexChanged(int index);
 
@@ -218,6 +208,28 @@ private slots:
     void on_logON_master_button_clicked();
 
     void on_logOFF_master_button_clicked();
+
+    void init_tab_config(void);
+
+    void init_tab_about(void);
+
+    void init_tab_plot_1(void);
+
+    void init_tab_ctrl(void);
+
+    void init_tab_exp(void);
+
+    void init_tab_ext(void);
+
+    void init_tab_stream_in_ctrl(void);
+
+    void init_tab_stream_execute(void);
+
+    void init_tab_stream_strain(void);
+
+    void init_tab_stream_ricnu_knee(void);
+
+    void control_trapeze(void);
 
 private:
     Ui::MainWindow *ui;

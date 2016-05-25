@@ -18,32 +18,8 @@
 #include <QDebug>
 #include <string>
 
-void MainWindow::on_stream_SA_ONbutto_clicked()
+void MainWindow::init_tab_stream_strain(void)
 {
-	ui->stream_SA_ONbutto->setDisabled(1);
-	ui->stream_SA_OFFbutton->setEnabled(1);
-
-	ui->stream_SA_ONbutto->repaint();
-	ui->stream_SA_OFFbutton->repaint();
-
-	//Can't have 2 stream at the same time
-	stream_status = 0;
-	stream_ricnu_status = 0;
-	stream_sa_status = 1;
-}
-
-void MainWindow::on_stream_SA_OFFbutton_clicked()
-{
-	ui->stream_SA_ONbutto->setEnabled(1);
-	ui->stream_SA_OFFbutton->setDisabled(1);
-
-	ui->stream_SA_ONbutto->repaint();
-	ui->stream_SA_OFFbutton->repaint();
-
-	//Can't have 2 stream at the same time
-	stream_status = 0;
-	stream_ricnu_status = 0;
-	stream_sa_status = 0;
 }
 
 void MainWindow::on_stream_SA_RefreshOffset_clicked()
@@ -69,48 +45,39 @@ void MainWindow::on_stream_SA_RefreshOffset_clicked()
 	qDebug() << "ToDo: send an actual command!";
 }
 
-void MainWindow::timerStream_SA_Event(void)
+void MainWindow::stream_strain_amp(void)
 {
-    if(stream_sa_status)
-    {
-        //==========
-        //Test: call STRAIN
+    int numb = 0;
 
-        int numb = 0;
+    numb = tx_cmd_strain(active_slave_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN);
+    numb = comm_gen_str(payload_str, comm_str_usb, PAYLOAD_BUF_LEN);
+    numb = COMM_STR_BUF_LEN;
 
-        numb = tx_cmd_strain(active_slave_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN);
-        numb = comm_gen_str(payload_str, comm_str_usb, PAYLOAD_BUF_LEN);
-        numb = COMM_STR_BUF_LEN;
+    USBSerialPort_Write(numb, comm_str_usb);        //QSerialPort
 
-        //flexsea_serial_transmit(numb, comm_str_spi, 0); //DIY driver
-        USBSerialPort_Write(numb, comm_str_usb);        //QSerialPort
+    //Can we decode what we received?
+    USBSerialPort_Read(usb_rx);
+    decode_usb_rx(usb_rx);
 
-        //Can we decode what we received?
-        USBSerialPort_Read(usb_rx);
-        decode_usb_rx(usb_rx);
+    //Raw values:
+    ui->disp_strain_ch1->setText(QString::number(strain[0].strain_filtered));
+    ui->disp_strain_ch2->setText(QString::number(strain[1].strain_filtered));
+    ui->disp_strain_ch3->setText(QString::number(strain[2].strain_filtered));
+    ui->disp_strain_ch4->setText(QString::number(strain[3].strain_filtered));
+    ui->disp_strain_ch5->setText(QString::number(strain[4].strain_filtered));
+    ui->disp_strain_ch6->setText(QString::number(strain[5].strain_filtered));
 
-        //Raw values:
-        ui->disp_strain_ch1->setText(QString::number(strain[0].strain_filtered));
-        ui->disp_strain_ch2->setText(QString::number(strain[1].strain_filtered));
-        ui->disp_strain_ch3->setText(QString::number(strain[2].strain_filtered));
-        ui->disp_strain_ch4->setText(QString::number(strain[3].strain_filtered));
-        ui->disp_strain_ch5->setText(QString::number(strain[4].strain_filtered));
-        ui->disp_strain_ch6->setText(QString::number(strain[5].strain_filtered));
+    //Decode some of them:
+    //===================
 
-            //Decode some of them:
-            //===================
+    ui->disp_strain_ch1_d->setText(QString::number(((double)(strain[0].strain_filtered-32768)/32768)*100, 'i', 0));
+    ui->disp_strain_ch2_d->setText(QString::number(((double)(strain[1].strain_filtered-32768)/32768)*100, 'i', 0));
+    ui->disp_strain_ch3_d->setText(QString::number(((double)(strain[2].strain_filtered-32768)/32768)*100, 'i', 0));
+    ui->disp_strain_ch4_d->setText(QString::number(((double)(strain[3].strain_filtered-32768)/32768)*100, 'i', 0));
+    ui->disp_strain_ch5_d->setText(QString::number(((double)(strain[4].strain_filtered-32768)/32768)*100, 'i', 0));
+    ui->disp_strain_ch6_d->setText(QString::number(((double)(strain[5].strain_filtered-32768)/32768)*100, 'i', 0));
 
-        ui->disp_strain_ch1_d->setText(QString::number(((double)(strain[0].strain_filtered-32768)/32768)*100, 'i', 0));
-        ui->disp_strain_ch2_d->setText(QString::number(((double)(strain[1].strain_filtered-32768)/32768)*100, 'i', 0));
-        ui->disp_strain_ch3_d->setText(QString::number(((double)(strain[2].strain_filtered-32768)/32768)*100, 'i', 0));
-        ui->disp_strain_ch4_d->setText(QString::number(((double)(strain[3].strain_filtered-32768)/32768)*100, 'i', 0));
-        ui->disp_strain_ch5_d->setText(QString::number(((double)(strain[4].strain_filtered-32768)/32768)*100, 'i', 0));
-        ui->disp_strain_ch6_d->setText(QString::number(((double)(strain[5].strain_filtered-32768)/32768)*100, 'i', 0));
-
-        ui->tabWidget->repaint();
-
-        //==========
-    }
+    ui->tabWidget->repaint();
 }
 
 //Makes sure that num is between the min/max boundaries.

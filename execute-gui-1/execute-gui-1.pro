@@ -48,7 +48,8 @@ SOURCES += src/main.cpp \
     src/mw_tab_stream_3.cpp \
     src/mw_tab_stream_2.cpp \
     src/mw_tab_stream_4.cpp \
-    src/trapez.c
+    src/trapez.c \
+    src/mw_tab_stream_5.cpp
 
 HEADERS  += inc/mainwindow.h \
     inc/qcustomplot.h \

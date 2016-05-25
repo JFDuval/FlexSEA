@@ -22,6 +22,22 @@
 // Public Function(s)
 //****************************************************************************
 
+void MainWindow::init_tab_ext(void)
+{
+    ui->pushButton_ext_pwro->setText("Turn ON (PWM)");
+    ui->ext_pwro_pwm->setText("0");
+    ui->quad_write_val->setText("0");
+
+    //Variable option lists:
+    QStringList var_list_colors;
+    var_list_colors << "Unchanged" << "Red" << "Green" << "Blue" << "White" << "Black (off)" \
+                    << "Cyan" << "Magenta" << "Yellow";
+    for(int index = 0; index < var_list_colors.count(); index++)
+    {
+        ui->comboBox_minm_rgb->addItem(var_list_colors.at(index));
+    }
+}
+
 void MainWindow::on_pushButton_ext_pwro_clicked()
 {
     static uint8_t pwro_button_state = 0;
