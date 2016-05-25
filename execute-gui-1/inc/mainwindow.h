@@ -99,7 +99,7 @@ private:
     int active_slave_1, active_slave_1_index;
     //Lookup from list to actual slave number (FlexSEA convention):
     uint8_t list_to_slave[10];
-    QStringList var_list_slaves;
+    QStringList var_list_slaves, var_list_stream;
 
     //Plot:
 
@@ -206,6 +206,18 @@ private slots:
     void on_comboBox_ctrl_list_currentIndexChanged(int index);
 
     void on_quadrature_write_clicked();
+
+    void stream_execute(void);
+
+    void on_StreamSelectComboBox_currentIndexChanged(int index);
+
+    void on_streamON_master_button_clicked();
+
+    void on_streamOFF_master_button_clicked();
+
+    void on_logON_master_button_clicked();
+
+    void on_logOFF_master_button_clicked();
 
 private:
     Ui::MainWindow *ui;

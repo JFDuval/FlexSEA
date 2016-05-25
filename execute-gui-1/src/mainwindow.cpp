@@ -65,6 +65,13 @@ MainWindow::MainWindow(QWidget *parent) :
     active_slave_1 = list_to_slave[active_slave_1_index];
     qDebug() << "Selected slave is" << var_list_slaves.at(active_slave_1_index);
 
+    //Variable option lists:
+    var_list_stream << "Barebone Execute" << "Barebone Manage" << "Tune Controller" << "Strain Amp" << "RIC/NU Knee" << "CSEA Knee" << "2DOF Ankle";
+    for(int index = 0; index < var_list_stream.count(); index++)
+    {
+        ui->StreamSelectComboBox->addItem(var_list_stream.at(index));
+    }
+
     //COM port:
     //=================
     ui->comPortTxt->setText("/dev/ttyACM0");
@@ -77,7 +84,6 @@ MainWindow::MainWindow(QWidget *parent) :
     fake_data = 0;
     ui->streamONbutton->setDisabled(1);
     ui->streamOFFbutton->setDisabled(1);
-    ui->openLogButton->setDisabled(1);
     ui->logFileTxt->setText("Not programmed... do not use yet.");
     ui->streamRefreshTxt->setText(QString::number(STREAM_DEFAULT_FREQ));
     ui->streamRefreshStatusTxt->setText("Default setting.");

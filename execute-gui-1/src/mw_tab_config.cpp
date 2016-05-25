@@ -138,3 +138,30 @@ void MainWindow::on_SlaveSelectComboBox_currentIndexChanged(int index)
     active_slave_1 = list_to_slave[active_slave_1_index];
     qDebug() << "Selected slave is" << var_list_slaves.at(active_slave_1_index);
 }
+
+//*** New Config tab - Work in progress ***
+
+void MainWindow::on_StreamSelectComboBox_currentIndexChanged(int index)
+{
+
+}
+
+void MainWindow::on_streamON_master_button_clicked()
+{
+
+}
+
+void MainWindow::on_streamOFF_master_button_clicked()
+{
+
+}
+
+void MainWindow::on_logON_master_button_clicked()
+{
+
+}
+
+void MainWindow::on_logOFF_master_button_clicked()
+{
+
+}
