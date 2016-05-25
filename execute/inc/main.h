@@ -80,7 +80,7 @@ int main(void);
 //Step 1) Select active project (from list):
 //==========================================
 
-#define ACTIVE_PROJECT	PROJECT_BAREBONE
+#define ACTIVE_PROJECT	PROJECT_CSEA_KNEE
 
 //Step 2) Customize the enabled/disables sub-modules:
 //===================================================
@@ -153,7 +153,8 @@ int main(void);
 	#define ENC_DISPLAY		ENC_CONTROL	
 	
 	//Project specific definitions:
-	//...
+	#define CSEA_FULL_FLEX		580
+	#define CSEA_FULL_EXT		2840
 	
 #endif	//PROJECT_CSEA_KNEE
 

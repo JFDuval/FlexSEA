@@ -85,7 +85,7 @@ int32 refresh_enc_control(void)
 	#if(ENC_CONTROL == ENC_QUADRATURE)
 		encoder.count = QuadDec_1_GetCounter();
 	#elif(ENC_CONTROL == ENC_ANALOG)
-		encoder.count = 0;	//ToDo implement if needed		
+		encoder.count = get_analog_pos();	
 	#elif(ENC_CONTROL == ENC_AS5047)
 		encoder.count = as5047.angle_cont;
 	#elif(ENC_CONTROL == ENC_AS5048B)
@@ -110,7 +110,7 @@ int32 refresh_enc_display(void)
 	#if(ENC_DISPLAY == ENC_QUADRATURE)
 		tmp_enc = QuadDec_1_GetCounter();
 	#elif(ENC_DISPLAY == ENC_ANALOG)
-		tmp_enc = 0;	//ToDo implement if needed		
+		tmp_enc = get_analog_pos();
 	#elif(ENC_DISPLAY == ENC_AS5047)
 		tmp_enc = as5047.angle_cont;
 	#elif(ENC_DISPLAY == ENC_AS5048B)
@@ -196,6 +196,20 @@ void get_as5048b_position(void)
 {
 	i2c0_read(I2C_ADDR_AS5048B, AD5048B_REG_ANGLE_H, as5048b_bytes, 2);
 }
+
+//Converts from ADC reading to position
+int16 get_analog_pos(void)
+{
+	int16 retval = 0;
+	
+	#if(ACTIVE_PROJECT == PROJECT_CSEA_KNEE)
+		retval = -((int16)adc1_res_filtered[0] - CSEA_FULL_EXT);
+		return retval;
+	#else
+		return 0;
+	#endif
+}
+
 
 //****************************************************************************
 // Private Function(s)

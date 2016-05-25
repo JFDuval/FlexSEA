@@ -35,6 +35,7 @@ void qei_write(int32 enc);
 int32 qei_read(void);
 int32 refresh_enc_control(void);
 int32 refresh_enc_display(void);
+int16 get_analog_pos(void);
 void init_as5047(void);
 uint16 as5047_read_single(uint16 reg);
 

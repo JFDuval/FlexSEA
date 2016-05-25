@@ -387,7 +387,6 @@ inline int32 motor_current_pid_2(int32 wanted_curr, int32 measured_curr)
 // Impedance controller -- EJ Rouse, 8/11/14
 // There will be filter transients for first few iterations -- maybe turn loops off for 100 ms?
 // Variables created: stiffness, damping, prev_enc_count
-// Modified 05/24/16 by JFDuval: Hall effect table damping compensation
 int motor_impedance_encoder(int wanted_pos, int new_enc_count)
 {
 	// Initialize vars
@@ -414,8 +413,13 @@ int motor_impedance_encoder(int wanted_pos, int new_enc_count)
 
 	ctrl.impedance.error = new_enc_count - wanted_pos;		//Actual error
 	
-	//Current for stiffness term
-	i_k = ctrl.impedance.gain.Z_K * (ctrl.impedance.error >> 8);	//The /50 places the k gain in a good integer range
+	//Current for stiffness term. Gain factor depends on the encoder count.
+	#if(ACTIVE_PROJECT == PROJECT_CSEA_KNEE)
+		i_k = ctrl.impedance.gain.Z_K * (ctrl.impedance.error >> 4);
+	#else
+		i_k = ctrl.impedance.gain.Z_K * (ctrl.impedance.error >> 8);
+	#endif
+	
 	
 	//Velocity measured on n cycles:
 	enc_tm9 = enc_tm8; enc_tm8 = enc_tm7; enc_tm7 = enc_tm6; enc_tm6 = enc_tm5; enc_tm5 = enc_tm4; enc_tm4 = enc_tm3; enc_tm3 = enc_tm2; enc_tm2 = enc_tm1; enc_tm1 = enc_t0;

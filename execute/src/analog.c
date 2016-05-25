@@ -36,6 +36,8 @@ void init_analog(void)
 {
 	//Analog amplifiers & multiplexer(s):
 	AMux_1_Start();				//Start the MUX
+	PGA_1_Start();
+	PGA_2_Start();
 	
 	//ADC1:
 	ADC_SAR_1_Start();
