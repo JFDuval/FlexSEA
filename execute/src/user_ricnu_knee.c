@@ -12,7 +12,7 @@
 //****************************************************************************
 
 #include "main.h"
-#include "user_knee.h"
+#include "user_ricnu_knee.h"
 
 //****************************************************************************
 // Variable(s)
@@ -22,14 +22,14 @@
 // Private Function Prototype(s):
 //****************************************************************************	
 
-static void knee_refresh_values(void);
+static void ricnu_knee_refresh_values(void);
 
 //****************************************************************************
 // Public Function(s)
 //****************************************************************************
 
 //Call this function once in main.c, just before the while()
-void init_knee(void)
+void init_ricnu_knee(void)
 {	
 	//FlexSEA-Execute setup:
     //Example:	ctrl.active_ctrl = CTRL_OPEN;	//Open controller
@@ -50,7 +50,7 @@ void init_knee(void)
 
 //Knee Finite State Machine.
 //Call this function in one of the main while time slots.
-void knee_fsm(void)
+void ricnu_knee_fsm(void)
 {
     static uint16 time = 0;
     static uint8 state = 0;
@@ -63,7 +63,7 @@ void knee_fsm(void)
     time++;
     
 	//Before going to a state we refresh values:
-	knee_refresh_values();
+	ricnu_knee_refresh_values();
 	
     if (time == 0)
     {
@@ -121,7 +121,7 @@ void knee_fsm(void)
 //file. It's safer than making everything global.
 
 //Here's an example function:
-static void knee_refresh_values(void)
+static void ricnu_knee_refresh_values(void)
 {
 	//...
 }

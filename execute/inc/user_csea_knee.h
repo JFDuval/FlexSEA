@@ -1,14 +1,14 @@
 //****************************************************************************
 // MIT Media Lab - Biomechatronics
-// Jean-Francois (Jeff) Duval & Luke Mooney
-// jfduval@mit.edu & lmooney@mit.edu
+// Jean-Francois (Jeff) Duval
+// jfduval@media.mit.edu
 // 05/2015
 //****************************************************************************
-// exo: ExoBoot functions
+// user_csea_knee: MIT CSEA Knee
 //****************************************************************************
 	
-#ifndef INC_RICNU_KNEE_H
-#define INC_RICNU_KNEE_H
+#ifndef INC_CSEA_KNEE_H
+#define INC_CSEA_KNEE_H
 
 //****************************************************************************
 // Include(s)
@@ -24,8 +24,8 @@
 // Public Function Prototype(s):
 //****************************************************************************	
 
-void init_knee(void);
-void knee_fsm(void);
+void init_csea_knee(void);
+void csea_knee_fsm(void);
 
 //****************************************************************************
 // Definition(s):
@@ -36,5 +36,5 @@ void knee_fsm(void);
 //****************************************************************************	
 
 	
-#endif	//INC_RICNU_KNEE_H
+#endif	//INC_CSEA_KNEE_H
 	

@@ -101,10 +101,15 @@ int main(void)
 	init_exo();
 	#endif	//PROJECT_EXOCUTE
 	
+	//MIT CSEA Knee:
+	#if(ACTIVE_PROJECT == PROJECT_CSEA_KNEE)
+	init_csea_knee();
+	#endif	//PROJECT_CSEA_KNEE
+	
 	//RIC/NU Knee:
 	#if(ACTIVE_PROJECT == PROJECT_RICNU_KNEE)
-	init_knee();
-	#endif	//PROJECT_EXOCUTE
+	init_ricnu_knee();
+	#endif	//PROJECT_RICNU_KNEE
 	
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=	
 
@@ -316,9 +321,14 @@ int main(void)
 					exo_fsm();							
 					#endif	//PROJECT_EXOCUTE
 					
+					//CSEA Knee code - 1kHz
+					#if(ACTIVE_PROJECT == PROJECT_CSEA_KNEE)				                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+					csea_knee_fsm();						
+					#endif	//PROJECT_CSEA_KNEE
+					
 					//RIC/NU Knee code - 1kHz
 					#if(ACTIVE_PROJECT == PROJECT_RICNU_KNEE)				                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-					knee_fsm();						
+					ricnu_knee_fsm();						
 					#endif	//PROJECT_RICNU_KNEE
 					
 					//1s timebase:

@@ -31,7 +31,8 @@
 #include "safety.h"
 #include "peripherals.h"
 #include "user_exo.h"
-#include "user_knee.h"	
+#include "user_csea_knee.h"	
+#include "user_ricnu_knee.h"	
 #include "control.h"
 #include "sensor_commut.h"
 #include "ext_input.h"
@@ -153,8 +154,12 @@ int main(void);
 	#define ENC_DISPLAY		ENC_CONTROL	
 	
 	//Project specific definitions:
-	#define CSEA_FULL_FLEX		580
-	#define CSEA_FULL_EXT		2840
+	#define CSEA_FULL_FLEX_RAW		580		//Raw value
+	#define CSEA_FULL_EXT_RAW		2840	//Raw value
+	#define CSEA_FULL_FLEX			2260
+	#define CSEA_FULL_EXT			0
+	#define CSEA_MARGIN				300
+	#define CSEA_MOTION_TIME		3500
 	
 #endif	//PROJECT_CSEA_KNEE
 
