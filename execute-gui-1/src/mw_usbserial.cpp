@@ -116,7 +116,7 @@ int MainWindow::USBSerialPort_Read(unsigned char *buf)
             return 0;
         }
 
-        qDebug() << "Read " << len << " bytes.";
+        qDebug() << "Read" << len << "bytes.";
 
         //Fill the rx buf with our new bytes:
         for(int i = 0; i < len; i++)
@@ -129,5 +129,8 @@ int MainWindow::USBSerialPort_Read(unsigned char *buf)
     {
         qDebug("No USB bytes available.");
     }
+
+    //Notify user in GUI:
+    stream_status_disp(dataReady);
 }
 

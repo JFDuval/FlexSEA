@@ -70,6 +70,11 @@ void MainWindow::init_tab_config(void)
     ui->streamRefreshStatusTxt->setText("Default setting.");
     ui->logRefreshTxt->setText(QString::number(LOG_DEFAULT_FREQ));
     ui->logRefreshStatusTxt->setText("Default setting.");
+
+    //Stream status:
+    //==============
+    ui->label_stream_status->setText(" ");
+    stream_status_disp(-1); //Start Black
 }
 
 void MainWindow::init_tab_about(void)
@@ -86,7 +91,7 @@ void MainWindow::on_openComButton_clicked()
 {
     QString str, comport;
     char *comport_char;
-    int com_open = 0, tries = 100;
+    int com_open = 0, tries = 50;
 
     //Opening statement, and name saving:
 
@@ -265,6 +270,8 @@ void MainWindow::on_streamOFF_master_button_clicked()
     ui->streamOFF_master_button->repaint();
 
     stream_status = 0;
+
+    stream_status_disp(-1); //Indicator = Black
 }
 
 void MainWindow::timerStreamEvent(void)
@@ -312,6 +319,23 @@ void MainWindow::timerStreamEvent(void)
     //Control & trapeze:
     stream_ctrl();
     control_trapeze();
+}
+
+void MainWindow::stream_status_disp(int status)
+{
+
+    if(status == 1)
+    {
+        ui->label_stream_status->setStyleSheet("QLabel { background-color: green; color: black;}");
+    }
+    else if(status == 0)
+    {
+        ui->label_stream_status->setStyleSheet("QLabel { background-color: red; color: black;}");
+    }
+    else
+    {
+        ui->label_stream_status->setStyleSheet("QLabel { background-color: black; color: black;}");
+    }
 }
 
 //ToDo:

@@ -232,6 +232,8 @@ private slots:
 
     void control_trapeze(void);
 
+    void stream_status_disp(int status);
+
 private:
     Ui::MainWindow *ui;
 };
