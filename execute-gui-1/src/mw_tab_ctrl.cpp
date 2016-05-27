@@ -488,11 +488,11 @@ void MainWindow::on_comboBox_ctrl_list_currentIndexChanged(int index)
 void MainWindow::stream_ctrl(void)
 {
     //ToDo make more generic
-    if(selected_controller == 0)    //Execute
+    if(selected_experiment == 0)    //Execute
     {
         ui->disp_meas_val->setText(QString::number(exec1.enc_display));
     }
-    else if(selected_controller == 4)   //RIC/NU
+    else if(selected_experiment == 4)   //RIC/NU
     {
         ui->disp_meas_val->setText(QString::number(ricnu_1.ex.enc_control));
     }
