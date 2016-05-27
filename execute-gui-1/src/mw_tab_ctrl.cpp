@@ -60,6 +60,9 @@ void MainWindow::init_tab_ctrl(void)
     ui->textLabel_Gains_p->setText(str);
     str.sprintf("Impedance gains = {0,0,0,0,0,0}");
     ui->textLabel_Gains_z->setText(str);
+
+    //Toggle:
+    ctrl_toggle_state = 0;
 }
 
 #define CONTROLLERS 6
@@ -319,11 +322,16 @@ void MainWindow::on_pushButton_toggle_clicked()
     {
         //We are in Toggle OFF Mode.
         ui->pushButton_toggle->setText("Toggle ON");
-        //Enable GO A & B:
+
+        //Enable GO A & B, values, etc:
         ui->pushButton_setp_a_go->setEnabled(true);
         ui->pushButton_setp_b_go->setEnabled(true);
         ui->control_setp_a->setEnabled(true);
         ui->control_setp_b->setEnabled(true);
+        ui->control_toggle_delayA->setEnabled(true);
+        ui->control_toggle_delayB->setEnabled(true);
+        ui->control_trapeze_acc->setEnabled(true);
+        ui->control_trapeze_spd->setEnabled(true);
 
         //Stop timer:
         timer_ctrl->stop();
@@ -332,11 +340,19 @@ void MainWindow::on_pushButton_toggle_clicked()
     {
         //We are in Toggle ON Mode.
         ui->pushButton_toggle->setText("Toggle OFF");
-        //Enable GO A & B:
+
+        //Enable GO A & B, values, etc:
         ui->pushButton_setp_a_go->setEnabled(false);
         ui->pushButton_setp_b_go->setEnabled(false);
         ui->control_setp_a->setEnabled(false);
-        ui->control_setp_b->setEnabled(false);
+        ui->control_setp_b->setEnabled(false);        
+        ui->control_toggle_delayA->setEnabled(false);
+        ui->control_toggle_delayB->setEnabled(false);
+        ui->control_trapeze_acc->setEnabled(false);
+        ui->control_trapeze_spd->setEnabled(false);
+
+        //Start at Setpoint A, going to B:
+        toggle_output_state = 1;
 
         //Start timer:
         timer_ctrl->start(ui->control_toggle_delayA->text().toInt());
@@ -345,11 +361,9 @@ void MainWindow::on_pushButton_toggle_clicked()
 
 void MainWindow::timerCtrlEvent(void)
 {
-    static uint8_t toggle_output_state = 0;
-
     toggle_output_state ^= 1;
 
-    //qDebug() << "Control Toggle Timer Event, output = " << toggle_output_state;
+    qDebug() << "Control Toggle Timer Event, output = " << toggle_output_state;
 
     if(toggle_output_state)
     {

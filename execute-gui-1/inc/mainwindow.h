@@ -136,6 +136,7 @@ private:
     void init_ctrl_gains(void);
     void save_ctrl_gains(int controller, int16_t *gains);
     int trapez_steps = 0;
+    uint8_t toggle_output_state = 0;
 
     //Stream SA:
     uint8_t bound_number(int num, int min, int max);
