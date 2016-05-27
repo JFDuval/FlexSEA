@@ -46,6 +46,7 @@ void init_csea_knee(void)
 //Call this function in one of the main while time slots.
 void csea_knee_fsm(void)
 {
+	#if(ACTIVE_PROJECT == PROJECT_CSEA_KNEE)
     static uint32 time = 0;
     static uint8 state = 0;
 	
@@ -108,6 +109,7 @@ void csea_knee_fsm(void)
 			//Handle exceptions here
 			break;
 	}
+	#endif
 }
 
 //****************************************************************************

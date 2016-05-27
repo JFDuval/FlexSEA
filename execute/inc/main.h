@@ -81,7 +81,7 @@ int main(void);
 //Step 1) Select active project (from list):
 //==========================================
 
-#define ACTIVE_PROJECT	PROJECT_CSEA_KNEE
+#define ACTIVE_PROJECT	PROJECT_RICNU_KNEE
 
 //Step 2) Customize the enabled/disables sub-modules:
 //===================================================
