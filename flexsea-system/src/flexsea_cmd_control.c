@@ -1038,6 +1038,7 @@ void rx_cmd_in_control(uint8_t *buf)
             in_control_1.output = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1 + 17], buf[P_DATA1 + 18]));
             in_control_1.pwm = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1 + 19], buf[P_DATA1 + 20]));
             in_control_1.mot_dir = buf[P_DATA1 + 21];
+            in_control_1.current = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1 + 22], buf[P_DATA1 + 23]));
 
 			#endif	//((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
 		}
