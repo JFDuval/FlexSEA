@@ -236,6 +236,14 @@ private slots:
 
     void status_byte_disp(uint8_t stat1, uint8_t stat2);
 
+    void on_pushButton_inctrl_w0_clicked();
+
+    void on_pushButton_inctrl_w1_clicked();
+
+    void on_pushButton_inctrl_w2_clicked();
+
+    void on_pushButton_inctrl_w3_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

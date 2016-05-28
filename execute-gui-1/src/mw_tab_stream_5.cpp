@@ -20,6 +20,10 @@
 
 void MainWindow::init_tab_stream_in_ctrl(void)
 {
+    ui->inctrl_w0->setText("0");
+    ui->inctrl_w1->setText("0");
+    ui->inctrl_w2->setText("0");
+    ui->inctrl_w3->setText("0");
 }
 
 void MainWindow::stream_in_ctrl(void)
@@ -42,4 +46,25 @@ void MainWindow::stream_in_ctrl(void)
     //ui->ricnu_accx->setText(QString::number(ricnu_1.ex.accel.x)); //example    
 
     ui->tabWidget->repaint();
+}
+
+//ToDo
+void MainWindow::on_pushButton_inctrl_w0_clicked()
+{
+
+}
+
+void MainWindow::on_pushButton_inctrl_w1_clicked()
+{
+
+}
+
+void MainWindow::on_pushButton_inctrl_w2_clicked()
+{
+
+}
+
+void MainWindow::on_pushButton_inctrl_w3_clicked()
+{
+
 }
