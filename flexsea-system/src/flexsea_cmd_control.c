@@ -895,6 +895,140 @@ void rx_cmd_ctrl_z_g(uint8_t *buf)
 	}
 }
 
+//Transmission of an IN_CONTROL command
+//Note: we can only write one parameter at the time (that's what we need for typical use cases).
+//'select_w' will determine what variable is written.
+uint32_t tx_cmd_in_control(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, uint8_t select_w)
+{
+	uint8_t tmp0 = 0, tmp1 = 0, tmp2 = 0, tmp3 = 0;
+	uint32_t bytes = 0;
+
+	//Fresh payload string:
+	prepare_empty_payload(board_id, receiver, buf, len);
+
+	//Command:
+	buf[P_CMDS] = 1;                     //1 command in string
+
+	if(cmd_type == CMD_READ)
+	{
+		buf[P_CMD1] = CMD_R(CMD_IN_CONTROL);
+
+		bytes = P_CMD1 + 1;     //Bytes is always last+1
+	}
+	else if(cmd_type == CMD_WRITE)
+	{
+		buf[P_CMD1] = CMD_W(CMD_IN_CONTROL);
+
+		//Arguments:
+
+		buf[P_DATA1 + 1] = select_w; //Parameter written
+		uint32_to_bytes((uint32_t)in_control.w[select_w], &tmp0, &tmp1, &tmp2, &tmp3);
+		buf[P_DATA1 + 1] = tmp0;
+		buf[P_DATA1 + 2] = tmp1;
+		buf[P_DATA1 + 3] = tmp2;
+		buf[P_DATA1 + 4] = tmp3;
+		
+		uint32_to_bytes((uint32_t)in_control.setp, &tmp0, &tmp1, &tmp2, &tmp3);
+		buf[P_DATA1 + 5] = tmp0;
+		buf[P_DATA1 + 6] = tmp1;
+		buf[P_DATA1 + 7] = tmp2;
+		buf[P_DATA1 + 8] = tmp3;
+		
+		uint32_to_bytes((uint32_t)in_control.actual_val, &tmp0, &tmp1, &tmp2, &tmp3);
+		buf[P_DATA1 + 9] = tmp0;
+		buf[P_DATA1 + 10] = tmp1;
+		buf[P_DATA1 + 11] = tmp2;
+		buf[P_DATA1 + 12] = tmp3;
+		
+		uint32_to_bytes((uint32_t)in_control.error, &tmp0, &tmp1, &tmp2, &tmp3);
+		buf[P_DATA1 + 13] = tmp0;
+		buf[P_DATA1 + 14] = tmp1;
+		buf[P_DATA1 + 15] = tmp2;
+		buf[P_DATA1 + 16] = tmp3;
+		
+		uint32_to_bytes((uint32_t)in_control.output, &tmp0, &tmp1, &tmp2, &tmp3);
+		buf[P_DATA1 + 17] = tmp0;
+		buf[P_DATA1 + 18] = tmp1;
+		buf[P_DATA1 + 19] = tmp2;
+		buf[P_DATA1 + 20] = tmp3;
+		
+		uint16_to_bytes((uint16_t)in_control.pwm, &tmp0, &tmp1);
+		buf[P_DATA1 + 21] = tmp0;
+		buf[P_DATA1 + 22] = tmp1;
+		
+		bytes = P_DATA1 + 13;     //Bytes is always last+1
+	}
+	else
+	{
+		//Invalid
+		flexsea_error(SE_INVALID_READ_TYPE);
+		bytes = 0;
+	}
+
+	return bytes;
+}
+
+//Reception of an IN_CONTROL command
+void rx_cmd_in_control(uint8_t *buf)
+{
+	uint8_t numb = 0, w_select = 0;
+	int32_t w_val = 0;
+
+	if(IS_CMD_RW(buf[P_CMD1]) == READ)
+	{
+		//Received a Read command from our master, prepare a reply:
+
+		#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+
+		//Generate the reply:
+		numb = tx_cmd_in_control(buf[P_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 0);
+		numb = comm_gen_str(tmp_payload_xmit, comm_str_485, numb);
+
+		//Notify the code that a buffer is ready to be transmitted:
+		//xmit_flag_1 = 1;
+		
+		//(for now, send it)
+		rs485_puts(comm_str_485, numb);
+
+		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+	}
+	else if(IS_CMD_RW(buf[P_CMD1]) == WRITE)
+	{
+		//Two options: from Master of from slave (a read reply)
+
+		//Decode data:
+		w_select = buf[P_DATA1];
+		w_val = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1 + 1], buf[P_DATA1 + 2], buf[P_DATA1 + 3], buf[P_DATA1 + 4]));
+
+		if(sent_from_a_slave(buf))
+		{
+			//We received a reply to our read request
+
+			#if((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
+
+			//Store value:
+			in_control_1.setp = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1 + 5], buf[P_DATA1 + 6], buf[P_DATA1 + 7], buf[P_DATA1 + 8]));
+			in_control_1.actual_val = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1 + 9], buf[P_DATA1 + 10], buf[P_DATA1 + 11], buf[P_DATA1 + 12]));
+			
+			in_control_1.error = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1 + 13], buf[P_DATA1 + 14], buf[P_DATA1 + 15], buf[P_DATA1 + 16]));
+			in_control_1.output = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1 + 17], buf[P_DATA1 + 18], buf[P_DATA1 + 19], buf[P_DATA1 + 20]));
+			in_control_1.pwm = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1 + 21], buf[P_DATA1 + 22]));
+
+			#endif	//((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
+		}
+		else
+		{
+			//Master is writing a value to this board
+
+			#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+
+			in_control.w[w_select] = w_val;
+
+			#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+		}
+	}
+}
+
 #ifdef __cplusplus
 }
 #endif

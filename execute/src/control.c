@@ -21,6 +21,9 @@
 //Main data structure for all the controllers:
 volatile struct ctrl_s ctrl;
 
+//In Control tool:
+volatile struct in_control_s in_control;
+
 //Impedance loop
 int debug_var = 0;
 
@@ -134,9 +137,12 @@ int32 motor_position_pid(int32 wanted_pos, int32 actual_pos)
 	//Position values:
 	ctrl.position.pos = actual_pos;
 	ctrl.position.setp = wanted_pos;
+	in_control.actual_val = ctrl.position.pos;
+	in_control.setp = ctrl.position.setp;
 	
 	//Errors:
 	ctrl.position.error = ctrl.position.pos - ctrl.position.setp;
+	in_control.error = ctrl.position.error;
 	ctrl.position.error_sum = ctrl.position.error_sum + ctrl.position.error;
 	//ctrl.position.error_dif ToDo
 	
@@ -161,6 +167,7 @@ int32 motor_position_pid(int32 wanted_pos, int32 actual_pos)
 		pwm = -POS_PWM_LIMIT;
 	
 	motor_open_speed_1(pwm);
+	in_control.output = pwm;
 	
 	return ctrl.position.error;
 }
