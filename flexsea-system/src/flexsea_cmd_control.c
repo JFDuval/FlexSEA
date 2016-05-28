@@ -921,6 +921,8 @@ uint32_t tx_cmd_in_control(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uin
 
 		//Arguments:
 
+        #ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+
 		buf[P_DATA1 + 1] = select_w; //Parameter written
 		uint32_to_bytes((uint32_t)in_control.w[select_w], &tmp0, &tmp1, &tmp2, &tmp3);
 		buf[P_DATA1 + 1] = tmp0;
@@ -956,7 +958,20 @@ uint32_t tx_cmd_in_control(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uin
 		buf[P_DATA1 + 21] = tmp0;
 		buf[P_DATA1 + 22] = tmp1;
 		
-		bytes = P_DATA1 + 13;     //Bytes is always last+1
+        bytes = P_DATA1 + 23;     //Bytes is always last+1
+
+        #endif //BOARD_TYPE_FLEXSEA_EXECUTE
+
+        #ifdef BOARD_TYPE_FLEXSEA_PLAN
+
+        buf[P_DATA1 + 1] = select_w; //Parameter written
+        uint32_to_bytes((uint32_t)in_control_1.w[select_w], &tmp0, &tmp1, &tmp2, &tmp3);
+        buf[P_DATA1 + 1] = tmp0;
+        buf[P_DATA1 + 2] = tmp1;
+        buf[P_DATA1 + 3] = tmp2;
+        buf[P_DATA1 + 4] = tmp3;
+
+        #endif  //BOARD_TYPE_FLEXSEA_PLAN
 	}
 	else
 	{
@@ -1011,8 +1026,9 @@ void rx_cmd_in_control(uint8_t *buf)
 			in_control_1.actual_val = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1 + 9], buf[P_DATA1 + 10], buf[P_DATA1 + 11], buf[P_DATA1 + 12]));
 			
 			in_control_1.error = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1 + 13], buf[P_DATA1 + 14], buf[P_DATA1 + 15], buf[P_DATA1 + 16]));
-			in_control_1.output = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1 + 17], buf[P_DATA1 + 18], buf[P_DATA1 + 19], buf[P_DATA1 + 20]));
-			in_control_1.pwm = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1 + 21], buf[P_DATA1 + 22]));
+            in_control_1.output = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1 + 17], buf[P_DATA1 + 18]));
+            in_control_1.pwm = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1 + 19], buf[P_DATA1 + 20]));
+            in_control_1.mot_dir = buf[P_DATA1 + 21];
 
 			#endif	//((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
 		}

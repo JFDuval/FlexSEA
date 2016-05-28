@@ -28,6 +28,7 @@ struct execute_s exec1, exec2, exec3, exec4;
 struct ricnu_s ricnu_1;
 struct manage_s manag1;
 struct strain_s strain[6];
+struct in_control_s in_control_1;
 
 #endif	//BOARD_TYPE_FLEXSEA_MANAGE
 

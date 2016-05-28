@@ -30,8 +30,7 @@ void MainWindow::stream_in_ctrl(void)
 {
     int numb = 0;
 
-//ToDo update this function call
-    numb = tx_cmd_data_read_all_ricnu(active_slave_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN); //New Read All function
+    numb = tx_cmd_in_control(active_slave_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, 0);
     numb = comm_gen_str(payload_str, comm_str_usb, PAYLOAD_BUF_LEN);
     numb = COMM_STR_BUF_LEN;
 
@@ -43,12 +42,15 @@ void MainWindow::stream_in_ctrl(void)
 
     //Raw values:
 
-    //ui->ricnu_accx->setText(QString::number(ricnu_1.ex.accel.x)); //example    
+    ui->disp_inctrl_setp->setText(QString::number(in_control_1.setp));
+    ui->disp_inctrl_actual_val->setText(QString::number(in_control_1.actual_val));
+    ui->disp_inctrl_error->setText(QString::number(in_control_1.error));
+    ui->disp_inctrl_pwm->setText(QString::number(in_control_1.pwm));
 
     ui->tabWidget->repaint();
 }
 
-//ToDo
+
 void MainWindow::on_pushButton_inctrl_w0_clicked()
 {
 

@@ -516,6 +516,7 @@ extern struct execute_s exec1, exec2, exec3, exec4;
 extern struct ricnu_s ricnu_1;
 extern struct manage_s manag1;
 extern struct strain_s strain[6];
+extern struct in_control_s in_control_1;
 
 #endif	//defined(BOARD_TYPE_FLEXSEA_MANAGE) || defined(BOARD_TYPE_FLEXSEA_PLAN)
 
