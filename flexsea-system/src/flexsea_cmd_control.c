@@ -948,17 +948,21 @@ uint32_t tx_cmd_in_control(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uin
 		buf[P_DATA1 + 15] = tmp2;
 		buf[P_DATA1 + 16] = tmp3;
 		
-		uint32_to_bytes((uint32_t)in_control.output, &tmp0, &tmp1, &tmp2, &tmp3);
+		uint16_to_bytes((uint16_t)in_control.output, &tmp0, &tmp1);
 		buf[P_DATA1 + 17] = tmp0;
 		buf[P_DATA1 + 18] = tmp1;
-		buf[P_DATA1 + 19] = tmp2;
-		buf[P_DATA1 + 20] = tmp3;
 		
-		uint16_to_bytes((uint16_t)in_control.pwm, &tmp0, &tmp1);
-		buf[P_DATA1 + 21] = tmp0;
-		buf[P_DATA1 + 22] = tmp1;
-		
-        bytes = P_DATA1 + 23;     //Bytes is always last+1
+        uint16_to_bytes((uint16_t)in_control.pwm, &tmp0, &tmp1);
+        buf[P_DATA1 + 19] = tmp0;
+        buf[P_DATA1 + 20] = tmp1;
+
+        buf[P_DATA1 + 21] = in_control.mot_dir;
+
+        uint16_to_bytes((uint16_t)ctrl.current.actual_val, &tmp0, &tmp1);
+        buf[P_DATA1 + 22] = tmp0;
+        buf[P_DATA1 + 23] = tmp1;
+
+        bytes = P_DATA1 + 24;     //Bytes is always last+1
 
         #endif //BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -998,12 +1002,17 @@ void rx_cmd_in_control(uint8_t *buf)
 		//Generate the reply:
 		numb = tx_cmd_in_control(buf[P_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 0);
 		numb = comm_gen_str(tmp_payload_xmit, comm_str_485, numb);
+		numb = COMM_STR_BUF_LEN;	//Fixed length for now to accomodate the DMA
 
 		//Notify the code that a buffer is ready to be transmitted:
 		//xmit_flag_1 = 1;
 		
 		//(for now, send it)
 		rs485_puts(comm_str_485, numb);
+		
+		#ifdef USE_USB
+		usb_puts(comm_str_485, (numb));
+		#endif
 
 		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 	}
