@@ -91,7 +91,7 @@ void user_fsm(void);
 	#define PWM_SIGN		1
 	
 	//Runtime finite state machine (FSM):
-	#define RUNTIME_FSM		DISABLED
+	#define RUNTIME_FSM		ENABLED
 	
 	//Encoders:
 	#define ENC_CONTROL		ENC_QUADRATURE

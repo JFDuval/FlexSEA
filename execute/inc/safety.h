@@ -103,7 +103,11 @@ extern struct scop safety_cop;
 	(((err_wdclk & 0x01) << 7) | ((err_discon & 0x01) << 6) | ((err_temp & 0x03) << 4) | \
 	((err_v_vb & 0x03) << 2) | (err_v_vg & 0x03))
 	
+#define GET_WDCLK_FLAG(status1) ((status1 >> 7) & 0x01)
+#define GET_DISCON_FLAG(status1) ((status1 >> 6) & 0x01)
 #define GET_OVERTEMP_FLAG(status1) ((status1 >> 4) & 0x03)
+#define GET_VB_FLAG(status1) ((status1 >> 2) & 0x03)
+#define GET_VG_FLAG(status1) ((status1 >> 0) & 0x03)
 	
 //STATUS2 = [0, 0, 0, 0, 0, 0, 3V3H, 3V3L]
 #define CMB_FLAGS_STATUS2(err_v_3v3)		(err_v_3v3 & 0x03)
