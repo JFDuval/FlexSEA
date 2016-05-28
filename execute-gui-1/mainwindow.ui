@@ -42,7 +42,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="config">
      <attribute name="title">
@@ -1425,6 +1425,20 @@
         <widget class="QLabel" name="label_108">
          <property name="text">
           <string>V</string>
+         </property>
+        </widget>
+       </item>
+       <item row="15" column="3" colspan="3">
+        <widget class="QLabel" name="label_status1">
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Status1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item row="16" column="3" colspan="3">
+        <widget class="QLabel" name="label_status2">
+         <property name="text">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Status2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>

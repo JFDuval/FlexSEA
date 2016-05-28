@@ -234,6 +234,8 @@ private slots:
 
     void stream_status_disp(int status);
 
+    void status_byte_disp(uint8_t stat1, uint8_t stat2);
+
 private:
     Ui::MainWindow *ui;
 };

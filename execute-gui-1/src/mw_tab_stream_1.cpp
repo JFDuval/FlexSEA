@@ -83,7 +83,138 @@ void MainWindow::stream_execute(void)
 
     ui->disp_strain_d->setText(QString::number(((double)(exec1.strain-32768)/32768)*100, 'i', 0));
 
+    status_byte_disp(exec1.status1, exec1.status2);
+
     ui->tabWidget->repaint();
 
     //==========
+}
+
+#define GET_WDCLK_FLAG(status1) ((status1 >> 7) & 0x01)
+#define GET_DISCON_FLAG(status1) ((status1 >> 6) & 0x01)
+#define GET_OVERTEMP_FLAG(status1) ((status1 >> 4) & 0x03)
+#define GET_VB_FLAG(status1) ((status1 >> 2) & 0x03)
+#define GET_VG_FLAG(status1) ((status1 >> 0) & 0x03)
+#define GET_3V3_FLAG(status2) ((status2 >> 0) & 0x03)
+#define GET_FSM_FLAG(status2) ((status2 >> 7) & 0x01)
+
+//Qualitative:
+#define V_LOW				1
+#define V_NORMAL			0
+#define V_HIGH				2
+#define T_NORMAL			0
+#define T_WARNING			1
+#define T_ERROR				2
+#define BATT_CONNECTED		0
+#define BATT_DISCONNECTED	1
+//If everything is normal STATUS1 == 0
+
+void MainWindow::status_byte_disp(uint8_t stat1, uint8_t stat2)
+{
+    QString str1, str2;
+    uint8_t mod = 0;
+
+    //Status 1:
+    //==========
+
+    //WDCLK:
+    if(GET_WDCLK_FLAG(stat1))
+    {
+        str1 += QString("Co-Processor Error");
+        mod++;
+    }
+
+    //Disconnected battery:
+    if(GET_DISCON_FLAG(stat1) == BATT_DISCONNECTED)
+    {
+        if(mod){str1 += QString(" | ");};
+        str1 += QString("Disconnected battery");
+        mod++;
+    }
+
+    //Temperature:
+    if(GET_OVERTEMP_FLAG(stat1) == T_WARNING)
+    {
+        if(mod){str1 += QString(" | ");};
+        str1 += QString("Temp. Near Limit");
+        mod++;
+    }
+    else if(GET_OVERTEMP_FLAG(stat1) == T_ERROR)
+    {
+        if(mod){str1 += QString(" | ");};
+        str1 += QString("Temp. Error");
+        mod++;
+    }
+
+    //Voltage - VB:
+    if(GET_VB_FLAG(stat1) == V_LOW)
+    {
+        if(mod){str1 += QString(" | ");};
+        str1 += QString("VB Low");
+        mod++;
+    }
+    else if(GET_VB_FLAG(stat1) == V_HIGH)
+    {
+        if(mod){str1 += QString(" | ");};
+        str1 += QString("VB High");
+        mod++;
+    }
+
+    //Voltage - VG:
+    if(GET_VG_FLAG(stat1) == V_LOW)
+    {
+        if(mod){str1 += QString(" | ");};
+        str1 += QString("VG Low");
+        mod++;
+    }
+    else if(GET_VG_FLAG(stat1) == V_HIGH)
+    {
+        if(mod){str1 += QString(" | ");};
+        str1 += QString("VG High");
+        mod++;
+    }
+
+    //If nothing is wrong:
+    if(mod == 0)
+    {
+        str1 = QString("Status 1: OK");
+    }
+
+    //Display string:
+    ui->label_status1->setText(str1);
+
+    //Status 2:
+    //==========
+    mod = 0;
+
+    //FSM:
+    if(GET_FSM_FLAG(stat2) == 1)
+    {
+        if(mod){str2 += QString(" | ");};
+        str2 += QString("FSM Enabled");
+        mod++;
+    }
+
+    //Voltage - 3V3:
+    if(GET_3V3_FLAG(stat2) == V_LOW)
+    {
+        if(mod){str2 += QString(" | ");};
+        str2 += QString("VG Low");
+        mod++;
+    }
+    else if(GET_3V3_FLAG(stat2) == V_HIGH)
+    {
+        if(mod){str2 += QString(" | ");};
+        str2 += QString("VG High");
+        mod++;
+    }
+
+    //If nothing is wrong:
+    if(mod == 0)
+    {
+        str2 = QString("Status 2: OK");
+    }
+
+    //Display string:
+    ui->label_status2->setText(str2);
 }
