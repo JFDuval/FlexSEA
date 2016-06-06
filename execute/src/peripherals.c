@@ -25,6 +25,7 @@ uint8 uart_dma_rx_buf[96];	//ToDo #define
 uint8 uart_dma_tx_buf[96];
 uint8 DMA_4_Chan;
 uint8 DMA_4_TD[1];
+uint8 gui_fsm_flag = DISABLED;
 
 //****************************************************************************
 // Function(s)
@@ -126,6 +127,11 @@ void init_peripherals(void)
 	#ifdef USE_USB	
 	init_usb();
 	#endif	//USE_USB
+	
+	//Notify the GUI that a FSM is running:
+	#if(RUNTIME_FSM == ENABLED)
+	gui_fsm_flag = ENABLED;
+	#endif	//(RUNTIME_FSM == ENABLED)
 }
 
 //Timebase timers init:

@@ -2,7 +2,7 @@
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (JF) Duval
 // jfduval@media.mit.edu
-// 05/2016
+// 06/2016
 //****************************************************************************
 // main: FlexSEA-Execute
 //****************************************************************************
@@ -33,6 +33,7 @@
 #include "user_exo.h"
 #include "user_csea_knee.h"	
 #include "user_ricnu_knee.h"	
+#include "user_ankle_2dof.h"	
 #include "control.h"
 #include "sensor_commut.h"
 #include "ext_input.h"
@@ -76,14 +77,30 @@ int main(void);
 #define PROJECT_EXOCUTE			1	//ExoBoot, everything running on Execute
 #define PROJECT_CSEA_KNEE		2	//CSEA Knee + FlexSEA
 #define PROJECT_RICNU_KNEE		3	//RIC/NU Knee
-#define PROJECT_2DOF_ANKLE		4	//Biomechatronics 2-DOF Ankle
+#define PROJECT_ANKLE_2DOF		4	//Biomechatronics 2-DOF Ankle
+
+//List of sub-projects:
+#define SUBPROJECT_NONE			0
+#define SUBPROJECT_A			1
+#define SUBPROJECT_B			2
+//(ex.: the 2-DoF ankle has 2 Execute. They both use PROJECT_2DOF_ANKLE, and each
+// 		of them has a sub-project for specific configs)
+
+//Motor type:
+#define MOTOR_BRUSHED			0
+#define MOTOR_BRUSHLESS			1
+
+//Generic:
+#define DISABLED				0
+#define ENABLED					1
 
 //Step 1) Select active project (from list):
 //==========================================
 
-#define ACTIVE_PROJECT	PROJECT_RICNU_KNEE
+#define ACTIVE_PROJECT			PROJECT_CSEA_KNEE
+#define ACTIVE_SUBPROJECT		SUBPROJECT_A
 
-//Step 2) Customize the enabled/disables sub-modules:
+//Step 2) Customize the enabled/disabled sub-modules:
 //===================================================
 
 //Barebone FlexSEA-Execute project - no external peripherals.
@@ -99,6 +116,12 @@ int main(void);
 	#define USE_I2C_1			//5V, Safety-CoP & strain gauge pot.
 	#define USE_IMU				//Requires USE_I2C_0
 	#define USE_STRAIN			//Requires USE_I2C_1
+	
+	//Motor type:
+	#define MOTOR_TYPE		MOTOR_BRUSHLESS
+	
+	//Runtime finite state machine (FSM):
+	#define RUNTIME_FSM		DISABLED
 	
 	//Encoders:
 	#define ENC_CONTROL		ENC_QUADRATURE
@@ -123,6 +146,12 @@ int main(void);
 	#define USE_I2C_1			//5V, Safety-CoP & strain gauge pot.
 	#define USE_IMU				//Requires USE_I2C_0
 	#define USE_STRAIN			//Requires USE_I2C_1
+	
+	//Motor type:
+	#define MOTOR_TYPE		MOTOR_BRUSHLESS
+	
+	//Runtime finite state machine (FSM):
+	#define RUNTIME_FSM		DISABLED
 
 	//Encoders:
 	#define ENC_CONTROL		ENC_QUADRATURE
@@ -147,6 +176,12 @@ int main(void);
 	#define USE_I2C_1			//5V, Safety-CoP & strain gauge pot.
 	#define USE_IMU				//Requires USE_I2C_0
 	//#define USE_STRAIN		//Requires USE_I2C_1
+	
+	//Motor type:
+	#define MOTOR_TYPE		MOTOR_BRUSHLESS
+	
+	//Runtime finite state machine (FSM):
+	#define RUNTIME_FSM		ENABLED
 
 	//Encoders:
 	#define ENC_CONTROL		ENC_ANALOG
@@ -160,6 +195,9 @@ int main(void);
 	#define CSEA_FULL_EXT			0
 	#define CSEA_MARGIN				300
 	#define CSEA_MOTION_TIME		3500
+	
+	//Control encoder function:
+	#define CTRL_ENC_FCT(x) (-((int16)x - CSEA_FULL_EXT_RAW))
 	
 #endif	//PROJECT_CSEA_KNEE
 
@@ -181,15 +219,76 @@ int main(void);
 	//#define USE_MINM_RGB		//External RGB LED. Requires USE_I2C_0.
 	#define USE_EXT_I2C_STRAIN	//External Strain Amplifier, on I2C0
 	#define USE_AS5048B			//14-bit Position Sensor, on I2C0
+	
+	//Motor type:
+	#define MOTOR_TYPE		MOTOR_BRUSHLESS
+	
+	//Runtime finite state machine (FSM):
+	#define RUNTIME_FSM		ENABLED
 
 	//Encoders:
 	#define ENC_CONTROL		ENC_AS5048B
 	#define ENC_COMMUT		ENC_AS5047
 	#define ENC_DISPLAY		ENC_CONTROL	
 	
+	//Control encoder function:
+	#define CTRL_ENC_FCT(x) (x)	//ToDo
+	
 	//Project specific definitions:
 	//...
 	
 #endif	//PROJECT_RICNU_KNEE
+
+//MIT 2-DoF Ankle
+#if(ACTIVE_PROJECT == PROJECT_ANKLE_2DOF)
+	
+	//Enable/Disable sub-modules:
+	#define USE_RS485
+	#define USE_USB
+	#define USE_COMM			//Requires USE_RS485 and/or USE_USB
+	//#define USE_QEI
+	#define USE_TRAPEZ
+	#define USE_I2C_0			//3V3, IMU & Expansion.
+	#define USE_I2C_1			//5V, Safety-CoP & strain gauge pot.
+	#define USE_IMU				//Requires USE_I2C_0
+	//#define USE_STRAIN		//Requires USE_I2C_1
+	#define USE_AS5047			//16-bit Position Sensor, SPI
+	#define USE_SPI_COMMUT		//
+	
+	//Motor type:
+	#define MOTOR_TYPE		MOTOR_BRUSHLESS
+	
+	//Runtime finite state machine (FSM):
+	#define RUNTIME_FSM		ENABLED
+
+	//Encoders:
+	#define ENC_CONTROL		ENC_AS5048B
+	#define ENC_COMMUT		ENC_AS5047
+	#define ENC_DISPLAY		ENC_CONTROL	
+	
+	//Subproject A: Left actuator
+	#if(ACTIVE_SUBPROJECT == SUBPROJECT_A)
+		
+		//Control encoder function:
+		#define CTRL_ENC_FCT(x) (x)	//ToDo
+		
+		//...
+		
+	#endif	//SUBPROJECT_A
+	
+	//Subproject B: Right actuator
+	#if(ACTIVE_SUBPROJECT == SUBPROJECT_A)
+		
+		//Control encoder function:
+		#define CTRL_ENC_FCT(x) (x)	//ToDo
+		
+		//...
+		
+	#endif	//SUBPROJECT_A
+	
+	//Project specific definitions:
+	//...
+	
+#endif	//PROJECT_ANKLE_2DOF
 
 #endif // MAIN_H_

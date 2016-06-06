@@ -200,11 +200,8 @@ void get_as5048b_position(void)
 //Converts from ADC reading to position
 int16 get_analog_pos(void)
 {
-	int16 retval = 0;
-	
 	#if(ACTIVE_PROJECT == PROJECT_CSEA_KNEE)
-		retval = -((int16)adc1_res_filtered[0] - CSEA_FULL_EXT_RAW);
-		return retval;
+		return CTRL_ENC_FCT(adc1_res_filtered[0]);
 	#else
 		return 0;
 	#endif

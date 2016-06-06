@@ -29,6 +29,7 @@ void init_tb_timers(void);
 
 extern uint8 uart_dma_rx_buf[96];
 extern uint8 uart_dma_tx_buf[96];
+extern uint8 gui_fsm_flag;
 
 //****************************************************************************
 // Definition(s):

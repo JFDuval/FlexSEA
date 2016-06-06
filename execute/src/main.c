@@ -111,6 +111,11 @@ int main(void)
 	init_ricnu_knee();
 	#endif	//PROJECT_RICNU_KNEE
 	
+	//MIT Ankle 2-DoF:
+	#if(ACTIVE_PROJECT == PROJECT_ANKLE_2DOF)
+	init_ankle_2dof();
+	#endif	//PROJECT_ANKLE_2DOF
+	
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=	
 
 	//Main loop
@@ -313,23 +318,27 @@ int main(void)
 					
 					break;
 				
-				//Case 9: User functions	
+				//Case 9: User functions & 1s timebase	
 				case 9:
 					
-					//ExoBoot code - 1kHz
-					#if(ACTIVE_PROJECT == PROJECT_EXOCUTE)				                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-					exo_fsm();							
-					#endif	//PROJECT_EXOCUTE
+					#if(RUNTIME_FSM == ENABLED)
+						
+						//ExoBoot code - 1kHz
+						#if(ACTIVE_PROJECT == PROJECT_EXOCUTE)				                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+						exo_fsm();							
+						#endif	//PROJECT_EXOCUTE
+						
+						//CSEA Knee code - 1kHz
+						#if(ACTIVE_PROJECT == PROJECT_CSEA_KNEE)				                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+						csea_knee_fsm();						
+						#endif	//PROJECT_CSEA_KNEE
+						
+						//RIC/NU Knee code - 1kHz
+						#if(ACTIVE_PROJECT == PROJECT_RICNU_KNEE)				                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+						ricnu_knee_fsm();						
+						#endif	//PROJECT_RICNU_KNEE
 					
-					//CSEA Knee code - 1kHz
-					#if(ACTIVE_PROJECT == PROJECT_CSEA_KNEE)				                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-					csea_knee_fsm();						
-					#endif	//PROJECT_CSEA_KNEE
-					
-					//RIC/NU Knee code - 1kHz
-					#if(ACTIVE_PROJECT == PROJECT_RICNU_KNEE)				                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-					ricnu_knee_fsm();						
-					#endif	//PROJECT_RICNU_KNEE
+					#endif //RUNTIME_FSM == ENABLED
 					
 					//1s timebase:
 					if(timebase_1s())
@@ -345,16 +354,14 @@ int main(void)
 			}
 			
 			//The code below is executed every 100us, after the previous slot. 
-			//Keep it short!
-			
+			//Keep it short!			
 			
 			//BEGIN - 10kHz Refresh
 			
 			//RS-485 Byte Input
 			#ifdef USE_RS485			
 		
-			//get_uart_data();	//Now done via DMA
-			
+			//Data received via DMA
 			if(data_ready_485)
 			{
 				data_ready_485 = 0;
