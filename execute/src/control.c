@@ -313,13 +313,13 @@ inline int32 motor_current_pid_2(int32 wanted_curr, int32 measured_curr)
 	//Sign extracted from wanted_curr:
 	if(wanted_curr < 0)
 	{
-		sign = -1;
+		sign = (-1)*PWM_SIGN;
 		MotorDirection_Control = 0;		//MotorDirection_Write(0);
 		uint_wanted_curr = -wanted_curr;
 	}
 	else
 	{
-		sign = 1;
+		sign = (1)*PWM_SIGN;
 		MotorDirection_Control = 1;		//MotorDirection_Write(1);
 		uint_wanted_curr = wanted_curr;
 	}

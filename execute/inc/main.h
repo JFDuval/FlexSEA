@@ -97,7 +97,7 @@ int main(void);
 //Step 1) Select active project (from list):
 //==========================================
 
-#define ACTIVE_PROJECT			PROJECT_CSEA_KNEE
+#define ACTIVE_PROJECT			PROJECT_ANKLE_2DOF
 #define ACTIVE_SUBPROJECT		SUBPROJECT_A
 
 //Step 2) Customize the enabled/disabled sub-modules:
@@ -117,8 +117,9 @@ int main(void);
 	#define USE_IMU				//Requires USE_I2C_0
 	#define USE_STRAIN			//Requires USE_I2C_1
 	
-	//Motor type:
+	//Motor type & direction:
 	#define MOTOR_TYPE		MOTOR_BRUSHLESS
+	#define PWM_SIGN		1
 	
 	//Runtime finite state machine (FSM):
 	#define RUNTIME_FSM		DISABLED
@@ -147,8 +148,9 @@ int main(void);
 	#define USE_IMU				//Requires USE_I2C_0
 	#define USE_STRAIN			//Requires USE_I2C_1
 	
-	//Motor type:
+	//Motor type & direction:
 	#define MOTOR_TYPE		MOTOR_BRUSHLESS
+	#define PWM_SIGN		1
 	
 	//Runtime finite state machine (FSM):
 	#define RUNTIME_FSM		DISABLED
@@ -177,8 +179,9 @@ int main(void);
 	#define USE_IMU				//Requires USE_I2C_0
 	//#define USE_STRAIN		//Requires USE_I2C_1
 	
-	//Motor type:
+	//Motor type & direction:
 	#define MOTOR_TYPE		MOTOR_BRUSHLESS
+	#define PWM_SIGN		1
 	
 	//Runtime finite state machine (FSM):
 	#define RUNTIME_FSM		ENABLED
@@ -220,8 +223,9 @@ int main(void);
 	#define USE_EXT_I2C_STRAIN	//External Strain Amplifier, on I2C0
 	#define USE_AS5048B			//14-bit Position Sensor, on I2C0
 	
-	//Motor type:
+	//Motor type & direction:
 	#define MOTOR_TYPE		MOTOR_BRUSHLESS
+	#define PWM_SIGN		1
 	
 	//Runtime finite state machine (FSM):
 	#define RUNTIME_FSM		ENABLED
@@ -262,7 +266,7 @@ int main(void);
 	#define RUNTIME_FSM		ENABLED
 
 	//Encoders:
-	#define ENC_CONTROL		ENC_AS5048B
+	#define ENC_CONTROL		ENC_AS5047
 	#define ENC_COMMUT		ENC_AS5047
 	#define ENC_DISPLAY		ENC_CONTROL	
 	
@@ -271,16 +275,18 @@ int main(void);
 		
 		//Control encoder function:
 		#define CTRL_ENC_FCT(x) (x)	//ToDo
+		#define PWM_SIGN		1
 		
 		//...
 		
 	#endif	//SUBPROJECT_A
 	
 	//Subproject B: Right actuator
-	#if(ACTIVE_SUBPROJECT == SUBPROJECT_A)
+	#if(ACTIVE_SUBPROJECT == SUBPROJECT_B)
 		
 		//Control encoder function:
 		#define CTRL_ENC_FCT(x) (x)	//ToDo
+		#define PWM_SIGN		-1
 		
 		//...
 		
