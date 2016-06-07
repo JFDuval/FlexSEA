@@ -159,15 +159,13 @@ void motor_fixed_pwm_test_code_blocking(int spd)
 		toggle_wdclk ^= 1;
 		WDCLK_Write(toggle_wdclk);
 		
-		encoder_read();
+		refresh_enc_control();
 	}
 }
 
 //Sends a constant PWM. Non-Blocking.
 void motor_fixed_pwm_test_code_non_blocking(int spd)
 {
-	uint8 toggle_wdclk = 0;	
-	
 	ctrl.active_ctrl = CTRL_OPEN;	
 	Coast_Brake_Write(1);	//Brake
 	motor_open_speed_1(spd);	
@@ -185,9 +183,9 @@ void test_pwm_pulse_blocking(void)
 	while(1)
 	{	
 		//RGB LED = Hall code:
-		LED_R_Write(H1_Read());
-		LED_G_Write(H2_Read());
-		LED_B_Write(H3_Read());
+		LED_R_Write(EX1_Read());
+		LED_G_Write(EX2_Read());
+		LED_B_Write(EX3_Read());
 		
 		val = output_step();
 		motor_open_speed_1(val);

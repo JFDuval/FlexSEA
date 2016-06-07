@@ -25,6 +25,7 @@ uint8_t tmp_rx_command_485[PAYLOAD_BUF_LEN];
 uint8_t tmp_rx_command_usb[PAYLOAD_BUF_LEN];
 uint8 toggle_wdclk = 0;	
 uint8 cmd_ready_485 = 0, cmd_ready_usb = 0;	
+int steps = 0, current_step = 0;
 
 //****************************************************************************
 // Private Function Prototype(s):

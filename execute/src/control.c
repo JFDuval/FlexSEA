@@ -493,9 +493,9 @@ void motor_cancel_damping_test_code_blocking(void)
 	while(1)
 	{	
 		//RGB LED = Hall code:
-		LED_R_Write(H1_Read());
-		LED_G_Write(H2_Read());
-		LED_B_Write(H3_Read());
+		LED_R_Write(EX1_Read());
+		LED_G_Write(EX2_Read());
+		LED_B_Write(EX3_Read());
 		
 		//Refresh encoder data:
 		encoder.count_last = encoder.count;	
