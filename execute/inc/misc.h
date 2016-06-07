@@ -34,9 +34,8 @@ extern uint16 last_as5047_word;
 // Public Function Prototype(s):
 //****************************************************************************
 
-void test_current_tracking_blocking(void);
-void test_pwm_pulse_blocking(void);
-void csea_knee_up_down_test_demo(void);
+void test_code_blocking(void);	
+void test_code_non_blocking(void);
 uint8 timebase_1s(void);
 
 void timing_test_blocking(void);

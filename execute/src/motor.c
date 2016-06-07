@@ -51,7 +51,13 @@ void init_motor(void)
 	//Quadrature 1: Motor shaft encoder
 	#ifdef USE_QEI
 	init_qei();
-	#endif	//USE_QEI	
+	#endif	//USE_QEI
+	
+	//When using Brushed, fixed Hall code:
+	#if(MOTOR_TYPE == MOTOR_BRUSHED)
+	Use_Hall_Write(HALL_VIRTUAL);
+	Virtual_Hall_Write(0b110); 
+	#endif	//MOTOR_TYPE == MOTOR_BRUSHED
 }
 
 //Controls motor PWM duty cycle

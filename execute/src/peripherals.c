@@ -132,6 +132,9 @@ void init_peripherals(void)
 	#if(RUNTIME_FSM == ENABLED)
 	gui_fsm_flag = ENABLED;
 	#endif	//(RUNTIME_FSM == ENABLED)
+	
+	//Start with an empty buffer
+	flexsea_clear_slave_read_buffer();
 }
 
 //Timebase timers init:

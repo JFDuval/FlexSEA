@@ -18,6 +18,7 @@
 #include <DieTemp_1.h>
 #include <math.h>
 #include "stdio.h"
+#include "main_fsm.h"
 #include "serial.h"
 #include "i2c.h"
 #include "motor.h"
@@ -30,16 +31,13 @@
 #include "strain.h"
 #include "safety.h"
 #include "peripherals.h"
-#include "user_exo.h"
-#include "user_csea_knee.h"	
-#include "user_ricnu_knee.h"	
-#include "user_ankle_2dof.h"	
 #include "control.h"
 #include "sensor_commut.h"
 #include "ext_input.h"
 #include "ext_output.h"
 #include "gen_waveform.h"
 #include "demo.h"
+#include "user.h"	//Contains all the user_x.h includes
 #include "flexsea_board.h"
 #include "../../flexsea-system/inc/flexsea_system.h"	
 #include "../../flexsea-comm/inc/flexsea.h"	
@@ -56,6 +54,10 @@ extern uint16 angle;
 //****************************************************************************
 
 int main(void);
+
+#if defined (__GNUC__)
+    asm (".global _printf_float");
+#endif
 
 //****************************************************************************
 // Definition(s):
@@ -78,6 +80,7 @@ int main(void);
 #define PROJECT_CSEA_KNEE		2	//CSEA Knee + FlexSEA
 #define PROJECT_RICNU_KNEE		3	//RIC/NU Knee
 #define PROJECT_ANKLE_2DOF		4	//Biomechatronics 2-DOF Ankle
+#define PROJECT_DSDM			5	//MIT d'Arbeloff Dual-Speed Dual-Motor
 
 //List of sub-projects:
 #define SUBPROJECT_NONE			0
@@ -86,18 +89,10 @@ int main(void);
 //(ex.: the 2-DoF ankle has 2 Execute. They both use PROJECT_2DOF_ANKLE, and each
 // 		of them has a sub-project for specific configs)
 
-//Motor type:
-#define MOTOR_BRUSHED			0
-#define MOTOR_BRUSHLESS			1
-
-//Generic:
-#define DISABLED				0
-#define ENABLED					1
-
 //Step 1) Select active project (from list):
 //==========================================
 
-#define ACTIVE_PROJECT			PROJECT_ANKLE_2DOF
+#define ACTIVE_PROJECT			PROJECT_DSDM
 #define ACTIVE_SUBPROJECT		SUBPROJECT_A
 
 //Step 2) Customize the enabled/disabled sub-modules:
@@ -236,7 +231,7 @@ int main(void);
 	#define ENC_DISPLAY		ENC_CONTROL	
 	
 	//Control encoder function:
-	#define CTRL_ENC_FCT(x) (x)	//ToDo
+	#define CTRL_ENC_FCT(x) (14000 - x)	//ToDo make better
 	
 	//Project specific definitions:
 	//...
@@ -290,11 +285,63 @@ int main(void);
 		
 		//...
 		
-	#endif	//SUBPROJECT_A
+	#endif	//SUBPROJECT_B
 	
 	//Project specific definitions:
 	//...
 	
 #endif	//PROJECT_ANKLE_2DOF
+
+//MIT d'Arbeloff Dual-Speed Dual-Motor
+#if(ACTIVE_PROJECT == PROJECT_DSDM)
+	
+	//Enable/Disable sub-modules:
+	#define USE_RS485
+	#define USE_USB
+	#define USE_COMM			//Requires USE_RS485 and/or USE_USB
+	#define USE_QEI
+	#define USE_TRAPEZ
+	#define USE_I2C_0			//3V3, IMU & Expansion.
+	#define USE_I2C_1			//5V, Safety-CoP & strain gauge pot.
+	#define USE_IMU				//Requires USE_I2C_0
+	//#define USE_STRAIN			//Requires USE_I2C_1
+	
+	//Motor type & direction:
+	#define MOTOR_TYPE		MOTOR_BRUSHED
+	
+	//Runtime finite state machine (FSM):
+	#define RUNTIME_FSM		DISABLED
+
+	//Encoders:
+	#define ENC_CONTROL		ENC_QUADRATURE
+	#define ENC_COMMUT		ENC_NONE		//Brushed, no encoder
+	#define ENC_DISPLAY		ENC_CONTROL
+	
+	//Subproject A: Fast actuator
+	#if(ACTIVE_SUBPROJECT == SUBPROJECT_A)
+		
+		//Control encoder function:
+		#define CTRL_ENC_FCT(x) (x)	//ToDo
+		#define PWM_SIGN		1
+		
+		//...
+		
+	#endif	//SUBPROJECT_A
+	
+	//Subproject B: Slow actuator
+	#if(ACTIVE_SUBPROJECT == SUBPROJECT_B)
+		
+		//Control encoder function:
+		#define CTRL_ENC_FCT(x) (x)	//ToDo
+		#define PWM_SIGN		1
+		
+		//...
+		
+	#endif	//SUBPROJECT_B	
+	
+	//Project specific definitions:
+	//...
+	
+#endif	//PROJECT_DSDM
 
 #endif // MAIN_H_

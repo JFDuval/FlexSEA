@@ -89,7 +89,7 @@ int32 refresh_enc_control(void)
 	#elif(ENC_CONTROL == ENC_AS5047)
 		encoder.count = as5047.angle_cont;
 	#elif(ENC_CONTROL == ENC_AS5048B)
-		encoder.count = as5048b.angle;
+		encoder.count = as5048b.angle_ctrl;
 	#endif
 		
 	encoder.count_dif = encoder.count - encoder.count_last;
@@ -114,7 +114,7 @@ int32 refresh_enc_display(void)
 	#elif(ENC_DISPLAY == ENC_AS5047)
 		tmp_enc = as5047.angle_cont;
 	#elif(ENC_DISPLAY == ENC_AS5048B)
-		tmp_enc = as5048b.angle;
+		tmp_enc = as5048b.angle_ctrl;
 	#endif
 	
 	return tmp_enc;

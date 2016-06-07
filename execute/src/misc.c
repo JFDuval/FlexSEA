@@ -61,6 +61,46 @@ uint8 timebase_1s(void)
 	return 0;
 }
 
+void test_code_blocking(void)
+{
+	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+	//Blocking Test code - enable one and only one for special 
+	//debugging. Normal code WILL NOT EXECUTE when this is enabled!
+	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+	//strain_test_blocking();
+	//safety_cop_comm_test_blocking();
+	//imu_test_code_blocking();
+	//motor_fixed_pwm_test_code_blocking(200);
+	//wdclk_test_blocking();
+	//timing_test_blocking();
+	//test_current_tracking_blocking();
+	//test_pwm_pulse_blocking();
+	//test_uart_dma_xmit();
+	//motor_cancel_damping_test_code_blocking();
+	//csea_knee_up_down_test_demo();
+	//motor_stepper_test_blocking_1(80);
+	//test_pwro_output_blocking();
+	//strain_amp_6ch_test_code_blocking();
+	//as5047_test_code_blocking();
+	//as5048b_test_code_blocking();
+	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=	
+}
+
+void test_code_non_blocking(void)
+{
+	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+	//Non-Blocking Test code
+	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+	#ifdef USE_SPI_COMMUT		
+	motor_stepper_test_init(0);
+	//Note: deadtime is 55, small PWM values won't make it move.
+	//Starting at 0, GUI will change that when it wants.	
+	#endif	//USE_SPI_COMMUT	
+	//motor_fixed_pwm_test_code_non_blocking(125);
+	//pwro_output(245);	
+	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=		
+}
+
 //****************************************************************************
 // Private Function(s)
 //****************************************************************************

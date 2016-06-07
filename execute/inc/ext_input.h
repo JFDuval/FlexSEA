@@ -127,9 +127,10 @@ void get_as5048b_position(void);
 //AS504x Magnetic encoders:
 struct as504x_s
 {
-	uint16_t angle;
-	uint16_t angle_comp;
-	int64_t angle_cont;
+	uint16_t angle_raw;		//Sensor reading
+	uint16_t angle_comp;	//Sensor reading, 2/ Compensation enabled
+	uint16_t angle_ctrl;	//Modified version (gain, zero). Used by controllers.
+	int64_t angle_cont;		//Continuous angle (multi-turn applications). Used by controllers.
 };
 	
 #endif	//INC_EXT_IN_H

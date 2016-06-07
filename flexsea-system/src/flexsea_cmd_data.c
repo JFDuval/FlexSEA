@@ -412,11 +412,11 @@ uint32_t tx_cmd_data_read_all_ricnu(uint8_t receiver, uint8_t cmd_type, uint8_t 
 		buf[P_DATA1 + 10] = tmp0;
 		buf[P_DATA1 + 11] = tmp1;		
 		
-		uint16_to_bytes((uint16_t)as5047.angle, &tmp0, &tmp1);
+		uint16_to_bytes((uint16_t)as5047.angle_raw, &tmp0, &tmp1);
 		buf[P_DATA1 + 12] = tmp0;
 		buf[P_DATA1 + 13] = tmp1;
 		
-		uint16_to_bytes((uint16_t)as5048b.angle, &tmp0, &tmp1);
+		uint16_to_bytes((uint16_t)encoder.count, &tmp0, &tmp1);
 		buf[P_DATA1 + 14] = tmp0;
 		buf[P_DATA1 + 15] = tmp1;
 

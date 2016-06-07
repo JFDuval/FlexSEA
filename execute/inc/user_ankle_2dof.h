@@ -2,7 +2,7 @@
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
 // jfduval@media.mit.edu
-// 05/2015
+// 06/2016
 //****************************************************************************
 // user_ankle_2dof: 2-DoF Ankle Functions
 //****************************************************************************

@@ -30,6 +30,77 @@ volatile uint8 i2c_0_r_buf[24];
 // Public Function(s)
 //****************************************************************************
 
+void i2c_0_fsm(void)
+{
+	static uint8 i2c_time_share = 0;
+	static uint8 minm_i2c = 0;
+	
+	i2c_time_share++;
+	i2c_time_share %= 4;
+
+	#ifdef USE_I2C_0 
+
+	//Subdivided in 4 slots (250Hz)
+	switch(i2c_time_share)
+	{
+		//Case 0.0: Accelerometer
+		case 0:
+		
+			#ifdef USE_IMU							
+			get_accel_xyz();
+			i2c_last_request = I2C_RQ_ACCEL;
+			#endif 	//USE_IMU
+		
+			break;
+		
+		//Case 0.1: Gyroscope
+		case 1:
+			
+			#ifdef USE_IMU							
+			get_gyro_xyz();		
+			i2c_last_request = I2C_RQ_GYRO;
+			#endif 	//USE_IMU
+			
+			break;
+		
+		//Case 0.2: AS5048B position sensor
+		case 2:
+			#ifdef USE_AS5048B
+			get_as5048b_position();
+			i2c_last_request = I2C_RQ_AS5048B;		
+			#endif //USE_AS5048B
+			break;
+		
+		//Case 0.3: MinM RGB LED & external strain amplifier
+		case 3:
+			
+			//I2C RGB LED
+			#ifdef USE_MINM_RGB
+			//minm_test_code();	
+			minm_i2c = update_minm_rgb();
+			#else
+			minm_i2c = 0;	
+			#endif 	//USE_MINM_RGB
+			
+			//External strain gauge amplifier
+			#ifdef USE_EXT_I2C_STRAIN
+			if(!minm_i2c)
+			{
+				//If the MinM was refreshed we skip one measurement.
+				get_6ch_strain();
+				i2c_last_request = I2C_RQ_EXT_STRAIN;
+			}
+			#endif //USE_EXT_I2C_STRAIN
+			
+			break;
+		
+		default:
+			break;
+	}
+	
+	#endif //USE_I2C_0
+}
+
 //I2C0 - 3V3, IMU & Expansion.
 void init_i2c_0(void)
 {
@@ -182,7 +253,8 @@ void assign_i2c_data(uint8 *newdata)
 	}
 	else if(i2c_last_request == I2C_RQ_AS5048B)
 	{
-			as5048b.angle = (newdata[0]<<6) + (newdata[1]&0x3F);
+			as5048b.angle_raw = (newdata[0]<<6) + (newdata[1]&0x3F);
+			as5048b.angle_ctrl = CTRL_ENC_FCT(as5048b.angle_raw);
 	}
 	else if(i2c_last_request == I2C_RQ_EXT_STRAIN)
 	{

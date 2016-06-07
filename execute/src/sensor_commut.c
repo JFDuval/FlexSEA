@@ -354,18 +354,18 @@ void sensor_commut_1(void)
 	static int16 mot_spins = 0;
 	int32 tempangle;
 	tempangle = (as5047_read_single(AS5047_REG_ANGLECOM));//%16384;
-	if (tempangle<1000 && as5047.angle>15000)
+	if (tempangle<1000 && as5047.angle_raw>15000)
 	{
 	    mot_spins++;  
 	}
-	else if ((tempangle>15000 && as5047.angle<1000))
+	else if ((tempangle>15000 && as5047.angle_raw<1000))
 	{
 	    mot_spins--;
 	}
 	as5047.angle_cont = mot_spins*16384+tempangle;
-	as5047.angle = tempangle;
+	as5047.angle_raw = tempangle;
 
-	motor_spi_block_commutation(as5047.angle);
+	motor_spi_block_commutation(as5047.angle_raw);
 
 	//motor_spi_block_commutation_triangletest();
 	//motor_open_speed_1(300);

@@ -408,6 +408,14 @@ void flexsea_payload_127(uint8_t *buf);
 #define SRB_MANAGE_AN7_MSB				18			//MSB for Analog 7
 #define SRB_MANAGE_AN7_LSB				19			//LSB
 
+//Motor type:
+#define MOTOR_BRUSHED			0
+#define MOTOR_BRUSHLESS			1
+
+//Generic:
+#define DISABLED				0
+#define ENABLED					1
+
 //****************************************************************************
 // Structure(s):
 //****************************************************************************
