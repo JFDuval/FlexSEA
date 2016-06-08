@@ -66,7 +66,7 @@ void user_fsm(void);
 //Step 1) Select active project (from list):
 //==========================================
 
-#define ACTIVE_PROJECT			PROJECT_DSDM
+#define ACTIVE_PROJECT			PROJECT_BAREBONE
 #define ACTIVE_SUBPROJECT		SUBPROJECT_A
 
 //Step 2) Customize the enabled/disabled sub-modules:
@@ -98,6 +98,9 @@ void user_fsm(void);
 	#define ENC_COMMUT		ENC_HALL
 	#define ENC_DISPLAY		ENC_QUADRATURE	
 	
+	//Control encoder function:
+	#define CTRL_ENC_FCT(x) (x)	
+	
 	//Project specific definitions:
 	//...
 	
@@ -128,6 +131,9 @@ void user_fsm(void);
 	#define ENC_CONTROL		ENC_QUADRATURE
 	#define ENC_COMMUT		ENC_HALL
 	#define ENC_DISPLAY		ENC_CONTROL
+	
+	//Control encoder function:
+	#define CTRL_ENC_FCT(x) (x)	
 	
 	//Project specific definitions:
 	//...
