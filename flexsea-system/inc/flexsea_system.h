@@ -49,6 +49,7 @@ uint32_t tx_cmd_ctrl_p_g(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint3
 						int16_t kp, int16_t ki, int16_t kd);
 uint32_t tx_cmd_ctrl_z_g(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
 						int16_t zk, int16_t zb, int16_t zi);
+uint32_t tx_cmd_in_control(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, uint8_t select_w);
 						
 //Data:
 uint32_t tx_cmd_data_acqui(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, int16_t acqui);
@@ -91,6 +92,7 @@ uint32_t tx_cmd_strain(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_
 #define rx_cmd_ctrl_o				flexsea_payload_85
 #define rx_cmd_ctrl_i				flexsea_payload_86
 #define rx_cmd_ctrl_p				flexsea_payload_87
+#define rx_cmd_in_control			flexsea_payload_90
 
 //Data:
 #define rx_cmd_data_acqui			flexsea_payload_21
@@ -222,7 +224,7 @@ void flexsea_payload_88(uint8_t *buf);
 void flexsea_payload_89(uint8_t *buf);
 
 //90-99: 
-void flexsea_payload_90(uint8_t *buf);
+//void flexsea_payload_90(uint8_t *buf);	//CMD_IN_CONTROL
 void flexsea_payload_91(uint8_t *buf);
 void flexsea_payload_92(uint8_t *buf);
 void flexsea_payload_93(uint8_t *buf);
@@ -322,6 +324,7 @@ void flexsea_payload_127(uint8_t *buf);
 #define CMD_CTRL_I						86
 #define CMD_CTRL_P						87
 #define SHORTED_LEADS					88
+#define CMD_IN_CONTROL					90
 
 //Special commands:
 
@@ -454,6 +457,22 @@ struct manage_s
 {
 	uint8_t sw1;
 	uint8_t sampling;
+};
+
+//In Control Tool:
+struct in_control_s
+{
+	uint8_t controller;
+	int32_t setp;
+	int32_t actual_val;
+	int32_t error;
+	int32_t output;
+	int16_t pwm;
+	uint8_t mot_dir;
+	uint16_t current;
+	
+	int32_t r[4];
+	int32_t w[4];
 };
 
 //Strain gauge amplifier:
