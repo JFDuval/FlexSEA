@@ -469,7 +469,7 @@ struct in_control_s
 	int32_t output;
 	int16_t pwm;
 	uint8_t mot_dir;
-	uint16_t current;
+	int16_t current;
 	
 	int32_t r[4];
 	int32_t w[4];
