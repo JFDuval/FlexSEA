@@ -42,6 +42,7 @@ void MainWindow::stream_in_ctrl(void)
 
     //Raw values:
 
+    ui->disp_inctrl_active_controller->setText(var_list_controllers.at(in_control_1.controller));
     ui->disp_inctrl_setp->setText(QString::number(in_control_1.setp));
     ui->disp_inctrl_actual_val->setText(QString::number(in_control_1.actual_val));
     ui->disp_inctrl_error->setText(QString::number(in_control_1.error));
@@ -51,6 +52,13 @@ void MainWindow::stream_in_ctrl(void)
     ui->disp_inctrl_dir->setText(QString::number(in_control_1.mot_dir));
 
     ui->disp_inctrl_current->setText(QString::number(in_control_1.current));
+
+    ui->disp_inctrl_0->setText(QString::number(in_control_1.r[0]));
+    //qDebug() << "r[0] =" << in_control_1.r[0];
+    ui->disp_inctrl_1->setText(QString::number(in_control_1.r[1]));
+
+    //Decoded:
+
     ui->disp_inctrl_current_d->setText(QString::number((float)(in_control_1.current)*18.5, 'i',0));
 
     ui->tabWidget->repaint();

@@ -39,7 +39,6 @@ void MainWindow::init_tab_ctrl(void)
     ui->control_trapeze_acc->setText("10000");
 
     //Variable option lists:
-    QStringList var_list_controllers;
     var_list_controllers << "**Null**" << "Open" << "Position" << "Current" << "Impedance" << "Other/custom";
     for(int index = 0; index < var_list_controllers.count(); index++)
     {

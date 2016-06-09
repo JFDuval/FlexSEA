@@ -137,6 +137,7 @@ private:
     void save_ctrl_gains(int controller, int16_t *gains);
     int trapez_steps = 0;
     uint8_t toggle_output_state = 0;
+    QStringList var_list_controllers;
 
     //Stream SA:
     uint8_t bound_number(int num, int min, int max);

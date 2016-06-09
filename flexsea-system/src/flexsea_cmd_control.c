@@ -1053,8 +1053,8 @@ void rx_cmd_in_control(uint8_t *buf)
 			in_control_1.combined = (BYTES_TO_UINT16(buf[P_DATA1 + 19], buf[P_DATA1 + 20]));			
 			in_control_1.current = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1 + 21], buf[P_DATA1 + 22]));
 			
-			in_control.r[0] = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1 + 23], buf[P_DATA1 + 24], buf[P_DATA1 + 25], buf[P_DATA1 + 26]));
-			in_control.r[1] = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1 + 27], buf[P_DATA1 + 28], buf[P_DATA1 + 29], buf[P_DATA1 + 30]));
+            in_control_1.r[0] = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1 + 23], buf[P_DATA1 + 24], buf[P_DATA1 + 25], buf[P_DATA1 + 26]));
+            in_control_1.r[1] = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1 + 27], buf[P_DATA1 + 28], buf[P_DATA1 + 29], buf[P_DATA1 + 30]));
             
 			in_control_1.controller = IN_CONTROL_CONTROLLER(in_control_1.combined);
 			in_control_1.mot_dir = IN_CONTROL_MOT_DIR(in_control_1.combined);
