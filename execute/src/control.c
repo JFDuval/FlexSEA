@@ -155,8 +155,10 @@ int32 motor_position_pid(int32 wanted_pos, int32 actual_pos)
 	
 	//Proportional term
 	p = (ctrl.position.gain.P_KP * ctrl.position.error) / 100;
+	in_control.r[0] = p;
 	//Integral term
 	i = (ctrl.position.gain.P_KI * ctrl.position.error_sum) / 100;
+	in_control.r[1] = i;
 	
 	//Output
 	pwm = (p + i);		//

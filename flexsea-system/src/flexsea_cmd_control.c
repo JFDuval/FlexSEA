@@ -969,7 +969,7 @@ uint32_t tx_cmd_in_control(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uin
 		buf[P_DATA1 + 24] = tmp1;
 		buf[P_DATA1 + 25] = tmp2;
 		buf[P_DATA1 + 26] = tmp3;
-		uint32_to_bytes((uint32_t)in_control.r[0], &tmp0, &tmp1, &tmp2, &tmp3);
+		uint32_to_bytes((uint32_t)in_control.r[1], &tmp0, &tmp1, &tmp2, &tmp3);
 		buf[P_DATA1 + 27] = tmp0;
 		buf[P_DATA1 + 28] = tmp1;
 		buf[P_DATA1 + 29] = tmp2;
