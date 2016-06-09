@@ -245,6 +245,8 @@ private slots:
 
     void on_pushButton_inctrl_w3_clicked();
 
+    void write_in_control_w(uint8_t var);
+
 private:
     Ui::MainWindow *ui;
 };

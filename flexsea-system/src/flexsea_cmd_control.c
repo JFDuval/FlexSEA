@@ -981,12 +981,14 @@ uint32_t tx_cmd_in_control(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uin
 
         #ifdef BOARD_TYPE_FLEXSEA_PLAN
 
-        buf[P_DATA1 + 1] = select_w; //Parameter written
+        buf[P_DATA1 + 0] = select_w; //Parameter written
         uint32_to_bytes((uint32_t)in_control_1.w[select_w], &tmp0, &tmp1, &tmp2, &tmp3);
         buf[P_DATA1 + 1] = tmp0;
         buf[P_DATA1 + 2] = tmp1;
         buf[P_DATA1 + 3] = tmp2;
         buf[P_DATA1 + 4] = tmp3;
+
+        bytes = P_DATA1 + 5;     //Bytes is always last+1
 
         #endif  //BOARD_TYPE_FLEXSEA_PLAN
 	}

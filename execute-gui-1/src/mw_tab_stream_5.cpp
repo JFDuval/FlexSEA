@@ -67,20 +67,35 @@ void MainWindow::stream_in_ctrl(void)
 
 void MainWindow::on_pushButton_inctrl_w0_clicked()
 {
-
+    in_control_1.w[0] = ui->inctrl_w0->text().toInt();
+    write_in_control_w(0);
 }
 
 void MainWindow::on_pushButton_inctrl_w1_clicked()
 {
-
+    in_control_1.w[1] = ui->inctrl_w1->text().toInt();
+    write_in_control_w(1);
 }
 
 void MainWindow::on_pushButton_inctrl_w2_clicked()
 {
-
+    in_control_1.w[2] = ui->inctrl_w2->text().toInt();
+    write_in_control_w(2);
 }
 
 void MainWindow::on_pushButton_inctrl_w3_clicked()
 {
+    in_control_1.w[3] = ui->inctrl_w3->text().toInt();
+    write_in_control_w(3);
+}
 
+void MainWindow::write_in_control_w(uint8_t var)
+{
+    int numb = 0;
+
+    numb = tx_cmd_in_control(active_slave_1, CMD_WRITE, payload_str, PAYLOAD_BUF_LEN, var);
+    numb = comm_gen_str(payload_str, comm_str_usb, PAYLOAD_BUF_LEN);
+    numb = COMM_STR_BUF_LEN;
+
+    USBSerialPort_Write(numb, comm_str_usb);        //QSerialPort
 }
