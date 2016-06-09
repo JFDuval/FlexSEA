@@ -21,11 +21,12 @@
 // Variable(s)
 //****************************************************************************
 
-int16 adc1_res[ADC1_CHANNELS][ADC1_BUF_LEN];
-int16 adc1_res_filtered[ADC1_CHANNELS];
+volatile uint16 adc1_res[ADC1_CHANNELS][ADC1_BUF_LEN];
+volatile uint16 adc1_dbuf[ADC1_CHANNELS][ADC1_BUF_LEN];
+volatile uint16 adc1_res_filtered[ADC1_CHANNELS];
 
 int16 adc_dma_array[ADC2_BUF_LEN];
-int16 adc_sar1_dma_array[ADC1_BUF_LEN + 1];
+uint16 adc_sar1_dma_array[ADC1_BUF_LEN + 1];
 volatile uint8 amux_ch = 0;
 
 //****************************************************************************
@@ -71,21 +72,38 @@ uint16 adc_avg8(uint16 new_data)
 //Filters the ADC buffer
 void filter_sar_adc(void)
 {
+	uint8 i = 0, j = 0;
+	uint32 adc_sum = 0;
+	
+	//For each channel:
+	for(i = 0; i < ADC1_CHANNELS; i++)
+	{
+		//For each value in the channel:
+		adc_sum = 0;
+		for(j = 0; j < ADC1_BUF_LEN; j++)
+		{
+			//Add the values
+			adc_sum += (uint32)adc1_dbuf[i][j];
+		}
+		
+		//And divide to get mean
+		adc1_res_filtered[i] = (uint16) ((uint32)adc_sum >> ADC1_SHIFT);
+	}
+}
+
+//To avoid data corruption we copy the buffer during the interrupt:
+void double_buffer_adc(void)
+{
 	uint16 i = 0, j = 0;
-	int32 tmp[ADC1_CHANNELS];
 	
 	//For each channel:
 	for(i = 0; i < ADC1_CHANNELS; i++)
 	{
 		//For each value in the channel:
 		for(j = 0; j < ADC1_BUF_LEN; j++)
-		{
-			//Add the values
-			tmp[i] += adc1_res[i][j];
+		{	
+			adc1_dbuf[i][j] = adc1_res[i][j];
 		}
-		
-		//And divide to get mean
-		adc1_res_filtered[i] = (int16) (tmp[i] >> ADC1_SHIFT);
 	}
 }
 

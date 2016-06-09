@@ -61,6 +61,7 @@ void flexsea_clear_slave_read_buffer(void)
 //Packages data in one unified array: slave_read_buffer[]
 void flexsea_update_slave_read_buffer(unsigned char read_offset)
 {
+	/*
 	//ToDo: this should be in a separated function, but for now here it is:
 	int16 enc1 = 0;
 	
@@ -81,6 +82,7 @@ void flexsea_update_slave_read_buffer(unsigned char read_offset)
 	slave_read_buffer[SRB_EXECUTE_CURRENT_LSB] = 0x9A;
 
 	//...
+	*/
 }
 
 //ToDo delete function?

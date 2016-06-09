@@ -152,7 +152,11 @@ void main_fsm_case_7(void)
 //Case 8: SAR ADC filtering
 void main_fsm_case_8(void)
 {
-	filter_sar_adc();
+	if(adc_sar1_flag)
+	{
+		filter_sar_adc();
+		adc_sar1_flag = 0;
+	}	
 }
 
 //Case 9: User functions & 1s timebase	

@@ -78,11 +78,16 @@ void isr_sar1_dma_Interrupt_InterruptCallback()
 	//Next channel:
 	ch++;
 	ch %= ADC1_CHANNELS;
+	
+	//Once we have all the channels we copy the buffer:
+	if(!adc_sar1_flag)
+	{
+		double_buffer_adc();
+	}
+	adc_sar1_flag = 1;
 
 	//Refresh MUX:
-	AMux_1_Select(ch);				
-	
-	adc_sar1_flag = 1;
+	AMux_1_Select(ch);	
 	
 	ADC_SAR_1_StartConvert();		
 }
