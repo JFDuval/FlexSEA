@@ -40,6 +40,7 @@ void rx_cmd_in_control(uint8_t *buf);
 #define CTRL_POSITION					2		//Position controller. Use with CMD_MOVE_TRAP_ABSOLUTE
 #define CTRL_CURRENT					3		//Current controller. Use with CMD_CTRL_I_WRITE
 #define CTRL_IMPEDANCE					4		//Impedance controller. Use with CMD_MOVE_TRAP_ABSOLUTE
+#define CTRL_CUSTOM						5		//
 //  (set gains with CMD_SET_Z_GAINS & CMD_CTRL_I_GAINS_WRITE)	
 	
 //Nickname for the controller gains:
@@ -52,7 +53,12 @@ void rx_cmd_in_control(uint8_t *buf);
 #define Z_K		g0
 #define Z_B		g1
 #define Z_I		g2
-	
+
+//In Control combined fields:
+#define IN_CONTROL_CONTROLLER(x)	((x & 0xE000) >> 13)
+#define IN_CONTROL_MOT_DIR(x)		((x & 0x1000) >> 12)
+#define IN_CONTROL_PWM(x)			((x & 0x0FFF))
+
 //****************************************************************************
 // Structure(s):
 //****************************************************************************

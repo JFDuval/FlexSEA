@@ -65,6 +65,7 @@ void control_strategy(unsigned char strat)
 	}
 	
 	ctrl.active_ctrl = strat;	//controller = strat;
+	in_control.controller = ctrl.active_ctrl;
 	
 	//The user should call a set gain function at this point.
 }
@@ -522,4 +523,13 @@ void motor_cancel_damping_test_code_blocking(void)
 		//Loop delay (otherwise we don't get a good difference)
 		CyDelay(10);
 	}
+}
+
+//in_control.combined = [CTRL2:0][MOT_DIR][PWM]
+void in_control_combine(void)
+{
+	uint16_t tmp = 0;
+	
+	tmp = ((in_control.controller & 0x03) << 13) | ((in_control.mot_dir & 0x01) << 12) | (in_control.pwm & 0xFFF);
+	in_control.combined = tmp;
 }

@@ -34,6 +34,7 @@ int32 motor_position_pid_ff_1(int32 wanted_pos, int32 actual_pos, int32 ff);
 int32 motor_current_pid(int32 wanted_curr, int32 measured_curr);
 extern inline int32 motor_current_pid_2(int32 wanted_curr, int32 measured_curr);
 int motor_impedance_encoder(int wanted_pos, int new_enc_count);
+void in_control_combine(void);
 
 void motor_cancel_damping_test_code_blocking(void);
 

@@ -952,17 +952,29 @@ uint32_t tx_cmd_in_control(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uin
 		buf[P_DATA1 + 17] = tmp0;
 		buf[P_DATA1 + 18] = tmp1;
 		
-        uint16_to_bytes((uint16_t)in_control.pwm, &tmp0, &tmp1);
+		//Combine 3 fields in 1 uint16:
+		in_control_combine();
+        uint16_to_bytes((uint16_t)in_control.combined, &tmp0, &tmp1);
         buf[P_DATA1 + 19] = tmp0;
         buf[P_DATA1 + 20] = tmp1;
 
-        buf[P_DATA1 + 21] = in_control.mot_dir;
-
         uint16_to_bytes((uint16_t)ctrl.current.actual_val, &tmp0, &tmp1);
-        buf[P_DATA1 + 22] = tmp0;
-        buf[P_DATA1 + 23] = tmp1;
+        buf[P_DATA1 + 21] = tmp0;
+        buf[P_DATA1 + 22] = tmp1;
+		
+		//User fields:
+		uint32_to_bytes((uint32_t)in_control.r[0], &tmp0, &tmp1, &tmp2, &tmp3);
+		buf[P_DATA1 + 23] = tmp0;
+		buf[P_DATA1 + 24] = tmp1;
+		buf[P_DATA1 + 25] = tmp2;
+		buf[P_DATA1 + 26] = tmp3;
+		uint32_to_bytes((uint32_t)in_control.r[0], &tmp0, &tmp1, &tmp2, &tmp3);
+		buf[P_DATA1 + 27] = tmp0;
+		buf[P_DATA1 + 28] = tmp1;
+		buf[P_DATA1 + 29] = tmp2;
+		buf[P_DATA1 + 30] = tmp3;
 
-        bytes = P_DATA1 + 24;     //Bytes is always last+1
+        bytes = P_DATA1 + 31;     //Bytes is always last+1
 
         #endif //BOARD_TYPE_FLEXSEA_EXECUTE
 
@@ -1036,8 +1048,13 @@ void rx_cmd_in_control(uint8_t *buf)
 			
 			in_control_1.error = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1 + 13], buf[P_DATA1 + 14], buf[P_DATA1 + 15], buf[P_DATA1 + 16]));
             in_control_1.output = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1 + 17], buf[P_DATA1 + 18]));
-            in_control_1.pwm = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1 + 19], buf[P_DATA1 + 20]));
-            in_control_1.mot_dir = buf[P_DATA1 + 21];
+            
+			in_control_1.combined = (BYTES_TO_UINT16(buf[P_DATA1 + 19], buf[P_DATA1 + 20]));			
+			in_control_1.current = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1 + 21], buf[P_DATA1 + 22]));			
+            
+			in_control_1.controller = IN_CONTROL_CONTROLLER(in_control_1.combined);
+			in_control_1.mot_dir = IN_CONTROL_MOT_DIR(in_control_1.combined);
+			in_control_1.pwm = IN_CONTROL_PWM(in_control_1.combined);
 
 			#endif	//((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
 		}

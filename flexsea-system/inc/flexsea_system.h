@@ -470,6 +470,7 @@ struct in_control_s
 	int16_t pwm;
 	uint8_t mot_dir;
 	int16_t current;
+	uint16_t combined;	//[CTRL2:0][MOT_DIR][PWM]
 	
 	int32_t r[4];
 	int32_t w[4];
