@@ -420,6 +420,9 @@ int motor_impedance_encoder(int wanted_pos, int new_enc_count)
 	//End of test code
 
 	ctrl.impedance.error = new_enc_count - wanted_pos;		//Actual error
+	in_control.setp = wanted_pos;
+	in_control.actual_val = new_enc_count;
+	in_control.error = ctrl.impedance.error;
 	
 	//Current for stiffness term. Gain factor depends on the encoder count.
 	#if(ACTIVE_PROJECT == PROJECT_CSEA_KNEE)
@@ -457,6 +460,7 @@ int motor_impedance_encoder(int wanted_pos, int new_enc_count)
 	prev_filt1 = filt_vel;
 
 	ctrl.current.setpoint_val = (int32)current_val;
+	in_control.output = ctrl.current.setpoint_val;
 
 	return ctrl.impedance.error;
 }
@@ -532,4 +536,11 @@ void in_control_combine(void)
 	
 	tmp = ((in_control.controller & 0x03) << 13) | ((in_control.mot_dir & 0x01) << 12) | (in_control.pwm & 0xFFF);
 	in_control.combined = tmp;
+}
+
+//Reads the PWM and MOTOR_DIR values from hardware:
+void in_control_get_pwm_dir(void)
+{
+	in_control.pwm = PWM_1_ReadCompare1();
+	in_control.mot_dir = MotorDirection_Read();
 }

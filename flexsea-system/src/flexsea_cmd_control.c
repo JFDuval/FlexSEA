@@ -1,6 +1,6 @@
 //****************************************************************************
 // MIT Media Lab - Biomechatronics
-// Jean-Fran�ois (Jeff) Duval
+// Jean-Francois (Jeff) Duval
 // jfduval@media.mit.edu
 // 04/2016
 //****************************************************************************
@@ -953,6 +953,7 @@ uint32_t tx_cmd_in_control(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uin
 		buf[P_DATA1 + 18] = tmp1;
 		
 		//Combine 3 fields in 1 uint16:
+		in_control_get_pwm_dir();
 		in_control_combine();
         uint16_to_bytes((uint16_t)in_control.combined, &tmp0, &tmp1);
         buf[P_DATA1 + 19] = tmp0;
@@ -1050,7 +1051,10 @@ void rx_cmd_in_control(uint8_t *buf)
             in_control_1.output = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1 + 17], buf[P_DATA1 + 18]));
             
 			in_control_1.combined = (BYTES_TO_UINT16(buf[P_DATA1 + 19], buf[P_DATA1 + 20]));			
-			in_control_1.current = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1 + 21], buf[P_DATA1 + 22]));			
+			in_control_1.current = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1 + 21], buf[P_DATA1 + 22]));
+			
+			in_control.r[0] = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1 + 23], buf[P_DATA1 + 24], buf[P_DATA1 + 25], buf[P_DATA1 + 26]));
+			in_control.r[1] = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1 + 27], buf[P_DATA1 + 28], buf[P_DATA1 + 29], buf[P_DATA1 + 30]));
             
 			in_control_1.controller = IN_CONTROL_CONTROLLER(in_control_1.combined);
 			in_control_1.mot_dir = IN_CONTROL_MOT_DIR(in_control_1.combined);

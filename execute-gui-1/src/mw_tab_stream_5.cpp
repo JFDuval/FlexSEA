@@ -51,7 +51,7 @@ void MainWindow::stream_in_ctrl(void)
     ui->disp_inctrl_dir->setText(QString::number(in_control_1.mot_dir));
 
     ui->disp_inctrl_current->setText(QString::number(in_control_1.current));
-   ui->disp_inctrl_current_d->setText(QString::number((float)(in_control_1.current)*18.5, 'i',0));
+    ui->disp_inctrl_current_d->setText(QString::number((float)(in_control_1.current)*18.5, 'i',0));
 
     ui->tabWidget->repaint();
 }

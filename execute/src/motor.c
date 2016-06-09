@@ -86,19 +86,16 @@ void motor_open_speed_1(int16 pwm_duty)
 	{
 		pdc = -pdc;	//Make it positive
 		MotorDirection_Write(0);
-		in_control.mot_dir = 0;
 	}
 	else
 	{
 		MotorDirection_Write(1);
-		in_control.mot_dir = 1;
 	}
 	
 	//Write duty cycle to PWM module
 	tmp = PWM1DC((uint16)pdc);
 	PWM_1_WriteCompare1(tmp);
 	PWM_1_WriteCompare2(PWM2DC(tmp));	//Can't be 0 or the ADC won't trigger
-	in_control.pwm = pdc;
 }
 
 //Controls motor PWM duty cycle
@@ -122,12 +119,10 @@ void motor_open_speed_2(int16 pwm_duty, int sign)
 	if(sign == -1)
 	{
 		MotorDirection_Write(0);
-		in_control.mot_dir = 0;
 	}
 	else if(sign == 1)
 	{
 		MotorDirection_Write(1);
-		in_control.mot_dir = 0;
 	}
 	else
 	{
@@ -139,7 +134,6 @@ void motor_open_speed_2(int16 pwm_duty, int sign)
 	pdc = PWM1DC(pdc);
 	PWM_1_WriteCompare1(pdc);
 	PWM_1_WriteCompare2(PWM2DC(pdc));	//Can't be 0 or the ADC won't trigger
-	in_control.pwm = pdc;
 }
 
 //****************************************************************************
