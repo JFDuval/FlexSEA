@@ -78,15 +78,7 @@ void user_fsm(void);
 	#define PWM_SIGN		1
 	
 	//Runtime finite state machine (FSM):
-	#define RUNTIME_FSM		ENABLED
-	
-	//Encoders:
-	#define ENC_CONTROL		ENC_QUADRATURE
-	#define ENC_COMMUT		ENC_HALL
-	#define ENC_DISPLAY		ENC_QUADRATURE	
-	
-	//Control encoder function:
-	#define CTRL_ENC_FCT(x) (x)	
+	#define RUNTIME_FSM		DIABLED
 	
 	//Project specific definitions:
 	//...

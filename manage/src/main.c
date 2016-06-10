@@ -48,6 +48,8 @@ int main(void)
 	//rgb_led_test_code_blocking();
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
+	init_user();
+
 	//Infinite loop
 	while(1)
 	{
