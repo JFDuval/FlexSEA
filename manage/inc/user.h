@@ -6,7 +6,10 @@
 //****************************************************************************
 // user: User Projects & Functions
 //****************************************************************************
-	
+
+//Note: this file needs significant work! Use with care, it's mostly
+//		a copy of Execute's user.h
+
 #ifndef INC_USER_H
 #define INC_USER_H
 
@@ -63,61 +66,22 @@ void user_fsm(void);
 #if(ACTIVE_PROJECT == PROJECT_BAREBONE)
 	
 	//Enable/Disable sub-modules:
+	/* ToDo see what drivers I have, and mod this code:
 	#define USE_RS485
 	#define USE_USB
 	#define USE_COMM			//Requires USE_RS485 and/or USE_USB
-	#define USE_QEI
-	#define USE_TRAPEZ
 	#define USE_I2C_0			//3V3, IMU & Expansion.
 	#define USE_I2C_1			//5V, Safety-CoP & strain gauge pot.
 	#define USE_IMU				//Requires USE_I2C_0
-	#define USE_STRAIN			//Requires USE_I2C_1
-	
-	//Motor type & direction:
-	#define MOTOR_TYPE		MOTOR_BRUSHLESS
-	#define PWM_SIGN		1
+	*/
 	
 	//Runtime finite state machine (FSM):
-	#define RUNTIME_FSM		DIABLED
+	#define RUNTIME_FSM		DISABLED
 	
 	//Project specific definitions:
 	//...
 	
 #endif	//PROJECT_BAREBONE
-
-//Exoboot
-#if(ACTIVE_PROJECT == PROJECT_EXOCUTE)
-	
-	//Enable/Disable sub-modules:
-	#define USE_RS485
-	#define USE_USB
-	#define USE_COMM			//Requires USE_RS485 and/or USE_USB
-	#define USE_QEI
-	#define USE_TRAPEZ
-	#define USE_I2C_0			//3V3, IMU & Expansion.
-	#define USE_I2C_1			//5V, Safety-CoP & strain gauge pot.
-	#define USE_IMU				//Requires USE_I2C_0
-	#define USE_STRAIN			//Requires USE_I2C_1
-	
-	//Motor type & direction:
-	#define MOTOR_TYPE		MOTOR_BRUSHLESS
-	#define PWM_SIGN		1
-	
-	//Runtime finite state machine (FSM):
-	#define RUNTIME_FSM		DISABLED
-
-	//Encoders:
-	#define ENC_CONTROL		ENC_QUADRATURE
-	#define ENC_COMMUT		ENC_HALL
-	#define ENC_DISPLAY		ENC_CONTROL
-	
-	//Control encoder function:
-	#define CTRL_ENC_FCT(x) (x)	
-	
-	//Project specific definitions:
-	//...
-	
-#endif	//PROJECT_EXOCUTE
 
 //CSEA Knee
 #if(ACTIVE_PROJECT == PROJECT_CSEA_KNEE)
