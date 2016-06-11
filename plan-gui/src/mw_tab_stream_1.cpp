@@ -199,13 +199,13 @@ void MainWindow::status_byte_disp(uint8_t stat1, uint8_t stat2)
     if(GET_3V3_FLAG(stat2) == V_LOW)
     {
         if(mod){str2 += QString(" | ");};
-        str2 += QString("VG Low");
+        str2 += QString("3V3 Low");
         mod++;
     }
     else if(GET_3V3_FLAG(stat2) == V_HIGH)
     {
         if(mod){str2 += QString(" | ");};
-        str2 += QString("VG High");
+        str2 += QString("3V3 High");
         mod++;
     }
 
