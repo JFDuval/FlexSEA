@@ -39,7 +39,7 @@ void MainWindow::stream_execute(void)
     decode_usb_rx(usb_rx);
 
     //Refresh display:
-    assign_execute_ptr(&ex_ptr, 0);
+    assign_execute_ptr(&ex_ptr, active_slave_1_index);
     disp_execute(ex_ptr, 0);
 }
 
