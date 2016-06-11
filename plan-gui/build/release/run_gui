@@ -1,4 +1,0 @@
-#!/bin/bash
-
-sudo usermod -a -G dialout jfduval
-./execute-gui-1
