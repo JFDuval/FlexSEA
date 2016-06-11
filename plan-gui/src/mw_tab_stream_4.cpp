@@ -69,7 +69,7 @@ void MainWindow::stream_ricnu_knee(void)
     //Decode some of them:
     //===================
 
-    ui->ricnu_current_d->setText(QString::number((float)(ricnu_1.ex.current- ui->horizontalSlider_current_zero->value())*18.5, 'i',0));
+    ui->ricnu_current_d->setText(QString::number((float)ricnu_1.ex.current*18.5, 'i',0));
     ui->ricnu_vb_d->setText(QString::number(P4_ADC_SUPPLY*((16*(float)ricnu_1.ex.volt_batt/3 + 302 )/P4_ADC_MAX) / 0.0738, 'f',2));
 
     ui->ricnu_accx_d->setText(QString::number((double)ricnu_1.ex.accel.x/8192, 'f', 2));

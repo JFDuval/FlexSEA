@@ -500,10 +500,17 @@ void MainWindow::on_comboBox_ctrl_list_currentIndexChanged(int index)
 
 void MainWindow::stream_ctrl(void)
 {
-    //ToDo make more generic
+    struct execute_s *ex_ptr;
+    assign_execute_ptr(&ex_ptr, active_slave_1_index);
+
     if(selected_experiment == 0)    //Execute
     {
-        ui->disp_meas_val->setText(QString::number(exec1.enc_display));
+        ui->disp_meas_val->setText(QString::number(ex_ptr->enc_display));
+    }
+    else if(selected_experiment == 2)
+    {
+        //When using In Control we use 'actual_val'
+        ui->disp_meas_val->setText(QString::number(in_control_1.actual_val));
     }
     else if(selected_experiment == 4)   //RIC/NU
     {

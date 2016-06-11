@@ -201,6 +201,8 @@ private slots:
 
     void stream_in_ctrl(void);
 
+    void stream_ankle_2dof(void);
+
     void on_StreamSelectComboBox_currentIndexChanged(int index);
 
     void on_streamON_master_button_clicked();
@@ -231,11 +233,13 @@ private slots:
 
     void init_tab_stream_ricnu_knee(void);
 
+    void init_tab_stream_ankle_2dof(void);
+
     void control_trapeze(void);
 
     void stream_status_disp(int status);
 
-    void status_byte_disp(uint8_t stat1, uint8_t stat2);
+    void status_byte_disp(uint8_t stat1, uint8_t stat2, uint8_t slave_ab);
 
     void on_pushButton_inctrl_w0_clicked();
 
@@ -246,6 +250,14 @@ private slots:
     void on_pushButton_inctrl_w3_clicked();
 
     void write_in_control_w(uint8_t var);
+
+    void disp_slave_a(bool enable);
+
+    void disp_slave_b(bool enable);
+
+    void disp_execute(struct execute_s *ex, uint8_t slave_ab);
+
+    void assign_execute_ptr(struct execute_s **ex_ptr, uint8_t slave);
 
 private:
     Ui::MainWindow *ui;
