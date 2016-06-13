@@ -26,7 +26,8 @@ void init_sw1();
 int read_sw1(void);
 void init_switches(void);
 void set_led_rgb(unsigned char r, unsigned char g, unsigned char b);
-void rgb_led_ui(uint8_t err_l0, uint8_t err_l1, uint8_t err_l2, uint8_t new_comm);
+void rgb_led_ui(uint8_t err_l0, uint8_t err_l1, uint8_t err_l2,
+		uint8_t new_comm);
 void rgb_led_test_code_blocking(void);
 
 //****************************************************************************
@@ -41,13 +42,13 @@ void rgb_led_test_code_blocking(void);
 
 /*
  RGB LED:
-========
-Green: everything's good
-Yellow: software error, close to a voltage or temperature limit
-Blue: didn't receive commands in the last 'comm_timeout' ms
-Red: error
-Flashing red: major error
-*/
+ ========
+ Green: everything's good
+ Yellow: software error, close to a voltage or temperature limit
+ Blue: didn't receive commands in the last 'comm_timeout' ms
+ Red: error
+ Flashing red: major error
+ */
 
 //Timings in ms:
 #define UI_COMM_TIMEOUT			2000

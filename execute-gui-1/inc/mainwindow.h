@@ -32,14 +32,24 @@
 
 #define STREAM_MIN_FREQ         1
 #define STREAM_MAX_FREQ         1000
-#define STREAM_DEFAULT_FREQ     25
+#define STREAM_DEFAULT_FREQ     35
+
+//PSoC 4 ADC conversions:
+#define P4_ADC_SUPPLY           5.0
+#define P4_ADC_MAX              2048
+#define P4_T0                   0.5
+#define P4_TC                   0.01
+
+//PSoC 5 ADC conversions:
+#define P5_ADC_SUPPLY           5.0
+#define P5_ADC_MAX              4096
 
 //Log:
 //======
 
-#define LOG_MIN_FREQ         1
-#define LOG_MAX_FREQ         1000
-#define LOG_DEFAULT_FREQ     100
+#define LOG_MIN_FREQ            1
+#define LOG_MAX_FREQ            1000
+#define LOG_DEFAULT_FREQ        100
 
 //Plot:
 //=====
@@ -51,9 +61,10 @@
 #define INIT_PLOT_YMIN          0
 #define INIT_PLOT_YMAX          200
 #define VAR_NUM                 6
+#define PLOT_BUF_LEN            1000
 
 //Refresh:
-#define PLOT_DEFAULT_FREQ       25
+#define PLOT_DEFAULT_FREQ       35
 
 //****************************************************************************
 // Class(es)
@@ -73,43 +84,65 @@ public:
     void array_minmax(int *arr, int len, int *min, int *max);
 
 private:
-    int stream_status, fake_data;
-    int plot_buf[1000]; //ToDo!
-    int plot_buf_accx[1000], plot_buf_accy[1000], plot_buf_accz[1000];
-    int plot_buf_gyrx[1000], plot_buf_gyry[1000], plot_buf_gyrz[1000];
-    unsigned char usb_rx[256];
-    int exp_pwm;
 
-    QTimer *timer_stream, *timer_log, *timer_plot;
+    int selected_experiment;
+    void (MainWindow::*stream_fct_ptr)();
+    //void (*stream_fct_ptr)(void);
+
+    int active_slave_1, active_slave_1_index;
+    //Lookup from list to actual slave number (FlexSEA convention):
+    uint8_t list_to_slave[10];
+    QStringList var_list_slaves, var_list_stream;
+
+    int stream_status, stream_sa_status, stream_ricnu_status;
+    int fake_data;
+
+    int plot_buf[PLOT_BUF_LEN]; //ToDo!
+
+    unsigned char usb_rx[256];
+    //int exp_pwm;
+
+    QTimer *timer_stream, *timer_log, *timer_plot, *timer_ctrl;
     QSerialPort USBSerialPort;
 
     //Plot:
 
+    //X array never changes after initialization
+    int graph_xarray[PLOT_BUF_LEN];
+    //We store the graph Y arrays in that variable. 1x 1D array per trace (NUM_VAR)
+    int graph_yarray[VAR_NUM][PLOT_BUF_LEN];
+
     void makePlot(void);
-    //void refreshPlot(QVector<double> x, QVector<double> y);
     void refreshPlot(int *x, int *y, int len, uint8_t plot_index);
-    void genTestData(uint8_t graph);
+    int gen_test_data(void);
     QCustomPlot customPlot;
     int plot_xmin, plot_ymin, plot_xmax, plot_ymax, plot_len;
+    uint8_t data_to_plot[VAR_NUM];
+
+    void gen_graph_xarray(void);
+    void init_yarrays(void);
+    void update_graph_array(int graph, int new_data);
 
     void update_plot_buf(int new_data);
     void update_plot_buf_single(int *buf, int *idx, int new_data);
 
-    void update_plot_buf_accx(int new_data);
-    void update_plot_buf_accy(int new_data);
-    void update_plot_buf_accz(int new_data);
-    void update_plot_buf_gyrx(int new_data);
-    void update_plot_buf_gyry(int new_data);
-    void update_plot_buf_gyrz(int new_data);
+    //Control:
+    int wanted_controller = 0, selected_controller = 0, active_controller = 0;
+    int trap_pos = 0, trap_posi = 0, trap_posf = 0, trap_spd = 0, trap_acc = 0;
+    int ctrl_setpoint = 0, ctrl_setpoint_trap = 0;
+    int ctrl_toggle_state = 0;
+    void controller_setpoint(int val);
+    int ctrl_gains[6][6];
+    void init_ctrl_gains(void);
+    void save_ctrl_gains(int controller, int16_t *gains);
+    int trapez_steps = 0;
+    uint8_t toggle_output_state = 0;
+    QStringList var_list_controllers;
 
-    void plotEncoder(uint8_t graph);
-    void plotAccX(uint8_t graph);
-    //void plotAccY(uint8_t graph);
-    //void plotAccZ(uint8_t graph);
-    void plotGyrX(uint8_t graph);
-    void plotGyrY(uint8_t graph);
-    void plotGyrZ(uint8_t graph);
+    //Stream SA:
+    uint8_t bound_number(int num, int min, int max);
 
+    //Serial driver:
 
     int OpenUSBSerialPort(QString name, int tries, int delay);
     void CloseUSBSerialPort(void);
@@ -120,13 +153,11 @@ private slots:
 
     void on_openComButton_clicked();
 
-    void on_streamONbutton_clicked();
-
-    void on_streamOFFbutton_clicked();
-
     void timerStreamEvent();
 
     void timerPlotEvent();
+
+    void timerCtrlEvent(void);
 
     void on_updateRefreshButton_clicked();
 
@@ -134,12 +165,109 @@ private slots:
 
     void on_closeComButton_clicked();
 
-    void on_hSlider_PWM_valueChanged(int value);
+    void on_pushButton_SetController_clicked();
+
+    void on_pushButton_setp_a_go_clicked();
+
+    void on_pushButton_setp_b_go_clicked();
+
+    void on_pushButton_SetGains_clicked();
+
+    void on_pushButton_CtrlMinMax_clicked();
+
+    void on_hSlider_Ctrl_valueChanged(int value);
+
+    void on_pushButton_toggle_clicked();
+
+    void on_pushButton_ext_pwro_clicked();
+
+    void on_SlaveSelectComboBox_currentIndexChanged(int index);
+
+    void on_stream_SA_RefreshOffset_clicked();
+
+    void on_comboBox_minm_rgb_currentIndexChanged(int index);
+
+    void on_comboBox_ctrl_list_currentIndexChanged(int index);
+
+    void on_quadrature_write_clicked();
+
+    void stream_execute(void);
+
+    void stream_strain_amp(void);
+
+    void stream_ricnu_knee(void);
+
+    void stream_ctrl(void);
+
+    void stream_in_ctrl(void);
+
+    void on_StreamSelectComboBox_currentIndexChanged(int index);
+
+    void on_streamON_master_button_clicked();
+
+    void on_streamOFF_master_button_clicked();
+
+    void on_logON_master_button_clicked();
+
+    void on_logOFF_master_button_clicked();
+
+    void init_tab_config(void);
+
+    void init_tab_about(void);
+
+    void init_tab_plot_1(void);
+
+    void init_tab_ctrl(void);
+
+    void init_tab_exp(void);
+
+    void init_tab_ext(void);
+
+    void init_tab_stream_in_ctrl(void);
+
+    void init_tab_stream_execute(void);
+
+    void init_tab_stream_strain(void);
+
+    void init_tab_stream_ricnu_knee(void);
+
+    void control_trapeze(void);
+
+    void stream_status_disp(int status);
+
+    void status_byte_disp(uint8_t stat1, uint8_t stat2);
+
+    void on_pushButton_inctrl_w0_clicked();
+
+    void on_pushButton_inctrl_w1_clicked();
+
+    void on_pushButton_inctrl_w2_clicked();
+
+    void on_pushButton_inctrl_w3_clicked();
+
+    void write_in_control_w(uint8_t var);
 
 private:
     Ui::MainWindow *ui;
 };
 
+//Experimental: TabWidget class
+class MainWindowTabWidget : public QTabWidget
+{
+    Q_OBJECT
+
+public:
+    MainWindowTabWidget(QWidget *parent = 0);
+
+
+public slots:
+
+
+signals:
+
+private:
+
+};
 
 
 #endif // MAINWINDOW_H

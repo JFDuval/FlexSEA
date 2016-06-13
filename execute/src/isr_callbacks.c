@@ -78,11 +78,16 @@ void isr_sar1_dma_Interrupt_InterruptCallback()
 	//Next channel:
 	ch++;
 	ch %= ADC1_CHANNELS;
+	
+	//Once we have all the channels we copy the buffer:
+	if(!adc_sar1_flag)
+	{
+		double_buffer_adc();
+	}
+	adc_sar1_flag = 1;
 
 	//Refresh MUX:
-	AMux_1_Select(ch);				
-	
-	adc_sar1_flag = 1;
+	AMux_1_Select(ch);	
 	
 	ADC_SAR_1_StartConvert();		
 }
@@ -113,8 +118,8 @@ void isr_dma_uart_rx_Interrupt_InterruptCallback()
 	//static uint8 toggle = 0;
 	
 	//Update rx_buf with the latest DMA data:
-	update_rx_buf_array_485_1(uart_dma_rx_buf, 49);		//ToDo shouldn't be harcoded. Buffer name?
-	data_ready_485_1++;
+	update_rx_buf_array_485(uart_dma_rx_buf, 48);		//ToDo shouldn't be harcoded. Buffer name?
+	data_ready_485++;
 	
 	//toggle ^= 1;
 	//EXP10_Write(toggle);	

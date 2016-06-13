@@ -25,10 +25,10 @@
 // Public Function Prototype(s):
 //****************************************************************************
 
-int16 read_temp(void);
-uint16 read_vb(void);
-uint16 read_vg(void);
-uint16 read_3v3(void);
+uint8 read_temp(void);
+uint8 read_vb(void);
+uint8 read_vg(void);
+uint8 read_3v3(void);
 
 //****************************************************************************
 // Definition(s):
@@ -47,14 +47,22 @@ uint16 read_3v3(void);
 #define ADC_M3V3				7
 
 //Conversion gains & offsets:	
-#define MCP_TEMP_OFFSET			205
-#define MCP_TEMP_SHIFT 			2
-#define VB_GAIN					17
-#define VB_OFFSET				0
-#define VG_GAIN					91
-#define VG_OFFSET				4
-#define M3V3_GAIN				39
-#define M3V3_OFFSET				4
+//============================
+//Temp: | tmp = ((adc - 41) << 3)/21
+#define CONV_TEMP_A				41
+#define CONV_TEMP_B				3
+#define CONV_TEMP_C				21
+//+VB | tmp = ((3*(adc_min_adc))>>4);
+#define CONV_VB_A				3
+#define CONV_VB_B				302
+#define CONV_VB_C				4
+//+VG | tmp = ((3*(adc_min_adc))/26);
+#define CONV_VG_A				3
+#define CONV_VG_B				440
+#define CONV_VG_C				26
+//+3V3 | tmp = (adc << 3) / 50;
+#define CONV_3V3_A				3
+#define CONV_3V3_B				50
 	
 //****************************************************************************
 // Shared Variable(s):

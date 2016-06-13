@@ -30,7 +30,7 @@ extern volatile uint16 adc_delsig_dma_array[8];
 //****************************************************************************
 
 void init_strain(void);
-void strain_config(uint8 offs, uint8 gain, uint8 oref);
+void strain_config(uint8 offs, uint8 gain);
 uint16 strain_read(void);
 uint16 strain_filter(void);
 void strain_test_blocking(void);
@@ -60,9 +60,8 @@ uint16 strain_filter_dma(void);
 #define STRAIN_GAIN				MCP4661_REG_RAM_W0
 
 //Default values (experimental, expected to change)
-#define STRAIN_DEFAULT_OREF		156
-#define STRAIN_DEFAULT_OFFSET	110
-#define STRAIN_DEFAULT_GAIN		10
+#define STRAIN_DEFAULT_OFFSET	127
+#define STRAIN_DEFAULT_GAIN		80
 
 //Strain filtering:
 #define STRAIN_BUF_LEN			6
@@ -76,6 +75,7 @@ uint16 strain_filter_dma(void);
 // Structure(s):
 //****************************************************************************
 
+/*
 //Strain gauge amplifier:
 struct strain_s
 {
@@ -91,6 +91,7 @@ struct strain_s
 	//Filtering:
 	uint16 filtered_strain;
 };
+*/
 
 #endif	//INC_STRAINGAUGE_H
 	

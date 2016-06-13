@@ -26,6 +26,7 @@ void filter_sar_adc(void);
 int16 read_analog(uint8 ch);
 void adc_sar1_dma_config(void);
 void adc_sar2_dma_config(void);
+void double_buffer_adc(void);
 
 //****************************************************************************
 // Definition(s):
@@ -44,10 +45,11 @@ void adc_sar2_dma_config(void);
 // Shared variable(s)
 //****************************************************************************	
 	
-extern int16 adc1_res[ADC1_CHANNELS][ADC1_BUF_LEN];
-extern int16 adc1_res_filtered[ADC1_CHANNELS];
+volatile extern uint16 adc1_res[ADC1_CHANNELS][ADC1_BUF_LEN];
+volatile extern uint16 adc1_res_filtered[ADC1_CHANNELS];
+volatile extern uint16 adc1_dbuf[ADC1_CHANNELS][ADC1_BUF_LEN];
 extern int16 adc_dma_array[ADC2_BUF_LEN];
-extern int16 adc_sar1_dma_array[ADC1_BUF_LEN + 1];
+extern uint16 adc_sar1_dma_array[ADC1_BUF_LEN + 1];
 extern volatile uint8 amux_ch;
 
 //****************************************************************************

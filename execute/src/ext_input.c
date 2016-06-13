@@ -18,8 +18,9 @@
 // Variable(s)
 //****************************************************************************
 
-//Encoder:
+//Encoders:
 struct enc_s encoder;
+struct as504x_s as5047, as5048b;
 
 //Magnetic encoder, AS5047:
 uint16 spidata_mosi[WORDS_IN_FRAME] = {0,0,0,0,0,0,0};
@@ -27,6 +28,16 @@ uint16 spidata_miso[WORDS_IN_FRAME] = {0,0,0,0,0,0,0};
 uint16 spidata_mosi2[WORDS_IN_FRAME];
 uint8 spistatus = 0;
 uint16 angleunc = 0;
+uint16 as5047_angle = 0;
+
+//Magnetic encoder, AS5048B:
+uint8 as5048b_bytes[10] = {0,0,0,0,0,0,0,0,0,0};
+uint8 as5048b_agc = 0, as5048b_diag = 0;
+uint16 as5048b_mag = 0, as5048b_angle = 0;
+
+//6-ch Strain Amplifier:
+uint16 ext_strain[6] = {0,0,0,0,0,0};
+uint8 ext_strain_bytes[12];
 
 //****************************************************************************
 // Private Function Prototype(s):
@@ -46,6 +57,7 @@ void init_qei(void)
 	QuadDec_1_SetCounter(QUAD1_INIT);
 }
 
+/* Deprecated
 //Updates the structure with the latest encoder value
 int32 encoder_read(void)
 {
@@ -61,12 +73,71 @@ int32 encoder_read(void)
 	return encoder.count;
 }
 //Warning: encoder.count seems to be interpreted as a uint... casting (int32) before using it works.
+*/
 
-//Updates the structure with the desired value and write it to the encoder
-void encoder_write(int32 enc)
+//Updates the structure with the latest encoder value
+//Only deals with the Controller encoder (no commutation)
+int32 refresh_enc_control(void)
 {
-	encoder.count = enc;
+	//Count: actual, last, difference
+	encoder.count_last = encoder.count;
+	
+	#if(ENC_CONTROL == ENC_QUADRATURE)
+		encoder.count = CTRL_ENC_FCT(QuadDec_1_GetCounter());
+	#elif(ENC_CONTROL == ENC_ANALOG)
+		encoder.count = get_analog_pos();	
+	#elif(ENC_CONTROL == ENC_AS5047)
+		encoder.count = as5047.angle_cont;
+	#elif(ENC_CONTROL == ENC_AS5048B)
+		encoder.count = as5048b.angle_ctrl;
+	#endif
+		
+	encoder.count_dif = encoder.count - encoder.count_last;
+	
+	//For the position & impedance controllers we use the last count
+	ctrl.position.pos = encoder.count;
+	ctrl.impedance.actual_val = encoder.count;
+	
+	return encoder.count;
+}
+//Warning: encoder.count seems to be interpreted as a uint... casting (int32) before using it works.
+
+//Encoder displayed in the GUI
+int32 refresh_enc_display(void)
+{
+	int32 tmp_enc = 0;
+	
+	#if(ENC_DISPLAY == ENC_QUADRATURE)
+		tmp_enc = CTRL_ENC_FCT(QuadDec_1_GetCounter());
+	#elif(ENC_DISPLAY == ENC_ANALOG)
+		tmp_enc = get_analog_pos();
+	#elif(ENC_DISPLAY == ENC_AS5047)
+		tmp_enc = as5047.angle_cont;
+	#elif(ENC_DISPLAY == ENC_AS5048B)
+		tmp_enc = as5048b.angle_ctrl;
+	#endif
+	
+	return tmp_enc;
+}
+
+void qei_write(int32 enc)
+{
+	#ifdef USE_QEI
+	//encoder.count = enc;
 	QuadDec_1_SetCounter(enc);
+	//Note: the read uses CTRL_ENC_FCT(), be careful about what you write!
+	#endif
+}
+
+int32 qei_read(void)
+{
+	int32 retval = 0;
+	
+	#ifdef USE_QEI
+	retval = QuadDec_1_GetCounter();
+	#endif
+	
+	return retval;
 }
 
 void init_as5047(void)
@@ -99,8 +170,44 @@ uint16 as5047_read_single(uint16 reg)
 	//ToDo: ignore word if wrong parity
 
 	last_as5047_word = (spidata_miso[1] & 0x3FFF);
+	as5047_angle = last_as5047_word;
 	return last_as5047_word;
 }
+
+//Reassembles the bytes we read in words
+void strain_6ch_bytes_to_words(uint8 *buf)
+{
+	ext_strain[0] = ((((uint16)buf[0] << 8) & 0xFF00) | (uint16)buf[1]);
+	ext_strain[1] = ((((uint16)buf[2] << 8) & 0xFF00) | (uint16)buf[3]);
+	ext_strain[2] = ((((uint16)buf[4] << 8) & 0xFF00) | (uint16)buf[5]);
+	ext_strain[3] = ((((uint16)buf[6] << 8) & 0xFF00) | (uint16)buf[7]);
+	ext_strain[4] = ((((uint16)buf[8] << 8) & 0xFF00) | (uint16)buf[9]);
+	ext_strain[5] = ((((uint16)buf[10] << 8) & 0xFF00) | (uint16)buf[11]);
+}
+
+//Get latest readings from the 6-ch strain sensor
+void get_6ch_strain(void) 
+{
+	i2c0_read(I2C_SLAVE_ADDR_6CH, MEM_R_CH1_H, ext_strain_bytes, 12);
+	//strain_6ch_bytes_to_words();
+}
+
+//Get latest readings from the AS5048B position sensor
+void get_as5048b_position(void) 
+{
+	i2c0_read(I2C_ADDR_AS5048B, AD5048B_REG_ANGLE_H, as5048b_bytes, 2);
+}
+
+//Converts from ADC reading to position
+int16 get_analog_pos(void)
+{
+	#if(ACTIVE_PROJECT == PROJECT_CSEA_KNEE)
+		return CTRL_ENC_FCT(adc1_res_filtered[0]);
+	#else
+		return 0;
+	#endif
+}
+
 
 //****************************************************************************
 // Private Function(s)
@@ -174,3 +281,27 @@ void as5047_test_code_blocking(void)
     }
 }
 
+void strain_amp_6ch_test_code_blocking(void)
+{
+	while(1)
+	{
+		i2c0_read(I2C_SLAVE_ADDR_6CH, MEM_R_CH1_H, ext_strain_bytes, 12);
+		strain_6ch_bytes_to_words(ext_strain_bytes);
+		CyDelay(100);
+	}
+}
+
+void as5048b_test_code_blocking(void)
+{
+	while(1)
+	{
+		i2c0_read(I2C_ADDR_AS5048B, AD5048B_REG_AGC, as5048b_bytes, 6);
+		
+		as5048b_agc = as5048b_bytes[0];
+		as5048b_diag = as5048b_bytes[1] & 0x0F;
+		as5048b_mag = (as5048b_bytes[2]<<6) + (as5048b_bytes[3]&0x3F); 
+		as5048b_angle = (as5048b_bytes[4]<<6) + (as5048b_bytes[5]&0x3F);
+		
+		CyDelay(100);
+	}
+}

@@ -1,21 +1,22 @@
 //****************************************************************************
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
-// jfduval@mit.edu
-// 02/2015
+// jfduval@media.mit.edu
+// 05/2015
 //****************************************************************************
 // fm_slave_comm: Slave R/W
 //****************************************************************************
+// Licensing: Please refer to 'software_license.txt'
+//****************************************************************************
 
-#ifndef INC_MAST_SLAVE_COMM_H_
-#define INC_MAST_SLAVE_COMM_H_
+#ifndef INC_MAST_SLAVE_COMM_H
+#define INC_MAST_SLAVE_COMM_H
 
 //****************************************************************************
 // Include(s)
 //****************************************************************************
 
 #include "main.h"
-#include "../../common/inc/flexsea.h"
 
 //****************************************************************************
 // Public Function Prototype(s):
@@ -32,4 +33,5 @@ void write_test_cmd_execute2(uint8_t port, uint8_t slave, uint8_t value);
 //****************************************************************************
 
 
-#endif // INC_MAST_SLAVE_COMM_H_
+#endif // INC_MAST_SLAVE_COMM_H
+

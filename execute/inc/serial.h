@@ -36,6 +36,13 @@ void get_uart_data(void);
 extern uint8 uart_dma_rx_buf[96];
 extern uint8 uart_dma_tx_buf[96];
 
+extern uint8 reply_ready_buf[96];
+extern uint8 reply_ready_flag;
+extern uint8 reply_ready_len;
+extern uint8 reply_ready_timestamp;
+
+extern uint8 DMA_3_Chan;
+
 //****************************************************************************
 // Definition(s):
 //****************************************************************************

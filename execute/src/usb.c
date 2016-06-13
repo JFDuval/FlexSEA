@@ -30,11 +30,10 @@ uint8 init_usb(void)
 {
 	uint16 cnt = 0, flag = 0;
 	
-	//Start USBFS Operation with 3V operation
+	//Start USBFS Operation with 5V operation
     USBUART_1_Start(0u, USBUART_1_5V_OPERATION);
 	
-	//Wait for Device to enumerate */
-    //while(!USBUART_1_GetConfiguration());
+	//Wait for Device to enumerate
 	for(cnt = 0; cnt < USB_ENUM_TIMEOUT; cnt++)
 	{
 		if(USBUART_1_GetConfiguration())
@@ -142,9 +141,10 @@ void send_usb_int32(int payload)
 	return;
 }
 
+//Sends a fixed length packet over USB. Discarded if USB isn't ready.
 void usb_puts(uint8 *buf, uint32 len)
 {
-	if(USBUART_1_CDCIsReady() == 1)
+	if(USBUART_1_CDCIsReady() != 0)
 		USBUART_1_PutData(( const uint8*)buf, len);
 }
 

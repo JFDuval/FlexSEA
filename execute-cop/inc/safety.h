@@ -39,9 +39,9 @@ uint8 safety_disconnection(uint16 last_v);
 //1 = 10us, 255 = 2.55ms
 #define WDCLK_PULSE			150		//1.5ms/667Hz
 
-//Temperature (in degree Celsius):
-#define TEMP_WARNING		75
-#define TEMP_ERROR			80
+//Temperature:
+#define TEMP_WARNING		179		//75C
+#define TEMP_ERROR			187		//80C
 //based on components rated for a minimum of +85C
 	
 //Temperature filtering:
@@ -50,19 +50,19 @@ uint8 safety_disconnection(uint16 last_v);
 	
 //+3V3: MCP1700 ±3%, we will use ±7.5% (±248mV, 3.0525-3.5475V)
 //(using a higher margin to catch big errors, not just conversion gains)
-#define M_3V3_LOW			3053
-#define M_3V3_NORMAL		3300
-#define M_3V3_HIGH			3548	
+#define M_3V3_LOW			200
+#define M_3V3_NORMAL		216
+#define M_3V3_HIGH			232	
 
-//+VG: at 600mA its 8.7V, drop of 1.3/10 = 13%. Will use +5%/-13%. 
-//Normal is 10V, range is 8.7-10.5V.
-#define M_VG_LOW			8700
-#define M_VG_NORMAL			10000
-#define M_VG_HIGH			10500
+//+VG:  
+//Normal is 10V, range is 8.0-11.0V.
+#define M_VG_LOW			112
+#define M_VG_NORMAL			152
+#define M_VG_HIGH			173
 	
-//+VB: from 15 to 28V.
-#define M_VB_LOW			15000
-#define M_VB_HIGH			28000
+//+VB: from 15 to 50V.
+#define M_VB_LOW			28
+#define M_VB_HIGH			227
 
 //+VB filtering (for the disconnected battery detection):
 #define VB_BUF_SIZE			1024	//10ms/sample, 1024 = 10.24s

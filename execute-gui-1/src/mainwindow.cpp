@@ -20,7 +20,8 @@
 #include <QPushButton>
 #include <QTimer>
 #include <QDebug>
-#include <QtSerialPort/QtSerialPort>
+//#include <QtSerialPort/QtSerialPort>
+#include <QSerialPort>
 #include <string>
 #include "qcustomplot.h"
 
@@ -35,62 +36,24 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);    
 
-    //Default settings:
+    //System:
     //=================
 
-    //System:
     ui->tabWidget->setCurrentIndex(0);  //Start at first tab
 
-    //COM port:
-    ui->comPortTxt->setText("/dev/ttyACM0");
-    ui->comStatusTxt->setText("Type COM port and click 'Open COM'.");
-    ui->closeComButton->setDisabled(1); //Will be enabled when COM is open
+    //Config tabs:
+    //=================
 
-    //Stream/log:
-    stream_status = 0;
-    fake_data = 0;
-    ui->streamONbutton->setDisabled(1);
-    ui->streamOFFbutton->setDisabled(1);
-    ui->openLogButton->setDisabled(1);
-    ui->logFileTxt->setText("Not programmed... do not use yet.");
-    ui->streamRefreshTxt->setText(QString::number(STREAM_DEFAULT_FREQ));
-    ui->streamRefreshStatusTxt->setText("Default setting.");
-    ui->logRefreshTxt->setText(QString::number(LOG_DEFAULT_FREQ));
-    ui->logRefreshStatusTxt->setText("Default setting.");
-
-    //Plot:
-    plot_len = INIT_PLOT_LEN;
-    plot_xmin = INIT_PLOT_XMIN;
-    plot_xmax = INIT_PLOT_XMAX;
-    plot_ymin = INIT_PLOT_YMIN;
-    plot_ymax = INIT_PLOT_YMAX;
-    ui->radioButtonXAuto->setChecked(1);
-    ui->radioButtonXManual->setChecked(0);
-    ui->radioButtonYAuto->setChecked(1);
-    ui->radioButtonYManual->setChecked(0);
-    ui->plot_xmin_lineEdit->setText(QString::number(plot_xmin));
-    ui->plot_xmax_lineEdit->setText(QString::number(plot_xmax));
-    ui->plot_ymin_lineEdit->setText(QString::number(plot_ymin));
-    ui->plot_ymax_lineEdit->setText(QString::number(plot_ymax));
-    makePlot();
-    //Variable option lists:
-    QStringList var_list;
-    var_list << "**Unused**" << "Accel X" << "Accel Y" << "Accel Z" << "Gyro X" << "Gyro Y" << "Gyro Z" << "Encoder" \
-            << "Motor current" << "Analog[0]" << "Strain" << "Fake Data";
-    for(int index = 0; index < var_list.count(); index++)
-    {
-        //All boxes have the same list:
-        ui->cBoxvar1->addItem(var_list.at(index));
-        ui->cBoxvar2->addItem(var_list.at(index));
-        ui->cBoxvar3->addItem(var_list.at(index));
-        ui->cBoxvar4->addItem(var_list.at(index));
-        ui->cBoxvar5->addItem(var_list.at(index));
-        ui->cBoxvar6->addItem(var_list.at(index));
-    }
-
-    //Experiments:
-    exp_pwm = 0;
-    ui->disp_MotPWM->setText(QString::number(ui->hSlider_PWM->value()));
+    init_tab_config();
+    init_tab_plot_1();
+    init_tab_exp();
+    init_tab_ext();
+    init_tab_about();
+    init_tab_ctrl();
+    init_tab_stream_in_ctrl();
+    init_tab_stream_execute();
+    init_tab_stream_strain();
+    init_tab_stream_ricnu_knee();
 
     //=================
     //Timers:
@@ -101,19 +64,31 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(timer_stream, SIGNAL(timeout()), this, SLOT(timerStreamEvent()));
     timer_stream->start(TIM_FREQ_TO_P(STREAM_DEFAULT_FREQ));
 
+
     //Plot:
     timer_plot = new QTimer(this);
     connect(timer_plot, SIGNAL(timeout()), this, SLOT(timerPlotEvent()));
     timer_plot->start(TIM_FREQ_TO_P(PLOT_DEFAULT_FREQ));
+
+    //Control:
+    timer_ctrl = new QTimer(this);
+    connect(timer_ctrl, SIGNAL(timeout()), this, SLOT(timerCtrlEvent()));
 }
 
 //MainWindow destructor
 MainWindow::~MainWindow()
 {
+    qDebug("Stopping any pending Stream, and 1s delay...");
+    //Turn all Stream OFF
+    stream_status = 0;
+    stream_ricnu_status = 0;
+    stream_sa_status = 0;
+    sleep(1);
+
     //Close Serial port and delete object:
     qDebug("Closing serial port...");
     CloseUSBSerialPort();
 
-    qDebug("Closing main program...");
+    qDebug("Closing main program... Done!");
     delete ui;
 }

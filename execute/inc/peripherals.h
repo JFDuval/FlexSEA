@@ -22,11 +22,6 @@
 
 void init_peripherals(void);
 void init_tb_timers(void);
-void init_i2c1(void);
-void init_i2c2(void);
-void init_clutch(void);
-void clutch_output(uint8 value);
-uint8 read_clutch(void);
 
 //****************************************************************************
 // Shared Variable(s):
@@ -34,6 +29,7 @@ uint8 read_clutch(void);
 
 extern uint8 uart_dma_rx_buf[96];
 extern uint8 uart_dma_tx_buf[96];
+extern uint8 gui_fsm_flag;
 
 //****************************************************************************
 // Definition(s):

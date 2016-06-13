@@ -24,35 +24,38 @@ int16 adc_res[ADC_CHANNELS];
 // Function(s)
 //****************************************************************************
 
-//MCP9700A temperature sensor:
-//MCP9700A: Vout = Tc * Ta + V0C, Ta = (Vout - V0C)/Tc. Tc = 10mV/C, V0C = 500mV.
-//500mV = (0.5/5)*2048 ~= 205. 326 - 205 = 121 ticks
-//Ticks to Volts: 5/2048 = 0.0024, Volts to Celcius:  1/0.01 = 100
-//Combined: 0.24 ~= 1/4 so I can shift the difference by 2 and get Celcius:
-//Ta = (CH2 - 205) >> 2;
-int16 read_temp(void)
+//MCP9700A temperature sensor. Return value encoded in 1 byte.
+
+uint8 read_temp(void)
 {
-	return ((adc_res[ADC_TEMP] - MCP_TEMP_OFFSET) >> MCP_TEMP_SHIFT);
+	int32 tmp = 0;
+	tmp = ((adc_res[ADC_TEMP] - CONV_TEMP_A) << CONV_TEMP_B) / CONV_TEMP_C;
+	return((uint8)tmp);
 }
 
-//VB_SNS: Battery voltage sensing. Returns value in mV.
-uint16 read_vb(void)
+//VB_SNS: Battery voltage sensing. Return value encoded in 1 byte.
+//Formula is tmp = ((3*(adc-min_adc))>>4); tmp represents 10<VB<55, 175mV/tick.
+uint8 read_vb(void)
 {
-	return((uint16)adc_res[ADC_VB] * VB_GAIN);
+	int32 tmp = 0;
+	tmp = (CONV_VB_A*(adc_res[ADC_VB] - CONV_VB_B))>>CONV_VB_C;
+	return((uint8)tmp);
 }
 
-//VG_SNS: Intermediate voltage sensing. Returns value in mV.
-uint16 read_vg(void)
+//VG_SNS: Intermediate voltage sensing. Return value encoded in 1 byte.
+//Formula is tmp = ((3*(adc-min_adc))/50); tmp represents 2.5<VG<15, 49mV/tick.
+uint8 read_vg(void)
 {
-	uint32 tmp1 = (uint16)adc_res[ADC_VG] * VG_GAIN;
-	uint32 tmp2 = tmp1 >> VG_OFFSET;
-	return((uint16)tmp2);
+	int32 tmp = 0;
+	tmp = (CONV_VG_A*(adc_res[ADC_VG] - CONV_VG_B)) / CONV_VG_C;
+	return((uint8)tmp);
 }
 
-//M3V3_SNS: 3V3 logic voltage sensing. Returns value in mV.
-uint16 read_3v3(void)
+//M3V3_SNS: 3V3 logic voltage sensing. Return value encoded in 1 byte.
+//Formula is tmp = (adc << 3) / 50; tmp represents 0<3V3<4, 15.65mV/tick
+uint8 read_3v3(void)
 {
-	uint32 tmp1 = (uint16)adc_res[ADC_M3V3] * M3V3_GAIN;
-	uint32 tmp2 = tmp1 >> M3V3_OFFSET;
-	return((uint16)tmp2);
+	int32 tmp = 0;
+	tmp = (adc_res[ADC_M3V3] << CONV_3V3_A) / CONV_3V3_B;
+	return((uint8)tmp);
 }

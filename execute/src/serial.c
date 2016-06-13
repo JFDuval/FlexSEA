@@ -24,6 +24,11 @@ uint8 DMA_4_Chan;
 uint8 DMA_4_TD[1];
 volatile int8_t tx_cnt = 0;
 
+uint8 reply_ready_buf[96];
+uint8 reply_ready_flag = 0;
+uint8 reply_ready_len = 0;
+uint8 reply_ready_timestamp = 0;
+
 //****************************************************************************
 // Private Function Prototype(s):
 //****************************************************************************
@@ -96,6 +101,10 @@ void rs485_dma_puts(uint8 *buf)
 	UART_DMA_XMIT_Write(0);		//No transmission
 	UART_2_ClearTxBuffer();		//Clear any old data
 	
+	//ToDo Test - extra delay
+	CyDelayUs(10);
+	
+	
 	NOT_RE_Write(1);			//Disable Receiver
 	CyDelayUs(1);				//Wait (ToDo optimize/eliminate)
 	DE_Write(1);				//Enable Receiver
@@ -119,7 +128,7 @@ void init_rs485(void)
 	#ifdef USE_RS485
 		
 	//Exocute uses a wireless transmitter. We need 3V3 IOs and a low baudrate:
-	#ifdef PROJECT_EXOCUTE
+	#if(ACTIVE_PROJECT == PROJECT_EXOCUTE)
 	
 		/*
 	C8M_SetDividerValue(40);	//2MHz UART clock (250k)
@@ -221,9 +230,9 @@ void get_uart_data(void)
 		}
 		
 		//...then mass update rx_buf:
-		update_rx_buf_array_485_1(uart_tmp_buf, uart_buf_size+1);
+		update_rx_buf_array_485(uart_tmp_buf, uart_buf_size+1);
 		
-		data_ready_485_1++;
+		data_ready_485++;
 	}		
 }
 
@@ -232,13 +241,13 @@ void get_uart_data(void)
 //****************************************************************************
 
 //DMA3: UART RX
+uint8 DMA_3_Chan;
+uint8 DMA_3_TD[1];
 static void init_dma_3(void)
 {
 	/* Variable declarations for DMA_3 */
 	/* Move these variable declarations to the top of the function */
-	uint8 DMA_3_Chan;
-	uint8 DMA_3_TD[1];
-	
+
 	/* DMA Configuration for DMA_3 */
 	#define DMA_3_BYTES_PER_BURST 		1
 	#define DMA_3_REQUEST_PER_BURST 	1

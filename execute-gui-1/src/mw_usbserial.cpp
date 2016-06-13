@@ -26,6 +26,10 @@ int MainWindow::OpenUSBSerialPort(QString name, int tries, int delay)
 
     USBSerialPort.setPortName(name);
     USBSerialPort.setBaudRate(USBSerialPort.Baud115200);
+    USBSerialPort.setDataBits(QSerialPort::Data8);
+    USBSerialPort.setParity(QSerialPort::NoParity);
+    USBSerialPort.setStopBits(QSerialPort::OneStop);
+    USBSerialPort.setFlowControl(QSerialPort::NoFlowControl);
 
     do
     {
@@ -33,6 +37,12 @@ int MainWindow::OpenUSBSerialPort(QString name, int tries, int delay)
         cnt++;
         if(cnt >= tries)
             break;
+
+        //When false, print error code:
+        if(fd == false)
+        {
+            qDebug() << "Try #" << cnt << " failed. Error: " << USBSerialPort.errorString() << ".\n";
+        }
 
         usleep(delay);
     }while(fd != true);
@@ -61,6 +71,13 @@ int MainWindow::OpenUSBSerialPort(QString name, int tries, int delay)
 //Close port
 void MainWindow::CloseUSBSerialPort(void)
 {
+    if(stream_status)
+    {
+        stream_status = 0;
+        usleep(50000);
+    }
+
+    USBSerialPort.clear((QSerialPort::AllDirections));
     USBSerialPort.close();
 }
 
@@ -99,7 +116,7 @@ int MainWindow::USBSerialPort_Read(unsigned char *buf)
             return 0;
         }
 
-        qDebug() << "Read " << len << " bytes.";
+        qDebug() << "Read" << len << "bytes.";
 
         //Fill the rx buf with our new bytes:
         for(int i = 0; i < len; i++)
@@ -112,5 +129,8 @@ int MainWindow::USBSerialPort_Read(unsigned char *buf)
     {
         qDebug("No USB bytes available.");
     }
+
+    //Notify user in GUI:
+    stream_status_disp(dataReady);
 }
 

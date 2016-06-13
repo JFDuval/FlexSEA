@@ -20,8 +20,6 @@
 // Variable(s)
 //****************************************************************************
 
-uint8 i2c_last_request = 0;
-
 //Timers:
 volatile uint8 t1_100us_flag = 0;
 volatile uint8 t1_time_share = 0, t1_new_value = 0;
@@ -31,7 +29,7 @@ uint8 adc_sar1_flag = 0;
 volatile uint8 adc_delsig_flag = 0;
 
 //UART:
-volatile uint8 data_ready_485_1 = 0;
+volatile uint8 data_ready_485 = 0;
 
 //USB:
 volatile uint8 data_ready_usb = 0;
@@ -48,47 +46,60 @@ uint16 last_as5047_word = 0;
 // Public Function(s)
 //****************************************************************************
 
-//Associate data with the right structure. We need that because of the way the ISR-based
-//I2C works (we always get data from the last request)
-void assign_i2c_data(uint8 *newdata)
+//Call this function in the 1kHz FSM. It will return 1 every second.
+uint8 timebase_1s(void)
 {
-	uint16 tmp = 0;
+	static uint16 time = 0;
 	
-	if(i2c_last_request == I2C_RQ_GYRO)
+	time++;
+	if(time >= 999)
 	{
-		//Gyro X:
-		tmp = ((uint16)newdata[0] << 8) | ((uint16) newdata[1]);
-		imu.gyro.x = (int16)tmp;
-		
-		//Gyro Y:
-		tmp = ((uint16)newdata[2] << 8) | ((uint16) newdata[3]);
-		imu.gyro.y = (int16)tmp;
-		
-		//Gyro Z:
-		tmp = ((uint16)newdata[4] << 8) | ((uint16) newdata[5]);
-		imu.gyro.z = (int16)tmp;		
+		time = 0;
+		return 1;
 	}
-	else if(i2c_last_request == I2C_RQ_ACCEL)
-	{
-		//Accel X:
-		tmp = ((uint16)newdata[0] << 8) | ((uint16) newdata[1]);
-		imu.accel.x = (int16)tmp;
-		
-		//Accel Y:
-		tmp = ((uint16)newdata[2] << 8) | ((uint16) newdata[3]);
-		imu.accel.y = (int16)tmp;
-		
-		//Accel Z:
-		tmp = ((uint16)newdata[4] << 8) | ((uint16) newdata[5]);
-		imu.accel.z = (int16)tmp;		
-	}
-	else if(i2c_last_request == I2C_RQ_SAFETY)
-	{
-		safety_cop.status1 = newdata[0];
-		safety_cop.status2 = newdata[1];
-	}
+	
+	return 0;
 }
 
+void test_code_blocking(void)
+{
+	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+	//Blocking Test code - enable one and only one for special 
+	//debugging. Normal code WILL NOT EXECUTE when this is enabled!
+	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+	//strain_test_blocking();
+	//safety_cop_comm_test_blocking();
+	//imu_test_code_blocking();
+	//motor_fixed_pwm_test_code_blocking(200);
+	//wdclk_test_blocking();
+	//timing_test_blocking();
+	//test_current_tracking_blocking();
+	//test_pwm_pulse_blocking();
+	//test_uart_dma_xmit();
+	//motor_cancel_damping_test_code_blocking();
+	//csea_knee_up_down_test_demo();
+	//motor_stepper_test_blocking_1(80);
+	//test_pwro_output_blocking();
+	//strain_amp_6ch_test_code_blocking();
+	//as5047_test_code_blocking();
+	//as5048b_test_code_blocking();
+	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=	
+}
+
+void test_code_non_blocking(void)
+{
+	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+	//Non-Blocking Test code
+	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+	#ifdef USE_SPI_COMMUT		
+	motor_stepper_test_init(0);
+	//Note: deadtime is 55, small PWM values won't make it move.
+	//Starting at 0, GUI will change that when it wants.	
+	#endif	//USE_SPI_COMMUT	
+	//motor_fixed_pwm_test_code_non_blocking(125);
+	//pwro_output(245);	
+	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=		
+}
 
 //****************************************************************************
 // Private Function(s)
@@ -126,14 +137,14 @@ void timing_test_blocking(void)
 		CyDelayUs(SDELAY);
 		
 		//Motor current PID
-		EXP8_Write(1);
+		//EXP8_Write(1);
 		motor_current_pid(ctrl.current.setpoint_val, ctrl.current.actual_val);
-		EXP8_Write(0);
+		//EXP8_Write(0);
 		
 		//Motor current PID #2
-		EXP8_Write(1);
+		//EXP8_Write(1);
 		motor_current_pid_2(ctrl.current.setpoint_val, ctrl.current.actual_val);
-		EXP8_Write(0);
+		//EXP8_Write(0);
 		
 		//Exit sequence:
 		//EXP9_Write(0);

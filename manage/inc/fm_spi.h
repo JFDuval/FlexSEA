@@ -1,19 +1,22 @@
 //****************************************************************************
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
-// jfduval@mit.edu
-// 02/2015
+// jfduval@media.it.edu
+// 05/2015
 //****************************************************************************
 // fm_spi: SPI Slave
 //****************************************************************************
+// Licensing: Please refer to 'software_license.txt'
+//****************************************************************************
 
-#ifndef FM_SPI_H_
-#define FM_SPI_H_
+#ifndef INC_FM_SPI_H
+#define INC_FM_SPI_H
 
 //****************************************************************************
 // Include(s)
 //****************************************************************************
 
+#include "flexsea.h"
 #include "stm32f4xx.h"
 #include "stm32f4xx_hal.h"
 
@@ -63,4 +66,5 @@ void SPI_new_data_Callback(void);
 //SCK6: 	PG13
 
 
-#endif // FM_SPI_H_
+#endif // INC_FM_SPI_H
+

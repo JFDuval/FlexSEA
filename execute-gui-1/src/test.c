@@ -51,12 +51,12 @@ void test_code_1(void)
 
     //Controller = open
     numb = tx_cmd_ctrl_mode(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, CTRL_OPEN);
-    numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
-    flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
+    numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);  //Was comm_str_spi. ToDo is it ok?
+    flexsea_send_serial_slave(PORT_SPI, comm_str_usb, numb);    //Was comm_str_spi. ToDo is it ok?
     usleep(10000);
     numb = tx_cmd_ctrl_mode(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, CTRL_OPEN);
-    numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
-    flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
+    numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);  //Was comm_str_spi. ToDo is it ok?
+    flexsea_send_serial_slave(PORT_SPI, comm_str_usb, numb);    //Was comm_str_spi. ToDo is it ok?
     usleep(10000);
 
     printf("Ramping up...\n");
@@ -124,10 +124,10 @@ void test_code_1(void)
 
     	//Prepare the command:
     	numb = tx_cmd_ctrl_o(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, pwmdc);
-    	numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
+        numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
 
     	//Communicate with the slave:
-    	flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
+        flexsea_send_serial_slave(PORT_SPI, comm_str_usb, numb);
 
         usleep(6000);
 
@@ -135,7 +135,7 @@ void test_code_1(void)
 
     //Done with the experiment, drop PWM to 0:
     numb = tx_cmd_ctrl_o(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 0);
-    flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
+    flexsea_send_serial_slave(PORT_SPI, comm_str_usb, numb);
 }
 
 //Motor driver stress test: fast ramp-up, slow ramp-down
@@ -150,12 +150,12 @@ void test_code_2(void)
 
     //Controller = open
     numb = tx_cmd_ctrl_mode(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, CTRL_OPEN);
-    numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
-    flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
+    numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
+    flexsea_send_serial_slave(PORT_SPI, comm_str_usb, numb);
     usleep(10000);
     numb = tx_cmd_ctrl_mode(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, CTRL_OPEN);
-    numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
-    flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
+    numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
+    flexsea_send_serial_slave(PORT_SPI, comm_str_usb, numb);
     usleep(10000);
 
     printf("Motor Stress Test\n");
@@ -195,10 +195,10 @@ void test_code_2(void)
 
     	//Prepare the command:
     	numb = tx_cmd_ctrl_o(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, pwmdc);
-    	numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
+        numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
 
     	//Communicate with the slave:
-    	flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
+        flexsea_send_serial_slave(PORT_SPI, comm_str_usb, numb);
 
     	if(state == 0)
     		usleep(1750);
@@ -209,8 +209,8 @@ void test_code_2(void)
 
     //Done with the experiment, drop PWM to 0:
     numb = tx_cmd_ctrl_o(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 0);
-    numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
-    flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
+    numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
+    flexsea_send_serial_slave(PORT_SPI, comm_str_usb, numb);
 }
 
 //Plan <> Manage Communication
@@ -224,10 +224,10 @@ void test_code_plan_manage_comm(void)
     {
     	//Prepare the command:
     	numb = tx_cmd_switch(FLEXSEA_MANAGE_1, CMD_READ, tmp_payload_xmit, PAYLOAD_BUF_LEN);
-    	numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
+        numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
 
     	//Communicate with the slave:
-    	flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
+        flexsea_send_serial_slave(PORT_SPI, comm_str_usb, numb);
 
     	//Delay
         usleep(100000);
@@ -247,11 +247,11 @@ void test_code_plan_2x_exec_comm(void)
     	//Execute #1:
 
     	//Prepare the command:
-    	numb = tx_cmd_exp_clutch(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 0xAA);
-    	numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
+        numb = tx_cmd_exp_pwro(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 0xAA);
+        numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
 
     	//Communicate with the slave:
-    	flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
+        flexsea_send_serial_slave(PORT_SPI, comm_str_usb, numb);
 
     	//Delay
         usleep(500);
@@ -259,11 +259,11 @@ void test_code_plan_2x_exec_comm(void)
         //Execute #2:
 
     	//Prepare the command:
-        numb = tx_cmd_exp_clutch(FLEXSEA_EXECUTE_2, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 0xCC);
-    	numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
+        numb = tx_cmd_exp_pwro(FLEXSEA_EXECUTE_2, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 0xCC);
+        numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
 
     	//Communicate with the slave:
-    	flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
+        flexsea_send_serial_slave(PORT_SPI, comm_str_usb, numb);
 
     	//Delay
         usleep(500);
@@ -273,27 +273,27 @@ void test_code_plan_2x_exec_comm(void)
 //Special Command #2 - CSEA Knee test
 void test_code_spc2_csea(void)
 {
-	int numb = 0, state = 0, rgb = 0, clutch = 0;
+    int numb = 0, state = 0, rgb = 0, pwro = 0;
 	int zk = 10, zi = 0;
 
     //Initial configuration:
 
     //Controller = impedance
     numb = tx_cmd_ctrl_mode(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, CTRL_IMPEDANCE);
-    numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
-    flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
+    numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
+    flexsea_send_serial_slave(PORT_SPI, comm_str_usb, numb);
     usleep(10000);
 
     //Current gain
     numb = tx_cmd_ctrl_i_g(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 20, 25, 0);
-    numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
-    flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
+    numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
+    flexsea_send_serial_slave(PORT_SPI, comm_str_usb, numb);
     usleep(10000);
 
     //Z gain
     numb = tx_cmd_ctrl_z_g(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, zk, zi, 0);
-    numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
-    flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
+    numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
+    flexsea_send_serial_slave(PORT_SPI, comm_str_usb, numb);
     usleep(10000);
 
 
@@ -327,21 +327,21 @@ void test_code_spc2_csea(void)
     		state = 0;
 
     	if(state == 0)
-    		clutch = 255;
+            pwro = 255;
     	else
-    		clutch = 0;
+            pwro = 0;
 
-    	clutch = 0;
+        pwro = 0;
     	numb = tx_cmd_ctrl_special_2(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
-    									zk, zi, 0, rgb, clutch,\
+                                        zk, zi, 0, rgb, pwro,\
     									KEEP, 0, 0, 0, 0);
 
-    	numb = comm_gen_str(payload_str, comm_str_spi, PAYLOAD_BUF_LEN);
+        numb = comm_gen_str(payload_str, comm_str_usb, PAYLOAD_BUF_LEN);
     	numb = COMM_STR_BUF_LEN;
 
     	#ifdef USE_SPI
 
-    	flexsea_spi_transmit(numb, comm_str_spi, 0);
+        flexsea_spi_transmit(numb, comm_str_usb, 0);
 
     	//Can we decode what we received?
     	decode_spi_rx();
@@ -354,8 +354,8 @@ void test_code_spc2_csea(void)
 
     //Done with the experiment, drop PWM to 0:
     numb = tx_cmd_ctrl_o(FLEXSEA_EXECUTE_1, CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 0);
-    numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
-    flexsea_send_serial_slave(PORT_SPI, comm_str_spi, numb);
+    numb = comm_gen_str(tmp_payload_xmit, comm_str_usb, numb);
+    flexsea_send_serial_slave(PORT_SPI, comm_str_usb, numb);
 }
 
 #ifdef __cplusplus

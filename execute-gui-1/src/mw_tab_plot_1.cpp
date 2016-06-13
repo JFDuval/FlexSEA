@@ -22,6 +22,60 @@
 // Public Function(s)
 //****************************************************************************
 
+void MainWindow::init_tab_plot_1(void)
+{
+    //Axis, limits, etc.:
+    //=====================
+
+    plot_len = INIT_PLOT_LEN;
+    plot_xmin = INIT_PLOT_XMIN;
+    plot_xmax = INIT_PLOT_XMAX;
+    plot_ymin = INIT_PLOT_YMIN;
+    plot_ymax = INIT_PLOT_YMAX;
+    ui->radioButtonXAuto->setChecked(1);
+    ui->radioButtonXManual->setChecked(0);
+    ui->radioButtonYAuto->setChecked(1);
+    ui->radioButtonYManual->setChecked(0);
+    ui->plot_xmin_lineEdit->setText(QString::number(plot_xmin));
+    ui->plot_xmax_lineEdit->setText(QString::number(plot_xmax));
+    ui->plot_ymin_lineEdit->setText(QString::number(plot_ymin));
+    ui->plot_ymax_lineEdit->setText(QString::number(plot_ymax));
+    for(int h = 0; h < VAR_NUM; h++)
+    {
+        data_to_plot[h] = 0;
+    }
+
+    //Data fields and variables:
+    //==========================
+
+    gen_graph_xarray();
+    init_yarrays();
+    makePlot();
+    //Variable option lists:
+    QStringList var_list;
+    var_list << "**Unused**" << "Accel X" << "Accel Y" << "Accel Z" << "Gyro X" << "Gyro Y" << "Gyro Z" << "Encoder" \
+            << "Motor current" << "Analog[0]" << "Strain" << "+VB" << "+VG" << "Temperature" << "Fake Data" << "Setpoint (square)" \
+            << "Setpoint (trapezoidal)" << "Strain ch1" << "Strain ch2" << "Strain ch3" << "Strain ch4" << "Strain ch5" << "Strain ch6" \
+            << "AS5047 (Mot.)" << "AS5048B (Joint)";
+    for(int index = 0; index < var_list.count(); index++)
+    {
+        //All boxes have the same list:
+        ui->cBoxvar1->addItem(var_list.at(index));
+        ui->cBoxvar2->addItem(var_list.at(index));
+        ui->cBoxvar3->addItem(var_list.at(index));
+        ui->cBoxvar4->addItem(var_list.at(index));
+        ui->cBoxvar5->addItem(var_list.at(index));
+        ui->cBoxvar6->addItem(var_list.at(index));
+    }
+    //Color coded labels:
+    ui->label_t1->setStyleSheet("QLabel { background-color: red; color: black;}");
+    ui->label_t2->setStyleSheet("QLabel { background-color: magenta; color: black;}");
+    ui->label_t3->setStyleSheet("QLabel { background-color: blue; color: white;}");
+    ui->label_t4->setStyleSheet("QLabel { background-color: cyan; color: black;}");
+    ui->label_t5->setStyleSheet("QLabel { background-color: lime; color: black;}");
+    ui->label_t6->setStyleSheet("QLabel { background-color: black; color: white;}");
+}
+
 void MainWindow::makePlot()
 {
     QPen pen;
@@ -53,7 +107,7 @@ void MainWindow::makePlot()
     ui->customPlot->graph()->setPen(pen);
 
     ui->customPlot->addGraph();
-    pen.setColor(Qt::yellow);
+    pen.setColor(Qt::black);
     ui->customPlot->graph()->setPen(pen);
 
     ui->customPlot->replot();
@@ -62,6 +116,8 @@ void MainWindow::makePlot()
 //makePlot created a plot. We now update its data.
 void MainWindow::refreshPlot(int *x, int *y, int len, uint8_t plot_index)
 {
+    static int graph_ylim[2*VAR_NUM] = {0,0,0,0,0,0,0,0,0,0,0,0};
+
     //From array to QVector:
     QVector<double> xdata(len), ydata(len);
     qCopy(x, x+len, xdata.begin());
@@ -80,15 +136,68 @@ void MainWindow::refreshPlot(int *x, int *y, int len, uint8_t plot_index)
         ui->plot_xmin_lineEdit->setText(QString::number(plot_xmin));
         ui->plot_xmax_lineEdit->setText(QString::number(plot_xmax));
     }
+    else
+    {
+        //X is in manual mode.
+    }
 
     if(ui->radioButtonYAuto->isChecked())
     {
-        array_minmax(y, len, &plot_ymin, &plot_ymax);
+        //Unusued channels (index == 0) aren't used for the automatic gain
+        if(data_to_plot[plot_index] == 0)
+        {
+            //qDebug() << "Ch[" << plot_index << "] is Unused.";
 
-        ui->customPlot->yAxis->setRange(plot_ymin-10, plot_ymax+10);
+            //Unused channel. We take the min & max from used channels.
+            int u = 0;
+            for(int k= 0; k < VAR_NUM; k++)
+            {
+                //Grab min & max from any used channel
+                if(data_to_plot[k] != 0)
+                {
+                    plot_ymin = graph_ylim[k];
+                    plot_ymax = graph_ylim[k+VAR_NUM];
+                }
+                else
+                {
+                    u++;
+                }
+            }
+
+            if(u == VAR_NUM)
+            {
+                //All unused, force to 0:
+                plot_ymin = -10;
+                plot_ymax = 10;
+            }
+            //qDebug() << "Min/Max =" << plot_ymin << "," << plot_ymax;
+        }
+        else
+        {
+            //Limits for this graph:
+            array_minmax(y, len, &plot_ymin, &plot_ymax);
+            //qDebug() << "Ch[" << plot_index << "] is used.";
+        }
+
+        //Compare to all others and get max(max(())
+        graph_ylim[plot_index] = plot_ymin;
+        graph_ylim[plot_index+VAR_NUM] = plot_ymax;
+
+        //qDebug() << "Min/Max =" << plot_ymin << "," << plot_ymax;
+
+        array_minmax(graph_ylim, 2*VAR_NUM, &plot_ymin, &plot_ymax);
+
+        //Add 5%:
+        plot_ymin = (plot_ymin-(abs(plot_ymin)/20));
+        plot_ymax = (plot_ymax+(abs(plot_ymax)/20));
+
+        //Set axis 5% above minimum
+        ui->customPlot->yAxis->setRange(plot_ymin, plot_ymax);
         ui->plot_ymin_lineEdit->setText(QString::number(plot_ymin));
         ui->plot_ymax_lineEdit->setText(QString::number(plot_ymax));
     }
+    //qDebug() << "Final Min/Max =" << plot_ymin << "," << plot_ymax;
+    //qDebug() << "";
 
     ui->customPlot->replot();
 }
@@ -108,176 +217,49 @@ void MainWindow::array_minmax(int *arr, int len, int *min, int *max)
     }
 }
 
-//Test data, to showcase Plot when no COM port is available
-void MainWindow::genTestData(uint8_t graph)
+//Returns a new test data point (sine wave)
+#define TWO_PI              (2*3.14159)
+#define PHASE_INCREMENT     (TWO_PI/75)
+#define A_GAIN              1000
+int MainWindow::gen_test_data(void)
 {
-    int x[plot_len], y[plot_len];
-    static int offset = 0;
-    offset+=1;
-    if(offset > 100)
-        offset = 0;
+    static double phase = 0.0;
+    double res_f = 0;
 
-    for (int i=0; i<plot_len; ++i)
+    phase += PHASE_INCREMENT;
+    res_f = A_GAIN * sin(phase);
+
+    return((int)res_f);
+}
+
+//All graphs use the same X data. Call this once at startup.
+void MainWindow::gen_graph_xarray(void)
+{
+    for(int i = 0; i < PLOT_BUF_LEN; i++)
     {
-      x[i] = i; // x goes from 0 to 1
-      y[i] = i + (offset); // let's plot a quadratic function
+        graph_xarray[i] = i; // x goes from 0 to 1
     }
-
-    refreshPlot(x, y, plot_len, graph);
 }
 
-//Plot the encoder value
-void MainWindow::plotEncoder(uint8_t graph)
+//Initialize all the graphs at 0:
+void MainWindow::init_yarrays(void)
 {
-    int x[plot_len], y[plot_len];
-
-    //Generate x index - ToDo optimize
-    for (int i=0; i<plot_len; ++i)
+    for(int i = 0; i < VAR_NUM; i++)
     {
-      x[i] = i; // x goes from 0 to 1
+        for(int j = 0; j < PLOT_BUF_LEN; j++)
+        {
+            graph_yarray[i][j] = 0;
+        }
     }
-
-    //Get new datapoint from Stream:
-    update_plot_buf(exec1.encoder);
-    qCopy(plot_buf, plot_buf+plot_len, y);
-
-    refreshPlot(x, y, plot_len, graph);
 }
 
-//Plot the AccX value
-void MainWindow::plotAccX(uint8_t graph)
+//Buffer management for the N variables that we can plot.
+void MainWindow::update_graph_array(int graph, int new_data)
 {
-    int x[plot_len], y[plot_len];
-
-    //Generate x index - ToDo optimize
-    for (int i=0; i<plot_len; ++i)
-    {
-      x[i] = i; // x goes from 0 to 1
-    }
-
-    //Get new datapoint from Stream:
-    update_plot_buf_accx(exec1.imu.x);
-    qCopy(plot_buf_accx, plot_buf_accx+plot_len, y);
-
-    refreshPlot(x, y, plot_len, graph);
-}
-
-//Plot the GyrX value
-void MainWindow::plotGyrX(uint8_t graph)
-{
-    int x[plot_len], y[plot_len];
-
-    //Generate x index - ToDo optimize
-    for (int i=0; i<plot_len; ++i)
-    {
-      x[i] = i; // x goes from 0 to 1
-    }
-
-    //Get new datapoint from Stream:
-    update_plot_buf_gyrx(exec1.imu.x);
-    qCopy(plot_buf_gyrx, plot_buf_gyrx+plot_len, y);
-
-    refreshPlot(x, y, plot_len, graph);
-}
-
-//Plot the GyrY value
-void MainWindow::plotGyrY(uint8_t graph)
-{
-    int x[plot_len], y[plot_len];
-
-    //Generate x index - ToDo optimize
-    for (int i=0; i<plot_len; ++i)
-    {
-      x[i] = i; // x goes from 0 to 1
-    }
-
-    //Get new datapoint from Stream:
-    update_plot_buf_gyry(exec1.imu.y);
-    qCopy(plot_buf_gyry, plot_buf_gyry+plot_len, y);
-
-    refreshPlot(x, y, plot_len, graph);
-}
-
-//Plot the GyrZ value
-void MainWindow::plotGyrZ(uint8_t graph)
-{
-    int x[plot_len], y[plot_len];
-
-    //Generate x index - ToDo optimize
-    for (int i=0; i<plot_len; ++i)
-    {
-      x[i] = i; // x goes from 0 to 1
-    }
-
-    //Get new datapoint from Stream:
-    update_plot_buf_gyrz(exec1.imu.z);
-    qCopy(plot_buf_gyrz, plot_buf_gyrz+plot_len, y);
-
-    refreshPlot(x, y, plot_len, graph);
-}
-
-//Encoder
-void MainWindow::update_plot_buf(int new_data)
-{
-    static int idx_plot = 0;
+    static int idx_plot[VAR_NUM] = {0,0,0,0,0,0};
 
     //Updating buffer with one new data point
-    update_plot_buf_single(plot_buf, &idx_plot, new_data);
-
-}
-
-void MainWindow::update_plot_buf_accx(int new_data)
-{
-    static int idx_plot = 0;
-
-    //Updating buffer with one new data point
-    update_plot_buf_single(plot_buf_accx, &idx_plot, new_data);
-
-}
-
-void MainWindow::update_plot_buf_accy(int new_data)
-{
-    static int idx_plot = 0;
-
-    //Updating buffer with one new data point
-    update_plot_buf_single(plot_buf_accy, &idx_plot, new_data);
-
-}
-
-void MainWindow::update_plot_buf_accz(int new_data)
-{
-    static int idx_plot = 0;
-
-    //Updating buffer with one new data point
-    update_plot_buf_single(plot_buf_accz, &idx_plot, new_data);
-
-}
-
-void MainWindow::update_plot_buf_gyrx(int new_data)
-{
-    static int idx_plot = 0;
-
-    //Updating buffer with one new data point
-    update_plot_buf_single(plot_buf_gyrx, &idx_plot, new_data);
-
-}
-
-void MainWindow::update_plot_buf_gyry(int new_data)
-{
-    static int idx_plot = 0;
-
-    //Updating buffer with one new data point
-    update_plot_buf_single(plot_buf_gyry, &idx_plot, new_data);
-
-}
-
-void MainWindow::update_plot_buf_gyrz(int new_data)
-{
-    static int idx_plot = 0;
-
-    //Updating buffer with one new data point
-    update_plot_buf_single(plot_buf_gyrz, &idx_plot, new_data);
-
+    update_plot_buf_single(graph_yarray[graph], &idx_plot[graph], new_data);
 }
 
 //Add one byte to the FIFO buffer
@@ -313,8 +295,21 @@ void MainWindow::on_UpdatePlotpushButton_clicked()
     if(ui->radioButtonXManual->isChecked())
     {
         //Manual
-        plot_xmin = ui->plot_xmin_lineEdit->text().toInt();
+        plot_xmin = ui->plot_xmin_lineEdit->text().toInt(); //Forced to 0, non-editable
         plot_xmax = ui->plot_xmax_lineEdit->text().toInt();
+        plot_xmin = 0;  //Just in case.
+
+        //Few safety checks on that number.
+        if(plot_xmax >= PLOT_BUF_LEN)
+        {
+            plot_len = PLOT_BUF_LEN;
+            plot_xmax = PLOT_BUF_LEN;
+            ui->plot_xmax_lineEdit->setText(QString::number(plot_xmax));;
+        }
+        else
+        {
+            plot_len = plot_xmax;
+        }
     }
 
     //Y:
@@ -332,8 +327,8 @@ void MainWindow::on_UpdatePlotpushButton_clicked()
 
 void MainWindow::timerPlotEvent(void)
 {
-    uint8_t data_to_plot[VAR_NUM] = {0,0,0,0,0,0};
     uint8_t index = 0;
+    int y[PLOT_BUF_LEN];
 
     //We go through the list and we update the appropriate data:
 
@@ -346,37 +341,88 @@ void MainWindow::timerPlotEvent(void)
 
     for(index = 0; index < VAR_NUM; index++)
     {
+        //Update buffers with latest results:
         switch(data_to_plot[index])
         {
             case 0: //"**Unused**"
+                update_graph_array(index, 0);
                 break;
             case 1: //"Accel X"
+                update_graph_array(index, exec1.accel.x);
                 break;
             case 2: //"Accel Y"
+                update_graph_array(index, exec1.accel.y);
                 break;
             case 3: //"Accel Z"
+                update_graph_array(index, exec1.accel.z);
                 break;
             case 4: //"Gyro X"
-                plotGyrX(index);
+                update_graph_array(index, exec1.gyro.x);
                 break;
             case 5: //"Gyro Y"
-                plotGyrY(index);
+                update_graph_array(index, exec1.gyro.y);
                 break;
             case 6: //"Gyro Z"
-                plotGyrZ(index);
+                update_graph_array(index, exec1.gyro.z);
                 break;
             case 7: //"Encoder"
-                plotEncoder(index);
+                update_graph_array(index, exec1.enc_display);
                 break;
             case 8: //"Motor current"
+                update_graph_array(index, exec1.current);
                 break;
             case 9: //"Analog[0]"
+                update_graph_array(index, (int) exec1.analog[0]);
                 break;
             case 10: //"Strain"
+                update_graph_array(index, exec1.strain);
                 break;
-            case 11: //"Fake Data"
-                genTestData(index);
+            case 11: //"+VB"
+                update_graph_array(index, exec1.volt_batt);
+                break;
+            case 12: //"+VG"
+                update_graph_array(index, exec1.volt_int);
+                break;
+            case 13: //"Temp"
+                update_graph_array(index, exec1.temp);
+                break;
+            case 14: //"Fake Data"
+                update_graph_array(index, gen_test_data());
+                break;
+            case 15: //"Setpoint (square)"
+                update_graph_array(index, ctrl_setpoint);
+                break;
+            case 16: //"Setpoint (trap)"
+                update_graph_array(index, ctrl_setpoint_trap);
+                break;
+            case 17: //"Strain ch1"
+                update_graph_array(index, strain[0].strain_filtered);
+                break;
+            case 18: //"Strain ch2"
+                update_graph_array(index, strain[1].strain_filtered);
+                break;
+            case 19: //"Strain ch3"
+                update_graph_array(index, strain[2].strain_filtered);
+                break;
+            case 20: //"Strain ch4"
+                update_graph_array(index, strain[3].strain_filtered);
+                break;
+            case 21: //"Strain ch5"
+                update_graph_array(index, strain[4].strain_filtered);
+                break;
+            case 22: //"Strain ch6"
+                update_graph_array(index, strain[5].strain_filtered);
+                break;
+            case 23: //"AS5047 (Mot.)"
+                update_graph_array(index, ricnu_1.ex.enc_commut);
+                break;
+            case 24: //"AS5048 (Joint)"
+                update_graph_array(index, ricnu_1.ex.enc_control);
                 break;
         }
+
+        //Copy buffers and plot:
+        qCopy(graph_yarray[index], graph_yarray[index] + plot_len, y);
+        refreshPlot(graph_xarray, y, plot_len, index);
     }
 }

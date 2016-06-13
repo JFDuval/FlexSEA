@@ -49,9 +49,15 @@ void init_motor(void)
 	Opamp_1_Start();
 	
 	//Quadrature 1: Motor shaft encoder
-	#ifdef USE_QEI1
+	#ifdef USE_QEI
 	init_qei();
-	#endif	//USE_QEI1	
+	#endif	//USE_QEI
+	
+	//When using Brushed, fixed Hall code:
+	#if(MOTOR_TYPE == MOTOR_BRUSHED)
+	Use_Hall_Write(HALL_VIRTUAL);
+	Virtual_Hall_Write(0b110); 
+	#endif	//MOTOR_TYPE == MOTOR_BRUSHED
 }
 
 //Controls motor PWM duty cycle
@@ -68,6 +74,9 @@ void motor_open_speed_1(int16 pwm_duty)
 		pdc = MIN_PWM;
 	else
 		pdc = pwm_duty;
+	
+	//User defined sign:
+	pdc = pdc * PWM_SIGN;
 	
 	//Save value to structure:
 	ctrl.pwm = pdc;
@@ -102,6 +111,9 @@ void motor_open_speed_2(int16 pwm_duty, int sign)
 		pdc = 0;
 	else
 		pdc = pwm_duty;
+	
+	//User defined sign:
+	sign = sign * PWM_SIGN;
 	
 	//Change direction according to sign
 	if(sign == -1)
@@ -139,16 +151,24 @@ void motor_fixed_pwm_test_code_blocking(int spd)
 	
 	while(1)
 	{	
-		LED_R_Write(H1_Read());
-		LED_G_Write(H2_Read());
-		LED_B_Write(H3_Read());
+		LED_R_Write(EX1_Read());
+		LED_G_Write(EX2_Read());
+		LED_B_Write(EX3_Read());
 		
 		//WatchDog Clock (Safety-CoP)
 		toggle_wdclk ^= 1;
 		WDCLK_Write(toggle_wdclk);
 		
-		encoder_read();
+		refresh_enc_control();
 	}
+}
+
+//Sends a constant PWM. Non-Blocking.
+void motor_fixed_pwm_test_code_non_blocking(int spd)
+{
+	ctrl.active_ctrl = CTRL_OPEN;	
+	Coast_Brake_Write(1);	//Brake
+	motor_open_speed_1(spd);	
 }
 
 //Use this to send PWM pulses in open speed mode
@@ -163,9 +183,9 @@ void test_pwm_pulse_blocking(void)
 	while(1)
 	{	
 		//RGB LED = Hall code:
-		LED_R_Write(H1_Read());
-		LED_G_Write(H2_Read());
-		LED_B_Write(H3_Read());
+		LED_R_Write(EX1_Read());
+		LED_G_Write(EX2_Read());
+		LED_B_Write(EX3_Read());
 		
 		val = output_step();
 		motor_open_speed_1(val);

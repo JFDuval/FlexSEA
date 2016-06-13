@@ -29,19 +29,13 @@ volatile uint16 adc_delsig_dma_array[8];
 
 //Enables the peripherals associated with the strain amplifier and
 //sets the default values.
-//Make sure that you initialize I2C first!
+//Make sure that you initialize I2C1 first!
 void init_strain(void)
 {
 	//Peripherals:
 	//=-=-=-=-=-=
 	
 	Opamp_2_Start();		//VR1
-	
-	VDAC8_3_Start();		//VR2 reference
-	Opamp_3_Start();		//VR2 buffer
-	
-	AMux_2_Start();			//ADC input, VO1 & VO2
-	AMux_2_Select(0);		//Starts with SG_VO2, the final output
 	
 	//16-bits ADC:
 	ADC_DelSig_1_Start();
@@ -54,20 +48,17 @@ void init_strain(void)
 	
 	strain.offset = STRAIN_DEFAULT_OFFSET;
 	strain.gain = STRAIN_DEFAULT_GAIN;
-	strain.oref = STRAIN_DEFAULT_OREF;	
+	//strain.oref = STRAIN_DEFAULT_OREF;	
 	strain.vo1 = 0;
-	strain.vo2 = 0;
+	//strain.vo2 = 0;
 	strain.filtered_strain = 0;
-	strain_config(strain.offset, strain.gain, strain.oref);
+	strain_config(strain.offset, strain.gain);
 }
 
 //Configure the strain gauge amplifier
-void strain_config(uint8 offs, uint8 gain, uint8 oref)
+void strain_config(uint8 offs, uint8 gain)
 {
 	uint8 i2c_init_buf[2];
-	
-	//Output reference:
-	VDAC8_3_SetValue(oref);	
 	
 	//Offset:
 	i2c_init_buf[0] = STRAIN_OFFSET;
@@ -153,9 +144,8 @@ void strain_test_blocking(void)
 	uint8 vr1 = 0;
 	uint8 ledg_state = 0;
 	
-	VDAC8_3_SetValue(156);	
 	i2c_test_wbuf[0] = STRAIN_OFFSET;
-	i2c_test_wbuf[1] = 120;	//Offset of ~ V/2
+	i2c_test_wbuf[1] = 127;	//Offset of ~ V/2
 	I2C_1_MasterWriteBuf(I2C_POT_ADDR, (uint8 *) i2c_test_wbuf, 2, I2C_1_MODE_COMPLETE_XFER);	
 	CyDelay(10);
 	i2c_test_wbuf[0] = STRAIN_GAIN;
@@ -172,7 +162,7 @@ void strain_test_blocking(void)
 		ledg_state ^= 1;
 		LED_G_Write(ledg_state);
 		
-		CyDelayUs(100);
+		CyDelayUs(1000);
 	}
 }
 

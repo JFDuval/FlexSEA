@@ -1,14 +1,16 @@
 //****************************************************************************
 // MIT Media Lab - Biomechatronics
 // Jean-Francois (Jeff) Duval
-// jfduval@mit.edu
-// 12/2014
+// jfduval@media.mit.edu
+// 05/2016
 //****************************************************************************
 // fm_adc: Analog to digital converter
 //****************************************************************************
+// Licensing: Please refer to 'software_license.txt'
+//****************************************************************************
 
-#ifndef ADC_H_
-#define ADC_H_
+#ifndef INC_FM_ADC_H
+#define INC_FM_ADC_H
 
 //****************************************************************************
 // Include(s)
@@ -18,8 +20,15 @@
 #include "stm32f4xx_hal.h"
 
 //****************************************************************************
-// Prototype(s):
+// Shared variable(s)
 //****************************************************************************
+
+//...
+
+//****************************************************************************
+// Public Function Prototype(s):
+//****************************************************************************
+
 void init_adc1(void);
 unsigned int adc_conv(void);
 void adc_set_channel(unsigned char ch);
@@ -38,4 +47,5 @@ void adc_set_channel(unsigned char ch);
 
 #define ADC_CHANNELS	8
 
-#endif // ADC_H_
+#endif 	// INC_FM_ADC_H
+

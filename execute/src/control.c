@@ -21,6 +21,9 @@
 //Main data structure for all the controllers:
 volatile struct ctrl_s ctrl;
 
+//In Control tool:
+volatile struct in_control_s in_control;
+
 //Impedance loop
 int debug_var = 0;
 
@@ -62,6 +65,7 @@ void control_strategy(unsigned char strat)
 	}
 	
 	ctrl.active_ctrl = strat;	//controller = strat;
+	in_control.controller = ctrl.active_ctrl;
 	
 	//The user should call a set gain function at this point.
 }
@@ -134,9 +138,12 @@ int32 motor_position_pid(int32 wanted_pos, int32 actual_pos)
 	//Position values:
 	ctrl.position.pos = actual_pos;
 	ctrl.position.setp = wanted_pos;
+	in_control.actual_val = ctrl.position.pos;
+	in_control.setp = ctrl.position.setp;
 	
 	//Errors:
 	ctrl.position.error = ctrl.position.pos - ctrl.position.setp;
+	in_control.error = ctrl.position.error;
 	ctrl.position.error_sum = ctrl.position.error_sum + ctrl.position.error;
 	//ctrl.position.error_dif ToDo
 	
@@ -148,8 +155,10 @@ int32 motor_position_pid(int32 wanted_pos, int32 actual_pos)
 	
 	//Proportional term
 	p = (ctrl.position.gain.P_KP * ctrl.position.error) / 100;
+	in_control.r[0] = p;
 	//Integral term
 	i = (ctrl.position.gain.P_KI * ctrl.position.error_sum) / 100;
+	in_control.r[1] = i;
 	
 	//Output
 	pwm = (p + i);		//
@@ -161,11 +170,12 @@ int32 motor_position_pid(int32 wanted_pos, int32 actual_pos)
 		pwm = -POS_PWM_LIMIT;
 	
 	motor_open_speed_1(pwm);
+	in_control.output = pwm;
 	
 	return ctrl.position.error;
 }
 
-//Motor position controller - non blocking. PID + Feed FOrward (FF)
+//Motor position controller - non blocking. PID + Feed Forward (FF)
 //The FF term comes from the calling function, it's added to the output.
 int32 motor_position_pid_ff_1(int32 wanted_pos, int32 actual_pos, int32 ff)
 {
@@ -313,13 +323,13 @@ inline int32 motor_current_pid_2(int32 wanted_curr, int32 measured_curr)
 	//Sign extracted from wanted_curr:
 	if(wanted_curr < 0)
 	{
-		sign = -1;
+		sign = (-1)*PWM_SIGN;
 		MotorDirection_Control = 0;		//MotorDirection_Write(0);
 		uint_wanted_curr = -wanted_curr;
 	}
 	else
 	{
-		sign = 1;
+		sign = (1)*PWM_SIGN;
 		MotorDirection_Control = 1;		//MotorDirection_Write(1);
 		uint_wanted_curr = wanted_curr;
 	}
@@ -386,7 +396,7 @@ inline int32 motor_current_pid_2(int32 wanted_curr, int32 measured_curr)
 
 // Impedance controller -- EJ Rouse, 8/11/14
 // There will be filter transients for first few iterations -- maybe turn loops off for 100 ms?
-// Variables created: stiffness, damping, prev_enc_count, 
+// Variables created: stiffness, damping, prev_enc_count
 int motor_impedance_encoder(int wanted_pos, int new_enc_count)
 {
 	// Initialize vars
@@ -395,11 +405,34 @@ int motor_impedance_encoder(int wanted_pos, int new_enc_count)
 	static long long prev_filt1 = 0, prev_filt2 = 0, prev_filt3 = 0; 
 	long long current_vel = 0, filt_vel = 0, current_val = 0;
 	static int enc_t0 = 0, enc_tm1 = 0, enc_tm2 = 0, enc_tm3 = 0, enc_tm4 = 0, enc_tm5 = 0, enc_tm6 = 0, enc_tm7 = 0, enc_tm8 = 0, enc_tm9 = 0;
+	long long motor_direction = new_enc_count - prev_enc_count;
+	int modifier = 0;
+	
+	//Test code:
+	if(motor_direction <= 0)
+	{
+		//MotorDirection_Write(0);
+		//modifier = 50;
+	}
+	else
+	{
+		//MotorDirection_Write(1);
+		modifier = 0;
+	}
+	//End of test code
 
 	ctrl.impedance.error = new_enc_count - wanted_pos;		//Actual error
+	in_control.setp = wanted_pos;
+	in_control.actual_val = new_enc_count;
+	in_control.error = ctrl.impedance.error;
 	
-	//Current for stiffness term
-	i_k = ctrl.impedance.gain.Z_K * (ctrl.impedance.error >> 12);	//The /50 places the k gain in a good integer range
+	//Current for stiffness term. Gain factor depends on the encoder count.
+	#if(ACTIVE_PROJECT == PROJECT_CSEA_KNEE)
+		i_k = ctrl.impedance.gain.Z_K * (ctrl.impedance.error >> 4);
+	#else
+		i_k = ctrl.impedance.gain.Z_K * (ctrl.impedance.error >> 8);
+	#endif
+	
 	
 	//Velocity measured on n cycles:
 	enc_tm9 = enc_tm8; enc_tm8 = enc_tm7; enc_tm7 = enc_tm6; enc_tm6 = enc_tm5; enc_tm5 = enc_tm4; enc_tm4 = enc_tm3; enc_tm3 = enc_tm2; enc_tm2 = enc_tm1; enc_tm1 = enc_t0;
@@ -414,6 +447,7 @@ int motor_impedance_encoder(int wanted_pos, int new_enc_count)
  	debug_var = filt_vel;
 	
  	i_b = ctrl.impedance.gain.Z_B * (filt_vel >> 5);
+	i_b += modifier;
 
 	//Output
 	current_val = (i_k + i_b);		// Impedance command, motor current in terms of effort (A)
@@ -428,6 +462,7 @@ int motor_impedance_encoder(int wanted_pos, int new_enc_count)
 	prev_filt1 = filt_vel;
 
 	ctrl.current.setpoint_val = (int32)current_val;
+	in_control.output = ctrl.current.setpoint_val;
 
 	return ctrl.impedance.error;
 }
@@ -453,11 +488,11 @@ void test_current_tracking_blocking(void)
 		//ctrl.current.setpoint_val = val*2 + 125;
 		
 		//RGB LED = Hall code:
-		LED_R_Write(H1_Read());
-		LED_G_Write(H2_Read());
-		LED_B_Write(H3_Read());
+		LED_R_Write(EX1_Read());
+		LED_G_Write(EX2_Read());
+		LED_B_Write(EX3_Read());
 		
-		val = output_step();
+		val = 200;	//output_step();
 		ctrl.current.setpoint_val = val;
 	}
 }
@@ -472,9 +507,9 @@ void motor_cancel_damping_test_code_blocking(void)
 	while(1)
 	{	
 		//RGB LED = Hall code:
-		LED_R_Write(H1_Read());
-		LED_G_Write(H2_Read());
-		LED_B_Write(H3_Read());
+		LED_R_Write(EX1_Read());
+		LED_G_Write(EX2_Read());
+		LED_B_Write(EX3_Read());
 		
 		//Refresh encoder data:
 		encoder.count_last = encoder.count;	
@@ -494,4 +529,20 @@ void motor_cancel_damping_test_code_blocking(void)
 		//Loop delay (otherwise we don't get a good difference)
 		CyDelay(10);
 	}
+}
+
+//in_control.combined = [CTRL2:0][MOT_DIR][PWM]
+void in_control_combine(void)
+{
+	uint16_t tmp = 0;
+	
+	tmp = ((in_control.controller & 0x03) << 13) | ((in_control.mot_dir & 0x01) << 12) | (in_control.pwm & 0xFFF);
+	in_control.combined = tmp;
+}
+
+//Reads the PWM and MOTOR_DIR values from hardware:
+void in_control_get_pwm_dir(void)
+{
+	in_control.pwm = PWM_1_ReadCompare1();
+	in_control.mot_dir = MotorDirection_Read();
 }

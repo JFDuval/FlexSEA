@@ -21,11 +21,11 @@
 // Variable(s)
 //****************************************************************************
 
-uint8 clutch_pwm = 0;
 uint8 uart_dma_rx_buf[96];	//ToDo #define
 uint8 uart_dma_tx_buf[96];
 uint8 DMA_4_Chan;
 uint8 DMA_4_TD[1];
+uint8 gui_fsm_flag = DISABLED;
 
 //****************************************************************************
 // Function(s)
@@ -50,60 +50,91 @@ void init_peripherals(void)
 	init_analog();
 	
 	//Clutch:
-	init_clutch();	
+	init_pwro();
+	
+	//Hall sensor for commutation?
+	#if(ENC_COMMUT == ENC_HALL)
+		Use_Hall_Write(HALL_PHYSICAL);	//Use Hall sensors (Expansion connector)
+	#else
+		Use_Hall_Write(HALL_VIRTUAL);	//Do not use, or use software version
+	#endif
 	
 	//Enable Global Interrupts
     CyGlobalIntEnable; 
 	
-	//I2C1 (internal, potentiometers, Safety-CoP & IMU)
-	init_i2c1();
-	
-	//Peripherals that depend on I2C:
-	#ifdef USE_I2C_INT	
+	//I2C0 - 3V3, IMU & Expansion
+	#ifdef USE_I2C_0	
+		
+		init_i2c_0();
 		
 		//MPU-6500 IMU:
 		#ifdef USE_IMU
+			
 		init_imu();
 		CyDelay(25);
 		init_imu();
 		CyDelay(25);
 		init_imu();
 		CyDelay(25);
+		
 		#endif	//USE_IMU
+		
+		//External RGB LED:
+		#ifdef USE_MINM_RGB
+			
+		//Set RGB LED - Starts Green
+		i2c_init_minm(MINM_GREEN);
+		
+		#endif 	//USE_MINM_RGB
+	
+	#endif	//USE_I2C_0
+	
+	//I2C1 - 5V, Safety-CoP & strain gauge pot
+	#ifdef USE_I2C_1	
+		
+		//I2C1 peripheral:
+		init_i2c_1();
 		
 		//Strain amplifier:
 		#ifdef USE_STRAIN
+			
 		init_strain();
+		
 		#endif	//USE_STRAIN
 		
-	#endif	//USE_I2C_INT	
-	
-	//I2C2 (external)	
-	#ifdef USE_I2C_EXT
-	
-	//Enable pull-ups:
-	I2C_OPT_PU_Write(1);
-		
-	//I2C2 peripheral:
-	init_i2c2();
-	
-	//Set RGB LED - Starts Green
-	i2c_write_minm_rgb(SET_RGB, 0, 255, 0);
-	
-	#endif //USE_I2C_EXT
+	#endif	//USE_I2C_1	
 	
 	//Magnetic encoder:
+	#ifdef USE_AS5047		
+	
 	init_as5047();
 	
-	// First DieTemp reading is always inaccurate -- throw out the first one
+	#endif //USE_AS5047
+	
+	#ifdef USE_SPI_COMMUT
+	//...	
+	#endif 	//USE_SPI_COMMUT
+	
+	//Die temperatuire measurement
 	#ifdef USE_DIETEMP	
 	DieTemp_1_GetTemp(&temp);
 	#endif
+	
+	//Special color when waiting for USB (Yellow):
+	set_led_rgb(1, 1, 0);
 	
 	//USB CDC
 	#ifdef USE_USB	
 	init_usb();
 	#endif	//USE_USB
+	
+	//Notify the GUI that a FSM is running:
+	#if(RUNTIME_FSM == ENABLED)
+	gui_fsm_flag = ENABLED;
+	#endif	//(RUNTIME_FSM == ENABLED)
+	
+	//Start with an empty buffer
+	flexsea_clear_slave_read_buffer();
 }
 
 //Timebase timers init:
@@ -113,45 +144,4 @@ void init_tb_timers(void)
 	Timer_1_Init();
 	Timer_1_Start();
 	isr_t1_Start();
-}
-
-//Internal I2C: IMU, Safety-CoP, potentiometers
-void init_i2c1(void)
-{
-	#ifdef USE_I2C_INT	
-	I2C_1_EnableInt();
-	I2C_1_Start();	
-	#endif	//USE_I2C_INT
-}
-
-//External I2C: expansion connector
-void init_i2c2(void)
-{
-	#ifdef USE_I2C_EXT
-	//I2C_2_Init();
-	//I2C_2_Enable();
-	I2C_2_EnableInt();
-	I2C_2_Start();
-	#endif	//USE_I2C_EXT	
-}
-
-//Configuration for the clutch
-void init_clutch(void)
-{
-	//PWM2: Clutch
-	PWM_2_Start();
-	PWM_2_WriteCompare(0);	//Start at 0%
-}
-
-//PWM output for the clutch
-void clutch_output(uint8 value)
-{
-	clutch_pwm = value;
-	PWM_2_WriteCompare(clutch_pwm);
-}
-
-//Returns the PWM value of the clutch
-uint8 read_clutch(void)
-{
-	return clutch_pwm;
 }

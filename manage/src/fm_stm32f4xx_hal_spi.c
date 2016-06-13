@@ -91,8 +91,9 @@
 //ToDo 1: add .h with prototypes
 //ToDo 2: update the file header (from STM, modified by Steven, etc)
 
-#include "stm32f4xx_hal.h"
-#include "flexsea.h"
+#include "main.h"
+
+#define NULL 0
 
 /** @addtogroup STM32F4xx_HAL_Driver
  * @{

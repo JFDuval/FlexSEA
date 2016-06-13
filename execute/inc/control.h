@@ -21,6 +21,7 @@
 //****************************************************************************
 
 extern volatile struct ctrl_s ctrl;
+extern volatile struct in_control_s in_control;
 	
 //****************************************************************************
 // Prototype(s):
@@ -33,6 +34,8 @@ int32 motor_position_pid_ff_1(int32 wanted_pos, int32 actual_pos, int32 ff);
 int32 motor_current_pid(int32 wanted_curr, int32 measured_curr);
 extern inline int32 motor_current_pid_2(int32 wanted_curr, int32 measured_curr);
 int motor_impedance_encoder(int wanted_pos, int new_enc_count);
+void in_control_combine(void);
+void in_control_get_pwm_dir(void);
 
 void motor_cancel_damping_test_code_blocking(void);
 
@@ -48,7 +51,7 @@ void motor_cancel_damping_test_code_blocking(void);
 #define GAIN_D					0					//Idem
 	
 //Current controller
-#define CURRENT_ZERO			((int32)2155)		//Should be calibrated board by board
+#define CURRENT_ZERO			((int32)2075)		//Should be calibrated board by board
 #define CURRENT_SPAN			((int32)1850)		//Variation from zero (technically, that's SPAN/2)
 #define CURRENT_POS_LIMIT		CURRENT_SPAN
 #define CURRENT_NEG_LIMIT		(-CURRENT_SPAN)

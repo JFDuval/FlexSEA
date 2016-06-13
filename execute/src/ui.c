@@ -31,6 +31,33 @@ uint8 minm_i2c_buf[MINM_BUF_SIZE];
 // Public Function(s)
 //****************************************************************************
 
+void i2c_init_minm(uint8 color)
+{
+	uint8 r = 0, g = 0, b = 0;
+	
+	minm_i2c_buf[0] = MINM_STOP_SCRIPT;
+	minm_i2c_buf[1] = 0;
+	
+	//Stop script:
+	I2C_0_MasterClearStatus();
+	//I2C_0_MasterClearWriteBuf();
+    I2C_0_MasterWriteBuf(I2C_SLAVE_ADDR_MINM, (uint8 *) minm_i2c_buf,
+                             4, I2C_0_MODE_COMPLETE_XFER);
+	
+	CyDelay(50);
+	
+	//Set color:
+	minm_byte_to_rgb(color, &r, &g, &b);
+	i2c_write_minm_rgb(SET_RGB, r, g, b);	
+	minm_rgb_color = color;
+	
+	minm_rgb_color = MINM_GREEN;
+	update_minm_rgb();
+	
+	CyDelay(25);
+}
+
+
 //Write to MinM RGB LED
 void i2c_write_minm_rgb(uint8 cmd, uint8 r, uint8 g, uint8 b)
 {	
@@ -40,10 +67,10 @@ void i2c_write_minm_rgb(uint8 cmd, uint8 r, uint8 g, uint8 b)
 	minm_i2c_buf[2] = g;
 	minm_i2c_buf[3] = b;
 	
-	I2C_2_MasterClearStatus();
-	//I2C_2_MasterClearWriteBuf();
-    I2C_2_MasterWriteBuf(I2C_SLAVE_ADDR_MINM, (uint8 *) minm_i2c_buf,
-                             4, I2C_2_MODE_COMPLETE_XFER);
+	I2C_0_MasterClearStatus();
+	//I2C_0_MasterClearWriteBuf();
+    I2C_0_MasterWriteBuf(I2C_SLAVE_ADDR_MINM, (uint8 *) minm_i2c_buf,
+                             4, I2C_0_MODE_COMPLETE_XFER);
 
 	//ISR will take it from here...
 	
@@ -76,12 +103,14 @@ void minm_byte_to_rgb(uint8 byte, uint8 *r, uint8 *g, uint8 *b)
 	}
 }
 
-//Updates the MinM LED if the color changed, otherwise does noting
-void update_minm_rgb(void)
+//Updates the MinM LED if the color changed, otherwise does noting.
+//Returns 0 when nothing changed (no I2C transfer), 1 when it's using the bus
+uint8 update_minm_rgb(void)
 {
+	uint8 retval = 0;
 	static uint8 r = 0, g = 0, b = 0;
 	
-	#ifdef USE_I2C_EXT
+	#ifdef USE_I2C_0
 	
 	if(minm_rgb_color != last_minm_rgb_color)
 	{
@@ -89,11 +118,14 @@ void update_minm_rgb(void)
 		
 		minm_byte_to_rgb(minm_rgb_color, &r, &g, &b);
 		i2c_write_minm_rgb(SET_RGB, r, g, b);
+		retval = 1;
 	}
 	
 	last_minm_rgb_color = minm_rgb_color;
 	
-	#endif	//USE_I2C_EXT
+	#endif	//USE_I2C_0
+	
+	return retval;
 }
 
 //Use this to test your RGB hardware

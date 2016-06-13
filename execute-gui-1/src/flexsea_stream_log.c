@@ -346,7 +346,7 @@ static void flexsea_stream_exp_1(void)
 
 	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
 									KEEP, 0, KEEP, 0, 0, 0);
-	numb = comm_gen_str(payload_str, comm_str_spi, PAYLOAD_BUF_LEN);
+    numb = comm_gen_str(payload_str, comm_str_usb, PAYLOAD_BUF_LEN);    //Was comm_str_spi. ToDo is it ok?
 	numb = COMM_STR_BUF_LEN;
 
 	#ifdef USE_SPI
@@ -378,7 +378,7 @@ static void flexsea_stream_exp_2(void)
 
 	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_2, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
 									KEEP, 0, KEEP, 0, 0, 0);
-	numb = comm_gen_str(payload_str, comm_str_spi, PAYLOAD_BUF_LEN);
+    numb = comm_gen_str(payload_str, comm_str_usb, PAYLOAD_BUF_LEN);    //Was comm_str_spi. ToDo is it ok?
 	numb = COMM_STR_BUF_LEN;
 
 	#ifdef USE_SPI
@@ -409,7 +409,7 @@ static void flexsea_stream_exp_3(void)
 	//For now we only read the switch
 
 	numb = tx_cmd_switch(FLEXSEA_MANAGE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN);
-	numb = comm_gen_str(payload_str, comm_str_spi, PAYLOAD_BUF_LEN);
+    numb = comm_gen_str(payload_str, comm_str_usb, PAYLOAD_BUF_LEN);    //Was comm_str_spi. ToDo is it ok?
 	numb = COMM_STR_BUF_LEN;
     //flexsea_spi_transmit(numb, comm_str_spi, 0);
 
@@ -427,7 +427,7 @@ static void flexsea_stream_exp_4(void)
 
 	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_2, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
 									KEEP, 0, KEEP, 0, 0, 0);
-	numb = comm_gen_str(payload_str, comm_str_spi, PAYLOAD_BUF_LEN);
+    numb = comm_gen_str(payload_str, comm_str_usb, PAYLOAD_BUF_LEN);    //Was comm_str_spi. ToDo is it ok?
 	numb = COMM_STR_BUF_LEN;
     //flexsea_spi_transmit(numb, comm_str_spi, 0);
 
@@ -438,7 +438,7 @@ static void flexsea_stream_exp_4(void)
 
 	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
 									KEEP, 0, KEEP, 0, 0, 0);
-	numb = comm_gen_str(payload_str, comm_str_spi, PAYLOAD_BUF_LEN);
+    numb = comm_gen_str(payload_str, comm_str_usb, PAYLOAD_BUF_LEN);    //Was comm_str_spi. ToDo is it ok?
 	numb = COMM_STR_BUF_LEN;
     //flexsea_spi_transmit(numb, comm_str_spi, 0);
 
@@ -458,7 +458,7 @@ static void flexsea_stream_exp_5(void)
 	numb = tx_cmd_ctrl_special_4(FLEXSEA_MANAGE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
 									KEEP, 0, KEEP, 0, 0, 0, \
 									KEEP, 0, KEEP, 0, 0, 0);
-	numb = comm_gen_str(payload_str, comm_str_spi, PAYLOAD_BUF_LEN);
+    numb = comm_gen_str(payload_str, comm_str_usb, PAYLOAD_BUF_LEN);    //Was comm_str_spi. ToDo is it ok?
 	numb = COMM_STR_BUF_LEN;
     //flexsea_spi_transmit(numb, comm_str_spi, 0);
 
@@ -478,7 +478,7 @@ static void flexsea_stream_exp_6(void)
 									0, 0, 0, 0, 0,\
 									KEEP, 0, 0, 0, 0);
 
-	numb = comm_gen_str(payload_str, comm_str_spi, PAYLOAD_BUF_LEN);
+    numb = comm_gen_str(payload_str, comm_str_usb, PAYLOAD_BUF_LEN);    //Was comm_str_spi. ToDo is it ok?
 	numb = COMM_STR_BUF_LEN;
 
 	#ifdef USE_SPI
@@ -522,7 +522,7 @@ static void flexsea_log_exp_1(FILE *logfile, char min, char sec, uint32_t *tmp, 
 
 	numb = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, \
 												KEEP, 0, KEEP, 0, 77, 0);
-	numb = comm_gen_str(payload_str, comm_str_spi, PAYLOAD_BUF_LEN);
+    numb = comm_gen_str(payload_str, comm_str_usb, PAYLOAD_BUF_LEN);    //Was comm_str_spi. ToDo is it ok?
 	numb = COMM_STR_BUF_LEN;
     //flexsea_spi_transmit(numb, comm_str_spi, 0);
 
@@ -533,7 +533,7 @@ static void flexsea_log_exp_1(FILE *logfile, char min, char sec, uint32_t *tmp, 
 
     //Log to file:
     fprintf(logfile, "[%d:%d],%i,%i,%i,%i,%i,%i,%i\n", min, sec, \
-            		exec1.encoder, exec1.current, exec1.imu.x, exec1.imu.y, exec1.imu.z, \
+                    exec1.enc_display, exec1.current, exec1.gyro.x, exec1.gyro.y, exec1.gyro.z, \
     				exec1.strain, exec1.analog[0]);
 
 	return;
