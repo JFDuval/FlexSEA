@@ -1,0 +1,436 @@
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccmWlmXK.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"voltage_sensing.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.global	__aeabi_i2d
+  18              		.global	__aeabi_dmul
+  19              		.global	__aeabi_ddiv
+  20              		.global	__aeabi_dsub
+  21              		.global	__aeabi_d2uiz
+  22              		.section	.text.read_battery_voltage,"ax",%progbits
+  23              		.align	2
+  24              		.global	read_battery_voltage
+  25              		.code	16
+  26              		.thumb_func
+  27              		.type	read_battery_voltage, %function
+  28              	read_battery_voltage:
+  29              	.LFB35:
+  30              		.file 1 ".\\voltage_sensing.c"
+   1:.\voltage_sensing.c **** #include <project.h>
+   2:.\voltage_sensing.c **** #include "main.h"
+   3:.\voltage_sensing.c **** #include "voltage_sensing.h"
+   4:.\voltage_sensing.c **** 
+   5:.\voltage_sensing.c **** //Variables
+   6:.\voltage_sensing.c **** 
+   7:.\voltage_sensing.c **** uint16 read_battery_voltage(){
+  31              		.loc 1 7 0
+  32              		.cfi_startproc
+  33 0000 98B5     		push	{r3, r4, r7, lr}
+  34              		.cfi_def_cfa_offset 16
+  35              		.cfi_offset 3, -16
+  36              		.cfi_offset 4, -12
+  37              		.cfi_offset 7, -8
+  38              		.cfi_offset 14, -4
+  39 0002 00AF     		add	r7, sp, #0
+  40              		.cfi_def_cfa_register 7
+   8:.\voltage_sensing.c ****     return (uint16)(((ADC_SAR_Seq_1_GetResult16(1) * 3.3 / 2048.0) * 10.106  - 1.3278) * 1000.0);
+  41              		.loc 1 8 0
+  42 0004 0120     		mov	r0, #1
+  43 0006 FFF7FEFF 		bl	ADC_SAR_Seq_1_GetResult16
+  44 000a 031C     		mov	r3, r0
+  45 000c 181C     		mov	r0, r3
+  46 000e FFF7FEFF 		bl	__aeabi_i2d
+  47 0012 031C     		mov	r3, r0
+  48 0014 0C1C     		mov	r4, r1
+  49 0016 181C     		mov	r0, r3
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccmWlmXK.s 			page 2
+
+
+  50 0018 211C     		mov	r1, r4
+  51 001a 184B     		ldr	r3, .L3+4
+  52 001c 164A     		ldr	r2, .L3
+  53 001e FFF7FEFF 		bl	__aeabi_dmul
+  54 0022 031C     		mov	r3, r0
+  55 0024 0C1C     		mov	r4, r1
+  56 0026 181C     		mov	r0, r3
+  57 0028 211C     		mov	r1, r4
+  58 002a 154A     		ldr	r2, .L3+8
+  59 002c 154B     		ldr	r3, .L3+12
+  60 002e FFF7FEFF 		bl	__aeabi_ddiv
+  61 0032 031C     		mov	r3, r0
+  62 0034 0C1C     		mov	r4, r1
+  63 0036 181C     		mov	r0, r3
+  64 0038 211C     		mov	r1, r4
+  65 003a 134A     		ldr	r2, .L3+16
+  66 003c 134B     		ldr	r3, .L3+20
+  67 003e FFF7FEFF 		bl	__aeabi_dmul
+  68 0042 031C     		mov	r3, r0
+  69 0044 0C1C     		mov	r4, r1
+  70 0046 181C     		mov	r0, r3
+  71 0048 211C     		mov	r1, r4
+  72 004a 114A     		ldr	r2, .L3+24
+  73 004c 114B     		ldr	r3, .L3+28
+  74 004e FFF7FEFF 		bl	__aeabi_dsub
+  75 0052 031C     		mov	r3, r0
+  76 0054 0C1C     		mov	r4, r1
+  77 0056 181C     		mov	r0, r3
+  78 0058 211C     		mov	r1, r4
+  79 005a 0F4A     		ldr	r2, .L3+32
+  80 005c 0F4B     		ldr	r3, .L3+36
+  81 005e FFF7FEFF 		bl	__aeabi_dmul
+  82 0062 031C     		mov	r3, r0
+  83 0064 0C1C     		mov	r4, r1
+  84 0066 181C     		mov	r0, r3
+  85 0068 211C     		mov	r1, r4
+  86 006a FFF7FEFF 		bl	__aeabi_d2uiz
+  87 006e 031C     		mov	r3, r0
+  88 0070 9BB2     		uxth	r3, r3
+   9:.\voltage_sensing.c **** }...
+  89              		.loc 1 9 0
+  90 0072 181C     		mov	r0, r3
+  91 0074 BD46     		mov	sp, r7
+  92              		@ sp needed
+  93 0076 98BD     		pop	{r3, r4, r7, pc}
+  94              	.L4:
+  95              		.align	3
+  96              	.L3:
+  97 0078 66666666 		.word	1717986918
+  98 007c 66660A40 		.word	1074423398
+  99 0080 00000000 		.word	0
+ 100 0084 0000A040 		.word	1084227584
+ 101 0088 83C0CAA1 		.word	-1580547965
+ 102 008c 45362440 		.word	1076115013
+ 103 0090 910F7A36 		.word	913969041
+ 104 0094 AB3EF53F 		.word	1073036971
+ 105 0098 00000000 		.word	0
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccmWlmXK.s 			page 3
+
+
+ 106 009c 00408F40 		.word	1083129856
+ 107              		.cfi_endproc
+ 108              	.LFE35:
+ 109              		.size	read_battery_voltage, .-read_battery_voltage
+ 110              		.text
+ 111              	.Letext0:
+ 112              		.file 2 ".\\Generated_Source\\PSoC4/cytypes.h"
+ 113              		.section	.debug_info,"",%progbits
+ 114              	.Ldebug_info0:
+ 115 0000 A4000000 		.4byte	0xa4
+ 116 0004 0400     		.2byte	0x4
+ 117 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 118 000a 04       		.byte	0x4
+ 119 000b 01       		.uleb128 0x1
+ 120 000c 8B000000 		.4byte	.LASF13
+ 121 0010 01       		.byte	0x1
+ 122 0011 2A010000 		.4byte	.LASF14
+ 123 0015 1B000000 		.4byte	.LASF15
+ 124 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 125 001d 00000000 		.4byte	0
+ 126 0021 00000000 		.4byte	.Ldebug_line0
+ 127 0025 02       		.uleb128 0x2
+ 128 0026 01       		.byte	0x1
+ 129 0027 06       		.byte	0x6
+ 130 0028 51010000 		.4byte	.LASF0
+ 131 002c 02       		.uleb128 0x2
+ 132 002d 01       		.byte	0x1
+ 133 002e 08       		.byte	0x8
+ 134 002f 07010000 		.4byte	.LASF1
+ 135 0033 02       		.uleb128 0x2
+ 136 0034 02       		.byte	0x2
+ 137 0035 05       		.byte	0x5
+ 138 0036 78010000 		.4byte	.LASF2
+ 139 003a 02       		.uleb128 0x2
+ 140 003b 02       		.byte	0x2
+ 141 003c 07       		.byte	0x7
+ 142 003d 3E010000 		.4byte	.LASF3
+ 143 0041 02       		.uleb128 0x2
+ 144 0042 04       		.byte	0x4
+ 145 0043 05       		.byte	0x5
+ 146 0044 1A010000 		.4byte	.LASF4
+ 147 0048 02       		.uleb128 0x2
+ 148 0049 04       		.byte	0x4
+ 149 004a 07       		.byte	0x7
+ 150 004b 62000000 		.4byte	.LASF5
+ 151 004f 02       		.uleb128 0x2
+ 152 0050 08       		.byte	0x8
+ 153 0051 05       		.byte	0x5
+ 154 0052 00000000 		.4byte	.LASF6
+ 155 0056 02       		.uleb128 0x2
+ 156 0057 08       		.byte	0x8
+ 157 0058 07       		.byte	0x7
+ 158 0059 74000000 		.4byte	.LASF7
+ 159 005d 03       		.uleb128 0x3
+ 160 005e 04       		.byte	0x4
+ 161 005f 05       		.byte	0x5
+ 162 0060 696E7400 		.ascii	"int\000"
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccmWlmXK.s 			page 4
+
+
+ 163 0064 02       		.uleb128 0x2
+ 164 0065 04       		.byte	0x4
+ 165 0066 07       		.byte	0x7
+ 166 0067 0E000000 		.4byte	.LASF8
+ 167 006b 04       		.uleb128 0x4
+ 168 006c 82010000 		.4byte	.LASF16
+ 169 0070 02       		.byte	0x2
+ 170 0071 A2       		.byte	0xa2
+ 171 0072 3A000000 		.4byte	0x3a
+ 172 0076 02       		.uleb128 0x2
+ 173 0077 04       		.byte	0x4
+ 174 0078 04       		.byte	0x4
+ 175 0079 5D010000 		.4byte	.LASF9
+ 176 007d 02       		.uleb128 0x2
+ 177 007e 08       		.byte	0x8
+ 178 007f 04       		.byte	0x4
+ 179 0080 23010000 		.4byte	.LASF10
+ 180 0084 02       		.uleb128 0x2
+ 181 0085 01       		.byte	0x1
+ 182 0086 08       		.byte	0x8
+ 183 0087 15010000 		.4byte	.LASF11
+ 184 008b 02       		.uleb128 0x2
+ 185 008c 04       		.byte	0x4
+ 186 008d 07       		.byte	0x7
+ 187 008e 89010000 		.4byte	.LASF12
+ 188 0092 05       		.uleb128 0x5
+ 189 0093 63010000 		.4byte	.LASF17
+ 190 0097 01       		.byte	0x1
+ 191 0098 07       		.byte	0x7
+ 192 0099 6B000000 		.4byte	0x6b
+ 193 009d 00000000 		.4byte	.LFB35
+ 194 00a1 A0000000 		.4byte	.LFE35-.LFB35
+ 195 00a5 01       		.uleb128 0x1
+ 196 00a6 9C       		.byte	0x9c
+ 197 00a7 00       		.byte	0
+ 198              		.section	.debug_abbrev,"",%progbits
+ 199              	.Ldebug_abbrev0:
+ 200 0000 01       		.uleb128 0x1
+ 201 0001 11       		.uleb128 0x11
+ 202 0002 01       		.byte	0x1
+ 203 0003 25       		.uleb128 0x25
+ 204 0004 0E       		.uleb128 0xe
+ 205 0005 13       		.uleb128 0x13
+ 206 0006 0B       		.uleb128 0xb
+ 207 0007 03       		.uleb128 0x3
+ 208 0008 0E       		.uleb128 0xe
+ 209 0009 1B       		.uleb128 0x1b
+ 210 000a 0E       		.uleb128 0xe
+ 211 000b 55       		.uleb128 0x55
+ 212 000c 17       		.uleb128 0x17
+ 213 000d 11       		.uleb128 0x11
+ 214 000e 01       		.uleb128 0x1
+ 215 000f 10       		.uleb128 0x10
+ 216 0010 17       		.uleb128 0x17
+ 217 0011 00       		.byte	0
+ 218 0012 00       		.byte	0
+ 219 0013 02       		.uleb128 0x2
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccmWlmXK.s 			page 5
+
+
+ 220 0014 24       		.uleb128 0x24
+ 221 0015 00       		.byte	0
+ 222 0016 0B       		.uleb128 0xb
+ 223 0017 0B       		.uleb128 0xb
+ 224 0018 3E       		.uleb128 0x3e
+ 225 0019 0B       		.uleb128 0xb
+ 226 001a 03       		.uleb128 0x3
+ 227 001b 0E       		.uleb128 0xe
+ 228 001c 00       		.byte	0
+ 229 001d 00       		.byte	0
+ 230 001e 03       		.uleb128 0x3
+ 231 001f 24       		.uleb128 0x24
+ 232 0020 00       		.byte	0
+ 233 0021 0B       		.uleb128 0xb
+ 234 0022 0B       		.uleb128 0xb
+ 235 0023 3E       		.uleb128 0x3e
+ 236 0024 0B       		.uleb128 0xb
+ 237 0025 03       		.uleb128 0x3
+ 238 0026 08       		.uleb128 0x8
+ 239 0027 00       		.byte	0
+ 240 0028 00       		.byte	0
+ 241 0029 04       		.uleb128 0x4
+ 242 002a 16       		.uleb128 0x16
+ 243 002b 00       		.byte	0
+ 244 002c 03       		.uleb128 0x3
+ 245 002d 0E       		.uleb128 0xe
+ 246 002e 3A       		.uleb128 0x3a
+ 247 002f 0B       		.uleb128 0xb
+ 248 0030 3B       		.uleb128 0x3b
+ 249 0031 0B       		.uleb128 0xb
+ 250 0032 49       		.uleb128 0x49
+ 251 0033 13       		.uleb128 0x13
+ 252 0034 00       		.byte	0
+ 253 0035 00       		.byte	0
+ 254 0036 05       		.uleb128 0x5
+ 255 0037 2E       		.uleb128 0x2e
+ 256 0038 00       		.byte	0
+ 257 0039 3F       		.uleb128 0x3f
+ 258 003a 19       		.uleb128 0x19
+ 259 003b 03       		.uleb128 0x3
+ 260 003c 0E       		.uleb128 0xe
+ 261 003d 3A       		.uleb128 0x3a
+ 262 003e 0B       		.uleb128 0xb
+ 263 003f 3B       		.uleb128 0x3b
+ 264 0040 0B       		.uleb128 0xb
+ 265 0041 49       		.uleb128 0x49
+ 266 0042 13       		.uleb128 0x13
+ 267 0043 11       		.uleb128 0x11
+ 268 0044 01       		.uleb128 0x1
+ 269 0045 12       		.uleb128 0x12
+ 270 0046 06       		.uleb128 0x6
+ 271 0047 40       		.uleb128 0x40
+ 272 0048 18       		.uleb128 0x18
+ 273 0049 9642     		.uleb128 0x2116
+ 274 004b 19       		.uleb128 0x19
+ 275 004c 00       		.byte	0
+ 276 004d 00       		.byte	0
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccmWlmXK.s 			page 6
+
+
+ 277 004e 00       		.byte	0
+ 278              		.section	.debug_aranges,"",%progbits
+ 279 0000 1C000000 		.4byte	0x1c
+ 280 0004 0200     		.2byte	0x2
+ 281 0006 00000000 		.4byte	.Ldebug_info0
+ 282 000a 04       		.byte	0x4
+ 283 000b 00       		.byte	0
+ 284 000c 0000     		.2byte	0
+ 285 000e 0000     		.2byte	0
+ 286 0010 00000000 		.4byte	.LFB35
+ 287 0014 A0000000 		.4byte	.LFE35-.LFB35
+ 288 0018 00000000 		.4byte	0
+ 289 001c 00000000 		.4byte	0
+ 290              		.section	.debug_ranges,"",%progbits
+ 291              	.Ldebug_ranges0:
+ 292 0000 00000000 		.4byte	.LFB35
+ 293 0004 A0000000 		.4byte	.LFE35
+ 294 0008 00000000 		.4byte	0
+ 295 000c 00000000 		.4byte	0
+ 296              		.section	.debug_line,"",%progbits
+ 297              	.Ldebug_line0:
+ 298 0000 67000000 		.section	.debug_str,"MS",%progbits,1
+ 298      02005000 
+ 298      00000201 
+ 298      FB0E0D00 
+ 298      01010101 
+ 299              	.LASF6:
+ 300 0000 6C6F6E67 		.ascii	"long long int\000"
+ 300      206C6F6E 
+ 300      6720696E 
+ 300      7400
+ 301              	.LASF8:
+ 302 000e 756E7369 		.ascii	"unsigned int\000"
+ 302      676E6564 
+ 302      20696E74 
+ 302      00
+ 303              	.LASF15:
+ 304 001b 453A5C44 		.ascii	"E:\\Documents\\UROPs\\Biomech UROP\\battery board c"
+ 304      6F63756D 
+ 304      656E7473 
+ 304      5C55524F 
+ 304      50735C42 
+ 305 004a 6F64655C 		.ascii	"ode\\Battery_Board.cydsn\000"
+ 305      42617474 
+ 305      6572795F 
+ 305      426F6172 
+ 305      642E6379 
+ 306              	.LASF5:
+ 307 0062 6C6F6E67 		.ascii	"long unsigned int\000"
+ 307      20756E73 
+ 307      69676E65 
+ 307      6420696E 
+ 307      7400
+ 308              	.LASF7:
+ 309 0074 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 309      206C6F6E 
+ 309      6720756E 
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccmWlmXK.s 			page 7
+
+
+ 309      7369676E 
+ 309      65642069 
+ 310              	.LASF13:
+ 311 008b 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 311      4320342E 
+ 311      382E3420 
+ 311      32303134 
+ 311      30353236 
+ 312 00be 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 312      20726576 
+ 312      6973696F 
+ 312      6E203231 
+ 312      31333538 
+ 313 00f1 30202D66 		.ascii	"0 -ffunction-sections\000"
+ 313      66756E63 
+ 313      74696F6E 
+ 313      2D736563 
+ 313      74696F6E 
+ 314              	.LASF1:
+ 315 0107 756E7369 		.ascii	"unsigned char\000"
+ 315      676E6564 
+ 315      20636861 
+ 315      7200
+ 316              	.LASF11:
+ 317 0115 63686172 		.ascii	"char\000"
+ 317      00
+ 318              	.LASF4:
+ 319 011a 6C6F6E67 		.ascii	"long int\000"
+ 319      20696E74 
+ 319      00
+ 320              	.LASF10:
+ 321 0123 646F7562 		.ascii	"double\000"
+ 321      6C6500
+ 322              	.LASF14:
+ 323 012a 2E5C766F 		.ascii	".\\voltage_sensing.c\000"
+ 323      6C746167 
+ 323      655F7365 
+ 323      6E73696E 
+ 323      672E6300 
+ 324              	.LASF3:
+ 325 013e 73686F72 		.ascii	"short unsigned int\000"
+ 325      7420756E 
+ 325      7369676E 
+ 325      65642069 
+ 325      6E7400
+ 326              	.LASF0:
+ 327 0151 7369676E 		.ascii	"signed char\000"
+ 327      65642063 
+ 327      68617200 
+ 328              	.LASF9:
+ 329 015d 666C6F61 		.ascii	"float\000"
+ 329      7400
+ 330              	.LASF17:
+ 331 0163 72656164 		.ascii	"read_battery_voltage\000"
+ 331      5F626174 
+ 331      74657279 
+ 331      5F766F6C 
+ARM GAS  C:\Users\Steven\AppData\Local\Temp\ccmWlmXK.s 			page 8
+
+
+ 331      74616765 
+ 332              	.LASF2:
+ 333 0178 73686F72 		.ascii	"short int\000"
+ 333      7420696E 
+ 333      7400
+ 334              	.LASF16:
+ 335 0182 75696E74 		.ascii	"uint16\000"
+ 335      313600
+ 336              	.LASF12:
+ 337 0189 73697A65 		.ascii	"sizetype\000"
+ 337      74797065 
+ 337      00
+ 338              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br

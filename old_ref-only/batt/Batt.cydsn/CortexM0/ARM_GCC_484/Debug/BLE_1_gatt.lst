@@ -1,0 +1,4863 @@
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"BLE_1_gatt.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.comm	cyBle_state,1,1
+  18              		.global	cyBle_gatts
+  19              		.section	.rodata
+  20              		.align	2
+  21              		.type	cyBle_gatts, %object
+  22              		.size	cyBle_gatts, 6
+  23              	cyBle_gatts:
+  24 0000 0800     		.short	8
+  25 0002 0A00     		.short	10
+  26 0004 0B00     		.short	11
+  27              		.data
+  28              		.align	2
+  29              		.type	cyBle_attValues, %object
+  30              		.size	cyBle_attValues, 27
+  31              	cyBle_attValues:
+  32 0000 46       		.byte	70
+  33 0001 6C       		.byte	108
+  34 0002 65       		.byte	101
+  35 0003 78       		.byte	120
+  36 0004 53       		.byte	83
+  37 0005 45       		.byte	69
+  38 0006 41       		.byte	65
+  39 0007 2D       		.byte	45
+  40 0008 42       		.byte	66
+  41 0009 61       		.byte	97
+  42 000a 74       		.byte	116
+  43 000b 74       		.byte	116
+  44 000c 00       		.byte	0
+  45 000d 00       		.byte	0
+  46 000e 06       		.byte	6
+  47 000f 00       		.byte	0
+  48 0010 28       		.byte	40
+  49 0011 00       		.byte	0
+  50 0012 00       		.byte	0
+  51 0013 00       		.byte	0
+  52 0014 E8       		.byte	-24
+  53 0015 03       		.byte	3
+  54 0016 00       		.byte	0
+  55 0017 00       		.byte	0
+  56 0018 00       		.byte	0
+  57 0019 00       		.byte	0
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 2
+
+
+  58 001a 00       		.byte	0
+  59              		.global	cyBle_attValuesCCCDFlashMemory
+  60 001b 00       		.section	.rodata
+  61 0006 00000000 		.align	7
+  61      00000000 
+  61      00000000 
+  61      00000000 
+  61      00000000 
+  62              		.type	cyBle_attValuesCCCDFlashMemory, %object
+  63              		.size	cyBle_attValuesCCCDFlashMemory, 10
+  64              	cyBle_attValuesCCCDFlashMemory:
+  65 0080 00000000 		.space	10
+  65      00000000 
+  65      0000
+  66              		.comm	cyBle_attValuesCCCD,2,4
+  67              		.global	cyBle_gattDB
+  68 008a 0000     		.align	2
+  69              		.type	cyBle_gattDB, %object
+  70              		.size	cyBle_gattDB, 280
+  71              	cyBle_gattDB:
+  72 008c 0100     		.short	1
+  73 008e 0028     		.short	10240
+  74 0090 01000000 		.word	1
+  75 0094 0700     		.short	7
+  76 0096 0000     		.space	2
+  77 0098 0018     		.short	6144
+  78 009a 0000     		.space	2
+  79 009c 00000000 		.word	0
+  80 00a0 0200     		.short	2
+  81 00a2 0328     		.short	10243
+  82 00a4 01020000 		.word	513
+  83 00a8 0300     		.short	3
+  84 00aa 0000     		.space	2
+  85 00ac 002A     		.short	10752
+  86 00ae 0000     		.space	2
+  87 00b0 00000000 		.word	0
+  88 00b4 0300     		.short	3
+  89 00b6 002A     		.short	10752
+  90 00b8 01020000 		.word	513
+  91 00bc 0300     		.short	3
+  92 00be 0000     		.space	2
+  93 00c0 0C00     		.short	12
+  94 00c2 0000     		.space	2
+  95 00c4 00000000 		.word	cyBle_attValues
+  96 00c8 0400     		.short	4
+  97 00ca 0328     		.short	10243
+  98 00cc 01020000 		.word	513
+  99 00d0 0500     		.short	5
+ 100 00d2 0000     		.space	2
+ 101 00d4 012A     		.short	10753
+ 102 00d6 0000     		.space	2
+ 103 00d8 00000000 		.word	0
+ 104 00dc 0500     		.short	5
+ 105 00de 012A     		.short	10753
+ 106 00e0 01020000 		.word	513
+ 107 00e4 0500     		.short	5
+ 108 00e6 0000     		.space	2
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 3
+
+
+ 109 00e8 0200     		.short	2
+ 110 00ea 0000     		.space	2
+ 111 00ec 0C000000 		.word	cyBle_attValues+12
+ 112 00f0 0600     		.short	6
+ 113 00f2 0328     		.short	10243
+ 114 00f4 01020000 		.word	513
+ 115 00f8 0700     		.short	7
+ 116 00fa 0000     		.space	2
+ 117 00fc 042A     		.short	10756
+ 118 00fe 0000     		.space	2
+ 119 0100 00000000 		.word	0
+ 120 0104 0700     		.short	7
+ 121 0106 042A     		.short	10756
+ 122 0108 01020000 		.word	513
+ 123 010c 0700     		.short	7
+ 124 010e 0000     		.space	2
+ 125 0110 0800     		.short	8
+ 126 0112 0000     		.space	2
+ 127 0114 0E000000 		.word	cyBle_attValues+14
+ 128 0118 0800     		.short	8
+ 129 011a 0028     		.short	10240
+ 130 011c 01000000 		.word	1
+ 131 0120 0B00     		.short	11
+ 132 0122 0000     		.space	2
+ 133 0124 0118     		.short	6145
+ 134 0126 0000     		.space	2
+ 135 0128 00000000 		.word	0
+ 136 012c 0900     		.short	9
+ 137 012e 0328     		.short	10243
+ 138 0130 01220000 		.word	8705
+ 139 0134 0B00     		.short	11
+ 140 0136 0000     		.space	2
+ 141 0138 052A     		.short	10757
+ 142 013a 0000     		.space	2
+ 143 013c 00000000 		.word	0
+ 144 0140 0A00     		.short	10
+ 145 0142 052A     		.short	10757
+ 146 0144 01220000 		.word	8705
+ 147 0148 0B00     		.short	11
+ 148 014a 0000     		.space	2
+ 149 014c 0400     		.short	4
+ 150 014e 0000     		.space	2
+ 151 0150 16000000 		.word	cyBle_attValues+22
+ 152 0154 0B00     		.short	11
+ 153 0156 0229     		.short	10498
+ 154 0158 040A0000 		.word	2564
+ 155 015c 0B00     		.short	11
+ 156 015e 0000     		.space	2
+ 157 0160 0200     		.short	2
+ 158 0162 0000     		.space	2
+ 159 0164 00000000 		.word	cyBle_attValuesCCCD
+ 160 0168 0C00     		.short	12
+ 161 016a 0028     		.short	10240
+ 162 016c 01000000 		.word	1
+ 163 0170 0E00     		.short	14
+ 164 0172 0000     		.space	2
+ 165 0174 0218     		.short	6146
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 4
+
+
+ 166 0176 0000     		.space	2
+ 167 0178 00000000 		.word	0
+ 168 017c 0D00     		.short	13
+ 169 017e 0328     		.short	10243
+ 170 0180 01040000 		.word	1025
+ 171 0184 0E00     		.short	14
+ 172 0186 0000     		.space	2
+ 173 0188 062A     		.short	10758
+ 174 018a 0000     		.space	2
+ 175 018c 00000000 		.word	0
+ 176 0190 0E00     		.short	14
+ 177 0192 062A     		.short	10758
+ 178 0194 02040000 		.word	1026
+ 179 0198 0E00     		.short	14
+ 180 019a 0000     		.space	2
+ 181 019c 0100     		.short	1
+ 182 019e 0000     		.space	2
+ 183 01a0 1A000000 		.word	cyBle_attValues+26
+ 184 01a4 00000000 		.section	.text.CyBle_GattsReInitGattDb,"ax",%progbits
+ 184      00000000 
+ 184      00000000 
+ 184      00000000 
+ 184      00000000 
+ 185              		.align	2
+ 186              		.global	CyBle_GattsReInitGattDb
+ 187              		.code	16
+ 188              		.thumb_func
+ 189              		.type	CyBle_GattsReInitGattDb, %function
+ 190              	CyBle_GattsReInitGattDb:
+ 191              	.LFB2:
+ 192              		.file 1 ".\\Generated_Source\\PSoC4\\BLE_1_gatt.c"
+   1:.\Generated_Source\PSoC4/BLE_1_gatt.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC4/BLE_1_gatt.c **** File Name: CYBLE_gatt.c
+   3:.\Generated_Source\PSoC4/BLE_1_gatt.c **** Version 1.20
+   4:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+   5:.\Generated_Source\PSoC4/BLE_1_gatt.c **** Description:
+   6:.\Generated_Source\PSoC4/BLE_1_gatt.c ****  This file contains the source code for the GATT API of the BLE Component.
+   7:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+   8:.\Generated_Source\PSoC4/BLE_1_gatt.c **** ********************************************************************************
+   9:.\Generated_Source\PSoC4/BLE_1_gatt.c **** Copyright 2014-2015, Cypress Semiconductor Corporation.  All rights reserved.
+  10:.\Generated_Source\PSoC4/BLE_1_gatt.c **** You may use this file only in accordance with the license, terms, conditions,
+  11:.\Generated_Source\PSoC4/BLE_1_gatt.c **** disclaimers, and limitations in the end user license agreement accompanying
+  12:.\Generated_Source\PSoC4/BLE_1_gatt.c **** the software package with which this file was provided.
+  13:.\Generated_Source\PSoC4/BLE_1_gatt.c **** *******************************************************************************/
+  14:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+  15:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+  16:.\Generated_Source\PSoC4/BLE_1_gatt.c **** #include "BLE_1_eventHandler.h"
+  17:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+  18:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+  19:.\Generated_Source\PSoC4/BLE_1_gatt.c **** /***************************************
+  20:.\Generated_Source\PSoC4/BLE_1_gatt.c **** ##Global variables
+  21:.\Generated_Source\PSoC4/BLE_1_gatt.c **** ***************************************/
+  22:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+  23:.\Generated_Source\PSoC4/BLE_1_gatt.c **** CYBLE_STATE_T cyBle_state;
+  24:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+  25:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+  26:.\Generated_Source\PSoC4/BLE_1_gatt.c **** #if(CYBLE_GATT_ROLE_SERVER)
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 5
+
+
+  27:.\Generated_Source\PSoC4/BLE_1_gatt.c ****     
+  28:.\Generated_Source\PSoC4/BLE_1_gatt.c ****     const CYBLE_GATTS_T cyBle_gatts =
+  29:.\Generated_Source\PSoC4/BLE_1_gatt.c **** {
+  30:.\Generated_Source\PSoC4/BLE_1_gatt.c ****     0x0008u,    /* Handle of the GATT service */
+  31:.\Generated_Source\PSoC4/BLE_1_gatt.c ****     0x000Au,    /* Handle of the Service Changed characteristic */
+  32:.\Generated_Source\PSoC4/BLE_1_gatt.c ****     0x000Bu,    /* Handle of the Client Characteristic Configuration descriptor */
+  33:.\Generated_Source\PSoC4/BLE_1_gatt.c **** };
+  34:.\Generated_Source\PSoC4/BLE_1_gatt.c ****     
+  35:.\Generated_Source\PSoC4/BLE_1_gatt.c ****     static uint8 cyBle_attValues[0x1Bu] = {
+  36:.\Generated_Source\PSoC4/BLE_1_gatt.c **** /* Device Name */
+  37:.\Generated_Source\PSoC4/BLE_1_gatt.c **** (uint8)'F', (uint8)'l', (uint8)'e', (uint8)'x', (uint8)'S', (uint8)'E', (uint8)'A', (uint8)'-', (ui
+  38:.\Generated_Source\PSoC4/BLE_1_gatt.c **** (uint8)'t', (uint8)'t', 
+  39:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+  40:.\Generated_Source\PSoC4/BLE_1_gatt.c **** /* Appearance */
+  41:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 0x00u, 0x00u, 
+  42:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+  43:.\Generated_Source\PSoC4/BLE_1_gatt.c **** /* Peripheral Preferred Connection Parameters */
+  44:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 0x06u, 0x00u, 0x28u, 0x00u, 0x00u, 0x00u, 0xE8u, 0x03u, 
+  45:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+  46:.\Generated_Source\PSoC4/BLE_1_gatt.c **** /* Service Changed */
+  47:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 0x00u, 0x00u, 0x00u, 0x00u, 
+  48:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+  49:.\Generated_Source\PSoC4/BLE_1_gatt.c **** /* Alert Level */
+  50:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 0x00u, 
+  51:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+  52:.\Generated_Source\PSoC4/BLE_1_gatt.c **** };
+  53:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+  54:.\Generated_Source\PSoC4/BLE_1_gatt.c **** #if defined(__GNUC__) || defined(__ARMCC_VERSION)
+  55:.\Generated_Source\PSoC4/BLE_1_gatt.c **** const uint8 cyBle_attValuesCCCDFlashMemory[CYBLE_GAP_MAX_BONDED_DEVICE + 1u][CYBLE_GATT_DB_CCCD_COU
+  56:.\Generated_Source\PSoC4/BLE_1_gatt.c **** #elif defined(__ICCARM__)
+  57:.\Generated_Source\PSoC4/BLE_1_gatt.c **** /* The cyBle_attValuesCCCDFlashMemory[] should be aligned to the size of a Flash row */
+  58:.\Generated_Source\PSoC4/BLE_1_gatt.c **** #pragma data_alignment=CY_FLASH_SIZEOF_ROW
+  59:.\Generated_Source\PSoC4/BLE_1_gatt.c **** const uint8 cyBle_attValuesCCCDFlashMemory[CYBLE_GAP_MAX_BONDED_DEVICE + 1u][CYBLE_GATT_DB_CCCD_COU
+  60:.\Generated_Source\PSoC4/BLE_1_gatt.c **** #endif /* defined(__GNUC__) || defined(__ARMCC_VERSION) */
+  61:.\Generated_Source\PSoC4/BLE_1_gatt.c **** {
+  62:.\Generated_Source\PSoC4/BLE_1_gatt.c **** /* Client Characteristic Configuration */
+  63:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 0x00u, 0x00u, 
+  64:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+  65:.\Generated_Source\PSoC4/BLE_1_gatt.c **** },
+  66:.\Generated_Source\PSoC4/BLE_1_gatt.c **** {
+  67:.\Generated_Source\PSoC4/BLE_1_gatt.c **** /* Client Characteristic Configuration */
+  68:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 0x00u, 0x00u, 
+  69:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+  70:.\Generated_Source\PSoC4/BLE_1_gatt.c **** },
+  71:.\Generated_Source\PSoC4/BLE_1_gatt.c **** {
+  72:.\Generated_Source\PSoC4/BLE_1_gatt.c **** /* Client Characteristic Configuration */
+  73:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 0x00u, 0x00u, 
+  74:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+  75:.\Generated_Source\PSoC4/BLE_1_gatt.c **** },
+  76:.\Generated_Source\PSoC4/BLE_1_gatt.c **** {
+  77:.\Generated_Source\PSoC4/BLE_1_gatt.c **** /* Client Characteristic Configuration */
+  78:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 0x00u, 0x00u, 
+  79:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+  80:.\Generated_Source\PSoC4/BLE_1_gatt.c **** },
+  81:.\Generated_Source\PSoC4/BLE_1_gatt.c **** {
+  82:.\Generated_Source\PSoC4/BLE_1_gatt.c **** /* Client Characteristic Configuration */
+  83:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 0x00u, 0x00u, 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 6
+
+
+  84:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+  85:.\Generated_Source\PSoC4/BLE_1_gatt.c **** },
+  86:.\Generated_Source\PSoC4/BLE_1_gatt.c **** };
+  87:.\Generated_Source\PSoC4/BLE_1_gatt.c **** uint8 cyBle_attValuesCCCD[CYBLE_GATT_DB_CCCD_COUNT];
+  88:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+  89:.\Generated_Source\PSoC4/BLE_1_gatt.c **** const CYBLE_GATTS_DB_T cyBle_gattDB[0x0Eu] = {
+  90:.\Generated_Source\PSoC4/BLE_1_gatt.c **** { 0x0001u, 0x2800u /* Primary service                     */, 0x00000001u /*        */, 0x0007u, {{
+  91:.\Generated_Source\PSoC4/BLE_1_gatt.c **** { 0x0002u, 0x2803u /* Characteristic                      */, 0x00000201u /* rd     */, 0x0003u, {{
+  92:.\Generated_Source\PSoC4/BLE_1_gatt.c **** { 0x0003u, 0x2A00u /* Device Name                         */, 0x00000201u /* rd     */, 0x0003u, {{
+  93:.\Generated_Source\PSoC4/BLE_1_gatt.c **** { 0x0004u, 0x2803u /* Characteristic                      */, 0x00000201u /* rd     */, 0x0005u, {{
+  94:.\Generated_Source\PSoC4/BLE_1_gatt.c **** { 0x0005u, 0x2A01u /* Appearance                          */, 0x00000201u /* rd     */, 0x0005u, {{
+  95:.\Generated_Source\PSoC4/BLE_1_gatt.c **** { 0x0006u, 0x2803u /* Characteristic                      */, 0x00000201u /* rd     */, 0x0007u, {{
+  96:.\Generated_Source\PSoC4/BLE_1_gatt.c **** { 0x0007u, 0x2A04u /* Peripheral Preferred Connection Par */, 0x00000201u /* rd     */, 0x0007u, {{
+  97:.\Generated_Source\PSoC4/BLE_1_gatt.c **** { 0x0008u, 0x2800u /* Primary service                     */, 0x00000001u /*        */, 0x000Bu, {{
+  98:.\Generated_Source\PSoC4/BLE_1_gatt.c **** { 0x0009u, 0x2803u /* Characteristic                      */, 0x00002201u /* rd,ind */, 0x000Bu, {{
+  99:.\Generated_Source\PSoC4/BLE_1_gatt.c **** { 0x000Au, 0x2A05u /* Service Changed                     */, 0x00002201u /* rd,ind */, 0x000Bu, {{
+ 100:.\Generated_Source\PSoC4/BLE_1_gatt.c **** { 0x000Bu, 0x2902u /* Client Characteristic Configuration */, 0x00000A04u /* rd,wr  */, 0x000Bu, {{
+ 101:.\Generated_Source\PSoC4/BLE_1_gatt.c **** { 0x000Cu, 0x2800u /* Primary service                     */, 0x00000001u /*        */, 0x000Eu, {{
+ 102:.\Generated_Source\PSoC4/BLE_1_gatt.c **** { 0x000Du, 0x2803u /* Characteristic                      */, 0x00000401u /* wwr    */, 0x000Eu, {{
+ 103:.\Generated_Source\PSoC4/BLE_1_gatt.c **** { 0x000Eu, 0x2A06u /* Alert Level                         */, 0x00000402u /* wwr    */, 0x000Eu, {{
+ 104:.\Generated_Source\PSoC4/BLE_1_gatt.c **** };
+ 105:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+ 106:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+ 107:.\Generated_Source\PSoC4/BLE_1_gatt.c **** #endif /* (CYBLE_GATT_ROLE_SERVER) */
+ 108:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+ 109:.\Generated_Source\PSoC4/BLE_1_gatt.c **** #if(CYBLE_GATT_ROLE_CLIENT)
+ 110:.\Generated_Source\PSoC4/BLE_1_gatt.c ****     
+ 111:.\Generated_Source\PSoC4/BLE_1_gatt.c **** CYBLE_CLIENT_STATE_T cyBle_clientState;
+ 112:.\Generated_Source\PSoC4/BLE_1_gatt.c **** CYBLE_GATTC_T cyBle_gattc;
+ 113:.\Generated_Source\PSoC4/BLE_1_gatt.c ****     
+ 114:.\Generated_Source\PSoC4/BLE_1_gatt.c **** #endif /* (CYBLE_GATT_ROLE_CLIENT) */
+ 115:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+ 116:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+ 117:.\Generated_Source\PSoC4/BLE_1_gatt.c **** #if(CYBLE_GATT_ROLE_SERVER)
+ 118:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+ 119:.\Generated_Source\PSoC4/BLE_1_gatt.c **** /****************************************************************************** 
+ 120:.\Generated_Source\PSoC4/BLE_1_gatt.c **** ##Function Name: CyBle_GattsReInitGattDb
+ 121:.\Generated_Source\PSoC4/BLE_1_gatt.c **** *******************************************************************************
+ 122:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+ 123:.\Generated_Source\PSoC4/BLE_1_gatt.c **** Summary:
+ 124:.\Generated_Source\PSoC4/BLE_1_gatt.c ****  Reinitializes the GATT database.
+ 125:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+ 126:.\Generated_Source\PSoC4/BLE_1_gatt.c **** Parameters:
+ 127:.\Generated_Source\PSoC4/BLE_1_gatt.c ****  None
+ 128:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+ 129:.\Generated_Source\PSoC4/BLE_1_gatt.c **** Return:
+ 130:.\Generated_Source\PSoC4/BLE_1_gatt.c ****  CYBLE_API_RESULT_T: An API result states if the API succeeded or failed with
+ 131:.\Generated_Source\PSoC4/BLE_1_gatt.c ****  error codes:
+ 132:.\Generated_Source\PSoC4/BLE_1_gatt.c ****   * CYBLE_ERROR_OK: GATT database was reinitialized successfully
+ 133:.\Generated_Source\PSoC4/BLE_1_gatt.c ****   * CYBLE_ERROR_INVALID_STATE: If the function is called in any state except
+ 134:.\Generated_Source\PSoC4/BLE_1_gatt.c ****                                 CYBLE_STATE_DISCONNECTED.
+ 135:.\Generated_Source\PSoC4/BLE_1_gatt.c ****   * Any of the CyBle_GattsDbRegister() stack API function return values.
+ 136:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+ 137:.\Generated_Source\PSoC4/BLE_1_gatt.c **** ******************************************************************************/
+ 138:.\Generated_Source\PSoC4/BLE_1_gatt.c **** CYBLE_API_RESULT_T CyBle_GattsReInitGattDb(void)
+ 139:.\Generated_Source\PSoC4/BLE_1_gatt.c **** {
+ 193              		.loc 1 139 0
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 7
+
+
+ 194              		.cfi_startproc
+ 195 0000 90B5     		push	{r4, r7, lr}
+ 196              		.cfi_def_cfa_offset 12
+ 197              		.cfi_offset 4, -12
+ 198              		.cfi_offset 7, -8
+ 199              		.cfi_offset 14, -4
+ 200 0002 83B0     		sub	sp, sp, #12
+ 201              		.cfi_def_cfa_offset 24
+ 202 0004 00AF     		add	r7, sp, #0
+ 203              		.cfi_def_cfa_register 7
+ 140:.\Generated_Source\PSoC4/BLE_1_gatt.c ****     CYBLE_API_RESULT_T apiResult;
+ 141:.\Generated_Source\PSoC4/BLE_1_gatt.c ****     
+ 142:.\Generated_Source\PSoC4/BLE_1_gatt.c ****     if(CYBLE_STATE_DISCONNECTED == CyBle_GetState())
+ 204              		.loc 1 142 0
+ 205 0006 0C4B     		ldr	r3, .L5
+ 206 0008 1B78     		ldrb	r3, [r3]
+ 207 000a 042B     		cmp	r3, #4
+ 208 000c 09D1     		bne	.L2
+ 143:.\Generated_Source\PSoC4/BLE_1_gatt.c ****     {
+ 144:.\Generated_Source\PSoC4/BLE_1_gatt.c ****         apiResult = CyBle_GattsDbRegister(cyBle_gattDB, CYBLE_GATT_DB_INDEX_COUNT, CYBLE_GATT_DB_MA
+ 209              		.loc 1 144 0
+ 210 000e BC1D     		add	r4, r7, #6
+ 211 0010 0A4B     		ldr	r3, .L5+4
+ 212 0012 181C     		mov	r0, r3
+ 213 0014 0E21     		mov	r1, #14
+ 214 0016 0C22     		mov	r2, #12
+ 215 0018 FFF7FEFF 		bl	CyBle_GattsDbRegister
+ 216 001c 031C     		mov	r3, r0
+ 217 001e 2380     		strh	r3, [r4]
+ 218 0020 03E0     		b	.L3
+ 219              	.L2:
+ 145:.\Generated_Source\PSoC4/BLE_1_gatt.c ****     }
+ 146:.\Generated_Source\PSoC4/BLE_1_gatt.c ****     else
+ 147:.\Generated_Source\PSoC4/BLE_1_gatt.c ****     {
+ 148:.\Generated_Source\PSoC4/BLE_1_gatt.c ****         apiResult = CYBLE_ERROR_INVALID_STATE;
+ 220              		.loc 1 148 0
+ 221 0022 BB1D     		add	r3, r7, #6
+ 222 0024 8322     		mov	r2, #131
+ 223 0026 5200     		lsl	r2, r2, #1
+ 224 0028 1A80     		strh	r2, [r3]
+ 225              	.L3:
+ 149:.\Generated_Source\PSoC4/BLE_1_gatt.c ****     }
+ 150:.\Generated_Source\PSoC4/BLE_1_gatt.c ****     
+ 151:.\Generated_Source\PSoC4/BLE_1_gatt.c ****     return(apiResult);
+ 226              		.loc 1 151 0
+ 227 002a BB1D     		add	r3, r7, #6
+ 228 002c 1B88     		ldrh	r3, [r3]
+ 152:.\Generated_Source\PSoC4/BLE_1_gatt.c **** }
+ 229              		.loc 1 152 0
+ 230 002e 181C     		mov	r0, r3
+ 231 0030 BD46     		mov	sp, r7
+ 232 0032 03B0     		add	sp, sp, #12
+ 233              		@ sp needed
+ 234 0034 90BD     		pop	{r4, r7, pc}
+ 235              	.L6:
+ 236 0036 C046     		.align	2
+ 237              	.L5:
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 8
+
+
+ 238 0038 00000000 		.word	cyBle_state
+ 239 003c 00000000 		.word	cyBle_gattDB
+ 240              		.cfi_endproc
+ 241              	.LFE2:
+ 242              		.size	CyBle_GattsReInitGattDb, .-CyBle_GattsReInitGattDb
+ 243              		.section	.text.CyBle_GattsWriteEventHandler,"ax",%progbits
+ 244              		.align	2
+ 245              		.global	CyBle_GattsWriteEventHandler
+ 246              		.code	16
+ 247              		.thumb_func
+ 248              		.type	CyBle_GattsWriteEventHandler, %function
+ 249              	CyBle_GattsWriteEventHandler:
+ 250              	.LFB3:
+ 153:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+ 154:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+ 155:.\Generated_Source\PSoC4/BLE_1_gatt.c **** /****************************************************************************** 
+ 156:.\Generated_Source\PSoC4/BLE_1_gatt.c **** ##Function Name: CyBle_GattsWriteEventHandler
+ 157:.\Generated_Source\PSoC4/BLE_1_gatt.c **** *******************************************************************************
+ 158:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+ 159:.\Generated_Source\PSoC4/BLE_1_gatt.c **** Summary:
+ 160:.\Generated_Source\PSoC4/BLE_1_gatt.c ****  Handles the Write Request Event for GATT service.
+ 161:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+ 162:.\Generated_Source\PSoC4/BLE_1_gatt.c **** Parameters:
+ 163:.\Generated_Source\PSoC4/BLE_1_gatt.c ****  *eventParam: The pointer to the data structure specified by the event.
+ 164:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+ 165:.\Generated_Source\PSoC4/BLE_1_gatt.c **** Return:
+ 166:.\Generated_Source\PSoC4/BLE_1_gatt.c ****  * CYBLE_GATT_ERR_CODE_T: An API result returns one of the following status 
+ 167:.\Generated_Source\PSoC4/BLE_1_gatt.c ****     values
+ 168:.\Generated_Source\PSoC4/BLE_1_gatt.c ****  * CYBLE_GATT_ERR_NONE - Write is successful.
+ 169:.\Generated_Source\PSoC4/BLE_1_gatt.c **** 
+ 170:.\Generated_Source\PSoC4/BLE_1_gatt.c **** ******************************************************************************/
+ 171:.\Generated_Source\PSoC4/BLE_1_gatt.c **** CYBLE_GATT_ERR_CODE_T CyBle_GattsWriteEventHandler(CYBLE_GATTS_WRITE_REQ_PARAM_T *eventParam)
+ 172:.\Generated_Source\PSoC4/BLE_1_gatt.c **** {
+ 251              		.loc 1 172 0
+ 252              		.cfi_startproc
+ 253 0000 90B5     		push	{r4, r7, lr}
+ 254              		.cfi_def_cfa_offset 12
+ 255              		.cfi_offset 4, -12
+ 256              		.cfi_offset 7, -8
+ 257              		.cfi_offset 14, -4
+ 258 0002 85B0     		sub	sp, sp, #20
+ 259              		.cfi_def_cfa_offset 32
+ 260 0004 00AF     		add	r7, sp, #0
+ 261              		.cfi_def_cfa_register 7
+ 262 0006 7860     		str	r0, [r7, #4]
+ 173:.\Generated_Source\PSoC4/BLE_1_gatt.c ****     CYBLE_GATT_ERR_CODE_T gattErr = CYBLE_GATT_ERR_NONE;
+ 263              		.loc 1 173 0
+ 264 0008 3B1C     		mov	r3, r7
+ 265 000a 0F33     		add	r3, r3, #15
+ 266 000c 0022     		mov	r2, #0
+ 267 000e 1A70     		strb	r2, [r3]
+ 174:.\Generated_Source\PSoC4/BLE_1_gatt.c ****     
+ 175:.\Generated_Source\PSoC4/BLE_1_gatt.c ****     /* Client Characteristic Configuration descriptor write request */
+ 176:.\Generated_Source\PSoC4/BLE_1_gatt.c ****     if(eventParam->handleValPair.attrHandle == cyBle_gatts.cccdHandle)
+ 268              		.loc 1 176 0
+ 269 0010 7B68     		ldr	r3, [r7, #4]
+ 270 0012 9A89     		ldrh	r2, [r3, #12]
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 9
+
+
+ 271 0014 0B23     		mov	r3, #11
+ 272 0016 9A42     		cmp	r2, r3
+ 273 0018 37D1     		bne	.L8
+ 177:.\Generated_Source\PSoC4/BLE_1_gatt.c ****     {
+ 178:.\Generated_Source\PSoC4/BLE_1_gatt.c ****         /* Store value to database */
+ 179:.\Generated_Source\PSoC4/BLE_1_gatt.c ****         gattErr = CyBle_GattsWriteAttributeValue(&eventParam->handleValPair, 0u, 
+ 274              		.loc 1 179 0
+ 275 001a 7B68     		ldr	r3, [r7, #4]
+ 276 001c 1A1D     		add	r2, r3, #4
+ 277 001e 7B68     		ldr	r3, [r7, #4]
+ 278 0020 3C1C     		mov	r4, r7
+ 279 0022 0F34     		add	r4, r4, #15
+ 280 0024 101C     		mov	r0, r2
+ 281 0026 0021     		mov	r1, #0
+ 282 0028 1A1C     		mov	r2, r3
+ 283 002a 4023     		mov	r3, #64
+ 284 002c FFF7FEFF 		bl	CyBle_GattsWriteAttributeValue
+ 285 0030 031C     		mov	r3, r0
+ 286 0032 2370     		strb	r3, [r4]
+ 180:.\Generated_Source\PSoC4/BLE_1_gatt.c ****                         &eventParam->connHandle, CYBLE_GATT_DB_PEER_INITIATED);
+ 181:.\Generated_Source\PSoC4/BLE_1_gatt.c ****         
+ 182:.\Generated_Source\PSoC4/BLE_1_gatt.c ****         if(CYBLE_GATT_ERR_NONE == gattErr)
+ 287              		.loc 1 182 0
+ 288 0034 3B1C     		mov	r3, r7
+ 289 0036 0F33     		add	r3, r3, #15
+ 290 0038 1B78     		ldrb	r3, [r3]
+ 291 003a 002B     		cmp	r3, #0
+ 292 003c 1DD1     		bne	.L9
+ 183:.\Generated_Source\PSoC4/BLE_1_gatt.c ****         {
+ 184:.\Generated_Source\PSoC4/BLE_1_gatt.c ****             if(CYBLE_IS_INDICATION_ENABLED_IN_PTR(eventParam->handleValPair.value.val))
+ 293              		.loc 1 184 0
+ 294 003e 7B68     		ldr	r3, [r7, #4]
+ 295 0040 5B68     		ldr	r3, [r3, #4]
+ 296 0042 181C     		mov	r0, r3
+ 297 0044 FFF7FEFF 		bl	CyBle_Get16ByPtr
+ 298 0048 031C     		mov	r3, r0
+ 299 004a 1A1C     		mov	r2, r3
+ 300 004c 0223     		mov	r3, #2
+ 301 004e 1340     		and	r3, r2
+ 302 0050 9BB2     		uxth	r3, r3
+ 303 0052 002B     		cmp	r3, #0
+ 304 0054 08D0     		beq	.L10
+ 185:.\Generated_Source\PSoC4/BLE_1_gatt.c ****             {
+ 186:.\Generated_Source\PSoC4/BLE_1_gatt.c ****                 CyBle_ApplCallback((uint32)CYBLE_EVT_GATTS_INDICATION_ENABLED, eventParam);
+ 305              		.loc 1 186 0
+ 306 0056 104B     		ldr	r3, .L12
+ 307 0058 1B68     		ldr	r3, [r3]
+ 308 005a 8222     		mov	r2, #130
+ 309 005c 5100     		lsl	r1, r2, #1
+ 310 005e 7A68     		ldr	r2, [r7, #4]
+ 311 0060 081C     		mov	r0, r1
+ 312 0062 111C     		mov	r1, r2
+ 313 0064 9847     		blx	r3
+ 314 0066 08E0     		b	.L9
+ 315              	.L10:
+ 187:.\Generated_Source\PSoC4/BLE_1_gatt.c ****             }
+ 188:.\Generated_Source\PSoC4/BLE_1_gatt.c ****             else
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 10
+
+
+ 189:.\Generated_Source\PSoC4/BLE_1_gatt.c ****             {
+ 190:.\Generated_Source\PSoC4/BLE_1_gatt.c ****                 CyBle_ApplCallback((uint32)CYBLE_EVT_GATTS_INDICATION_DISABLED, eventParam);
+ 316              		.loc 1 190 0
+ 317 0068 0B4B     		ldr	r3, .L12
+ 318 006a 1B68     		ldr	r3, [r3]
+ 319 006c 0622     		mov	r2, #6
+ 320 006e 111C     		mov	r1, r2
+ 321 0070 FF31     		add	r1, r1, #255
+ 322 0072 7A68     		ldr	r2, [r7, #4]
+ 323 0074 081C     		mov	r0, r1
+ 324 0076 111C     		mov	r1, r2
+ 325 0078 9847     		blx	r3
+ 326              	.L9:
+ 191:.\Generated_Source\PSoC4/BLE_1_gatt.c ****             }
+ 192:.\Generated_Source\PSoC4/BLE_1_gatt.c ****         }
+ 193:.\Generated_Source\PSoC4/BLE_1_gatt.c ****         cyBle_eventHandlerFlag &= (uint8)~CYBLE_CALLBACK;
+ 327              		.loc 1 193 0
+ 328 007a 084B     		ldr	r3, .L12+4
+ 329 007c 1B78     		ldrb	r3, [r3]
+ 330 007e DBB2     		uxtb	r3, r3
+ 331 0080 0122     		mov	r2, #1
+ 332 0082 9343     		bic	r3, r2
+ 333 0084 DAB2     		uxtb	r2, r3
+ 334 0086 054B     		ldr	r3, .L12+4
+ 335 0088 1A70     		strb	r2, [r3]
+ 336              	.L8:
+ 194:.\Generated_Source\PSoC4/BLE_1_gatt.c ****     }
+ 195:.\Generated_Source\PSoC4/BLE_1_gatt.c ****     return (gattErr);
+ 337              		.loc 1 195 0
+ 338 008a 3B1C     		mov	r3, r7
+ 339 008c 0F33     		add	r3, r3, #15
+ 340 008e 1B78     		ldrb	r3, [r3]
+ 196:.\Generated_Source\PSoC4/BLE_1_gatt.c **** }
+ 341              		.loc 1 196 0
+ 342 0090 181C     		mov	r0, r3
+ 343 0092 BD46     		mov	sp, r7
+ 344 0094 05B0     		add	sp, sp, #20
+ 345              		@ sp needed
+ 346 0096 90BD     		pop	{r4, r7, pc}
+ 347              	.L13:
+ 348              		.align	2
+ 349              	.L12:
+ 350 0098 00000000 		.word	CyBle_ApplCallback
+ 351 009c 00000000 		.word	cyBle_eventHandlerFlag
+ 352              		.cfi_endproc
+ 353              	.LFE3:
+ 354              		.size	CyBle_GattsWriteEventHandler, .-CyBle_GattsWriteEventHandler
+ 355              		.text
+ 356              	.Letext0:
+ 357              		.file 2 ".\\Generated_Source\\PSoC4\\cytypes.h"
+ 358              		.file 3 ".\\Generated_Source\\PSoC4\\BLE_1_Stack.h"
+ 359              		.file 4 ".\\Generated_Source\\PSoC4\\BLE_1_StackGatt.h"
+ 360              		.file 5 ".\\Generated_Source\\PSoC4\\BLE_1_StackGattServer.h"
+ 361              		.file 6 ".\\Generated_Source\\PSoC4\\BLE_1_StackGattDb.h"
+ 362              		.file 7 ".\\Generated_Source\\PSoC4\\BLE_1.h"
+ 363              		.file 8 ".\\Generated_Source\\PSoC4\\BLE_1_gatt.h"
+ 364              		.file 9 ".\\Generated_Source\\PSoC4\\BLE_1_eventHandler.h"
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 11
+
+
+ 365              		.section	.debug_info,"",%progbits
+ 366              	.Ldebug_info0:
+ 367 0000 670C0000 		.4byte	0xc67
+ 368 0004 0400     		.2byte	0x4
+ 369 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 370 000a 04       		.byte	0x4
+ 371 000b 01       		.uleb128 0x1
+ 372 000c 0B1A0000 		.4byte	.LASF374
+ 373 0010 01       		.byte	0x1
+ 374 0011 0A090000 		.4byte	.LASF375
+ 375 0015 A9180000 		.4byte	.LASF376
+ 376 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 377 001d 00000000 		.4byte	0
+ 378 0021 00000000 		.4byte	.Ldebug_line0
+ 379 0025 02       		.uleb128 0x2
+ 380 0026 01       		.byte	0x1
+ 381 0027 06       		.byte	0x6
+ 382 0028 CE090000 		.4byte	.LASF0
+ 383 002c 02       		.uleb128 0x2
+ 384 002d 01       		.byte	0x1
+ 385 002e 08       		.byte	0x8
+ 386 002f 830A0000 		.4byte	.LASF1
+ 387 0033 02       		.uleb128 0x2
+ 388 0034 02       		.byte	0x2
+ 389 0035 05       		.byte	0x5
+ 390 0036 A8240000 		.4byte	.LASF2
+ 391 003a 02       		.uleb128 0x2
+ 392 003b 02       		.byte	0x2
+ 393 003c 07       		.byte	0x7
+ 394 003d F0290000 		.4byte	.LASF3
+ 395 0041 02       		.uleb128 0x2
+ 396 0042 04       		.byte	0x4
+ 397 0043 05       		.byte	0x5
+ 398 0044 83070000 		.4byte	.LASF4
+ 399 0048 02       		.uleb128 0x2
+ 400 0049 04       		.byte	0x4
+ 401 004a 07       		.byte	0x7
+ 402 004b AA120000 		.4byte	.LASF5
+ 403 004f 02       		.uleb128 0x2
+ 404 0050 08       		.byte	0x8
+ 405 0051 05       		.byte	0x5
+ 406 0052 7B150000 		.4byte	.LASF6
+ 407 0056 02       		.uleb128 0x2
+ 408 0057 08       		.byte	0x8
+ 409 0058 07       		.byte	0x7
+ 410 0059 6E1F0000 		.4byte	.LASF7
+ 411 005d 03       		.uleb128 0x3
+ 412 005e 04       		.byte	0x4
+ 413 005f 05       		.byte	0x5
+ 414 0060 696E7400 		.ascii	"int\000"
+ 415 0064 02       		.uleb128 0x2
+ 416 0065 04       		.byte	0x4
+ 417 0066 07       		.byte	0x7
+ 418 0067 39190000 		.4byte	.LASF8
+ 419 006b 04       		.uleb128 0x4
+ 420 006c 5B240000 		.4byte	.LASF9
+ 421 0070 02       		.byte	0x2
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 12
+
+
+ 422 0071 A1       		.byte	0xa1
+ 423 0072 2C000000 		.4byte	0x2c
+ 424 0076 04       		.uleb128 0x4
+ 425 0077 3E2C0000 		.4byte	.LASF10
+ 426 007b 02       		.byte	0x2
+ 427 007c A2       		.byte	0xa2
+ 428 007d 3A000000 		.4byte	0x3a
+ 429 0081 04       		.uleb128 0x4
+ 430 0082 29020000 		.4byte	.LASF11
+ 431 0086 02       		.byte	0x2
+ 432 0087 A3       		.byte	0xa3
+ 433 0088 48000000 		.4byte	0x48
+ 434 008c 02       		.uleb128 0x2
+ 435 008d 04       		.byte	0x4
+ 436 008e 04       		.byte	0x4
+ 437 008f D8170000 		.4byte	.LASF12
+ 438 0093 02       		.uleb128 0x2
+ 439 0094 08       		.byte	0x8
+ 440 0095 04       		.byte	0x4
+ 441 0096 7E160000 		.4byte	.LASF13
+ 442 009a 02       		.uleb128 0x2
+ 443 009b 01       		.byte	0x1
+ 444 009c 08       		.byte	0x8
+ 445 009d ED0B0000 		.4byte	.LASF14
+ 446 00a1 05       		.uleb128 0x5
+ 447 00a2 6B000000 		.4byte	0x6b
+ 448 00a6 02       		.uleb128 0x2
+ 449 00a7 04       		.byte	0x4
+ 450 00a8 07       		.byte	0x7
+ 451 00a9 47000000 		.4byte	.LASF15
+ 452 00ad 06       		.uleb128 0x6
+ 453 00ae 04       		.byte	0x4
+ 454 00af 07       		.uleb128 0x7
+ 455 00b0 01       		.byte	0x1
+ 456 00b1 03       		.byte	0x3
+ 457 00b2 58       		.byte	0x58
+ 458 00b3 1F020000 		.4byte	0x21f
+ 459 00b7 08       		.uleb128 0x8
+ 460 00b8 550C0000 		.4byte	.LASF16
+ 461 00bc 00       		.sleb128 0
+ 462 00bd 08       		.uleb128 0x8
+ 463 00be 1A080000 		.4byte	.LASF17
+ 464 00c2 01       		.sleb128 1
+ 465 00c3 08       		.uleb128 0x8
+ 466 00c4 A31F0000 		.4byte	.LASF18
+ 467 00c8 02       		.sleb128 2
+ 468 00c9 08       		.uleb128 0x8
+ 469 00ca FD090000 		.4byte	.LASF19
+ 470 00ce 03       		.sleb128 3
+ 471 00cf 08       		.uleb128 0x8
+ 472 00d0 FC2A0000 		.4byte	.LASF20
+ 473 00d4 04       		.sleb128 4
+ 474 00d5 08       		.uleb128 0x8
+ 475 00d6 DA280000 		.4byte	.LASF21
+ 476 00da 05       		.sleb128 5
+ 477 00db 08       		.uleb128 0x8
+ 478 00dc 29260000 		.4byte	.LASF22
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 13
+
+
+ 479 00e0 20       		.sleb128 32
+ 480 00e1 08       		.uleb128 0x8
+ 481 00e2 BC050000 		.4byte	.LASF23
+ 482 00e6 21       		.sleb128 33
+ 483 00e7 08       		.uleb128 0x8
+ 484 00e8 D3140000 		.4byte	.LASF24
+ 485 00ec 22       		.sleb128 34
+ 486 00ed 08       		.uleb128 0x8
+ 487 00ee F61B0000 		.4byte	.LASF25
+ 488 00f2 23       		.sleb128 35
+ 489 00f3 08       		.uleb128 0x8
+ 490 00f4 87110000 		.4byte	.LASF26
+ 491 00f8 24       		.sleb128 36
+ 492 00f9 08       		.uleb128 0x8
+ 493 00fa C7110000 		.4byte	.LASF27
+ 494 00fe 25       		.sleb128 37
+ 495 00ff 08       		.uleb128 0x8
+ 496 0100 DD230000 		.4byte	.LASF28
+ 497 0104 26       		.sleb128 38
+ 498 0105 08       		.uleb128 0x8
+ 499 0106 A9010000 		.4byte	.LASF29
+ 500 010a 27       		.sleb128 39
+ 501 010b 08       		.uleb128 0x8
+ 502 010c B72B0000 		.4byte	.LASF30
+ 503 0110 28       		.sleb128 40
+ 504 0111 08       		.uleb128 0x8
+ 505 0112 011E0000 		.4byte	.LASF31
+ 506 0116 29       		.sleb128 41
+ 507 0117 08       		.uleb128 0x8
+ 508 0118 F0130000 		.4byte	.LASF32
+ 509 011c 2A       		.sleb128 42
+ 510 011d 08       		.uleb128 0x8
+ 511 011e 761B0000 		.4byte	.LASF33
+ 512 0122 2B       		.sleb128 43
+ 513 0123 08       		.uleb128 0x8
+ 514 0124 1A290000 		.4byte	.LASF34
+ 515 0128 2C       		.sleb128 44
+ 516 0129 08       		.uleb128 0x8
+ 517 012a 48250000 		.4byte	.LASF35
+ 518 012e C000     		.sleb128 64
+ 519 0130 08       		.uleb128 0x8
+ 520 0131 EB010000 		.4byte	.LASF36
+ 521 0135 C100     		.sleb128 65
+ 522 0137 08       		.uleb128 0x8
+ 523 0138 112B0000 		.4byte	.LASF37
+ 524 013c C200     		.sleb128 66
+ 525 013e 08       		.uleb128 0x8
+ 526 013f 7B1E0000 		.4byte	.LASF38
+ 527 0143 C300     		.sleb128 67
+ 528 0145 08       		.uleb128 0x8
+ 529 0146 910A0000 		.4byte	.LASF39
+ 530 014a C400     		.sleb128 68
+ 531 014c 08       		.uleb128 0x8
+ 532 014d 250A0000 		.4byte	.LASF40
+ 533 0151 C500     		.sleb128 69
+ 534 0153 08       		.uleb128 0x8
+ 535 0154 4A220000 		.4byte	.LASF41
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 14
+
+
+ 536 0158 C600     		.sleb128 70
+ 537 015a 08       		.uleb128 0x8
+ 538 015b 2C220000 		.4byte	.LASF42
+ 539 015f C700     		.sleb128 71
+ 540 0161 08       		.uleb128 0x8
+ 541 0162 A10B0000 		.4byte	.LASF43
+ 542 0166 C800     		.sleb128 72
+ 543 0168 08       		.uleb128 0x8
+ 544 0169 4E1C0000 		.4byte	.LASF44
+ 545 016d C900     		.sleb128 73
+ 546 016f 08       		.uleb128 0x8
+ 547 0170 CA0C0000 		.4byte	.LASF45
+ 548 0174 CA00     		.sleb128 74
+ 549 0176 08       		.uleb128 0x8
+ 550 0177 360C0000 		.4byte	.LASF46
+ 551 017b CB00     		.sleb128 75
+ 552 017d 08       		.uleb128 0x8
+ 553 017e B91B0000 		.4byte	.LASF47
+ 554 0182 CC00     		.sleb128 76
+ 555 0184 08       		.uleb128 0x8
+ 556 0185 75230000 		.4byte	.LASF48
+ 557 0189 CD00     		.sleb128 77
+ 558 018b 08       		.uleb128 0x8
+ 559 018c 41070000 		.4byte	.LASF49
+ 560 0190 CE00     		.sleb128 78
+ 561 0192 08       		.uleb128 0x8
+ 562 0193 46190000 		.4byte	.LASF50
+ 563 0197 CF00     		.sleb128 79
+ 564 0199 08       		.uleb128 0x8
+ 565 019a 0A260000 		.4byte	.LASF51
+ 566 019e D000     		.sleb128 80
+ 567 01a0 08       		.uleb128 0x8
+ 568 01a1 2E0D0000 		.4byte	.LASF52
+ 569 01a5 D100     		.sleb128 81
+ 570 01a7 08       		.uleb128 0x8
+ 571 01a8 9B050000 		.4byte	.LASF53
+ 572 01ac D200     		.sleb128 82
+ 573 01ae 08       		.uleb128 0x8
+ 574 01af 5A280000 		.4byte	.LASF54
+ 575 01b3 D300     		.sleb128 83
+ 576 01b5 08       		.uleb128 0x8
+ 577 01b6 F92B0000 		.4byte	.LASF55
+ 578 01ba D400     		.sleb128 84
+ 579 01bc 08       		.uleb128 0x8
+ 580 01bd 6C040000 		.4byte	.LASF56
+ 581 01c1 D500     		.sleb128 85
+ 582 01c3 08       		.uleb128 0x8
+ 583 01c4 3E290000 		.4byte	.LASF57
+ 584 01c8 F000     		.sleb128 112
+ 585 01ca 08       		.uleb128 0x8
+ 586 01cb AD100000 		.4byte	.LASF58
+ 587 01cf F100     		.sleb128 113
+ 588 01d1 08       		.uleb128 0x8
+ 589 01d2 4D090000 		.4byte	.LASF59
+ 590 01d6 F200     		.sleb128 114
+ 591 01d8 08       		.uleb128 0x8
+ 592 01d9 EC250000 		.4byte	.LASF60
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 15
+
+
+ 593 01dd F300     		.sleb128 115
+ 594 01df 08       		.uleb128 0x8
+ 595 01e0 C11C0000 		.4byte	.LASF61
+ 596 01e4 F400     		.sleb128 116
+ 597 01e6 08       		.uleb128 0x8
+ 598 01e7 79140000 		.4byte	.LASF62
+ 599 01eb F500     		.sleb128 117
+ 600 01ed 08       		.uleb128 0x8
+ 601 01ee 800B0000 		.4byte	.LASF63
+ 602 01f2 F600     		.sleb128 118
+ 603 01f4 08       		.uleb128 0x8
+ 604 01f5 15200000 		.4byte	.LASF64
+ 605 01f9 F700     		.sleb128 119
+ 606 01fb 08       		.uleb128 0x8
+ 607 01fc 90040000 		.4byte	.LASF65
+ 608 0200 F800     		.sleb128 120
+ 609 0202 08       		.uleb128 0x8
+ 610 0203 130B0000 		.4byte	.LASF66
+ 611 0207 F900     		.sleb128 121
+ 612 0209 08       		.uleb128 0x8
+ 613 020a 552B0000 		.4byte	.LASF67
+ 614 020e FA00     		.sleb128 122
+ 615 0210 08       		.uleb128 0x8
+ 616 0211 A7160000 		.4byte	.LASF68
+ 617 0215 FA01     		.sleb128 250
+ 618 0217 08       		.uleb128 0x8
+ 619 0218 681B0000 		.4byte	.LASF69
+ 620 021c FF01     		.sleb128 255
+ 621 021e 00       		.byte	0
+ 622 021f 09       		.uleb128 0x9
+ 623 0220 02       		.byte	0x2
+ 624 0221 03       		.byte	0x3
+ 625 0222 9A01     		.2byte	0x19a
+ 626 0224 EB020000 		.4byte	0x2eb
+ 627 0228 08       		.uleb128 0x8
+ 628 0229 160A0000 		.4byte	.LASF70
+ 629 022d 00       		.sleb128 0
+ 630 022e 08       		.uleb128 0x8
+ 631 022f 810E0000 		.4byte	.LASF71
+ 632 0233 01       		.sleb128 1
+ 633 0234 08       		.uleb128 0x8
+ 634 0235 DE2A0000 		.4byte	.LASF72
+ 635 0239 02       		.sleb128 2
+ 636 023a 08       		.uleb128 0x8
+ 637 023b A60F0000 		.4byte	.LASF73
+ 638 023f 03       		.sleb128 3
+ 639 0240 08       		.uleb128 0x8
+ 640 0241 3D120000 		.4byte	.LASF74
+ 641 0245 04       		.sleb128 4
+ 642 0246 08       		.uleb128 0x8
+ 643 0247 3D160000 		.4byte	.LASF75
+ 644 024b 05       		.sleb128 5
+ 645 024c 08       		.uleb128 0x8
+ 646 024d 93270000 		.4byte	.LASF76
+ 647 0251 06       		.sleb128 6
+ 648 0252 08       		.uleb128 0x8
+ 649 0253 AD0C0000 		.4byte	.LASF77
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 16
+
+
+ 650 0257 07       		.sleb128 7
+ 651 0258 08       		.uleb128 0x8
+ 652 0259 BA170000 		.4byte	.LASF78
+ 653 025d 08       		.sleb128 8
+ 654 025e 08       		.uleb128 0x8
+ 655 025f 6F260000 		.4byte	.LASF79
+ 656 0263 09       		.sleb128 9
+ 657 0264 08       		.uleb128 0x8
+ 658 0265 452C0000 		.4byte	.LASF80
+ 659 0269 0A       		.sleb128 10
+ 660 026a 08       		.uleb128 0x8
+ 661 026b 32060000 		.4byte	.LASF81
+ 662 026f 0B       		.sleb128 11
+ 663 0270 08       		.uleb128 0x8
+ 664 0271 C3280000 		.4byte	.LASF82
+ 665 0275 0C       		.sleb128 12
+ 666 0276 08       		.uleb128 0x8
+ 667 0277 D81A0000 		.4byte	.LASF83
+ 668 027b 0D       		.sleb128 13
+ 669 027c 08       		.uleb128 0x8
+ 670 027d 3E130000 		.4byte	.LASF84
+ 671 0281 0E       		.sleb128 14
+ 672 0282 08       		.uleb128 0x8
+ 673 0283 18160000 		.4byte	.LASF85
+ 674 0287 0F       		.sleb128 15
+ 675 0288 08       		.uleb128 0x8
+ 676 0289 FC030000 		.4byte	.LASF86
+ 677 028d 10       		.sleb128 16
+ 678 028e 08       		.uleb128 0x8
+ 679 028f 89170000 		.4byte	.LASF87
+ 680 0293 11       		.sleb128 17
+ 681 0294 08       		.uleb128 0x8
+ 682 0295 2D080000 		.4byte	.LASF88
+ 683 0299 12       		.sleb128 18
+ 684 029a 08       		.uleb128 0x8
+ 685 029b A6090000 		.4byte	.LASF89
+ 686 029f 13       		.sleb128 19
+ 687 02a0 08       		.uleb128 0x8
+ 688 02a1 85160000 		.4byte	.LASF90
+ 689 02a5 27       		.sleb128 39
+ 690 02a6 08       		.uleb128 0x8
+ 691 02a7 1D180000 		.4byte	.LASF91
+ 692 02ab 28       		.sleb128 40
+ 693 02ac 08       		.uleb128 0x8
+ 694 02ad 2A040000 		.4byte	.LASF92
+ 695 02b1 29       		.sleb128 41
+ 696 02b2 08       		.uleb128 0x8
+ 697 02b3 7A100000 		.4byte	.LASF93
+ 698 02b7 FF01     		.sleb128 255
+ 699 02b9 08       		.uleb128 0x8
+ 700 02ba FE110000 		.4byte	.LASF94
+ 701 02be 8002     		.sleb128 256
+ 702 02c0 08       		.uleb128 0x8
+ 703 02c1 92290000 		.4byte	.LASF95
+ 704 02c5 8102     		.sleb128 257
+ 705 02c7 08       		.uleb128 0x8
+ 706 02c8 550F0000 		.4byte	.LASF96
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 17
+
+
+ 707 02cc 8202     		.sleb128 258
+ 708 02ce 08       		.uleb128 0x8
+ 709 02cf 351C0000 		.4byte	.LASF97
+ 710 02d3 8302     		.sleb128 259
+ 711 02d5 08       		.uleb128 0x8
+ 712 02d6 1C1C0000 		.4byte	.LASF98
+ 713 02da 8402     		.sleb128 260
+ 714 02dc 08       		.uleb128 0x8
+ 715 02dd C0080000 		.4byte	.LASF99
+ 716 02e1 8502     		.sleb128 261
+ 717 02e3 08       		.uleb128 0x8
+ 718 02e4 DF1F0000 		.4byte	.LASF100
+ 719 02e8 8602     		.sleb128 262
+ 720 02ea 00       		.byte	0
+ 721 02eb 0A       		.uleb128 0xa
+ 722 02ec AD270000 		.4byte	.LASF101
+ 723 02f0 03       		.byte	0x3
+ 724 02f1 F401     		.2byte	0x1f4
+ 725 02f3 1F020000 		.4byte	0x21f
+ 726 02f7 0B       		.uleb128 0xb
+ 727 02f8 04       		.byte	0x4
+ 728 02f9 6B000000 		.4byte	0x6b
+ 729 02fd 07       		.uleb128 0x7
+ 730 02fe 01       		.byte	0x1
+ 731 02ff 04       		.byte	0x4
+ 732 0300 A4       		.byte	0xa4
+ 733 0301 B8030000 		.4byte	0x3b8
+ 734 0305 08       		.uleb128 0x8
+ 735 0306 34200000 		.4byte	.LASF102
+ 736 030a 00       		.sleb128 0
+ 737 030b 08       		.uleb128 0x8
+ 738 030c 851F0000 		.4byte	.LASF103
+ 739 0310 01       		.sleb128 1
+ 740 0311 08       		.uleb128 0x8
+ 741 0312 8F030000 		.4byte	.LASF104
+ 742 0316 02       		.sleb128 2
+ 743 0317 08       		.uleb128 0x8
+ 744 0318 CD290000 		.4byte	.LASF105
+ 745 031c 03       		.sleb128 3
+ 746 031d 08       		.uleb128 0x8
+ 747 031e A5080000 		.4byte	.LASF106
+ 748 0322 04       		.sleb128 4
+ 749 0323 08       		.uleb128 0x8
+ 750 0324 72190000 		.4byte	.LASF107
+ 751 0328 05       		.sleb128 5
+ 752 0329 08       		.uleb128 0x8
+ 753 032a 23250000 		.4byte	.LASF108
+ 754 032e 06       		.sleb128 6
+ 755 032f 08       		.uleb128 0x8
+ 756 0330 811C0000 		.4byte	.LASF109
+ 757 0334 07       		.sleb128 7
+ 758 0335 08       		.uleb128 0x8
+ 759 0336 74180000 		.4byte	.LASF110
+ 760 033a 08       		.sleb128 8
+ 761 033b 08       		.uleb128 0x8
+ 762 033c F0150000 		.4byte	.LASF111
+ 763 0340 09       		.sleb128 9
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 18
+
+
+ 764 0341 08       		.uleb128 0x8
+ 765 0342 221B0000 		.4byte	.LASF112
+ 766 0346 0A       		.sleb128 10
+ 767 0347 08       		.uleb128 0x8
+ 768 0348 830D0000 		.4byte	.LASF113
+ 769 034c 0B       		.sleb128 11
+ 770 034d 08       		.uleb128 0x8
+ 771 034e C5160000 		.4byte	.LASF114
+ 772 0352 0C       		.sleb128 12
+ 773 0353 08       		.uleb128 0x8
+ 774 0354 69090000 		.4byte	.LASF115
+ 775 0358 0D       		.sleb128 13
+ 776 0359 08       		.uleb128 0x8
+ 777 035a 6C0C0000 		.4byte	.LASF116
+ 778 035e 0E       		.sleb128 14
+ 779 035f 08       		.uleb128 0x8
+ 780 0360 032A0000 		.4byte	.LASF117
+ 781 0364 0F       		.sleb128 15
+ 782 0365 08       		.uleb128 0x8
+ 783 0366 D6030000 		.4byte	.LASF118
+ 784 036a 10       		.sleb128 16
+ 785 036b 08       		.uleb128 0x8
+ 786 036c B1030000 		.4byte	.LASF119
+ 787 0370 11       		.sleb128 17
+ 788 0371 08       		.uleb128 0x8
+ 789 0372 4D0D0000 		.4byte	.LASF120
+ 790 0376 8001     		.sleb128 128
+ 791 0378 08       		.uleb128 0x8
+ 792 0379 59110000 		.4byte	.LASF121
+ 793 037d 8001     		.sleb128 128
+ 794 037f 08       		.uleb128 0x8
+ 795 0380 CF240000 		.4byte	.LASF122
+ 796 0384 8001     		.sleb128 128
+ 797 0386 08       		.uleb128 0x8
+ 798 0387 1B210000 		.4byte	.LASF123
+ 799 038b 8001     		.sleb128 128
+ 800 038d 08       		.uleb128 0x8
+ 801 038e 871A0000 		.4byte	.LASF124
+ 802 0392 8001     		.sleb128 128
+ 803 0394 08       		.uleb128 0x8
+ 804 0395 4F100000 		.4byte	.LASF125
+ 805 0399 8101     		.sleb128 129
+ 806 039b 08       		.uleb128 0x8
+ 807 039c 07270000 		.4byte	.LASF126
+ 808 03a0 A001     		.sleb128 160
+ 809 03a2 08       		.uleb128 0x8
+ 810 03a3 13120000 		.4byte	.LASF127
+ 811 03a7 FD01     		.sleb128 253
+ 812 03a9 08       		.uleb128 0x8
+ 813 03aa EE160000 		.4byte	.LASF128
+ 814 03ae FE01     		.sleb128 254
+ 815 03b0 08       		.uleb128 0x8
+ 816 03b1 1C1D0000 		.4byte	.LASF129
+ 817 03b5 FF01     		.sleb128 255
+ 818 03b7 00       		.byte	0
+ 819 03b8 0A       		.uleb128 0xa
+ 820 03b9 E2200000 		.4byte	.LASF130
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 19
+
+
+ 821 03bd 04       		.byte	0x4
+ 822 03be 3001     		.2byte	0x130
+ 823 03c0 FD020000 		.4byte	0x2fd
+ 824 03c4 0A       		.uleb128 0xa
+ 825 03c5 F91F0000 		.4byte	.LASF131
+ 826 03c9 04       		.byte	0x4
+ 827 03ca 5201     		.2byte	0x152
+ 828 03cc 76000000 		.4byte	0x76
+ 829 03d0 0C       		.uleb128 0xc
+ 830 03d1 02       		.byte	0x2
+ 831 03d2 04       		.byte	0x4
+ 832 03d3 5501     		.2byte	0x155
+ 833 03d5 F4030000 		.4byte	0x3f4
+ 834 03d9 0D       		.uleb128 0xd
+ 835 03da 87060000 		.4byte	.LASF132
+ 836 03de 04       		.byte	0x4
+ 837 03df 5C01     		.2byte	0x15c
+ 838 03e1 6B000000 		.4byte	0x6b
+ 839 03e5 00       		.byte	0
+ 840 03e6 0D       		.uleb128 0xd
+ 841 03e7 D82A0000 		.4byte	.LASF133
+ 842 03eb 04       		.byte	0x4
+ 843 03ec 6201     		.2byte	0x162
+ 844 03ee 6B000000 		.4byte	0x6b
+ 845 03f2 01       		.byte	0x1
+ 846 03f3 00       		.byte	0
+ 847 03f4 0A       		.uleb128 0xa
+ 848 03f5 FB050000 		.4byte	.LASF134
+ 849 03f9 04       		.byte	0x4
+ 850 03fa 6401     		.2byte	0x164
+ 851 03fc D0030000 		.4byte	0x3d0
+ 852 0400 0C       		.uleb128 0xc
+ 853 0401 08       		.byte	0x8
+ 854 0402 04       		.byte	0x4
+ 855 0403 7901     		.2byte	0x179
+ 856 0405 31040000 		.4byte	0x431
+ 857 0409 0E       		.uleb128 0xe
+ 858 040a 76616C00 		.ascii	"val\000"
+ 859 040e 04       		.byte	0x4
+ 860 040f 7C01     		.2byte	0x17c
+ 861 0411 F7020000 		.4byte	0x2f7
+ 862 0415 00       		.byte	0
+ 863 0416 0E       		.uleb128 0xe
+ 864 0417 6C656E00 		.ascii	"len\000"
+ 865 041b 04       		.byte	0x4
+ 866 041c 7F01     		.2byte	0x17f
+ 867 041e 76000000 		.4byte	0x76
+ 868 0422 04       		.byte	0x4
+ 869 0423 0D       		.uleb128 0xd
+ 870 0424 632A0000 		.4byte	.LASF135
+ 871 0428 04       		.byte	0x4
+ 872 0429 8601     		.2byte	0x186
+ 873 042b 76000000 		.4byte	0x76
+ 874 042f 06       		.byte	0x6
+ 875 0430 00       		.byte	0
+ 876 0431 0A       		.uleb128 0xa
+ 877 0432 B3040000 		.4byte	.LASF136
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 20
+
+
+ 878 0436 04       		.byte	0x4
+ 879 0437 8801     		.2byte	0x188
+ 880 0439 00040000 		.4byte	0x400
+ 881 043d 0C       		.uleb128 0xc
+ 882 043e 0C       		.byte	0xc
+ 883 043f 04       		.byte	0x4
+ 884 0440 8B01     		.2byte	0x18b
+ 885 0442 61040000 		.4byte	0x461
+ 886 0446 0D       		.uleb128 0xd
+ 887 0447 48200000 		.4byte	.LASF137
+ 888 044b 04       		.byte	0x4
+ 889 044c 8E01     		.2byte	0x18e
+ 890 044e 31040000 		.4byte	0x431
+ 891 0452 00       		.byte	0
+ 892 0453 0D       		.uleb128 0xd
+ 893 0454 9E180000 		.4byte	.LASF138
+ 894 0458 04       		.byte	0x4
+ 895 0459 9101     		.2byte	0x191
+ 896 045b C4030000 		.4byte	0x3c4
+ 897 045f 08       		.byte	0x8
+ 898 0460 00       		.byte	0
+ 899 0461 0A       		.uleb128 0xa
+ 900 0462 E3080000 		.4byte	.LASF139
+ 901 0466 04       		.byte	0x4
+ 902 0467 9301     		.2byte	0x193
+ 903 0469 3D040000 		.4byte	0x43d
+ 904 046d 0F       		.uleb128 0xf
+ 905 046e 10       		.byte	0x10
+ 906 046f 05       		.byte	0x5
+ 907 0470 52       		.byte	0x52
+ 908 0471 8E040000 		.4byte	0x48e
+ 909 0475 10       		.uleb128 0x10
+ 910 0476 97210000 		.4byte	.LASF140
+ 911 047a 05       		.byte	0x5
+ 912 047b 55       		.byte	0x55
+ 913 047c F4030000 		.4byte	0x3f4
+ 914 0480 00       		.byte	0
+ 915 0481 10       		.uleb128 0x10
+ 916 0482 B2240000 		.4byte	.LASF141
+ 917 0486 05       		.byte	0x5
+ 918 0487 58       		.byte	0x58
+ 919 0488 61040000 		.4byte	0x461
+ 920 048c 04       		.byte	0x4
+ 921 048d 00       		.byte	0
+ 922 048e 04       		.uleb128 0x4
+ 923 048f 1B190000 		.4byte	.LASF142
+ 924 0493 05       		.byte	0x5
+ 925 0494 5A       		.byte	0x5a
+ 926 0495 6D040000 		.4byte	0x46d
+ 927 0499 0F       		.uleb128 0xf
+ 928 049a 08       		.byte	0x8
+ 929 049b 06       		.byte	0x6
+ 930 049c B8       		.byte	0xb8
+ 931 049d BA040000 		.4byte	0x4ba
+ 932 04a1 10       		.uleb128 0x10
+ 933 04a2 D81F0000 		.4byte	.LASF143
+ 934 04a6 06       		.byte	0x6
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 21
+
+
+ 935 04a7 BB       		.byte	0xbb
+ 936 04a8 76000000 		.4byte	0x76
+ 937 04ac 00       		.byte	0
+ 938 04ad 10       		.uleb128 0x10
+ 939 04ae 29240000 		.4byte	.LASF144
+ 940 04b2 06       		.byte	0x6
+ 941 04b3 C0       		.byte	0xc0
+ 942 04b4 AD000000 		.4byte	0xad
+ 943 04b8 04       		.byte	0x4
+ 944 04b9 00       		.byte	0
+ 945 04ba 04       		.uleb128 0x4
+ 946 04bb 0E220000 		.4byte	.LASF145
+ 947 04bf 06       		.byte	0x6
+ 948 04c0 C2       		.byte	0xc2
+ 949 04c1 99040000 		.4byte	0x499
+ 950 04c5 11       		.uleb128 0x11
+ 951 04c6 08       		.byte	0x8
+ 952 04c7 06       		.byte	0x6
+ 953 04c8 C5       		.byte	0xc5
+ 954 04c9 E4040000 		.4byte	0x4e4
+ 955 04cd 12       		.uleb128 0x12
+ 956 04ce C0240000 		.4byte	.LASF146
+ 957 04d2 06       		.byte	0x6
+ 958 04d3 CC       		.byte	0xcc
+ 959 04d4 BA040000 		.4byte	0x4ba
+ 960 04d8 12       		.uleb128 0x12
+ 961 04d9 81130000 		.4byte	.LASF147
+ 962 04dd 06       		.byte	0x6
+ 963 04de CF       		.byte	0xcf
+ 964 04df 76000000 		.4byte	0x76
+ 965 04e3 00       		.byte	0
+ 966 04e4 04       		.uleb128 0x4
+ 967 04e5 A8230000 		.4byte	.LASF148
+ 968 04e9 06       		.byte	0x6
+ 969 04ea D1       		.byte	0xd1
+ 970 04eb C5040000 		.4byte	0x4c5
+ 971 04ef 0F       		.uleb128 0xf
+ 972 04f0 14       		.byte	0x14
+ 973 04f1 06       		.byte	0x6
+ 974 04f2 D4       		.byte	0xd4
+ 975 04f3 34050000 		.4byte	0x534
+ 976 04f7 10       		.uleb128 0x10
+ 977 04f8 360B0000 		.4byte	.LASF149
+ 978 04fc 06       		.byte	0x6
+ 979 04fd D7       		.byte	0xd7
+ 980 04fe 76000000 		.4byte	0x76
+ 981 0502 00       		.byte	0
+ 982 0503 10       		.uleb128 0x10
+ 983 0504 02090000 		.4byte	.LASF150
+ 984 0508 06       		.byte	0x6
+ 985 0509 DD       		.byte	0xdd
+ 986 050a 76000000 		.4byte	0x76
+ 987 050e 02       		.byte	0x2
+ 988 050f 10       		.uleb128 0x10
+ 989 0510 E9040000 		.4byte	.LASF151
+ 990 0514 06       		.byte	0x6
+ 991 0515 E7       		.byte	0xe7
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 22
+
+
+ 992 0516 81000000 		.4byte	0x81
+ 993 051a 04       		.byte	0x4
+ 994 051b 10       		.uleb128 0x10
+ 995 051c 65190000 		.4byte	.LASF152
+ 996 0520 06       		.byte	0x6
+ 997 0521 EA       		.byte	0xea
+ 998 0522 76000000 		.4byte	0x76
+ 999 0526 08       		.byte	0x8
+ 1000 0527 10       		.uleb128 0x10
+ 1001 0528 8E200000 		.4byte	.LASF153
+ 1002 052c 06       		.byte	0x6
+ 1003 052d F3       		.byte	0xf3
+ 1004 052e E4040000 		.4byte	0x4e4
+ 1005 0532 0C       		.byte	0xc
+ 1006 0533 00       		.byte	0
+ 1007 0534 04       		.uleb128 0x4
+ 1008 0535 2B0E0000 		.4byte	.LASF154
+ 1009 0539 06       		.byte	0x6
+ 1010 053a F4       		.byte	0xf4
+ 1011 053b EF040000 		.4byte	0x4ef
+ 1012 053f 0A       		.uleb128 0xa
+ 1013 0540 6F050000 		.4byte	.LASF155
+ 1014 0544 07       		.byte	0x7
+ 1015 0545 0001     		.2byte	0x100
+ 1016 0547 4B050000 		.4byte	0x54b
+ 1017 054b 0B       		.uleb128 0xb
+ 1018 054c 04       		.byte	0x4
+ 1019 054d 51050000 		.4byte	0x551
+ 1020 0551 13       		.uleb128 0x13
+ 1021 0552 61050000 		.4byte	0x561
+ 1022 0556 14       		.uleb128 0x14
+ 1023 0557 81000000 		.4byte	0x81
+ 1024 055b 14       		.uleb128 0x14
+ 1025 055c AD000000 		.4byte	0xad
+ 1026 0560 00       		.byte	0
+ 1027 0561 0F       		.uleb128 0xf
+ 1028 0562 06       		.byte	0x6
+ 1029 0563 08       		.byte	0x8
+ 1030 0564 6F       		.byte	0x6f
+ 1031 0565 8E050000 		.4byte	0x58e
+ 1032 0569 10       		.uleb128 0x10
+ 1033 056a 73080000 		.4byte	.LASF156
+ 1034 056e 08       		.byte	0x8
+ 1035 056f 71       		.byte	0x71
+ 1036 0570 C4030000 		.4byte	0x3c4
+ 1037 0574 00       		.byte	0
+ 1038 0575 10       		.uleb128 0x10
+ 1039 0576 3B210000 		.4byte	.LASF157
+ 1040 057a 08       		.byte	0x8
+ 1041 057b 72       		.byte	0x72
+ 1042 057c C4030000 		.4byte	0x3c4
+ 1043 0580 02       		.byte	0x2
+ 1044 0581 10       		.uleb128 0x10
+ 1045 0582 6D2A0000 		.4byte	.LASF158
+ 1046 0586 08       		.byte	0x8
+ 1047 0587 73       		.byte	0x73
+ 1048 0588 C4030000 		.4byte	0x3c4
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 23
+
+
+ 1049 058c 04       		.byte	0x4
+ 1050 058d 00       		.byte	0
+ 1051 058e 04       		.uleb128 0x4
+ 1052 058f C5140000 		.4byte	.LASF159
+ 1053 0593 08       		.byte	0x8
+ 1054 0594 74       		.byte	0x74
+ 1055 0595 61050000 		.4byte	0x561
+ 1056 0599 07       		.uleb128 0x7
+ 1057 059a 02       		.byte	0x2
+ 1058 059b 09       		.byte	0x9
+ 1059 059c 80       		.byte	0x80
+ 1060 059d FF0A0000 		.4byte	0xaff
+ 1061 05a1 08       		.uleb128 0x8
+ 1062 05a2 B51A0000 		.4byte	.LASF160
+ 1063 05a6 8002     		.sleb128 256
+ 1064 05a8 08       		.uleb128 0x8
+ 1065 05a9 792B0000 		.4byte	.LASF161
+ 1066 05ad 8102     		.sleb128 257
+ 1067 05af 08       		.uleb128 0x8
+ 1068 05b0 F8070000 		.4byte	.LASF162
+ 1069 05b4 8202     		.sleb128 258
+ 1070 05b6 08       		.uleb128 0x8
+ 1071 05b7 2F2B0000 		.4byte	.LASF163
+ 1072 05bb 8302     		.sleb128 259
+ 1073 05bd 08       		.uleb128 0x8
+ 1074 05be 4B1F0000 		.4byte	.LASF164
+ 1075 05c2 8402     		.sleb128 260
+ 1076 05c4 08       		.uleb128 0x8
+ 1077 05c5 6F270000 		.4byte	.LASF165
+ 1078 05c9 8502     		.sleb128 261
+ 1079 05cb 08       		.uleb128 0x8
+ 1080 05cc 400B0000 		.4byte	.LASF166
+ 1081 05d0 8602     		.sleb128 262
+ 1082 05d2 08       		.uleb128 0x8
+ 1083 05d3 C7000000 		.4byte	.LASF167
+ 1084 05d7 8702     		.sleb128 263
+ 1085 05d9 08       		.uleb128 0x8
+ 1086 05da A7290000 		.4byte	.LASF168
+ 1087 05de 8802     		.sleb128 264
+ 1088 05e0 08       		.uleb128 0x8
+ 1089 05e1 46040000 		.4byte	.LASF169
+ 1090 05e5 8902     		.sleb128 265
+ 1091 05e7 08       		.uleb128 0x8
+ 1092 05e8 30020000 		.4byte	.LASF170
+ 1093 05ec 8A02     		.sleb128 266
+ 1094 05ee 08       		.uleb128 0x8
+ 1095 05ef 600E0000 		.4byte	.LASF171
+ 1096 05f3 8B02     		.sleb128 267
+ 1097 05f5 08       		.uleb128 0x8
+ 1098 05f6 AB150000 		.4byte	.LASF172
+ 1099 05fa 8C02     		.sleb128 268
+ 1100 05fc 08       		.uleb128 0x8
+ 1101 05fd 411E0000 		.4byte	.LASF173
+ 1102 0601 8D02     		.sleb128 269
+ 1103 0603 08       		.uleb128 0x8
+ 1104 0604 C1020000 		.4byte	.LASF174
+ 1105 0608 8E02     		.sleb128 270
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 24
+
+
+ 1106 060a 08       		.uleb128 0x8
+ 1107 060b 0E0C0000 		.4byte	.LASF175
+ 1108 060f 8F02     		.sleb128 271
+ 1109 0611 08       		.uleb128 0x8
+ 1110 0612 D3050000 		.4byte	.LASF176
+ 1111 0616 9002     		.sleb128 272
+ 1112 0618 08       		.uleb128 0x8
+ 1113 0619 F8270000 		.4byte	.LASF177
+ 1114 061d 9102     		.sleb128 273
+ 1115 061f 08       		.uleb128 0x8
+ 1116 0620 951B0000 		.4byte	.LASF178
+ 1117 0624 9202     		.sleb128 274
+ 1118 0626 08       		.uleb128 0x8
+ 1119 0627 842C0000 		.4byte	.LASF179
+ 1120 062b 9302     		.sleb128 275
+ 1121 062d 08       		.uleb128 0x8
+ 1122 062e D2250000 		.4byte	.LASF180
+ 1123 0632 9402     		.sleb128 276
+ 1124 0634 08       		.uleb128 0x8
+ 1125 0635 9B2B0000 		.4byte	.LASF181
+ 1126 0639 9502     		.sleb128 277
+ 1127 063b 08       		.uleb128 0x8
+ 1128 063c 1C130000 		.4byte	.LASF182
+ 1129 0640 9602     		.sleb128 278
+ 1130 0642 08       		.uleb128 0x8
+ 1131 0643 D3100000 		.4byte	.LASF183
+ 1132 0647 9702     		.sleb128 279
+ 1133 0649 08       		.uleb128 0x8
+ 1134 064a 6C030000 		.4byte	.LASF184
+ 1135 064e 9802     		.sleb128 280
+ 1136 0650 08       		.uleb128 0x8
+ 1137 0651 E11E0000 		.4byte	.LASF185
+ 1138 0655 9902     		.sleb128 281
+ 1139 0657 08       		.uleb128 0x8
+ 1140 0658 8E130000 		.4byte	.LASF186
+ 1141 065c 9A02     		.sleb128 282
+ 1142 065e 08       		.uleb128 0x8
+ 1143 065f A2210000 		.4byte	.LASF187
+ 1144 0663 9B02     		.sleb128 283
+ 1145 0665 08       		.uleb128 0x8
+ 1146 0666 70250000 		.4byte	.LASF188
+ 1147 066a 9C02     		.sleb128 284
+ 1148 066c 08       		.uleb128 0x8
+ 1149 066d C9260000 		.4byte	.LASF189
+ 1150 0671 9D02     		.sleb128 285
+ 1151 0673 08       		.uleb128 0x8
+ 1152 0674 DA090000 		.4byte	.LASF190
+ 1153 0678 9E02     		.sleb128 286
+ 1154 067a 08       		.uleb128 0x8
+ 1155 067b 8C250000 		.4byte	.LASF191
+ 1156 067f 9F02     		.sleb128 287
+ 1157 0681 08       		.uleb128 0x8
+ 1158 0682 31050000 		.4byte	.LASF192
+ 1159 0686 A002     		.sleb128 288
+ 1160 0688 08       		.uleb128 0x8
+ 1161 0689 C2190000 		.4byte	.LASF193
+ 1162 068d A102     		.sleb128 289
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 25
+
+
+ 1163 068f 08       		.uleb128 0x8
+ 1164 0690 05240000 		.4byte	.LASF194
+ 1165 0694 A202     		.sleb128 290
+ 1166 0696 08       		.uleb128 0x8
+ 1167 0697 3C0E0000 		.4byte	.LASF195
+ 1168 069b A302     		.sleb128 291
+ 1169 069d 08       		.uleb128 0x8
+ 1170 069e FD1A0000 		.4byte	.LASF196
+ 1171 06a2 A402     		.sleb128 292
+ 1172 06a4 08       		.uleb128 0x8
+ 1173 06a5 13100000 		.4byte	.LASF197
+ 1174 06a9 A502     		.sleb128 293
+ 1175 06ab 08       		.uleb128 0x8
+ 1176 06ac 53050000 		.4byte	.LASF198
+ 1177 06b0 A602     		.sleb128 294
+ 1178 06b2 08       		.uleb128 0x8
+ 1179 06b3 87010000 		.4byte	.LASF199
+ 1180 06b7 A702     		.sleb128 295
+ 1181 06b9 08       		.uleb128 0x8
+ 1182 06ba B5060000 		.4byte	.LASF200
+ 1183 06be A802     		.sleb128 296
+ 1184 06c0 08       		.uleb128 0x8
+ 1185 06c1 6A200000 		.4byte	.LASF201
+ 1186 06c5 A902     		.sleb128 297
+ 1187 06c7 08       		.uleb128 0x8
+ 1188 06c8 5B160000 		.4byte	.LASF202
+ 1189 06cc AA02     		.sleb128 298
+ 1190 06ce 08       		.uleb128 0x8
+ 1191 06cf C0270000 		.4byte	.LASF203
+ 1192 06d3 AB02     		.sleb128 299
+ 1193 06d5 08       		.uleb128 0x8
+ 1194 06d6 90060000 		.4byte	.LASF204
+ 1195 06da AC02     		.sleb128 300
+ 1196 06dc 08       		.uleb128 0x8
+ 1197 06dd 521D0000 		.4byte	.LASF205
+ 1198 06e1 AD02     		.sleb128 301
+ 1199 06e3 08       		.uleb128 0x8
+ 1200 06e4 64290000 		.4byte	.LASF206
+ 1201 06e8 AE02     		.sleb128 302
+ 1202 06ea 08       		.uleb128 0x8
+ 1203 06eb 1B280000 		.4byte	.LASF207
+ 1204 06ef AF02     		.sleb128 303
+ 1205 06f1 08       		.uleb128 0x8
+ 1206 06f2 6A000000 		.4byte	.LASF208
+ 1207 06f6 B002     		.sleb128 304
+ 1208 06f8 08       		.uleb128 0x8
+ 1209 06f9 06250000 		.4byte	.LASF209
+ 1210 06fd B102     		.sleb128 305
+ 1211 06ff 08       		.uleb128 0x8
+ 1212 0700 19140000 		.4byte	.LASF210
+ 1213 0704 B202     		.sleb128 306
+ 1214 0706 08       		.uleb128 0x8
+ 1215 0707 37240000 		.4byte	.LASF211
+ 1216 070b B302     		.sleb128 307
+ 1217 070d 08       		.uleb128 0x8
+ 1218 070e 91220000 		.4byte	.LASF212
+ 1219 0712 B402     		.sleb128 308
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 26
+
+
+ 1220 0714 08       		.uleb128 0x8
+ 1221 0715 32010000 		.4byte	.LASF213
+ 1222 0719 B502     		.sleb128 309
+ 1223 071b 08       		.uleb128 0x8
+ 1224 071c C7210000 		.4byte	.LASF214
+ 1225 0720 B602     		.sleb128 310
+ 1226 0722 08       		.uleb128 0x8
+ 1227 0723 D30A0000 		.4byte	.LASF215
+ 1228 0727 B702     		.sleb128 311
+ 1229 0729 08       		.uleb128 0x8
+ 1230 072a FB060000 		.4byte	.LASF216
+ 1231 072e B802     		.sleb128 312
+ 1232 0730 08       		.uleb128 0x8
+ 1233 0731 D8060000 		.4byte	.LASF217
+ 1234 0735 B902     		.sleb128 313
+ 1235 0737 08       		.uleb128 0x8
+ 1236 0738 AF0A0000 		.4byte	.LASF218
+ 1237 073c BA02     		.sleb128 314
+ 1238 073e 08       		.uleb128 0x8
+ 1239 073f 1C150000 		.4byte	.LASF219
+ 1240 0743 BB02     		.sleb128 315
+ 1241 0745 08       		.uleb128 0x8
+ 1242 0746 B62A0000 		.4byte	.LASF220
+ 1243 074a BC02     		.sleb128 316
+ 1244 074c 08       		.uleb128 0x8
+ 1245 074d EC0D0000 		.4byte	.LASF221
+ 1246 0751 BD02     		.sleb128 317
+ 1247 0753 08       		.uleb128 0x8
+ 1248 0754 4E200000 		.4byte	.LASF222
+ 1249 0758 BE02     		.sleb128 318
+ 1250 075a 08       		.uleb128 0x8
+ 1251 075b 671C0000 		.4byte	.LASF223
+ 1252 075f BF02     		.sleb128 319
+ 1253 0761 08       		.uleb128 0x8
+ 1254 0762 ED000000 		.4byte	.LASF224
+ 1255 0766 C002     		.sleb128 320
+ 1256 0768 08       		.uleb128 0x8
+ 1257 0769 CD130000 		.4byte	.LASF225
+ 1258 076d C102     		.sleb128 321
+ 1259 076f 08       		.uleb128 0x8
+ 1260 0770 85000000 		.4byte	.LASF226
+ 1261 0774 C202     		.sleb128 322
+ 1262 0776 08       		.uleb128 0x8
+ 1263 0777 5F070000 		.4byte	.LASF227
+ 1264 077b C302     		.sleb128 323
+ 1265 077d 08       		.uleb128 0x8
+ 1266 077e 7B280000 		.4byte	.LASF228
+ 1267 0782 C402     		.sleb128 324
+ 1268 0784 08       		.uleb128 0x8
+ 1269 0785 EE0F0000 		.4byte	.LASF229
+ 1270 0789 C502     		.sleb128 325
+ 1271 078b 08       		.uleb128 0x8
+ 1272 078c E70E0000 		.4byte	.LASF230
+ 1273 0790 C602     		.sleb128 326
+ 1274 0792 08       		.uleb128 0x8
+ 1275 0793 C6040000 		.4byte	.LASF231
+ 1276 0797 C702     		.sleb128 327
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 27
+
+
+ 1277 0799 08       		.uleb128 0x8
+ 1278 079a 8C070000 		.4byte	.LASF232
+ 1279 079e C802     		.sleb128 328
+ 1280 07a0 08       		.uleb128 0x8
+ 1281 07a1 61170000 		.4byte	.LASF233
+ 1282 07a5 C902     		.sleb128 329
+ 1283 07a7 08       		.uleb128 0x8
+ 1284 07a8 AA140000 		.4byte	.LASF234
+ 1285 07ac CA02     		.sleb128 330
+ 1286 07ae 08       		.uleb128 0x8
+ 1287 07af 52060000 		.4byte	.LASF235
+ 1288 07b3 CB02     		.sleb128 331
+ 1289 07b5 08       		.uleb128 0x8
+ 1290 07b6 80050000 		.4byte	.LASF236
+ 1291 07ba CC02     		.sleb128 332
+ 1292 07bc 08       		.uleb128 0x8
+ 1293 07bd 0F010000 		.4byte	.LASF237
+ 1294 07c1 CD02     		.sleb128 333
+ 1295 07c3 08       		.uleb128 0x8
+ 1296 07c4 55140000 		.4byte	.LASF238
+ 1297 07c8 CE02     		.sleb128 334
+ 1298 07ca 08       		.uleb128 0x8
+ 1299 07cb 1A2C0000 		.4byte	.LASF239
+ 1300 07cf CF02     		.sleb128 335
+ 1301 07d1 08       		.uleb128 0x8
+ 1302 07d2 72210000 		.4byte	.LASF240
+ 1303 07d6 D002     		.sleb128 336
+ 1304 07d8 08       		.uleb128 0x8
+ 1305 07d9 0D0F0000 		.4byte	.LASF241
+ 1306 07dd D102     		.sleb128 337
+ 1307 07df 08       		.uleb128 0x8
+ 1308 07e0 9D190000 		.4byte	.LASF242
+ 1309 07e4 D202     		.sleb128 338
+ 1310 07e6 08       		.uleb128 0x8
+ 1311 07e7 C6200000 		.4byte	.LASF243
+ 1312 07eb D302     		.sleb128 339
+ 1313 07ed 08       		.uleb128 0x8
+ 1314 07ee 9F020000 		.4byte	.LASF244
+ 1315 07f2 D402     		.sleb128 340
+ 1316 07f4 08       		.uleb128 0x8
+ 1317 07f5 B51F0000 		.4byte	.LASF245
+ 1318 07f9 D502     		.sleb128 341
+ 1319 07fb 08       		.uleb128 0x8
+ 1320 07fc A50D0000 		.4byte	.LASF246
+ 1321 0800 D602     		.sleb128 342
+ 1322 0802 08       		.uleb128 0x8
+ 1323 0803 9F1C0000 		.4byte	.LASF247
+ 1324 0807 D702     		.sleb128 343
+ 1325 0809 08       		.uleb128 0x8
+ 1326 080a B0250000 		.4byte	.LASF248
+ 1327 080e D802     		.sleb128 344
+ 1328 0810 08       		.uleb128 0x8
+ 1329 0811 F8200000 		.4byte	.LASF249
+ 1330 0815 D902     		.sleb128 345
+ 1331 0817 08       		.uleb128 0x8
+ 1332 0818 271F0000 		.4byte	.LASF250
+ 1333 081c DA02     		.sleb128 346
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 28
+
+
+ 1334 081e 08       		.uleb128 0x8
+ 1335 081f CC150000 		.4byte	.LASF251
+ 1336 0823 DB02     		.sleb128 347
+ 1337 0825 08       		.uleb128 0x8
+ 1338 0826 57010000 		.4byte	.LASF252
+ 1339 082a DC02     		.sleb128 348
+ 1340 082c 08       		.uleb128 0x8
+ 1341 082d 381D0000 		.4byte	.LASF253
+ 1342 0831 DD02     		.sleb128 349
+ 1343 0833 08       		.uleb128 0x8
+ 1344 0834 9C2A0000 		.4byte	.LASF254
+ 1345 0838 DE02     		.sleb128 350
+ 1346 083a 08       		.uleb128 0x8
+ 1347 083b EB260000 		.4byte	.LASF255
+ 1348 083f DF02     		.sleb128 351
+ 1349 0841 08       		.uleb128 0x8
+ 1350 0842 3D150000 		.4byte	.LASF256
+ 1351 0846 E002     		.sleb128 352
+ 1352 0848 08       		.uleb128 0x8
+ 1353 0849 06020000 		.4byte	.LASF257
+ 1354 084d E102     		.sleb128 353
+ 1355 084f 08       		.uleb128 0x8
+ 1356 0850 8A0C0000 		.4byte	.LASF258
+ 1357 0854 E202     		.sleb128 354
+ 1358 0856 08       		.uleb128 0x8
+ 1359 0857 36280000 		.4byte	.LASF259
+ 1360 085b E302     		.sleb128 355
+ 1361 085d 08       		.uleb128 0x8
+ 1362 085e C32C0000 		.4byte	.LASF260
+ 1363 0862 E402     		.sleb128 356
+ 1364 0864 08       		.uleb128 0x8
+ 1365 0865 42180000 		.4byte	.LASF261
+ 1366 0869 E502     		.sleb128 357
+ 1367 086b 08       		.uleb128 0x8
+ 1368 086c D92B0000 		.4byte	.LASF262
+ 1369 0870 E602     		.sleb128 358
+ 1370 0872 08       		.uleb128 0x8
+ 1371 0873 FB170000 		.4byte	.LASF263
+ 1372 0877 E702     		.sleb128 359
+ 1373 0879 08       		.uleb128 0x8
+ 1374 087a 8E090000 		.4byte	.LASF264
+ 1375 087e E802     		.sleb128 360
+ 1376 0880 08       		.uleb128 0x8
+ 1377 0881 E1110000 		.4byte	.LASF265
+ 1378 0885 E902     		.sleb128 361
+ 1379 0887 08       		.uleb128 0x8
+ 1380 0888 2D100000 		.4byte	.LASF266
+ 1381 088c EA02     		.sleb128 362
+ 1382 088e 08       		.uleb128 0x8
+ 1383 088f 30090000 		.4byte	.LASF267
+ 1384 0893 EB02     		.sleb128 363
+ 1385 0895 08       		.uleb128 0x8
+ 1386 0896 B5220000 		.4byte	.LASF268
+ 1387 089a EC02     		.sleb128 364
+ 1388 089c 08       		.uleb128 0x8
+ 1389 089d 86120000 		.4byte	.LASF269
+ 1390 08a1 ED02     		.sleb128 365
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 29
+
+
+ 1391 08a3 08       		.uleb128 0x8
+ 1392 08a4 BB1D0000 		.4byte	.LASF270
+ 1393 08a8 EE02     		.sleb128 366
+ 1394 08aa 08       		.uleb128 0x8
+ 1395 08ab 28030000 		.4byte	.LASF271
+ 1396 08af EF02     		.sleb128 367
+ 1397 08b1 08       		.uleb128 0x8
+ 1398 08b2 060E0000 		.4byte	.LASF272
+ 1399 08b6 F002     		.sleb128 368
+ 1400 08b8 08       		.uleb128 0x8
+ 1401 08b9 35110000 		.4byte	.LASF273
+ 1402 08bd F102     		.sleb128 369
+ 1403 08bf 08       		.uleb128 0x8
+ 1404 08c0 0C2D0000 		.4byte	.LASF274
+ 1405 08c4 F202     		.sleb128 370
+ 1406 08c6 08       		.uleb128 0x8
+ 1407 08c7 771D0000 		.4byte	.LASF275
+ 1408 08cb F302     		.sleb128 371
+ 1409 08cd 08       		.uleb128 0x8
+ 1410 08ce DF1D0000 		.4byte	.LASF276
+ 1411 08d2 F402     		.sleb128 372
+ 1412 08d4 08       		.uleb128 0x8
+ 1413 08d5 0F060000 		.4byte	.LASF277
+ 1414 08d9 F502     		.sleb128 373
+ 1415 08db 08       		.uleb128 0x8
+ 1416 08dc CB0F0000 		.4byte	.LASF278
+ 1417 08e0 F602     		.sleb128 374
+ 1418 08e2 08       		.uleb128 0x8
+ 1419 08e3 37230000 		.4byte	.LASF279
+ 1420 08e7 F702     		.sleb128 375
+ 1421 08e9 08       		.uleb128 0x8
+ 1422 08ea 81080000 		.4byte	.LASF280
+ 1423 08ee F802     		.sleb128 376
+ 1424 08f0 08       		.uleb128 0x8
+ 1425 08f1 22000000 		.4byte	.LASF281
+ 1426 08f5 F902     		.sleb128 377
+ 1427 08f7 08       		.uleb128 0x8
+ 1428 08f8 84260000 		.4byte	.LASF282
+ 1429 08fc FA02     		.sleb128 378
+ 1430 08fe 08       		.uleb128 0x8
+ 1431 08ff E80C0000 		.4byte	.LASF283
+ 1432 0903 FB02     		.sleb128 379
+ 1433 0905 08       		.uleb128 0x8
+ 1434 0906 E82C0000 		.4byte	.LASF284
+ 1435 090a FC02     		.sleb128 380
+ 1436 090c 08       		.uleb128 0x8
+ 1437 090d 67130000 		.4byte	.LASF285
+ 1438 0911 FD02     		.sleb128 381
+ 1439 0913 08       		.uleb128 0x8
+ 1440 0914 5F150000 		.4byte	.LASF286
+ 1441 0918 FE02     		.sleb128 382
+ 1442 091a 08       		.uleb128 0x8
+ 1443 091b A92C0000 		.4byte	.LASF287
+ 1444 091f FF02     		.sleb128 383
+ 1445 0921 08       		.uleb128 0x8
+ 1446 0922 61240000 		.4byte	.LASF288
+ 1447 0926 8003     		.sleb128 384
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 30
+
+
+ 1448 0928 08       		.uleb128 0x8
+ 1449 0929 451B0000 		.4byte	.LASF289
+ 1450 092d 8103     		.sleb128 385
+ 1451 092f 08       		.uleb128 0x8
+ 1452 0930 DF1C0000 		.4byte	.LASF290
+ 1453 0934 8203     		.sleb128 386
+ 1454 0936 08       		.uleb128 0x8
+ 1455 0937 F6280000 		.4byte	.LASF291
+ 1456 093b 8303     		.sleb128 387
+ 1457 093d 08       		.uleb128 0x8
+ 1458 093e BC120000 		.4byte	.LASF292
+ 1459 0942 8403     		.sleb128 388
+ 1460 0944 08       		.uleb128 0x8
+ 1461 0945 880F0000 		.4byte	.LASF293
+ 1462 0949 8503     		.sleb128 389
+ 1463 094b 08       		.uleb128 0x8
+ 1464 094c 3F170000 		.4byte	.LASF294
+ 1465 0950 8603     		.sleb128 390
+ 1466 0952 08       		.uleb128 0x8
+ 1467 0953 C8010000 		.4byte	.LASF295
+ 1468 0957 8703     		.sleb128 391
+ 1469 0959 08       		.uleb128 0x8
+ 1470 095a 50210000 		.4byte	.LASF296
+ 1471 095e 8803     		.sleb128 392
+ 1472 0960 08       		.uleb128 0x8
+ 1473 0961 7C020000 		.4byte	.LASF297
+ 1474 0965 8903     		.sleb128 393
+ 1475 0967 08       		.uleb128 0x8
+ 1476 0968 BD1E0000 		.4byte	.LASF298
+ 1477 096c 8A03     		.sleb128 394
+ 1478 096e 08       		.uleb128 0x8
+ 1479 096f 1D070000 		.4byte	.LASF299
+ 1480 0973 8B03     		.sleb128 395
+ 1481 0975 08       		.uleb128 0x8
+ 1482 0976 F7140000 		.4byte	.LASF300
+ 1483 097a 8C03     		.sleb128 396
+ 1484 097c 08       		.uleb128 0x8
+ 1485 097d 5B230000 		.4byte	.LASF301
+ 1486 0981 8D03     		.sleb128 397
+ 1487 0983 08       		.uleb128 0x8
+ 1488 0984 F4040000 		.4byte	.LASF302
+ 1489 0988 8E03     		.sleb128 398
+ 1490 098a 08       		.uleb128 0x8
+ 1491 098b 97200000 		.4byte	.LASF303
+ 1492 098f 8F03     		.sleb128 399
+ 1493 0991 08       		.uleb128 0x8
+ 1494 0992 051F0000 		.4byte	.LASF304
+ 1495 0996 9003     		.sleb128 400
+ 1496 0998 08       		.uleb128 0x8
+ 1497 0999 8A100000 		.4byte	.LASF305
+ 1498 099d 9103     		.sleb128 401
+ 1499 099f 08       		.uleb128 0x8
+ 1500 09a0 2A2A0000 		.4byte	.LASF306
+ 1501 09a4 9203     		.sleb128 402
+ 1502 09a6 08       		.uleb128 0x8
+ 1503 09a7 1B170000 		.4byte	.LASF307
+ 1504 09ab 9303     		.sleb128 403
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 31
+
+
+ 1505 09ad 08       		.uleb128 0x8
+ 1506 09ae 1E1E0000 		.4byte	.LASF308
+ 1507 09b2 9403     		.sleb128 404
+ 1508 09b4 08       		.uleb128 0x8
+ 1509 09b5 DA120000 		.4byte	.LASF309
+ 1510 09b9 9503     		.sleb128 405
+ 1511 09bb 08       		.uleb128 0x8
+ 1512 09bc 6B220000 		.4byte	.LASF310
+ 1513 09c0 9603     		.sleb128 406
+ 1514 09c2 08       		.uleb128 0x8
+ 1515 09c3 B2130000 		.4byte	.LASF311
+ 1516 09c7 9703     		.sleb128 407
+ 1517 09c9 08       		.uleb128 0x8
+ 1518 09ca FF120000 		.4byte	.LASF312
+ 1519 09ce 9803     		.sleb128 408
+ 1520 09d0 08       		.uleb128 0x8
+ 1521 09d1 0E050000 		.4byte	.LASF313
+ 1522 09d5 9903     		.sleb128 409
+ 1523 09d7 08       		.uleb128 0x8
+ 1524 09d8 B0070000 		.4byte	.LASF314
+ 1525 09dc 9A03     		.sleb128 410
+ 1526 09de 08       		.uleb128 0x8
+ 1527 09df A3110000 		.4byte	.LASF315
+ 1528 09e3 9B03     		.sleb128 411
+ 1529 09e5 08       		.uleb128 0x8
+ 1530 09e6 83240000 		.4byte	.LASF316
+ 1531 09ea 9C03     		.sleb128 412
+ 1532 09ec 08       		.uleb128 0x8
+ 1533 09ed 5F2C0000 		.4byte	.LASF317
+ 1534 09f1 9D03     		.sleb128 413
+ 1535 09f3 08       		.uleb128 0x8
+ 1536 09f4 60120000 		.4byte	.LASF318
+ 1537 09f8 9E03     		.sleb128 414
+ 1538 09fa 08       		.uleb128 0x8
+ 1539 09fb 600A0000 		.4byte	.LASF319
+ 1540 09ff 9F03     		.sleb128 415
+ 1541 0a01 08       		.uleb128 0x8
+ 1542 0a02 310F0000 		.4byte	.LASF320
+ 1543 0a06 A003     		.sleb128 416
+ 1544 0a08 08       		.uleb128 0x8
+ 1545 0a09 931D0000 		.4byte	.LASF321
+ 1546 0a0d A103     		.sleb128 417
+ 1547 0a0f 08       		.uleb128 0x8
+ 1548 0a10 E9020000 		.4byte	.LASF322
+ 1549 0a14 A203     		.sleb128 418
+ 1550 0a16 08       		.uleb128 0x8
+ 1551 0a17 C0230000 		.4byte	.LASF323
+ 1552 0a1b A303     		.sleb128 419
+ 1553 0a1d 08       		.uleb128 0x8
+ 1554 0a1e F80A0000 		.4byte	.LASF324
+ 1555 0a22 A403     		.sleb128 420
+ 1556 0a24 08       		.uleb128 0x8
+ 1557 0a25 50080000 		.4byte	.LASF325
+ 1558 0a29 A503     		.sleb128 421
+ 1559 0a2b 08       		.uleb128 0x8
+ 1560 0a2c 9F0E0000 		.4byte	.LASF326
+ 1561 0a30 A603     		.sleb128 422
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 32
+
+
+ 1562 0a32 08       		.uleb128 0x8
+ 1563 0a33 9F280000 		.4byte	.LASF327
+ 1564 0a37 A703     		.sleb128 423
+ 1565 0a39 08       		.uleb128 0x8
+ 1566 0a3a 57020000 		.4byte	.LASF328
+ 1567 0a3e A803     		.sleb128 424
+ 1568 0a40 08       		.uleb128 0x8
+ 1569 0a41 A8000000 		.4byte	.LASF329
+ 1570 0a45 A903     		.sleb128 425
+ 1571 0a47 08       		.uleb128 0x8
+ 1572 0a48 0B0D0000 		.4byte	.LASF330
+ 1573 0a4c AA03     		.sleb128 426
+ 1574 0a4e 08       		.uleb128 0x8
+ 1575 0a4f 5B0B0000 		.4byte	.LASF331
+ 1576 0a53 AB03     		.sleb128 427
+ 1577 0a55 08       		.uleb128 0x8
+ 1578 0a56 E5190000 		.4byte	.LASF332
+ 1579 0a5a AC03     		.sleb128 428
+ 1580 0a5c 08       		.uleb128 0x8
+ 1581 0a5d 30270000 		.4byte	.LASF333
+ 1582 0a61 AD03     		.sleb128 429
+ 1583 0a63 08       		.uleb128 0x8
+ 1584 0a64 DE170000 		.4byte	.LASF334
+ 1585 0a68 AE03     		.sleb128 430
+ 1586 0a6a 08       		.uleb128 0x8
+ 1587 0a6b 13230000 		.4byte	.LASF335
+ 1588 0a6f AF03     		.sleb128 431
+ 1589 0a71 08       		.uleb128 0x8
+ 1590 0a72 C80B0000 		.4byte	.LASF336
+ 1591 0a76 B003     		.sleb128 432
+ 1592 0a78 08       		.uleb128 0x8
+ 1593 0a79 782A0000 		.4byte	.LASF337
+ 1594 0a7d B103     		.sleb128 433
+ 1595 0a7f 08       		.uleb128 0x8
+ 1596 0a80 EE220000 		.4byte	.LASF338
+ 1597 0a84 B203     		.sleb128 434
+ 1598 0a86 08       		.uleb128 0x8
+ 1599 0a87 F20B0000 		.4byte	.LASF339
+ 1600 0a8b B303     		.sleb128 435
+ 1601 0a8d 08       		.uleb128 0x8
+ 1602 0a8e 89150000 		.4byte	.LASF340
+ 1603 0a92 B403     		.sleb128 436
+ 1604 0a94 08       		.uleb128 0x8
+ 1605 0a95 EB210000 		.4byte	.LASF341
+ 1606 0a99 B503     		.sleb128 437
+ 1607 0a9b 08       		.uleb128 0x8
+ 1608 0a9c C30E0000 		.4byte	.LASF342
+ 1609 0aa0 B603     		.sleb128 438
+ 1610 0aa2 08       		.uleb128 0x8
+ 1611 0aa3 4D260000 		.4byte	.LASF343
+ 1612 0aa7 B703     		.sleb128 439
+ 1613 0aa9 08       		.uleb128 0x8
+ 1614 0aaa C90D0000 		.4byte	.LASF344
+ 1615 0aae B803     		.sleb128 440
+ 1616 0ab0 08       		.uleb128 0x8
+ 1617 0ab1 D4070000 		.4byte	.LASF345
+ 1618 0ab5 B903     		.sleb128 441
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 33
+
+
+ 1619 0ab7 08       		.uleb128 0x8
+ 1620 0ab8 991E0000 		.4byte	.LASF346
+ 1621 0abc BA03     		.sleb128 442
+ 1622 0abe 08       		.uleb128 0x8
+ 1623 0abf F6100000 		.4byte	.LASF347
+ 1624 0ac3 BB03     		.sleb128 443
+ 1625 0ac5 08       		.uleb128 0x8
+ 1626 0ac6 1B110000 		.4byte	.LASF348
+ 1627 0aca BC03     		.sleb128 444
+ 1628 0acc 08       		.uleb128 0x8
+ 1629 0acd 50000000 		.4byte	.LASF349
+ 1630 0ad1 BD03     		.sleb128 445
+ 1631 0ad3 08       		.uleb128 0x8
+ 1632 0ad4 FF180000 		.4byte	.LASF350
+ 1633 0ad8 BE03     		.sleb128 446
+ 1634 0ada 08       		.uleb128 0x8
+ 1635 0adb 00000000 		.4byte	.LASF351
+ 1636 0adf BF03     		.sleb128 447
+ 1637 0ae1 08       		.uleb128 0x8
+ 1638 0ae2 D31B0000 		.4byte	.LASF352
+ 1639 0ae6 C003     		.sleb128 448
+ 1640 0ae8 08       		.uleb128 0x8
+ 1641 0ae9 A6260000 		.4byte	.LASF353
+ 1642 0aed C103     		.sleb128 449
+ 1643 0aef 08       		.uleb128 0x8
+ 1644 0af0 04030000 		.4byte	.LASF354
+ 1645 0af4 C203     		.sleb128 450
+ 1646 0af6 08       		.uleb128 0x8
+ 1647 0af7 021D0000 		.4byte	.LASF355
+ 1648 0afb 80C003   		.sleb128 57344
+ 1649 0afe 00       		.byte	0
+ 1650 0aff 09       		.uleb128 0x9
+ 1651 0b00 01       		.byte	0x1
+ 1652 0b01 09       		.byte	0x9
+ 1653 0b02 9505     		.2byte	0x595
+ 1654 0b04 270B0000 		.4byte	0xb27
+ 1655 0b08 08       		.uleb128 0x8
+ 1656 0b09 4C0A0000 		.4byte	.LASF356
+ 1657 0b0d 00       		.sleb128 0
+ 1658 0b0e 08       		.uleb128 0x8
+ 1659 0b0f 3C140000 		.4byte	.LASF357
+ 1660 0b13 01       		.sleb128 1
+ 1661 0b14 08       		.uleb128 0x8
+ 1662 0b15 4D2A0000 		.4byte	.LASF358
+ 1663 0b19 02       		.sleb128 2
+ 1664 0b1a 08       		.uleb128 0x8
+ 1665 0b1b 6F060000 		.4byte	.LASF359
+ 1666 0b1f 03       		.sleb128 3
+ 1667 0b20 08       		.uleb128 0x8
+ 1668 0b21 8F230000 		.4byte	.LASF360
+ 1669 0b25 04       		.sleb128 4
+ 1670 0b26 00       		.byte	0
+ 1671 0b27 0A       		.uleb128 0xa
+ 1672 0b28 62250000 		.4byte	.LASF361
+ 1673 0b2c 09       		.byte	0x9
+ 1674 0b2d A305     		.2byte	0x5a3
+ 1675 0b2f FF0A0000 		.4byte	0xaff
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 34
+
+
+ 1676 0b33 15       		.uleb128 0x15
+ 1677 0b34 631E0000 		.4byte	.LASF362
+ 1678 0b38 01       		.byte	0x1
+ 1679 0b39 8A       		.byte	0x8a
+ 1680 0b3a EB020000 		.4byte	0x2eb
+ 1681 0b3e 00000000 		.4byte	.LFB2
+ 1682 0b42 40000000 		.4byte	.LFE2-.LFB2
+ 1683 0b46 01       		.uleb128 0x1
+ 1684 0b47 9C       		.byte	0x9c
+ 1685 0b48 5B0B0000 		.4byte	0xb5b
+ 1686 0b4c 16       		.uleb128 0x16
+ 1687 0b4d D8220000 		.4byte	.LASF364
+ 1688 0b51 01       		.byte	0x1
+ 1689 0b52 8C       		.byte	0x8c
+ 1690 0b53 EB020000 		.4byte	0x2eb
+ 1691 0b57 02       		.uleb128 0x2
+ 1692 0b58 91       		.byte	0x91
+ 1693 0b59 6E       		.sleb128 -18
+ 1694 0b5a 00       		.byte	0
+ 1695 0b5b 15       		.uleb128 0x15
+ 1696 0b5c 6B0F0000 		.4byte	.LASF363
+ 1697 0b60 01       		.byte	0x1
+ 1698 0b61 AB       		.byte	0xab
+ 1699 0b62 B8030000 		.4byte	0x3b8
+ 1700 0b66 00000000 		.4byte	.LFB3
+ 1701 0b6a A0000000 		.4byte	.LFE3-.LFB3
+ 1702 0b6e 01       		.uleb128 0x1
+ 1703 0b6f 9C       		.byte	0x9c
+ 1704 0b70 910B0000 		.4byte	0xb91
+ 1705 0b74 17       		.uleb128 0x17
+ 1706 0b75 7C010000 		.4byte	.LASF377
+ 1707 0b79 01       		.byte	0x1
+ 1708 0b7a AB       		.byte	0xab
+ 1709 0b7b 910B0000 		.4byte	0xb91
+ 1710 0b7f 02       		.uleb128 0x2
+ 1711 0b80 91       		.byte	0x91
+ 1712 0b81 64       		.sleb128 -28
+ 1713 0b82 16       		.uleb128 0x16
+ 1714 0b83 8A290000 		.4byte	.LASF365
+ 1715 0b87 01       		.byte	0x1
+ 1716 0b88 AD       		.byte	0xad
+ 1717 0b89 B8030000 		.4byte	0x3b8
+ 1718 0b8d 02       		.uleb128 0x2
+ 1719 0b8e 91       		.byte	0x91
+ 1720 0b8f 6F       		.sleb128 -17
+ 1721 0b90 00       		.byte	0
+ 1722 0b91 0B       		.uleb128 0xb
+ 1723 0b92 04       		.byte	0x4
+ 1724 0b93 8E040000 		.4byte	0x48e
+ 1725 0b97 18       		.uleb128 0x18
+ 1726 0b98 6B000000 		.4byte	0x6b
+ 1727 0b9c A70B0000 		.4byte	0xba7
+ 1728 0ba0 19       		.uleb128 0x19
+ 1729 0ba1 A6000000 		.4byte	0xa6
+ 1730 0ba5 1A       		.byte	0x1a
+ 1731 0ba6 00       		.byte	0
+ 1732 0ba7 16       		.uleb128 0x16
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 35
+
+
+ 1733 0ba8 9A140000 		.4byte	.LASF366
+ 1734 0bac 01       		.byte	0x1
+ 1735 0bad 23       		.byte	0x23
+ 1736 0bae 970B0000 		.4byte	0xb97
+ 1737 0bb2 05       		.uleb128 0x5
+ 1738 0bb3 03       		.byte	0x3
+ 1739 0bb4 00000000 		.4byte	cyBle_attValues
+ 1740 0bb8 1A       		.uleb128 0x1a
+ 1741 0bb9 B3200000 		.4byte	.LASF367
+ 1742 0bbd 07       		.byte	0x7
+ 1743 0bbe 6C01     		.2byte	0x16c
+ 1744 0bc0 3F050000 		.4byte	0x53f
+ 1745 0bc4 1A       		.uleb128 0x1a
+ 1746 0bc5 58270000 		.4byte	.LASF368
+ 1747 0bc9 07       		.byte	0x7
+ 1748 0bca 6E01     		.2byte	0x16e
+ 1749 0bcc A1000000 		.4byte	0xa1
+ 1750 0bd0 1B       		.uleb128 0x1b
+ 1751 0bd1 68180000 		.4byte	.LASF369
+ 1752 0bd5 01       		.byte	0x1
+ 1753 0bd6 1C       		.byte	0x1c
+ 1754 0bd7 E10B0000 		.4byte	0xbe1
+ 1755 0bdb 05       		.uleb128 0x5
+ 1756 0bdc 03       		.byte	0x3
+ 1757 0bdd 00000000 		.4byte	cyBle_gatts
+ 1758 0be1 1C       		.uleb128 0x1c
+ 1759 0be2 8E050000 		.4byte	0x58e
+ 1760 0be6 18       		.uleb128 0x18
+ 1761 0be7 34050000 		.4byte	0x534
+ 1762 0beb F60B0000 		.4byte	0xbf6
+ 1763 0bef 19       		.uleb128 0x19
+ 1764 0bf0 A6000000 		.4byte	0xa6
+ 1765 0bf4 0D       		.byte	0xd
+ 1766 0bf5 00       		.byte	0
+ 1767 0bf6 1B       		.uleb128 0x1b
+ 1768 0bf7 AD170000 		.4byte	.LASF370
+ 1769 0bfb 01       		.byte	0x1
+ 1770 0bfc 59       		.byte	0x59
+ 1771 0bfd 070C0000 		.4byte	0xc07
+ 1772 0c01 05       		.uleb128 0x5
+ 1773 0c02 03       		.byte	0x3
+ 1774 0c03 00000000 		.4byte	cyBle_gattDB
+ 1775 0c07 1C       		.uleb128 0x1c
+ 1776 0c08 E60B0000 		.4byte	0xbe6
+ 1777 0c0c 18       		.uleb128 0x18
+ 1778 0c0d 6B000000 		.4byte	0x6b
+ 1779 0c11 1C0C0000 		.4byte	0xc1c
+ 1780 0c15 19       		.uleb128 0x19
+ 1781 0c16 A6000000 		.4byte	0xa6
+ 1782 0c1a 01       		.byte	0x1
+ 1783 0c1b 00       		.byte	0
+ 1784 0c1c 1B       		.uleb128 0x1b
+ 1785 0c1d E4270000 		.4byte	.LASF371
+ 1786 0c21 01       		.byte	0x1
+ 1787 0c22 57       		.byte	0x57
+ 1788 0c23 0C0C0000 		.4byte	0xc0c
+ 1789 0c27 05       		.uleb128 0x5
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 36
+
+
+ 1790 0c28 03       		.byte	0x3
+ 1791 0c29 00000000 		.4byte	cyBle_attValuesCCCD
+ 1792 0c2d 18       		.uleb128 0x18
+ 1793 0c2e 6B000000 		.4byte	0x6b
+ 1794 0c32 430C0000 		.4byte	0xc43
+ 1795 0c36 19       		.uleb128 0x19
+ 1796 0c37 A6000000 		.4byte	0xa6
+ 1797 0c3b 04       		.byte	0x4
+ 1798 0c3c 19       		.uleb128 0x19
+ 1799 0c3d A6000000 		.4byte	0xa6
+ 1800 0c41 01       		.byte	0x1
+ 1801 0c42 00       		.byte	0
+ 1802 0c43 1B       		.uleb128 0x1b
+ 1803 0c44 4D030000 		.4byte	.LASF372
+ 1804 0c48 01       		.byte	0x1
+ 1805 0c49 37       		.byte	0x37
+ 1806 0c4a 540C0000 		.4byte	0xc54
+ 1807 0c4e 05       		.uleb128 0x5
+ 1808 0c4f 03       		.byte	0x3
+ 1809 0c50 00000000 		.4byte	cyBle_attValuesCCCDFlashMemory
+ 1810 0c54 1C       		.uleb128 0x1c
+ 1811 0c55 2D0C0000 		.4byte	0xc2d
+ 1812 0c59 1B       		.uleb128 0x1b
+ 1813 0c5a E2220000 		.4byte	.LASF373
+ 1814 0c5e 01       		.byte	0x1
+ 1815 0c5f 17       		.byte	0x17
+ 1816 0c60 270B0000 		.4byte	0xb27
+ 1817 0c64 05       		.uleb128 0x5
+ 1818 0c65 03       		.byte	0x3
+ 1819 0c66 00000000 		.4byte	cyBle_state
+ 1820 0c6a 00       		.byte	0
+ 1821              		.section	.debug_abbrev,"",%progbits
+ 1822              	.Ldebug_abbrev0:
+ 1823 0000 01       		.uleb128 0x1
+ 1824 0001 11       		.uleb128 0x11
+ 1825 0002 01       		.byte	0x1
+ 1826 0003 25       		.uleb128 0x25
+ 1827 0004 0E       		.uleb128 0xe
+ 1828 0005 13       		.uleb128 0x13
+ 1829 0006 0B       		.uleb128 0xb
+ 1830 0007 03       		.uleb128 0x3
+ 1831 0008 0E       		.uleb128 0xe
+ 1832 0009 1B       		.uleb128 0x1b
+ 1833 000a 0E       		.uleb128 0xe
+ 1834 000b 55       		.uleb128 0x55
+ 1835 000c 17       		.uleb128 0x17
+ 1836 000d 11       		.uleb128 0x11
+ 1837 000e 01       		.uleb128 0x1
+ 1838 000f 10       		.uleb128 0x10
+ 1839 0010 17       		.uleb128 0x17
+ 1840 0011 00       		.byte	0
+ 1841 0012 00       		.byte	0
+ 1842 0013 02       		.uleb128 0x2
+ 1843 0014 24       		.uleb128 0x24
+ 1844 0015 00       		.byte	0
+ 1845 0016 0B       		.uleb128 0xb
+ 1846 0017 0B       		.uleb128 0xb
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 37
+
+
+ 1847 0018 3E       		.uleb128 0x3e
+ 1848 0019 0B       		.uleb128 0xb
+ 1849 001a 03       		.uleb128 0x3
+ 1850 001b 0E       		.uleb128 0xe
+ 1851 001c 00       		.byte	0
+ 1852 001d 00       		.byte	0
+ 1853 001e 03       		.uleb128 0x3
+ 1854 001f 24       		.uleb128 0x24
+ 1855 0020 00       		.byte	0
+ 1856 0021 0B       		.uleb128 0xb
+ 1857 0022 0B       		.uleb128 0xb
+ 1858 0023 3E       		.uleb128 0x3e
+ 1859 0024 0B       		.uleb128 0xb
+ 1860 0025 03       		.uleb128 0x3
+ 1861 0026 08       		.uleb128 0x8
+ 1862 0027 00       		.byte	0
+ 1863 0028 00       		.byte	0
+ 1864 0029 04       		.uleb128 0x4
+ 1865 002a 16       		.uleb128 0x16
+ 1866 002b 00       		.byte	0
+ 1867 002c 03       		.uleb128 0x3
+ 1868 002d 0E       		.uleb128 0xe
+ 1869 002e 3A       		.uleb128 0x3a
+ 1870 002f 0B       		.uleb128 0xb
+ 1871 0030 3B       		.uleb128 0x3b
+ 1872 0031 0B       		.uleb128 0xb
+ 1873 0032 49       		.uleb128 0x49
+ 1874 0033 13       		.uleb128 0x13
+ 1875 0034 00       		.byte	0
+ 1876 0035 00       		.byte	0
+ 1877 0036 05       		.uleb128 0x5
+ 1878 0037 35       		.uleb128 0x35
+ 1879 0038 00       		.byte	0
+ 1880 0039 49       		.uleb128 0x49
+ 1881 003a 13       		.uleb128 0x13
+ 1882 003b 00       		.byte	0
+ 1883 003c 00       		.byte	0
+ 1884 003d 06       		.uleb128 0x6
+ 1885 003e 0F       		.uleb128 0xf
+ 1886 003f 00       		.byte	0
+ 1887 0040 0B       		.uleb128 0xb
+ 1888 0041 0B       		.uleb128 0xb
+ 1889 0042 00       		.byte	0
+ 1890 0043 00       		.byte	0
+ 1891 0044 07       		.uleb128 0x7
+ 1892 0045 04       		.uleb128 0x4
+ 1893 0046 01       		.byte	0x1
+ 1894 0047 0B       		.uleb128 0xb
+ 1895 0048 0B       		.uleb128 0xb
+ 1896 0049 3A       		.uleb128 0x3a
+ 1897 004a 0B       		.uleb128 0xb
+ 1898 004b 3B       		.uleb128 0x3b
+ 1899 004c 0B       		.uleb128 0xb
+ 1900 004d 01       		.uleb128 0x1
+ 1901 004e 13       		.uleb128 0x13
+ 1902 004f 00       		.byte	0
+ 1903 0050 00       		.byte	0
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 38
+
+
+ 1904 0051 08       		.uleb128 0x8
+ 1905 0052 28       		.uleb128 0x28
+ 1906 0053 00       		.byte	0
+ 1907 0054 03       		.uleb128 0x3
+ 1908 0055 0E       		.uleb128 0xe
+ 1909 0056 1C       		.uleb128 0x1c
+ 1910 0057 0D       		.uleb128 0xd
+ 1911 0058 00       		.byte	0
+ 1912 0059 00       		.byte	0
+ 1913 005a 09       		.uleb128 0x9
+ 1914 005b 04       		.uleb128 0x4
+ 1915 005c 01       		.byte	0x1
+ 1916 005d 0B       		.uleb128 0xb
+ 1917 005e 0B       		.uleb128 0xb
+ 1918 005f 3A       		.uleb128 0x3a
+ 1919 0060 0B       		.uleb128 0xb
+ 1920 0061 3B       		.uleb128 0x3b
+ 1921 0062 05       		.uleb128 0x5
+ 1922 0063 01       		.uleb128 0x1
+ 1923 0064 13       		.uleb128 0x13
+ 1924 0065 00       		.byte	0
+ 1925 0066 00       		.byte	0
+ 1926 0067 0A       		.uleb128 0xa
+ 1927 0068 16       		.uleb128 0x16
+ 1928 0069 00       		.byte	0
+ 1929 006a 03       		.uleb128 0x3
+ 1930 006b 0E       		.uleb128 0xe
+ 1931 006c 3A       		.uleb128 0x3a
+ 1932 006d 0B       		.uleb128 0xb
+ 1933 006e 3B       		.uleb128 0x3b
+ 1934 006f 05       		.uleb128 0x5
+ 1935 0070 49       		.uleb128 0x49
+ 1936 0071 13       		.uleb128 0x13
+ 1937 0072 00       		.byte	0
+ 1938 0073 00       		.byte	0
+ 1939 0074 0B       		.uleb128 0xb
+ 1940 0075 0F       		.uleb128 0xf
+ 1941 0076 00       		.byte	0
+ 1942 0077 0B       		.uleb128 0xb
+ 1943 0078 0B       		.uleb128 0xb
+ 1944 0079 49       		.uleb128 0x49
+ 1945 007a 13       		.uleb128 0x13
+ 1946 007b 00       		.byte	0
+ 1947 007c 00       		.byte	0
+ 1948 007d 0C       		.uleb128 0xc
+ 1949 007e 13       		.uleb128 0x13
+ 1950 007f 01       		.byte	0x1
+ 1951 0080 0B       		.uleb128 0xb
+ 1952 0081 0B       		.uleb128 0xb
+ 1953 0082 3A       		.uleb128 0x3a
+ 1954 0083 0B       		.uleb128 0xb
+ 1955 0084 3B       		.uleb128 0x3b
+ 1956 0085 05       		.uleb128 0x5
+ 1957 0086 01       		.uleb128 0x1
+ 1958 0087 13       		.uleb128 0x13
+ 1959 0088 00       		.byte	0
+ 1960 0089 00       		.byte	0
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 39
+
+
+ 1961 008a 0D       		.uleb128 0xd
+ 1962 008b 0D       		.uleb128 0xd
+ 1963 008c 00       		.byte	0
+ 1964 008d 03       		.uleb128 0x3
+ 1965 008e 0E       		.uleb128 0xe
+ 1966 008f 3A       		.uleb128 0x3a
+ 1967 0090 0B       		.uleb128 0xb
+ 1968 0091 3B       		.uleb128 0x3b
+ 1969 0092 05       		.uleb128 0x5
+ 1970 0093 49       		.uleb128 0x49
+ 1971 0094 13       		.uleb128 0x13
+ 1972 0095 38       		.uleb128 0x38
+ 1973 0096 0B       		.uleb128 0xb
+ 1974 0097 00       		.byte	0
+ 1975 0098 00       		.byte	0
+ 1976 0099 0E       		.uleb128 0xe
+ 1977 009a 0D       		.uleb128 0xd
+ 1978 009b 00       		.byte	0
+ 1979 009c 03       		.uleb128 0x3
+ 1980 009d 08       		.uleb128 0x8
+ 1981 009e 3A       		.uleb128 0x3a
+ 1982 009f 0B       		.uleb128 0xb
+ 1983 00a0 3B       		.uleb128 0x3b
+ 1984 00a1 05       		.uleb128 0x5
+ 1985 00a2 49       		.uleb128 0x49
+ 1986 00a3 13       		.uleb128 0x13
+ 1987 00a4 38       		.uleb128 0x38
+ 1988 00a5 0B       		.uleb128 0xb
+ 1989 00a6 00       		.byte	0
+ 1990 00a7 00       		.byte	0
+ 1991 00a8 0F       		.uleb128 0xf
+ 1992 00a9 13       		.uleb128 0x13
+ 1993 00aa 01       		.byte	0x1
+ 1994 00ab 0B       		.uleb128 0xb
+ 1995 00ac 0B       		.uleb128 0xb
+ 1996 00ad 3A       		.uleb128 0x3a
+ 1997 00ae 0B       		.uleb128 0xb
+ 1998 00af 3B       		.uleb128 0x3b
+ 1999 00b0 0B       		.uleb128 0xb
+ 2000 00b1 01       		.uleb128 0x1
+ 2001 00b2 13       		.uleb128 0x13
+ 2002 00b3 00       		.byte	0
+ 2003 00b4 00       		.byte	0
+ 2004 00b5 10       		.uleb128 0x10
+ 2005 00b6 0D       		.uleb128 0xd
+ 2006 00b7 00       		.byte	0
+ 2007 00b8 03       		.uleb128 0x3
+ 2008 00b9 0E       		.uleb128 0xe
+ 2009 00ba 3A       		.uleb128 0x3a
+ 2010 00bb 0B       		.uleb128 0xb
+ 2011 00bc 3B       		.uleb128 0x3b
+ 2012 00bd 0B       		.uleb128 0xb
+ 2013 00be 49       		.uleb128 0x49
+ 2014 00bf 13       		.uleb128 0x13
+ 2015 00c0 38       		.uleb128 0x38
+ 2016 00c1 0B       		.uleb128 0xb
+ 2017 00c2 00       		.byte	0
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 40
+
+
+ 2018 00c3 00       		.byte	0
+ 2019 00c4 11       		.uleb128 0x11
+ 2020 00c5 17       		.uleb128 0x17
+ 2021 00c6 01       		.byte	0x1
+ 2022 00c7 0B       		.uleb128 0xb
+ 2023 00c8 0B       		.uleb128 0xb
+ 2024 00c9 3A       		.uleb128 0x3a
+ 2025 00ca 0B       		.uleb128 0xb
+ 2026 00cb 3B       		.uleb128 0x3b
+ 2027 00cc 0B       		.uleb128 0xb
+ 2028 00cd 01       		.uleb128 0x1
+ 2029 00ce 13       		.uleb128 0x13
+ 2030 00cf 00       		.byte	0
+ 2031 00d0 00       		.byte	0
+ 2032 00d1 12       		.uleb128 0x12
+ 2033 00d2 0D       		.uleb128 0xd
+ 2034 00d3 00       		.byte	0
+ 2035 00d4 03       		.uleb128 0x3
+ 2036 00d5 0E       		.uleb128 0xe
+ 2037 00d6 3A       		.uleb128 0x3a
+ 2038 00d7 0B       		.uleb128 0xb
+ 2039 00d8 3B       		.uleb128 0x3b
+ 2040 00d9 0B       		.uleb128 0xb
+ 2041 00da 49       		.uleb128 0x49
+ 2042 00db 13       		.uleb128 0x13
+ 2043 00dc 00       		.byte	0
+ 2044 00dd 00       		.byte	0
+ 2045 00de 13       		.uleb128 0x13
+ 2046 00df 15       		.uleb128 0x15
+ 2047 00e0 01       		.byte	0x1
+ 2048 00e1 27       		.uleb128 0x27
+ 2049 00e2 19       		.uleb128 0x19
+ 2050 00e3 01       		.uleb128 0x1
+ 2051 00e4 13       		.uleb128 0x13
+ 2052 00e5 00       		.byte	0
+ 2053 00e6 00       		.byte	0
+ 2054 00e7 14       		.uleb128 0x14
+ 2055 00e8 05       		.uleb128 0x5
+ 2056 00e9 00       		.byte	0
+ 2057 00ea 49       		.uleb128 0x49
+ 2058 00eb 13       		.uleb128 0x13
+ 2059 00ec 00       		.byte	0
+ 2060 00ed 00       		.byte	0
+ 2061 00ee 15       		.uleb128 0x15
+ 2062 00ef 2E       		.uleb128 0x2e
+ 2063 00f0 01       		.byte	0x1
+ 2064 00f1 3F       		.uleb128 0x3f
+ 2065 00f2 19       		.uleb128 0x19
+ 2066 00f3 03       		.uleb128 0x3
+ 2067 00f4 0E       		.uleb128 0xe
+ 2068 00f5 3A       		.uleb128 0x3a
+ 2069 00f6 0B       		.uleb128 0xb
+ 2070 00f7 3B       		.uleb128 0x3b
+ 2071 00f8 0B       		.uleb128 0xb
+ 2072 00f9 27       		.uleb128 0x27
+ 2073 00fa 19       		.uleb128 0x19
+ 2074 00fb 49       		.uleb128 0x49
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 41
+
+
+ 2075 00fc 13       		.uleb128 0x13
+ 2076 00fd 11       		.uleb128 0x11
+ 2077 00fe 01       		.uleb128 0x1
+ 2078 00ff 12       		.uleb128 0x12
+ 2079 0100 06       		.uleb128 0x6
+ 2080 0101 40       		.uleb128 0x40
+ 2081 0102 18       		.uleb128 0x18
+ 2082 0103 9642     		.uleb128 0x2116
+ 2083 0105 19       		.uleb128 0x19
+ 2084 0106 01       		.uleb128 0x1
+ 2085 0107 13       		.uleb128 0x13
+ 2086 0108 00       		.byte	0
+ 2087 0109 00       		.byte	0
+ 2088 010a 16       		.uleb128 0x16
+ 2089 010b 34       		.uleb128 0x34
+ 2090 010c 00       		.byte	0
+ 2091 010d 03       		.uleb128 0x3
+ 2092 010e 0E       		.uleb128 0xe
+ 2093 010f 3A       		.uleb128 0x3a
+ 2094 0110 0B       		.uleb128 0xb
+ 2095 0111 3B       		.uleb128 0x3b
+ 2096 0112 0B       		.uleb128 0xb
+ 2097 0113 49       		.uleb128 0x49
+ 2098 0114 13       		.uleb128 0x13
+ 2099 0115 02       		.uleb128 0x2
+ 2100 0116 18       		.uleb128 0x18
+ 2101 0117 00       		.byte	0
+ 2102 0118 00       		.byte	0
+ 2103 0119 17       		.uleb128 0x17
+ 2104 011a 05       		.uleb128 0x5
+ 2105 011b 00       		.byte	0
+ 2106 011c 03       		.uleb128 0x3
+ 2107 011d 0E       		.uleb128 0xe
+ 2108 011e 3A       		.uleb128 0x3a
+ 2109 011f 0B       		.uleb128 0xb
+ 2110 0120 3B       		.uleb128 0x3b
+ 2111 0121 0B       		.uleb128 0xb
+ 2112 0122 49       		.uleb128 0x49
+ 2113 0123 13       		.uleb128 0x13
+ 2114 0124 02       		.uleb128 0x2
+ 2115 0125 18       		.uleb128 0x18
+ 2116 0126 00       		.byte	0
+ 2117 0127 00       		.byte	0
+ 2118 0128 18       		.uleb128 0x18
+ 2119 0129 01       		.uleb128 0x1
+ 2120 012a 01       		.byte	0x1
+ 2121 012b 49       		.uleb128 0x49
+ 2122 012c 13       		.uleb128 0x13
+ 2123 012d 01       		.uleb128 0x1
+ 2124 012e 13       		.uleb128 0x13
+ 2125 012f 00       		.byte	0
+ 2126 0130 00       		.byte	0
+ 2127 0131 19       		.uleb128 0x19
+ 2128 0132 21       		.uleb128 0x21
+ 2129 0133 00       		.byte	0
+ 2130 0134 49       		.uleb128 0x49
+ 2131 0135 13       		.uleb128 0x13
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 42
+
+
+ 2132 0136 2F       		.uleb128 0x2f
+ 2133 0137 0B       		.uleb128 0xb
+ 2134 0138 00       		.byte	0
+ 2135 0139 00       		.byte	0
+ 2136 013a 1A       		.uleb128 0x1a
+ 2137 013b 34       		.uleb128 0x34
+ 2138 013c 00       		.byte	0
+ 2139 013d 03       		.uleb128 0x3
+ 2140 013e 0E       		.uleb128 0xe
+ 2141 013f 3A       		.uleb128 0x3a
+ 2142 0140 0B       		.uleb128 0xb
+ 2143 0141 3B       		.uleb128 0x3b
+ 2144 0142 05       		.uleb128 0x5
+ 2145 0143 49       		.uleb128 0x49
+ 2146 0144 13       		.uleb128 0x13
+ 2147 0145 3F       		.uleb128 0x3f
+ 2148 0146 19       		.uleb128 0x19
+ 2149 0147 3C       		.uleb128 0x3c
+ 2150 0148 19       		.uleb128 0x19
+ 2151 0149 00       		.byte	0
+ 2152 014a 00       		.byte	0
+ 2153 014b 1B       		.uleb128 0x1b
+ 2154 014c 34       		.uleb128 0x34
+ 2155 014d 00       		.byte	0
+ 2156 014e 03       		.uleb128 0x3
+ 2157 014f 0E       		.uleb128 0xe
+ 2158 0150 3A       		.uleb128 0x3a
+ 2159 0151 0B       		.uleb128 0xb
+ 2160 0152 3B       		.uleb128 0x3b
+ 2161 0153 0B       		.uleb128 0xb
+ 2162 0154 49       		.uleb128 0x49
+ 2163 0155 13       		.uleb128 0x13
+ 2164 0156 3F       		.uleb128 0x3f
+ 2165 0157 19       		.uleb128 0x19
+ 2166 0158 02       		.uleb128 0x2
+ 2167 0159 18       		.uleb128 0x18
+ 2168 015a 00       		.byte	0
+ 2169 015b 00       		.byte	0
+ 2170 015c 1C       		.uleb128 0x1c
+ 2171 015d 26       		.uleb128 0x26
+ 2172 015e 00       		.byte	0
+ 2173 015f 49       		.uleb128 0x49
+ 2174 0160 13       		.uleb128 0x13
+ 2175 0161 00       		.byte	0
+ 2176 0162 00       		.byte	0
+ 2177 0163 00       		.byte	0
+ 2178              		.section	.debug_aranges,"",%progbits
+ 2179 0000 24000000 		.4byte	0x24
+ 2180 0004 0200     		.2byte	0x2
+ 2181 0006 00000000 		.4byte	.Ldebug_info0
+ 2182 000a 04       		.byte	0x4
+ 2183 000b 00       		.byte	0
+ 2184 000c 0000     		.2byte	0
+ 2185 000e 0000     		.2byte	0
+ 2186 0010 00000000 		.4byte	.LFB2
+ 2187 0014 40000000 		.4byte	.LFE2-.LFB2
+ 2188 0018 00000000 		.4byte	.LFB3
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 43
+
+
+ 2189 001c A0000000 		.4byte	.LFE3-.LFB3
+ 2190 0020 00000000 		.4byte	0
+ 2191 0024 00000000 		.4byte	0
+ 2192              		.section	.debug_ranges,"",%progbits
+ 2193              	.Ldebug_ranges0:
+ 2194 0000 00000000 		.4byte	.LFB2
+ 2195 0004 40000000 		.4byte	.LFE2
+ 2196 0008 00000000 		.4byte	.LFB3
+ 2197 000c A0000000 		.4byte	.LFE3
+ 2198 0010 00000000 		.4byte	0
+ 2199 0014 00000000 		.4byte	0
+ 2200              		.section	.debug_line,"",%progbits
+ 2201              	.Ldebug_line0:
+ 2202 0000 09010000 		.section	.debug_str,"MS",%progbits,1
+ 2202      0200D400 
+ 2202      00000201 
+ 2202      FB0E0D00 
+ 2202      01010101 
+ 2203              	.LASF351:
+ 2204 0000 4359424C 		.ascii	"CYBLE_EVT_UDSC_READ_CHAR_RESPONSE\000"
+ 2204      455F4556 
+ 2204      545F5544 
+ 2204      53435F52 
+ 2204      4541445F 
+ 2205              	.LASF281:
+ 2206 0022 4359424C 		.ascii	"CYBLE_EVT_HTSS_NOTIFICATION_DISABLED\000"
+ 2206      455F4556 
+ 2206      545F4854 
+ 2206      53535F4E 
+ 2206      4F544946 
+ 2207              	.LASF15:
+ 2208 0047 73697A65 		.ascii	"sizetype\000"
+ 2208      74797065 
+ 2208      00
+ 2209              	.LASF349:
+ 2210 0050 4359424C 		.ascii	"CYBLE_EVT_UDSC_INDICATION\000"
+ 2210      455F4556 
+ 2210      545F5544 
+ 2210      53435F49 
+ 2210      4E444943 
+ 2211              	.LASF208:
+ 2212 006a 4359424C 		.ascii	"CYBLE_EVT_CGMSC_INDICATION\000"
+ 2212      455F4556 
+ 2212      545F4347 
+ 2212      4D53435F 
+ 2212      494E4449 
+ 2213              	.LASF226:
+ 2214 0085 4359424C 		.ascii	"CYBLE_EVT_CPSC_READ_DESCR_RESPONSE\000"
+ 2214      455F4556 
+ 2214      545F4350 
+ 2214      53435F52 
+ 2214      4541445F 
+ 2215              	.LASF329:
+ 2216 00a8 4359424C 		.ascii	"CYBLE_EVT_RTUSS_WRITE_CHAR_CMD\000"
+ 2216      455F4556 
+ 2216      545F5254 
+ 2216      5553535F 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 44
+
+
+ 2216      57524954 
+ 2217              	.LASF167:
+ 2218 00c7 4359424C 		.ascii	"CYBLE_EVT_GATTC_SRVC_DISCOVERY_FAILED\000"
+ 2218      455F4556 
+ 2218      545F4741 
+ 2218      5454435F 
+ 2218      53525643 
+ 2219              	.LASF224:
+ 2220 00ed 4359424C 		.ascii	"CYBLE_EVT_CPSC_READ_CHAR_RESPONSE\000"
+ 2220      455F4556 
+ 2220      545F4350 
+ 2220      53435F52 
+ 2220      4541445F 
+ 2221              	.LASF237:
+ 2222 010f 4359424C 		.ascii	"CYBLE_EVT_CSCSC_READ_CHAR_RESPONSE\000"
+ 2222      455F4556 
+ 2222      545F4353 
+ 2222      4353435F 
+ 2222      52454144 
+ 2223              	.LASF213:
+ 2224 0132 4359424C 		.ascii	"CYBLE_EVT_CGMSC_WRITE_DESCR_RESPONSE\000"
+ 2224      455F4556 
+ 2224      545F4347 
+ 2224      4D53435F 
+ 2224      57524954 
+ 2225              	.LASF252:
+ 2226 0157 4359424C 		.ascii	"CYBLE_EVT_GLSS_NOTIFICATION_DISABLED\000"
+ 2226      455F4556 
+ 2226      545F474C 
+ 2226      53535F4E 
+ 2226      4F544946 
+ 2227              	.LASF377:
+ 2228 017c 6576656E 		.ascii	"eventParam\000"
+ 2228      74506172 
+ 2228      616D00
+ 2229              	.LASF199:
+ 2230 0187 4359424C 		.ascii	"CYBLE_EVT_BLSC_READ_CHAR_RESPONSE\000"
+ 2230      455F4556 
+ 2230      545F424C 
+ 2230      53435F52 
+ 2230      4541445F 
+ 2231              	.LASF29:
+ 2232 01a9 4359424C 		.ascii	"CYBLE_EVT_GAP_DEVICE_CONNECTED\000"
+ 2232      455F4556 
+ 2232      545F4741 
+ 2232      505F4445 
+ 2232      56494345 
+ 2233              	.LASF295:
+ 2234 01c8 4359424C 		.ascii	"CYBLE_EVT_LLSC_WRITE_CHAR_RESPONSE\000"
+ 2234      455F4556 
+ 2234      545F4C4C 
+ 2234      53435F57 
+ 2234      52495445 
+ 2235              	.LASF36:
+ 2236 01eb 4359424C 		.ascii	"CYBLE_EVT_GATT_CONNECT_IND\000"
+ 2236      455F4556 
+ 2236      545F4741 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 45
+
+
+ 2236      54545F43 
+ 2236      4F4E4E45 
+ 2237              	.LASF257:
+ 2238 0206 4359424C 		.ascii	"CYBLE_EVT_GLSC_WRITE_CHAR_RESPONSE\000"
+ 2238      455F4556 
+ 2238      545F474C 
+ 2238      53435F57 
+ 2238      52495445 
+ 2239              	.LASF11:
+ 2240 0229 75696E74 		.ascii	"uint32\000"
+ 2240      333200
+ 2241              	.LASF170:
+ 2242 0230 4359424C 		.ascii	"CYBLE_EVT_GATTC_DESCR_DISCOVERY_FAILED\000"
+ 2242      455F4556 
+ 2242      545F4741 
+ 2242      5454435F 
+ 2242      44455343 
+ 2243              	.LASF328:
+ 2244 0257 4359424C 		.ascii	"CYBLE_EVT_RSCSC_WRITE_DESCR_RESPONSE\000"
+ 2244      455F4556 
+ 2244      545F5253 
+ 2244      4353435F 
+ 2244      57524954 
+ 2245              	.LASF297:
+ 2246 027c 4359424C 		.ascii	"CYBLE_EVT_LNSS_INDICATION_DISABLED\000"
+ 2246      455F4556 
+ 2246      545F4C4E 
+ 2246      53535F49 
+ 2246      4E444943 
+ 2247              	.LASF244:
+ 2248 029f 4359424C 		.ascii	"CYBLE_EVT_CTSC_READ_CHAR_RESPONSE\000"
+ 2248      455F4556 
+ 2248      545F4354 
+ 2248      53435F52 
+ 2248      4541445F 
+ 2249              	.LASF174:
+ 2250 02c1 4359424C 		.ascii	"CYBLE_EVT_GATTC_SRVC_DISCOVERY_COMPLETE\000"
+ 2250      455F4556 
+ 2250      545F4741 
+ 2250      5454435F 
+ 2250      53525643 
+ 2251              	.LASF322:
+ 2252 02e9 4359424C 		.ascii	"CYBLE_EVT_RSCSS_CHAR_WRITE\000"
+ 2252      455F4556 
+ 2252      545F5253 
+ 2252      4353535F 
+ 2252      43484152 
+ 2253              	.LASF354:
+ 2254 0304 4359424C 		.ascii	"CYBLE_EVT_UDSC_WRITE_DESCR_RESPONSE\000"
+ 2254      455F4556 
+ 2254      545F5544 
+ 2254      53435F57 
+ 2254      52495445 
+ 2255              	.LASF271:
+ 2256 0328 4359424C 		.ascii	"CYBLE_EVT_HIDSC_WRITE_DESCR_RESPONSE\000"
+ 2256      455F4556 
+ 2256      545F4849 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 46
+
+
+ 2256      4453435F 
+ 2256      57524954 
+ 2257              	.LASF372:
+ 2258 034d 6379426C 		.ascii	"cyBle_attValuesCCCDFlashMemory\000"
+ 2258      655F6174 
+ 2258      7456616C 
+ 2258      75657343 
+ 2258      43434446 
+ 2259              	.LASF184:
+ 2260 036c 4359424C 		.ascii	"CYBLE_EVT_ANSC_READ_DESCR_RESPONSE\000"
+ 2260      455F4556 
+ 2260      545F414E 
+ 2260      53435F52 
+ 2260      4541445F 
+ 2261              	.LASF104:
+ 2262 038f 4359424C 		.ascii	"CYBLE_GATT_ERR_READ_NOT_PERMITTED\000"
+ 2262      455F4741 
+ 2262      54545F45 
+ 2262      52525F52 
+ 2262      4541445F 
+ 2263              	.LASF119:
+ 2264 03b1 4359424C 		.ascii	"CYBLE_GATT_ERR_INSUFFICIENT_RESOURCE\000"
+ 2264      455F4741 
+ 2264      54545F45 
+ 2264      52525F49 
+ 2264      4E535546 
+ 2265              	.LASF118:
+ 2266 03d6 4359424C 		.ascii	"CYBLE_GATT_ERR_UNSUPPORTED_GROUP_TYPE\000"
+ 2266      455F4741 
+ 2266      54545F45 
+ 2266      52525F55 
+ 2266      4E535550 
+ 2267              	.LASF86:
+ 2268 03fc 4359424C 		.ascii	"CYBLE_ERROR_L2CAP_CONNECTION_ENTITY_NOT_FOUND\000"
+ 2268      455F4552 
+ 2268      524F525F 
+ 2268      4C324341 
+ 2268      505F434F 
+ 2269              	.LASF92:
+ 2270 042a 4359424C 		.ascii	"CYBLE_ERROR_MIC_AUTH_FAILED\000"
+ 2270      455F4552 
+ 2270      524F525F 
+ 2270      4D49435F 
+ 2270      41555448 
+ 2271              	.LASF169:
+ 2272 0446 4359424C 		.ascii	"CYBLE_EVT_GATTC_CHAR_DISCOVERY_FAILED\000"
+ 2272      455F4556 
+ 2272      545F4741 
+ 2272      5454435F 
+ 2272      43484152 
+ 2273              	.LASF56:
+ 2274 046c 4359424C 		.ascii	"CYBLE_EVT_GATTS_DATA_SIGNED_CMD_REQ\000"
+ 2274      455F4556 
+ 2274      545F4741 
+ 2274      5454535F 
+ 2274      44415441 
+ 2275              	.LASF65:
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 47
+
+
+ 2276 0490 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_RX_CREDIT_IND\000"
+ 2276      455F4556 
+ 2276      545F4C32 
+ 2276      4341505F 
+ 2276      43424643 
+ 2277              	.LASF136:
+ 2278 04b3 4359424C 		.ascii	"CYBLE_GATT_VALUE_T\000"
+ 2278      455F4741 
+ 2278      54545F56 
+ 2278      414C5545 
+ 2278      5F5400
+ 2279              	.LASF231:
+ 2280 04c6 4359424C 		.ascii	"CYBLE_EVT_CSCSS_INDICATION_ENABLED\000"
+ 2280      455F4556 
+ 2280      545F4353 
+ 2280      4353535F 
+ 2280      494E4449 
+ 2281              	.LASF151:
+ 2282 04e9 7065726D 		.ascii	"permission\000"
+ 2282      69737369 
+ 2282      6F6E00
+ 2283              	.LASF302:
+ 2284 04f4 4359424C 		.ascii	"CYBLE_EVT_LNSC_INDICATION\000"
+ 2284      455F4556 
+ 2284      545F4C4E 
+ 2284      53435F49 
+ 2284      4E444943 
+ 2285              	.LASF313:
+ 2286 050e 4359424C 		.ascii	"CYBLE_EVT_PASSC_READ_CHAR_RESPONSE\000"
+ 2286      455F4556 
+ 2286      545F5041 
+ 2286      5353435F 
+ 2286      52454144 
+ 2287              	.LASF192:
+ 2288 0531 4359424C 		.ascii	"CYBLE_EVT_BLSS_INDICATION_ENABLED\000"
+ 2288      455F4556 
+ 2288      545F424C 
+ 2288      53535F49 
+ 2288      4E444943 
+ 2289              	.LASF198:
+ 2290 0553 4359424C 		.ascii	"CYBLE_EVT_BLSC_NOTIFICATION\000"
+ 2290      455F4556 
+ 2290      545F424C 
+ 2290      53435F4E 
+ 2290      4F544946 
+ 2291              	.LASF155:
+ 2292 056f 4359424C 		.ascii	"CYBLE_CALLBACK_T\000"
+ 2292      455F4341 
+ 2292      4C4C4241 
+ 2292      434B5F54 
+ 2292      00
+ 2293              	.LASF236:
+ 2294 0580 4359424C 		.ascii	"CYBLE_EVT_CSCSC_INDICATION\000"
+ 2294      455F4556 
+ 2294      545F4353 
+ 2294      4353435F 
+ 2294      494E4449 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 48
+
+
+ 2295              	.LASF53:
+ 2296 059b 4359424C 		.ascii	"CYBLE_EVT_GATTC_HANDLE_VALUE_NTF\000"
+ 2296      455F4556 
+ 2296      545F4741 
+ 2296      5454435F 
+ 2296      48414E44 
+ 2297              	.LASF23:
+ 2298 05bc 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_REQ\000"
+ 2298      455F4556 
+ 2298      545F4741 
+ 2298      505F4155 
+ 2298      54485F52 
+ 2299              	.LASF176:
+ 2300 05d3 4359424C 		.ascii	"CYBLE_EVT_GATTC_CHAR_DISCOVERY_COMPLETE\000"
+ 2300      455F4556 
+ 2300      545F4741 
+ 2300      5454435F 
+ 2300      43484152 
+ 2301              	.LASF134:
+ 2302 05fb 4359424C 		.ascii	"CYBLE_CONN_HANDLE_T\000"
+ 2302      455F434F 
+ 2302      4E4E5F48 
+ 2302      414E444C 
+ 2302      455F5400 
+ 2303              	.LASF277:
+ 2304 060f 4359424C 		.ascii	"CYBLE_EVT_HRSC_WRITE_CHAR_RESPONSE\000"
+ 2304      455F4556 
+ 2304      545F4852 
+ 2304      53435F57 
+ 2304      52495445 
+ 2305              	.LASF81:
+ 2306 0632 4359424C 		.ascii	"CYBLE_ERROR_BT_ON_NOT_COMPLETED\000"
+ 2306      455F4552 
+ 2306      524F525F 
+ 2306      42545F4F 
+ 2306      4E5F4E4F 
+ 2307              	.LASF235:
+ 2308 0652 4359424C 		.ascii	"CYBLE_EVT_CSCSC_NOTIFICATION\000"
+ 2308      455F4556 
+ 2308      545F4353 
+ 2308      4353435F 
+ 2308      4E4F5449 
+ 2309              	.LASF359:
+ 2310 066f 4359424C 		.ascii	"CYBLE_STATE_ADVERTISING\000"
+ 2310      455F5354 
+ 2310      4154455F 
+ 2310      41445645 
+ 2310      52544953 
+ 2311              	.LASF132:
+ 2312 0687 62644861 		.ascii	"bdHandle\000"
+ 2312      6E646C65 
+ 2312      00
+ 2313              	.LASF204:
+ 2314 0690 4359424C 		.ascii	"CYBLE_EVT_CGMSS_INDICATION_CONFIRMED\000"
+ 2314      455F4556 
+ 2314      545F4347 
+ 2314      4D53535F 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 49
+
+
+ 2314      494E4449 
+ 2315              	.LASF200:
+ 2316 06b5 4359424C 		.ascii	"CYBLE_EVT_BLSC_READ_DESCR_RESPONSE\000"
+ 2316      455F4556 
+ 2316      545F424C 
+ 2316      53435F52 
+ 2316      4541445F 
+ 2317              	.LASF217:
+ 2318 06d8 4359424C 		.ascii	"CYBLE_EVT_CPSS_INDICATION_DISABLED\000"
+ 2318      455F4556 
+ 2318      545F4350 
+ 2318      53535F49 
+ 2318      4E444943 
+ 2319              	.LASF216:
+ 2320 06fb 4359424C 		.ascii	"CYBLE_EVT_CPSS_INDICATION_ENABLED\000"
+ 2320      455F4556 
+ 2320      545F4350 
+ 2320      53535F49 
+ 2320      4E444943 
+ 2321              	.LASF299:
+ 2322 071d 4359424C 		.ascii	"CYBLE_EVT_LNSS_NOTIFICATION_ENABLED\000"
+ 2322      455F4556 
+ 2322      545F4C4E 
+ 2322      53535F4E 
+ 2322      4F544946 
+ 2323              	.LASF49:
+ 2324 0741 4359424C 		.ascii	"CYBLE_EVT_GATTS_WRITE_CMD_REQ\000"
+ 2324      455F4556 
+ 2324      545F4741 
+ 2324      5454535F 
+ 2324      57524954 
+ 2325              	.LASF227:
+ 2326 075f 4359424C 		.ascii	"CYBLE_EVT_CPSC_WRITE_DESCR_RESPONSE\000"
+ 2326      455F4556 
+ 2326      545F4350 
+ 2326      53435F57 
+ 2326      52495445 
+ 2327              	.LASF4:
+ 2328 0783 6C6F6E67 		.ascii	"long int\000"
+ 2328      20696E74 
+ 2328      00
+ 2329              	.LASF232:
+ 2330 078c 4359424C 		.ascii	"CYBLE_EVT_CSCSS_INDICATION_DISABLED\000"
+ 2330      455F4556 
+ 2330      545F4353 
+ 2330      4353535F 
+ 2330      494E4449 
+ 2331              	.LASF314:
+ 2332 07b0 4359424C 		.ascii	"CYBLE_EVT_PASSC_WRITE_CHAR_RESPONSE\000"
+ 2332      455F4556 
+ 2332      545F5041 
+ 2332      5353435F 
+ 2332      57524954 
+ 2333              	.LASF345:
+ 2334 07d4 4359424C 		.ascii	"CYBLE_EVT_UDSS_INDICATION_CONFIRMED\000"
+ 2334      455F4556 
+ 2334      545F5544 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 50
+
+
+ 2334      53535F49 
+ 2334      4E444943 
+ 2335              	.LASF162:
+ 2336 07f8 4359424C 		.ascii	"CYBLE_LONG_TERM_KEY_REQUEST_REPLY\000"
+ 2336      455F4C4F 
+ 2336      4E475F54 
+ 2336      45524D5F 
+ 2336      4B45595F 
+ 2337              	.LASF17:
+ 2338 081a 4359424C 		.ascii	"CYBLE_EVT_STACK_ON\000"
+ 2338      455F4556 
+ 2338      545F5354 
+ 2338      41434B5F 
+ 2338      4F4E00
+ 2339              	.LASF88:
+ 2340 082d 4359424C 		.ascii	"CYBLE_ERROR_L2CAP_PSM_NOT_IN_RANGE\000"
+ 2340      455F4552 
+ 2340      524F525F 
+ 2340      4C324341 
+ 2340      505F5053 
+ 2341              	.LASF325:
+ 2342 0850 4359424C 		.ascii	"CYBLE_EVT_RSCSC_READ_CHAR_RESPONSE\000"
+ 2342      455F4556 
+ 2342      545F5253 
+ 2342      4353435F 
+ 2342      52454144 
+ 2343              	.LASF156:
+ 2344 0873 73657276 		.ascii	"serviceHandle\000"
+ 2344      69636548 
+ 2344      616E646C 
+ 2344      6500
+ 2345              	.LASF280:
+ 2346 0881 4359424C 		.ascii	"CYBLE_EVT_HTSS_NOTIFICATION_ENABLED\000"
+ 2346      455F4556 
+ 2346      545F4854 
+ 2346      53535F4E 
+ 2346      4F544946 
+ 2347              	.LASF106:
+ 2348 08a5 4359424C 		.ascii	"CYBLE_GATT_ERR_INVALID_PDU\000"
+ 2348      455F4741 
+ 2348      54545F45 
+ 2348      52525F49 
+ 2348      4E56414C 
+ 2349              	.LASF99:
+ 2350 08c0 4359424C 		.ascii	"CYBLE_ERROR_CHAR_IS_NOT_DISCOVERED\000"
+ 2350      455F4552 
+ 2350      524F525F 
+ 2350      43484152 
+ 2350      5F49535F 
+ 2351              	.LASF139:
+ 2352 08e3 4359424C 		.ascii	"CYBLE_GATT_HANDLE_VALUE_PAIR_T\000"
+ 2352      455F4741 
+ 2352      54545F48 
+ 2352      414E444C 
+ 2352      455F5641 
+ 2353              	.LASF150:
+ 2354 0902 61747454 		.ascii	"attType\000"
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 51
+
+
+ 2354      79706500 
+ 2355              	.LASF375:
+ 2356 090a 2E5C4765 		.ascii	".\\Generated_Source\\PSoC4\\BLE_1_gatt.c\000"
+ 2356      6E657261 
+ 2356      7465645F 
+ 2356      536F7572 
+ 2356      63655C50 
+ 2357              	.LASF267:
+ 2358 0930 4359424C 		.ascii	"CYBLE_EVT_HIDSC_NOTIFICATION\000"
+ 2358      455F4556 
+ 2358      545F4849 
+ 2358      4453435F 
+ 2358      4E4F5449 
+ 2359              	.LASF59:
+ 2360 094d 4359424C 		.ascii	"CYBLE_EVT_L2CAP_COMMAND_REJ\000"
+ 2360      455F4556 
+ 2360      545F4C32 
+ 2360      4341505F 
+ 2360      434F4D4D 
+ 2361              	.LASF115:
+ 2362 0969 4359424C 		.ascii	"CYBLE_GATT_ERR_INVALID_ATTRIBUTE_LEN\000"
+ 2362      455F4741 
+ 2362      54545F45 
+ 2362      52525F49 
+ 2362      4E56414C 
+ 2363              	.LASF264:
+ 2364 098e 4359424C 		.ascii	"CYBLE_EVT_HIDSS_SUSPEND\000"
+ 2364      455F4556 
+ 2364      545F4849 
+ 2364      4453535F 
+ 2364      53555350 
+ 2365              	.LASF89:
+ 2366 09a6 4359424C 		.ascii	"CYBLE_ERROR_GATT_DB_INVALID_ATTR_HANDLE\000"
+ 2366      455F4552 
+ 2366      524F525F 
+ 2366      47415454 
+ 2366      5F44425F 
+ 2367              	.LASF0:
+ 2368 09ce 7369676E 		.ascii	"signed char\000"
+ 2368      65642063 
+ 2368      68617200 
+ 2369              	.LASF190:
+ 2370 09da 4359424C 		.ascii	"CYBLE_EVT_BASC_READ_DESCR_RESPONSE\000"
+ 2370      455F4556 
+ 2370      545F4241 
+ 2370      53435F52 
+ 2370      4541445F 
+ 2371              	.LASF19:
+ 2372 09fd 4359424C 		.ascii	"CYBLE_EVT_HARDWARE_ERROR\000"
+ 2372      455F4556 
+ 2372      545F4841 
+ 2372      52445741 
+ 2372      52455F45 
+ 2373              	.LASF70:
+ 2374 0a16 4359424C 		.ascii	"CYBLE_ERROR_OK\000"
+ 2374      455F4552 
+ 2374      524F525F 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 52
+
+
+ 2374      4F4B00
+ 2375              	.LASF40:
+ 2376 0a25 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BY_GROUP_TYPE_RSP\000"
+ 2376      455F4556 
+ 2376      545F4741 
+ 2376      5454435F 
+ 2376      52454144 
+ 2377              	.LASF356:
+ 2378 0a4c 4359424C 		.ascii	"CYBLE_STATE_STOPPED\000"
+ 2378      455F5354 
+ 2378      4154455F 
+ 2378      53544F50 
+ 2378      50454400 
+ 2379              	.LASF319:
+ 2380 0a60 4359424C 		.ascii	"CYBLE_EVT_RSCSS_INDICATION_ENABLED\000"
+ 2380      455F4556 
+ 2380      545F5253 
+ 2380      4353535F 
+ 2380      494E4449 
+ 2381              	.LASF1:
+ 2382 0a83 756E7369 		.ascii	"unsigned char\000"
+ 2382      676E6564 
+ 2382      20636861 
+ 2382      7200
+ 2383              	.LASF39:
+ 2384 0a91 4359424C 		.ascii	"CYBLE_EVT_GATTC_XCHNG_MTU_RSP\000"
+ 2384      455F4556 
+ 2384      545F4741 
+ 2384      5454435F 
+ 2384      5843484E 
+ 2385              	.LASF218:
+ 2386 0aaf 4359424C 		.ascii	"CYBLE_EVT_CPSS_INDICATION_CONFIRMED\000"
+ 2386      455F4556 
+ 2386      545F4350 
+ 2386      53535F49 
+ 2386      4E444943 
+ 2387              	.LASF215:
+ 2388 0ad3 4359424C 		.ascii	"CYBLE_EVT_CPSS_NOTIFICATION_DISABLED\000"
+ 2388      455F4556 
+ 2388      545F4350 
+ 2388      53535F4E 
+ 2388      4F544946 
+ 2389              	.LASF324:
+ 2390 0af8 4359424C 		.ascii	"CYBLE_EVT_RSCSC_INDICATION\000"
+ 2390      455F4556 
+ 2390      545F5253 
+ 2390      4353435F 
+ 2390      494E4449 
+ 2391              	.LASF66:
+ 2392 0b13 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_TX_CREDIT_IND\000"
+ 2392      455F4556 
+ 2392      545F4C32 
+ 2392      4341505F 
+ 2392      43424643 
+ 2393              	.LASF149:
+ 2394 0b36 61747448 		.ascii	"attHandle\000"
+ 2394      616E646C 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 53
+
+
+ 2394      6500
+ 2395              	.LASF166:
+ 2396 0b40 4359424C 		.ascii	"CYBLE_EVT_GATTC_INDICATION\000"
+ 2396      455F4556 
+ 2396      545F4741 
+ 2396      5454435F 
+ 2396      494E4449 
+ 2397              	.LASF331:
+ 2398 0b5b 4359424C 		.ascii	"CYBLE_EVT_SCPSS_NOTIFICATION_ENABLED\000"
+ 2398      455F4556 
+ 2398      545F5343 
+ 2398      5053535F 
+ 2398      4E4F5449 
+ 2399              	.LASF63:
+ 2400 0b80 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DISCONN_CNF\000"
+ 2400      455F4556 
+ 2400      545F4C32 
+ 2400      4341505F 
+ 2400      43424643 
+ 2401              	.LASF43:
+ 2402 0ba1 4359424C 		.ascii	"CYBLE_EVT_GATTC_FIND_BY_TYPE_VALUE_RSP\000"
+ 2402      455F4556 
+ 2402      545F4741 
+ 2402      5454435F 
+ 2402      46494E44 
+ 2403              	.LASF336:
+ 2404 0bc8 4359424C 		.ascii	"CYBLE_EVT_SCPSC_WRITE_DESCR_RESPONSE\000"
+ 2404      455F4556 
+ 2404      545F5343 
+ 2404      5053435F 
+ 2404      57524954 
+ 2405              	.LASF14:
+ 2406 0bed 63686172 		.ascii	"char\000"
+ 2406      00
+ 2407              	.LASF339:
+ 2408 0bf2 4359424C 		.ascii	"CYBLE_EVT_TPSC_NOTIFICATION\000"
+ 2408      455F4556 
+ 2408      545F5450 
+ 2408      53435F4E 
+ 2408      4F544946 
+ 2409              	.LASF175:
+ 2410 0c0e 4359424C 		.ascii	"CYBLE_EVT_GATTC_INCL_DISCOVERY_COMPLETE\000"
+ 2410      455F4556 
+ 2410      545F4741 
+ 2410      5454435F 
+ 2410      494E434C 
+ 2411              	.LASF46:
+ 2412 0c36 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_MULTI_RSP\000"
+ 2412      455F4556 
+ 2412      545F4741 
+ 2412      5454435F 
+ 2412      52454144 
+ 2413              	.LASF16:
+ 2414 0c55 4359424C 		.ascii	"CYBLE_EVT_HOST_INVALID\000"
+ 2414      455F4556 
+ 2414      545F484F 
+ 2414      53545F49 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 54
+
+
+ 2414      4E56414C 
+ 2415              	.LASF116:
+ 2416 0c6c 4359424C 		.ascii	"CYBLE_GATT_ERR_UNLIKELY_ERROR\000"
+ 2416      455F4741 
+ 2416      54545F45 
+ 2416      52525F55 
+ 2416      4E4C494B 
+ 2417              	.LASF258:
+ 2418 0c8a 4359424C 		.ascii	"CYBLE_EVT_GLSC_READ_DESCR_RESPONSE\000"
+ 2418      455F4556 
+ 2418      545F474C 
+ 2418      53435F52 
+ 2418      4541445F 
+ 2419              	.LASF77:
+ 2420 0cad 4359424C 		.ascii	"CYBLE_ERROR_NO_DEVICE_ENTITY\000"
+ 2420      455F4552 
+ 2420      524F525F 
+ 2420      4E4F5F44 
+ 2420      45564943 
+ 2421              	.LASF45:
+ 2422 0cca 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BLOB_RSP\000"
+ 2422      455F4556 
+ 2422      545F4741 
+ 2422      5454435F 
+ 2422      52454144 
+ 2423              	.LASF283:
+ 2424 0ce8 4359424C 		.ascii	"CYBLE_EVT_HTSS_INDICATION_DISABLED\000"
+ 2424      455F4556 
+ 2424      545F4854 
+ 2424      53535F49 
+ 2424      4E444943 
+ 2425              	.LASF330:
+ 2426 0d0b 4359424C 		.ascii	"CYBLE_EVT_RTUSC_READ_CHAR_RESPONSE\000"
+ 2426      455F4556 
+ 2426      545F5254 
+ 2426      5553435F 
+ 2426      52454144 
+ 2427              	.LASF52:
+ 2428 0d2e 4359424C 		.ascii	"CYBLE_EVT_GATTC_EXEC_WRITE_RSP\000"
+ 2428      455F4556 
+ 2428      545F4741 
+ 2428      5454435F 
+ 2428      45584543 
+ 2429              	.LASF120:
+ 2430 0d4d 4359424C 		.ascii	"CYBLE_GATT_ERR_HEART_RATE_CONTROL_POINT_NOT_SUPPORT"
+ 2430      455F4741 
+ 2430      54545F45 
+ 2430      52525F48 
+ 2430      45415254 
+ 2431 0d80 454400   		.ascii	"ED\000"
+ 2432              	.LASF113:
+ 2433 0d83 4359424C 		.ascii	"CYBLE_GATT_ERR_ATTRIBUTE_NOT_LONG\000"
+ 2433      455F4741 
+ 2433      54545F45 
+ 2433      52525F41 
+ 2433      54545249 
+ 2434              	.LASF246:
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 55
+
+
+ 2435 0da5 4359424C 		.ascii	"CYBLE_EVT_CTSC_WRITE_DESCR_RESPONSE\000"
+ 2435      455F4556 
+ 2435      545F4354 
+ 2435      53435F57 
+ 2435      52495445 
+ 2436              	.LASF344:
+ 2437 0dc9 4359424C 		.ascii	"CYBLE_EVT_UDSS_INDICATION_DISABLED\000"
+ 2437      455F4556 
+ 2437      545F5544 
+ 2437      53535F49 
+ 2437      4E444943 
+ 2438              	.LASF221:
+ 2439 0dec 4359424C 		.ascii	"CYBLE_EVT_CPSS_CHAR_WRITE\000"
+ 2439      455F4556 
+ 2439      545F4350 
+ 2439      53535F43 
+ 2439      4841525F 
+ 2440              	.LASF272:
+ 2441 0e06 4359424C 		.ascii	"CYBLE_EVT_HRSS_ENERGY_EXPENDED_RESET\000"
+ 2441      455F4556 
+ 2441      545F4852 
+ 2441      53535F45 
+ 2441      4E455247 
+ 2442              	.LASF154:
+ 2443 0e2b 4359424C 		.ascii	"CYBLE_GATTS_DB_T\000"
+ 2443      455F4741 
+ 2443      5454535F 
+ 2443      44425F54 
+ 2443      00
+ 2444              	.LASF195:
+ 2445 0e3c 4359424C 		.ascii	"CYBLE_EVT_BLSS_NOTIFICATION_ENABLED\000"
+ 2445      455F4556 
+ 2445      545F424C 
+ 2445      53535F4E 
+ 2445      4F544946 
+ 2446              	.LASF171:
+ 2447 0e60 4359424C 		.ascii	"CYBLE_EVT_GATTC_SRVC_DUPLICATION\000"
+ 2447      455F4556 
+ 2447      545F4741 
+ 2447      5454435F 
+ 2447      53525643 
+ 2448              	.LASF71:
+ 2449 0e81 4359424C 		.ascii	"CYBLE_ERROR_INVALID_PARAMETER\000"
+ 2449      455F4552 
+ 2449      524F525F 
+ 2449      494E5641 
+ 2449      4C49445F 
+ 2450              	.LASF326:
+ 2451 0e9f 4359424C 		.ascii	"CYBLE_EVT_RSCSC_WRITE_CHAR_RESPONSE\000"
+ 2451      455F4556 
+ 2451      545F5253 
+ 2451      4353435F 
+ 2451      57524954 
+ 2452              	.LASF342:
+ 2453 0ec3 4359424C 		.ascii	"CYBLE_EVT_TPSC_WRITE_DESCR_RESPONSE\000"
+ 2453      455F4556 
+ 2453      545F5450 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 56
+
+
+ 2453      53435F57 
+ 2453      52495445 
+ 2454              	.LASF230:
+ 2455 0ee7 4359424C 		.ascii	"CYBLE_EVT_CSCSS_NOTIFICATION_DISABLED\000"
+ 2455      455F4556 
+ 2455      545F4353 
+ 2455      4353535F 
+ 2455      4E4F5449 
+ 2456              	.LASF241:
+ 2457 0f0d 4359424C 		.ascii	"CYBLE_EVT_CTSS_NOTIFICATION_ENABLED\000"
+ 2457      455F4556 
+ 2457      545F4354 
+ 2457      53535F4E 
+ 2457      4F544946 
+ 2458              	.LASF320:
+ 2459 0f31 4359424C 		.ascii	"CYBLE_EVT_RSCSS_INDICATION_DISABLED\000"
+ 2459      455F4556 
+ 2459      545F5253 
+ 2459      4353535F 
+ 2459      494E4449 
+ 2460              	.LASF96:
+ 2461 0f55 4359424C 		.ascii	"CYBLE_DESCR_DISC_DONE\000"
+ 2461      455F4445 
+ 2461      5343525F 
+ 2461      44495343 
+ 2461      5F444F4E 
+ 2462              	.LASF363:
+ 2463 0f6b 4379426C 		.ascii	"CyBle_GattsWriteEventHandler\000"
+ 2463      655F4761 
+ 2463      74747357 
+ 2463      72697465 
+ 2463      4576656E 
+ 2464              	.LASF293:
+ 2465 0f88 4359424C 		.ascii	"CYBLE_EVT_LLSS_WRITE_CHAR_REQ\000"
+ 2465      455F4556 
+ 2465      545F4C4C 
+ 2465      53535F57 
+ 2465      52495445 
+ 2466              	.LASF73:
+ 2467 0fa6 4359424C 		.ascii	"CYBLE_ERROR_MEMORY_ALLOCATION_FAILED\000"
+ 2467      455F4552 
+ 2467      524F525F 
+ 2467      4D454D4F 
+ 2467      52595F41 
+ 2468              	.LASF278:
+ 2469 0fcb 4359424C 		.ascii	"CYBLE_EVT_HRSC_READ_DESCR_RESPONSE\000"
+ 2469      455F4556 
+ 2469      545F4852 
+ 2469      53435F52 
+ 2469      4541445F 
+ 2470              	.LASF229:
+ 2471 0fee 4359424C 		.ascii	"CYBLE_EVT_CSCSS_NOTIFICATION_ENABLED\000"
+ 2471      455F4556 
+ 2471      545F4353 
+ 2471      4353535F 
+ 2471      4E4F5449 
+ 2472              	.LASF197:
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 57
+
+
+ 2473 1013 4359424C 		.ascii	"CYBLE_EVT_BLSC_INDICATION\000"
+ 2473      455F4556 
+ 2473      545F424C 
+ 2473      53435F49 
+ 2473      4E444943 
+ 2474              	.LASF266:
+ 2475 102d 4359424C 		.ascii	"CYBLE_EVT_HIDSS_REPORT_CHAR_WRITE\000"
+ 2475      455F4556 
+ 2475      545F4849 
+ 2475      4453535F 
+ 2475      5245504F 
+ 2476              	.LASF125:
+ 2477 104f 4359424C 		.ascii	"CYBLE_GATTS_ERR_CCCD_IMPROPERLY_CONFIGURED\000"
+ 2477      455F4741 
+ 2477      5454535F 
+ 2477      4552525F 
+ 2477      43434344 
+ 2478              	.LASF93:
+ 2479 107a 4359424C 		.ascii	"CYBLE_ERROR_MAX\000"
+ 2479      455F4552 
+ 2479      524F525F 
+ 2479      4D415800 
+ 2480              	.LASF305:
+ 2481 108a 4359424C 		.ascii	"CYBLE_EVT_LNSC_WRITE_CHAR_RESPONSE\000"
+ 2481      455F4556 
+ 2481      545F4C4E 
+ 2481      53435F57 
+ 2481      52495445 
+ 2482              	.LASF58:
+ 2483 10ad 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_RSP\000"
+ 2483      455F4556 
+ 2483      545F4C32 
+ 2483      4341505F 
+ 2483      434F4E4E 
+ 2484              	.LASF183:
+ 2485 10d3 4359424C 		.ascii	"CYBLE_EVT_ANSC_WRITE_CHAR_RESPONSE\000"
+ 2485      455F4556 
+ 2485      545F414E 
+ 2485      53435F57 
+ 2485      52495445 
+ 2486              	.LASF347:
+ 2487 10f6 4359424C 		.ascii	"CYBLE_EVT_UDSS_NOTIFICATION_DISABLED\000"
+ 2487      455F4556 
+ 2487      545F5544 
+ 2487      53535F4E 
+ 2487      4F544946 
+ 2488              	.LASF348:
+ 2489 111b 4359424C 		.ascii	"CYBLE_EVT_UDSS_WRITE_CHAR\000"
+ 2489      455F4556 
+ 2489      545F5544 
+ 2489      53535F57 
+ 2489      52495445 
+ 2490              	.LASF273:
+ 2491 1135 4359424C 		.ascii	"CYBLE_EVT_HRSS_NOTIFICATION_ENABLED\000"
+ 2491      455F4556 
+ 2491      545F4852 
+ 2491      53535F4E 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 58
+
+
+ 2491      4F544946 
+ 2492              	.LASF121:
+ 2493 1159 4359424C 		.ascii	"CYBLE_GATT_ERR_USER_DATA_ACCESS_NOT_PERMITTED\000"
+ 2493      455F4741 
+ 2493      54545F45 
+ 2493      52525F55 
+ 2493      5345525F 
+ 2494              	.LASF26:
+ 2495 1187 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_COMPLETE\000"
+ 2495      455F4556 
+ 2495      545F4741 
+ 2495      505F4155 
+ 2495      54485F43 
+ 2496              	.LASF315:
+ 2497 11a3 4359424C 		.ascii	"CYBLE_EVT_PASSC_READ_DESCR_RESPONSE\000"
+ 2497      455F4556 
+ 2497      545F5041 
+ 2497      5353435F 
+ 2497      52454144 
+ 2498              	.LASF27:
+ 2499 11c7 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_FAILED\000"
+ 2499      455F4556 
+ 2499      545F4741 
+ 2499      505F4155 
+ 2499      54485F46 
+ 2500              	.LASF265:
+ 2501 11e1 4359424C 		.ascii	"CYBLE_EVT_HIDSS_EXIT_SUSPEND\000"
+ 2501      455F4556 
+ 2501      545F4849 
+ 2501      4453535F 
+ 2501      45584954 
+ 2502              	.LASF94:
+ 2503 11fe 4359424C 		.ascii	"CYBLE_INCL_DISC_DONE\000"
+ 2503      455F494E 
+ 2503      434C5F44 
+ 2503      4953435F 
+ 2503      444F4E45 
+ 2504              	.LASF127:
+ 2505 1213 4359424C 		.ascii	"CYBLE_GATT_ERR_CCCD_IMPROPERLY_CONFIGURED\000"
+ 2505      455F4741 
+ 2505      54545F45 
+ 2505      52525F43 
+ 2505      4343445F 
+ 2506              	.LASF74:
+ 2507 123d 4359424C 		.ascii	"CYBLE_ERROR_INSUFFICIENT_RESOURCES\000"
+ 2507      455F4552 
+ 2507      524F525F 
+ 2507      494E5355 
+ 2507      46464943 
+ 2508              	.LASF318:
+ 2509 1260 4359424C 		.ascii	"CYBLE_EVT_RSCSS_NOTIFICATION_DISABLED\000"
+ 2509      455F4556 
+ 2509      545F5253 
+ 2509      4353535F 
+ 2509      4E4F5449 
+ 2510              	.LASF269:
+ 2511 1286 4359424C 		.ascii	"CYBLE_EVT_HIDSC_WRITE_CHAR_RESPONSE\000"
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 59
+
+
+ 2511      455F4556 
+ 2511      545F4849 
+ 2511      4453435F 
+ 2511      57524954 
+ 2512              	.LASF5:
+ 2513 12aa 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2513      20756E73 
+ 2513      69676E65 
+ 2513      6420696E 
+ 2513      7400
+ 2514              	.LASF292:
+ 2515 12bc 4359424C 		.ascii	"CYBLE_EVT_IASS_WRITE_CHAR_CMD\000"
+ 2515      455F4556 
+ 2515      545F4941 
+ 2515      53535F57 
+ 2515      52495445 
+ 2516              	.LASF309:
+ 2517 12da 4359424C 		.ascii	"CYBLE_EVT_PASSS_NOTIFICATION_ENABLED\000"
+ 2517      455F4556 
+ 2517      545F5041 
+ 2517      5353535F 
+ 2517      4E4F5449 
+ 2518              	.LASF312:
+ 2519 12ff 4359424C 		.ascii	"CYBLE_EVT_PASSC_NOTIFICATION\000"
+ 2519      455F4556 
+ 2519      545F5041 
+ 2519      5353435F 
+ 2519      4E4F5449 
+ 2520              	.LASF182:
+ 2521 131c 4359424C 		.ascii	"CYBLE_EVT_ANSC_READ_CHAR_RESPONSE\000"
+ 2521      455F4556 
+ 2521      545F414E 
+ 2521      53435F52 
+ 2521      4541445F 
+ 2522              	.LASF84:
+ 2523 133e 4359424C 		.ascii	"CYBLE_ERROR_L2CAP_PSM_ALREADY_REGISTERED\000"
+ 2523      455F4552 
+ 2523      524F525F 
+ 2523      4C324341 
+ 2523      505F5053 
+ 2524              	.LASF285:
+ 2525 1367 4359424C 		.ascii	"CYBLE_EVT_HTSS_CHAR_WRITE\000"
+ 2525      455F4556 
+ 2525      545F4854 
+ 2525      53535F43 
+ 2525      4841525F 
+ 2526              	.LASF147:
+ 2527 1381 61747456 		.ascii	"attValueUuid\000"
+ 2527      616C7565 
+ 2527      55756964 
+ 2527      00
+ 2528              	.LASF186:
+ 2529 138e 4359424C 		.ascii	"CYBLE_EVT_BASS_NOTIFICATION_ENABLED\000"
+ 2529      455F4556 
+ 2529      545F4241 
+ 2529      53535F4E 
+ 2529      4F544946 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 60
+
+
+ 2530              	.LASF311:
+ 2531 13b2 4359424C 		.ascii	"CYBLE_EVT_PASSS_WRITE_CHAR\000"
+ 2531      455F4556 
+ 2531      545F5041 
+ 2531      5353535F 
+ 2531      57524954 
+ 2532              	.LASF225:
+ 2533 13cd 4359424C 		.ascii	"CYBLE_EVT_CPSC_WRITE_CHAR_RESPONSE\000"
+ 2533      455F4556 
+ 2533      545F4350 
+ 2533      53435F57 
+ 2533      52495445 
+ 2534              	.LASF32:
+ 2535 13f0 4359424C 		.ascii	"CYBLE_EVT_GAP_CONNECTION_UPDATE_COMPLETE\000"
+ 2535      455F4556 
+ 2535      545F4741 
+ 2535      505F434F 
+ 2535      4E4E4543 
+ 2536              	.LASF210:
+ 2537 1419 4359424C 		.ascii	"CYBLE_EVT_CGMSC_READ_CHAR_RESPONSE\000"
+ 2537      455F4556 
+ 2537      545F4347 
+ 2537      4D53435F 
+ 2537      52454144 
+ 2538              	.LASF357:
+ 2539 143c 4359424C 		.ascii	"CYBLE_STATE_INITIALIZING\000"
+ 2539      455F5354 
+ 2539      4154455F 
+ 2539      494E4954 
+ 2539      49414C49 
+ 2540              	.LASF238:
+ 2541 1455 4359424C 		.ascii	"CYBLE_EVT_CSCSC_WRITE_CHAR_RESPONSE\000"
+ 2541      455F4556 
+ 2541      545F4353 
+ 2541      4353435F 
+ 2541      57524954 
+ 2542              	.LASF62:
+ 2543 1479 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DISCONN_IND\000"
+ 2543      455F4556 
+ 2543      545F4C32 
+ 2543      4341505F 
+ 2543      43424643 
+ 2544              	.LASF366:
+ 2545 149a 6379426C 		.ascii	"cyBle_attValues\000"
+ 2545      655F6174 
+ 2545      7456616C 
+ 2545      75657300 
+ 2546              	.LASF234:
+ 2547 14aa 4359424C 		.ascii	"CYBLE_EVT_CSCSS_CHAR_WRITE\000"
+ 2547      455F4556 
+ 2547      545F4353 
+ 2547      4353535F 
+ 2547      43484152 
+ 2548              	.LASF159:
+ 2549 14c5 4359424C 		.ascii	"CYBLE_GATTS_T\000"
+ 2549      455F4741 
+ 2549      5454535F 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 61
+
+
+ 2549      5400
+ 2550              	.LASF24:
+ 2551 14d3 4359424C 		.ascii	"CYBLE_EVT_GAP_PASSKEY_ENTRY_REQUEST\000"
+ 2551      455F4556 
+ 2551      545F4741 
+ 2551      505F5041 
+ 2551      53534B45 
+ 2552              	.LASF300:
+ 2553 14f7 4359424C 		.ascii	"CYBLE_EVT_LNSS_NOTIFICATION_DISABLED\000"
+ 2553      455F4556 
+ 2553      545F4C4E 
+ 2553      53535F4E 
+ 2553      4F544946 
+ 2554              	.LASF219:
+ 2555 151c 4359424C 		.ascii	"CYBLE_EVT_CPSS_BROADCAST_ENABLED\000"
+ 2555      455F4556 
+ 2555      545F4350 
+ 2555      53535F42 
+ 2555      524F4144 
+ 2556              	.LASF256:
+ 2557 153d 4359424C 		.ascii	"CYBLE_EVT_GLSC_READ_CHAR_RESPONSE\000"
+ 2557      455F4556 
+ 2557      545F474C 
+ 2557      53435F52 
+ 2557      4541445F 
+ 2558              	.LASF286:
+ 2559 155f 4359424C 		.ascii	"CYBLE_EVT_HTSC_NOTIFICATION\000"
+ 2559      455F4556 
+ 2559      545F4854 
+ 2559      53435F4E 
+ 2559      4F544946 
+ 2560              	.LASF6:
+ 2561 157b 6C6F6E67 		.ascii	"long long int\000"
+ 2561      206C6F6E 
+ 2561      6720696E 
+ 2561      7400
+ 2562              	.LASF340:
+ 2563 1589 4359424C 		.ascii	"CYBLE_EVT_TPSC_READ_CHAR_RESPONSE\000"
+ 2563      455F4556 
+ 2563      545F5450 
+ 2563      53435F52 
+ 2563      4541445F 
+ 2564              	.LASF172:
+ 2565 15ab 4359424C 		.ascii	"CYBLE_EVT_GATTC_CHAR_DUPLICATION\000"
+ 2565      455F4556 
+ 2565      545F4741 
+ 2565      5454435F 
+ 2565      43484152 
+ 2566              	.LASF251:
+ 2567 15cc 4359424C 		.ascii	"CYBLE_EVT_GLSS_NOTIFICATION_ENABLED\000"
+ 2567      455F4556 
+ 2567      545F474C 
+ 2567      53535F4E 
+ 2567      4F544946 
+ 2568              	.LASF111:
+ 2569 15f0 4359424C 		.ascii	"CYBLE_GATT_ERR_PREPARE_WRITE_QUEUE_FULL\000"
+ 2569      455F4741 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 62
+
+
+ 2569      54545F45 
+ 2569      52525F50 
+ 2569      52455041 
+ 2570              	.LASF85:
+ 2571 1618 4359424C 		.ascii	"CYBLE_ERROR_L2CAP_PSM_NOT_REGISTERED\000"
+ 2571      455F4552 
+ 2571      524F525F 
+ 2571      4C324341 
+ 2571      505F5053 
+ 2572              	.LASF75:
+ 2573 163d 4359424C 		.ascii	"CYBLE_ERROR_OOB_NOT_AVAILABLE\000"
+ 2573      455F4552 
+ 2573      524F525F 
+ 2573      4F4F425F 
+ 2573      4E4F545F 
+ 2574              	.LASF202:
+ 2575 165b 4359424C 		.ascii	"CYBLE_EVT_CGMSS_INDICATION_ENABLED\000"
+ 2575      455F4556 
+ 2575      545F4347 
+ 2575      4D53535F 
+ 2575      494E4449 
+ 2576              	.LASF13:
+ 2577 167e 646F7562 		.ascii	"double\000"
+ 2577      6C6500
+ 2578              	.LASF90:
+ 2579 1685 4359424C 		.ascii	"CYBLE_ERROR_DEVICE_ALREADY_EXISTS\000"
+ 2579      455F4552 
+ 2579      524F525F 
+ 2579      44455649 
+ 2579      43455F41 
+ 2580              	.LASF68:
+ 2581 16a7 4359424C 		.ascii	"CYBLE_EVT_PENDING_FLASH_WRITE\000"
+ 2581      455F4556 
+ 2581      545F5045 
+ 2581      4E44494E 
+ 2581      475F464C 
+ 2582              	.LASF114:
+ 2583 16c5 4359424C 		.ascii	"CYBLE_GATT_ERR_INSUFFICIENT_ENC_KEY_SIZE\000"
+ 2583      455F4741 
+ 2583      54545F45 
+ 2583      52525F49 
+ 2583      4E535546 
+ 2584              	.LASF128:
+ 2585 16ee 4359424C 		.ascii	"CYBLE_GATT_ERR_PROCEDURE_ALREADY_IN_PROGRESS\000"
+ 2585      455F4741 
+ 2585      54545F45 
+ 2585      52525F50 
+ 2585      524F4345 
+ 2586              	.LASF307:
+ 2587 171b 4359424C 		.ascii	"CYBLE_EVT_LNSC_WRITE_DESCR_RESPONSE\000"
+ 2587      455F4556 
+ 2587      545F4C4E 
+ 2587      53435F57 
+ 2587      52495445 
+ 2588              	.LASF294:
+ 2589 173f 4359424C 		.ascii	"CYBLE_EVT_LLSC_READ_CHAR_RESPONSE\000"
+ 2589      455F4556 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 63
+
+
+ 2589      545F4C4C 
+ 2589      53435F52 
+ 2589      4541445F 
+ 2590              	.LASF233:
+ 2591 1761 4359424C 		.ascii	"CYBLE_EVT_CSCSS_INDICATION_CONFIRMATION\000"
+ 2591      455F4556 
+ 2591      545F4353 
+ 2591      4353535F 
+ 2591      494E4449 
+ 2592              	.LASF87:
+ 2593 1789 4359424C 		.ascii	"CYBLE_ERROR_L2CAP_CHANNEL_NOT_FOUND\000"
+ 2593      455F4552 
+ 2593      524F525F 
+ 2593      4C324341 
+ 2593      505F4348 
+ 2594              	.LASF370:
+ 2595 17ad 6379426C 		.ascii	"cyBle_gattDB\000"
+ 2595      655F6761 
+ 2595      74744442 
+ 2595      00
+ 2596              	.LASF78:
+ 2597 17ba 4359424C 		.ascii	"CYBLE_ERROR_REPEATED_ATTEMPTS\000"
+ 2597      455F4552 
+ 2597      524F525F 
+ 2597      52455045 
+ 2597      41544544 
+ 2598              	.LASF12:
+ 2599 17d8 666C6F61 		.ascii	"float\000"
+ 2599      7400
+ 2600              	.LASF334:
+ 2601 17de 4359424C 		.ascii	"CYBLE_EVT_SCPSC_NOTIFICATION\000"
+ 2601      455F4556 
+ 2601      545F5343 
+ 2601      5053435F 
+ 2601      4E4F5449 
+ 2602              	.LASF263:
+ 2603 17fb 4359424C 		.ascii	"CYBLE_EVT_HIDSS_REPORT_MODE_ENTER\000"
+ 2603      455F4556 
+ 2603      545F4849 
+ 2603      4453535F 
+ 2603      5245504F 
+ 2604              	.LASF91:
+ 2605 181d 4359424C 		.ascii	"CYBLE_ERROR_FLASH_WRITE_NOT_PERMITED\000"
+ 2605      455F4552 
+ 2605      524F525F 
+ 2605      464C4153 
+ 2605      485F5752 
+ 2606              	.LASF261:
+ 2607 1842 4359424C 		.ascii	"CYBLE_EVT_HIDSS_NOTIFICATION_DISABLED\000"
+ 2607      455F4556 
+ 2607      545F4849 
+ 2607      4453535F 
+ 2607      4E4F5449 
+ 2608              	.LASF369:
+ 2609 1868 6379426C 		.ascii	"cyBle_gatts\000"
+ 2609      655F6761 
+ 2609      74747300 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 64
+
+
+ 2610              	.LASF110:
+ 2611 1874 4359424C 		.ascii	"CYBLE_GATT_ERR_INSUFFICIENT_AUTHORIZATION\000"
+ 2611      455F4741 
+ 2611      54545F45 
+ 2611      52525F49 
+ 2611      4E535546 
+ 2612              	.LASF138:
+ 2613 189e 61747472 		.ascii	"attrHandle\000"
+ 2613      48616E64 
+ 2613      6C6500
+ 2614              	.LASF376:
+ 2615 18a9 433A5C55 		.ascii	"C:\\Users\\JFDuval\\Desktop\\Work_Folder\\Biomech-E"
+ 2615      73657273 
+ 2615      5C4A4644 
+ 2615      7576616C 
+ 2615      5C446573 
+ 2616 18d7 452D5356 		.ascii	"E-SVN2\\Code\\flexsea_1_0\\batt\\Batt.cydsn\000"
+ 2616      4E325C43 
+ 2616      6F64655C 
+ 2616      666C6578 
+ 2616      7365615F 
+ 2617              	.LASF350:
+ 2618 18ff 4359424C 		.ascii	"CYBLE_EVT_UDSC_NOTIFICATION\000"
+ 2618      455F4556 
+ 2618      545F5544 
+ 2618      53435F4E 
+ 2618      4F544946 
+ 2619              	.LASF142:
+ 2620 191b 4359424C 		.ascii	"CYBLE_GATTS_WRITE_REQ_PARAM_T\000"
+ 2620      455F4741 
+ 2620      5454535F 
+ 2620      57524954 
+ 2620      455F5245 
+ 2621              	.LASF8:
+ 2622 1939 756E7369 		.ascii	"unsigned int\000"
+ 2622      676E6564 
+ 2622      20696E74 
+ 2622      00
+ 2623              	.LASF50:
+ 2624 1946 4359424C 		.ascii	"CYBLE_EVT_GATTS_PREP_WRITE_REQ\000"
+ 2624      455F4556 
+ 2624      545F4741 
+ 2624      5454535F 
+ 2624      50524550 
+ 2625              	.LASF152:
+ 2626 1965 61747445 		.ascii	"attEndHandle\000"
+ 2626      6E644861 
+ 2626      6E646C65 
+ 2626      00
+ 2627              	.LASF107:
+ 2628 1972 4359424C 		.ascii	"CYBLE_GATT_ERR_INSUFFICIENT_AUTHENTICATION\000"
+ 2628      455F4741 
+ 2628      54545F45 
+ 2628      52525F49 
+ 2628      4E535546 
+ 2629              	.LASF242:
+ 2630 199d 4359424C 		.ascii	"CYBLE_EVT_CTSS_NOTIFICATION_DISABLED\000"
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 65
+
+
+ 2630      455F4556 
+ 2630      545F4354 
+ 2630      53535F4E 
+ 2630      4F544946 
+ 2631              	.LASF193:
+ 2632 19c2 4359424C 		.ascii	"CYBLE_EVT_BLSS_INDICATION_DISABLED\000"
+ 2632      455F4556 
+ 2632      545F424C 
+ 2632      53535F49 
+ 2632      4E444943 
+ 2633              	.LASF332:
+ 2634 19e5 4359424C 		.ascii	"CYBLE_EVT_SCPSS_NOTIFICATION_DISABLED\000"
+ 2634      455F4556 
+ 2634      545F5343 
+ 2634      5053535F 
+ 2634      4E4F5449 
+ 2635              	.LASF374:
+ 2636 1a0b 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 2636      4320342E 
+ 2636      382E3420 
+ 2636      32303134 
+ 2636      30353236 
+ 2637 1a3e 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 2637      20726576 
+ 2637      6973696F 
+ 2637      6E203231 
+ 2637      31333538 
+ 2638 1a71 30202D66 		.ascii	"0 -ffunction-sections\000"
+ 2638      66756E63 
+ 2638      74696F6E 
+ 2638      2D736563 
+ 2638      74696F6E 
+ 2639              	.LASF124:
+ 2640 1a87 4359424C 		.ascii	"CYBLE_GATTS_ERR_PROCEDURE_ALREADY_IN_PROGRESS\000"
+ 2640      455F4741 
+ 2640      5454535F 
+ 2640      4552525F 
+ 2640      50524F43 
+ 2641              	.LASF160:
+ 2642 1ab5 4359424C 		.ascii	"CYBLE_AUTHENTICATION_REQUEST_REPLY\000"
+ 2642      455F4155 
+ 2642      5448454E 
+ 2642      54494341 
+ 2642      54494F4E 
+ 2643              	.LASF83:
+ 2644 1ad8 4359424C 		.ascii	"CYBLE_ERROR_L2CAP_PSM_WRONG_ENCODING\000"
+ 2644      455F4552 
+ 2644      524F525F 
+ 2644      4C324341 
+ 2644      505F5053 
+ 2645              	.LASF196:
+ 2646 1afd 4359424C 		.ascii	"CYBLE_EVT_BLSS_NOTIFICATION_DISABLED\000"
+ 2646      455F4556 
+ 2646      545F424C 
+ 2646      53535F4E 
+ 2646      4F544946 
+ 2647              	.LASF112:
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 66
+
+
+ 2648 1b22 4359424C 		.ascii	"CYBLE_GATT_ERR_ATTRIBUTE_NOT_FOUND\000"
+ 2648      455F4741 
+ 2648      54545F45 
+ 2648      52525F41 
+ 2648      54545249 
+ 2649              	.LASF289:
+ 2650 1b45 4359424C 		.ascii	"CYBLE_EVT_HTSC_WRITE_CHAR_RESPONSE\000"
+ 2650      455F4556 
+ 2650      545F4854 
+ 2650      53435F57 
+ 2650      52495445 
+ 2651              	.LASF69:
+ 2652 1b68 4359424C 		.ascii	"CYBLE_EVT_MAX\000"
+ 2652      455F4556 
+ 2652      545F4D41 
+ 2652      5800
+ 2653              	.LASF33:
+ 2654 1b76 4359424C 		.ascii	"CYBLE_EVT_GAPC_SCAN_START_STOP\000"
+ 2654      455F4556 
+ 2654      545F4741 
+ 2654      50435F53 
+ 2654      43414E5F 
+ 2655              	.LASF178:
+ 2656 1b95 4359424C 		.ascii	"CYBLE_EVT_ANSS_NOTIFICATION_ENABLED\000"
+ 2656      455F4556 
+ 2656      545F414E 
+ 2656      53535F4E 
+ 2656      4F544946 
+ 2657              	.LASF47:
+ 2658 1bb9 4359424C 		.ascii	"CYBLE_EVT_GATTS_WRITE_REQ\000"
+ 2658      455F4556 
+ 2658      545F4741 
+ 2658      5454535F 
+ 2658      57524954 
+ 2659              	.LASF352:
+ 2660 1bd3 4359424C 		.ascii	"CYBLE_EVT_UDSC_WRITE_CHAR_RESPONSE\000"
+ 2660      455F4556 
+ 2660      545F5544 
+ 2660      53435F57 
+ 2660      52495445 
+ 2661              	.LASF25:
+ 2662 1bf6 4359424C 		.ascii	"CYBLE_EVT_GAP_PASSKEY_DISPLAY_REQUEST\000"
+ 2662      455F4556 
+ 2662      545F4741 
+ 2662      505F5041 
+ 2662      53534B45 
+ 2663              	.LASF98:
+ 2664 1c1c 4359424C 		.ascii	"CYBLE_ERROR_IND_DISABLED\000"
+ 2664      455F4552 
+ 2664      524F525F 
+ 2664      494E445F 
+ 2664      44495341 
+ 2665              	.LASF97:
+ 2666 1c35 4359424C 		.ascii	"CYBLE_ERROR_NTF_DISABLED\000"
+ 2666      455F4552 
+ 2666      524F525F 
+ 2666      4E54465F 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 67
+
+
+ 2666      44495341 
+ 2667              	.LASF44:
+ 2668 1c4e 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_RSP\000"
+ 2668      455F4556 
+ 2668      545F4741 
+ 2668      5454435F 
+ 2668      52454144 
+ 2669              	.LASF223:
+ 2670 1c67 4359424C 		.ascii	"CYBLE_EVT_CPSC_INDICATION\000"
+ 2670      455F4556 
+ 2670      545F4350 
+ 2670      53435F49 
+ 2670      4E444943 
+ 2671              	.LASF109:
+ 2672 1c81 4359424C 		.ascii	"CYBLE_GATT_ERR_INVALID_OFFSET\000"
+ 2672      455F4741 
+ 2672      54545F45 
+ 2672      52525F49 
+ 2672      4E56414C 
+ 2673              	.LASF247:
+ 2674 1c9f 4359424C 		.ascii	"CYBLE_EVT_DISC_READ_CHAR_RESPONSE\000"
+ 2674      455F4556 
+ 2674      545F4449 
+ 2674      53435F52 
+ 2674      4541445F 
+ 2675              	.LASF61:
+ 2676 1cc1 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_CONN_CNF\000"
+ 2676      455F4556 
+ 2676      545F4C32 
+ 2676      4341505F 
+ 2676      43424643 
+ 2677              	.LASF290:
+ 2678 1cdf 4359424C 		.ascii	"CYBLE_EVT_HTSC_READ_DESCR_RESPONSE\000"
+ 2678      455F4556 
+ 2678      545F4854 
+ 2678      53435F52 
+ 2678      4541445F 
+ 2679              	.LASF355:
+ 2680 1d02 4359424C 		.ascii	"CYBLE_DEBUG_EVT_BLESS_INT\000"
+ 2680      455F4445 
+ 2680      4255475F 
+ 2680      4556545F 
+ 2680      424C4553 
+ 2681              	.LASF129:
+ 2682 1d1c 4359424C 		.ascii	"CYBLE_GATT_ERR_OUT_OF_RANGE\000"
+ 2682      455F4741 
+ 2682      54545F45 
+ 2682      52525F4F 
+ 2682      55545F4F 
+ 2683              	.LASF253:
+ 2684 1d38 4359424C 		.ascii	"CYBLE_EVT_GLSS_WRITE_CHAR\000"
+ 2684      455F4556 
+ 2684      545F474C 
+ 2684      53535F57 
+ 2684      52495445 
+ 2685              	.LASF205:
+ 2686 1d52 4359424C 		.ascii	"CYBLE_EVT_CGMSS_NOTIFICATION_ENABLED\000"
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 68
+
+
+ 2686      455F4556 
+ 2686      545F4347 
+ 2686      4D53535F 
+ 2686      4E4F5449 
+ 2687              	.LASF275:
+ 2688 1d77 4359424C 		.ascii	"CYBLE_EVT_HRSC_NOTIFICATION\000"
+ 2688      455F4556 
+ 2688      545F4852 
+ 2688      53435F4E 
+ 2688      4F544946 
+ 2689              	.LASF321:
+ 2690 1d93 4359424C 		.ascii	"CYBLE_EVT_RSCSS_INDICATION_CONFIRMATION\000"
+ 2690      455F4556 
+ 2690      545F5253 
+ 2690      4353535F 
+ 2690      494E4449 
+ 2691              	.LASF270:
+ 2692 1dbb 4359424C 		.ascii	"CYBLE_EVT_HIDSC_READ_DESCR_RESPONSE\000"
+ 2692      455F4556 
+ 2692      545F4849 
+ 2692      4453435F 
+ 2692      52454144 
+ 2693              	.LASF276:
+ 2694 1ddf 4359424C 		.ascii	"CYBLE_EVT_HRSC_READ_CHAR_RESPONSE\000"
+ 2694      455F4556 
+ 2694      545F4852 
+ 2694      53435F52 
+ 2694      4541445F 
+ 2695              	.LASF31:
+ 2696 1e01 4359424C 		.ascii	"CYBLE_EVT_GAP_ENCRYPT_CHANGE\000"
+ 2696      455F4556 
+ 2696      545F4741 
+ 2696      505F454E 
+ 2696      43525950 
+ 2697              	.LASF308:
+ 2698 1e1e 4359424C 		.ascii	"CYBLE_EVT_NDCSC_READ_CHAR_RESPONSE\000"
+ 2698      455F4556 
+ 2698      545F4E44 
+ 2698      4353435F 
+ 2698      52454144 
+ 2699              	.LASF173:
+ 2700 1e41 4359424C 		.ascii	"CYBLE_EVT_GATTC_DESCR_DUPLICATION\000"
+ 2700      455F4556 
+ 2700      545F4741 
+ 2700      5454435F 
+ 2700      44455343 
+ 2701              	.LASF362:
+ 2702 1e63 4379426C 		.ascii	"CyBle_GattsReInitGattDb\000"
+ 2702      655F4761 
+ 2702      74747352 
+ 2702      65496E69 
+ 2702      74476174 
+ 2703              	.LASF38:
+ 2704 1e7b 4359424C 		.ascii	"CYBLE_EVT_GATTS_XCNHG_MTU_REQ\000"
+ 2704      455F4556 
+ 2704      545F4741 
+ 2704      5454535F 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 69
+
+
+ 2704      58434E48 
+ 2705              	.LASF346:
+ 2706 1e99 4359424C 		.ascii	"CYBLE_EVT_UDSS_NOTIFICATION_ENABLED\000"
+ 2706      455F4556 
+ 2706      545F5544 
+ 2706      53535F4E 
+ 2706      4F544946 
+ 2707              	.LASF298:
+ 2708 1ebd 4359424C 		.ascii	"CYBLE_EVT_LNSS_INDICATION_CONFIRMED\000"
+ 2708      455F4556 
+ 2708      545F4C4E 
+ 2708      53535F49 
+ 2708      4E444943 
+ 2709              	.LASF185:
+ 2710 1ee1 4359424C 		.ascii	"CYBLE_EVT_ANSC_WRITE_DESCR_RESPONSE\000"
+ 2710      455F4556 
+ 2710      545F414E 
+ 2710      53435F57 
+ 2710      52495445 
+ 2711              	.LASF304:
+ 2712 1f05 4359424C 		.ascii	"CYBLE_EVT_LNSC_READ_CHAR_RESPONSE\000"
+ 2712      455F4556 
+ 2712      545F4C4E 
+ 2712      53435F52 
+ 2712      4541445F 
+ 2713              	.LASF250:
+ 2714 1f27 4359424C 		.ascii	"CYBLE_EVT_GLSS_INDICATION_CONFIRMED\000"
+ 2714      455F4556 
+ 2714      545F474C 
+ 2714      53535F49 
+ 2714      4E444943 
+ 2715              	.LASF164:
+ 2716 1f4b 4359424C 		.ascii	"CYBLE_EVT_GATTS_INDICATION_ENABLED\000"
+ 2716      455F4556 
+ 2716      545F4741 
+ 2716      5454535F 
+ 2716      494E4449 
+ 2717              	.LASF7:
+ 2718 1f6e 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2718      206C6F6E 
+ 2718      6720756E 
+ 2718      7369676E 
+ 2718      65642069 
+ 2719              	.LASF103:
+ 2720 1f85 4359424C 		.ascii	"CYBLE_GATT_ERR_INVALID_HANDLE\000"
+ 2720      455F4741 
+ 2720      54545F45 
+ 2720      52525F49 
+ 2720      4E56414C 
+ 2721              	.LASF18:
+ 2722 1fa3 4359424C 		.ascii	"CYBLE_EVT_TIMEOUT\000"
+ 2722      455F4556 
+ 2722      545F5449 
+ 2722      4D454F55 
+ 2722      5400
+ 2723              	.LASF245:
+ 2724 1fb5 4359424C 		.ascii	"CYBLE_EVT_CTSC_READ_DESCR_RESPONSE\000"
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 70
+
+
+ 2724      455F4556 
+ 2724      545F4354 
+ 2724      53435F52 
+ 2724      4541445F 
+ 2725              	.LASF143:
+ 2726 1fd8 6C656E67 		.ascii	"length\000"
+ 2726      746800
+ 2727              	.LASF100:
+ 2728 1fdf 4359424C 		.ascii	"CYBLE_ERROR_INVALID_STATE\000"
+ 2728      455F4552 
+ 2728      524F525F 
+ 2728      494E5641 
+ 2728      4C49445F 
+ 2729              	.LASF131:
+ 2730 1ff9 4359424C 		.ascii	"CYBLE_GATT_DB_ATTR_HANDLE_T\000"
+ 2730      455F4741 
+ 2730      54545F44 
+ 2730      425F4154 
+ 2730      54525F48 
+ 2731              	.LASF64:
+ 2732 2015 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DATA_READ\000"
+ 2732      455F4556 
+ 2732      545F4C32 
+ 2732      4341505F 
+ 2732      43424643 
+ 2733              	.LASF102:
+ 2734 2034 4359424C 		.ascii	"CYBLE_GATT_ERR_NONE\000"
+ 2734      455F4741 
+ 2734      54545F45 
+ 2734      52525F4E 
+ 2734      4F4E4500 
+ 2735              	.LASF137:
+ 2736 2048 76616C75 		.ascii	"value\000"
+ 2736      6500
+ 2737              	.LASF222:
+ 2738 204e 4359424C 		.ascii	"CYBLE_EVT_CPSC_NOTIFICATION\000"
+ 2738      455F4556 
+ 2738      545F4350 
+ 2738      53435F4E 
+ 2738      4F544946 
+ 2739              	.LASF201:
+ 2740 206a 4359424C 		.ascii	"CYBLE_EVT_BLSC_WRITE_DESCR_RESPONSE\000"
+ 2740      455F4556 
+ 2740      545F424C 
+ 2740      53435F57 
+ 2740      52495445 
+ 2741              	.LASF153:
+ 2742 208e 61747456 		.ascii	"attValue\000"
+ 2742      616C7565 
+ 2742      00
+ 2743              	.LASF303:
+ 2744 2097 4359424C 		.ascii	"CYBLE_EVT_LNSC_NOTIFICATION\000"
+ 2744      455F4556 
+ 2744      545F4C4E 
+ 2744      53435F4E 
+ 2744      4F544946 
+ 2745              	.LASF367:
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 71
+
+
+ 2746 20b3 4379426C 		.ascii	"CyBle_ApplCallback\000"
+ 2746      655F4170 
+ 2746      706C4361 
+ 2746      6C6C6261 
+ 2746      636B00
+ 2747              	.LASF243:
+ 2748 20c6 4359424C 		.ascii	"CYBLE_EVT_CTSC_NOTIFICATION\000"
+ 2748      455F4556 
+ 2748      545F4354 
+ 2748      53435F4E 
+ 2748      4F544946 
+ 2749              	.LASF130:
+ 2750 20e2 4359424C 		.ascii	"CYBLE_GATT_ERR_CODE_T\000"
+ 2750      455F4741 
+ 2750      54545F45 
+ 2750      52525F43 
+ 2750      4F44455F 
+ 2751              	.LASF249:
+ 2752 20f8 4359424C 		.ascii	"CYBLE_EVT_GLSS_INDICATION_DISABLED\000"
+ 2752      455F4556 
+ 2752      545F474C 
+ 2752      53535F49 
+ 2752      4E444943 
+ 2753              	.LASF123:
+ 2754 211b 4359424C 		.ascii	"CYBLE_GATT_ERR_HTS_OUT_OF_RANGE\000"
+ 2754      455F4741 
+ 2754      54545F45 
+ 2754      52525F48 
+ 2754      54535F4F 
+ 2755              	.LASF157:
+ 2756 213b 73657276 		.ascii	"serviceChangedHandle\000"
+ 2756      69636543 
+ 2756      68616E67 
+ 2756      65644861 
+ 2756      6E646C65 
+ 2757              	.LASF296:
+ 2758 2150 4359424C 		.ascii	"CYBLE_EVT_LNSS_INDICATION_ENABLED\000"
+ 2758      455F4556 
+ 2758      545F4C4E 
+ 2758      53535F49 
+ 2758      4E444943 
+ 2759              	.LASF240:
+ 2760 2172 4359424C 		.ascii	"CYBLE_EVT_CSCSC_WRITE_DESCR_RESPONSE\000"
+ 2760      455F4556 
+ 2760      545F4353 
+ 2760      4353435F 
+ 2760      57524954 
+ 2761              	.LASF140:
+ 2762 2197 636F6E6E 		.ascii	"connHandle\000"
+ 2762      48616E64 
+ 2762      6C6500
+ 2763              	.LASF187:
+ 2764 21a2 4359424C 		.ascii	"CYBLE_EVT_BASS_NOTIFICATION_DISABLED\000"
+ 2764      455F4556 
+ 2764      545F4241 
+ 2764      53535F4E 
+ 2764      4F544946 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 72
+
+
+ 2765              	.LASF214:
+ 2766 21c7 4359424C 		.ascii	"CYBLE_EVT_CPSS_NOTIFICATION_ENABLED\000"
+ 2766      455F4556 
+ 2766      545F4350 
+ 2766      53535F4E 
+ 2766      4F544946 
+ 2767              	.LASF341:
+ 2768 21eb 4359424C 		.ascii	"CYBLE_EVT_TPSC_READ_DESCR_RESPONSE\000"
+ 2768      455F4556 
+ 2768      545F5450 
+ 2768      53435F52 
+ 2768      4541445F 
+ 2769              	.LASF145:
+ 2770 220e 4359424C 		.ascii	"CYBLE_GATTS_ATT_GENERIC_VAL_T\000"
+ 2770      455F4741 
+ 2770      5454535F 
+ 2770      4154545F 
+ 2770      47454E45 
+ 2771              	.LASF42:
+ 2772 222c 4359424C 		.ascii	"CYBLE_EVT_GATTC_FIND_INFO_RSP\000"
+ 2772      455F4556 
+ 2772      545F4741 
+ 2772      5454435F 
+ 2772      46494E44 
+ 2773              	.LASF41:
+ 2774 224a 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BY_TYPE_RSP\000"
+ 2774      455F4556 
+ 2774      545F4741 
+ 2774      5454435F 
+ 2774      52454144 
+ 2775              	.LASF310:
+ 2776 226b 4359424C 		.ascii	"CYBLE_EVT_PASSS_NOTIFICATION_DISABLED\000"
+ 2776      455F4556 
+ 2776      545F5041 
+ 2776      5353535F 
+ 2776      4E4F5449 
+ 2777              	.LASF212:
+ 2778 2291 4359424C 		.ascii	"CYBLE_EVT_CGMSC_READ_DESCR_RESPONSE\000"
+ 2778      455F4556 
+ 2778      545F4347 
+ 2778      4D53435F 
+ 2778      52454144 
+ 2779              	.LASF268:
+ 2780 22b5 4359424C 		.ascii	"CYBLE_EVT_HIDSC_READ_CHAR_RESPONSE\000"
+ 2780      455F4556 
+ 2780      545F4849 
+ 2780      4453435F 
+ 2780      52454144 
+ 2781              	.LASF364:
+ 2782 22d8 61706952 		.ascii	"apiResult\000"
+ 2782      6573756C 
+ 2782      7400
+ 2783              	.LASF373:
+ 2784 22e2 6379426C 		.ascii	"cyBle_state\000"
+ 2784      655F7374 
+ 2784      61746500 
+ 2785              	.LASF338:
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 73
+
+
+ 2786 22ee 4359424C 		.ascii	"CYBLE_EVT_TPSS_NOTIFICATION_DISABLED\000"
+ 2786      455F4556 
+ 2786      545F5450 
+ 2786      53535F4E 
+ 2786      4F544946 
+ 2787              	.LASF335:
+ 2788 2313 4359424C 		.ascii	"CYBLE_EVT_SCPSC_READ_DESCR_RESPONSE\000"
+ 2788      455F4556 
+ 2788      545F5343 
+ 2788      5053435F 
+ 2788      52454144 
+ 2789              	.LASF279:
+ 2790 2337 4359424C 		.ascii	"CYBLE_EVT_HRSC_WRITE_DESCR_RESPONSE\000"
+ 2790      455F4556 
+ 2790      545F4852 
+ 2790      53435F57 
+ 2790      52495445 
+ 2791              	.LASF301:
+ 2792 235b 4359424C 		.ascii	"CYBLE_EVT_LNSS_WRITE_CHAR\000"
+ 2792      455F4556 
+ 2792      545F4C4E 
+ 2792      53535F57 
+ 2792      52495445 
+ 2793              	.LASF48:
+ 2794 2375 4359424C 		.ascii	"CYBLE_EVT_GATTC_WRITE_RSP\000"
+ 2794      455F4556 
+ 2794      545F4741 
+ 2794      5454435F 
+ 2794      57524954 
+ 2795              	.LASF360:
+ 2796 238f 4359424C 		.ascii	"CYBLE_STATE_DISCONNECTED\000"
+ 2796      455F5354 
+ 2796      4154455F 
+ 2796      44495343 
+ 2796      4F4E4E45 
+ 2797              	.LASF148:
+ 2798 23a8 4359424C 		.ascii	"CYBLE_GATTS_ATT_VALUE_T\000"
+ 2798      455F4741 
+ 2798      5454535F 
+ 2798      4154545F 
+ 2798      56414C55 
+ 2799              	.LASF323:
+ 2800 23c0 4359424C 		.ascii	"CYBLE_EVT_RSCSC_NOTIFICATION\000"
+ 2800      455F4556 
+ 2800      545F5253 
+ 2800      4353435F 
+ 2800      4E4F5449 
+ 2801              	.LASF28:
+ 2802 23dd 4359424C 		.ascii	"CYBLE_EVT_GAPP_ADVERTISEMENT_START_STOP\000"
+ 2802      455F4556 
+ 2802      545F4741 
+ 2802      50505F41 
+ 2802      44564552 
+ 2803              	.LASF194:
+ 2804 2405 4359424C 		.ascii	"CYBLE_EVT_BLSS_INDICATION_CONFIRMED\000"
+ 2804      455F4556 
+ 2804      545F424C 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 74
+
+
+ 2804      53535F49 
+ 2804      4E444943 
+ 2805              	.LASF144:
+ 2806 2429 61747447 		.ascii	"attGenericVal\000"
+ 2806      656E6572 
+ 2806      69635661 
+ 2806      6C00
+ 2807              	.LASF211:
+ 2808 2437 4359424C 		.ascii	"CYBLE_EVT_CGMSC_WRITE_CHAR_RESPONSE\000"
+ 2808      455F4556 
+ 2808      545F4347 
+ 2808      4D53435F 
+ 2808      57524954 
+ 2809              	.LASF9:
+ 2810 245b 75696E74 		.ascii	"uint8\000"
+ 2810      3800
+ 2811              	.LASF288:
+ 2812 2461 4359424C 		.ascii	"CYBLE_EVT_HTSC_READ_CHAR_RESPONSE\000"
+ 2812      455F4556 
+ 2812      545F4854 
+ 2812      53435F52 
+ 2812      4541445F 
+ 2813              	.LASF316:
+ 2814 2483 4359424C 		.ascii	"CYBLE_EVT_PASSC_WRITE_DESCR_RESPONSE\000"
+ 2814      455F4556 
+ 2814      545F5041 
+ 2814      5353435F 
+ 2814      57524954 
+ 2815              	.LASF2:
+ 2816 24a8 73686F72 		.ascii	"short int\000"
+ 2816      7420696E 
+ 2816      7400
+ 2817              	.LASF141:
+ 2818 24b2 68616E64 		.ascii	"handleValPair\000"
+ 2818      6C655661 
+ 2818      6C506169 
+ 2818      7200
+ 2819              	.LASF146:
+ 2820 24c0 61747446 		.ascii	"attFormatValue\000"
+ 2820      6F726D61 
+ 2820      7456616C 
+ 2820      756500
+ 2821              	.LASF122:
+ 2822 24cf 4359424C 		.ascii	"CYBLE_GATT_ERR_CPS_INAPPROPRIATE_CONNECTION_PARAMET"
+ 2822      455F4741 
+ 2822      54545F45 
+ 2822      52525F43 
+ 2822      50535F49 
+ 2823 2502 45525300 		.ascii	"ERS\000"
+ 2824              	.LASF209:
+ 2825 2506 4359424C 		.ascii	"CYBLE_EVT_CGMSC_NOTIFICATION\000"
+ 2825      455F4556 
+ 2825      545F4347 
+ 2825      4D53435F 
+ 2825      4E4F5449 
+ 2826              	.LASF108:
+ 2827 2523 4359424C 		.ascii	"CYBLE_GATT_ERR_REQUEST_NOT_SUPPORTED\000"
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 75
+
+
+ 2827      455F4741 
+ 2827      54545F45 
+ 2827      52525F52 
+ 2827      45515545 
+ 2828              	.LASF35:
+ 2829 2548 4359424C 		.ascii	"CYBLE_EVT_GATTC_ERROR_RSP\000"
+ 2829      455F4556 
+ 2829      545F4741 
+ 2829      5454435F 
+ 2829      4552524F 
+ 2830              	.LASF361:
+ 2831 2562 4359424C 		.ascii	"CYBLE_STATE_T\000"
+ 2831      455F5354 
+ 2831      4154455F 
+ 2831      5400
+ 2832              	.LASF188:
+ 2833 2570 4359424C 		.ascii	"CYBLE_EVT_BASC_NOTIFICATION\000"
+ 2833      455F4556 
+ 2833      545F4241 
+ 2833      53435F4E 
+ 2833      4F544946 
+ 2834              	.LASF191:
+ 2835 258c 4359424C 		.ascii	"CYBLE_EVT_BASC_WRITE_DESCR_RESPONSE\000"
+ 2835      455F4556 
+ 2835      545F4241 
+ 2835      53435F57 
+ 2835      52495445 
+ 2836              	.LASF248:
+ 2837 25b0 4359424C 		.ascii	"CYBLE_EVT_GLSS_INDICATION_ENABLED\000"
+ 2837      455F4556 
+ 2837      545F474C 
+ 2837      53535F49 
+ 2837      4E444943 
+ 2838              	.LASF180:
+ 2839 25d2 4359424C 		.ascii	"CYBLE_EVT_ANSS_CHAR_WRITE\000"
+ 2839      455F4556 
+ 2839      545F414E 
+ 2839      53535F43 
+ 2839      4841525F 
+ 2840              	.LASF60:
+ 2841 25ec 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_CONN_IND\000"
+ 2841      455F4556 
+ 2841      545F4C32 
+ 2841      4341505F 
+ 2841      43424643 
+ 2842              	.LASF51:
+ 2843 260a 4359424C 		.ascii	"CYBLE_EVT_GATTS_EXEC_WRITE_REQ\000"
+ 2843      455F4556 
+ 2843      545F4741 
+ 2843      5454535F 
+ 2843      45584543 
+ 2844              	.LASF22:
+ 2845 2629 4359424C 		.ascii	"CYBLE_EVT_GAPC_SCAN_PROGRESS_RESULT\000"
+ 2845      455F4556 
+ 2845      545F4741 
+ 2845      50435F53 
+ 2845      43414E5F 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 76
+
+
+ 2846              	.LASF343:
+ 2847 264d 4359424C 		.ascii	"CYBLE_EVT_UDSS_INDICATION_ENABLED\000"
+ 2847      455F4556 
+ 2847      545F5544 
+ 2847      53535F49 
+ 2847      4E444943 
+ 2848              	.LASF79:
+ 2849 266f 4359424C 		.ascii	"CYBLE_ERROR_GAP_ROLE\000"
+ 2849      455F4552 
+ 2849      524F525F 
+ 2849      4741505F 
+ 2849      524F4C45 
+ 2850              	.LASF282:
+ 2851 2684 4359424C 		.ascii	"CYBLE_EVT_HTSS_INDICATION_ENABLED\000"
+ 2851      455F4556 
+ 2851      545F4854 
+ 2851      53535F49 
+ 2851      4E444943 
+ 2852              	.LASF353:
+ 2853 26a6 4359424C 		.ascii	"CYBLE_EVT_UDSC_READ_DESCR_RESPONSE\000"
+ 2853      455F4556 
+ 2853      545F5544 
+ 2853      53435F52 
+ 2853      4541445F 
+ 2854              	.LASF189:
+ 2855 26c9 4359424C 		.ascii	"CYBLE_EVT_BASC_READ_CHAR_RESPONSE\000"
+ 2855      455F4556 
+ 2855      545F4241 
+ 2855      53435F52 
+ 2855      4541445F 
+ 2856              	.LASF255:
+ 2857 26eb 4359424C 		.ascii	"CYBLE_EVT_GLSC_NOTIFICATION\000"
+ 2857      455F4556 
+ 2857      545F474C 
+ 2857      53435F4E 
+ 2857      4F544946 
+ 2858              	.LASF126:
+ 2859 2707 4359424C 		.ascii	"CYBLE_GATT_ERR_ANS_COMMAND_NOT_SUPPORTED\000"
+ 2859      455F4741 
+ 2859      54545F45 
+ 2859      52525F41 
+ 2859      4E535F43 
+ 2860              	.LASF333:
+ 2861 2730 4359424C 		.ascii	"CYBLE_EVT_SCPSS_SCAN_INT_WIN_CHAR_WRITE\000"
+ 2861      455F4556 
+ 2861      545F5343 
+ 2861      5053535F 
+ 2861      5343414E 
+ 2862              	.LASF368:
+ 2863 2758 6379426C 		.ascii	"cyBle_eventHandlerFlag\000"
+ 2863      655F6576 
+ 2863      656E7448 
+ 2863      616E646C 
+ 2863      6572466C 
+ 2864              	.LASF165:
+ 2865 276f 4359424C 		.ascii	"CYBLE_EVT_GATTS_INDICATION_DISABLED\000"
+ 2865      455F4556 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 77
+
+
+ 2865      545F4741 
+ 2865      5454535F 
+ 2865      494E4449 
+ 2866              	.LASF76:
+ 2867 2793 4359424C 		.ascii	"CYBLE_ERROR_NO_CONNECTION\000"
+ 2867      455F4552 
+ 2867      524F525F 
+ 2867      4E4F5F43 
+ 2867      4F4E4E45 
+ 2868              	.LASF101:
+ 2869 27ad 4359424C 		.ascii	"CYBLE_API_RESULT_T\000"
+ 2869      455F4150 
+ 2869      495F5245 
+ 2869      53554C54 
+ 2869      5F5400
+ 2870              	.LASF203:
+ 2871 27c0 4359424C 		.ascii	"CYBLE_EVT_CGMSS_INDICATION_DISABLED\000"
+ 2871      455F4556 
+ 2871      545F4347 
+ 2871      4D53535F 
+ 2871      494E4449 
+ 2872              	.LASF371:
+ 2873 27e4 6379426C 		.ascii	"cyBle_attValuesCCCD\000"
+ 2873      655F6174 
+ 2873      7456616C 
+ 2873      75657343 
+ 2873      43434400 
+ 2874              	.LASF177:
+ 2875 27f8 4359424C 		.ascii	"CYBLE_EVT_GATTC_DISCOVERY_COMPLETE\000"
+ 2875      455F4556 
+ 2875      545F4741 
+ 2875      5454435F 
+ 2875      44495343 
+ 2876              	.LASF207:
+ 2877 281b 4359424C 		.ascii	"CYBLE_EVT_CGMSS_WRITE_CHAR\000"
+ 2877      455F4556 
+ 2877      545F4347 
+ 2877      4D53535F 
+ 2877      57524954 
+ 2878              	.LASF259:
+ 2879 2836 4359424C 		.ascii	"CYBLE_EVT_GLSC_WRITE_DESCR_RESPONSE\000"
+ 2879      455F4556 
+ 2879      545F474C 
+ 2879      53435F57 
+ 2879      52495445 
+ 2880              	.LASF54:
+ 2881 285a 4359424C 		.ascii	"CYBLE_EVT_GATTC_HANDLE_VALUE_IND\000"
+ 2881      455F4556 
+ 2881      545F4741 
+ 2881      5454435F 
+ 2881      48414E44 
+ 2882              	.LASF228:
+ 2883 287b 4359424C 		.ascii	"CYBLE_EVT_CPSC_SCAN_PROGRESS_RESULT\000"
+ 2883      455F4556 
+ 2883      545F4350 
+ 2883      53435F53 
+ 2883      43414E5F 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 78
+
+
+ 2884              	.LASF327:
+ 2885 289f 4359424C 		.ascii	"CYBLE_EVT_RSCSC_READ_DESCR_RESPONSE\000"
+ 2885      455F4556 
+ 2885      545F5253 
+ 2885      4353435F 
+ 2885      52454144 
+ 2886              	.LASF82:
+ 2887 28c3 4359424C 		.ascii	"CYBLE_ERROR_SEC_FAILED\000"
+ 2887      455F4552 
+ 2887      524F525F 
+ 2887      5345435F 
+ 2887      4641494C 
+ 2888              	.LASF21:
+ 2889 28da 4359424C 		.ascii	"CYBLE_EVT_STACK_BUSY_STATUS\000"
+ 2889      455F4556 
+ 2889      545F5354 
+ 2889      41434B5F 
+ 2889      42555359 
+ 2890              	.LASF291:
+ 2891 28f6 4359424C 		.ascii	"CYBLE_EVT_HTSC_WRITE_DESCR_RESPONSE\000"
+ 2891      455F4556 
+ 2891      545F4854 
+ 2891      53435F57 
+ 2891      52495445 
+ 2892              	.LASF34:
+ 2893 291a 4359424C 		.ascii	"CYBLE_EVT_GAP_KEYINFO_EXCHNGE_CMPLT\000"
+ 2893      455F4556 
+ 2893      545F4741 
+ 2893      505F4B45 
+ 2893      59494E46 
+ 2894              	.LASF57:
+ 2895 293e 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_REQ\000"
+ 2895      455F4556 
+ 2895      545F4C32 
+ 2895      4341505F 
+ 2895      434F4E4E 
+ 2896              	.LASF206:
+ 2897 2964 4359424C 		.ascii	"CYBLE_EVT_CGMSS_NOTIFICATION_DISABLED\000"
+ 2897      455F4556 
+ 2897      545F4347 
+ 2897      4D53535F 
+ 2897      4E4F5449 
+ 2898              	.LASF365:
+ 2899 298a 67617474 		.ascii	"gattErr\000"
+ 2899      45727200 
+ 2900              	.LASF95:
+ 2901 2992 4359424C 		.ascii	"CYBLE_CHAR_DISC_DONE\000"
+ 2901      455F4348 
+ 2901      41525F44 
+ 2901      4953435F 
+ 2901      444F4E45 
+ 2902              	.LASF168:
+ 2903 29a7 4359424C 		.ascii	"CYBLE_EVT_GATTC_INCL_DISCOVERY_FAILED\000"
+ 2903      455F4556 
+ 2903      545F4741 
+ 2903      5454435F 
+ 2903      494E434C 
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 79
+
+
+ 2904              	.LASF105:
+ 2905 29cd 4359424C 		.ascii	"CYBLE_GATT_ERR_WRITE_NOT_PERMITTED\000"
+ 2905      455F4741 
+ 2905      54545F45 
+ 2905      52525F57 
+ 2905      52495445 
+ 2906              	.LASF3:
+ 2907 29f0 73686F72 		.ascii	"short unsigned int\000"
+ 2907      7420756E 
+ 2907      7369676E 
+ 2907      65642069 
+ 2907      6E7400
+ 2908              	.LASF117:
+ 2909 2a03 4359424C 		.ascii	"CYBLE_GATT_ERR_INSUFFICIENT_ENCRYPTION\000"
+ 2909      455F4741 
+ 2909      54545F45 
+ 2909      52525F49 
+ 2909      4E535546 
+ 2910              	.LASF306:
+ 2911 2a2a 4359424C 		.ascii	"CYBLE_EVT_LNSC_READ_DESCR_RESPONSE\000"
+ 2911      455F4556 
+ 2911      545F4C4E 
+ 2911      53435F52 
+ 2911      4541445F 
+ 2912              	.LASF358:
+ 2913 2a4d 4359424C 		.ascii	"CYBLE_STATE_CONNECTED\000"
+ 2913      455F5354 
+ 2913      4154455F 
+ 2913      434F4E4E 
+ 2913      45435445 
+ 2914              	.LASF135:
+ 2915 2a63 61637475 		.ascii	"actualLen\000"
+ 2915      616C4C65 
+ 2915      6E00
+ 2916              	.LASF158:
+ 2917 2a6d 63636364 		.ascii	"cccdHandle\000"
+ 2917      48616E64 
+ 2917      6C6500
+ 2918              	.LASF337:
+ 2919 2a78 4359424C 		.ascii	"CYBLE_EVT_TPSS_NOTIFICATION_ENABLED\000"
+ 2919      455F4556 
+ 2919      545F5450 
+ 2919      53535F4E 
+ 2919      4F544946 
+ 2920              	.LASF254:
+ 2921 2a9c 4359424C 		.ascii	"CYBLE_EVT_GLSC_INDICATION\000"
+ 2921      455F4556 
+ 2921      545F474C 
+ 2921      53435F49 
+ 2921      4E444943 
+ 2922              	.LASF220:
+ 2923 2ab6 4359424C 		.ascii	"CYBLE_EVT_CPSS_BROADCAST_DISABLED\000"
+ 2923      455F4556 
+ 2923      545F4350 
+ 2923      53535F42 
+ 2923      524F4144 
+ 2924              	.LASF133:
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 80
+
+
+ 2925 2ad8 61747449 		.ascii	"attId\000"
+ 2925      6400
+ 2926              	.LASF72:
+ 2927 2ade 4359424C 		.ascii	"CYBLE_ERROR_INVALID_OPERATION\000"
+ 2927      455F4552 
+ 2927      524F525F 
+ 2927      494E5641 
+ 2927      4C49445F 
+ 2928              	.LASF20:
+ 2929 2afc 4359424C 		.ascii	"CYBLE_EVT_HCI_STATUS\000"
+ 2929      455F4556 
+ 2929      545F4843 
+ 2929      495F5354 
+ 2929      41545553 
+ 2930              	.LASF37:
+ 2931 2b11 4359424C 		.ascii	"CYBLE_EVT_GATT_DISCONNECT_IND\000"
+ 2931      455F4556 
+ 2931      545F4741 
+ 2931      54545F44 
+ 2931      4953434F 
+ 2932              	.LASF163:
+ 2933 2b2f 4359424C 		.ascii	"CYBLE_KEY_EXCHANGE_INFO_REQUEST_REPLY\000"
+ 2933      455F4B45 
+ 2933      595F4558 
+ 2933      4348414E 
+ 2933      47455F49 
+ 2934              	.LASF67:
+ 2935 2b55 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DATA_WRITE_IND\000"
+ 2935      455F4556 
+ 2935      545F4C32 
+ 2935      4341505F 
+ 2935      43424643 
+ 2936              	.LASF161:
+ 2937 2b79 4359424C 		.ascii	"CYBLE_PASSKEY_ENTRY_REQUEST_REPLY\000"
+ 2937      455F5041 
+ 2937      53534B45 
+ 2937      595F454E 
+ 2937      5452595F 
+ 2938              	.LASF181:
+ 2939 2b9b 4359424C 		.ascii	"CYBLE_EVT_ANSC_NOTIFICATION\000"
+ 2939      455F4556 
+ 2939      545F414E 
+ 2939      53435F4E 
+ 2939      4F544946 
+ 2940              	.LASF30:
+ 2941 2bb7 4359424C 		.ascii	"CYBLE_EVT_GAP_DEVICE_DISCONNECTED\000"
+ 2941      455F4556 
+ 2941      545F4741 
+ 2941      505F4445 
+ 2941      56494345 
+ 2942              	.LASF262:
+ 2943 2bd9 4359424C 		.ascii	"CYBLE_EVT_HIDSS_BOOT_MODE_ENTER\000"
+ 2943      455F4556 
+ 2943      545F4849 
+ 2943      4453535F 
+ 2943      424F4F54 
+ 2944              	.LASF55:
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 81
+
+
+ 2945 2bf9 4359424C 		.ascii	"CYBLE_EVT_GATTS_HANDLE_VALUE_CNF\000"
+ 2945      455F4556 
+ 2945      545F4741 
+ 2945      5454535F 
+ 2945      48414E44 
+ 2946              	.LASF239:
+ 2947 2c1a 4359424C 		.ascii	"CYBLE_EVT_CSCSC_READ_DESCR_RESPONSE\000"
+ 2947      455F4556 
+ 2947      545F4353 
+ 2947      4353435F 
+ 2947      52454144 
+ 2948              	.LASF10:
+ 2949 2c3e 75696E74 		.ascii	"uint16\000"
+ 2949      313600
+ 2950              	.LASF80:
+ 2951 2c45 4359424C 		.ascii	"CYBLE_ERROR_TX_POWER_READ\000"
+ 2951      455F4552 
+ 2951      524F525F 
+ 2951      54585F50 
+ 2951      4F574552 
+ 2952              	.LASF317:
+ 2953 2c5f 4359424C 		.ascii	"CYBLE_EVT_RSCSS_NOTIFICATION_ENABLED\000"
+ 2953      455F4556 
+ 2953      545F5253 
+ 2953      4353535F 
+ 2953      4E4F5449 
+ 2954              	.LASF179:
+ 2955 2c84 4359424C 		.ascii	"CYBLE_EVT_ANSS_NOTIFICATION_DISABLED\000"
+ 2955      455F4556 
+ 2955      545F414E 
+ 2955      53535F4E 
+ 2955      4F544946 
+ 2956              	.LASF287:
+ 2957 2ca9 4359424C 		.ascii	"CYBLE_EVT_HTSC_INDICATION\000"
+ 2957      455F4556 
+ 2957      545F4854 
+ 2957      53435F49 
+ 2957      4E444943 
+ 2958              	.LASF260:
+ 2959 2cc3 4359424C 		.ascii	"CYBLE_EVT_HIDSS_NOTIFICATION_ENABLED\000"
+ 2959      455F4556 
+ 2959      545F4849 
+ 2959      4453535F 
+ 2959      4E4F5449 
+ 2960              	.LASF284:
+ 2961 2ce8 4359424C 		.ascii	"CYBLE_EVT_HTSS_INDICATION_CONFIRMED\000"
+ 2961      455F4556 
+ 2961      545F4854 
+ 2961      53535F49 
+ 2961      4E444943 
+ 2962              	.LASF274:
+ 2963 2d0c 4359424C 		.ascii	"CYBLE_EVT_HRSS_NOTIFICATION_DISABLED\000"
+ 2963      455F4556 
+ 2963      545F4852 
+ 2963      53535F4E 
+ 2963      4F544946 
+ 2964              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br
+ARM GAS  C:\Users\JFDuval\AppData\Local\Temp\ccqZFCVd.s 			page 82
+
+
