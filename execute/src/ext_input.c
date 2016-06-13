@@ -83,7 +83,7 @@ int32 refresh_enc_control(void)
 	encoder.count_last = encoder.count;
 	
 	#if(ENC_CONTROL == ENC_QUADRATURE)
-		encoder.count = QuadDec_1_GetCounter();
+		encoder.count = CTRL_ENC_FCT(QuadDec_1_GetCounter());
 	#elif(ENC_CONTROL == ENC_ANALOG)
 		encoder.count = get_analog_pos();	
 	#elif(ENC_CONTROL == ENC_AS5047)
@@ -108,7 +108,7 @@ int32 refresh_enc_display(void)
 	int32 tmp_enc = 0;
 	
 	#if(ENC_DISPLAY == ENC_QUADRATURE)
-		tmp_enc = QuadDec_1_GetCounter();
+		tmp_enc = CTRL_ENC_FCT(QuadDec_1_GetCounter());
 	#elif(ENC_DISPLAY == ENC_ANALOG)
 		tmp_enc = get_analog_pos();
 	#elif(ENC_DISPLAY == ENC_AS5047)
@@ -125,6 +125,7 @@ void qei_write(int32 enc)
 	#ifdef USE_QEI
 	//encoder.count = enc;
 	QuadDec_1_SetCounter(enc);
+	//Note: the read uses CTRL_ENC_FCT(), be careful about what you write!
 	#endif
 }
 

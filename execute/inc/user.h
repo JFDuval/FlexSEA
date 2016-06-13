@@ -66,7 +66,7 @@ void user_fsm(void);
 //Step 1) Select active project (from list):
 //==========================================
 
-#define ACTIVE_PROJECT			PROJECT_BAREBONE
+#define ACTIVE_PROJECT			PROJECT_DSDM
 #define ACTIVE_SUBPROJECT		SUBPROJECT_A
 
 //Step 2) Customize the enabled/disabled sub-modules:
@@ -91,7 +91,7 @@ void user_fsm(void);
 	#define PWM_SIGN		1
 	
 	//Runtime finite state machine (FSM):
-	#define RUNTIME_FSM		ENABLED
+	#define RUNTIME_FSM		DISABLED
 	
 	//Encoders:
 	#define ENC_CONTROL		ENC_QUADRATURE
