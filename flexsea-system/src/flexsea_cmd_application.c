@@ -1,6 +1,6 @@
 //****************************************************************************
 // MIT Media Lab - Biomechatronics
-// Jean-François (Jeff) Duval
+// Jean-Franï¿½ois (Jeff) Duval
 // jfduval@media.mit.edu
 // 04/2016
 //****************************************************************************
@@ -886,7 +886,7 @@ uint32_t tx_cmd_ctrl_special_4(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 		buf[P_DATA1 + 8] = tmp0;
 		buf[P_DATA1 + 9] = tmp1;
 
-		uint32_to_bytes((uint32_t)exec_s_ptr->encoder, &tmp0, &tmp1, &tmp2, &tmp3);
+		uint32_to_bytes((uint32_t)exec_s_ptr->enc_control, &tmp0, &tmp1, &tmp2, &tmp3);
 		buf[P_DATA1 + 10] = tmp0;
 		buf[P_DATA1 + 11] = tmp1;
 		buf[P_DATA1 + 12] = tmp2;
@@ -917,7 +917,7 @@ uint32_t tx_cmd_ctrl_special_4(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 		buf[P_DATA1 + 24] = tmp0;
 		buf[P_DATA1 + 25] = tmp1;
 
-		uint32_to_bytes((uint32_t)exec_s_ptr->encoder, &tmp0, &tmp1, &tmp2, &tmp3);
+		uint32_to_bytes((uint32_t)exec_s_ptr->enc_control, &tmp0, &tmp1, &tmp2, &tmp3);
 		buf[P_DATA1 + 26] = tmp0;
 		buf[P_DATA1 + 27] = tmp1;
 		buf[P_DATA1 + 28] = tmp2;

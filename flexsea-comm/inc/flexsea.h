@@ -88,8 +88,12 @@ extern uint32_t packet_received_1, packet_received_2;
 //****************************************************************************
 
 //Min and Max
-#define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
-#define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
+#ifndef MIN
+	#define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
+#endif
+#ifndef MAX
+	#define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
+#endif
 
 //Reassembles a uint32 from 4 bytes. b0 is the MSB.
 #define BYTES_TO_UINT32(b0,b1,b2,b3)	(((uint32_t)b0 << 24) + \

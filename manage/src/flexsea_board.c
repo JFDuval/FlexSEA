@@ -200,7 +200,7 @@ void flexsea_update_slave_read_buffer(unsigned char read_offset)
 	slave_read_buffer[11] = b0;
 	slave_read_buffer[12] = b1;
 
-	uint32_to_bytes((uint32_t)exec1.encoder, &b0, &b1, &b2, &b3);
+	uint32_to_bytes((uint32_t)exec1.enc_control, &b0, &b1, &b2, &b3);
 	slave_read_buffer[13] = b0;
 	slave_read_buffer[14] = b1;
 	slave_read_buffer[15] = b2;

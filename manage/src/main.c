@@ -30,16 +30,7 @@ uint8_t autosampling = 0;
 int main(void)
 {
 	//Variables:
-	unsigned char toggle_led0 = 0, toggle_led1 = 0;
-	unsigned char test_payload[PAYLOAD_BUF_LEN];
-	int tx_byte = 0, commstrlen = 0;
-	uint8_t new_cmd_led = 0;
-	uint8_t slave_comm_trig = 0;
-	uint8_t xmit_toggle = 0;
-	int delay = 0;
-	uint32_t usb_bytes = 0;
-	uint8_t test_rx[48];
-	uint32_t len = 1;
+	unsigned char toggle_led0 = 0;
 
 	//Initialize all the peripherals
 	init_peripherals();
@@ -57,6 +48,8 @@ int main(void)
 	//rgb_led_test_code_blocking();
 	//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
+	init_user();
+
 	//Infinite loop
 	while(1)
 	{
@@ -72,8 +65,8 @@ int main(void)
 		//Did we receive new commands? Can we parse them?
 		parse_master_slave_commands(&new_cmd_led);
 
-		//Time bases: (rework in progress)
-		//===============================
+		//Time bases:
+		//===========
 
 		if(tb_100us_flag == 1)
 		{
@@ -81,95 +74,43 @@ int main(void)
 
 			switch(tb_100us_timeshare)
 			{
-				//Case 0:
 				case 0:
-					slave_comm_trig = 1;
-
-					//test_comm_rw_master_v2(systick_100us_timeshare);
-
+					main_fsm_case_0();
 					break;
-
-					//Case 1:
 				case 1:
+					main_fsm_case_1();
 					break;
-
-					//Case 2:
 				case 2:
-
-					//Test code 03/22/2016:
-
-					/*
-					 xmit_toggle ^= 1;	//500Hz
-					 if(xmit_toggle)
-					 {
-					 tx_byte = tx_cmd_ctrl_special_1(FLEXSEA_EXECUTE_1, CMD_READ, test_payload, PAYLOAD_BUF_LEN, 0, 0, 0, 0, 0, 0);
-					 commstrlen = comm_gen_str(test_payload, comm_str_485_1, tx_byte);
-					 commstrlen = COMM_STR_BUF_LEN;
-					 flexsea_send_serial_slave(PORT_RS485_1, comm_str_485_1, commstrlen);
-
-					 slaves_485_1.xmit.listen = 1;
-					 }
-					 */
-					//test_comm_rw_master_v1();
+					main_fsm_case_2();
 					break;
-
-					//Case 3:
 				case 3:
-
+					main_fsm_case_3();
 					break;
-
-					//Case 4:
 				case 4:
-
+					main_fsm_case_4();
 					break;
-
-					//Case 5:
 				case 5:
-					slave_comm_trig = 2;
+					main_fsm_case_5();
 					break;
-
-					//Case 6:
 				case 6:
-
+					main_fsm_case_6();
 					break;
-
-					//Case 7:
 				case 7:
-
+					main_fsm_case_7();
 					break;
-
-					//Case 8:
 				case 8:
-
+					main_fsm_case_8();
 					break;
-
-					//Case 9: User Interface
 				case 9:
-
-					//UI RGB LED
-					rgb_led_ui(0, 0, 0, new_cmd_led);    //ToDo add error codes
-					if(new_cmd_led)
-					{
-						new_cmd_led = 0;
-					}
-
-					//test_comm_rw_master_v2(systick_100us_timeshare);
-
+					main_fsm_case_9();
 					break;
-
 				default:
 					break;
 			}
 
 			//The code below is executed every 100us, after the previous slot.
 			//Keep it short!
-
-			//BEGIN - 10kHz Refresh
-
-			//Master-Slave communications
-			slave_comm(&slave_comm_trig);
-
-			//END - 10kHz Refresh
+			main_fsm_10kHz();
 		}
 
 		//1ms
@@ -202,10 +143,6 @@ int main(void)
 		{
 			tb_1000ms_flag = 0;
 
-			#ifdef USE_USB
-			//Test code ToDo remove
-			//usbtx();
-			#endif	//USE_USB
 		}
 	}
 }
