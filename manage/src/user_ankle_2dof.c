@@ -111,11 +111,11 @@ void ankle_2dof_fsm_2(void)
 		case 3:	//Communicating with Execute #2
 
 			tx_byte = tx_cmd_data_read_all(FLEXSEA_EXECUTE_2, CMD_READ, test_payload, PAYLOAD_BUF_LEN);
-			 commstrlen = comm_gen_str(test_payload, comm_str_485_1, tx_byte);
+			 commstrlen = comm_gen_str(test_payload, comm_str_485_2, tx_byte);
 			 commstrlen = COMM_STR_BUF_LEN;
-			 flexsea_send_serial_slave(PORT_RS485_1, comm_str_485_1, commstrlen);
+			 flexsea_send_serial_slave(PORT_RS485_2, comm_str_485_2, commstrlen);
 
-			 slaves_485_1.xmit.listen = 1;
+			 slaves_485_2.xmit.listen = 1;
 			ex_refresh_fsm_state++;
 			break;
 		case 4:
