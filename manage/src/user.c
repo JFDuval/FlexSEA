@@ -46,7 +46,7 @@ void init_user(void)
 }
 
 //Call this function in one of the main while time slots.
-void user_fsm(void)
+void user_fsm_1(void)
 {
 	
 	//RIC/NU Knee code
@@ -56,13 +56,23 @@ void user_fsm(void)
 
 	//MIT Ankle 2-DoF:
 	#if(ACTIVE_PROJECT == PROJECT_ANKLE_2DOF)
-	ankle_2dof_fsm();
+	ankle_2dof_fsm_1();
 	#endif	//PROJECT_ANKLE_2DOF
 	
 	//MIT d'Arbeloff Dual-Speed Dual-Motor:
 	#if(ACTIVE_PROJECT == PROJECT_DSDM)				                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
 	dsdm_fsm();						
 	#endif	//PROJECT_DSDM	
+}
+
+//Optional second FSM
+//Call this function in one of the main while time slots.
+void user_fsm_2(void)
+{
+	//MIT Ankle 2-DoF:
+	#if(ACTIVE_PROJECT == PROJECT_ANKLE_2DOF)
+	ankle_2dof_fsm_2();
+	#endif	//PROJECT_ANKLE_2DOF
 }
 
 //****************************************************************************

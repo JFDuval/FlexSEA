@@ -36,6 +36,36 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);    
 
+    /*
+    //Test code: TODO REMOVE
+    uint8_t test_buf1[10] = {1,2,3,4,HEADER,5,6,7,8,9};
+    uint8_t test_buf2[10] = {0,0,0,0,0,0,0,0,0,0};
+    qDebug() << "test_buf1:";
+    for(int i = 0; i < 10; i++)
+    {
+        qDebug() << test_buf1[i];
+    }
+
+    qDebug() << "test_buf2:";
+    for(int i = 0; i < 10; i++)
+    {
+        qDebug() << test_buf2[i];
+    }
+
+    unwrap_buffer(test_buf1, test_buf2, 10);
+    qDebug() << "test_buf1:";
+    for(int i = 0; i < 10; i++)
+    {
+        qDebug() << test_buf1[i];
+    }
+
+    qDebug() << "test_buf2:";
+    for(int i = 0; i < 10; i++)
+    {
+        qDebug() << test_buf2[i];
+    }
+    */
+
     //System:
     //=================
 

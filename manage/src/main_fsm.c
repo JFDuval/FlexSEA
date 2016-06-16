@@ -52,7 +52,6 @@ void main_fsm_case_2(void)
 	//Test code 03/22/2016:
 
 	/*
-
 	static uint8_t xmit_toggle = 0;
 	int tx_byte = 0, commstrlen = 0;
 	unsigned char test_payload[PAYLOAD_BUF_LEN];
@@ -77,10 +76,12 @@ void main_fsm_case_3(void)
 
 }
 
-//Case 4:
+//Case 4: User Functions
 void main_fsm_case_4(void)
 {
-
+	#if(RUNTIME_FSM1 == ENABLED)
+	user_fsm_1();
+	#endif //RUNTIME_FSM1 == ENABLED
 }
 
 //Case 5:
@@ -103,9 +104,9 @@ void main_fsm_case_7(void)
 //Case 8: User functions
 void main_fsm_case_8(void)
 {
-	#if(RUNTIME_FSM == ENABLED)
-	user_fsm();
-	#endif //RUNTIME_FSM == ENABLED
+	#if(RUNTIME_FSM2 == ENABLED)
+	user_fsm_2();
+	#endif //RUNTIME_FSM2 == ENABLED
 }
 
 //Case 9: User Interface

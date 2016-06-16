@@ -26,9 +26,10 @@ void MainWindow::init_tab_stream_ankle_2dof(void)
 void MainWindow::stream_ankle_2dof(void)
 {
     int numb = 0;
-    static uint8_t sel_slave = FLEXSEA_EXECUTE_1;
+    static uint8_t sel_slave = 0;
+    //sel_slave = active_slave_1;
 
-    numb = tx_cmd_data_read_all(sel_slave, CMD_READ, payload_str, PAYLOAD_BUF_LEN);	//ToDo change
+    numb = tx_cmd_ctrl_special_5(active_slave_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, sel_slave);	//ToDo change
     numb = comm_gen_str(payload_str, comm_str_usb, PAYLOAD_BUF_LEN);
     numb = COMM_STR_BUF_LEN;
 
@@ -39,16 +40,15 @@ void MainWindow::stream_ankle_2dof(void)
     decode_usb_rx(usb_rx);
 
     //Refresh display & change slave for next cycle
-    if(sel_slave == FLEXSEA_EXECUTE_1)
+    if(sel_slave == 0)
     {
         disp_execute(&exec1, 0);
-        sel_slave = FLEXSEA_EXECUTE_2;
+        sel_slave = 1;
     }
     else
     {
         disp_execute(&exec2, 1);
-        sel_slave = FLEXSEA_EXECUTE_1;
+        sel_slave = 0;
     }
-
 }
 

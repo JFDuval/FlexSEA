@@ -1080,6 +1080,249 @@ void rx_cmd_special_4(uint8_t *buf)
 	}
 }
 
+//=============
+
+//Transmission of a CTRL_SPECIAL_5 command: Plan <> Manage, Ankle 2DOF
+//Read only for now - can't change variables
+uint32_t tx_cmd_ctrl_special_5(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
+								uint8_t slave)
+{
+	uint8_t tmp0 = 0, tmp1 = 0, tmp2 = 0, tmp3 = 0;
+	uint32_t bytes = 0;
+
+	#if(defined BOARD_TYPE_FLEXSEA_MANAGE)
+
+	//Structure pointer. Points to exec1 by default.
+	struct execute_s *exec_s_ptr = &exec1;
+
+	#endif	//(defined BOARD_TYPE_FLEXSEA_MANAGE)
+
+	//Fresh payload string:
+	prepare_empty_payload(board_id, receiver, buf, len);
+
+	//Command:
+	buf[P_CMDS] = 1;                     //1 command in string
+
+	if(cmd_type == CMD_READ)
+	{
+		buf[P_CMD1] = CMD_R(CMD_SPC5);
+
+		//Arguments:
+		buf[P_DATA1] = slave;
+
+		bytes = P_DATA1 + 1;     //Bytes is always last+1
+	}
+	else if(cmd_type == CMD_WRITE)
+	{
+		//In that case Write is only used for the Reply
+
+		buf[P_CMD1] = CMD_W(CMD_SPC5);
+
+		#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+
+		//Assign data structure based on slave:
+		if(slave == 0)
+		{
+			exec_s_ptr = &exec1;
+		}
+		else
+		{
+			exec_s_ptr = &exec2;
+		}
+
+		//Arguments
+		uint16_to_bytes((uint16_t)exec_s_ptr->gyro.x, &tmp0, &tmp1);
+		buf[P_DATA1] = tmp0;
+		buf[P_DATA1 + 1] = tmp1;
+		uint16_to_bytes((uint16_t)exec_s_ptr->gyro.y, &tmp0, &tmp1);
+		buf[P_DATA1 + 2] = tmp0;
+		buf[P_DATA1 + 3] = tmp1;
+		uint16_to_bytes((uint16_t)exec_s_ptr->gyro.z, &tmp0, &tmp1);
+		buf[P_DATA1 + 4] = tmp0;
+		buf[P_DATA1 + 5] = tmp1;
+
+		uint16_to_bytes((uint16_t)exec_s_ptr->accel.x, &tmp0, &tmp1);
+		buf[P_DATA1 + 6] = tmp0;
+		buf[P_DATA1 + 7] = tmp1;
+		uint16_to_bytes((uint16_t)exec_s_ptr->accel.y, &tmp0, &tmp1);
+		buf[P_DATA1 + 8] = tmp0;
+		buf[P_DATA1 + 9] = tmp1;
+		uint16_to_bytes((uint16_t)exec_s_ptr->accel.z, &tmp0, &tmp1);
+		buf[P_DATA1 + 10] = tmp0;
+		buf[P_DATA1 + 11] = tmp1;
+
+		uint16_to_bytes(exec_s_ptr->strain, &tmp0, &tmp1);
+		buf[P_DATA1 + 12] = tmp0;
+		buf[P_DATA1 + 13] = tmp1;
+
+		uint16_to_bytes(exec_s_ptr->analog[0], &tmp0, &tmp1);
+		buf[P_DATA1 + 14] = tmp0;
+		buf[P_DATA1 + 15] = tmp1;
+
+		uint16_to_bytes(exec_s_ptr->analog[1], &tmp0, &tmp1);
+		buf[P_DATA1 + 16] = tmp0;
+		buf[P_DATA1 + 17] = tmp1;
+
+		uint32_to_bytes((uint32_t)exec_s_ptr->enc_display, &tmp0, &tmp1, &tmp2, &tmp3);
+		buf[P_DATA1 + 18] = tmp0;
+		buf[P_DATA1 + 19] = tmp1;
+		buf[P_DATA1 + 20] = tmp2;
+		buf[P_DATA1 + 21] = tmp3;
+
+		uint16_to_bytes((uint16_t)exec_s_ptr->current, &tmp0, &tmp1);
+		buf[P_DATA1 + 22] = tmp0;
+		buf[P_DATA1 + 23] = tmp1;
+
+		buf[P_DATA1 + 24] = exec_s_ptr->volt_batt;
+		buf[P_DATA1 + 25] = exec_s_ptr->volt_int;
+		buf[P_DATA1 + 26] = exec_s_ptr->temp;
+		buf[P_DATA1 + 27] = exec_s_ptr->status1;
+		buf[P_DATA1 + 28] = exec_s_ptr->status2;
+
+		bytes = P_DATA1 + 29;     //Bytes is always last+1
+
+		#else
+
+		bytes = 0;
+
+		#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+	}
+	else
+	{
+		//Invalid
+		flexsea_error(SE_INVALID_READ_TYPE);
+		bytes = 0;
+	}
+
+	return bytes;
+}
+
+//Reception of a CMD_SPECIAL_5 command
+void rx_cmd_special_5(uint8_t *buf)
+{
+	uint32_t numb = 0;
+	uint8_t slave = 0;
+
+	#if((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
+
+	//Structure pointer.
+    struct execute_s *exec_s_ptr = &exec1;
+	//struct spc5_s *spc5_s_ptr;
+
+	#endif	//((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
+
+	if(IS_CMD_RW(buf[P_CMD1]) == READ)
+	{
+		//Received a Read command from our master.
+
+		#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+		//No code (yet), you shouldn't be here...
+		flexsea_error(SE_CMD_NOT_PROGRAMMED);
+		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+		#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+
+		//Decode its data:
+		//===============
+		slave = buf[P_DATA1];
+		//...
+
+		//Generate the reply:
+		//===================
+
+		numb = tx_cmd_ctrl_special_5(buf[P_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, \
+									slave);
+		numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
+		numb = COMM_STR_BUF_LEN;	//Fixed length for now to accomodate the DMA
+		flexsea_send_serial_master(PORT_USB, comm_str_spi, numb);	//Same comment here - ToDo fix
+		//(the SPI driver will grab comm_str_spi directly)
+
+		#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+		#ifdef BOARD_TYPE_FLEXSEA_PLAN
+		//No code (yet), you shouldn't be here...
+		flexsea_error(SE_CMD_NOT_PROGRAMMED);
+		#endif	//BOARD_TYPE_FLEXSEA_PLAN
+	}
+	else if(IS_CMD_RW(buf[P_CMD1]) == WRITE)
+	{
+		//Two options: from Master of from slave (a read reply)
+
+		if(sent_from_a_slave(buf))
+		{
+			//We received a reply to our read request
+
+			#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+			//No code (yet), you shouldn't be here...
+			flexsea_error(SE_CMD_NOT_PROGRAMMED);
+			#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+			#if(defined BOARD_TYPE_FLEXSEA_PLAN)
+
+            //Decode its data:
+            //===============
+            slave = buf[P_DATA1];
+
+			//Assign data structure based on slave:
+			if(slave == 0)
+			{
+				exec_s_ptr = &exec1;
+			}
+			else
+			{
+				exec_s_ptr = &exec2;
+			}
+
+			//Store values:
+
+			exec_s_ptr->gyro.x = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+0], buf[P_DATA1+1]));
+			exec_s_ptr->gyro.y = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+2], buf[P_DATA1+3]));
+			exec_s_ptr->gyro.z = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+4], buf[P_DATA1+5]));
+
+			exec_s_ptr->accel.x = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+6], buf[P_DATA1+7]));
+			exec_s_ptr->accel.y = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+8], buf[P_DATA1+9]));
+			exec_s_ptr->accel.z = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+10], buf[P_DATA1+11]));
+
+			exec_s_ptr->strain = (BYTES_TO_UINT16(buf[P_DATA1+12], buf[P_DATA1+13]));
+			exec_s_ptr->analog[0] = (BYTES_TO_UINT16(buf[P_DATA1+14], buf[P_DATA1+15]));
+			exec_s_ptr->analog[1] = (BYTES_TO_UINT16(buf[P_DATA1+16], buf[P_DATA1+17]));
+
+			exec_s_ptr->enc_display = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1+18], buf[P_DATA1+19], \
+										buf[P_DATA1+20], buf[P_DATA1+21]));
+
+			exec_s_ptr->current = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+22], buf[P_DATA1+23]));
+
+			exec_s_ptr->volt_batt = buf[P_DATA1+24];
+			exec_s_ptr->volt_int = buf[P_DATA1+25];
+			exec_s_ptr->temp = buf[P_DATA1+26];
+			exec_s_ptr->status1 = buf[P_DATA1+27];
+			exec_s_ptr->status2 = buf[P_DATA1+28];
+
+			#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+		}
+		else
+		{
+			//Master is writing a value to this board
+
+			#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
+
+			//ToDo call relevant functions ****
+
+			#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+
+			#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+			//No code (yet), you shouldn't be here...
+			flexsea_error(SE_CMD_NOT_PROGRAMMED);
+			#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+
+			#ifdef BOARD_TYPE_FLEXSEA_PLAN
+			//No code (yet), you shouldn't be here...
+			flexsea_error(SE_CMD_NOT_PROGRAMMED);
+			#endif	//BOARD_TYPE_FLEXSEA_PLAN
+		}
+	}
+}
+
 #ifdef __cplusplus
 }
 #endif

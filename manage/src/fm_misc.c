@@ -233,15 +233,15 @@ int usbtx(void)
 		if(status == USBD_BUSY)
 		{
 			toggle_led1 ^= 1;
-			LED1(toggle_led1);
+			//LED1(toggle_led1);
 		}
 		else if(status == USBD_FAIL)
 		{
-			LED1(0);
+			//LED1(0);
 		}
 		else
 		{
-			LED1(1);
+			//LED1(1);
 		}
 
 		return status;
@@ -254,11 +254,11 @@ int usbtx(void)
 	{
 		//Byte(s) ready, get it/them
 
-		LED1(1);
+		//LED1(1);
 	}
 	else
 	{
-		LED1(0);
+		//LED1(0);
 	}
 
 	return -2;
