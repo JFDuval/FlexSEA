@@ -50,7 +50,8 @@ SOURCES += src/main.cpp \
     src/mw_tab_stream_4.cpp \
     src/trapez.c \
     src/mw_tab_stream_5.cpp \
-    src/mw_tab_stream_6.cpp
+    src/mw_tab_stream_6.cpp \
+    src/datalogger.cpp
 
 HEADERS  += inc/mainwindow.h \
     inc/qcustomplot.h \

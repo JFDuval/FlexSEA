@@ -94,6 +94,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(timer_stream, SIGNAL(timeout()), this, SLOT(timerStreamEvent()));
     timer_stream->start(TIM_FREQ_TO_P(STREAM_DEFAULT_FREQ));
 
+    //Log:
+    timer_log = new QTimer(this);
+    connect(timer_log, SIGNAL(timeout()), this, SLOT(timerLogEvent()));
+    timer_log->start(TIM_FREQ_TO_P(LOG_DEFAULT_FREQ));
 
     //Plot:
     timer_plot = new QTimer(this);

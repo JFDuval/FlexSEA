@@ -18,6 +18,13 @@
 // Variable(s)
 //****************************************************************************
 
+//MIT Ankle 2-DoF:
+#if(ACTIVE_PROJECT == PROJECT_ANKLE_2DOF)
+
+struct ankle2dof_s ankle2dof_left, ankle2dof_right;
+
+#endif	//PROJECT_ANKLE_2DOF
+
 //****************************************************************************
 // Private Function Prototype(s):
 //****************************************************************************	

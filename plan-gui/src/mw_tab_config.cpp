@@ -56,6 +56,7 @@ void MainWindow::init_tab_config(void)
     stream_fct_ptr = &MainWindow::stream_execute;
     //No streaming before COM is open:
     ui->streamON_master_button->setDisabled(1);
+    ui->streamOFF_master_button->setDisabled(1);
     //Only enable Slave A:
     disp_slave_a(true);
     disp_slave_b(false);
@@ -68,11 +69,9 @@ void MainWindow::init_tab_config(void)
 
     //Log, refresh rates:
     //======================
-    ui->logFileTxt->setText("Not programmed... do not use yet.");
     ui->streamRefreshTxt->setText(QString::number(STREAM_DEFAULT_FREQ));
     ui->streamRefreshStatusTxt->setText("Default setting.");
-    ui->logRefreshTxt->setText(QString::number(LOG_DEFAULT_FREQ));
-    ui->logRefreshStatusTxt->setText("Default setting.");
+    init_datalogger();
 
     //Stream status:
     //==============
@@ -118,6 +117,7 @@ void MainWindow::on_openComButton_clicked()
 
         //Activate Stream & Close COM buttons:
         ui->streamON_master_button->setEnabled(1);
+        ui->logON_master_button->setEnabled(1);
         ui->closeComButton->setEnabled(1);
     }
     else if(com_open == 1)
@@ -270,6 +270,7 @@ void MainWindow::on_streamON_master_button_clicked()
 {
     ui->streamON_master_button->setDisabled(1);
     ui->streamOFF_master_button->setEnabled(1);
+    ui->logON_master_button->setDisabled(1);
 
     ui->streamON_master_button->repaint();
     ui->streamOFF_master_button->repaint();
@@ -281,6 +282,8 @@ void MainWindow::on_streamOFF_master_button_clicked()
 {
     ui->streamON_master_button->setEnabled(1);
     ui->streamOFF_master_button->setDisabled(1);
+    ui->logOFF_master_button->setDisabled(1);
+    ui->logON_master_button->setEnabled(1);
 
     ui->streamON_master_button->repaint();
     ui->streamOFF_master_button->repaint();
@@ -352,17 +355,6 @@ void MainWindow::stream_status_disp(int status)
     {
         ui->label_stream_status->setStyleSheet("QLabel { background-color: black; color: black;}");
     }
-}
-
-//ToDo:
-void MainWindow::on_logON_master_button_clicked()
-{
-
-}
-
-void MainWindow::on_logOFF_master_button_clicked()
-{
-
 }
 
 void MainWindow::assign_execute_ptr(struct execute_s **ex_ptr, uint8_t slave)

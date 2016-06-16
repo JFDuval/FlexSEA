@@ -16,6 +16,7 @@
 
 #include <QMainWindow>
 #include <QSerialPort>
+#include <QTextStream>
 #include "qcustomplot.h"
 
 //****************************************************************************
@@ -95,6 +96,14 @@ private:
     QStringList var_list_slaves, var_list_stream;
 
     int stream_status, stream_sa_status, stream_ricnu_status;
+    int log_status;
+
+    //Logging:
+    QString log_filename, filename_date, filename_time;
+    int log_num;
+    QTextStream logfile_stream;
+    QFile log_file;
+
     int fake_data;
 
     int plot_buf[PLOT_BUF_LEN]; //ToDo!
@@ -258,6 +267,12 @@ private slots:
     void disp_execute(struct execute_s *ex, uint8_t slave_ab);
 
     void assign_execute_ptr(struct execute_s **ex_ptr, uint8_t slave);
+
+    void init_datalogger(void);
+
+    void timerLogEvent(void);
+
+    void log_execute(void);
 
 private:
     Ui::MainWindow *ui;
