@@ -152,7 +152,12 @@ void ankle_2dof_fsm_2(void)
 //Here's an example function:
 static void ankle_2dof_refresh_values(void)
 {
-	//...
+	//Test code:
+	static uint8_t var = 0;
+	user_data.r[0] = var++;
+	user_data.r[1] = user_data.w[1];
+	user_data.r[2] = -1999;
+	user_data.r[3] = 123456789;
 }
 //That function can be called from the FSM.
 

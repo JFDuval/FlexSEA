@@ -87,7 +87,23 @@ void MainWindow::on_pushButton_a2dof_w3_clicked()
 
 void MainWindow::on_pushButton_a2dof_refresh_clicked()
 {
+    int numb = 0;
 
+    numb = tx_cmd_data_user(active_slave_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, 0);
+    numb = comm_gen_str(payload_str, comm_str_usb, PAYLOAD_BUF_LEN);
+    numb = COMM_STR_BUF_LEN;
+
+    USBSerialPort_Write(numb, comm_str_usb);        //QSerialPort
+
+    //Can we decode what we received?
+    USBSerialPort_Read(usb_rx);
+    decode_usb_rx(usb_rx);
+
+    //Refresh display:
+    ui->a2dof_r0->setText(QString::number(user_data_1.r[0]));
+    ui->a2dof_r1->setText(QString::number(user_data_1.r[1]));
+    ui->a2dof_r2->setText(QString::number(user_data_1.r[2]));
+    ui->a2dof_r3->setText(QString::number(user_data_1.r[3]));
 }
 
 void MainWindow::a2dof_write_user_data(uint8_t sel_w)
