@@ -61,6 +61,7 @@ void update_rx_buf_array_4(uint8_t *new_array, uint32_t len);
 #endif	//ENABLE_FLEXSEA_BUF_4
 
 void test_upd(void);
+uint8_t unwrap_buffer(uint8_t *array, uint8_t *new_array, uint32_t len);
 
 //****************************************************************************
 // Definition(s):

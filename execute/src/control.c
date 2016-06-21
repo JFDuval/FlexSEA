@@ -34,40 +34,51 @@ int debug_var = 0;
 //Use this function to change the control strategy
 void control_strategy(unsigned char strat)
 {
-	//By default we place the gains to 0 before we change the strategy:
-					
-	//Position controller
-	ctrl.position.gain.P_KP = 0;
-	ctrl.position.gain.P_KI = 0;
-	ctrl.position.gain.P_KD = 0;
-	
-	//Impedance controller
-	ctrl.impedance.gain.Z_K = 0;
-	ctrl.impedance.gain.Z_B = 0;
-	ctrl.impedance.gain.Z_I = 0;
-	
-	//Current controller
-	ctrl.current.gain.I_KP = 0;
-	ctrl.current.gain.I_KI = 0;
-	ctrl.current.gain.I_KD = 0;
-	ctrl.current.setpoint_val = 0;
-	
-	//To avoid a huge startup error on the Position-based controllers:
-	if(strat == CTRL_POSITION)
+	//Are we already using this controller?
+	if(ctrl.active_ctrl == strat)
 	{
-		ctrl.position.setp = QuadDec_1_GetCounter(); //adc1_res_filtered[0];	//ToDo make this flexible
-		steps = trapez_gen_motion_1(ctrl.position.setp, ctrl.position.setp, 1, 1);
+		//Yes. Nothing to do, exit.
+		return;
 	}
-	else if(strat == CTRL_IMPEDANCE)
+	else
 	{
-		ctrl.impedance.setpoint_val = QuadDec_1_GetCounter();
-		steps = trapez_gen_motion_1(ctrl.impedance.setpoint_val, ctrl.impedance.setpoint_val, 1, 1);
+		//Different controller
+	
+		//By default we place the gains to 0 before we change the strategy:
+						
+		//Position controller
+		ctrl.position.gain.P_KP = 0;
+		ctrl.position.gain.P_KI = 0;
+		ctrl.position.gain.P_KD = 0;
+		
+		//Impedance controller
+		ctrl.impedance.gain.Z_K = 0;
+		ctrl.impedance.gain.Z_B = 0;
+		ctrl.impedance.gain.Z_I = 0;
+		
+		//Current controller
+		ctrl.current.gain.I_KP = 0;
+		ctrl.current.gain.I_KI = 0;
+		ctrl.current.gain.I_KD = 0;
+		ctrl.current.setpoint_val = 0;
+		
+		//To avoid a huge startup error on the Position-based controllers:
+		if(strat == CTRL_POSITION)
+		{
+			ctrl.position.setp = QuadDec_1_GetCounter(); //adc1_res_filtered[0];	//ToDo make this flexible
+			steps = trapez_gen_motion_1(ctrl.position.setp, ctrl.position.setp, 1, 1);
+		}
+		else if(strat == CTRL_IMPEDANCE)
+		{
+			ctrl.impedance.setpoint_val = QuadDec_1_GetCounter();
+			steps = trapez_gen_motion_1(ctrl.impedance.setpoint_val, ctrl.impedance.setpoint_val, 1, 1);
+		}
+		
+		ctrl.active_ctrl = strat;	//controller = strat;
+		in_control.controller = ctrl.active_ctrl;
+		
+		//The user should call a set gain function at this point.
 	}
-	
-	ctrl.active_ctrl = strat;	//controller = strat;
-	in_control.controller = ctrl.active_ctrl;
-	
-	//The user should call a set gain function at this point.
 }
 
 //Starts all the parameters at 0 or Default values

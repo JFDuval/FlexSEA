@@ -118,7 +118,8 @@ void isr_dma_uart_rx_Interrupt_InterruptCallback()
 	//static uint8 toggle = 0;
 	
 	//Update rx_buf with the latest DMA data:
-	update_rx_buf_array_485(uart_dma_rx_buf, 48);		//ToDo shouldn't be harcoded. Buffer name?
+	unwrap_buffer(uart_dma_rx_buf, uart_dma_rx_buf_unwrapped, 48);
+	update_rx_buf_array_485(uart_dma_rx_buf_unwrapped, 48);		//ToDo shouldn't be harcoded. Buffer name?
 	data_ready_485++;
 	
 	//toggle ^= 1;
