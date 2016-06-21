@@ -1088,7 +1088,7 @@ void rx_cmd_special_4(uint8_t *buf)
 //Transmission of a CTRL_SPECIAL_5 command: Ankle 2DOF
 //Read only for now - can't change variables
 uint32_t tx_cmd_ctrl_special_5(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
-								uint8_t slave, uint8_t controller, uint8_t ctrl_i, uint8_t ctrl_o)
+								uint8_t slave, uint8_t controller, int16_t ctrl_i, int16_t ctrl_o)
 {
 	uint8_t tmp0 = 0, tmp1 = 0, tmp2 = 0, tmp3 = 0;
 	uint32_t bytes = 0;
