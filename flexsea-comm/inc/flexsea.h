@@ -43,7 +43,7 @@ extern uint32_t packet_received_1, packet_received_2;
 //****************************************************************************
 
 //Buffers and packets:
-#define RX_BUF_LEN                  	64		//Reception buffer (flexsea_comm)
+#define RX_BUF_LEN                  	100		//Reception buffer (flexsea_comm)
 #define PAYLOAD_BUF_LEN             	36		//Number of bytes in a payload string
 #define PAYLOAD_BYTES					(PAYLOAD_BUF_LEN - 4)
 #define COMM_STR_BUF_LEN            	48		//Number of bytes in a comm. string

@@ -66,8 +66,8 @@ void user_fsm(void);
 //Step 1) Select active project (from list):
 //==========================================
 
-#define ACTIVE_PROJECT			PROJECT_DSDM
-#define ACTIVE_SUBPROJECT		SUBPROJECT_A
+#define ACTIVE_PROJECT			PROJECT_BAREBONE
+#define ACTIVE_SUBPROJECT		SUBPROJECT_NONE
 
 //Step 2) Customize the enabled/disabled sub-modules:
 //===================================================
@@ -100,6 +100,9 @@ void user_fsm(void);
 	
 	//Control encoder function:
 	#define CTRL_ENC_FCT(x) (x)	
+	
+	//Slave ID:
+	#define SLAVE_ID		FLEXSEA_EXECUTE_2
 	
 	//Project specific definitions:
 	//...
@@ -290,7 +293,7 @@ void user_fsm(void);
 	#define MOTOR_TYPE		MOTOR_BRUSHED
 	
 	//Runtime finite state machine (FSM):
-	#define RUNTIME_FSM		DISABLED
+	#define RUNTIME_FSM		ENABLED
 
 	//Encoders:
 	#define ENC_CONTROL		ENC_QUADRATURE

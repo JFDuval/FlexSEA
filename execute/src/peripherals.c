@@ -22,6 +22,7 @@
 //****************************************************************************
 
 uint8 uart_dma_rx_buf[96];	//ToDo #define
+uint8 uart_dma_rx_buf_unwrapped[96];
 uint8 uart_dma_tx_buf[96];
 uint8 DMA_4_Chan;
 uint8 DMA_4_TD[1];

@@ -168,37 +168,40 @@ static void update_rx_buf_array(uint8_t *buf, uint32_t *idx, uint8_t *new_data, 
 //If the Header isn't in [0] we 'unwrap' the array and save it in 'new_array'
 uint8_t unwrap_buffer(uint8_t *array, uint8_t *new_array, uint32_t len)
 {
-    uint8_t i = 0, j = 0, retval = 0, idx = 0;
-
-    if(array[0] != HEADER)	//Quick check
-    {
-        for(i = 1; i < len; i++)
-        {
-            if(array[i] == HEADER)
-            {
-                //We found the header
-                idx = i;
-                for(j = 0; j < len; j++)
-                {
-                    new_array[j] = array[idx];
-                    idx++;
-                    idx %= len;
-                }
-            }
-        }
-    }
-    else
-    {
-        //No need to unwrap, copy & exit
-        for(i = 0; i < len; i++)
-        {
-            //new_array = array
-            new_array[i] = array[i];
-        }
-        retval = 0;
-    }
-
-    return retval;
+	uint8_t i = 0, j = 0, retval = 0, idx = 0;
+	
+	if(array[0] != HEADER)	//Quick check
+	{
+		for(i = 1; i < len; i++)
+		{
+			if(array[i] == HEADER)
+			{
+				//We found the header
+				idx = i;
+				for(j = 0; j < len; j++)
+				{
+					new_array[j] = array[idx];
+					idx++;
+					idx %= len;
+				}
+				
+				retval = i;
+				break;
+			}
+		}
+	}
+	else
+	{
+		//No need to unwrap, copy & exit
+		for(i = 0; i < len; i++)
+		{
+			//new_array = array
+			new_array[i] = array[i];
+		}
+		retval = 0;
+	}
+	
+	return retval;
 }
 
 #ifdef ENABLE_FLEXSEA_BUF_1
