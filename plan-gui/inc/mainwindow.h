@@ -274,6 +274,8 @@ private slots:
 
     void log_execute(void);
 
+    uint8_t select_plot_slave(uint8_t index);
+
 private:
     Ui::MainWindow *ui;
 };

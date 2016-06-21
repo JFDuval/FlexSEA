@@ -74,6 +74,20 @@ void MainWindow::init_tab_plot_1(void)
     ui->label_t4->setStyleSheet("QLabel { background-color: cyan; color: black;}");
     ui->label_t5->setStyleSheet("QLabel { background-color: lime; color: black;}");
     ui->label_t6->setStyleSheet("QLabel { background-color: black; color: white;}");
+
+    //Slaves:
+    QStringList slave_list;
+    slave_list << "Exec1" << "Exec2";
+    for(int index = 0; index < slave_list.count(); index++)
+    {
+        //All boxes have the same list:
+        ui->cBoxvar1slave->addItem(slave_list.at(index));
+        ui->cBoxvar2slave->addItem(slave_list.at(index));
+        ui->cBoxvar3slave->addItem(slave_list.at(index));
+        ui->cBoxvar4slave->addItem(slave_list.at(index));
+        ui->cBoxvar5slave->addItem(slave_list.at(index));
+        ui->cBoxvar6slave->addItem(slave_list.at(index));
+    }
 }
 
 void MainWindow::makePlot()
@@ -329,6 +343,7 @@ void MainWindow::timerPlotEvent(void)
 {
     uint8_t index = 0;
     int y[PLOT_BUF_LEN];
+    struct execute_s *execute_ptr;
 
     //We go through the list and we update the appropriate data:
 
@@ -341,6 +356,9 @@ void MainWindow::timerPlotEvent(void)
 
     for(index = 0; index < VAR_NUM; index++)
     {
+        //Point to the selected slave:
+        assign_execute_ptr(&execute_ptr, select_plot_slave(index));
+
         //Update buffers with latest results:
         switch(data_to_plot[index])
         {
@@ -348,43 +366,43 @@ void MainWindow::timerPlotEvent(void)
                 update_graph_array(index, 0);
                 break;
             case 1: //"Accel X"
-                update_graph_array(index, exec1.accel.x);
+                update_graph_array(index, execute_ptr->accel.x);
                 break;
             case 2: //"Accel Y"
-                update_graph_array(index, exec1.accel.y);
+                update_graph_array(index, execute_ptr->accel.y);
                 break;
             case 3: //"Accel Z"
-                update_graph_array(index, exec1.accel.z);
+                update_graph_array(index, execute_ptr->accel.z);
                 break;
             case 4: //"Gyro X"
-                update_graph_array(index, exec1.gyro.x);
+                update_graph_array(index, execute_ptr->gyro.x);
                 break;
             case 5: //"Gyro Y"
-                update_graph_array(index, exec1.gyro.y);
+                update_graph_array(index, execute_ptr->gyro.y);
                 break;
             case 6: //"Gyro Z"
-                update_graph_array(index, exec1.gyro.z);
+                update_graph_array(index, execute_ptr->gyro.z);
                 break;
             case 7: //"Encoder"
-                update_graph_array(index, exec1.enc_display);
+                update_graph_array(index, execute_ptr->enc_display);
                 break;
             case 8: //"Motor current"
-                update_graph_array(index, exec1.current);
+                update_graph_array(index, execute_ptr->current);
                 break;
             case 9: //"Analog[0]"
-                update_graph_array(index, (int) exec1.analog[0]);
+                update_graph_array(index, (int) execute_ptr->analog[0]);
                 break;
             case 10: //"Strain"
-                update_graph_array(index, exec1.strain);
+                update_graph_array(index, execute_ptr->strain);
                 break;
             case 11: //"+VB"
-                update_graph_array(index, exec1.volt_batt);
+                update_graph_array(index, execute_ptr->volt_batt);
                 break;
             case 12: //"+VG"
-                update_graph_array(index, exec1.volt_int);
+                update_graph_array(index, execute_ptr->volt_int);
                 break;
             case 13: //"Temp"
-                update_graph_array(index, exec1.temp);
+                update_graph_array(index, execute_ptr->temp);
                 break;
             case 14: //"Fake Data"
                 update_graph_array(index, gen_test_data());
@@ -425,4 +443,34 @@ void MainWindow::timerPlotEvent(void)
         qCopy(graph_yarray[index], graph_yarray[index] + plot_len, y);
         refreshPlot(graph_xarray, y, plot_len, index);
     }
+}
+
+//What slave are we plotting for this variable?
+uint8_t MainWindow::select_plot_slave(uint8_t index)
+{
+    uint8_t retval = 0;
+
+    switch(index)
+    {
+        case 0:
+            retval = ui->cBoxvar1slave->currentIndex();
+            break;
+        case 1:
+            retval = ui->cBoxvar2slave->currentIndex();
+            break;
+        case 2:
+            retval = ui->cBoxvar3slave->currentIndex();
+            break;
+        case 3:
+            retval = ui->cBoxvar4slave->currentIndex();
+            break;
+        case 4:
+            retval = ui->cBoxvar5slave->currentIndex();
+            break;
+        case 5:
+            retval = ui->cBoxvar6slave->currentIndex();
+            break;
+    }
+
+    return retval;
 }
