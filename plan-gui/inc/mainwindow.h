@@ -286,6 +286,8 @@ private slots:
 
     void on_pushButton_a2dof_refresh_clicked();
 
+    void a2dof_write_user_data(uint8_t sel_w);
+
 private:
     Ui::MainWindow *ui;
 };

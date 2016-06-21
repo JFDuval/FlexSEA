@@ -1,6 +1,6 @@
 //****************************************************************************
 // MIT Media Lab - Biomechatronics
-// Jean-François (Jeff) Duval
+// Jean-Franï¿½ois (Jeff) Duval
 // jfduval@media.mit.edu
 // 03/2016
 //****************************************************************************
@@ -25,6 +25,7 @@
 //Redefine weak functions from flexsea_payload:
 void rx_cmd_data_acqui(uint8_t *buf);
 void rx_cmd_data_read_all(uint8_t *buf);
+void rx_cmd_data_user(uint8_t *buf);
 void rx_cmd_data_read_all_ricnu(uint8_t *buf);
 
 //****************************************************************************

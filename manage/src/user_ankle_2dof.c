@@ -25,7 +25,6 @@ int16_t my_pwm = 0;
 //****************************************************************************	
 
 static void ankle_2dof_refresh_values(void);
-static void dual_execute_refresh(void);
 
 //****************************************************************************
 // Public Function(s)
@@ -55,7 +54,8 @@ void ankle_2dof_fsm_1(void)
 	switch(state)
 	{
 		case 0:
-			my_pwm = 0;
+			//my_pwm = 0;
+			my_pwm = (int16_t)user_data.w[0];
 			if(time > 1500)
 			{
 				time = 0;
@@ -63,7 +63,8 @@ void ankle_2dof_fsm_1(void)
 			}
             break;
 		case 1:
-			my_pwm = 100;
+			//my_pwm = 100;
+			my_pwm = (int16_t)user_data.w[1];
 			if(time > 1500)
 			{
 				time = 0;

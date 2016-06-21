@@ -84,6 +84,7 @@ MainWindow::MainWindow(QWidget *parent) :
     init_tab_stream_execute();
     init_tab_stream_strain();
     init_tab_stream_ricnu_knee();
+    init_tab_stream_ankle_2dof();
 
     //=================
     //Timers:

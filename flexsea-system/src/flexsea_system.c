@@ -30,7 +30,15 @@ struct manage_s manag1;
 struct strain_s strain[6];
 struct in_control_s in_control_1;
 
-#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+#endif	//defined(BOARD_TYPE_FLEXSEA_MANAGE) || defined(BOARD_TYPE_FLEXSEA_PLAN)
+
+#if defined(BOARD_TYPE_FLEXSEA_PLAN)
+struct user_data_s user_data_1;
+#endif  //defined(BOARD_TYPE_FLEXSEA_PLAN)
+
+#if defined(BOARD_TYPE_FLEXSEA_MANAGE)
+struct user_data_s user_data;
+#endif  //defined(BOARD_TYPE_FLEXSEA_MANAGE)
 
 //****************************************************************************
 // Function(s)
@@ -70,7 +78,7 @@ void flexsea_payload_19(uint8_t *buf){};
 //void flexsea_payload_20(uint8_t *buf){};		//CMD_MEM
 //void flexsea_payload_21(uint8_t *buf){};		//CMD_ACQUI
 //void flexsea_payload_22(uint8_t *buf){};		//CMD_READ_ALL
-void flexsea_payload_23(uint8_t *buf){};
+//void flexsea_payload_23(uint8_t *buf){};		//CMD_USER_DATA
 void flexsea_payload_24(uint8_t *buf){};
 void flexsea_payload_25(uint8_t *buf){};
 void flexsea_payload_26(uint8_t *buf){};

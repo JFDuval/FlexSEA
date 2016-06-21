@@ -1,6 +1,6 @@
 //****************************************************************************
 // MIT Media Lab - Biomechatronics
-// Jean-François (Jeff) Duval
+// Jean-Franï¿½ois (Jeff) Duval
 // jfduval@media.mit.edu
 // 04/2016
 //****************************************************************************
@@ -27,7 +27,7 @@ extern "C" {
 
 //Manage boards only:
 #ifdef BOARD_TYPE_FLEXSEA_MANAGE
-//...
+#include "user.h"
 #endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
 //Execute boards only:
@@ -554,6 +554,146 @@ void rx_cmd_data_read_all_ricnu(uint8_t *buf)
 			//Nothing to do for now
 
 			#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
+		}
+	}
+}
+
+//===
+
+//Transmission of a USER_DATA command
+//Note: we can only write one parameter at the time (that's what we need for typical use cases).
+//'select_w' will determine what variable is written.
+uint32_t tx_cmd_data_user(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, uint8_t select_w)
+{
+	uint8_t tmp0 = 0, tmp1 = 0, tmp2 = 0, tmp3 = 0;
+	uint32_t bytes = 0;
+
+	//Fresh payload string:
+	prepare_empty_payload(board_id, receiver, buf, len);
+
+	//Command:
+	buf[P_CMDS] = 1;	//1 command in string
+
+	if(cmd_type == CMD_READ)
+	{
+		buf[P_CMD1] = CMD_R(CMD_USER_DATA);
+
+		bytes = P_CMD1 + 1;     //Bytes is always last+1
+	}
+	else if(cmd_type == CMD_WRITE)
+	{
+		buf[P_CMD1] = CMD_W(CMD_USER_DATA);
+
+		//Arguments:
+
+        #ifdef BOARD_TYPE_FLEXSEA_MANAGE
+
+		//Manage: Send all the R variables.
+
+		uint32_to_bytes((uint32_t)user_data.r[0], &tmp0, &tmp1, &tmp2, &tmp3);
+		buf[P_DATA1 + 0] = tmp0;
+		buf[P_DATA1 + 1] = tmp1;
+		buf[P_DATA1 + 2] = tmp2;
+		buf[P_DATA1 + 3] = tmp3;
+
+		uint32_to_bytes((uint32_t)user_data.r[1], &tmp0, &tmp1, &tmp2, &tmp3);
+		buf[P_DATA1 + 4] = tmp0;
+		buf[P_DATA1 + 5] = tmp1;
+		buf[P_DATA1 + 6] = tmp2;
+		buf[P_DATA1 + 7] = tmp3;
+
+		uint32_to_bytes((uint32_t)user_data.r[2], &tmp0, &tmp1, &tmp2, &tmp3);
+		buf[P_DATA1 + 8] = tmp0;
+		buf[P_DATA1 + 9] = tmp1;
+		buf[P_DATA1 + 10] = tmp2;
+		buf[P_DATA1 + 11] = tmp3;
+
+		uint32_to_bytes((uint32_t)user_data.r[3], &tmp0, &tmp1, &tmp2, &tmp3);
+		buf[P_DATA1 + 12] = tmp0;
+		buf[P_DATA1 + 13] = tmp1;
+		buf[P_DATA1 + 14] = tmp2;
+		buf[P_DATA1 + 15] = tmp3;
+
+        bytes = P_DATA1 + 31;     //Bytes is always last+1
+
+        #endif //BOARD_TYPE_FLEXSEA_EXECUTE
+
+        #ifdef BOARD_TYPE_FLEXSEA_PLAN
+
+        buf[P_DATA1 + 0] = select_w; //Parameter written
+        uint32_to_bytes((uint32_t)user_data_1.w[select_w], &tmp0, &tmp1, &tmp2, &tmp3);
+        buf[P_DATA1 + 1] = tmp0;
+        buf[P_DATA1 + 2] = tmp1;
+        buf[P_DATA1 + 3] = tmp2;
+        buf[P_DATA1 + 4] = tmp3;
+
+        bytes = P_DATA1 + 5;     //Bytes is always last+1
+
+        #endif  //BOARD_TYPE_FLEXSEA_PLAN
+	}
+	else
+	{
+		//Invalid
+		flexsea_error(SE_INVALID_READ_TYPE);
+		bytes = 0;
+	}
+
+	return bytes;
+}
+
+//Reception of a USER_DATA command
+void rx_cmd_data_user(uint8_t *buf)
+{
+	uint8_t numb = 0, w_select = 0;
+	int32_t w_val = 0;
+
+	if(IS_CMD_RW(buf[P_CMD1]) == READ)
+	{
+		//Received a Read command from our master, prepare a reply:
+
+		#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+
+		//Generate the reply:
+		numb = tx_cmd_data_user(buf[P_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, \
+									0);
+		numb = comm_gen_str(tmp_payload_xmit, comm_str_spi, numb);
+		numb = COMM_STR_BUF_LEN;	//Fixed length for now to accomodate the DMA
+		flexsea_send_serial_master(PORT_USB, comm_str_spi, numb);	//Same comment here - ToDo fix
+		//(the SPI driver will grab comm_str_spi directly)
+
+		#endif	//BOARD_TYPE_FLEXSEA_MANAGE
+	}
+	else if(IS_CMD_RW(buf[P_CMD1]) == WRITE)
+	{
+		//Two options: from Master of from slave (a read reply)
+
+		//Decode data:
+		w_select = buf[P_DATA1];
+		w_val = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1 + 1], buf[P_DATA1 + 2], buf[P_DATA1 + 3], buf[P_DATA1 + 4]));
+
+		if(sent_from_a_slave(buf))
+		{
+			//We received a reply to our read request
+
+			#if((defined BOARD_TYPE_FLEXSEA_PLAN))
+
+			//Store value:
+			user_data_1.r[0] = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1 + 0], buf[P_DATA1 + 1], buf[P_DATA1 + 2], buf[P_DATA1 + 3]));
+			user_data_1.r[1] = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1 + 4], buf[P_DATA1 + 5], buf[P_DATA1 + 6], buf[P_DATA1 + 7]));
+			user_data_1.r[2] = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1 + 8], buf[P_DATA1 + 9], buf[P_DATA1 + 10], buf[P_DATA1 + 11]));
+			user_data_1.r[3] = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1 + 12], buf[P_DATA1 + 13], buf[P_DATA1 + 14], buf[P_DATA1 + 15]));
+
+			#endif	//((defined BOARD_TYPE_FLEXSEA_PLAN))
+		}
+		else
+		{
+			//Master is writing a value to this board
+
+			#ifdef BOARD_TYPE_FLEXSEA_MANAGE
+
+			user_data.w[w_select] = w_val;
+
+			#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 		}
 	}
 }
