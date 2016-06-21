@@ -45,6 +45,7 @@ void user_fsm(void);
 #define ENC_ANALOG				3	//Potentiometer (or other), on ext. analog in.
 #define ENC_AS5047				4	//16-bit Magnetic Position Sensor, SPI
 #define ENC_AS5048B				5	//14-bit Magnetic Position Sensor, I2C
+#define ENC_CUSTOM              6   //Heavily modified user variable that cannot be represented CTRL_ENC_FCT
 //(later you'll assign what encoder is used by the controllers, for motor
 // commutation, and which one is displayed in the GUI)
 
@@ -66,8 +67,8 @@ void user_fsm(void);
 //Step 1) Select active project (from list):
 //==========================================
 
-#define ACTIVE_PROJECT			PROJECT_BAREBONE
-#define ACTIVE_SUBPROJECT		SUBPROJECT_NONE
+#define ACTIVE_PROJECT			PROJECT_ANKLE_2DOF
+#define ACTIVE_SUBPROJECT		SUBPROJECT_A
 
 //Step 2) Customize the enabled/disabled sub-modules:
 //===================================================
@@ -223,57 +224,81 @@ void user_fsm(void);
 
 //MIT 2-DoF Ankle
 #if(ACTIVE_PROJECT == PROJECT_ANKLE_2DOF)
-	
-	//Enable/Disable sub-modules:
-	#define USE_RS485
-	#define USE_USB
-	#define USE_COMM			//Requires USE_RS485 and/or USE_USB
-	//#define USE_QEI
-	#define USE_TRAPEZ
-	#define USE_I2C_0			//3V3, IMU & Expansion.
-	#define USE_I2C_1			//5V, Safety-CoP & strain gauge pot.
-	#define USE_IMU				//Requires USE_I2C_0
-	//#define USE_STRAIN		//Requires USE_I2C_1
-	#define USE_AS5047			//16-bit Position Sensor, SPI
-	#define USE_SPI_COMMUT		//
-	
-	//Motor type:
-	#define MOTOR_TYPE		MOTOR_BRUSHLESS
-	
-	//Runtime finite state machine (FSM):
-	#define RUNTIME_FSM		ENABLED
-
-	//Encoders:
-	#define ENC_CONTROL		ENC_AS5047
-	#define ENC_COMMUT		ENC_AS5047
-	#define ENC_DISPLAY		ENC_CONTROL	
-	
-	//Subproject A: Left actuator
-	#if(ACTIVE_SUBPROJECT == SUBPROJECT_A)
+     
+    //Enable/Disable sub-modules:
+    #define USE_RS485
+    #define USE_USB
+    #define USE_COMM            //Requires USE_RS485 and/or USE_USB
+    //#define USE_QEI
+    #define USE_TRAPEZ
+    #define USE_I2C_0           //3V3, IMU & Expansion.
+    #define USE_I2C_1           //5V, Safety-CoP & strain gauge pot.
+    #define USE_IMU             //Requires USE_I2C_0
+    //#define USE_STRAIN        //Requires USE_I2C_1
+    #define USE_AS5047          //16-bit Position Sensor, SPI
+    #define USE_SPI_COMMUT      //
+     
+    //Motor type:
+    #define MOTOR_TYPE      MOTOR_BRUSHLESS
+     
+    //Runtime finite state machine (FSM):
+     
+    //#define FINDPOLES //define if you want to find the poles
+     
+    #ifdef FINDPOLES
+        #define RUNTIME_FSM     DISABLED
+    #else
+        #ifdef USE_TRAPEZ
+            #define RUNTIME_FSM     DISABLED
+        #else
+            #define RUNTIME_FSM     ENABLED
+        #endif
+    #endif
+     
+     
+             
+    //Encoders:
+    #define ENC_CONTROL     ENC_CUSTOM
+    #define ENC_COMMUT      ENC_AS5047
+    #define ENC_DISPLAY     ENC_CONTROL 
+     
+     
+     
+    //Subproject A: Left execute board looking at the back of the ankle while it is standing up
+    #if(ACTIVE_SUBPROJECT == SUBPROJECT_A)
+         
+        //Control encoder function:
+ 
+        #define PWM_SIGN          1
+        #define CURRENT_ZERO            ((int32)2060)   
+        #define CTRL_ENC_FCT(x) (x) 
+        //...
 		
-		//Control encoder function:
-		#define CTRL_ENC_FCT(x) (x)	//ToDo
-		#define PWM_SIGN		1
+		//Slave ID:
+		#define SLAVE_ID		FLEXSEA_EXECUTE_2
+         
+    #endif  //SUBPROJECT_A
+     
+    //Subproject B: Right actuator
+    #if(ACTIVE_SUBPROJECT == SUBPROJECT_B)
+         
+        //Control encoder function:
+        #define PWM_SIGN         -1
+        #define CURRENT_ZERO            ((int32)2125)
+        #define CTRL_ENC_FCT(x) (x) 
+         
+        //...
 		
-		//...
-		
-	#endif	//SUBPROJECT_A
-	
-	//Subproject B: Right actuator
-	#if(ACTIVE_SUBPROJECT == SUBPROJECT_B)
-		
-		//Control encoder function:
-		#define CTRL_ENC_FCT(x) (x)	//ToDo
-		#define PWM_SIGN		-1
-		
-		//...
-		
-	#endif	//SUBPROJECT_B
-	
-	//Project specific definitions:
-	//...
-	
-#endif	//PROJECT_ANKLE_2DOF
+		//Slave ID:
+	#define SLAVE_ID		FLEXSEA_EXECUTE_1
+         
+    #endif  //SUBPROJECT_A
+     
+    //Project specific definitions:
+    extern int32 ankle_ang, ankle_trans, mot_vel;
+    //...   
+     
+#endif  //PROJECT_ANKLE_2DOF
 
 //MIT d'Arbeloff Dual-Speed Dual-Motor
 #if(ACTIVE_PROJECT == PROJECT_DSDM)
