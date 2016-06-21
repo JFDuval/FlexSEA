@@ -71,7 +71,7 @@ uint32_t tx_cmd_ctrl_special_4(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 								uint8_t controller_w2, uint8_t controller2, uint8_t encoder_w2, int32_t encoder2, \
 								int16_t current2, int16_t open_spd2);
 uint32_t tx_cmd_ctrl_special_5(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
-								uint8_t slave, uint8_t ctrl, uint8_t ctrl_i, uint8_t ctrl_o);
+								uint8_t slave, uint8_t controller, uint8_t ctrl_i, uint8_t ctrl_o);
 
 //Sensors:
 uint32_t tx_cmd_encoder(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, int32_t enc);

@@ -15,8 +15,11 @@ extern "C" {
 // Include(s)
 //****************************************************************************
 
-#include "main.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include "../inc/flexsea_system.h"
+#include "../inc/flexsea_cmd_application.h"
+#include "main.h"
 
 //****************************************************************************
 // Variable(s)
@@ -1085,7 +1088,7 @@ void rx_cmd_special_4(uint8_t *buf)
 //Transmission of a CTRL_SPECIAL_5 command: Ankle 2DOF
 //Read only for now - can't change variables
 uint32_t tx_cmd_ctrl_special_5(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
-								uint8_t slave, uint8_t ctrl, uint8_t ctrl_i, uint8_t ctrl_o)
+								uint8_t slave, uint8_t controller, uint8_t ctrl_i, uint8_t ctrl_o)
 {
 	uint8_t tmp0 = 0, tmp1 = 0, tmp2 = 0, tmp3 = 0;
 	uint32_t bytes = 0;
@@ -1109,7 +1112,7 @@ uint32_t tx_cmd_ctrl_special_5(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 
 		//Arguments:
 		buf[P_DATA1] = slave;
-		buf[P_DATA1 + 1] = ctrl;
+		buf[P_DATA1 + 1] = controller;
 		uint16_to_bytes((uint16_t)ctrl_i, &tmp0, &tmp1);
 		buf[P_DATA1 + 2] = tmp0;
 		buf[P_DATA1 + 3] = tmp1;
@@ -1187,8 +1190,9 @@ uint32_t tx_cmd_ctrl_special_5(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 		buf[P_DATA1 + 28] = exec_s_ptr->status2;
 
 		bytes = P_DATA1 + 29;     //Bytes is always last+1
+		#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
-		#elif BOARD_TYPE_FLEXSEA_EXECUTE
+		#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
 		//Arguments:
 		uint16_to_bytes((uint16_t)imu.gyro.x, &tmp0, &tmp1);
@@ -1241,11 +1245,7 @@ uint32_t tx_cmd_ctrl_special_5(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 
 		bytes = P_DATA1 + 29;     //Bytes is always last+1
 
-		#else
-
-		bytes = 0;
-
-		#endif
+		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 	}
 	else
 	{
@@ -1294,7 +1294,7 @@ void rx_cmd_special_5(uint8_t *buf)
 		}
 
 		//Generate the reply:
-		numb = tx_cmd_data_special_5(buf[P_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 0, 0, 0, 0);
+		numb = tx_cmd_ctrl_special_5(buf[P_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 0, 0, 0, 0);
 		numb = comm_gen_str(tmp_payload_xmit, comm_str_485, numb);
 		numb = COMM_STR_BUF_LEN;	//Fixed length for now to accomodate the DMA
 

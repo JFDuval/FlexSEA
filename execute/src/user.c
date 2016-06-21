@@ -22,6 +22,8 @@
 // Private Function Prototype(s):
 //****************************************************************************	
 
+static void init_barebone(void);
+
 //****************************************************************************
 // Public Function(s)
 //****************************************************************************
@@ -29,6 +31,11 @@
 //Initialization function - call once in main.c, before while()
 void init_user(void)
 {	
+	//Barebone:
+	#if(ACTIVE_PROJECT == PROJECT_BAREBONE)
+	init_barebone();
+	#endif	//PROJECT_EXOCUTE
+	
 	//ExoBoots:
 	#if(ACTIVE_PROJECT == PROJECT_EXOCUTE)
 	init_exo();
@@ -83,3 +90,7 @@ void user_fsm(void)
 // Private Function(s)
 //****************************************************************************
 
+static void init_barebone(void)
+{
+	board_id = SLAVE_ID;
+}
