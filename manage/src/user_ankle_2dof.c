@@ -77,7 +77,7 @@ void ankle_2dof_fsm_2(void)
 	int tx_byte = 0, commstrlen = 0;
 	unsigned char test_payload[PAYLOAD_BUF_LEN];
 
-	//This FSM talks to the slaves at 250hZ each
+	//This FSM talks to the slaves at 250Hz each
 	switch(ex_refresh_fsm_state)
 	{
 		case 0:		//Power-up

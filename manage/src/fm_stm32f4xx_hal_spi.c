@@ -93,7 +93,9 @@
 
 #include "main.h"
 
-#define NULL 0
+#ifndef NULL
+	#define NULL 0
+#endif
 
 /** @addtogroup STM32F4xx_HAL_Driver
  * @{

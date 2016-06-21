@@ -276,6 +276,16 @@ private slots:
 
     uint8_t select_plot_slave(uint8_t index);
 
+    void on_pushButton_a2dof_w0_clicked();
+
+    void on_pushButton_a2dof_w1_clicked();
+
+    void on_pushButton_a2dof_w2_clicked();
+
+    void on_pushButton_a2dof_w3_clicked();
+
+    void on_pushButton_a2dof_refresh_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

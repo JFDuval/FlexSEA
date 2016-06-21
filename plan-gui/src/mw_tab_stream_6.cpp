@@ -29,7 +29,7 @@ void MainWindow::stream_ankle_2dof(void)
     static uint8_t sel_slave = 0;
     //sel_slave = active_slave_1;
 
-    numb = tx_cmd_ctrl_special_5(active_slave_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, sel_slave);	//ToDo change
+    numb = tx_cmd_ctrl_special_5(active_slave_1, CMD_READ, payload_str, PAYLOAD_BUF_LEN, sel_slave, 0, 0, 0);	//ToDo change
     numb = comm_gen_str(payload_str, comm_str_usb, PAYLOAD_BUF_LEN);
     numb = COMM_STR_BUF_LEN;
 
@@ -52,3 +52,27 @@ void MainWindow::stream_ankle_2dof(void)
     }
 }
 
+void MainWindow::on_pushButton_a2dof_w0_clicked()
+{
+
+}
+
+void MainWindow::on_pushButton_a2dof_w1_clicked()
+{
+
+}
+
+void MainWindow::on_pushButton_a2dof_w2_clicked()
+{
+
+}
+
+void MainWindow::on_pushButton_a2dof_w3_clicked()
+{
+
+}
+
+void MainWindow::on_pushButton_a2dof_refresh_clicked()
+{
+
+}

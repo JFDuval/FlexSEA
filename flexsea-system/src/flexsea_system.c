@@ -1,6 +1,6 @@
 //****************************************************************************
 // MIT Media Lab - Biomechatronics
-// Jean-François (Jeff) Duval
+// Jean-Franï¿½ois (Jeff) Duval
 // jfduval@media.mit.edu
 // 02/2016
 //****************************************************************************
@@ -188,7 +188,7 @@ void flexsea_payload_119(uint8_t *buf){};
 
 //120-129: 
 //void flexsea_payload_120(uint8_t *buf){};	//Dual ShuoBot
-void flexsea_payload_121(uint8_t *buf){};
+//void flexsea_payload_121(uint8_t *buf){};	//Special 5 (Ankle 2DoF)
 void flexsea_payload_122(uint8_t *buf){};
 void flexsea_payload_123(uint8_t *buf){};
 void flexsea_payload_124(uint8_t *buf){};
