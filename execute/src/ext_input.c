@@ -87,9 +87,11 @@ int32 refresh_enc_control(void)
 	#elif(ENC_CONTROL == ENC_ANALOG)
 		encoder.count = get_analog_pos();	
 	#elif(ENC_CONTROL == ENC_AS5047)
-		encoder.count = as5047.angle_cont;
+		encoder.count = CTRL_ENC_FCT(as5047.angle_cont);
 	#elif(ENC_CONTROL == ENC_AS5048B)
 		encoder.count = as5048b.angle_ctrl;
+    #elif(ENC_CONTROL == ENC_CUSTOM)
+		encoder.count = CTRL_ENC_FCT(get_enc_custom());
 	#endif
 		
 	encoder.count_dif = encoder.count - encoder.count_last;
@@ -112,9 +114,11 @@ int32 refresh_enc_display(void)
 	#elif(ENC_DISPLAY == ENC_ANALOG)
 		tmp_enc = get_analog_pos();
 	#elif(ENC_DISPLAY == ENC_AS5047)
-		tmp_enc = as5047.angle_cont;
+		tmp_enc = CTRL_ENC_FCT(as5047.angle_cont);
 	#elif(ENC_DISPLAY == ENC_AS5048B)
 		tmp_enc = as5048b.angle_ctrl;
+    #elif(ENC_CONTROL == ENC_CUSTOM)
+		tmp_enc = CTRL_ENC_FCT(get_enc_custom());
 	#endif
 	
 	return tmp_enc;

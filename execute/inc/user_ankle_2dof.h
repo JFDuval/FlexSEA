@@ -25,7 +25,9 @@
 //****************************************************************************	
 
 void init_ankle_2dof(void);
-void ankle_2dof_fsm(void);
+void ankle_fsm(void);
+void set_ankle_torque(int32);
+int32 get_enc_custom(void);
 
 //****************************************************************************
 // Definition(s):
