@@ -1278,6 +1278,8 @@ void rx_cmd_special_5(uint8_t *buf)
 
 		#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
+		slave = buf[P_DATA1];
+
 		//Update controller:
 		control_strategy(buf[P_DATA1 + 1]);
 
@@ -1294,7 +1296,7 @@ void rx_cmd_special_5(uint8_t *buf)
 		}
 
 		//Generate the reply:
-		numb = tx_cmd_ctrl_special_5(buf[P_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, 0, 0, 0, 0);
+		numb = tx_cmd_ctrl_special_5(buf[P_XID], CMD_WRITE, tmp_payload_xmit, PAYLOAD_BUF_LEN, slave, 0, 0, 0);
 		numb = comm_gen_str(tmp_payload_xmit, comm_str_485, numb);
 		numb = COMM_STR_BUF_LEN;	//Fixed length for now to accomodate the DMA
 
@@ -1344,11 +1346,20 @@ void rx_cmd_special_5(uint8_t *buf)
 			flexsea_error(SE_CMD_NOT_PROGRAMMED);
 			#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 
-			#if((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
+			#if((defined BOARD_TYPE_FLEXSEA_MANAGE))
+			slave = buf[P_XID];
+			//Assign data structure based on slave:
+			if(slave == FLEXSEA_EXECUTE_1)
+			{
+				exec_s_ptr = &exec1;
+			}
+			else
+			{
+				exec_s_ptr = &exec2;
+			}
+			#endif	//((defined BOARD_TYPE_FLEXSEA_MANAGE))
 
-            //Decode its data:
-            //===============
-			/*
+			#if((defined BOARD_TYPE_FLEXSEA_PLAN))
             slave = buf[P_DATA1];
 
 			//Assign data structure based on slave:
@@ -1360,18 +1371,12 @@ void rx_cmd_special_5(uint8_t *buf)
 			{
 				exec_s_ptr = &exec2;
 			}
-			*/
+			#endif	//((defined BOARD_TYPE_FLEXSEA_MANAGE))
 
-			slave = buf[P_XID];
-			//Assign data structure based on slave:
-			if(slave == FLEXSEA_EXECUTE_1)
-			{
-				exec_s_ptr = &exec1;
-			}
-			else
-			{
-				exec_s_ptr = &exec2;
-			}
+			#if((defined BOARD_TYPE_FLEXSEA_MANAGE) || (defined BOARD_TYPE_FLEXSEA_PLAN))
+
+            //Decode its data:
+            //===============
 
 			//Store values:
 
