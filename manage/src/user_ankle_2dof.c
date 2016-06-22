@@ -13,6 +13,7 @@
 
 #include "main.h"
 #include "user_ankle_2dof.h"
+#include <math.h>
 
 //****************************************************************************
 // Variable(s)
@@ -30,6 +31,40 @@ static void ankle_2dof_refresh_values(void);
 // Public Function(s)
 //****************************************************************************
 
+//Test!
+#define A0 	(202.2+1140)
+#define A1 	1302
+#define A2	-39.06
+#define B1 	14.76
+#define B2 	-7.874
+#define W	0.00223
+int16_t get_ankle_trans_2(double ma) //mot_ang [deg] where mot_ang = 0 is at maximum dorsiflexion
+{
+   double slope = 0, transmission = 0;
+   double tmp1 = 0, tmp2 = 0;
+
+   if(ma < 0)
+   {
+	   ma = 0;
+   }
+
+   tmp1 = ma*W;
+   tmp2 = ma*W*2;
+   slope = (-W*A1*sin(tmp1) + W*B1*cos(tmp1) - 2*W*A2*sin(tmp2) + 2*W*B2*cos(tmp2));
+   transmission = ((double)(-1000.0/slope));
+
+   if(transmission > 3000)
+   {
+	   return 3000;
+   }
+   else
+   {
+	   return (int16_t)transmission;
+   }
+
+   return 0;
+}
+
 //Call this function once in main.c, just before the while()
 void init_ankle_2dof(void)
 {	
@@ -43,6 +78,7 @@ void ankle_2dof_fsm_1(void)
 	#if(ACTIVE_PROJECT == PROJECT_ANKLE_2DOF)
     static uint32_t time = 0;
     static uint8_t state = 0;
+    double myvar1 = 0.0, myvar2 = 0.0;
 	
     //Increment time (1 tick = 1ms)
     time++;
@@ -72,6 +108,9 @@ void ankle_2dof_fsm_1(void)
 			}
             break;
         case 2:
+        	myvar1 = 27.0*32;
+        	myvar2 = cos(myvar1);
+        	myvar1 = get_ankle_trans_2(5.78);
             break;
         default:
 			//Handle exceptions here
@@ -79,6 +118,8 @@ void ankle_2dof_fsm_1(void)
 	}
 	#endif	//ACTIVE_PROJECT == PROJECT_ANKLE_2DOF
 }
+
+
 
 //Second state machine for the Ankle project
 //Deals with the communication between Manage and 2x Execute, on the same RS-485 bus

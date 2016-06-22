@@ -1086,7 +1086,6 @@ void rx_cmd_special_4(uint8_t *buf)
 //=============
 
 //Transmission of a CTRL_SPECIAL_5 command: Ankle 2DOF
-//Read only for now - can't change variables
 uint32_t tx_cmd_ctrl_special_5(uint8_t receiver, uint8_t cmd_type, uint8_t *buf, uint32_t len, \
 								uint8_t slave, uint8_t controller, int16_t ctrl_i, int16_t ctrl_o)
 {
@@ -1127,6 +1126,7 @@ uint32_t tx_cmd_ctrl_special_5(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 		//In that case Write is only used for the Reply
 
 		buf[P_CMD1] = CMD_W(CMD_SPC5);
+		buf[P_DATA1] = slave;
 
 		#ifdef BOARD_TYPE_FLEXSEA_MANAGE
 
@@ -1142,108 +1142,108 @@ uint32_t tx_cmd_ctrl_special_5(uint8_t receiver, uint8_t cmd_type, uint8_t *buf,
 
 		//Arguments
 		uint16_to_bytes((uint16_t)exec_s_ptr->gyro.x, &tmp0, &tmp1);
-		buf[P_DATA1] = tmp0;
-		buf[P_DATA1 + 1] = tmp1;
+		buf[P_DATA1 + 1] = tmp0;
+		buf[P_DATA1 + 2] = tmp1;
 		uint16_to_bytes((uint16_t)exec_s_ptr->gyro.y, &tmp0, &tmp1);
-		buf[P_DATA1 + 2] = tmp0;
-		buf[P_DATA1 + 3] = tmp1;
+		buf[P_DATA1 + 3] = tmp0;
+		buf[P_DATA1 + 4] = tmp1;
 		uint16_to_bytes((uint16_t)exec_s_ptr->gyro.z, &tmp0, &tmp1);
-		buf[P_DATA1 + 4] = tmp0;
-		buf[P_DATA1 + 5] = tmp1;
+		buf[P_DATA1 + 5] = tmp0;
+		buf[P_DATA1 + 6] = tmp1;
 
 		uint16_to_bytes((uint16_t)exec_s_ptr->accel.x, &tmp0, &tmp1);
-		buf[P_DATA1 + 6] = tmp0;
-		buf[P_DATA1 + 7] = tmp1;
+		buf[P_DATA1 + 7] = tmp0;
+		buf[P_DATA1 + 8] = tmp1;
 		uint16_to_bytes((uint16_t)exec_s_ptr->accel.y, &tmp0, &tmp1);
-		buf[P_DATA1 + 8] = tmp0;
-		buf[P_DATA1 + 9] = tmp1;
+		buf[P_DATA1 + 9] = tmp0;
+		buf[P_DATA1 + 10] = tmp1;
 		uint16_to_bytes((uint16_t)exec_s_ptr->accel.z, &tmp0, &tmp1);
-		buf[P_DATA1 + 10] = tmp0;
-		buf[P_DATA1 + 11] = tmp1;
+		buf[P_DATA1 + 11] = tmp0;
+		buf[P_DATA1 + 12] = tmp1;
 
 		uint16_to_bytes(exec_s_ptr->strain, &tmp0, &tmp1);
-		buf[P_DATA1 + 12] = tmp0;
-		buf[P_DATA1 + 13] = tmp1;
+		buf[P_DATA1 + 13] = tmp0;
+		buf[P_DATA1 + 14] = tmp1;
 
 		uint16_to_bytes(exec_s_ptr->analog[0], &tmp0, &tmp1);
-		buf[P_DATA1 + 14] = tmp0;
-		buf[P_DATA1 + 15] = tmp1;
+		buf[P_DATA1 + 15] = tmp0;
+		buf[P_DATA1 + 16] = tmp1;
 
 		uint16_to_bytes(exec_s_ptr->analog[1], &tmp0, &tmp1);
-		buf[P_DATA1 + 16] = tmp0;
-		buf[P_DATA1 + 17] = tmp1;
+		buf[P_DATA1 + 17] = tmp0;
+		buf[P_DATA1 + 18] = tmp1;
 
 		uint32_to_bytes((uint32_t)exec_s_ptr->enc_display, &tmp0, &tmp1, &tmp2, &tmp3);
-		buf[P_DATA1 + 18] = tmp0;
-		buf[P_DATA1 + 19] = tmp1;
-		buf[P_DATA1 + 20] = tmp2;
-		buf[P_DATA1 + 21] = tmp3;
+		buf[P_DATA1 + 19] = tmp0;
+		buf[P_DATA1 + 20] = tmp1;
+		buf[P_DATA1 + 21] = tmp2;
+		buf[P_DATA1 + 22] = tmp3;
 
 		uint16_to_bytes((uint16_t)exec_s_ptr->current, &tmp0, &tmp1);
-		buf[P_DATA1 + 22] = tmp0;
-		buf[P_DATA1 + 23] = tmp1;
+		buf[P_DATA1 + 23] = tmp0;
+		buf[P_DATA1 + 24] = tmp1;
 
-		buf[P_DATA1 + 24] = exec_s_ptr->volt_batt;
-		buf[P_DATA1 + 25] = exec_s_ptr->volt_int;
-		buf[P_DATA1 + 26] = exec_s_ptr->temp;
-		buf[P_DATA1 + 27] = exec_s_ptr->status1;
-		buf[P_DATA1 + 28] = exec_s_ptr->status2;
+		buf[P_DATA1 + 25] = exec_s_ptr->volt_batt;
+		buf[P_DATA1 + 26] = exec_s_ptr->volt_int;
+		buf[P_DATA1 + 27] = exec_s_ptr->temp;
+		buf[P_DATA1 + 28] = exec_s_ptr->status1;
+		buf[P_DATA1 + 29] = exec_s_ptr->status2;
 
-		bytes = P_DATA1 + 29;     //Bytes is always last+1
+		bytes = P_DATA1 + 30;     //Bytes is always last+1
 		#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 
 		#ifdef BOARD_TYPE_FLEXSEA_EXECUTE
 
 		//Arguments:
 		uint16_to_bytes((uint16_t)imu.gyro.x, &tmp0, &tmp1);
-		buf[P_DATA1] = tmp0;
-		buf[P_DATA1 + 1] = tmp1;
+		buf[P_DATA1 + 1] = tmp0;
+		buf[P_DATA1 + 2] = tmp1;
 		uint16_to_bytes((uint16_t)imu.gyro.y, &tmp0, &tmp1);
-		buf[P_DATA1 + 2] = tmp0;
-		buf[P_DATA1 + 3] = tmp1;
+		buf[P_DATA1 + 3] = tmp0;
+		buf[P_DATA1 + 4] = tmp1;
 		uint16_to_bytes((uint16_t)imu.gyro.z, &tmp0, &tmp1);
-		buf[P_DATA1 + 4] = tmp0;
-		buf[P_DATA1 + 5] = tmp1;
+		buf[P_DATA1 + 5] = tmp0;
+		buf[P_DATA1 + 6] = tmp1;
 
 		uint16_to_bytes((uint16_t)imu.accel.x, &tmp0, &tmp1);
-		buf[P_DATA1 + 6] = tmp0;
-		buf[P_DATA1 + 7] = tmp1;
+		buf[P_DATA1 + 7] = tmp0;
+		buf[P_DATA1 + 8] = tmp1;
 		uint16_to_bytes((uint16_t)imu.accel.y, &tmp0, &tmp1);
-		buf[P_DATA1 + 8] = tmp0;
-		buf[P_DATA1 + 9] = tmp1;
+		buf[P_DATA1 + 9] = tmp0;
+		buf[P_DATA1 + 10] = tmp1;
 		uint16_to_bytes((uint16_t)imu.accel.z, &tmp0, &tmp1);
-		buf[P_DATA1 + 10] = tmp0;
-		buf[P_DATA1 + 11] = tmp1;
+		buf[P_DATA1 + 11] = tmp0;
+		buf[P_DATA1 + 12] = tmp1;
 
 		uint16_to_bytes(strain_read(), &tmp0, &tmp1);
-		buf[P_DATA1 + 12] = tmp0;
-		buf[P_DATA1 + 13] = tmp1;
+		buf[P_DATA1 + 13] = tmp0;
+		buf[P_DATA1 + 14] = tmp1;
 
 		uint16_to_bytes(read_analog(0), &tmp0, &tmp1);
-		buf[P_DATA1 + 14] = tmp0;
-		buf[P_DATA1 + 15] = tmp1;
+		buf[P_DATA1 + 15] = tmp0;
+		buf[P_DATA1 + 16] = tmp1;
 
 		uint16_to_bytes(read_analog(1), &tmp0, &tmp1);
-		buf[P_DATA1 + 16] = tmp0;
-		buf[P_DATA1 + 17] = tmp1;
+		buf[P_DATA1 + 17] = tmp0;
+		buf[P_DATA1 + 18] = tmp1;
 
 		uint32_to_bytes((uint32_t)refresh_enc_display(), &tmp0, &tmp1, &tmp2, &tmp3);
-		buf[P_DATA1 + 18] = tmp0;
-		buf[P_DATA1 + 19] = tmp1;
-		buf[P_DATA1 + 20] = tmp2;
-		buf[P_DATA1 + 21] = tmp3;
+		buf[P_DATA1 + 19] = tmp0;
+		buf[P_DATA1 + 20] = tmp1;
+		buf[P_DATA1 + 21] = tmp2;
+		buf[P_DATA1 + 22] = tmp3;
 
 		uint16_to_bytes((uint16_t)ctrl.current.actual_val, &tmp0, &tmp1);
-		buf[P_DATA1 + 22] = tmp0;
-		buf[P_DATA1 + 23] = tmp1;
+		buf[P_DATA1 + 23] = tmp0;
+		buf[P_DATA1 + 24] = tmp1;
 
-		buf[P_DATA1 + 24] = safety_cop.v_vb;
-		buf[P_DATA1 + 25] = safety_cop.v_vg;
-		buf[P_DATA1 + 26] = safety_cop.temperature;
-		buf[P_DATA1 + 27] = safety_cop.status1;
-		buf[P_DATA1 + 28] = safety_cop.status2;
+		buf[P_DATA1 + 25] = safety_cop.v_vb;
+		buf[P_DATA1 + 26] = safety_cop.v_vg;
+		buf[P_DATA1 + 27] = safety_cop.temperature;
+		buf[P_DATA1 + 28] = safety_cop.status1;
+		buf[P_DATA1 + 29] = safety_cop.status2;
 
-		bytes = P_DATA1 + 29;     //Bytes is always last+1
+		bytes = P_DATA1 + 30;     //Bytes is always last+1
 
 		#endif	//BOARD_TYPE_FLEXSEA_EXECUTE
 	}
@@ -1348,10 +1348,23 @@ void rx_cmd_special_5(uint8_t *buf)
 
             //Decode its data:
             //===============
+			/*
             slave = buf[P_DATA1];
 
 			//Assign data structure based on slave:
 			if(slave == 0)
+			{
+				exec_s_ptr = &exec1;
+			}
+			else
+			{
+				exec_s_ptr = &exec2;
+			}
+			*/
+
+			slave = buf[P_XID];
+			//Assign data structure based on slave:
+			if(slave == FLEXSEA_EXECUTE_1)
 			{
 				exec_s_ptr = &exec1;
 			}
