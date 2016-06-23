@@ -140,13 +140,13 @@ void ankle_2dof_fsm_2(void)
 			if(timer < 7000)
 			{
 				//We wait 7s before sending the first commands
-				LED1(0);
+				//LED1(0);
 				timer++;
 			}
 			else
 			{
 				//Ready to start transmitting
-				LED1(1);
+				//LED1(1);
 				ex_refresh_fsm_state = 1;
 			}
 			break;
@@ -166,7 +166,7 @@ void ankle_2dof_fsm_2(void)
 			break;
 		case 3:	//Communicating with Execute #2
 
-			tx_byte = tx_cmd_ctrl_special_5(FLEXSEA_EXECUTE_2, CMD_READ, test_payload, PAYLOAD_BUF_LEN, 0, 1, 0, my_pwm);
+			tx_byte = tx_cmd_ctrl_special_5(FLEXSEA_EXECUTE_2, CMD_READ, test_payload, PAYLOAD_BUF_LEN, 1, 1, 0, my_pwm);
 			 commstrlen = comm_gen_str(test_payload, comm_str_485_2, tx_byte);
 			 commstrlen = COMM_STR_BUF_LEN;
 			 flexsea_send_serial_slave(PORT_RS485_2, comm_str_485_2, commstrlen);

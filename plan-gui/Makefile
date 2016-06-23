@@ -777,6 +777,7 @@ build/release/.moc/moc_mainwindow.cpp: ../../../../Qt5.5.1/5.5/gcc/include/QtWid
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/QSerialPort \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialport.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialportglobal.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QTextStream \
 		inc/qcustomplot.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QObject \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QPointer \
@@ -2224,6 +2225,7 @@ build/release/.obj/main.o: src/main.cpp inc/mainwindow.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/QSerialPort \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialport.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialportglobal.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QTextStream \
 		inc/qcustomplot.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QObject \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QPointer \
@@ -2727,6 +2729,7 @@ build/release/.obj/mainwindow.o: src/mainwindow.cpp inc/main.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/QSerialPort \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialport.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialportglobal.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QTextStream \
 		inc/qcustomplot.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QObject \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QPointer \
@@ -3887,6 +3890,7 @@ build/release/.obj/mw_tab_config.o: src/mw_tab_config.cpp inc/main.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/QSerialPort \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialport.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialportglobal.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QTextStream \
 		inc/qcustomplot.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QObject \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QPointer \
@@ -4408,6 +4412,7 @@ build/release/.obj/mw_tab_plot_1.o: src/mw_tab_plot_1.cpp inc/main.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/QSerialPort \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialport.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialportglobal.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QTextStream \
 		inc/qcustomplot.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QObject \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QPointer \
@@ -4928,6 +4933,7 @@ build/release/.obj/mw_tab_stream_1.o: src/mw_tab_stream_1.cpp inc/main.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/QSerialPort \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialport.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialportglobal.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QTextStream \
 		inc/qcustomplot.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QObject \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QPointer \
@@ -5448,6 +5454,7 @@ build/release/.obj/mw_tab_exp.o: src/mw_tab_exp.cpp inc/main.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/QSerialPort \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialport.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialportglobal.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QTextStream \
 		inc/qcustomplot.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QObject \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QPointer \
@@ -5968,6 +5975,7 @@ build/release/.obj/mw_usbserial.o: src/mw_usbserial.cpp inc/main.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/QSerialPort \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialport.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialportglobal.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QTextStream \
 		inc/qcustomplot.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QObject \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QPointer \
@@ -6411,18 +6419,8 @@ build/release/.obj/flexsea_payload.o: ../flexsea-comm/src/flexsea_payload.c ../f
 		../flexsea-comm/inc/flexsea_payload.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o build/release/.obj/flexsea_payload.o ../flexsea-comm/src/flexsea_payload.c
 
-build/release/.obj/flexsea_cmd_application.o: ../flexsea-system/src/flexsea_cmd_application.c inc/main.h \
-		inc/iolib.h \
-		inc/flexsea_console.h \
-		inc/flexsea_stream_log.h \
-		inc/plan_serial.h \
-		inc/user.h \
-		inc/shared.h \
-		inc/demo.h \
-		inc/test.h \
-		inc/trapez.h \
+build/release/.obj/flexsea_cmd_application.o: ../flexsea-system/src/flexsea_cmd_application.c ../flexsea-system/inc/flexsea_system.h \
 		inc/flexsea_board.h \
-		../flexsea-system/inc/flexsea_system.h \
 		../flexsea-comm/inc/flexsea.h \
 		../flexsea-comm/inc/flexsea_buffers.h \
 		../flexsea-comm/inc/flexsea_comm.h \
@@ -6431,7 +6429,17 @@ build/release/.obj/flexsea_cmd_application.o: ../flexsea-system/src/flexsea_cmd_
 		../flexsea-system/inc/flexsea_cmd_sensors.h \
 		../flexsea-system/inc/flexsea_cmd_external.h \
 		../flexsea-system/inc/flexsea_cmd_application.h \
-		../flexsea-system/inc/flexsea_cmd_data.h
+		../flexsea-system/inc/flexsea_cmd_data.h \
+		inc/main.h \
+		inc/iolib.h \
+		inc/flexsea_console.h \
+		inc/flexsea_stream_log.h \
+		inc/plan_serial.h \
+		inc/user.h \
+		inc/shared.h \
+		inc/demo.h \
+		inc/test.h \
+		inc/trapez.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o build/release/.obj/flexsea_cmd_application.o ../flexsea-system/src/flexsea_cmd_application.c
 
 build/release/.obj/flexsea_cmd_control.o: ../flexsea-system/src/flexsea_cmd_control.c ../flexsea-system/inc/flexsea_system.h \
@@ -6560,12 +6568,12 @@ build/release/.obj/flexsea_cmd_data.o: ../flexsea-system/src/flexsea_cmd_data.c 
 		../flexsea-system/inc/flexsea_cmd_external.h \
 		../flexsea-system/inc/flexsea_cmd_application.h \
 		../flexsea-system/inc/flexsea_cmd_data.h \
+		inc/user.h \
 		inc/main.h \
 		inc/iolib.h \
 		inc/flexsea_console.h \
 		inc/flexsea_stream_log.h \
 		inc/plan_serial.h \
-		inc/user.h \
 		inc/shared.h \
 		inc/demo.h \
 		inc/test.h \
@@ -6702,6 +6710,7 @@ build/release/.obj/mw_tab_ctrl.o: src/mw_tab_ctrl.cpp inc/main.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/QSerialPort \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialport.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialportglobal.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QTextStream \
 		inc/qcustomplot.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QObject \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QPointer \
@@ -7222,6 +7231,7 @@ build/release/.obj/mw_tab_ext.o: src/mw_tab_ext.cpp inc/main.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/QSerialPort \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialport.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialportglobal.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QTextStream \
 		inc/qcustomplot.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QObject \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QPointer \
@@ -7742,6 +7752,7 @@ build/release/.obj/mw_tab_stream_3.o: src/mw_tab_stream_3.cpp inc/main.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/QSerialPort \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialport.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialportglobal.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QTextStream \
 		inc/qcustomplot.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QObject \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QPointer \
@@ -8262,6 +8273,7 @@ build/release/.obj/mw_tab_stream_2.o: src/mw_tab_stream_2.cpp inc/main.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/QSerialPort \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialport.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialportglobal.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QTextStream \
 		inc/qcustomplot.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QObject \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QPointer \
@@ -8782,6 +8794,7 @@ build/release/.obj/mw_tab_stream_4.o: src/mw_tab_stream_4.cpp inc/main.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/QSerialPort \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialport.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialportglobal.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QTextStream \
 		inc/qcustomplot.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QObject \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QPointer \
@@ -9305,6 +9318,7 @@ build/release/.obj/mw_tab_stream_5.o: src/mw_tab_stream_5.cpp inc/main.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/QSerialPort \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialport.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialportglobal.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QTextStream \
 		inc/qcustomplot.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QObject \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QPointer \
@@ -9825,6 +9839,7 @@ build/release/.obj/mw_tab_stream_6.o: src/mw_tab_stream_6.cpp inc/main.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/QSerialPort \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialport.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialportglobal.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QTextStream \
 		inc/qcustomplot.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QObject \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QPointer \
@@ -10345,6 +10360,7 @@ build/release/.obj/datalogger.o: src/datalogger.cpp inc/main.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/QSerialPort \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialport.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtSerialPort/qserialportglobal.h \
+		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QTextStream \
 		inc/qcustomplot.h \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QObject \
 		../../../../Qt5.5.1/5.5/gcc/include/QtCore/QPointer \

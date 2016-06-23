@@ -1380,28 +1380,28 @@ void rx_cmd_special_5(uint8_t *buf)
 
 			//Store values:
 
-			exec_s_ptr->gyro.x = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+0], buf[P_DATA1+1]));
-			exec_s_ptr->gyro.y = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+2], buf[P_DATA1+3]));
-			exec_s_ptr->gyro.z = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+4], buf[P_DATA1+5]));
+			exec_s_ptr->gyro.x = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+1], buf[P_DATA1+2]));
+			exec_s_ptr->gyro.y = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+3], buf[P_DATA1+4]));
+			exec_s_ptr->gyro.z = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+5], buf[P_DATA1+6]));
 
-			exec_s_ptr->accel.x = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+6], buf[P_DATA1+7]));
-			exec_s_ptr->accel.y = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+8], buf[P_DATA1+9]));
-			exec_s_ptr->accel.z = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+10], buf[P_DATA1+11]));
+			exec_s_ptr->accel.x = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+7], buf[P_DATA1+8]));
+			exec_s_ptr->accel.y = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+9], buf[P_DATA1+10]));
+			exec_s_ptr->accel.z = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+11], buf[P_DATA1+12]));
 
-			exec_s_ptr->strain = (BYTES_TO_UINT16(buf[P_DATA1+12], buf[P_DATA1+13]));
-			exec_s_ptr->analog[0] = (BYTES_TO_UINT16(buf[P_DATA1+14], buf[P_DATA1+15]));
-			exec_s_ptr->analog[1] = (BYTES_TO_UINT16(buf[P_DATA1+16], buf[P_DATA1+17]));
+			exec_s_ptr->strain = (BYTES_TO_UINT16(buf[P_DATA1+13], buf[P_DATA1+14]));
+			exec_s_ptr->analog[0] = (BYTES_TO_UINT16(buf[P_DATA1+15], buf[P_DATA1+16]));
+			exec_s_ptr->analog[1] = (BYTES_TO_UINT16(buf[P_DATA1+17], buf[P_DATA1+18]));
 
-			exec_s_ptr->enc_display = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1+18], buf[P_DATA1+19], \
-										buf[P_DATA1+20], buf[P_DATA1+21]));
+			exec_s_ptr->enc_display = (int32_t) (BYTES_TO_UINT32(buf[P_DATA1+19], buf[P_DATA1+20], \
+										buf[P_DATA1+21], buf[P_DATA1+22]));
 
-			exec_s_ptr->current = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+22], buf[P_DATA1+23]));
+			exec_s_ptr->current = (int16_t) (BYTES_TO_UINT16(buf[P_DATA1+23], buf[P_DATA1+24]));
 
-			exec_s_ptr->volt_batt = buf[P_DATA1+24];
-			exec_s_ptr->volt_int = buf[P_DATA1+25];
-			exec_s_ptr->temp = buf[P_DATA1+26];
-			exec_s_ptr->status1 = buf[P_DATA1+27];
-			exec_s_ptr->status2 = buf[P_DATA1+28];
+			exec_s_ptr->volt_batt = buf[P_DATA1+25];
+			exec_s_ptr->volt_int = buf[P_DATA1+26];
+			exec_s_ptr->temp = buf[P_DATA1+27];
+			exec_s_ptr->status1 = buf[P_DATA1+28];
+			exec_s_ptr->status2 = buf[P_DATA1+29];
 
 			#endif	//BOARD_TYPE_FLEXSEA_MANAGE
 		}
