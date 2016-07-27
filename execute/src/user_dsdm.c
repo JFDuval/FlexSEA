@@ -31,7 +31,7 @@ static void dsdm_refresh_values(void);
 //Call this function once in main.c, just before the while()
 void init_dsdm(void)
 {	
-	//...
+	board_id = SLAVE_ID;
 }
 
 //Ankle 2-DoF Finite State Machine.

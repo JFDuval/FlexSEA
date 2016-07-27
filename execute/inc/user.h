@@ -67,8 +67,8 @@ void user_fsm(void);
 //Step 1) Select active project (from list):
 //==========================================
 
-#define ACTIVE_PROJECT			PROJECT_ANKLE_2DOF
-#define ACTIVE_SUBPROJECT		SUBPROJECT_A
+#define ACTIVE_PROJECT			PROJECT_DSDM
+#define ACTIVE_SUBPROJECT		SUBPROJECT_B
 
 //Step 2) Customize the enabled/disabled sub-modules:
 //===================================================
@@ -103,7 +103,7 @@ void user_fsm(void);
 	#define CTRL_ENC_FCT(x) (x)	
 	
 	//Slave ID:
-	#define SLAVE_ID		FLEXSEA_EXECUTE_2
+	#define SLAVE_ID		FLEXSEA_EXECUTE_1
 	
 	//Project specific definitions:
 	//...
@@ -312,7 +312,7 @@ void user_fsm(void);
 	#define USE_I2C_0			//3V3, IMU & Expansion.
 	#define USE_I2C_1			//5V, Safety-CoP & strain gauge pot.
 	#define USE_IMU				//Requires USE_I2C_0
-	//#define USE_STRAIN			//Requires USE_I2C_1
+	//#define USE_STRAIN		//Requires USE_I2C_1
 	
 	//Motor type & direction:
 	#define MOTOR_TYPE		MOTOR_BRUSHED
@@ -332,6 +332,9 @@ void user_fsm(void);
 		#define CTRL_ENC_FCT(x) (x)	//ToDo
 		#define PWM_SIGN		1
 		
+		//Slave ID:
+		#define SLAVE_ID		FLEXSEA_EXECUTE_1
+		
 		//...
 		
 	#endif	//SUBPROJECT_A
@@ -342,6 +345,9 @@ void user_fsm(void);
 		//Control encoder function:
 		#define CTRL_ENC_FCT(x) (x)	//ToDo
 		#define PWM_SIGN		1
+		
+		//Slave ID:
+		#define SLAVE_ID		FLEXSEA_EXECUTE_2
 		
 		//...
 		
