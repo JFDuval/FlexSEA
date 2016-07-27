@@ -92,6 +92,10 @@ void i2c_0_fsm(void)
 			}
 			#endif //USE_EXT_I2C_STRAIN
 			
+			//Battery Board -- ToDo clean & unify solution (this is a quick test)
+			get_battery_board();
+			i2c_last_request = I2C_RQ_BATT_BOARD;			
+			
 			break;
 		
 		default:
@@ -260,6 +264,10 @@ void assign_i2c_data(uint8 *newdata)
 	{
 		strain_6ch_bytes_to_words(newdata);
 	}	
+	else if(i2c_last_request == I2C_RQ_BATT_BOARD)
+	{
+		decode_battery_board(newdata);
+	}
 }
 
 

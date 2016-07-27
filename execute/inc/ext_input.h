@@ -29,7 +29,6 @@ extern uint16 ext_strain[6];
 //****************************************************************************	
 
 void init_qei(void);
-//int32 encoder_read(void);
 //void encoder_write(int32 enc);
 void qei_write(int32 enc);
 int32 qei_read(void);
@@ -49,6 +48,9 @@ void get_6ch_strain(void);
 int as5048b_read(uint8 internal_reg_addr, uint8 *pData, uint16 length);
 void as5048b_test_code_blocking(void);
 void get_as5048b_position(void);
+
+void get_battery_board(void);
+void decode_battery_board(uint8 *buf);
 
 //****************************************************************************
 // Definition(s):
@@ -120,6 +122,20 @@ void get_as5048b_position(void);
 #define MEM_R_CH6_H				18
 #define MEM_R_CH6_L				19
 
+//Battery board - EZI2C Shared memory locations:
+#define I2C_ADDR_BATT_BOARD		0x33
+#define MEM_BB_W_CONTROL1		0
+#define MEM_BB_W_CONTROL2		1
+//#define UNUSED				2
+//#define UNUSED				3
+#define MEM_BB_R_STATUS1		5
+#define MEM_BB_R_STATUS2		6
+#define MEM_BB_R_VOLT_MSB		7
+#define MEM_BB_R_VOLT_LSB		8
+#define MEM_BB_R_CURRENT_MSB	9
+#define MEM_BB_R_CURRENT_LSB	10
+#define MEM_BB_R_TEMP			11
+
 //****************************************************************************
 // Structure(s)
 //****************************************************************************	
@@ -131,6 +147,15 @@ struct as504x_s
 	uint16_t angle_comp;	//Sensor reading, 2/ Compensation enabled
 	uint16_t angle_ctrl;	//Modified version (gain, zero). Used by controllers.
 	int64_t angle_cont;		//Continuous angle (multi-turn applications). Used by controllers.
+};
+
+//Battery Board:
+struct flexsea_batt_s
+{
+	uint16 voltage;
+	int16 current;
+	int8 temperature;
+	uint8 status_byte;
 };
 	
 #endif	//INC_EXT_IN_H

@@ -39,6 +39,9 @@ uint16 as5048b_mag = 0, as5048b_angle = 0;
 uint16 ext_strain[6] = {0,0,0,0,0,0};
 uint8 ext_strain_bytes[12];
 
+//Battery Board:
+struct flexsea_batt_s flexsea_batt;
+
 //****************************************************************************
 // Private Function Prototype(s):
 //****************************************************************************	
@@ -56,24 +59,6 @@ void init_qei(void)
 	QuadDec_1_Enable();
 	QuadDec_1_SetCounter(QUAD1_INIT);
 }
-
-/* Deprecated
-//Updates the structure with the latest encoder value
-int32 encoder_read(void)
-{
-	//Count: actual, last, difference
-	encoder.count_last = encoder.count;
-	encoder.count = QuadDec_1_GetCounter();
-	encoder.count_dif = encoder.count - encoder.count_last;
-	
-	//For the position & impedance controllers we use the last count
-	ctrl.position.pos = encoder.count;
-	ctrl.impedance.actual_val = encoder.count;
-	
-	return encoder.count;
-}
-//Warning: encoder.count seems to be interpreted as a uint... casting (int32) before using it works.
-*/
 
 //Updates the structure with the latest encoder value
 //Only deals with the Controller encoder (no commutation)
@@ -212,6 +197,30 @@ int16 get_analog_pos(void)
 	#endif
 }
 
+//Move to batt_board.c/h
+//=================
+
+//Read from the Battery Board (I2C shared memory)
+void get_battery_board(void)
+{
+	uint8 tmp_buf[8] = {0,0,0,0,0,0,0,0};
+	uint8 i = 0;
+	
+	i2c0_read(I2C_ADDR_BATT_BOARD, MEM_BB_R_STATUS1, tmp_buf, 8);	
+}
+
+//Decode and store battery board data
+void decode_battery_board(uint8 *buf)
+{
+	uint8 read_offs = MEM_BB_R_STATUS1;
+	flexsea_batt.status_byte = buf[MEM_BB_R_STATUS1 - read_offs];
+	flexsea_batt.voltage = BYTES_TO_UINT16(buf[MEM_BB_R_VOLT_MSB - read_offs], \
+											buf[MEM_BB_R_VOLT_LSB - read_offs]);
+	flexsea_batt.current = (int16)BYTES_TO_UINT16( \
+											buf[MEM_BB_R_CURRENT_MSB - read_offs],\
+											buf[MEM_BB_R_CURRENT_LSB - read_offs]);
+	flexsea_batt.temperature = buf[MEM_BB_R_TEMP - read_offs];
+}
 
 //****************************************************************************
 // Private Function(s)

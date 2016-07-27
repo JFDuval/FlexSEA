@@ -36,10 +36,13 @@ CY_ISR(isr_t1_Interrupt_Callback)
 
 	//Brief pulse every second if nothing is wrong:
 
-	if(cnt < LED_PULSE_LEN)
-		LED_G_Write(1);
-	else
-		LED_G_Write(0);
+    if(led_mode == LED_MODE_BRIEF_PULSE)
+    {
+    	if(cnt < LED_PULSE_LEN)
+    		LED_G_Write(1);
+    	else
+    		LED_G_Write(0);
+    }
 
 	cnt++;
 	if(cnt >= led_period)
@@ -48,6 +51,7 @@ CY_ISR(isr_t1_Interrupt_Callback)
 	//1ms timebase:
 	flag_tb_1ms = 1;
 
+	/*
 	//10ms timebase:
 	timebase_10ms++;
 	if(timebase_10ms >= 10)
@@ -55,6 +59,7 @@ CY_ISR(isr_t1_Interrupt_Callback)
 		timebase_10ms = 0;
 		flag_tb10ms = 1;
 	}
+	*/
 }
 
 //Sequencing ADC ISR:

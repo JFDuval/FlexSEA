@@ -25,22 +25,30 @@
 // Public Function Prototype(s):
 //****************************************************************************
 
-uint8 read_vb(void);
+uint16 read_vb_mv(void);
+int16 read_ib_ma(void);
+int8 read_temp_celsius(void);
+void update_ezi2c_mem(void);
 
 //****************************************************************************
 // Definition(s):
 //****************************************************************************
 
 //Sequencing ADC:	
-#define ADC_CHANNELS			2
+#define ADC_CHANNELS			4
 #define MAX_ADC_CH 				(ADC_CHANNELS-1)
 #define ADC_VMEAS				0
 #define ADC_IMEAS				1
+#define ADC_BUTTON              2
+#define ADC_TEMP				3
 
+//Limits:
+#define VOLTAGE_MIN				15000
+#define VOLTAGE_MAX				52000
+#define CURRENT_MAX				10000
+#define TEMP_MAX				
+//Note: should be modified for your application!
 
-//Conversion gains & offsets:	
-//...
-	
 //****************************************************************************
 // Shared Variable(s):
 //****************************************************************************	

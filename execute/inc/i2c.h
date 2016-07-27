@@ -43,6 +43,7 @@ void assign_i2c_data(uint8 *newdata);
 #define I2C_RQ_ACCEL			2
 #define I2C_RQ_AS5048B			3
 #define I2C_RQ_EXT_STRAIN		4
+#define I2C_RQ_BATT_BOARD		5
 
 //****************************************************************************
 // Structure(s)
