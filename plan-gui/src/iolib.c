@@ -14,6 +14,7 @@ extern "C" {
 #include <errno.h>
 #include <time.h>
 #include <string.h>
+#include <inttypes.h>
 #ifndef WIN32
 #include <unistd.h>
 #else
@@ -139,7 +140,7 @@ iolib_setdir(char port, char pin, char dir)
 	{
 		for (i=0; i<4; i++)
 		{
-			printf("mmap region %d address is 0x%08x\n", i, gpio_addr[i]);
+			printf("mmap region %d address is 0x%08" PRIxPTR "\n", i, (uintptr_t)gpio_addr[i]);
 		}
 	}
 	if (IOLIB_DBG) printf("iolib_setdir: bank is %d\n", bank[port-8][pin-1]);
