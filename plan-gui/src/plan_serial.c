@@ -47,7 +47,7 @@ int read_port_name_from_file(void)
 	int cnt = 0;
 	FILE *ptr_file;
 	char buf[FILE_READ_LEN];
-	const char device[20];
+	char device[20];
 
 	//Open file
 	ptr_file = fopen(file_w_name, "r");

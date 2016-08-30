@@ -147,7 +147,7 @@ private:
     int OpenUSBSerialPort(QString name, int tries, int delay);
     void CloseUSBSerialPort(void);
     int USBSerialPort_Write(char bytes_to_send, unsigned char *serial_tx_data);
-    int USBSerialPort_Read(unsigned char *buf);
+    void USBSerialPort_Read(unsigned char *buf);
 
 private slots:
 

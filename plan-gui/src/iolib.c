@@ -13,6 +13,13 @@ extern "C" {
 #include <fcntl.h>
 #include <errno.h>
 #include <time.h>
+#include <string.h>
+#include <inttypes.h>
+#ifndef WIN32
+#include <unistd.h>
+#else
+#include <io.h>
+#endif
 #include "iolib.h"
 
 const unsigned int ioregion_base[]={GPIO0, GPIO1, GPIO2, GPIO3};
@@ -133,12 +140,12 @@ iolib_setdir(char port, char pin, char dir)
 	{
 		for (i=0; i<4; i++)
 		{
-			printf("mmap region %d address is 0x%08x\n", i, gpio_addr[i]);
+			printf("mmap region %d address is 0x%08" PRIxPTR "\n", i, (uintptr_t)gpio_addr[i]);
 		}
 	}
 	if (IOLIB_DBG) printf("iolib_setdir: bank is %d\n", bank[port-8][pin-1]);
 
-	reg=(void*)gpio_addr[bank[port-8][pin-1]]+GPIO_OE;
+	reg=(unsigned int*)(char*)gpio_addr[bank[port-8][pin-1]]+GPIO_OE;
 	
 	if (dir==DIR_OUT)
 	{
@@ -152,28 +159,28 @@ iolib_setdir(char port, char pin, char dir)
 	return(0);
 }
 
-inline void
+void
 pin_high(char port, char pin)
 {
-	*((unsigned int *)((void *)gpio_addr[bank[port-8][pin-1]]+GPIO_SETDATAOUT)) = port_bitmask[port-8][pin-1];
+	*((unsigned int *)((char *)gpio_addr[bank[port-8][pin-1]]+GPIO_SETDATAOUT)) = port_bitmask[port-8][pin-1];
 }
 
-inline void
+void
 pin_low(char port, char pin)
 {
-	*((unsigned int *)((void *)gpio_addr[bank[port-8][pin-1]]+GPIO_CLEARDATAOUT)) = port_bitmask[port-8][pin-1];
+	*((unsigned int *)((char *)gpio_addr[bank[port-8][pin-1]]+GPIO_CLEARDATAOUT)) = port_bitmask[port-8][pin-1];
 }
 
-inline char
+char
 is_high(char port, char pin)
 {
-	return ((*((unsigned int *)((void *)gpio_addr[bank[port-8][pin-1]]+GPIO_DATAIN)) & port_bitmask[port-8][pin-1])!=0);
+	return ((*((unsigned int *)((char *)gpio_addr[bank[port-8][pin-1]]+GPIO_DATAIN)) & port_bitmask[port-8][pin-1])!=0);
 }
 
-inline char
+char
 is_low(char port, char pin)
 {
-	return ((*((unsigned int *)((void *)gpio_addr[bank[port-8][pin-1]]+GPIO_DATAIN)) & port_bitmask[port-8][pin-1])==0);
+	return ((*((unsigned int *)((char *)gpio_addr[bank[port-8][pin-1]]+GPIO_DATAIN)) & port_bitmask[port-8][pin-1])==0);
 }
 
 int
@@ -186,7 +193,7 @@ iolib_delay_ms(unsigned int msec)
     fprintf(stderr, "delay_ms error: delay value needs to be less than 999\n");
     msec=999;
   }
-  a.tv_nsec=((long)(msec))*1E6d;
+  a.tv_nsec=((long)(msec))*1E6;
   a.tv_sec=0;
   if ((ret = nanosleep(&a, NULL)) != 0)
   {

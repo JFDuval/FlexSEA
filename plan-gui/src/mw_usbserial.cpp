@@ -21,7 +21,7 @@
 //Open port
 int MainWindow::OpenUSBSerialPort(QString name, int tries, int delay)
 {
-    unsigned int cnt = 0;
+    int cnt = 0;
     bool fd = false;
 
     USBSerialPort.setPortName(name);
@@ -96,7 +96,7 @@ int MainWindow::USBSerialPort_Write(char bytes_to_send, unsigned char *serial_tx
 }
 
 //Read
-int MainWindow::USBSerialPort_Read(unsigned char *buf)
+void MainWindow::USBSerialPort_Read(unsigned char *buf)
 {
     QByteArray data;
     bool dataReady = false;
@@ -113,7 +113,6 @@ int MainWindow::USBSerialPort_Read(unsigned char *buf)
             qDebug() << "Data length over 256 bytes (" << len << "bytes)";
             len = 256;
             USBSerialPort.clear((QSerialPort::AllDirections));
-            return 0;
         }
 
         qDebug() << "Read" << len << "bytes.";
