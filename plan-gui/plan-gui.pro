@@ -96,4 +96,5 @@ FORMS    += mainwindow.ui
 *-clang|*-llvm:CONFIG(debug, debug|release) {
     QMAKE_CFLAGS_WARN_ON += -Wno-unused-parameter -Wno-unused-variable -Wno-char-subscripts -Wno-unused-function
     QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-parameter -Wno-unused-variable
+    QMAKE_CFLAGS *= -std=c99 -pedantic
 }
