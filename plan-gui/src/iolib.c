@@ -13,6 +13,12 @@ extern "C" {
 #include <fcntl.h>
 #include <errno.h>
 #include <time.h>
+#include <string.h>
+#ifndef WIN32
+#include <unistd.h>
+#else
+#include <io.h>
+#endif
 #include "iolib.h"
 
 const unsigned int ioregion_base[]={GPIO0, GPIO1, GPIO2, GPIO3};
