@@ -31,7 +31,7 @@ char date[] = "02/11/2015";
 uint8_t board_id = FLEXSEA_PLAN_1;
 uint8_t board_up_id = FLEXSEA_DEFAULT;
 uint8_t board_sub1_id[SLAVE_BUS_1_CNT] = {FLEXSEA_MANAGE_1};
-uint8_t board_sub2_id[SLAVE_BUS_2_CNT];
+uint8_t board_sub2_id[SLAVE_BUS_2_CNT ? SLAVE_BUS_2_CNT : 1];
 
 unsigned char comm_str_payload1[16];
 

@@ -88,7 +88,7 @@ void reset_manage(void);
 extern uint8_t board_id;
 extern uint8_t board_up_id;
 extern uint8_t board_sub1_id[SLAVE_BUS_1_CNT];
-extern uint8_t board_sub2_id[SLAVE_BUS_2_CNT];
+extern uint8_t board_sub2_id[SLAVE_BUS_2_CNT ? SLAVE_BUS_2_CNT : 1];
 
 //extern uint8_t bytes_ready_spi;
 //extern uint8_t cmd_ready_spi;
