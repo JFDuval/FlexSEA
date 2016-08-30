@@ -18,7 +18,16 @@ Two papers describing the system have been submitted to an IEEE Conference. Link
 - "FlexSEA-Execute: Advanced Motion Controller for Wearable Robotic Applications"  
   
 **Do not hesitate to contact me if you want to know more about the project.**  
-  
+
+'flexsea-comm': generic communication stack, can be used by any project.
+All it "knows" is that if you receive command code 22, you can a function named flexsea_payload_22
+
+2'flexsea-system': wraps around the communication stack, and provides project-specific names,
+functions, etc. It has nicknames for function like flexsea_payload_22; it's re-defined as rx_cmd_data_read_all
+(Receive Command from the Data functions to Read All variables)
+
+'plan-gui': Qt GUI code (the old version with horrible code (but it works!), new stuff isn't public yet)
+
 // Hardware Naming Convention:  
 // ================================  
 - Plan: Embedded Computer  
