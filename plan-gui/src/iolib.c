@@ -152,25 +152,25 @@ iolib_setdir(char port, char pin, char dir)
 	return(0);
 }
 
-inline void
+void
 pin_high(char port, char pin)
 {
 	*((unsigned int *)((void *)gpio_addr[bank[port-8][pin-1]]+GPIO_SETDATAOUT)) = port_bitmask[port-8][pin-1];
 }
 
-inline void
+void
 pin_low(char port, char pin)
 {
 	*((unsigned int *)((void *)gpio_addr[bank[port-8][pin-1]]+GPIO_CLEARDATAOUT)) = port_bitmask[port-8][pin-1];
 }
 
-inline char
+char
 is_high(char port, char pin)
 {
 	return ((*((unsigned int *)((void *)gpio_addr[bank[port-8][pin-1]]+GPIO_DATAIN)) & port_bitmask[port-8][pin-1])!=0);
 }
 
-inline char
+char
 is_low(char port, char pin)
 {
 	return ((*((unsigned int *)((void *)gpio_addr[bank[port-8][pin-1]]+GPIO_DATAIN)) & port_bitmask[port-8][pin-1])==0);
