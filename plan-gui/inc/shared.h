@@ -8,7 +8,7 @@
 //****************************************************************************
 
 #ifndef INC_SHARED_H
-#define INC_ShARED_H
+#define INC_SHARED_H
 
 #ifdef __cplusplus
 extern "C" {
