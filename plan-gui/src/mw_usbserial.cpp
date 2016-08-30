@@ -21,7 +21,7 @@
 //Open port
 int MainWindow::OpenUSBSerialPort(QString name, int tries, int delay)
 {
-    unsigned int cnt = 0;
+    int cnt = 0;
     bool fd = false;
 
     USBSerialPort.setPortName(name);

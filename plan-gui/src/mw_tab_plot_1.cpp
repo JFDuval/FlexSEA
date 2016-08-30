@@ -266,8 +266,6 @@ void MainWindow::update_graph_array(int graph, int new_data)
 //Do not call that function directly
 void MainWindow::update_plot_buf_single(int *buf, int *idx, int new_data)
 {
-    uint32_t i = 0;
-
     if((*idx) < plot_len)
     {
         //Buffer isn't full yet, no need to discard "old" bytes
@@ -277,7 +275,7 @@ void MainWindow::update_plot_buf_single(int *buf, int *idx, int new_data)
     else
     {
         //Shift buffer to clear one spot
-        for(i = 1; i < plot_len; i++)
+        for(int i = 1; i < plot_len; i++)
         {
             buf[i-1] = buf[i];
         }
